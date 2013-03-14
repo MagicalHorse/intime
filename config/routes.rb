@@ -1,7 +1,6 @@
 IntimeService::Application.routes.draw do
   get "home/index"
-  get "wx_object/validate"
-  #match "wx_object/search" => "wx_object#validate", :via=>:get, :defaults=>{:format=>'html'}
+  match "wx_object/search" => "wx_object#validate", :via=>:get, :defaults=>{:format=>'html'}
   #match "wx_object/search" => "wx_object#search", :via=>:post, :defaults=>{:format=>'xml'}
 
   # The priority is based upon order of creation:
