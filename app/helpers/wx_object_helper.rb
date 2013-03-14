@@ -1,0 +1,2 @@
+module WxObjectHelper
+end
