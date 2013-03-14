@@ -8,7 +8,7 @@ class WxObjectController < ApplicationController
     signature = params[:signature]
     encrypEcho = Digest::SHA1.hexdigest([WX_TOKEN,params[:timestamp],params[:nonce]].sort.join)
     logger.info "input:#{signature}, output:#{encrypEcho}"
-    sign_result= signature if signature==encrypEcho
+    sign_result= params[:echostr] if signature==encrypEcho
     render :text=>sign_result
   end
 
