@@ -1,8 +1,10 @@
 require 'digest/sha1'
+require 'net/http'
 
 class WxObjectController < ApplicationController
   #wrap_parameters :format=>:xml
   WX_TOKEN = "xhyt"
+  WELCOME_MSG = "喜欢银泰正在准备中，即将发布！"
 
   def validate
     signature = params[:signature]
@@ -17,7 +19,7 @@ class WxObjectController < ApplicationController
            :FromUserName=>params[:xml][:ToUserName],
            :CreateTime=>Time.now,
            :MsgType=>'text',
-           :Content=>'Welcome to love intime, will update soon!',
+           :Content=>WELCOME_MSG,
            :FuncFlag=>1}
     render :xml=>mockup.to_xml(:skip_instruct=>true,:root=>'xml')
   end
