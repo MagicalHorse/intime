@@ -1,4 +1,6 @@
 IntimeService::Application.routes.draw do
+  get "home/index"
+
   #match "wx_object/search" => "wx_object#validate", :via=>:get, :defaults=>{:format=>'html'}
   #match "wx_object/search" => "wx_object#search", :via=>:post, :defaults=>{:format=>'xml'}
 
