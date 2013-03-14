@@ -4,7 +4,6 @@ require 'net/http'
 class WxObjectController < ApplicationController
   #wrap_parameters :format=>:xml
   WX_TOKEN = "xhyt"
-  WELCOME_MSG = "喜欢银泰正在准备中，即将发布!"
   CARD_INFO_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryinfo"
   CARD_POINT_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryscore"
   
@@ -21,7 +20,7 @@ class WxObjectController < ApplicationController
            :FromUserName=>params[:xml][:ToUserName],
            :CreateTime=>Time.now,
            :MsgType=>'text',
-           :Content=>WELCOME_MSG,
+           :Content=>t(:welcome),
            :FuncFlag=>1}
     render :xml=>mockup.to_xml(:skip_instruct=>true,:root=>'xml')
   end
