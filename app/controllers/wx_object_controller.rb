@@ -1,8 +1,9 @@
 require 'digest/sha1'
+
 class WxObjectController < ApplicationController
-  wrap_parameters :format=>:xml
+  #wrap_parameters :format=>:xml
   WX_TOKEN = "xhyt"
-  #function as the search get method
+
   def validate
     signature = params[:signature]
     encrypEcho = Digest::SHA1.hexdigest([WX_TOKEN,params[:timestamp],params[:nonce]].sort.join)
@@ -10,7 +11,7 @@ class WxObjectController < ApplicationController
     sign_result= signature if signature==encrypEcho
     render :text=>sign_result
   end
-  #function as the search post method
+
   def search
     mockup = {:ToUserName=>params[:xml][:FromUserName],
            :FromUserName=>params[:xml][:ToUserName],
