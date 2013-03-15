@@ -2,4 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  welcome: "喜欢银泰正在准备中，即将发布!"
+ welcome: "喜欢银泰正在准备中，即将发布!"
+ commonhelp: "喜欢银泰目前支持查询银泰会员卡积分，您可以通过输入卡号+空格+密码进行查询"
+ wrongpwd: "卡号密码不匹配，请输入正确的卡号+空格+密码"
+ successmsgtemplate: "您的会员卡级别为[level],积分为[point]"
+
