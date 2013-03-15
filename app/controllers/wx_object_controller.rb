@@ -1,7 +1,7 @@
 require 'digest/sha1'
 require 'net/http'
 require 'openssl'
-require 'Base64'
+#require 'Base64'
 require 'json'
 class WxObjectController < ApplicationController
   #wrap_parameters :format=>:xml
@@ -88,7 +88,7 @@ class WxObjectController < ApplicationController
     cipher = OpenSSL::Cipher.new('des-ecb')
     cipher.encrypt
     cipher.key = CARD_SERVICE_KEY
-    encry_card_no =Base64.encode64(cipher.update(number)+cipher.final)
+    encry_card_no =[cipher.update(number)+cipher.final].pack('m')
   end
   def post_card_service(uri, body)
     req = Net::HTTP::Post.new(uri.path)
