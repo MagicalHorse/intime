@@ -1,8 +1,9 @@
 require 'digest/sha1'
 require 'net/http'
 require 'openssl'
-#require 'Base64'
 require 'json'
+
+
 class WxObjectController < ApplicationController
   #wrap_parameters :format=>:xml
   WX_TOKEN = "xhyt"
@@ -18,17 +19,55 @@ class WxObjectController < ApplicationController
     render :text=>sign_result
   end
 
-  def search2
-    mockup = {:ToUserName=>params[:xml][:FromUserName],
-           :FromUserName=>params[:xml][:ToUserName],
-           :CreateTime=>Time.now,
-           :MsgType=>'text',
-           :Content=>t(:welcome),
-           :FuncFlag=>1}
-    render :xml=>mockup.to_xml(:skip_instruct=>true,:root=>'xml')
+  def search
+    in_msg_type = params[:xml][:MsgType]
+    if in_msg_type == 'text'
+      in_msg_content = params[:xml][:Content].split(' ')    
+      card_no = in_msg_content[0] if in_msg_content.length >0 
+
+      if /^\d+$/ =~ card_no && in_msg_content.length>1
+        card_pwd = in_msg_content[1]
+        card_info = Card.find_by_nopwd params[:xml][:FromUserName],card_no,card_pwd
+        return render :xml=>build_response_message {|msg|
+            msg[:Content] = t(:successmsgnotbindtemplate).sub('[level]',card_info[:level]).sub('[point]',card_info['point'].to_s)
+          } if card_info
+          return render :xml=>build_response_message {|msg|
+            msg[:Content] = t(:wrongpwd)
+            } if card_info
+       elsif in_msg_content[0]=='Hello2BizUser'
+         logger.info in_msg_content
+         return render :xml=>build_response_message {|msg|
+           msg[:Content] = t :commonhelp
+           }
+        elsif  [t(:commandbd),'bd'].include? in_msg_content[0]
+          utoken = params[:xml][:FromUserName]
+          card_info = Card.where(:utoken=>utoken).order('validatedate desc').first
+          return render :xml=>build_response_message {|msg|
+              msg[:Content]=t(:notbindinghelp)
+          } if card_info.nil?
+          card_info[:isbinded]=true
+          card_info.save
+          return render :xml=>build_response_message {|msg|
+            msg[:Content] = t(:bindingsuccess)
+          }
+        elsif [t(:commandjf),'jf'].include? in_msg_content[0]
+            card_info = Card.where(:utoken=>params[:xml][:FromUserName],:isbinded=>true).first
+            return render :xml=>build_response_message {|msg|
+                  msg[:Content] = t(:successmsgtemplate).sub('[level]',card_info[:level]).sub('[point]',card_info['point'].to_s)
+                } if card_info
+            return render :xml=>build_response_message {|msg|
+                  msg[:Content] = t(:notbindinghelp)
+                }
+               
+       end
+    end
+    render :xml=> build_response_message {|msg|
+          msg[:MsgType] = 'text'
+          msg[:Content] =t :commonhelp
+          }
   end
   
-  def search
+  def search2
     in_msg_type = params[:xml][:MsgType]
     if in_msg_type == 'text'
       in_msg_content = params[:xml][:Content].split(' ')    
@@ -38,7 +77,6 @@ class WxObjectController < ApplicationController
         card_pwd = in_msg_content[1]
         card_info = JSON.parse(get_card_info(card_no,card_pwd))
         card_score = JSON.parse(get_card_score(card_no)) if card_info["Ret"]==1
-        logger.info card_score
         return render :xml=>build_response_message {|msg|
             msg[:MsgType] ='text'
             

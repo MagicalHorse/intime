@@ -3,7 +3,12 @@
 
 en:
  welcome: "喜欢银泰正在准备中，即将发布!"
- commonhelp: "喜欢银泰目前支持查询银泰会员卡积分，您可以通过输入卡号+空格+密码进行查询"
+ commonhelp: "喜欢银泰目前支持查询银泰会员卡积分。没有绑定卡号，可以通过输入卡号+空格+密码进行查询；已经绑定卡号，输入积分或jf，进行查询。"
  wrongpwd: "卡号密码不匹配，请输入正确的卡号+空格+密码"
- successmsgtemplate: "您的会员卡级别为[level],积分为[point]"
-
+ successmsgtemplate: "您的会员卡级别为[level],积分为[point]。"
+ successmsgnotbindtemplate: "您的会员卡级别为[level],积分为[point]。回复绑定或bd，将卡号和微信号绑定，以后可以直接查询。"
+ commandbd: "绑定"
+ commandjf: "积分"
+ notbindinghelp: "您还没有绑定，请使用卡号密码查询后绑定。"
+ bindingfail: "绑定失败，请使用卡号+空格+密码查询"
+ bindingsuccess: "绑定成功，您以后可以输入积分或jf，进行查询。"
