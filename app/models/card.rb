@@ -35,12 +35,14 @@ class Card < ActiveRecord::Base
        
     end
     def find_by_nopwd(token,no,pwd)
-       local_card = where(:no=>encryp_card_no(no)).first
-
-      if local_card.nil? ||local_card.validatedate<Time.now
-        
-        local_card = get_card_info(no,pwd) 
-        return nil if local_card.nil?
+       local_card = where(:no=>encryp_card_no(no),:utoken=>token).first
+      if local_card.nil? ||local_card.validatedate<Time.now      
+        remote_card = get_card_info(no,pwd) 
+        return nil if remote_card.nil?
+        local_card = Card.new if !local_card.nil?
+        local_card.point = remote_card.point
+        local_card.validatedate = remote_card.validatedate
+        local_card.level = remote_card.level
         local_card[:utoken] = token
         local_card.save
       end
