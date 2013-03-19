@@ -43,7 +43,7 @@ class Card < ActiveRecord::Base
       if local_card.nil? ||local_card.validatedate<Time.now      
         remote_card = get_card_info(no,pwd) 
         return nil if remote_card.nil?
-        local_card = Card.new if !local_card.nil?
+        local_card = Card.new if local_card.nil?
         local_card.point = remote_card.point
         local_card.validatedate = remote_card.validatedate
         local_card.level = remote_card.level
