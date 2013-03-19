@@ -5,8 +5,8 @@ require 'json'
 class Card < ActiveRecord::Base
   attr_accessible :level, :no, :point, :utoken, :validatedate, :isbinded
   CARD_SERVICE_KEY ='intimeit'
-  CARD_INFO_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryinfo"
-  CARD_POINT_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryscore"
+  CARD_INFO_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryinfo"
+  CARD_POINT_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryscore"
   class<<self
     def get_card_score(number)
       encryp_card_no = encryp_card_no number
@@ -14,6 +14,10 @@ class Card < ActiveRecord::Base
       card_point_json = post_card_service URI(CARD_POINT_URL),request_body
       JSON.parse(card_point_json)
     end
+    # call remote card service to retrieve the latest card information
+    # there are two services avail for card: 
+    # 1. card basic info with input of number, pwd
+    # 2. card point with input of number
     def get_card_info(number, pwd)
       encry_cardno =encryp_card_no(number)
       encry_pwd = Digest::MD5.hexdigest(pwd).upcase
