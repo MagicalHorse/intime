@@ -14,11 +14,12 @@ end
 class WxPicArticle
   attr_accessor :Title, :Description, :PicUrl, :Url
   def to_xml(options)
-    options[:builder].item {|i|
-      i.Title @Title
-      i.Description @Description
-      i.PicUrl @PicUrl
-      i.Url @Url
+    builder = options[:builder]
+    builder.item {|i|
+      i.Title {builder.cdata! @Title}
+      i.Description {builder.cdata! @Description}
+      i.PicUrl {builder.cdata! @PicUrl}
+      i.Url {builder.cdata! @Url}
       }
   end
 end
