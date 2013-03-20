@@ -7,6 +7,6 @@ class WxBaseResponse
      :MsgType=>@MsgType
      }
      yield hashresponse if block_given?
-     hashresponse.to_xml :skip_instruct=>true,:skip_types=>true,:root=>'xml'
+     hashresponse.to_xml :skip_instruct=>true,:root=>'xml'
   end
 end
