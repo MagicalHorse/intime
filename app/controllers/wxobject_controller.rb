@@ -132,7 +132,7 @@ class WxobjectController < ApplicationController
     end
     #persist user request
     log_use_request {|request|
-      request.lastaction = RequestAction::JF_SEARCH_BD
+      request.lastaction = RequestAction::ACTION_JF_SEARCH_BD
       }
     return build_response_text_temp {|msg|
       msg.Content = t(:successmsgtemplate).sub('[level]',card_info[:level]).sub('[point]',card_info['point'].to_s)
