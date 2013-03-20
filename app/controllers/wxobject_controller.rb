@@ -127,7 +127,7 @@ class WxobjectController < ApplicationController
   # action search point has binded
   def action_point_bd(input)
     card_info = Card.where(:utoken=>params[:xml][:FromUserName],:isbinded=>true).order('validatedate desc').first
-    if !card_info.nil? && card_info['validatedate']<Time.now
+    if card_info[:validatedate]<Time.now
        card_info = Card.find_by_nopwd 
     end
     #persist user request
