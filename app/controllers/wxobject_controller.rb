@@ -248,12 +248,14 @@ class WxobjectController < ApplicationController
     response.MsgType = 'news'
     response.ArticleCount = products.total
     response.Articles = []
+    response.FuncFlag= 1
     
     products.results.each {|p|
+      resource = p['resource']
+      return if resource.nil? || resource.length<1 || resource[0].name.length<1
       item = WxPicArticle.new
       item.Title = p['name']
       item.Description = p['description']
-      resource = p['resource']
       item.PicUrl = small_pic_url resource[0].domain, resource[0].name
       item.Url = large_pic_url resource[0].domain, resource[0].name
       response.Articles<<item
@@ -265,7 +267,7 @@ class WxobjectController < ApplicationController
     if lastrequest.nil?
       lastrequest = UserRequest.new
       lastrequest.utoken = token
-      lastrequest.lastpage = 0
+      lastrequest.lastpage = 1
     end
     lastrequest.msg = params[:xml].to_json
     yield lastrequest if block_given?
