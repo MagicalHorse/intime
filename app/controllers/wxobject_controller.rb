@@ -1,0 +1,292 @@
+require 'digest/sha1'
+require 'net/http'
+require 'openssl'
+require 'json'
+require 'WxPicResponse'
+require 'WxTextResponse'
+
+class WxobjectController < ApplicationController
+  #wrap_parameters :format=>:xml
+  WX_TOKEN = "xhyt"
+  PIC_DOMAIN = 'http://itoo.yintai.com/fileupload/img/'
+  
+  def validate
+    signature = params[:signature]
+    encrypEcho = Digest::SHA1.hexdigest([WX_TOKEN,params[:timestamp],params[:nonce]].sort.join)
+    logger.info "input:#{signature}, output:#{encrypEcho}"
+    sign_result= params[:echostr] if signature==encrypEcho
+    render :text=>sign_result
+  end
+  
+  def search
+    input = params[:xml]
+    # choose response action based on params xml
+    response_action = find_action_by_xml input
+    # trigger action
+    response = response_action.call input
+    render :xml=>response.to_xml
+  end
+  private
+  def find_action_by_xml(input)
+    case(input[:MsgType])
+    when 'text' then
+      input_text = input[:Content]
+      input_text_array = input_text.split(' ')
+      if input_text == 'Hello2BizUser'
+        return method(:action_say_hello)
+      elsif [t(:commandjf),'jf'].include? input_text
+        return method(:action_point_bd)
+      elsif [t(:commandbd),'bd'].include? input_text
+        return method(:action_card_bd)
+      elsif [t(:commandmore),'m'].include? input_text
+        return method(:action_list_more)
+      elsif /^\d+$/ =~ input_text_array[0]
+        return method(:action_point_nb)
+      else
+         return method(:action_list_product_ft)
+      end
+    when 'location' then
+      method(:action_list_promotion_ft)
+    else
+      method(:action_not_recognize)
+    end
+  end
+  #action search products first time
+  def action_list_product_ft(input)
+    response = do_list_product(input[:Content],1)
+        #persist user request
+    log_use_request {|request|
+      request.lastaction = RequestAction::ACTION_PROD_LIST_FT
+      request.lastpage = 1
+      }
+    response
+  end
+  
+  #action search more product or promotion
+  def action_list_more(input)
+    # check whether last five mins search product or promotion success
+    utoken = input[:FromUserName]
+    lastrequest = UserRequest.where("utoken=:token AND updated_at>:validatetime AND lastaction IN (:product_ft_search,:promotion_ft_search)",{
+        :token=>utoken,
+        :validatetime => Time.now-5.minutes,
+        :product_ft_search => RequestAction::ACTION_PROD_LIST_FT,
+        :promotion_ft_search => RequestAction::ACTION_PRO_LIST_FT
+    }).first
+    return build_response_text_temp {|msg|
+      msg.Content=t :noproductsearchhistory
+    } if lastrequest.nil?
+    lastpage = lastrequest[:lastpage]
+    lastmsg = JSON.parse(lastrequest[:msg])
+    if lastrequest[:lastaction] == RequestAction::ACTION_PROD_LIST_FT
+      # do more search for product
+      response = do_list_product(lastmsg["Content"],lastpage+1)
+    else
+      # do more search for promotion
+      response = do_list_promotion lastmsg,lastpage+1
+    end
+    #persist user request
+    lastrequest.lastpage = lastpage % 1000+1
+    lastrequest.save
+    response
+  end
+  # action to search point without card bindng
+  def action_point_nb(input)
+    input_text_array = input[:Content].split(' ')
+    return build_response_text_temp {|msg|
+        msg.Content = t(:wrongpwd)
+      } if input_text_array.length <2
+    card_info = Card.find_by_nopwd input[:FromUserName],input_text_array[0],input_text_array[1]
+    #persist user request
+    log_use_request {|request|
+      request.lastaction = RequestAction::ACTION_JF_SEARCH_NB
+      }
+    return build_response_text_temp {|msg|
+            msg.Content = t(:successmsgnotbindtemplate).sub('[level]',card_info[:level]).sub('[point]',card_info['point'].to_s)
+          } if !card_info.nil?
+    return build_response_text_temp {|msg|
+            msg.Content = t(:wrongpwd)
+            }
+  end
+  # action request to bind card
+  def action_card_bd(input)
+    utoken = params[:xml][:FromUserName]
+    card_info = Card.where(:utoken=>utoken).order('validatedate desc').first
+    return build_response_text_temp {|msg|
+              msg.Content=t(:notbindinghelp)
+          } if card_info.nil?
+     card_info[:isbinded]=true
+     card_info.save
+     #persist user request
+    log_use_request {|request|
+      request.lastaction = RequestAction:: ACTION_JF_BIND
+      }
+     return build_response_text_temp {|msg|
+            msg.Content = t(:bindingsuccess)
+          }
+  end
+  # action search point has binded
+  def action_point_bd(input)
+    card_info = Card.where(:utoken=>params[:xml][:FromUserName],:isbinded=>true).order('validatedate desc').first
+    if !card_info.nil? && card_info['validatedate']<Time.now
+       card_info = Card.find_by_nopwd 
+    end
+    #persist user request
+    log_use_request {|request|
+      request.lastaction = RequestAction:: JF_SEARCH_BD
+      }
+    return build_response_text_temp {|msg|
+      msg.Content = t(:successmsgtemplate).sub('[level]',card_info[:level]).sub('[point]',card_info['point'].to_s)
+     } if !card_info.nil?
+
+    return build_response_text_temp {|msg|
+                  msg.Content = t(:notbindinghelp)
+               }
+  end
+  # action say hello
+  def action_say_hello(input)
+    response = WxTextResponse.new
+    set_common_response response
+    response.Content = t :welcome
+    response
+  end
+  # the action just render the not recognize message
+  def action_not_recognize(input)
+    response = WxTextResponse.new
+    set_common_response reponse
+    response.Content = t :commonhelp
+    response
+  end
+  # action render the promotions first time
+  def action_list_promotion_ft(input)
+    response = do_list_promotion input,1
+    #persist user request
+    log_use_request {|request|
+      request.lastaction = RequestAction::ACTION_PRO_LIST_FT
+      request.lastpage = 1
+      }
+    response
+  end
+  
+  def build_response_text_temp
+    response = WxTextResponse.new
+    set_common_response response
+    yield response if block_given?
+    response
+  end
+  def build_response_nofound
+      response = build_response_text_temp do |msg|
+        msg.Content = t :keynotfound
+      end
+      response     
+  end
+  def build_response_nolocation
+      response = build_response_text_temp do |msg|
+        msg.Content = t :locationnotfound
+      end
+      response     
+  end
+  def set_common_response(resp)
+     resp.ToUserName=params[:xml][:FromUserName]
+     resp.FromUserName=params[:xml][:ToUserName]
+     resp.CreateTime=Time.now
+     resp.MsgType='text'
+     resp.FuncFlag=1
+  end
+  def do_list_promotion(input,nextpage)
+    longit = input['Location_X']
+    lantit = input['Location_Y']
+    if longit.nil? || lantit.nil?
+        return build_response_nolocation
+    end
+    nextpage=1 if nextpage.nil?
+    promotions = Promotion.search :per_page=>5,:page=>nextpage do 
+            query do
+              match :status,1
+            end
+            filter :geo_distance,{
+                    'distance' => "500000km",
+                    'store.location' => {
+                    'lat' => lantit,
+                    'lon' => longit
+                    }
+                }
+    end
+    #return not found message if no match
+    return build_response_nofound if promotions.total<=0 || promotions.total<=(nextpage-1)*5       
+    response = WxPicResponse.new
+    set_common_response response
+    response.MsgType = 'news'
+    response.ArticleCount = promotions.total
+    response.Articles = []   
+    promotions.results.each {|p|
+            resource = p['resource']
+            return if resource.nil? || resource.length<1 || resource[0].name.length<1
+            item = WxPicArticle.new
+            item.Title = p['name']
+            item.Description = p['description']
+
+            item.PicUrl = small_pic_url resource[0].domain, resource[0].name
+            item.Url = large_pic_url resource[0].domain, resource[0].name
+            response.Articles<<item
+          }
+     response
+  end
+  def do_list_product(keyword,nextpage)
+    # search products if msgtype is text and not a command
+    nextpage = 1 if nextpage.nil?
+    products = Product.search :per_page=>5,:page=>nextpage do 
+            query do
+              match ['*.name','*.description','*.engname','*.recommendreason'], keyword
+              match :status,1
+            end
+          end
+    #return not found message if no match
+    return build_response_nofound if products.total<=0        
+          
+    response = WxPicResponse.new
+    set_common_response response
+    response.MsgType = 'news'
+    response.ArticleCount = products.total
+    response.Articles = []
+    
+    products.results.each {|p|
+      item = WxPicArticle.new
+      item.Title = p['name']
+      item.Description = p['description']
+      resource = p['resource']
+      item.PicUrl = small_pic_url resource[0].domain, resource[0].name
+      item.Url = large_pic_url resource[0].domain, resource[0].name
+      response.Articles<<item
+    }
+    response
+  end
+  def build_response_message
+    base_msg = {:ToUserName=>params[:xml][:FromUserName],
+           :FromUserName=>params[:xml][:ToUserName],
+           :CreateTime=>Time.now,
+           :MsgType=>'text',
+           :Content=>t(:welcome),
+           :FuncFlag=>1}
+     yield base_msg if block_given?
+     base_msg.to_xml(:skip_instruct=>true,:root=>'xml')
+  end
+  def log_use_request(token=params[:xml][:FromUserName])
+    lastrequest = UserRequest.where(:utoken=>token).first
+    if lastrequest.nil?
+      lastrequest = UserRequest.new
+      lastrequest.utoken = token
+      lastrequest.lastpage = 0
+    end
+    lastrequest.msg = params[:xml].to_json
+    yield lastrequest if block_given?
+    lastrequest.save
+  end
+  def small_pic_url(domain,name)
+    domain = PIC_DOMAIN if domain.nil? || domain.length<5
+    return domain + name +'_320x0.jpg'
+  end
+  def large_pic_url(domain,name)
+    domain = PIC_DOMAIN if domain.nil? || domain.length<5
+    return domain + name +'_640x0.jpg'
+  end
+end

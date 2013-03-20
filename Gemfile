@@ -38,3 +38,5 @@ gem 'jquery-rails'
 # gem 'debugger'
 gem 'rb-readline'
 gem 'mysql2'
+
+gem 'tire'

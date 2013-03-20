@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  desc: MyString
+  price: 9.99
+  recommendreason: MyString
+  status: 1
+  store: 
+  tag: 
+  sortorder: 1
+  createuser: 
+
+two:
+  name: MyString
+  desc: MyString
+  price: 9.99
+  recommendreason: MyString
+  status: 1
+  store: 
+  tag: 
+  sortorder: 1
+  createuser: 

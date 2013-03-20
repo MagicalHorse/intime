@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  desc: MyString
+  address: MyString
+  telephone: MyString
+  lngit: 9.99
+  latit: 9.99
+  status: 1
+  gpslngit: 9.99
+  gpslatit: 9.99
+  gpsalt: 9.99
+  company: 
+  region: 
+
+two:
+  name: MyString
+  desc: MyString
+  address: MyString
+  telephone: MyString
+  lngit: 9.99
+  latit: 9.99
+  status: 1
+  gpslngit: 9.99
+  gpslatit: 9.99
+  gpsalt: 9.99
+  company: 
+  region: 

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  desc: MyString
+  status: 1
+  store: 
+  begindate: 2013-03-17 20:38:36
+  enddate: 2013-03-17 20:38:36
+  limitcoupons: 1
+  tag: 
+  istop: false
+  hasprod: false
+
+two:
+  name: MyString
+  desc: MyString
+  status: 1
+  store: 
+  begindate: 2013-03-17 20:38:36
+  enddate: 2013-03-17 20:38:36
+  limitcoupons: 1
+  tag: 
+  istop: false
+  hasprod: false

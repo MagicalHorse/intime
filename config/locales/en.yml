@@ -2,8 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
- welcome: "喜欢银泰正在准备中，即将发布!"
- commonhelp: "喜欢银泰目前支持查询银泰会员卡积分。没有绑定卡号，可以通过输入卡号+空格+密码进行查询；已经绑定卡号，输入积分或jf，进行查询。"
+ welcome: "欢迎使用喜欢银泰，您可以通过我们查询银泰百货会员信息，您附近的促销信息和我们最新最潮的商品！"
+ commonhelp: "输入卡号+空格+密码查询积分；发送地址信息查询您附近的百货促销信息；直接输入商品，查询百货商品。"
  wrongpwd: "卡号密码不匹配，请输入正确的卡号+空格+密码"
  successmsgtemplate: "您的会员卡级别为[level],积分为[point]。"
  successmsgnotbindtemplate: "您的会员卡级别为[level],积分为[point]。回复绑定或bd，将卡号和微信号绑定，以后可以直接查询。"
@@ -12,3 +12,6 @@ en:
  notbindinghelp: "您还没有绑定，请使用卡号密码查询后绑定。"
  bindingfail: "绑定失败，请使用卡号+空格+密码查询"
  bindingsuccess: "绑定成功，您以后可以输入积分或jf，进行查询。"
+ keynotfound: "怎么可能？竟然没有找到相关的商品和促销，请试着换一个单词再查询哦。"
+ locationnotfound: "没有检测到位置信息，请发送当前位置给喜欢银泰，我们将会提供您附近的促销信息哦。"
+ noproductsearchhistory: "请重新输入需要查找的内容，然后再输入m"

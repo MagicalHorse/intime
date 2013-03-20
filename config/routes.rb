@@ -1,7 +1,7 @@
 IntimeService::Application.routes.draw do
-  match "wx_object/search" => "wx_object#validate", :via=>:get, :defaults=>{:format=>'html'}
-  match "wx_object/search" => "wx_object#search", :via=>:post, :defaults=>{:format=>'xml'}
-  post "wx_object/search2"
+  match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
+  match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
+  post "wxobject/search2"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
