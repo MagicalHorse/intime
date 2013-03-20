@@ -5,6 +5,7 @@ class WxTextResponse< WxBaseResponse
   def to_xml
     super {|h|
       h[:Content] = @Content
+      h[:FuncFlag] = 0
       }
   end
 end
