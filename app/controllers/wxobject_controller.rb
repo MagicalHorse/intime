@@ -190,7 +190,7 @@ class WxobjectController < ApplicationController
      resp.FromUserName=params[:xml][:ToUserName]
      resp.CreateTime=Time.now
      resp.MsgType='text'
-     resp.FuncFlag=1
+     resp.FuncFlag=0
   end
   def do_list_promotion(input,nextpage)
     longit = input['Location_X']
@@ -259,16 +259,6 @@ class WxobjectController < ApplicationController
       response.Articles<<item
     }
     response
-  end
-  def build_response_message
-    base_msg = {:ToUserName=>params[:xml][:FromUserName],
-           :FromUserName=>params[:xml][:ToUserName],
-           :CreateTime=>Time.now,
-           :MsgType=>'text',
-           :Content=>t(:welcome),
-           :FuncFlag=>1}
-     yield base_msg if block_given?
-     base_msg.to_xml(:skip_instruct=>true,:root=>'xml')
   end
   def log_use_request(token=params[:xml][:FromUserName])
     lastrequest = UserRequest.where(:utoken=>token).first

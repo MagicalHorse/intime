@@ -4,8 +4,7 @@ class WxBaseResponse
     hashresponse ={:ToUserName=>@ToUserName,
      :FromUserName=>@FromUserName,
      :CreateTime=>@CreateTime,
-     :MsgType=>@MsgType,
-     :FuncFlag=>@FuncFlag
+     :MsgType=>@MsgType
      }
      yield hashresponse if block_given?
      hashresponse.to_xml :skip_instruct=>true,:skip_types=>true,:root=>'xml'

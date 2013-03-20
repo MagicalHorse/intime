@@ -6,6 +6,7 @@ class WxPicResponse< WxBaseResponse
     super {|h|
       h[:ArticleCount] = @ArticleCount
       h[:Articles] = @Articles
+      h[:FuncFlag]= self.FuncFlag
       }
   end
 end
