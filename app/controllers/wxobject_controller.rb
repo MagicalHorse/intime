@@ -54,7 +54,7 @@ class WxobjectController < ApplicationController
   #action search products first time
   def action_list_product_ft(input)
     response = do_list_product(input[:Content],1)
-        #persist user request
+     #persist user request
     log_use_request {|request|
       request.lastaction = RequestAction::ACTION_PROD_LIST_FT
       request.lastpage = 1
@@ -188,7 +188,7 @@ class WxobjectController < ApplicationController
   def set_common_response(resp)
      resp.ToUserName=params[:xml][:FromUserName]
      resp.FromUserName=params[:xml][:ToUserName]
-     resp.CreateTime=Time.now
+     resp.CreateTime=Time.now.to_i
      resp.MsgType='text'
      resp.FuncFlag=0
   end
