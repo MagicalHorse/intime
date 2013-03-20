@@ -222,7 +222,7 @@ class WxobjectController < ApplicationController
             resource = p['resource']
             return if resource.nil? || resource.length<1 || resource[0].name.length<1
             item = WxPicArticle.new
-            item.Title = p['name']
+            item.Title = "#{p['store']['name']}:#{p['name']}"
             item.Description = p['description']
 
             item.PicUrl = small_pic_url resource[0].domain, resource[0].name
@@ -254,7 +254,7 @@ class WxobjectController < ApplicationController
       resource = p['resource']
       return if resource.nil? || resource.length<1 || resource[0].name.length<1
       item = WxPicArticle.new
-      item.Title = p['name']
+      item.Title = "#{p['store']['name']}:#{p['name']}"
       item.Description = p['description']
       item.PicUrl = small_pic_url resource[0].domain, resource[0].name
       item.Url = large_pic_url resource[0].domain, resource[0].name
