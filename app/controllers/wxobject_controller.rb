@@ -216,7 +216,7 @@ class WxobjectController < ApplicationController
     response = WxPicResponse.new
     set_common_response response
     response.MsgType = 'news'
-    response.ArticleCount = promotions.total
+    response.ArticleCount = promotions.results.length
     response.Articles = []   
     promotions.results.each {|p|
             resource = p['resource']
@@ -246,7 +246,7 @@ class WxobjectController < ApplicationController
     response = WxPicResponse.new
     set_common_response response
     response.MsgType = 'news'
-    response.ArticleCount = products.total
+    response.ArticleCount = products.results.length
     response.Articles = []
     response.FuncFlag= 1
     
