@@ -8,12 +8,6 @@ class Card < ActiveRecord::Base
   CARD_INFO_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryinfo"
   CARD_POINT_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryscore"
   class<<self
-    def get_card_score(number)
-      encryp_card_no = encryp_card_no number
-      request_body = {:cardno=>encryp_card_no}.to_xml(:skip_instruct=>true,:root=>'vipCard')
-      card_point_json = post_card_service URI(CARD_POINT_URL),request_body
-      JSON.parse(card_point_json)
-    end
     # call remote card service to retrieve the latest card information
     # there are two services avail for card: 
     # 1. card basic info with input of number, pwd
@@ -55,8 +49,21 @@ class Card < ActiveRecord::Base
       end
       local_card
     end
-
+    def renew_card(token)
+      local_card = where(:utoken=>token,:isbinded=>true).first
+      return nil if local_card.nil?
+      remote_card_hash = get_card_score(local_card.no)
+      local_card.point = remote_card_hash['Point'].to_i
+      lcal_card.save
+      local_card
+    end
    private
+    def get_card_score(encrp_no)
+      encryp_card_no = encrp_no
+      request_body = {:cardno=>encryp_card_no}.to_xml(:skip_instruct=>true,:root=>'vipCard')
+      card_point_json = post_card_service URI(CARD_POINT_URL),request_body
+      JSON.parse(card_point_json)
+    end
     def encryp_card_no(number)
       cipher = OpenSSL::Cipher.new('des-ecb')
       cipher.encrypt
