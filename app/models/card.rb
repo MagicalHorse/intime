@@ -54,7 +54,7 @@ class Card < ActiveRecord::Base
       return nil if local_card.nil?
       remote_card_hash = get_card_score(local_card.no)
       local_card.point = remote_card_hash['Point'].to_i
-      lcal_card.save
+      local_card.save
       local_card
     end
    private
