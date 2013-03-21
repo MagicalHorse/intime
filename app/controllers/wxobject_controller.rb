@@ -241,7 +241,7 @@ class WxobjectController < ApplicationController
   def do_list_product(keyword,nextpage)
     # search products if msgtype is text and not a command
     nextpage = 1 if nextpage.nil?
-    products = Product.search :per_page=>3,:page=>nextpage do 
+    products = Product.search :per_page=>5,:page=>nextpage do 
             query do
               match ['*.name','*.description','*.engname','*.recommendreason'], keyword
               match :status,1
@@ -263,7 +263,7 @@ class WxobjectController < ApplicationController
       return if resource.nil? || resource.length<1 || resource[0].name.length<1
       item = WxPicArticle.new
       item.Title = "#{p['store']['name']}:#{p['name']}".encode(:xml=>:text)
-      item.Description =item.Title# " #{p['description']}".force_encoding("UTF-8")
+      item.Description =" #{p['description']}".encode(:xml=>:text)
       if first_image == true
         item.PicUrl =  large_pic_url resource[0].domain, resource[0].name
         first_image = false
