@@ -15,3 +15,4 @@ en:
  keynotfound: "怎么可能？竟然没有找到相关的商品和促销，请试着换一个单词再查询哦。"
  locationnotfound: "没有检测到位置信息，请发送当前位置给喜欢银泰，我们将会提供您附近的促销信息哦。"
  noproductsearchhistory: "请重新输入需要查找的内容，然后再输入m"
+ hasmoreresulttemp: "共[totalcount]条信息，已浏览[currentcount]条，回复m获取更多。"

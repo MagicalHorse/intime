@@ -263,7 +263,7 @@ class WxobjectController < ApplicationController
       return if resource.nil? || resource.length<1 || resource[0].name.length<1
       item = WxPicArticle.new
       item.Title = "#{p['store']['name']}:#{p['name']}".encode(:xml=>:text)
-      item.Description =" #{p['description']}".encode(:xml=>:text)
+      item.Description = item.Title
       if first_image == true
         item.PicUrl =  large_pic_url resource[0].domain, resource[0].name
         first_image = false
@@ -273,6 +273,18 @@ class WxobjectController < ApplicationController
       item.Url = large_pic_url resource[0].domain, resource[0].name
       response.Articles<<item
     }
+    
+    #add more indicator
+    has_displayed = nextpage*5
+    if products.total>has_displayed
+      item = WxPicArticle.new
+      item.Title = t(:hasmoreresulttemp).sub('[currentcount]',has_displayed.to_s).sub('[totalcount]',products.total.to_s)
+      item.Description = item.Title
+      item.PicUrl = ''
+      item.Url=''
+      response.Articles<<item
+      response.ArticleCount +=1
+    end
     response
   end
   def log_use_request(token=params[:xml][:FromUserName])
