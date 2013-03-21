@@ -8,7 +8,7 @@ require 'WxTextResponse'
 class WxobjectController < ApplicationController
   #wrap_parameters :format=>:xml
   WX_TOKEN = "xhyt"
-  PIC_DOMAIN = 'http://itoo.yintai.com/fileupload/img/'
+  PIC_DOMAIN = 'http://intime-env-hvrevspudb.elasticbeanstalk.com/fileupload/img/'
   
   def validate
     signature = params[:signature]
@@ -127,7 +127,7 @@ class WxobjectController < ApplicationController
   # action search point has binded
   def action_point_bd(input)
     card_info = Card.where(:utoken=>params[:xml][:FromUserName],:isbinded=>true).order('validatedate desc').first
-    if card_info[:validatedate]<Time.now
+    if !card_info.nil? && card_info[:validatedate]<Time.now
        card_info = Card.find_by_nopwd 
     end
     #persist user request
@@ -218,17 +218,23 @@ class WxobjectController < ApplicationController
     response.MsgType = 'news'
     response.ArticleCount = promotions.results.length
     response.Articles = []   
+    first_image = true
     promotions.results.each {|p|
-            resource = p['resource']
-            return if resource.nil? || resource.length<1 || resource[0].name.length<1
-            item = WxPicArticle.new
-            item.Title = "#{p['store']['name']}:#{p['name']}"
-            item.Description = p['description']
-
-            item.PicUrl = small_pic_url resource[0].domain, resource[0].name
-            item.Url = large_pic_url resource[0].domain, resource[0].name
-            response.Articles<<item
-          }
+      resource = p['resource']
+      return if resource.nil? || resource.length<1 || resource[0].name.length<1
+      
+      item = WxPicArticle.new
+      item.Title = "#{p['store']['name']}:#{p['name']}"
+      item.Description = p['description']
+      if first_image == true
+        item.PicUrl =  large_pic_url resource[0].domain, resource[0].name
+        first_image = false
+      else
+        item.PicUrl =  small_pic_url resource[0].domain, resource[0].name
+      end
+      item.Url = large_pic_url resource[0].domain, resource[0].name
+      response.Articles<<item
+    }
      response
   end
   def do_list_product(keyword,nextpage)
@@ -250,13 +256,19 @@ class WxobjectController < ApplicationController
     response.Articles = []
     response.FuncFlag= 1
     
+    first_image = true
     products.results.each {|p|
       resource = p['resource']
       return if resource.nil? || resource.length<1 || resource[0].name.length<1
       item = WxPicArticle.new
       item.Title = "#{p['store']['name']}:#{p['name']}"
       item.Description = p['description']
-      item.PicUrl = small_pic_url resource[0].domain, resource[0].name
+      if first_image == true
+        item.PicUrl =  large_pic_url resource[0].domain, resource[0].name
+        first_image = false
+      else
+        item.PicUrl =  small_pic_url resource[0].domain, resource[0].name
+      end
       item.Url = large_pic_url resource[0].domain, resource[0].name
       response.Articles<<item
     }
@@ -274,11 +286,11 @@ class WxobjectController < ApplicationController
     lastrequest.save
   end
   def small_pic_url(domain,name)
-    domain = PIC_DOMAIN if domain.nil? || domain.length<5
-    return domain + name +'_320x0.jpg'
+    domain = PIC_DOMAIN 
+    return domain + name +'_120x0.jpg'
   end
   def large_pic_url(domain,name)
-    domain = PIC_DOMAIN if domain.nil? || domain.length<5
+    domain = PIC_DOMAIN
     return domain + name +'_640x0.jpg'
   end
 end
