@@ -8,7 +8,7 @@ require 'WxTextResponse'
 class WxobjectController < ApplicationController
   #wrap_parameters :format=>:xml
   WX_TOKEN = "xhyt"
-  PIC_DOMAIN = 'http://intime-env-hvrevspudb.elasticbeanstalk.com/fileupload/img/'
+  PIC_DOMAIN = 'http://itoo.yintai.com/fileupload/img/'
   
   def validate
     signature = params[:signature]
@@ -240,7 +240,7 @@ class WxobjectController < ApplicationController
   def do_list_product(keyword,nextpage)
     # search products if msgtype is text and not a command
     nextpage = 1 if nextpage.nil?
-    products = Product.search :per_page=>5,:page=>nextpage do 
+    products = Product.search :per_page=>1,:page=>nextpage do 
             query do
               match ['*.name','*.description','*.engname','*.recommendreason'], keyword
               match :status,1
@@ -251,7 +251,7 @@ class WxobjectController < ApplicationController
           
     response = WxPicResponse.new
     set_common_response response
-    response.MsgType = 'news'
+    response.MsgType = "news"
     response.ArticleCount = products.results.length
     response.Articles = []
     response.FuncFlag= 1
