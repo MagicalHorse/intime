@@ -1,6 +1,7 @@
 <% content_for :title do 
   @product[:name]
  end %>
+ <div class="well">
 <h4><%=@product[:brand][:name]+' - '+ @product[:name]%></h4>
 <div>
 <% @product.resource.each do |r| %>
@@ -9,4 +10,5 @@
 </div>
 <div>
 <p><%= @product[:description]%></p>
+</div>
 </div>

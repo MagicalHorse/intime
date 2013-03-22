@@ -2,21 +2,16 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0;" />
+    <meta name="viewport" content="width=device-width" />
     <title><%= content_for?(:title) ? yield(:title) : "Myapp" %></title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <%= stylesheet_link_tag "application", :media => "all" %>
-    
+    <%= stylesheet_link_tag "application", :media => "all" %>  
   </head>
   <body>
   	<div class="main">
       <div class="container">
            <div class="row-fluid">
-            <div class="span12">
               <%= yield %>
-            </div>
+           
           </div>
       </div> <!--! end of .container -->
       </main>
