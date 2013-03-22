@@ -5,10 +5,11 @@
 <h4><%=@product[:brand][:name]+' - '+ @product[:name]%></h4>
 <div>
 <% @product.resource.each do |r| %>
-	<img src="<%= large_pic_url(r) %>" width="90%">
+	<img src="<%= large_pic_url(r) %>" class="img-rounded">
 <% end %>
 </div>
 <div>
-<p><%= @product[:description]%></p>
+<label><%= @product[:description]%></label>
 </div>
 </div>
+

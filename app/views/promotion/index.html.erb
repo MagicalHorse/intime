@@ -1,15 +1,17 @@
 <% content_for :title do 
   @promotion[:name]
  end %>
+ <div class="well">
 <h4><%=@promotion[:store][:name]+' - '+ @promotion[:name]%></h4>
 <div>
 <% @promotion.resource.each do |r| %>
-	<img width="320px"  src="<%= large_pic_url(r) %>" class="img-rounded">
+	<img  src="<%= large_pic_url(r) %>" class="img-rounded">
 <% end %>
 </div>
 	<div>
-<p><%= @promotion[:startDate].to_time.to_s(:db)+t(:To)+@promotion[:endDate].to_time.to_s(:db)%></p>
+<label><%= @promotion[:startDate].to_time.to_s(:db)+t(:To)+@promotion[:endDate].to_time.to_s(:db)%></label>
 </div>
 <div>
-<p><%= @promotion[:description]%></p>
+<label><%= @promotion[:description]%></label>
+</div>
 </div>
