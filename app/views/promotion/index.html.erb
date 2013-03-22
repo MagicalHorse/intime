@@ -1,11 +1,10 @@
 <% content_for :title do 
   @promotion[:name]
  end %>
-<h3><%=@promotion[:store][:name]+' - '+ @promotion[:name]%></h3>
-<fieldset>
+<h4><%=@promotion[:store][:name]+' - '+ @promotion[:name]%></h4>
 <div>
 <% @promotion.resource.each do |r| %>
-	<img src="<%= large_pic_url(r) %>" class="img-rounded">
+	<img width="320px"  src="<%= large_pic_url(r) %>" class="img-rounded">
 <% end %>
 </div>
 	<div>
@@ -14,4 +13,3 @@
 <div>
 <p><%= @promotion[:description]%></p>
 </div>
-</fieldset>
