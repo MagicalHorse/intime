@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails'
 
@@ -40,3 +40,4 @@ gem 'rb-readline'
 gem 'mysql2'
 
 gem 'tire'
+gem "bootstrap-sass", ">= 2.3.0.0"

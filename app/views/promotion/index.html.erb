@@ -1,0 +1,17 @@
+<% content_for :title do 
+  @promotion[:name]
+ end %>
+<h3><%=@promotion[:store][:name]+' - '+ @promotion[:name]%></h3>
+<fieldset>
+<div>
+<% @promotion.resource.each do |r| %>
+	<img src="<%= large_pic_url(r) %>" class="img-rounded">
+<% end %>
+</div>
+	<div>
+<p><%= @promotion[:startDate].to_time.to_s(:db)+t(:To)+@promotion[:endDate].to_time.to_s(:db)%></p>
+</div>
+<div>
+<p><%= @promotion[:description]%></p>
+</div>
+</fieldset>

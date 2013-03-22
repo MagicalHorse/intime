@@ -211,6 +211,11 @@ class WxobjectController < ApplicationController
                     'lon' => longit
                     }
                 }
+            filter :range,{
+              'endDate' =>{
+                'gte'=>Time.now
+              }
+            }
     end
     #return not found message if no match
     return build_response_nofound if promotions.total<=0 || promotions.total<=(nextpage-1)*5       
@@ -233,7 +238,7 @@ class WxobjectController < ApplicationController
       else
         item.PicUrl =  small_pic_url resource[0].domain, resource[0].name
       end
-      item.Url = large_pic_url resource[0].domain, resource[0].name
+      item.Url = url_for :controller=>'promotion',:action=>'index',:id=>p[:id]
       response.Articles<<item
     }
      response
@@ -270,7 +275,7 @@ class WxobjectController < ApplicationController
       else
         item.PicUrl =  small_pic_url resource[0].domain, resource[0].name
       end
-      item.Url = large_pic_url resource[0].domain, resource[0].name
+      item.Url = url_for :controller=>'product',:action=>'index',:id=>p[:id]
       response.Articles<<item
     }
     
