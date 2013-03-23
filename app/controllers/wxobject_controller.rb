@@ -8,8 +8,7 @@ require 'WxTextResponse'
 class WxobjectController < ApplicationController
   #wrap_parameters :format=>:xml
   WX_TOKEN = "xhyt"
-  PIC_DOMAIN = 'http://itoo.yintai.com/fileupload/img/'
-  
+
   def validate
     signature = params[:signature]
     encrypEcho = Digest::SHA1.hexdigest([WX_TOKEN,params[:timestamp],params[:nonce]].sort.join)
@@ -40,6 +39,8 @@ class WxobjectController < ApplicationController
         return method(:action_card_bd)
       elsif [t(:commandmore),'m'].include? input_text
         return method(:action_list_more)
+      elsif [t(:commandhelp),'h','help'].include? input_text
+        return method(:action_not_recognize)
       elsif /^\d+$/ =~ input_text_array[0]
         return method(:action_point_nb)
       else
@@ -153,7 +154,7 @@ class WxobjectController < ApplicationController
   # the action just render the not recognize message
   def action_not_recognize(input)
     response = WxTextResponse.new
-    set_common_response reponse
+    set_common_response response
     response.Content = t :commonhelp
     response
   end

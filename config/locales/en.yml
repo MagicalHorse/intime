@@ -2,13 +2,15 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
- welcome: "欢迎使用喜欢银泰，您可以通过我们查询银泰百货会员信息，您附近的促销信息和我们最新最潮的商品！"
- commonhelp: "输入卡号+空格+密码查询积分；发送地址信息查询您附近的百货促销信息；直接输入商品，查询百货商品。"
+ welcome: "欢迎使用喜欢银泰，您可以选择以下方式来玩转喜欢银泰：输入卡号+空格+密码查询银泰会员卡信息；发送当前位置，查询您周边的优惠活动；输入关键词查询我们的商品。输入帮助，显示帮助信息。"
+ commonhelp: "输入卡号+空格+密码查询银泰会员卡信息；发送当前位置，查询您周边的优惠活动；输入关键词查询我们的商品。"
  wrongpwd: "卡号密码不匹配，请输入正确的卡号+空格+密码"
  successmsgtemplate: "您的会员卡级别为[level],积分为[point]。"
  successmsgnotbindtemplate: "您的会员卡级别为[level],积分为[point]。回复绑定或bd，将卡号和微信号绑定，以后可以直接查询。"
  commandbd: "绑定"
  commandjf: "积分"
+ commandhelp: "帮助"
+ commandpromotion: "优惠"
  notbindinghelp: "您还没有绑定，请使用卡号密码查询后绑定。"
  bindingfail: "绑定失败，请使用卡号+空格+密码查询"
  bindingsuccess: "绑定成功，您以后可以输入积分或jf，进行查询。"

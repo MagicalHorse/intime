@@ -5,7 +5,9 @@
 <h4><%=@promotion[:store][:name]+' - '+ @promotion[:name]%></h4>
 <div>
 <% @promotion.resource.each do |r| %>
+<a href="<%= large_pic_url(r)%>">
 	<img  src="<%= large_pic_url(r) %>" class="img-rounded">
+	</a>
 <% end %>
 </div>
 	<div>
