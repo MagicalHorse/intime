@@ -25,15 +25,18 @@ class ProductController < ApplicationController
           end
     prods_hash = []       
     products.results.each {|p|
-      default_resource =p[:resource][0] # p[:resource].sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
+      default_resource = p[:resource].sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
+      next if default_resource.nil?
       prods_hash << {
         :id=>p[:id],
         :name=>p[:name],
-        :resources=>[
+        :resources=>[{
           :domain=>PIC_DOMAIN,
-          :name=>default_resource[:name]
-          ]
-        }
+          :name=>default_resource[:name],
+          :width=>default_resource[:width],
+          :height=>default_resource[:height]
+        }]
+      }
     }
     return render :json=>{:isSuccessful=>true,
       :message =>'success',
