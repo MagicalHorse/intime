@@ -1,5 +1,6 @@
 IntimeService::Application.routes.draw do
   match "product/search" => "product#search"
+  match "product/list" => "product#list"
   match "product/:id" => "product#index"
   match "promotion/:id" => "promotion#index"
 
