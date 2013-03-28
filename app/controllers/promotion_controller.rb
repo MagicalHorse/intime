@@ -98,9 +98,16 @@ class PromotionController < ApplicationController
         :description=>p[:description],
         :startdate=>p[:startDate],
         :enddate=>p[:endDate],
-        :store_id=>p['store.id'],
+        :store_id=>p[:store][:id],
         :store=>{
-          :id=>p['store.id'],
+          :id=>p[:store][:id],
+          :name=>p[:store][:name],
+          :address=>p[:store][:address],
+          :description=>p[:store][:description],
+          :tel=>p[:store][:tel],
+          :gpslat=>p[:store][:gpsLat],
+          :gpslng=>p[:store][:gpsLng],
+          :gpsalt=>p[:store][:gpsAlt],
           :distance=>p[:sort][0]
         },
         :resources=>[{
