@@ -19,7 +19,7 @@ class ProductController < ApplicationController
     pageindex = params[:page]
     pageindex ||= 1
     pagesize = params[:pagesize]
-    pagesize = [@pagesize ||=20,20].min
+    pagesize = [@pagesize ||=40,40].min
     is_refresh = params[:type] == 'refresh'
     refreshts = params[:refreshts]
     tagid = params[:tagid]
@@ -29,6 +29,7 @@ class ProductController < ApplicationController
     #search the products
     prod = Product.search :per_page=>pagesize, :page=>pageindex do
           query do
+            match :status,1
             if !(tagid.nil?) && tagid.to_i>0
               #find by tag
               match 'tag.id',tagid
@@ -41,6 +42,7 @@ class ProductController < ApplicationController
             elsif !(promotionid.nil?) && promotionid.to_i >0
               #find by promotion id
               match 'promotion.id',promotionid
+              match 'promotion.status',1
             end
           end
           if is_refresh
@@ -51,6 +53,7 @@ class ProductController < ApplicationController
             }
           end
           sort {
+            by :sortOrder
             by :createdDate, 'desc'
           }
     end
@@ -62,6 +65,7 @@ class ProductController < ApplicationController
       prods_hash << {
         :id=>p[:id],
         :name=>p[:name],
+        :price=>p[:price],
         :resources=>[{
           :domain=>PIC_DOMAIN,
           :name=>default_resource[:name],
@@ -91,8 +95,8 @@ class ProductController < ApplicationController
     page_index_in = params[:page]
     page_size_in = params[:pagesize]
     term = params[:term]
-    page_size = (page_size_in.nil?)?20:page_size_in.to_i
-    page_size = 20 if page_size>20
+    page_size = (page_size_in.nil?)?40:page_size_in.to_i
+    page_size = 40 if page_size>40
     page_index = (page_index_in.nil?)?1:page_index_in.to_i
     term = '' if term.nil?
     products =  Product.search :per_page=>page_size,:page=>page_index do    
@@ -108,6 +112,7 @@ class ProductController < ApplicationController
       prods_hash << {
         :id=>p[:id],
         :name=>p[:name],
+        :price=>p[:price],
         :resources=>[{
           :domain=>PIC_DOMAIN,
           :name=>default_resource[:name],
