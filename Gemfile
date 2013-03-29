@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails'
 
@@ -41,3 +41,6 @@ gem 'mysql2'
 
 gem 'tire'
 gem "bootstrap-sass", ">= 2.3.0.0"
+
+# monitor
+gem 'newrelic_rpm'
