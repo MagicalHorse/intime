@@ -53,7 +53,7 @@ class ProductController < ApplicationController
             }
           end
           sort {
-            by :sortOrder
+            by :sortOrder, 'desc'
             by :createdDate, 'desc'
           }
     end
