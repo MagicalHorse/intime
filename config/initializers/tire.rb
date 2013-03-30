@@ -4,7 +4,7 @@ Tire.configure do
 end
 
 if Rails.env.production?
-  ES_DEFAULT_INDEX = 'intime'
+  ES_DEFAULT_INDEX = 'intimep'
 else
   ES_DEFAULT_INDEX = 'intime'
 end
