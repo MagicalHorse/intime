@@ -22,9 +22,7 @@ class TagController < ApplicationController
     return render :json=>{:isSuccessful=>true,
       :message =>'success',
       :statusCode =>'200',
-      :data=>{
-        :stores=>prods_hash
-      }
+      :data=>prods_hash
      }.to_json()
   end
 end

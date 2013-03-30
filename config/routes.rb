@@ -1,10 +1,14 @@
 IntimeService::Application.routes.draw do
   match "store/list"=>"store#list"
+  match "store/all"=>"store#list"
   match "store/:id"=>"store#index"
 
   match "brand/list"=>"brand#list"
+  match "brand/all"=>"brand#list"
+  match "brand/groupall"=>"brand#list_by_group"
 
   match "tag/list"=>"tag#list"
+  match "tag/all"=>"tag#list"
 
   match "specialtopic/list" => "specialTopic#list"
 

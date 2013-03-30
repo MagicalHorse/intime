@@ -12,17 +12,17 @@ class StoreController < ApplicationController
       prods_hash << {
         :id=>p[:id],
         :name=>p[:name],
-        :description=>p[:description],
-        :englishname=>p[:englishName],
-        :createddate =>p[:createdDate]
+        :location=>p[:address],
+        :tel=>p[:tel],
+        :lng=>p[:lng],
+        :lat=>p[:lat],       
+        :description=>p[:description]
       }
     }
     return render :json=>{:isSuccessful=>true,
       :message =>'success',
       :statusCode =>'200',
-      :data=>{
-        :stores=>prods_hash
-      }
+      :data=>prods_hash
      }.to_json()
     
   end
