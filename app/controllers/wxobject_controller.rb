@@ -47,7 +47,12 @@ class WxobjectController < ApplicationController
          return method(:action_list_product_ft)
       end
     when 'location' then
-      method(:action_list_promotion_ft)
+      return method(:action_list_promotion_ft)
+    when 'event' then
+      event_type = input[:Event]
+      if event_type == 'subscribe'
+        return method(:action_say_hello)
+      end
     else
       method(:action_not_recognize)
     end
