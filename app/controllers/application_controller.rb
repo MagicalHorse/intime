@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  # PIC_DOMAIN = 'http://itoo.yintai.com/fileupload/img/'
-  PIC_DOMAIN = 'http://122.226.53.114:7070/fileupload/img/'
   PAGE_ALL_SIZE = 1000
  
   protected

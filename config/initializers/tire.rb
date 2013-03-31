@@ -4,7 +4,13 @@ Tire.configure do
 end
 
 if Rails.env.production?
+  ES_DEFAULT_INDEX = 'intimep'
+  PIC_DOMAIN = 'http://itoo.yintai.com/fileupload/img/'
+  
+elsif Rails.env.stage?
   ES_DEFAULT_INDEX = 'intime'
+  PIC_DOMAIN = 'http://122.226.53.114:7070/fileupload/img/'
 else
   ES_DEFAULT_INDEX = 'intime'
+  PIC_DOMAIN = 'http://122.226.53.114:7070/fileupload/img/'
 end

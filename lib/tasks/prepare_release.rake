@@ -11,10 +11,12 @@ end
 
 desc 'clean cert'
 task :clean_cert do
-  Dir.open("D:/RubyPros/IntimeService/.elasticbeanstalk").each do |f|
+  Dir.chdir("D:/RubyPros/IntimeService/.elasticbeanstalk")
+  Dir.glob("*").each do |f|
     File.delete(f) unless File.directory? f
   end
-    Dir.open("C:/Users/yi/.elasticbeanstalk").each do |f|
+  Dir.chdir("C:/Users/yi/.elasticbeanstalk")
+  Dir.glob("*").each do |f|
     File.delete(f) unless File.directory? f
   end
 end
