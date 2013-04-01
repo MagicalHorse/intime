@@ -46,7 +46,7 @@ class BannerController < ApplicationController
         :totalcount=>prod.total,
         :totalpaged=>(prod.total/page_size.to_f).ceil,
         :ispaged=> prod.total>page_size,
-        :items=>prods_hash
+        :promotions=>prods_hash
       }
      }.to_json()
     
