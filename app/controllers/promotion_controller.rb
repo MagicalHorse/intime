@@ -31,8 +31,21 @@ class PromotionController < ApplicationController
     in_lat = params[:lat]
     in_lat ||=0
     prod = []
+    
+    # if refreshts not provide but is_refresh, return empty
+    return render :json=>{:isSuccessful=>true,
+      :message =>'success',
+      :statusCode =>'200',
+      :data=>{
+        :pageindex=>1,
+        :pagesize=>0,
+        :totalcount=>0,
+        :totalpaged=>0,
+        :ispaged=> false
+      }
+     } if is_refresh == true && refreshts.nil?
+    
     #search the products
-
       prod = Promotion.search :per_page=>pagesize, :page=>pageindex do
             query do
               match :status,1 
