@@ -19,7 +19,7 @@ class ProductController < ApplicationController
     pageindex = params[:page]
     pageindex ||= 1
     pagesize = params[:pagesize]
-    pagesize = [@pagesize ||=40,40].min
+    pagesize = [(pagesize ||=40).to_i,40].min
     is_refresh = params[:type] == 'refresh'
     refreshts = params[:refreshts]
     tagid = params[:tagid]

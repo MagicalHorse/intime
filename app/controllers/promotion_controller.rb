@@ -21,7 +21,7 @@ class PromotionController < ApplicationController
     pageindex = params[:page]
     pageindex ||= 1
     pagesize = params[:pagesize]
-    pagesize = [@pagesize ||=20,20].min
+    pagesize = [(pagesize ||=20).to_i,20].min
     is_refresh = params[:type] == 'refresh'
     refreshts = params[:refreshts]
     sort_by = params[:sort]
