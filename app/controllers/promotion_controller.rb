@@ -102,11 +102,11 @@ class PromotionController < ApplicationController
         :store=>{
           :id=>p[:store][:id],
           :name=>p[:store][:name],
-          :address=>p[:store][:address],
+          :location=>p[:store][:address],
           :description=>p[:store][:description],
           :tel=>p[:store][:tel],
-          :gpslat=>p[:store][:gpsLat],
-          :gpslng=>p[:store][:gpsLng],
+          :lat=>p[:store][:gpsLat],
+          :lng=>p[:store][:gpsLng],
           :gpsalt=>p[:store][:gpsAlt],
           :distance=>p[:sort][0]
         },

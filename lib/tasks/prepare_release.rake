@@ -3,8 +3,8 @@ namespace :my do
   desc 'prepare release to stage'
   task :release do
     puts "target release environment:#{ENV['target']}"
-    Rake::Task[:clean_cert].invoke
-    Rake::Task[:copy_files].invoke
+    Rake::Task['my:clean_cert'].invoke
+    Rake::Task['my:copy_files'].invoke
     
   end
   
