@@ -1,4 +1,6 @@
 IntimeService::Application.routes.draw do
+  match "banner/list"=>"banner#list"
+
   match "store/list"=>"store#list"
   match "store/all"=>"store#list"
   match "store/:id"=>"store#index"
