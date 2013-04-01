@@ -26,7 +26,7 @@ class BannerController < ApplicationController
       default_resource = p[:resource].sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
       next if default_resource.nil?
       prods_hash << {
-        :id=>p[:id],
+        :id=>p[:promotion][:id],
         :sortorder=>p[:sortOrder],
         :resources=>[{
           :domain=>PIC_DOMAIN,
