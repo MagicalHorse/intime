@@ -14,8 +14,8 @@ class StoreController < ApplicationController
         :name=>p[:name],
         :location=>p[:address],
         :tel=>p[:tel],
-        :lng=>p[:lng],
-        :lat=>p[:lat],       
+        :lng=>p[:gpsLng],
+        :lat=>p[:gpsLat],       
         :description=>p[:description]
       }
     }
