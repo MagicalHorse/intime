@@ -44,7 +44,7 @@ class SpecialTopicController < ApplicationController
     # render request
     prods_hash = []       
     prod.results.each {|p|
-      default_resource = p[:resource].sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
+      default_resource = select_defaultresource p[:resource]
       next if default_resource.nil?
       prods_hash << {
         :id=>p[:id],
@@ -53,7 +53,7 @@ class SpecialTopicController < ApplicationController
         :createddate =>p[:createdDate],
         :resources=>[{
           :domain=>PIC_DOMAIN,
-          :name=>default_resource[:name],
+          :name=>default_resource[:name].gsub('\\','/'),
           :width=>default_resource[:width],
           :height=>default_resource[:height]
         }]

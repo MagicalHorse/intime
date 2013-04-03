@@ -8,4 +8,7 @@ class ApplicationController < ActionController::Base
       :statusCode =>'500'
      }.to_json()
   end
+  def select_defaultresource(resource)
+    resource.select{|r| r[:type]==1}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
+  end
 end
