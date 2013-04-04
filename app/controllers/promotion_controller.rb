@@ -87,14 +87,22 @@ class PromotionController < ApplicationController
           elsif sort_by.to_i == 3
             sort {
               by :_script=>{
-                # encode the mvel expression
-                :script => "doc['store.location'].distanceInKm(lat, lon)",
-                :type=>"number",
-                 :params => {
-                  "lat"=>in_lat.to_f,
-                  "lon"=>in_lng.to_f
-                  },
-                :order=>"asc"
+            #    # encode the mvel expression
+            #    :script => "doc['store.location'].distanceInKm(lat, lon)",
+            #    :type=>"number",
+            #     :params => {
+            #      "lat"=>in_lat.to_f,
+            #      "lon"=>in_lng.to_f
+            #      },
+            #    :order=>"asc"
+            #  }
+              by :_geo_distance => {
+                'store.location'=>{
+                   :lat=>in_lat.to_f,
+                   :lon=>in_lng.to_f
+                },
+                'order'=>'asc',
+                'unit'=>'km'
               }
               by :createdDate,'desc'
             }
