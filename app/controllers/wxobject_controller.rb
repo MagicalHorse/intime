@@ -266,7 +266,7 @@ class WxobjectController < ApplicationController
     response.MsgType = "news"
     response.ArticleCount = products.results.length
     response.Articles = []
-    response.FuncFlag= 1
+    response.FuncFlag= 0
     
     first_image = true
     products.results.each {|p|
