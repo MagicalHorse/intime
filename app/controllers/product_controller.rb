@@ -132,7 +132,8 @@ class ProductController < ApplicationController
           :name=>default_resource[:name].gsub('\\','/'),
           :width=>default_resource[:width],
           :height=>default_resource[:height]
-        }]
+        }],
+        :promotionFlag =>(p[:promotion].nil?)||p[:promotion].length<1?false:true
       }
     }
     return render :json=>{:isSuccessful=>true,
