@@ -20,5 +20,12 @@
 <div>
 <label><%= @product[:description]%></label>
 </div>
+<div>
+	<dl>
+		<dt><%=@product[:store][:name]%></dt>
+		<dd><%=@product[:store][:address]%></dd>
+		<dd><%=@product[:store][:tel]%></dd>
+	</dl>
+</div>
 </div>
 

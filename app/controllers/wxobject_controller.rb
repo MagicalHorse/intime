@@ -273,8 +273,8 @@ class WxobjectController < ApplicationController
       resource = p['resource']
       return if resource.nil? || resource.length<1 || resource[0].name.length<1
       item = WxPicArticle.new
-      item.Title = "#{p['brand']['name']}:#{p['name']}".encode(:xml=>:text)
-      item.Description = p['brand']['name'].encode(:xml=>:text)
+      item.Title = "#{p['brand']['name']}:#{p['name']}"
+      item.Description = p['brand']['name']
       pic_name = resource[0].name.encode(:xml=>:text)
       if first_image == true
         item.PicUrl =  large_pic_url resource[0].domain, pic_name
