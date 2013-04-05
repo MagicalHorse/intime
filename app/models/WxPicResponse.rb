@@ -9,6 +9,16 @@ class WxPicResponse< WxBaseResponse
       h[:FuncFlag]= self.FuncFlag
       }
   end
+  def to_xml2
+    super {|doc|
+      doc.ArticleCount @ArticleCount
+      doc.Articles {
+        @Articles.each {|article|
+          article.to_xml2 doc
+         }
+      }
+    }
+  end
 end
 
 class WxPicArticle
@@ -21,5 +31,13 @@ class WxPicArticle
       i.PicUrl {builder.cdata! @PicUrl}
       i.Url {builder.cdata! @Url}
       }
+  end
+  def to_xml2(doc)
+    doc.item {
+      doc.Title {doc.cdata! @Title}
+      doc.Description {doc.cdata! @Description}
+      doc.PicUrl {doc.cdata! @PicUrl}
+      doc.Url {doc.cdata! @Url}
+    }
   end
 end

@@ -1,13 +1,4 @@
-require 'active_support/builder' unless defined?(Builder)
-class TestString
-  def to_xml(options)
-    builder = options[:builder]
-    return self if builder.nil?
-    key = options[:root]
-    builder.tag!(key,'test',options)
-    #builder.tag!(key,builder.cdata!(self),options)
-  end
-end
+require 'builder'
 class WxBaseResponse
   attr_accessor :ToUserName, :FromUserName,:CreateTime,:MsgType,:FuncFlag
   def to_xml
@@ -19,14 +10,17 @@ class WxBaseResponse
      yield hashresponse if block_given?
      hashresponse.to_xml :skip_instruct=>true,:skip_types=>true,:root=>'xml'
   end
-  def cdata_string(in_str)
-     hashresponse ={:ToUserName=>cdata_string(@ToUserName),
-     :FromUserName=>cdata_string(@FromUserName),
-     :CreateTime=>@CreateTime,
-     :MsgType=>cdata_string(@MsgType)
-     }
-     #yield hashresponse if block_given?
-     hashresponse.to_xml :skip_instruct=>true,:skip_types=>true,:root=>'xml'
-     
+  def to_xml2
+    doc = Builder::XmlMarkup.new(:target=>out_str="",:indent=>0,:skip_types=>true)
+    doc.xml {
+      doc.ToUserName {doc.cdata! @ToUserName}
+      doc.FromUserName {doc.cdata! @FromUserName}
+      doc.CreateTime @CreateTime
+      doc.MsgType {doc.cdata! @MsgType}
+      
+      yield doc if block_given?
+      doc.FuncFlag @FuncFlag
+    }
+    out_str
   end
 end

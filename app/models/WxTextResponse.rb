@@ -8,4 +8,9 @@ class WxTextResponse< WxBaseResponse
       h[:FuncFlag] = 0
       }
   end
+  def to_xml2
+    super {|doc|
+      doc.Content {doc.cdata! @Content}
+    }   
+  end
 end

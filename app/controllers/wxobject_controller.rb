@@ -23,7 +23,7 @@ class WxobjectController < ApplicationController
     response_action = find_action_by_xml input
     # trigger action
     response = response_action.call input
-    render :xml=>response.to_xml
+    render :xml=>response.to_xml2
   end
   private
   def find_action_by_xml(input)
