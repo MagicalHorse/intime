@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  name: MyString
+  name: wulin
   desc: MyString
 
 two:
-  name: MyString
+  name: wenhua
   desc: MyString

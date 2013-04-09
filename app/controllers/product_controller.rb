@@ -86,7 +86,7 @@ class ProductController < ApplicationController
           :width=>default_resource[:width],
           :height=>default_resource[:height]
         }],
-        :promotionFlag =>(p[:promotion].nil?)||p[:promotion].length<1?false:true
+        :promotionFlag =>promotion_is_expire(p)
       }
     }
     return render :json=>{:isSuccessful=>true,
@@ -133,7 +133,7 @@ class ProductController < ApplicationController
           :width=>default_resource[:width],
           :height=>default_resource[:height]
         }],
-        :promotionFlag =>(p[:promotion].nil?)||p[:promotion].length<1?false:true
+        :promotionFlag =>promotion_is_expire(p)
       }
     }
     return render :json=>{:isSuccessful=>true,
@@ -149,5 +149,10 @@ class ProductController < ApplicationController
       }
      }.to_json()
   end
-  
+ 
+private 
+  def promotion_is_expire(p)
+    (p[:promotion].nil?)||p[:promotion].length<1||(p[:promotion].sort{|x,y| y[:endDate].to_time<=>x[:endDate].to_time}[0][:endDate].to_time<Time.now)?false:true
+  end
+    
 end

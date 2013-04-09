@@ -1,8 +1,8 @@
 class Store < ActiveRecord::Base
   belongs_to :company
   belongs_to :region
-  has_many :product
-  has_many :promotion
+  has_many :products
+  has_many :promotions
   attr_accessible :address, :desc, :gpsalt, :gpslatit, :gpslngit, :latit, :lngit, :name, :status, :telephone
   
      include Tire::Model::Search

@@ -1,15 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-one:
-  no: MyString
-  level: MyString
-  point: 1
-  validatedate: 2013-03-16 10:44:26
-  utoken: MyString
-
-two:
-  no: MyString
-  level: MyString
-  point: 1
-  validatedate: 2013-03-16 10:44:26
-  utoken: MyString

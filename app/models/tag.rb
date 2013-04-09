@@ -1,7 +1,7 @@
 require 'tire'
 class Tag < ActiveRecord::Base
   attr_accessible :desc, :name, :sortorder, :status
-  has_many :product
+  has_many :products
   
   include Tire::Model::Search
   index_name ES_DEFAULT_INDEX

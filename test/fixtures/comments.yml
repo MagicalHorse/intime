@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  id: 1
+  status: 1
+  textmsg: MyString
+  reply_id: 0
+  source_id: 1
+  source_type: Product
+  user_id: 1
+
+two:
+  id: 2
+  status: 1
+  textmsg: MyString2
+  reply_id: 1
+  source_id: 1
+  source_type: Product
+  user_id: 1

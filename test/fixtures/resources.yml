@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  domain: http://localhost
+  name: audio.mp3
+  sortorder: 1
+  status: 1
+  width: 1
+  height: 1
+  length: 1
+  type: 10
+
+two:
+  domain: MyString
+  name: MyString
+  sortorder: 1
+  status: 1
+  width: 1
+  height: 1
+  length: 1
+  type: 1

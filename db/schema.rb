@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320075419) do
+ActiveRecord::Schema.define(:version => 20130408074219) do
+
+  create_table "banners", :force => true do |t|
+    t.integer  "status"
+    t.integer  "sortorder"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "brands", :force => true do |t|
     t.string   "name"
@@ -35,9 +42,30 @@ ActiveRecord::Schema.define(:version => 20130320075419) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "comments", :force => true do |t|
+    t.integer  "status"
+    t.string   "textmsg"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "user_id"
+    t.integer  "source_id"
+    t.string   "source_type"
+    t.integer  "reply_id"
+  end
+
   create_table "companies", :force => true do |t|
     t.string   "name"
     t.string   "desc"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "hotwords", :force => true do |t|
+    t.integer  "status"
+    t.integer  "type"
+    t.integer  "sortorder"
+    t.string   "word"
+    t.integer  "brandid"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -54,11 +82,19 @@ ActiveRecord::Schema.define(:version => 20130320075419) do
     t.integer  "user_id"
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
+    t.integer  "updateduser_id"
   end
 
   add_index "products", ["store_id"], :name => "index_products_on_store_id"
   add_index "products", ["tag_id"], :name => "index_products_on_tag_id"
   add_index "products", ["user_id"], :name => "index_products_on_user_id"
+
+  create_table "products_promotions", :force => true do |t|
+    t.integer  "promotion_id"
+    t.integer  "product_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "promotions", :force => true do |t|
     t.string   "name"
@@ -79,16 +115,32 @@ ActiveRecord::Schema.define(:version => 20130320075419) do
   add_index "promotions", ["store_id"], :name => "index_promotions_on_store_id"
   add_index "promotions", ["tag_id"], :name => "index_promotions_on_tag_id"
 
-  create_table "promotions_products", :force => true do |t|
-    t.integer  "promotion_id"
-    t.integer  "product_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "regions", :force => true do |t|
     t.string   "name"
     t.string   "desc"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "resources", :force => true do |t|
+    t.string   "domain"
+    t.string   "name"
+    t.integer  "sortorder"
+    t.integer  "status"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "length"
+    t.integer  "type"
+    t.integer  "source_id"
+    t.string   "source_type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "special_topics", :force => true do |t|
+    t.string   "name"
+    t.string   "desc"
+    t.integer  "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

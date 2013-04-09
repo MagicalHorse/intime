@@ -19,11 +19,11 @@ class Card < ActiveRecord::Base
         :passwd=>encry_pwd}.to_xml(:skip_instruct=>true,:root=>'vipCard')
       card_info_json = post_card_service URI(CARD_INFO_URL),request_body
       card_info_hash = JSON.parse(card_info_json)
-      logger.info card_info_hash
       return nil if !card_info_hash || card_info_hash["Ret"]!=1
       request_score_body = {:cardno=>encry_cardno}.to_xml(:skip_instruct=>true,:root=>'vipCard')
       card_score_json = post_card_service URI(CARD_POINT_URL), request_score_body
       card_score_hash = JSON.parse(card_score_json)
+
       return nil if !card_score_hash || card_score_hash["Success"]!=true
       return Card.new(:no=>encry_cardno,
         :point=>card_score_hash["Point"].to_i,

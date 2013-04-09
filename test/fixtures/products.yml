@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
+  id: 1
   name: MyString
   desc: MyString
   price: 9.99
@@ -9,9 +10,10 @@ one:
   store: 
   tag: 
   sortorder: 1
-  createuser: 
+  user_id: 1 
 
 two:
+  id: 2
   name: MyString
   desc: MyString
   price: 9.99
@@ -20,4 +22,4 @@ two:
   store: 
   tag: 
   sortorder: 1
-  createuser: 
+  user_id: 1
