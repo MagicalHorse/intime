@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  private: testprivate
+  publickey: testpublic
+  status: 1
+  desc: MyString
+
+two:
+  private: MyString
+  publickey: MyString
+  status: 1
+  desc: MyString

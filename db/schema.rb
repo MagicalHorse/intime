@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130408074219) do
+ActiveRecord::Schema.define(:version => 20130409065106) do
+
+  create_table "auth_keys", :force => true do |t|
+    t.string   "private"
+    t.string   "publickey"
+    t.integer  "status"
+    t.string   "desc"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "banners", :force => true do |t|
     t.integer  "status"

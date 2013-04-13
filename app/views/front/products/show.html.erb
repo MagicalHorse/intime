@@ -1,0 +1,34 @@
+<% content_for :title do 
+  @product[:name]
+ end %>
+ 
+<div id="picCarousel" class="carousel slide">
+	<ol class="carousel-indicators">
+	<% images_resource(@product).each_with_index do |r,index|  %>		
+      <li data-target="#picCarousel" data-slide-to="<%= index%>" class="<%= 'active' if index==0 %>"></li>
+     <% end %>
+    </ol>
+    <div class="carousel-inner">
+   	<% images_resource(@product).each_with_index do |r,index| %>
+	   	<div class="item <%= 'active' if index == 0 %>">
+	        <img src="<%= large_pic_url(r)%>" alt="">
+	        <% if index ==0 %>
+	        <div class="carousel-caption">
+	          <% audio_resource(@product).each do |r| %>
+				<audio controls>
+					<source src="<%= audio_url(r)%>" type="audio/mpeg" />
+				</audio>
+			  <% end %>
+	          <p><%= @product.description%></p>
+	        </div>
+	        <% end %>
+	      </div>
+	<% end %>
+	</div>
+    <% if images_resource(@product).length>1 %>
+	    <a class="left carousel-control" href="#picCarousel" data-slide="prev">‹</a>
+	    <a class="right carousel-control" href="#picCarousel" data-slide="next">›</a>
+    <% end %>
+</div>
+
+

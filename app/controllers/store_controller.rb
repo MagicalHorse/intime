@@ -1,4 +1,6 @@
 class StoreController < ApplicationController
+  include ISAuthenticate
+  before_filter :auth_api, :only=>[:index]
   def list
      #search the store
     prod = Store.search :per_page=>PAGE_ALL_SIZE do
@@ -14,8 +16,8 @@ class StoreController < ApplicationController
         :name=>p[:name],
         :location=>p[:address],
         :tel=>p[:tel],
-        :lng=>p[:gpsLng],
-        :lat=>p[:gpsLat],       
+        :lng=>p[:location][:lon],
+        :lat=>p[:location][:lat],       
         :description=>p[:description]
       }
     }

@@ -116,8 +116,8 @@ class PromotionController < ApplicationController
           :location=>p[:store][:address],
           :description=>p[:store][:description],
           :tel=>p[:store][:tel],
-          :lat=>p[:store][:gpsLat],
-          :lng=>p[:store][:gpsLng],
+          :lng=>p[:store][:location][:lon],
+          :lat=>p[:store][:location][:lat],  
           :gpsalt=>p[:store][:gpsAlt],
           :distance=>p[:sort][0]
         },

@@ -1,4 +1,4 @@
-/*
+d/*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
@@ -11,13 +11,3 @@
  *= require_self
  *= require_tree .
  */
-@media (max-width: 767px) {
-.main{
-   width: 757px;
-}
-}
-@media (max-width: 480px) {
-.main{
-   width: 310px;
-}
-}

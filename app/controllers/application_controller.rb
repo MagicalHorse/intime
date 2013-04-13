@@ -1,5 +1,5 @@
+require 'auth/authenticate_system'
 class ApplicationController < ActionController::Base
-
   PAGE_ALL_SIZE = 1000
  
   protected
