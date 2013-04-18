@@ -18,11 +18,11 @@ development:
 test:
   adapter: mysql2
   encoding: utf8
-  database: <%= ENV['RDS_DB_NAME'] %>
-  username: <%= ENV['RDS_USERNAME'] %>
-  password: <%= ENV['RDS_PASSWORD'] %>
-  host: <%= ENV['RDS_HOSTNAME'] %>
-  port: <%= ENV['RDS_PORT'] %>
+  collation: utf8_general_ci
+  database: intime_test
+  username: root
+  password: selinadu
+  socket: /tmp/mysql.sock
 
 
 production:

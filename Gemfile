@@ -44,3 +44,6 @@ gem "bootstrap-sass", ">= 2.3.0.0"
 
 # monitor
 gem 'newrelic_rpm'
+gem "eventmachine"
+gem 'aws-sdk'
+gem 'uuid'

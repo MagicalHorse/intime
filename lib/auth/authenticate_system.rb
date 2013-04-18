@@ -1,11 +1,13 @@
 require 'openssl'
 require 'base64'
+
 module ISAuthenticate
   protected
   def auth_api
     time_stamp = params[:timestamp]
     return if !validate_ts?(time_stamp)
   end
+  
   private
   def validate_ts?(ts)
     error_msg = nil
@@ -32,14 +34,14 @@ module ISAuthenticate
       end
     end
     if error_msg.nil?
-      true
+    true
     else
       logger.info error_msg
       render :json=>{:isSuccessful=>false,
       :message =>error_msg,
       :statusCode =>'500'}
-      false
+    false
     end
-    
+
   end
 end

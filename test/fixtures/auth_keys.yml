@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
+<% require 'uuid'%>
 one:
-  private: testprivate
-  publickey: testpublic
+  private: <%= UUID.new.generate%>
+  publickey: demoforintime
   status: 1
   desc: MyString
 

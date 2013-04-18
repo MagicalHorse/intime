@@ -1,6 +1,5 @@
 class StoreController < ApplicationController
-  include ISAuthenticate
-  before_filter :auth_api, :only=>[:index]
+
   def list
      #search the store
     prod = Store.search :per_page=>PAGE_ALL_SIZE do

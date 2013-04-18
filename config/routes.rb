@@ -1,7 +1,6 @@
 IntimeService::Application.routes.draw do
 
   match "hotword/list"=>"hotword#list"
-
   match "banner/list"=>"banner#list"
 
   match "store/list"=>"store#list"
@@ -27,6 +26,7 @@ IntimeService::Application.routes.draw do
   match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
   match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
   
+  match "ping/mock"=>"ping#mock"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
