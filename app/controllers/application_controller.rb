@@ -10,7 +10,9 @@ class ApplicationController < ActionController::Base
      }.to_json()
   end
   def select_defaultresource(resource)
-    resource.select{|r| r[:type]==1}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
+    default_resource = resource.select{|r| r[:isDefault]==true}
+    default_resource = resource.select{|r| r[:type]==1}.sort_by {|x| [x[:sortOrder],x[:id]]} if default_resource.nil?
+    default_resource.first
   end
   def select_defaultaudioresource(resource)
     resource.select{|r| r[:type]==2}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
