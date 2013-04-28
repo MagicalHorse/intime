@@ -1,0 +1,21 @@
+require 'tire'
+class StorePromotionES
+  include Tire::Model::Persistence
+  index_name ES_DEFAULT_INDEX
+  document_type 'esstorepromotions'
+  property :name
+  property :description
+  property :createDate
+  property :activeStartDate
+  property :activeEndDate
+  property :couponStartDate
+  property :couponEndDate
+  property :notice
+  property :minPoints
+  property :usageNotice
+  property :inScopeNotice
+  property :promotionType
+  property :acceptPointType
+  property :status
+  property :createUser
+end

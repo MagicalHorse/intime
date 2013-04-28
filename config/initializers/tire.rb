@@ -13,6 +13,6 @@ elsif Rails.env.stage?
   AUDIO_DOMAIN = 'http://122.226.53.114:7070/fileupload/audio/' 
 else
   ES_DEFAULT_INDEX = 'intime'
-  PIC_DOMAIN = 'http://122.226.53.114:7070/fileupload/img/'
-  AUDIO_DOMAIN = 'http://122.226.53.114:7070/fileupload/audio/' 
+  PIC_DOMAIN = 'http://itoo.yintai.com/fileupload/img/' 
+  AUDIO_DOMAIN = 'http://itoo.yintai.com/fileupload/audio/' 
 end

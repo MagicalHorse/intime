@@ -22,5 +22,7 @@ class RequestAction
   ACTION_PROD_LIST_FT = 'PROD_LIST_FT'
   # search product more
   ACTION_PROD_LIST_MR = 'PROD_LIST_MR'
+  # exchange card point
+  ACTION_EX_POINT = 'Exchange_Point'
   #
 end

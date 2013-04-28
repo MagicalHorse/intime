@@ -5,8 +5,8 @@ require 'json'
 class Card < ActiveRecord::Base
   attr_accessible :level, :no, :point, :utoken, :validatedate, :isbinded
   CARD_SERVICE_KEY ='intimeit'
-  CARD_INFO_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryinfo"
-  CARD_POINT_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryscore"
+
+  
   class<<self
     # call remote card service to retrieve the latest card information
     # there are two services avail for card: 
@@ -56,6 +56,14 @@ class Card < ActiveRecord::Base
       local_card.point = remote_card_hash['Point'].to_i
       local_card.save
       local_card
+    end
+    def point_exchange(cardno,amount)
+      request_body = {:cardno=>encryp_card_no(cardno),
+        :score=>amount}.to_xml(:skip_instruct=>true,:root=>'vipCard')
+      card_exchange_json = post_card_service URI(CARD_EXCHANGE_URL),request_body
+      card_exchange_hash = JSON.parse(card_exchange_json)
+      return !card_exchange_hash.nil? && card_exchange_hash["Success"]==true
+
     end
    private
     def get_card_score(encrp_no)

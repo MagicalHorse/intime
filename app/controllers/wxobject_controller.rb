@@ -33,7 +33,7 @@ class WxobjectController < ApplicationController
       input_text_array = input_text.split(' ')
       if input_text == 'Hello2BizUser'
         return method(:action_say_hello)
-      elsif [t(:commandjf),'jf'].include? input_text
+      elsif [t(:commandjf),'jd'].include? input_text
         return method(:action_point_bd)
       elsif [t(:commandbd),'bd'].include? input_text
         return method(:action_card_bd)
@@ -52,10 +52,36 @@ class WxobjectController < ApplicationController
       event_type = input[:Event]
       if event_type == 'subscribe'
         return method(:action_say_hello)
+      elsif event_type == 'click'
+        event_key = input[:EventKey]
+        if event_key == '100_EP'
+          return method(:action_click_ep)
+        end
       end
     else
       method(:action_not_recognize)
     end
+  end
+  def action_click_ep(input)
+    token = params[:xml][:FromUserName]
+    card_info = Card.where(:utoken=>token,:isbinded=>true).order('validatedate desc').first
+    if !card_info.nil? && card_info[:validatedate]<Time.now
+       card_info = Card.renew_card token
+    end
+    return build_response_text_temp {|msg|
+                  msg.Content = t(:notbindinghelp)
+             } if card_info.nil?
+    #persist user request
+    log_use_request {|request|
+      request.lastaction = RequestAction::ACTION_EX_POINT
+      }
+    ex_result = Card.point_exchange card_info.no,10
+    return build_response_text_temp do
+      msg.Content = t(:exchangepointfail)
+    end if !ex_result
+    return build_response_text_temp {|msg|
+      msg.Content = t(:exchangepointsuccess).sub('[amount]',10.to_s)
+     }
   end
   #action search products first time
   def action_list_product_ft(input)

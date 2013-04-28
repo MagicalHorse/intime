@@ -1,5 +1,25 @@
-IntimeService::Application.routes.draw do
+class VersionConstraint
+  def initialize(*version)
+    @version = version[0].to_i unless version.nil?
+    @version = 2*100+1*10+1 if @version.nil? || @version ==0
+  end
+ 
+  def matches?(request)
+    current_ver = request.query_parameters[:version]
+    return false if current_ver.nil?
+    current_ver_value = 0
+    current_ver.split('.'). each_with_index do |v,i|
+      break if i > 2
+      current_ver_value += v.to_i*(10 ** (2-i))
+    end
+    return @version <= current_ver_value
+  end
+end
 
+IntimeService::Application.routes.draw do
+  
+ 
+ 
   match "hotword/list"=>"hotword#list"
   match "banner/list"=>"banner#list"
 
