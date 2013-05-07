@@ -5,7 +5,7 @@ class VersionConstraint
   end
  
   def matches?(request)
-    current_ver = request.query_parameters[:version]
+    current_ver = request.query_parameters[:client_version]
     return false if current_ver.nil?
     current_ver_value = 0
     current_ver.split('.'). each_with_index do |v,i|
