@@ -38,7 +38,7 @@ class V22::PromotionController < PromotionController
       prod = Promotion.search :per_page=>pagesize, :page=>pageindex do
             query do
               match :status,1 
-              match :showInList,1
+             # match :showInList,1
             end
             filter :range,{
               'endDate'=>{
