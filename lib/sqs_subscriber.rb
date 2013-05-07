@@ -1,6 +1,6 @@
 require 'json'
 module ISAwsSqs
-  ROUTES_NAME = %w(comment product specialtopic)
+  ROUTES_NAME = %w(comment product specialtopic storecoupon)
   class Subscriber
     # msg is hash with the format of {:type,:data}
     def self.dispatch(message)
@@ -12,6 +12,10 @@ module ISAwsSqs
       case route_name
       when 'comment'
         CommentES.subscribe msg[:data]
+      when 'storecoupon'
+        StoreCoupon.sync_one msg[:data],1
+      when 'promotioncoupon'
+        StoreCoupon.sync_one msg[:data],2
        else
          return
        end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130409065106) do
+ActiveRecord::Schema.define(:version => 20130503105158) do
 
   create_table "auth_keys", :force => true do |t|
     t.string   "private"
@@ -152,6 +152,26 @@ ActiveRecord::Schema.define(:version => 20130409065106) do
     t.integer  "status"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "store_coupon_logs", :force => true do |t|
+    t.integer  "coupontype"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "store_coupons", :force => true do |t|
+    t.integer  "status"
+    t.string   "code"
+    t.decimal  "amount",         :precision => 10, :scale => 2
+    t.integer  "userid"
+    t.datetime "validstartdate"
+    t.datetime "validenddate"
+    t.string   "vipcard"
+    t.integer  "coupontype"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
   create_table "stores", :force => true do |t|

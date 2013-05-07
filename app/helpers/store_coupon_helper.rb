@@ -1,0 +1,2 @@
+module StoreCouponHelper
+end

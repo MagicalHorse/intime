@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  status: 1
+  code: MyString
+  amount: 
+  userid: 1
+  validstartdate: 2013-05-02 14:20:19
+  validenddate: 2013-05-02 14:20:19
+  vipcard: MyString
+
+two:
+  status: 1
+  code: MyString
+  amount: 
+  userid: 1
+  validstartdate: 2013-05-02 14:20:19
+  validenddate: 2013-05-02 14:20:19
+  vipcard: MyString
