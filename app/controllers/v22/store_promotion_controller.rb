@@ -56,7 +56,10 @@ class V22::StorePromotionController < ApplicationController
         :notice=>p.notice,
         :minpoints=>p.minPoints,
         :usagenotice=>p.usageNotice,
-        :inscopenotice=>p.inScopeNotice
+        :inscopenotice=>p.inScopeNotice,
+        :unitperpoints=>p.unitPerPoints,
+        :exchangerulemessage=>p.exchangerule_display,
+        :rule=>p.exchangeRule
       }
     }
     return render :json=>{:isSuccessful=>true,
@@ -101,7 +104,10 @@ class V22::StorePromotionController < ApplicationController
         :notice=>p.notice,
         :minpoints=>p.minPoints,
         :usagenotice=>p.usageNotice,
-        :inscopenotice=>p.inScopeNotice
+        :inscopenotice=>p.inScopeNotice,
+          :unitperpoints=>p.unitPerPoints,
+         :exchangerulemessage=>p.exchangerule_display,
+        :rule=>p.exchangeRule
       }
      }.to_json()
     

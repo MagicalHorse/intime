@@ -24,3 +24,4 @@ en:
  hasmoreresulttemp: "共[totalcount]条信息，已浏览[currentcount]条，回复m获取更多。"
  To: "至"
  commonerror: "您的请求无法正常被处理，请退回重新尝试！"
+ exchangeruletemplate: "[minpoints]起兑，每[unitperpoints]为单位，不同级别积点按不同的比例领取礼券。"

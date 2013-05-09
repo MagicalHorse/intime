@@ -70,6 +70,9 @@ class V22::PromotionController < PromotionController
                 'gte'=>Time.now
               }
             }
+            sort {             
+              by :createdDate,'desc'
+            }
           elsif sort_by.to_i == 3
             # nearest 
             filter :range,{

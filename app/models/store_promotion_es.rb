@@ -1,4 +1,5 @@
 require 'tire'
+require 'json'
 class StorePromotionES
   include Tire::Model::Persistence
   index_name ES_DEFAULT_INDEX
@@ -18,4 +19,10 @@ class StorePromotionES
   property :acceptPointType
   property :status
   property :createUser
+  property :exchangeRule
+  property :unitPerPoints
+  
+  def exchangerule_message
+    t(:exchangepointsuccess).sub('[minpoints]',self.minPoints.to_s).sub('[unitperpoints]',self.unitPerPoints)
+  end
 end

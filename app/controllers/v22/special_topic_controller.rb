@@ -57,8 +57,8 @@ class V22::SpecialTopicController < SpecialTopicController
           :width=>default_resource[:width],
           :height=>default_resource[:height]
         }],
-        :targetType=>p[:targetType],
-        :targetId=>p[:targetId]
+        :targetType=>p[:type],
+        :targetId=>p[:targetValue]
       }
     }
     return render :json=>{:isSuccessful=>true,
