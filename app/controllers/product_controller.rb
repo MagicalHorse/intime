@@ -38,8 +38,10 @@ class ProductController < ApplicationController
      
     tagid = params[:tagid]
     brandid = params[:brandid]
+    should_include_branddesc = brandid && brandid.to_i >0
     topicid = params[:topicid]
     promotionid = params[:promotionid]
+    storeid = params[:storeid]
     #search the products
     prod = Product.search :per_page=>pagesize, :page=>pageindex do
           query do
@@ -57,6 +59,9 @@ class ProductController < ApplicationController
               #find by promotion id
               match 'promotion.id',promotionid
               match 'promotion.status',1
+             elsif storeid && storeid.to_i >0
+               # find by store id
+               match 'store.id',storeid
             end
           end
           if is_refresh
@@ -76,7 +81,7 @@ class ProductController < ApplicationController
     prod.results.each {|p|
       default_resource = select_defaultresource p[:resource]
       next if default_resource.nil?
-      prods_hash << {
+      prod_hash = {
         :id=>p[:id],
         :name=>p[:name],
         :price=>p[:price],
@@ -88,6 +93,10 @@ class ProductController < ApplicationController
         }],
         :promotionFlag =>promotion_is_expire(p)
       }
+      if should_include_branddesc == true
+        prod_hash[:branddesc]=p[:brand][:description]
+      end
+      prods_hash << prod_hash
     }
     return render :json=>{:isSuccessful=>true,
       :message =>'success',

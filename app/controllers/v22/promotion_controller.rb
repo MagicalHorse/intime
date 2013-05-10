@@ -19,6 +19,7 @@ class V22::PromotionController < PromotionController
     in_lng ||=0
     in_lat = params[:lat]
     in_lat ||=0
+    storeid = params[:storeid]
     prod = []
     
     # if refreshts not provide but is_refresh, return empty
@@ -38,7 +39,10 @@ class V22::PromotionController < PromotionController
       prod = Promotion.search :per_page=>pagesize, :page=>pageindex do
             query do
               match :status,1 
-             # match :showInList,1
+              if storeid && storeid.to_i>0
+                match 'store.id',storeid
+              end
+              match :showInList,true
             end
             filter :range,{
               'endDate'=>{
