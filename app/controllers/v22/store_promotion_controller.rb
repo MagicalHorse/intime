@@ -58,7 +58,7 @@ class V22::StorePromotionController < ApplicationController
         :usagenotice=>p.usageNotice,
         :inscopenotice=>p.inScopeNotice,
         :unitperpoints=>p.unitPerPoints,
-        :exchangerulemessage=>p.exchangerule_display,
+        :exchangerulemessage=>p.exchangerule_message,
         :rule=>p.exchangeRule
       }
     }
@@ -106,7 +106,7 @@ class V22::StorePromotionController < ApplicationController
         :usagenotice=>p.usageNotice,
         :inscopenotice=>p.inScopeNotice,
           :unitperpoints=>p.unitPerPoints,
-         :exchangerulemessage=>p.exchangerule_display,
+         :exchangerulemessage=>p.exchangerule_message,
         :rule=>p.exchangeRule
       }
      }.to_json()

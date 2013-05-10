@@ -54,6 +54,7 @@ class StoreCouponController < ApiBaseController
       :data=>{}
      }
   end
+  
   private 
   def error_used_msg
     {:isSuccessful=>false,:message=>'coupon used!',:statusCode=>'500'}

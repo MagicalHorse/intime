@@ -23,6 +23,6 @@ class StorePromotionES
   property :unitPerPoints
   
   def exchangerule_message
-    t(:exchangepointsuccess).sub('[minpoints]',self.minPoints.to_s).sub('[unitperpoints]',self.unitPerPoints)
+    I18n.t(:exchangeruletemplate).sub('[minpoints]',self.minPoints.to_s).sub('[unitperpoints]',self.unitPerPoints.to_s)
   end
 end
