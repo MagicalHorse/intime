@@ -1,3 +1,4 @@
+require 'json'
 class V22::StorePromotionController < ApplicationController
   def list
     # if refreshts not provide but is_refresh, return empty
@@ -56,10 +57,10 @@ class V22::StorePromotionController < ApplicationController
         :notice=>p.notice,
         :minpoints=>p.minPoints,
         :usagenotice=>p.usageNotice,
-        :inscopenotice=>p.inScopeNotice,
+        :inscopenotice=>JSON.parse(p.inScopeNotice),
         :unitperpoints=>p.unitPerPoints,
         :exchangerulemessage=>p.exchangerule_message,
-        :rule=>p.exchangeRule
+        :rule=>JSON.parse(p.exchangeRule)
       }
     }
     return render :json=>{:isSuccessful=>true,
@@ -104,10 +105,10 @@ class V22::StorePromotionController < ApplicationController
         :notice=>p.notice,
         :minpoints=>p.minPoints,
         :usagenotice=>p.usageNotice,
-        :inscopenotice=>p.inScopeNotice,
+        :inscopenotice=>JSON.parse(p.inScopeNotice),
           :unitperpoints=>p.unitPerPoints,
          :exchangerulemessage=>p.exchangerule_message,
-        :rule=>p.exchangeRule
+        :rule=>JSON.parse(p.exchangeRule)
       }
      }.to_json()
     
