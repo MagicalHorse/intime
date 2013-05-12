@@ -1,5 +1,6 @@
 require 'cgi'
 class StoreCouponController < ApiBaseController
+  before_filter :auth_api2,:only=>[:consume]
   def consume
     check_message = []
   
@@ -7,9 +8,13 @@ class StoreCouponController < ApiBaseController
       outmsg<<'input request not contain data node!'
       return render :json=> error_500_msg(check_message.join)
     end 
-    @coupon_type = params[:data][:code].to_s.start_with?('9')?1:2
-    exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:code],@coupon_type)
+    @coupon_type = params[:data][:giftno].to_s.start_with?('9')?1:2
+    exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:giftno],@coupon_type)
     return render :json=>error_500_msg(check_message.join) if check_consume_params(exist_coupon,check_message)==false
+    if @coupon_type == 1
+      # check vipcard too
+      return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
+    end
     exist_coupon.status=10
     StoreCoupon.transaction do 
       exist_coupon.save
@@ -61,20 +66,23 @@ class StoreCouponController < ApiBaseController
   end
   def check_consume_params(exist_coupon,outmsg)
     if exist_coupon.nil?
-      outmsg<<'code not exist!'
+      outmsg<<t(:scc_codenotexist)
       return false
     end
     if exist_coupon.status!=1
-      outmsg<<'coupon has been used!'
+      outmsg<<t(:scc_codehasused)
       return false
     end
     if exist_coupon.validstartdate>Time.now || exist_coupon.validenddate<Time.now
-      outmsg<<'coupon expired or not started!'
+      outmsg<<t(:scc_codeexpiredornotstart)
       return false
     end
     if StoreCouponLog.find_by_code_and_coupontype(exist_coupon.code,@coupon_type)
-      outmsg<<'coupon has been used!'
+      outmsg<<t(:scc_codehasused)
       return false
     end
+  end
+  def error_card_notmatch
+    {:isSuccessful=>false,:message=>t(:scc_cardnotmatch),:statusCode=>'500'}
   end
 end
