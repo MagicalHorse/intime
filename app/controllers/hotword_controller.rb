@@ -31,7 +31,7 @@ class HotwordController < ApplicationController
         }
       elsif p[:type] ==3
         stores_arr << {
-          :id=>p[:brandid],
+          :id=>p[:brandId],
           :name=>p[:word]
         }
       end
