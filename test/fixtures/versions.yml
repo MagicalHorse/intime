@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  'no': 1
+  status: 1
+  desc: MyString
+  downloadurl: MyString
+
+two:
+  'no': 1
+  status: 1
+  desc: MyString
+  downloadurl: MyString

@@ -5,10 +5,28 @@ class ApplicationController < ActionController::Base
  
   protected
   def error_500
+    message = 'internal failed problem.' 
+    message =  yield if block_given?
     {:isSuccessful=>false,
-      :message =>'internal failed problem.',
+      :message =>message,
       :statusCode =>'500'
      }.to_json()
+  end
+   def succ_200
+    message = 'success.' 
+    message =  yield if block_given?
+    {:isSuccessful=>true,
+      :message =>message,
+      :statusCode =>'200'
+     }.to_json()
+  end
+  def succ_compose_200
+    hash_message = {:isSuccessful=>true,
+      :statusCode =>'200',
+      :message => 'success',
+     }
+    yield hash_message if block_given?
+    hash_message.to_json()
   end
   def select_defaultresource(resource)
     # default_resource = resource.select{|r| r[:isDefault]==true}
