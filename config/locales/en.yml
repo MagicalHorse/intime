@@ -29,4 +29,5 @@ en:
  scc_codehasused: "代金券已使用！"
  scc_codenotexist: "代金券不存在！"
  scc_codeexpiredornotstart: "代金券已过期或未开始！"
+ scc_amount_notmatch: "代金券金额不匹配！"
  vc_islatest: "目前版本已是最新."

@@ -14,6 +14,7 @@ class StoreCouponController < ApiBaseController
     if @coupon_type == 1
       # check vipcard too
       return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
+      return render :json=>error_500 {t(:scc_amount_notmatch)} if exist_coupon.amount<params[:data][:amount].to_f
     end
     exist_coupon.status=10
     StoreCoupon.transaction do 
