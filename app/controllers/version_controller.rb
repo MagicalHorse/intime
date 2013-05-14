@@ -12,7 +12,9 @@ class VersionController < ApplicationController
         :versionno=>latest_version.versionno,
         :desc=>latest_version.desc,
         :downloadurl=>latest_version.downloadurl,
-        :type=>latest_version.updatetype
+        :type=>latest_version.updatetype,
+        :startimage=> '',   
+        :startimage_iphone5 =>''
       }
     }
   end
