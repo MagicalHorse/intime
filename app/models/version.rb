@@ -1,5 +1,5 @@
 class Version < ActiveRecord::Base
-  attr_accessible :desc, :downloadurl, :no, :status,:versionno
+  attr_accessible :desc, :downloadurl, :no, :status,:versionno,:updatetype
   
   class << self
     def version_fromstring(version)
