@@ -39,7 +39,7 @@ IntimeService::Application.routes.draw do
 
   match "store/list"=>"store#list"
   match "store/all"=>"store#list"
-  match "store/index"=>"store#index"
+  match "store/detail"=>"store#detail"
   match "store/:id"=>"store#index"
 
   match "brand/list"=>"brand#list"

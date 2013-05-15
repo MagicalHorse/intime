@@ -19,7 +19,7 @@ class StoreCouponController < ApiBaseController
     exist_coupon.status=10
     StoreCoupon.transaction do 
       exist_coupon.save
-      StoreCouponLog.create(:coupontype=>@coupon_type,:code=>exist_coupon.code)
+      StoreCouponLog.create(:coupontype=>@coupon_type,:code=>exist_coupon.code,:storeno=>params[:data][:storeno],:receiptno=>params[:data][:receiptno])
     end
     render :json=>{:isSuccessful=>true,
       :message =>'success',

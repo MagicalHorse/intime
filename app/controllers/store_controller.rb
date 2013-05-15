@@ -28,7 +28,7 @@ class StoreController < ApplicationController
     
   end
   
-  def index
+  def detail
     #parse input
     store_id = params[:id]
     return render :json=> error_500 if store_id.nil?
