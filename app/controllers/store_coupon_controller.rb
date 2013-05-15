@@ -33,7 +33,7 @@ class StoreCouponController < ApiBaseController
   def logs
 
     return render :json=> error_500_msg('params data not set!') if params[:data].nil?
-    bendate = params[:data][:benchdate].to_time
+    bendate = params[:data][:benchdate].to_time.utc
     used_coupons = StoreCouponLog.where('created_at>=?',bendate)
     render :json=>{:isSuccessful=>true,
       :message =>'success',

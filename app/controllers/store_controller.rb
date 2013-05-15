@@ -41,6 +41,13 @@ class StoreController < ApplicationController
     end
     return render :json=> error_500 if prod.results.length<1
     store_finded = prod.results.first
+    default_resource = select_defaultresource store_finded[:resource] unless store_finded[:resource].nil?
+    response_resource = {
+            :domain=>PIC_DOMAIN,
+            :name=>default_resource[:name].gsub('\\','/'),
+            :width=>default_resource[:width],
+            :height=>default_resource[:height]
+            } unless default_resource.nil?
     return render :json=>{:isSuccessful=>true,
       :message =>'success',
       :statusCode =>'200',
@@ -56,7 +63,8 @@ class StoreController < ApplicationController
           :lat => store_finded[:lat],
           :gpslat => store_finded[:gpsLat],
           :gpsLng => store_finded[:gpsLng],
-          :gpsAlt => store_finded[:gpsAlt]        
+          :gpsAlt => store_finded[:gpsAlt],
+          :resources=>response_resource
       }
      }
   end
