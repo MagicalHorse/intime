@@ -10,11 +10,14 @@ class StoreCouponController < ApiBaseController
     end 
     @coupon_type = params[:data][:giftno].to_s.start_with?('9')?1:2
     exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:giftno],@coupon_type)
-    return render :json=>error_500_msg(check_message.join) if check_consume_params(exist_coupon,check_message)==false
+   
     if @coupon_type == 1
       # check vipcard too
+      return render :json=>error_500_msg(check_message.join) if check_consume_params(exist_coupon,check_message)==false
       return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
       return render :json=>error_500 {t(:scc_amount_notmatch)} if exist_coupon.amount<params[:data][:amount].to_f
+    elsif @coupon_type ==2
+      return render :json=>error_500_msg(check_message.join) if check_proconsume_params(exist_coupon,check_message)==false
     end
     exist_coupon.status=10
     StoreCoupon.transaction do 
@@ -80,6 +83,17 @@ class StoreCouponController < ApiBaseController
     end
     if StoreCouponLog.find_by_code_and_coupontype(exist_coupon.code,@coupon_type)
       outmsg<<t(:scc_codehasused)
+      return false
+    end
+  end
+  
+  def check_proconsume_params(exist_coupon,outmsg)
+    if exist_coupon.nil?
+      outmsg<<t(:scc_codenotexist)
+      return false
+    end
+    if exist_coupon.validstartdate>Time.now || exist_coupon.validenddate<Time.now
+      outmsg<<t(:scc_codeexpiredornotstart)
       return false
     end
   end

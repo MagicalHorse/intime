@@ -9,10 +9,10 @@ if Rails.env.production?
   AUDIO_DOMAIN = 'http://itoo.yintai.com/fileupload/audio/' 
 elsif Rails.env.stage?
   ES_DEFAULT_INDEX = 'intime'
-  PIC_DOMAIN = 'http://122.226.53.114:7070/fileupload/img/'
-  AUDIO_DOMAIN = 'http://122.226.53.114:7070/fileupload/audio/' 
+  PIC_DOMAIN = 'http://apis.youhuiin.com/fileupload/img/'
+  AUDIO_DOMAIN = 'http://apis.youhuiin.com/fileupload/audio/' 
 else
   ES_DEFAULT_INDEX = 'intime'
-  PIC_DOMAIN = 'http://itoo.yintai.com/fileupload/img/' 
-  AUDIO_DOMAIN = 'http://itoo.yintai.com/fileupload/audio/' 
+  PIC_DOMAIN = 'http://apis.youhuiin.com/fileupload/img/' 
+  AUDIO_DOMAIN = 'http://apis.youhuiin.com/fileupload/audio/' 
 end

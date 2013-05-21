@@ -39,6 +39,8 @@ class WxobjectController < ApplicationController
         return method(:action_card_bd)
       elsif [t(:commandmore),'m'].include? input_text
         return method(:action_list_more)
+      elsif 'yh'==input_text||input_text.include?(t(:commandpromotion))
+        return method(:action_list_promotion_ft)
       elsif [t(:commandhelp),'h','help'].include? input_text
         return method(:action_not_recognize)
       elsif /^\d+$/ =~ input_text_array[0]
@@ -228,9 +230,7 @@ class WxobjectController < ApplicationController
   def do_list_promotion(input,nextpage)
     longit = input['Location_X']
     lantit = input['Location_Y']
-    if longit.nil? || lantit.nil?
-        return build_response_nolocation
-    end
+       
     nextpage=1 if nextpage.nil?
     promotions = Promotion.search :per_page=>5,:page=>nextpage do 
             query do
@@ -242,7 +242,7 @@ class WxobjectController < ApplicationController
                     'lat' => lantit,
                     'lon' => longit
                     }
-                }
+              } unless longit.nil? || lantit.nil?
             filter :range,{
               'endDate' =>{
                 'gte'=>Time.now

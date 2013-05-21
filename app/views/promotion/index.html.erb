@@ -16,4 +16,9 @@
 <div>
 <label><%= @promotion[:description]%></label>
 </div>
+<% if show_public_code?(@promotion)%>
+<div>
+<span class="label label-important"><%= "#{t(:prov_publiccode)}#{@promotion[:publicCode]}"%></span>
+</div>
+<% end %>
 </div>
