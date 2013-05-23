@@ -18,6 +18,7 @@ en:
  commandjf: "积点"
  commandhelp: "帮助"
  commandpromotion: "优惠"
+ commandpromotion2: "促销"
  notbindinghelp: "您还没有绑定，请使用卡号密码查询后绑定。"
  bindingfail: "绑定失败，请使用卡号+空格+密码查询"
  bindingsuccess: "绑定成功，您以后可回复“积点”或“jd”，进行查询"

@@ -39,7 +39,7 @@ class WxobjectController < ApplicationController
         return method(:action_card_bd)
       elsif [t(:commandmore),'m'].include? input_text
         return method(:action_list_more)
-      elsif 'yh'==input_text||input_text.include?(t(:commandpromotion))
+      elsif 'yh'==input_text||input_text.include?(t(:commandpromotion))||input_text.include?(t(:commandpromotion2))
         return method(:action_list_promotion_ft)
       elsif [t(:commandhelp),'h','help'].include? input_text
         return method(:action_not_recognize)
