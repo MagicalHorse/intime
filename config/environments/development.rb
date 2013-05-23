@@ -34,6 +34,8 @@ IntimeService::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = false
+  
+  config.assets.digest = true
 end
 CARD_INFO_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryinfo"
 CARD_POINT_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryscore"
