@@ -2,16 +2,13 @@
   @promotion[:name]
  end %>
  <div class="well">
-<h4><%=@promotion[:store][:name]+' - '+ @promotion[:name]%></h4>
+<h4><%=@promotion[:name]%></h4>
 <div>
 <% @promotion.resource.each do |r| %>
 <a href="<%= large_pic_url(r)%>">
 	<img  src="<%= large_pic_url(r) %>" class="img-rounded">
 	</a>
 <% end %>
-</div>
-	<div>
-<label><%= @promotion[:startDate].to_time.to_s(:db)+t(:To)+@promotion[:endDate].to_time.to_s(:db)%></label>
 </div>
 <div>
 <label><%= @promotion[:description]%></label>
@@ -21,4 +18,14 @@
 <span class="label label-important"><%= "#{t(:prov_publiccode)}#{@promotion[:publicCode]}"%></span>
 </div>
 <% end %>
+	<div>
+<label><%= @promotion[:startDate].to_time.to_s(:db)+t(:To)+@promotion[:endDate].to_time.to_s(:db)%></label>
+</div>
+<div>
+	<dl>
+		<dt><%=@promotion[:store][:name]%></dt>
+		<dd><%=@promotion[:store][:address]%></dd>
+		<dd><%=@promotion[:store][:tel]%></dd>
+	</dl>
+</div>
 </div>

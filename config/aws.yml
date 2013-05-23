@@ -9,5 +9,5 @@ test:
   secret_access_key: 6eq8Nsde+/rgFNRNxQzxhNFjYH45CmSyLVWI5UNQ
 
 production:
-  access_key_id: AKIAIKVK4XSDVLFOPNBQ
-  secret_access_key: 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
+  access_key_id: AKIAJES7UWV2OYD6DV5A
+  secret_access_key: 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

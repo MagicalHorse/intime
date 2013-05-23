@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130514063206) do
+ActiveRecord::Schema.define(:version => 20130515042647) do
 
   create_table "auth_keys", :force => true do |t|
     t.string   "private"
@@ -159,6 +159,8 @@ ActiveRecord::Schema.define(:version => 20130514063206) do
     t.string   "code"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "storeno"
+    t.string   "receiptno"
   end
 
   create_table "store_coupons", :force => true do |t|
