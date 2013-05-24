@@ -8,6 +8,7 @@ require 'WxTextResponse'
 class WxobjectController < ApplicationController
   #wrap_parameters :format=>:xml
   WX_TOKEN = "xhyt"
+  
 
   def validate
     signature = params[:signature]
