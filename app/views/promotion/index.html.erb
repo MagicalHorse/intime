@@ -19,7 +19,7 @@
 </div>
 <% end %>
 	<div>
-<label><%= @promotion[:startDate].to_time.localtime.to_s(:db)+t(:To)+@promotion[:endDate].to_time.localtime.to_s(:db)%></label>
+<label><%= @promotion[:startDate].to_time.in_time_zone('Beijing').to_s(:db)+t(:To)+@promotion[:endDate].to_time.in_time_zone('Beijing').to_s(:db)%></label>
 </div>
 <div>
 	<dl>
