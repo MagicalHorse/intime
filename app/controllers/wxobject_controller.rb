@@ -248,6 +248,10 @@ class WxobjectController < ApplicationController
                 'gte'=>Time.now
               }
             }
+            sort {
+            by :isTop, 'desc'
+            by :createdDate, 'desc'
+          }
     end
     #return not found message if no match
     return build_response_nofound if promotions.total<=0 || promotions.total<=(nextpage-1)*5       
