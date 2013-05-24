@@ -232,7 +232,7 @@ class WxobjectController < ApplicationController
     lantit = input['Location_Y']
        
     nextpage=1 if nextpage.nil?
-    promotions = Promotion.search :per_page=>5,:page=>nextpage do 
+    promotions = Promotion.search :per_page=>10,:page=>nextpage do 
             query do
               match :status,1
             end
@@ -254,7 +254,7 @@ class WxobjectController < ApplicationController
           }
     end
     #return not found message if no match
-    return build_response_nofound if promotions.total<=0 || promotions.total<=(nextpage-1)*5       
+    return build_response_nofound if promotions.total<=0 || promotions.total<=(nextpage-1)*10    
     response = WxPicResponse.new
     set_common_response response
     response.MsgType = 'news'
