@@ -11,7 +11,7 @@
 <% end %>
 </div>
 <div>
-<label><%= @promotion[:description]%></label>
+<span><%= newline_to_br(@promotion[:description])%></span>
 </div>
 <% if show_public_code?(@promotion)%>
 <div>

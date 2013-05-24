@@ -11,4 +11,8 @@ module ApplicationHelper
     domain = AUDIO_DOMAIN
     return domain + r[:name].gsub('\\','/')+'.mp3'
   end
+  def newline_to_br(text)
+    return text if text.nil?
+    return simple_format(text)
+  end
 end
