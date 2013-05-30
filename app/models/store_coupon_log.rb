@@ -1,3 +1,3 @@
 class StoreCouponLog < ActiveRecord::Base
-  attr_accessible :code, :coupontype,:storeno,:receiptno
+  attr_accessible :code, :coupontype,:storeno,:receiptno,:status
 end

@@ -31,6 +31,7 @@ en:
  exchangeruletemplate: "[minpoints]起兑，每[unitperpoints]为单位，不同级别积点按不同的比例领取礼券。"
  scc_cardnotmatch: "会员卡不匹配！"
  scc_codehasused: "代金券已使用！"
+ scc_codenotused: "礼券还未使用！"
  scc_codenotexist: "代金券不存在！"
  scc_codeexpiredornotstart: "代金券已过期或未开始！"
  scc_amount_notmatch: "代金券金额不匹配！"

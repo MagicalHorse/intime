@@ -23,6 +23,7 @@ IntimeService::Application.routes.draw do
   match "storecoupon/consume"=>"storeCoupon#consume"
   match "storecoupon/logs"=>"storeCoupon#logs"
   match "storecoupon/void"=>"storeCoupon#void"
+   match "storecoupon/rebate"=>"storeCoupon#rebate"
 
   scope :module => "v22" do
     constraints VersionConstraint.new do

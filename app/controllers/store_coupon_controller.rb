@@ -1,6 +1,6 @@
 require 'cgi'
 class StoreCouponController < ApiBaseController
-  before_filter :auth_api2,:only=>[:consume]
+  before_filter :auth_api2,:only=>[:consume,:rebate]
   def consume
     check_message = []
   
@@ -22,7 +22,11 @@ class StoreCouponController < ApiBaseController
     exist_coupon.status=10
     StoreCoupon.transaction do 
       exist_coupon.save
-      StoreCouponLog.create(:coupontype=>@coupon_type,:code=>exist_coupon.code,:storeno=>params[:data][:storeno],:receiptno=>params[:data][:receiptno])
+      StoreCouponLog.create(:coupontype=>@coupon_type,
+      :code=>exist_coupon.code,
+      :storeno=>params[:data][:storeno],
+      :receiptno=>params[:data][:receiptno],
+      :status=>1)
     end
     render :json=>{:isSuccessful=>true,
       :message =>'success',
@@ -30,6 +34,35 @@ class StoreCouponController < ApiBaseController
       :data=>{ 
         :amount=>exist_coupon.amount     
       }
+     }
+  end
+  def rebate
+    check_message = []
+  
+    if params[:data].nil?
+      outmsg<<'input request not contain data node!'
+      return render :json=> error_500_msg(check_message.join)
+    end 
+    @coupon_type = params[:data][:giftno].to_s.start_with?('9')?1:2
+    exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:giftno],@coupon_type)
+   return render :json=>error_500_msg(check_message.join) if check_rebate_params(exist_coupon,check_message)==false
+    if @coupon_type == 1
+      # check vipcard too
+      return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
+    end
+    exist_coupon.status=1
+    StoreCoupon.transaction do 
+      exist_coupon.save
+      StoreCouponLog.create(:coupontype=>@coupon_type,
+      :code=>exist_coupon.code,
+      :storeno=>params[:data][:storeno],
+      :receiptno=>params[:data][:receiptno],
+       :status=>-1)
+    end
+    render :json=>{:isSuccessful=>true,
+      :message =>'success',
+      :statusCode =>'200',
+      
      }
   end
   
@@ -81,10 +114,7 @@ class StoreCouponController < ApiBaseController
       outmsg<<t(:scc_codeexpiredornotstart)
       return false
     end
-    if StoreCouponLog.find_by_code_and_coupontype(exist_coupon.code,@coupon_type)
-      outmsg<<t(:scc_codehasused)
-      return false
-    end
+
   end
   
   def check_proconsume_params(exist_coupon,outmsg)
@@ -99,5 +129,16 @@ class StoreCouponController < ApiBaseController
   end
   def error_card_notmatch
     {:isSuccessful=>false,:message=>t(:scc_cardnotmatch),:statusCode=>'500'}
+  end
+  def check_rebate_params(exist_coupon,outmsg)
+    if exist_coupon.nil?
+      outmsg<<t(:scc_codenotexist)
+      return false
+    end
+    if exist_coupon.status!=10
+      outmsg<<t(:scc_codenotused)
+      return false
+    end
+
   end
 end
