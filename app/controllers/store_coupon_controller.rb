@@ -1,6 +1,6 @@
 require 'cgi'
 class StoreCouponController < ApiBaseController
-  before_filter :auth_api2,:only=>[:consume,:rebate]
+  before_filter :auth_api2,:only=>[:consume]
   def consume
     check_message = []
   
@@ -8,63 +8,16 @@ class StoreCouponController < ApiBaseController
       outmsg<<'input request not contain data node!'
       return render :json=> error_500_msg(check_message.join)
     end 
-    @coupon_type = params[:data][:giftno].to_s.start_with?('9')?1:2
-    exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:giftno],@coupon_type)
-   
-    if @coupon_type == 1
-      # check vipcard too
-      return render :json=>error_500_msg(check_message.join) if check_consume_params(exist_coupon,check_message)==false
-      return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
-      return render :json=>error_500 {t(:scc_amount_notmatch)} unless exist_coupon.amount==params[:data][:amount].to_f
-    elsif @coupon_type ==2
-      return render :json=>error_500_msg(check_message.join) if check_proconsume_params(exist_coupon,check_message)==false
-    end
-    exist_coupon.status=10
-    StoreCoupon.transaction do 
-      exist_coupon.save
-      StoreCouponLog.create(:coupontype=>@coupon_type,
-      :code=>exist_coupon.code,
-      :storeno=>params[:data][:storeno],
-      :receiptno=>params[:data][:receiptno],
-      :status=>1)
-    end
-    render :json=>{:isSuccessful=>true,
-      :message =>'success',
-      :statusCode =>'200',
-      :data=>{ 
-        :amount=>exist_coupon.amount     
-      }
-     }
+    sale_type = params[:data][:saletype]
+    sale_type ||= '1'
+    return consume_internal if sale_type == '1'
+    return rebate_internal if sale_type == '2'
+    return render :json=>{:isSuccessful=>false,
+      :message =>'unrecognized sale type!',
+      :statusCode =>'500'
+    }
   end
-  def rebate
-    check_message = []
-  
-    if params[:data].nil?
-      outmsg<<'input request not contain data node!'
-      return render :json=> error_500_msg(check_message.join)
-    end 
-    @coupon_type = params[:data][:giftno].to_s.start_with?('9')?1:2
-    exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:giftno],@coupon_type)
-   return render :json=>error_500_msg(check_message.join) if check_rebate_params(exist_coupon,check_message)==false
-    if @coupon_type == 1
-      # check vipcard too
-      return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
-    end
-    exist_coupon.status=1
-    StoreCoupon.transaction do 
-      exist_coupon.save
-      StoreCouponLog.create(:coupontype=>@coupon_type,
-      :code=>exist_coupon.code,
-      :storeno=>params[:data][:storeno],
-      :receiptno=>params[:data][:receiptno],
-       :status=>-1)
-    end
-    render :json=>{:isSuccessful=>true,
-      :message =>'success',
-      :statusCode =>'200',
-      
-     }
-  end
+ 
   
   def logs
 
@@ -98,6 +51,61 @@ class StoreCouponController < ApiBaseController
   end
   
   private 
+   def consume_internal  
+     check_message = [] 
+    @coupon_type = params[:data][:giftno].to_s.start_with?('9')?1:2
+    exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:giftno],@coupon_type)
+   
+    if @coupon_type == 1
+      # check vipcard too
+      return render :json=>error_500_msg(check_message.join) if check_consume_params(exist_coupon,check_message)==false
+      return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
+      return render :json=>error_500 {t(:scc_amount_notmatch)} unless exist_coupon.amount==params[:data][:amount].to_f
+    elsif @coupon_type ==2
+      return render :json=>error_500_msg(check_message.join) if check_proconsume_params(exist_coupon,check_message)==false
+    end
+    exist_coupon.status=10
+    StoreCoupon.transaction do 
+      exist_coupon.save
+      StoreCouponLog.create(:coupontype=>@coupon_type,
+      :code=>exist_coupon.code,
+      :storeno=>params[:data][:storeno],
+      :receiptno=>params[:data][:receiptno],
+      :status=>1)
+    end
+    render :json=>{:isSuccessful=>true,
+      :message =>'success',
+      :statusCode =>'200',
+      :data=>{ 
+        :amount=>exist_coupon.amount     
+      }
+     }
+  end
+  
+  def rebate_internal
+    check_message = []
+    @coupon_type = params[:data][:giftno].to_s.start_with?('9')?1:2
+    exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:giftno],@coupon_type)
+   return render :json=>error_500_msg(check_message.join) if check_rebate_params(exist_coupon,check_message)==false
+    if @coupon_type == 1
+      # check vipcard too
+      return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
+    end
+    exist_coupon.status=1
+    StoreCoupon.transaction do 
+      exist_coupon.save
+      StoreCouponLog.create(:coupontype=>@coupon_type,
+      :code=>exist_coupon.code,
+      :storeno=>params[:data][:storeno],
+      :receiptno=>params[:data][:receiptno],
+       :status=>-1)
+    end
+    render :json=>{:isSuccessful=>true,
+      :message =>'success',
+      :statusCode =>'200',
+      
+     }
+  end
   def error_used_msg
     {:isSuccessful=>false,:message=>'coupon used!',:statusCode=>'500'}
   end

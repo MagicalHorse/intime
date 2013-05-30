@@ -1,6 +1,6 @@
 class ApiBaseController < ApplicationController
   include ISAuthenticate
-  before_filter :auth_api,:except=>[:mock,:consume,:rebate]
+  before_filter :auth_api,:except=>[:mock,:consume]
   
   protected
   def error_500_msg(msg)
