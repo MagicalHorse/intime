@@ -5,7 +5,8 @@ class StoreCoupon < ActiveRecord::Base
     def sync_one(msg,type)
       return if msg.nil?
       if !(msg[:lastupdate].nil?)
-        coupon_old = self.find_by_code(msg[:code]).first
+        coupon_old = self.find_by_code(msg[:code])
+        logger.info 'enter coupon old'
         logger.info msg[:lastupdate]
         if !(coupon_old.nil?) && coupon_old.updated_at>=msg[:lastupdate].to_time.utc
           return
