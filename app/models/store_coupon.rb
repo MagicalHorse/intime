@@ -8,7 +8,7 @@ class StoreCoupon < ActiveRecord::Base
         coupon_old = self.find_by_code(msg[:code])
         logger.info 'enter coupon old'
         logger.info msg[:lastupdate]
-        if !(coupon_old.nil?) && coupon_old.updated_at>=msg[:lastupdate].to_time.utc
+        if !(coupon_old.nil?) && coupon_old.updated_at>=msg[:lastupdate]
           return
         end
       end
