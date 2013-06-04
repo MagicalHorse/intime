@@ -19,6 +19,7 @@ end
 IntimeService::Application.routes.draw do
   
   match "version/latest"=>"version#latest"
+  match "version/insert"=>"version#insert"
 
   match "storecoupon/consume"=>"storeCoupon#consume"
   match "storecoupon/logs"=>"storeCoupon#logs"
