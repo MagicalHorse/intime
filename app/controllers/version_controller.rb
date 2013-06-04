@@ -1,4 +1,5 @@
-class VersionController < ApplicationController
+class VersionController < ApiBaseController
+  skip_before_filter :auth_api, :only =>[:latest]
   def latest
     version_in = params[:client_version]
     return render :json=> error_500 {'version param is empty!'} if version_in.nil?
@@ -21,6 +22,19 @@ class VersionController < ApplicationController
         :startimage_iphone5 =>''
       }
     }
+  end
+  def insert
+    version_in = params[:data]
+    return render :json=>error_500 {'data required!'} if version_in.nil?
+     new_version = Version.create(:no=>version_in[:no],
+      :versionno=>version_in[:versionno],
+      :status=>1,
+      :desc=>version_in[:desc],
+      :downloadurl=>version_in[:url],
+      :updatetype=>version_in[:updatetype])
+     return render :json=>succ_compose_200{|h|
+       h[:data]=new_version
+       }
   end
   
 end

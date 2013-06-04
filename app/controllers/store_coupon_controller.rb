@@ -35,7 +35,7 @@ class StoreCouponController < ApiBaseController
     return render :json=> error_500_msg('params data not set!') if params[:data].nil?
     coupon_code = params[:data][:code].to_s
     # coupon used or not
-    return render :json=> error_used_msg unless StoreCouponLog.find_by_code(coupon_code).nil?
+    #return render :json=> error_used_msg unless StoreCouponLog.find_by_code(coupon_code).nil?
     exist_coupon = StoreCoupon.find_by_code_and_coupontype(coupon_code,1)
     return render :json=> error_used_msg if (exist_coupon && [10,-1].include?(exist_coupon.status.to_i))
     

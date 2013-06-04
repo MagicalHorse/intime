@@ -324,7 +324,7 @@ class WxobjectController < ApplicationController
       item.Title = t(:hasmoreresulttemp).sub('[currentcount]',has_displayed.to_s).sub('[totalcount]',products.total.to_s)
       item.Description = item.Title
       item.PicUrl = ''
-      item.Url=''
+      item.Url=response.Articles[0].Url
       response.Articles<<item
       response.ArticleCount +=1
     end
