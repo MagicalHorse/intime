@@ -69,13 +69,13 @@ class WxobjectController < ApplicationController
       method(:action_not_recognize)
     end
   end
-  def action_msg_dh
+  def action_msg_dh(input)
     response = WxTextResponse.new
     set_common_response response
     response.Content = t :msg_dh
     response
   end
-  def action_msg_pg
+  def action_msg_pg(input)
     response = WxTextResponse.new
     set_common_response response
     response.Content = t :msg_pg
