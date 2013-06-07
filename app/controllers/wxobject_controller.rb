@@ -42,6 +42,10 @@ class WxobjectController < ApplicationController
         return method(:action_list_more)
       elsif 'yh'==input_text||input_text.include?(t(:commandpromotion))||input_text.include?(t(:commandpromotion2))
         return method(:action_list_promotion_ft)
+      elsif t(:commanddh)==input_text
+        return method(:action_msg_dh)
+      elsif t(:commandpg)== input_text
+        return method(:action_msg_pg)
       elsif [t(:commandhelp),'h','help'].include? input_text
         return method(:action_not_recognize)
       elsif /^\d+$/ =~ input_text_array[0]
@@ -64,6 +68,18 @@ class WxobjectController < ApplicationController
     else
       method(:action_not_recognize)
     end
+  end
+  def action_msg_dh
+    response = WxTextResponse.new
+    set_common_response response
+    response.Content = t :msg_dh
+    response
+  end
+  def action_msg_pg
+    response = WxTextResponse.new
+    set_common_response response
+    response.Content = t :msg_pg
+    response
   end
   def action_click_ep(input)
     token = params[:xml][:FromUserName]
