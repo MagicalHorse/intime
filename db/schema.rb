@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130530054421) do
+ActiveRecord::Schema.define(:version => 20130609040017) do
 
   create_table "auth_keys", :force => true do |t|
     t.string   "private"
@@ -50,6 +50,9 @@ ActiveRecord::Schema.define(:version => 20130530054421) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  add_index "cards", ["no", "utoken"], :name => "index_cards_on_no_and_utoken"
+  add_index "cards", ["utoken", "isbinded"], :name => "index_cards_on_utoken_and_isbinded"
 
   create_table "comments", :force => true do |t|
     t.integer  "status"
@@ -173,6 +176,8 @@ ActiveRecord::Schema.define(:version => 20130530054421) do
     t.integer  "status"
   end
 
+  add_index "store_coupon_logs", ["created_at"], :name => "index_store_coupon_logs_on_created_at"
+
   create_table "store_coupons", :force => true do |t|
     t.integer  "status"
     t.string   "code"
@@ -185,6 +190,8 @@ ActiveRecord::Schema.define(:version => 20130530054421) do
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
   end
+
+  add_index "store_coupons", ["code", "coupontype"], :name => "index_store_coupons_on_code_and_coupontype"
 
   create_table "stores", :force => true do |t|
     t.string   "name"
@@ -224,6 +231,8 @@ ActiveRecord::Schema.define(:version => 20130530054421) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "user_requests", ["utoken"], :name => "index_user_requests_on_utoken"
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "nickie"
@@ -247,5 +256,15 @@ ActiveRecord::Schema.define(:version => 20130530054421) do
     t.datetime "updated_at",  :null => false
     t.integer  "updatetype"
   end
+
+  create_table "wx_reply_msgs", :force => true do |t|
+    t.string   "rkey"
+    t.string   "rmsg"
+    t.integer  "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "wx_reply_msgs", ["rkey"], :name => "index_wx_reply_msgs_on_rkey"
 
 end

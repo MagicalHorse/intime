@@ -18,6 +18,8 @@ end
 
 IntimeService::Application.routes.draw do
   
+  match "wxmsg/update"=>"wxReply#update"
+
   match "version/latest"=>"version#latest"
   match "version/insert"=>"version#insert"
 

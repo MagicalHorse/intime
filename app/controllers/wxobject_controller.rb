@@ -32,6 +32,15 @@ class WxobjectController < ApplicationController
     when 'text' then
       input_text = input[:Content]
       input_text_array = input_text.split(' ')
+      exist_auto_reply = WxReplyMsg.find_by_rkey_and_status(input_text,1)
+      unless exist_auto_reply.nil?
+        return proc {|h|
+          response = WxTextResponse.new
+          set_common_response response
+          response.Content = exist_auto_reply.rmsg
+          response
+          } 
+      end
       if input_text == 'Hello2BizUser'
         return method(:action_say_hello)
       elsif [t(:commandjf),'jd'].include? input_text
@@ -247,9 +256,10 @@ class WxobjectController < ApplicationController
   def do_list_promotion(input,nextpage)
     longit = input['Location_X']
     lantit = input['Location_Y']
-       
+     
     nextpage=1 if nextpage.nil?
-    promotions = Promotion.search :per_page=>10,:page=>nextpage do 
+    pagesize=9
+    promotions = Promotion.search :per_page=>pagesize,:page=>nextpage do 
             query do
               match :status,1
             end
@@ -271,7 +281,7 @@ class WxobjectController < ApplicationController
           }
     end
     #return not found message if no match
-    return build_response_nofound if promotions.total<=0 || promotions.total<=(nextpage-1)*10    
+    return build_response_nofound if promotions.total<=0 || promotions.total<=(nextpage-1)*pagesize
     response = WxPicResponse.new
     set_common_response response
     response.MsgType = 'news'
@@ -294,6 +304,17 @@ class WxobjectController < ApplicationController
       item.Url = url_for :controller=>'promotion',:action=>'index',:id=>p[:id]
       response.Articles<<item
     }
+     #add more indicator
+    has_displayed = nextpage*pagesize
+    if promotions.total>has_displayed
+      item = WxPicArticle.new
+      item.Title = t(:hasmoreresulttemp).sub('[currentcount]',has_displayed.to_s).sub('[totalcount]',promotions.total.to_s)
+      item.Description = item.Title
+      item.PicUrl = ''
+      item.Url=response.Articles[0].Url
+      response.Articles<<item
+      response.ArticleCount +=1
+    end
      response
   end
   def do_list_product(keyword,nextpage)
