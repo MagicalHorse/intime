@@ -62,7 +62,8 @@ class StoreCouponController < ApiBaseController
       return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
       return render :json=>error_500 {t(:scc_amount_notmatch)} unless exist_coupon.amount==params[:data][:amount].to_f
     elsif @coupon_type ==2
-      return render :json=>error_500_msg(check_message.join) if check_proconsume_params(exist_coupon,check_message)==false
+      return render :json=>error_500 {t(:scc_codenotexist)}
+      #return render :json=>error_500_msg(check_message.join) if check_proconsume_params(exist_coupon,check_message)==false
     end
     exist_coupon.status=10
     StoreCoupon.transaction do 
