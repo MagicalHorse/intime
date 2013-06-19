@@ -53,17 +53,20 @@ class StoreCouponController < ApiBaseController
   private 
    def consume_internal  
      check_message = [] 
+    @coupon_flag = params[:data][:flag]
+    @coupon_flag ||='1'
     @coupon_type = params[:data][:giftno].to_s.start_with?('9')?1:2
     exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:giftno],@coupon_type)
    
-    if @coupon_type == 1
+    if @coupon_type == 1 && @coupon_flag== '1'
       # check vipcard too
       return render :json=>error_500_msg(check_message.join) if check_consume_params(exist_coupon,check_message)==false
       return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
       return render :json=>error_500 {t(:scc_amount_notmatch)} unless exist_coupon.amount==params[:data][:amount].to_f
-    elsif @coupon_type ==2
+    elsif @coupon_type ==2 && @coupon_flag == '2'
+      return render :json=>error_500_msg(check_message.join) if check_proconsume_params(exist_coupon,check_message)==false
+    else
       return render :json=>error_500 {t(:scc_codenotexist)}
-      #return render :json=>error_500_msg(check_message.join) if check_proconsume_params(exist_coupon,check_message)==false
     end
     exist_coupon.status=10
     StoreCoupon.transaction do 
@@ -85,12 +88,16 @@ class StoreCouponController < ApiBaseController
   
   def rebate_internal
     check_message = []
+    @coupon_flag = params[:data][:flag]
+    @coupon_flag ||='1'
     @coupon_type = params[:data][:giftno].to_s.start_with?('9')?1:2
     exist_coupon = StoreCoupon.find_by_code_and_coupontype(params[:data][:giftno],@coupon_type)
    return render :json=>error_500_msg(check_message.join) if check_rebate_params(exist_coupon,check_message)==false
-    if @coupon_type == 1
+    if @coupon_type == 1 && @coupon_flag == '1'
       # check vipcard too
       return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
+    else
+      return render :json=>error_500 {t(:scc_codenotexist)}
     end
     exist_coupon.status=1
     StoreCoupon.transaction do 
