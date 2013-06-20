@@ -135,11 +135,11 @@ class StoreCouponController < ApiBaseController
   
   def check_proconsume_params(exist_coupon,outmsg)
     if exist_coupon.nil?
-      outmsg<<t(:scc_codenotexist)
+      outmsg<<t(:scc_p_codenotexist)
       return false
     end
     if exist_coupon.validstartdate>Time.now || exist_coupon.validenddate<Time.now
-      outmsg<<t(:scc_codeexpiredornotstart)
+      outmsg<<t(:scc_p_codeexpiredornotstart)
       return false
     end
   end
