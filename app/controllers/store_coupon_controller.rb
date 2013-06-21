@@ -138,6 +138,10 @@ class StoreCouponController < ApiBaseController
       outmsg<<t(:scc_p_codenotexist)
       return false
     end
+    if exist_coupon.status!=1
+      outmsg<<t(:scc_p_codehasused)
+      return false
+    end
     if exist_coupon.validstartdate>Time.now || exist_coupon.validenddate<Time.now
       outmsg<<t(:scc_p_codeexpiredornotstart)
       return false
