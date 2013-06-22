@@ -10,7 +10,7 @@ module ISAwsSqs
         Thread.new {
           EM.run do
             #AMQP.channel ||= AMQP::Channel.new(AMQP.connect(:host=> Q_SERVER, :user=> Q_USER, :pass => Q_PASS, :vhost => Q_VHOST ))
-            sqs_setup
+            sqs_setup unless Rails.env.development?
           end
         }
         die_gracefully_on_signal
@@ -22,7 +22,7 @@ module ISAwsSqs
     Thread.new {
         EM.run do
           #AMQP.channel ||= AMQP::Channel.new(AMQP.connect(:host=> Q_SERVER, :user=> Q_USER, :pass => Q_PASS, :vhost => Q_VHOST ))
-         sqs_setup
+          sqs_setup unless Rails.env.development?
         end
       } unless defined?(Thin)
     # Thin is built on EventMachine, doesn't need this thread

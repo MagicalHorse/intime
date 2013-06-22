@@ -55,21 +55,6 @@ en:
  notbindinghelp: "您还没有绑定，请使用卡号密码查询后绑定。"
  bindingfail: "绑定失败，请使用卡号+空格+密码查询"
  bindingsuccess: "绑定成功，您以后可回复“积点”或“jd”，进行查询"
- keynotfound: "当前您可以：
-
-
-1、回复“卡号空格密码” 查询VIP积点
-
-
-2、回复“促销”实时了解商场促销资讯
-
-
-3、回复“兑换”实时了解积点兑换活动
-
-
-
- 亲，您还希望我们提供什么服务呢，谢谢
-"
  locationnotfound: "没有检测到位置信息，请发送当前位置给喜欢银泰，我们将会提供您附近的促销信息哦。"
  noproductsearchhistory: "请重新回复需要查找的内容，然后再回复m"
  hasmoreresulttemp: "共[totalcount]条信息，已浏览[currentcount]条，回复m获取更多。"

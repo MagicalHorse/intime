@@ -153,7 +153,7 @@ class WxobjectController < ApplicationController
   def action_point_nb(input)
     input_text_array = input[:Content].split(' ')
     return build_response_text_temp {|msg|
-        msg.Content = t(:wrongpwd)
+        msg.Content = WxReplyMsg.get_msg_by_key 'wrongpwd'
       } if input_text_array.length <2
     card_info = Card.find_by_nopwd input[:FromUserName],input_text_array[0],input_text_array[1]
     #persist user request
@@ -164,7 +164,7 @@ class WxobjectController < ApplicationController
             msg.Content = t(:successmsgnotbindtemplate).sub('[level]',card_info[:level]).sub('[point]',card_info['point'].to_s)
           } if !card_info.nil?
     return build_response_text_temp {|msg|
-            msg.Content = t(:wrongpwd)
+            msg.Content = WxReplyMsg.get_msg_by_key 'wrongpwd'
             }
   end
   # action request to bind card
@@ -207,14 +207,14 @@ class WxobjectController < ApplicationController
   def action_say_hello(input)
     response = WxTextResponse.new
     set_common_response response
-    response.Content = t :welcome
+    response.Content = WxReplyMsg.get_msg_by_key 'welcome'
     response
   end
   # the action just render the not recognize message
   def action_not_recognize(input)
     response = WxTextResponse.new
     set_common_response response
-    response.Content = t :commonhelp
+    response.Content = WxReplyMsg.get_msg_by_key 'help'
     response
   end
   # action render the promotions first time
@@ -236,7 +236,7 @@ class WxobjectController < ApplicationController
   end
   def build_response_nofound
       response = build_response_text_temp do |msg|
-        msg.Content = t :keynotfound
+        msg.Content = WxReplyMsg.get_msg_by_key 'help'
       end
       response     
   end
