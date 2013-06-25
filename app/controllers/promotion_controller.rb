@@ -17,7 +17,7 @@ class PromotionController < ApplicationController
       :enddate=>prod_model[:endDate],
       :likecount=>prod_model[:likeCount],
       :sharecount=>prod_model[:shareCount],
-      :couponcount=>prod_model[:couponCount],
+      :couponcount=>prod_model[:involvedCount],
       :favoritecount=>prod_model[:favoriteCount],
       :resources=>sort_resource(prod_model[:resource]),
       :isproductbinded=>prod_model[:isProdBindable],      
