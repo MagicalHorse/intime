@@ -57,8 +57,8 @@ IntimeService::Application.routes.draw do
   match "product/search" => "product#search"
   match "product/list" => "product#list"
   match "promotion/list" => "promotion#list"
-  match "product/:id" => "product#index"
-  match "promotion/:id" => "promotion#index"
+  match "product/:id" => "product#show"
+  match "promotion/:id" => "promotion#show"
 
   match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
   match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
@@ -109,8 +109,9 @@ IntimeService::Application.routes.draw do
    namespace :front do
        # Directs /admin/products/* to Admin::ProductsController
   #     # (app/controllers/admin/products_controller.rb)
-       resources :stores, :only=>[:show]
-       resources :products, :only=>[:show,:index]
+
+       resources :products, :only=>[:show]
+       resources :promotions, :only=>[:show]
      end
 
   # You can have the root of your site routed with "root"

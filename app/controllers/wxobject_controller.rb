@@ -301,7 +301,7 @@ class WxobjectController < ApplicationController
       else
         item.PicUrl =  small_pic_url resource[0].domain, resource[0].name
       end
-      item.Url = url_for :controller=>'promotion',:action=>'index',:id=>p[:id]
+      item.Url = front_promotion_url(p[:id])
       response.Articles<<item
     }
      #add more indicator
@@ -350,7 +350,7 @@ class WxobjectController < ApplicationController
       else
         item.PicUrl =  small_pic_url resource[0].domain, pic_name
       end
-      item.Url = url_for :controller=>'product',:action=>'index',:id=>p[:id]
+      item.Url = front_product_url(p[:id])
       response.Articles<<item
     }
     

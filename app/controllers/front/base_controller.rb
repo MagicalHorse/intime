@@ -1,3 +1,3 @@
 class Front::BaseController < ApplicationController
-  layout 'front'
+  layout 'application'
 end

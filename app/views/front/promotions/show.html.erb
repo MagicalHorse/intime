@@ -1,0 +1,31 @@
+<% content_for :title do 
+  @promotion[:name]
+ end %>
+ <div class="well">
+<h4><%=@promotion[:name]%></h4>
+<div>
+<% @promotion.resource.each do |r| %>
+<a href="<%= large_pic_url(r)%>">
+	<img  src="<%= large_pic_url(r) %>" class="img-rounded">
+	</a>
+<% end %>
+</div>
+<div>
+<span><%= newline_to_br(@promotion[:description])%></span>
+</div>
+<% if show_public_code?(@promotion)%>
+<div>
+<span class="label label-inverse"><%= "#{t(:prov_publiccode)}#{@promotion[:publicCode]}"%></span>
+</div>
+<% end %>
+	<div>
+<label><%= @promotion[:startDate].to_time.in_time_zone('Beijing').strftime("%Y-%m-%d %H:%M:%S")+t(:To)+@promotion[:endDate].to_time.in_time_zone('Beijing').strftime("%Y-%m-%d %H:%M:%S")%></label>
+</div>
+<div>
+	<dl>
+		<dt><%=@promotion[:store][:name]%></dt>
+		<dd><%=@promotion[:store][:address]%></dd>
+		<dd><%=@promotion[:store][:tel]%></dd>
+	</dl>
+</div>
+</div>

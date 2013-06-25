@@ -1,13 +1,30 @@
 class PromotionController < ApplicationController
-  def index
+  def show
     pid = params[:id]
-    pro = Promotion.search :per_page=>1,:page=>1 do 
+    prom = Promotion.search :per_page=>1,:page=>1 do 
             query do
               match :id,pid
             end
           end
-    @promotion = pro.results[0]
-    return render :text => t(:commonerror), :status => 404 if @promotion.nil?
+    render error_500 if prom.total<=0
+    prod_model = prom.results[0]
+    recommend_user = User.esfind_by_id prod_model[:recommendUserId]
+    render :json=>{
+      :id=>prod_model[:id],
+      :name=>prod_model[:name],
+      :description=>prod_model[:description],
+      :startdate=>prod_model[:startDate],
+      :enddate=>prod_model[:endDate],
+      :likecount=>prod_model[:likeCount],
+      :sharecount=>prod_model[:shareCount],
+      :couponcount=>prod_model[:couponCount],
+      :favoritecount=>prod_model[:favoriteCount],
+      :resources=>sort_resource(prod_model[:resource]),
+      :isproductbinded=>prod_model[:isProdBindable],      
+      :tag=>prod_model[:tag],
+      :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
+      :promotions=>find_valid_promotions(prod_model[:promotion])
+    }
   end
   
   # list api always return json

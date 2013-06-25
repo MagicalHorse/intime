@@ -97,7 +97,9 @@ class StoreCouponController < ApiBaseController
       # check vipcard too
       return render :json=>error_card_notmatch unless exist_coupon.vipcard.to_s.chomp==params[:data][:vipno].to_s.chomp
     else
-      return render :json=>error_500 {t(:scc_codenotexist)}
+      error_msg = t(:scc_codenotexist)
+      error_msg = t(:scc_p_codenotexist) if @coupon_flag=='2'
+      return render :json=>error_500 {error_msg}
     end
     exist_coupon.status=1
     StoreCoupon.transaction do 
@@ -138,7 +140,7 @@ class StoreCouponController < ApiBaseController
       outmsg<<t(:scc_p_codenotexist)
       return false
     end
-    if exist_coupon.status!=1
+    if exist_coupon.islimitonce==true && exist_coupon.status!=1
       outmsg<<t(:scc_p_codehasused)
       return false
     end

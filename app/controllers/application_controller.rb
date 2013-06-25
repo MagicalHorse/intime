@@ -36,6 +36,19 @@ class ApplicationController < ActionController::Base
   def select_defaultaudioresource(resource)
     resource.select{|r| r[:type]==2}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
   end
+  def sort_resource(resource)
+    ensure_resource(resource).select{|r| r[:status]!=-1}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}
+  end
+  def ensure_resource(resource)
+    resource.map{|r|
+      new_domain = PIC_DOMAIN
+      new_domain = AUDIO_DOMAIN if r[:type]==2          
+      r.to_hash.merge!(:domain=>new_domain)
+    }
+  end
+  def find_valid_promotions(promotions)
+    promotions.select{|p| p[:status]==1 && p[:endDate]>Time.now}.sort{|x,y| y[:createdDate]<=>x[:createdDate]}
+  end
   def parse_params
     #parse input params
     @pageindex = params[:page]

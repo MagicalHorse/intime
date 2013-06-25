@@ -1,5 +1,5 @@
 class StoreCoupon < ActiveRecord::Base
-  attr_accessible :amount, :code, :status, :userid, :validenddate, :validstartdate, :vipcard,:coupontype
+  attr_accessible :amount, :code, :status, :userid, :validenddate, :validstartdate, :vipcard,:coupontype,:islimitonce
   
   class<<self
     def sync_one(msg,type)
@@ -10,7 +10,8 @@ class StoreCoupon < ActiveRecord::Base
               ,:validstartdate=>msg[:validstartdate] \
               ,:validenddate=>msg[:validenddate] \
               ,:vipcard=>msg[:vipcard] \
-              ,:coupontype=>type)
+              ,:coupontype=>type  \
+              ,:islimitonce=>msg[:islimitonce])
       
     end
   end

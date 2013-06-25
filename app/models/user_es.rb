@@ -12,6 +12,5 @@ class UserES
   property :name
   property :nickie
   property :pwd
-  property :status
 
 end
