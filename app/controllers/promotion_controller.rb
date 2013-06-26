@@ -8,7 +8,6 @@ class PromotionController < ApplicationController
           end
     render error_500 if prom.total<=0
     prod_model = prom.results[0]
-    recommend_user = User.esfind_by_id prod_model[:recommendUserId]
     render :json=>{
       :id=>prod_model[:id],
       :name=>prod_model[:name],
@@ -23,7 +22,7 @@ class PromotionController < ApplicationController
       :isproductbinded=>prod_model[:isProdBindable],      
       :tag=>prod_model[:tag],
       :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
-      :promotions=>find_valid_promotions(prod_model[:promotion])
+      
     }
   end
   
