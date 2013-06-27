@@ -24,7 +24,12 @@ class ProductController < ApplicationController
         :unitprice=>prod_model[:unitPrice],
         :recommendedreason=>prod_model[:recommendedReason],
         :recommenduser_id=>prod_model[:recommendUserId],
-        :recommenduser=>recommend_user,
+        :recommenduser=>{
+          :id=>recommend_user[:id],
+          :nickname=>recommend_user[:nickie],
+          :level=>recommend_user[:level],
+          :logo=>recommend_user[:thumnail]
+          },
         :favoritecount=>prod_model[:favoriteCount],
         :sharecount=>prod_model[:shareCount],
         :couponcount=>prod_model[:involvedCount],

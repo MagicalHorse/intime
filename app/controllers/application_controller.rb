@@ -37,9 +37,9 @@ class ApplicationController < ActionController::Base
     resource.select{|r| r[:type]==2}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
   end
   def sort_resource(resource)
-    ensure_resource(resource).select{|r| r[:status]!=-1}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}
+    ensure_resources(resource).select{|r| r[:status]!=-1}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}
   end
-  def ensure_resource(resource)
+  def ensure_resources(resource)
     resource.map{|r|
       new_domain = PIC_DOMAIN
       new_domain = AUDIO_DOMAIN if r[:type]==2          
