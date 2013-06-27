@@ -9,6 +9,8 @@ class ProductController < ApplicationController
     return render :json=>error_500 if prod.total<=0
     prod_model = prod.results[0]
     recommend_user = User.esfind_by_id prod_model[:createUserId]
+    valid_promotions = find_valid_promotions(prod_model[:promotion])
+    section_phone = prod_model[:section][:contactPhone] unless prod_model[:section].nil?
     return render :json=>{
       :isSuccessful=>true,
       :message =>'success',
@@ -29,7 +31,9 @@ class ProductController < ApplicationController
         :resources=>sort_resource(prod_model[:resource]),
         :tag=>prod_model[:tag],
         :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
-        :promotions=>find_valid_promotions(prod_model[:promotion])
+        :promotions=>valid_promotions,
+        :is4sale=>prod_model[:is4Sale],
+        :contactphone=>section_phone
        }
     }
   end
