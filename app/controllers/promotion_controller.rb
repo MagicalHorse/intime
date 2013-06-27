@@ -6,9 +6,9 @@ class PromotionController < ApplicationController
               match :id,pid
             end
           end
-    render error_500 if prom.total<=0
+    return render :json=> error_500 if prom.total<=0
     prod_model = prom.results[0]
-    render :json=>{
+    return render :json=>{
       :isSuccessful=>true,
       :message =>'success',
       :statusCode =>'200',

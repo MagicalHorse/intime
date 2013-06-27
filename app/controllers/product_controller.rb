@@ -6,10 +6,10 @@ class ProductController < ApplicationController
               match :id,pid
             end
           end
-    render error_500 if prod.total<=0
+    return render :json=>error_500 if prod.total<=0
     prod_model = prod.results[0]
     recommend_user = User.esfind_by_id prod_model[:createUserId]
-    render :json=>{
+    return render :json=>{
       :isSuccessful=>true,
       :message =>'success',
       :statusCode =>'200',
