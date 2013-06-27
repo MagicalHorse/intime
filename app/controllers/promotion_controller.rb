@@ -9,20 +9,24 @@ class PromotionController < ApplicationController
     render error_500 if prom.total<=0
     prod_model = prom.results[0]
     render :json=>{
-      :id=>prod_model[:id],
-      :name=>prod_model[:name],
-      :description=>prod_model[:description],
-      :startdate=>prod_model[:startDate],
-      :enddate=>prod_model[:endDate],
-      :likecount=>prod_model[:likeCount],
-      :sharecount=>prod_model[:shareCount],
-      :couponcount=>prod_model[:involvedCount],
-      :favoritecount=>prod_model[:favoriteCount],
-      :resources=>sort_resource(prod_model[:resource]),
-      :isproductbinded=>prod_model[:isProdBindable],      
-      :tag=>prod_model[:tag],
-      :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
-      
+      :isSuccessful=>true,
+      :message =>'success',
+      :statusCode =>'200',
+      :data=>{
+        :id=>prod_model[:id],
+        :name=>prod_model[:name],
+        :description=>prod_model[:description],
+        :startdate=>prod_model[:startDate],
+        :enddate=>prod_model[:endDate],
+        :likecount=>prod_model[:likeCount],
+        :sharecount=>prod_model[:shareCount],
+        :couponcount=>prod_model[:involvedCount],
+        :favoritecount=>prod_model[:favoriteCount],
+        :resources=>sort_resource(prod_model[:resource]),
+        :isproductbinded=>prod_model[:isProdBindable],      
+        :tag=>prod_model[:tag],
+        :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0])
+      }
     }
   end
   

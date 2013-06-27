@@ -10,22 +10,27 @@ class ProductController < ApplicationController
     prod_model = prod.results[0]
     recommend_user = User.esfind_by_id prod_model[:createUserId]
     render :json=>{
-      :id=>prod_model[:id],
-      :name=>prod_model[:name],
-      :brand=>prod_model[:brand],
-      :description=>prod_model[:description],
-      :price=>prod_model[:price],
-      :unitprice=>prod_model[:unitPrice],
-      :recommendedreason=>prod_model[:recommendedReason],
-      :recommenduser_id=>prod_model[:recommendUserId],
-      :recommenduser=>recommend_user,
-      :favoritecount=>prod_model[:favoriteCount],
-      :sharecount=>prod_model[:shareCount],
-      :couponcount=>prod_model[:involvedCount],
-      :resources=>sort_resource(prod_model[:resource]),
-      :tag=>prod_model[:tag],
-      :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
-      :promotions=>find_valid_promotions(prod_model[:promotion])
+      :isSuccessful=>true,
+      :message =>'success',
+      :statusCode =>'200',
+      :data=>{
+        :id=>prod_model[:id],
+        :name=>prod_model[:name],
+        :brand=>prod_model[:brand],
+        :description=>prod_model[:description],
+        :price=>prod_model[:price],
+        :unitprice=>prod_model[:unitPrice],
+        :recommendedreason=>prod_model[:recommendedReason],
+        :recommenduser_id=>prod_model[:recommendUserId],
+        :recommenduser=>recommend_user,
+        :favoritecount=>prod_model[:favoriteCount],
+        :sharecount=>prod_model[:shareCount],
+        :couponcount=>prod_model[:involvedCount],
+        :resources=>sort_resource(prod_model[:resource]),
+        :tag=>prod_model[:tag],
+        :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
+        :promotions=>find_valid_promotions(prod_model[:promotion])
+       }
     }
   end
   # list api always return json
