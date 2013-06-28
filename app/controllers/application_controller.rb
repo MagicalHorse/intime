@@ -47,7 +47,7 @@ class ApplicationController < ActionController::Base
     }
   end
   def find_valid_promotions(promotions)
-    promotions.select{|p| p[:status]==1 && p[:endDate]>Time.now}.sort{|x,y| y[:createdDate]<=>x[:createdDate]}
+    promotions.select{|p| p[:status]==1 && p[:endDate].to_time>Time.now}.sort{|x,y| y[:createdDate]<=>x[:createdDate]}
   end
   def parse_params
     #parse input params

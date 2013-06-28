@@ -28,7 +28,7 @@ class ProductController < ApplicationController
           :id=>recommend_user[:id],
           :nickname=>recommend_user[:nickie],
           :level=>recommend_user[:level],
-          :logo=>recommend_user[:thumnail]
+          :logo=>Resource.absolute_url(recommend_user[:thumnail])
           },
         :favoritecount=>prod_model[:favoriteCount],
         :sharecount=>prod_model[:shareCount],
