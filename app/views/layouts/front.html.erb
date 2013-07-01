@@ -2,12 +2,39 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width" />
-    <title><%= content_for?(:title) ? yield(:title) : "Myapp" %></title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title><%= content_for?(:title) ? yield(:title) : t(:common_title) %></title>
     <%= stylesheet_link_tag "application", :media => "all" %>  
+     <link href="http://cdn.kendostatic.com/2013.1.514/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="http://cdn.kendostatic.com/2013.1.514/styles/kendo.bootstrap.min.css" rel="stylesheet" />
     <%= javascript_include_tag "application" %>
+    <script src="http://cdn.kendostatic.com/2013.1.514/js/kendo.all.min.js"></script>
   </head>
   <body>
+  	<div class="navbar navbar-static-top navbar-inverse">
+	    <div class="navbar-inner">
+	      <div class="container">
+	        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	        </a>
+	        <a class="brand"><img class="logo" src="http://images.rottentomatoescdn.com/images/trademark/flixster-logo.png" /> Search</a>
+	        <div class="nav-collapse">
+	          <ul class="nav">
+	            <li>
+	              <a href="#">Home</a>
+	            </li>
+	            <li>
+	              <a href="http://www.rottentomatoes.com">Rotten Tomatoes</a>
+	            </li>
+	          </ul>
+	        </div>
+	      </div>
+	    </div>
+  	</div>
   	<%= render "share/bread_crumb"%>
   	<div class="container">
            <div class="row">

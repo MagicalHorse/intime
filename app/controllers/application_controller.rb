@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   end
   def select_defaultresource(resource)
     # default_resource = resource.select{|r| r[:isDefault]==true}
-    default_resource = resource.select{|r| r[:type]==1}.sort_by {|x| [x[:sortOrder].to_i]}
+    default_resource = resource.select{|r| r[:type]==1}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}
     default_resource.first
   end
   def select_defaultaudioresource(resource)
