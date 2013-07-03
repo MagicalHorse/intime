@@ -1,5 +1,6 @@
 class Front::SessionsController < Front::BaseController
   def create
-    self.current_user =request.env['omniauth.auth']
+    @current_user =request.env['omniauth.auth']
+    logger.info @current_user
   end
 end
