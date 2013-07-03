@@ -36,6 +36,9 @@ IntimeService::Application.routes.draw do
      match "banner/list"=>"banner#list"
     end
   end
+  scope :module=>'front' do
+    get '/auth/:provider/callback', to: 'sessions#create'
+  end
  
   match "hotword/list"=>"hotword#list"
   match "banner/list"=>"banner#list"

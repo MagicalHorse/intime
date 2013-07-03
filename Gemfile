@@ -48,3 +48,6 @@ gem "eventmachine"
 gem 'aws-sdk'
 gem 'uuid'
 gem 'geocoder'
+gem 'omniauth', '~> 1.0'
+gem 'omniauth-weibo-oauth2'
+gem 'omniauth-qq'
