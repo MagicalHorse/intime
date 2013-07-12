@@ -36,7 +36,7 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-gem 'rb-readline'
+gem 'rb-readline', '~>0.4.2'
 gem 'mysql2'
 
 gem 'tire'
@@ -51,3 +51,4 @@ gem 'geocoder'
 gem 'omniauth', '~> 1.0'
 gem 'omniauth-weibo-oauth2'
 gem 'omniauth-qq'
+gem 'rest-client'

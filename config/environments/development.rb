@@ -40,3 +40,4 @@ end
 CARD_INFO_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryinfo"
 CARD_POINT_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryscore"
 CARD_EXCHANGE_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/exchange"
+

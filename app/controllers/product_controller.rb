@@ -38,7 +38,8 @@ class ProductController < ApplicationController
         :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
         :promotions=>valid_promotions,
         :is4sale=>prod_model[:is4Sale],
-        :contactphone=>section_phone
+        :contactphone=>section_phone,
+        :upccode=>prod_model[:upcCode]
        }
     }
   end
