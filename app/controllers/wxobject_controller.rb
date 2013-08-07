@@ -60,7 +60,8 @@ class WxobjectController < ApplicationController
       elsif /^\d+$/ =~ input_text_array[0]
         return method(:action_point_nb)
       else
-         return method(:action_list_product_ft)
+         #return method(:action_list_product_ft)
+         return method(:action_not_recognize)
       end
     when 'location' then
       return method(:action_list_promotion_ft)

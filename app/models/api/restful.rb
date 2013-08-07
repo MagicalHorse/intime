@@ -9,7 +9,7 @@ module API::Restful
       token = req.session[:user_token]
       value_signing = "#{API_KEY}client_version#{CLIENT_VERSION}uid#{sessionid}#{API_KEY}"
       sign_value = Digest::MD5.hexdigest(value_signing)
-      params.merge!({:sign=>sign_value,:client_version=>CLIENT_VERSION,:uid=>sessionid,:token=>token})
+      params.merge!({:sign=>sign_value,:client_version=>CLIENT_VERSION,:channel=>'html5',:uid=>sessionid,:token=>token})
       Rails.logger.info "#{API_HOST}"
       RestClient.post("#{API_HOST}/#{resource_name}", params, :accept=>:json){|response,request,result,&block|
         case response.code
