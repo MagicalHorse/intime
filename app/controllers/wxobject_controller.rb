@@ -27,6 +27,7 @@ class WxobjectController < ApplicationController
     # trigger action
     response = response_action.call input
     return render :xml=>response.to_xml2 if response.is_a? WxBaseResponse
+    return render :xml=>response if response.start_with?('<xml')
     render :text=>response
   end
   private
