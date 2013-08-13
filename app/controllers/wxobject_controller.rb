@@ -8,6 +8,8 @@ require 'WxTextResponse'
 class WxobjectController < ApplicationController
   #wrap_parameters :format=>:xml
   WX_TOKEN = "xhyt"
+  TT_TOKEN='b4384c050f27b99151501b1a95eb529c'
+  
   
 
   def validate
@@ -24,9 +26,27 @@ class WxobjectController < ApplicationController
     response_action = find_action_by_xml input
     # trigger action
     response = response_action.call input
-    render :xml=>response.to_xml2
+    return render :xml=>response.to_xml2 if response.is_a? WxBaseResponse
+    render :text=>response
   end
   private
+  def post_http_msg(uri, body)
+      req = Net::HTTP::Post.new(uri.path)
+      req.body = body
+      req.content_type='application/xml'
+     
+      res = Net::HTTP.start(uri.hostname,uri.port) do |http|
+        http.request(req)
+      end
+      case res 
+        when Net::HTTPSuccess,Net::HTTPRedirection then
+          res.body
+        else
+          logger.info "forward msg error:#{res.message.to_s}"  
+          'fail'
+      end
+  end
+  
   def find_action_by_xml(input)
     case(input[:MsgType])
     when 'text' then
@@ -55,13 +75,13 @@ class WxobjectController < ApplicationController
         return method(:action_msg_dh)
       elsif t(:commandpg)== input_text
         return method(:action_msg_pg)
-      elsif [t(:commandhelp),'h','help'].include? input_text
-        return method(:action_not_recognize)
+      #elsif [t(:commandhelp),'h','help'].include? input_text
+        #return method(:action_not_recognize)
       elsif /^\d+$/ =~ input_text_array[0]
         return method(:action_point_nb)
       else
          #return method(:action_list_product_ft)
-         return method(:action_not_recognize)
+         return method(:action_forward2_tt)
       end
     when 'location' then
       return method(:action_list_promotion_ft)
@@ -76,8 +96,11 @@ class WxobjectController < ApplicationController
         end
       end
     else
-      method(:action_not_recognize)
+      method(:action_forward2_tt)
     end
+  end
+  def action_forward2_tt(input)
+    post_http_msg(URI('http://gw.weigou.qq.com/wxapi/get_msg.xhtml'),request.raw_post)
   end
   def action_msg_dh(input)
     response = WxTextResponse.new
