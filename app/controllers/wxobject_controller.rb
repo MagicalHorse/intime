@@ -86,16 +86,16 @@ class WxobjectController < ApplicationController
       end
     when 'location' then
       return method(:action_list_promotion_ft)
-    when 'event' then
-      event_type = input[:Event]
-      if event_type == 'subscribe'
-        return method(:action_say_hello)
-      elsif event_type == 'click'
-        event_key = input[:EventKey]
-        if event_key == '100_EP'
-          return method(:action_click_ep)
-        end
-      end
+    #when 'event' then
+    #  event_type = input[:Event]
+    #  if event_type == 'subscribe'
+    #    return method(:action_say_hello)
+    #  elsif event_type == 'click'
+     #   event_key = input[:EventKey]
+     #   if event_key == '100_EP'
+    #      return method(:action_click_ep)
+    #    end
+    #  end
     else
       method(:action_forward2_tt)
     end
