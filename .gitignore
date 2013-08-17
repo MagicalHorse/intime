@@ -14,5 +14,9 @@
 /log/*.log
 /tmp
 .elasticbeanstalk/
+
 .ruby-version
 .ruby-gemset
+
+/config/database.yml
+
