@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609040017) do
+ActiveRecord::Schema.define(:version => 20130624013326) do
 
   create_table "auth_keys", :force => true do |t|
     t.string   "private"
@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20130609040017) do
     t.integer  "coupontype"
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
+    t.boolean  "islimitonce"
   end
 
   add_index "store_coupons", ["code", "coupontype"], :name => "index_store_coupons_on_code_and_coupontype"
