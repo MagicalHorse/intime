@@ -11,7 +11,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131025014638) do
+
+ActiveRecord::Schema.define(:version => 20130624013326) do
+
 
   create_table "auth_keys", :force => true do |t|
     t.string   "private"
