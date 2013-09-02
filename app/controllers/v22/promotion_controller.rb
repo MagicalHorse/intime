@@ -125,7 +125,8 @@ class V22::PromotionController < PromotionController
           :name=>default_resource[:name].gsub('\\','/'),
           :width=>default_resource[:width],
           :height=>default_resource[:height]
-        }]
+        }],
+        :likecount=>p[:likeCount]
       }
     }
     return render :json=>{:isSuccessful=>true,
