@@ -53,6 +53,7 @@ class WxobjectController < ApplicationController
     when 'text' then
       input_text = input[:Content]
       input_text_array = input_text.split(' ')
+      input_text_array2 = input_text.split('@')
       exist_auto_reply = WxReplyMsg.find_by_rkey_and_status(input_text,1)
       unless exist_auto_reply.nil?
         return proc {|h|
@@ -78,7 +79,7 @@ class WxobjectController < ApplicationController
         return method(:action_msg_pg)
       #elsif [t(:commandhelp),'h','help'].include? input_text
         #return method(:action_not_recognize)
-      elsif /^\d+$/ =~ input_text_array[0]
+      elsif (input_text_array.length>1 && /^\d+$/ =~ input_text_array[0]) || (input_text_array2.length>1 && /^\d+$/ =~ input_text_array2[0])
         return method(:action_point_nb)
       else
          #return method(:action_list_product_ft)
