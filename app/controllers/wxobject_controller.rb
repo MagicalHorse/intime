@@ -178,6 +178,9 @@ class WxobjectController < ApplicationController
   # action to search point without card bindng
   def action_point_nb(input)
     input_text_array = input[:Content].split(' ')
+    if input_text_array.length<2
+      input_text_array = input[:Content].split('@')
+    end
     return build_response_text_temp {|msg|
         msg.Content = WxReplyMsg.get_msg_by_key 'wrongpwd'
       } if input_text_array.length <2
