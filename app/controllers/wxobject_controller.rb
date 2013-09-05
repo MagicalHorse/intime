@@ -79,7 +79,7 @@ class WxobjectController < ApplicationController
         return method(:action_msg_pg)
       #elsif [t(:commandhelp),'h','help'].include? input_text
         #return method(:action_not_recognize)
-      elsif /^\d+$/ =~ input_text_array[0]
+      elsif /^\d+$/ =~ input_text_array[0] && input_text_array[0].length>9
         return method(:action_point_nb)
       else
          #return method(:action_list_product_ft)
