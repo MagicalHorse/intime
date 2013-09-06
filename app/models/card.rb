@@ -43,8 +43,11 @@ class Card < ActiveRecord::Base
         local_card.validatedate = remote_card.validatedate
         local_card.level = remote_card.level
         local_card.no = encrpted_no
-        local_card.isbinded = remote_card.isbinded
+        local_card.isbinded = remote_card.isbinded if local_card.nil?
         local_card[:utoken] = token
+        local_card.save
+      else
+        local_card.updated_at = Time.now
         local_card.save
       end
       local_card

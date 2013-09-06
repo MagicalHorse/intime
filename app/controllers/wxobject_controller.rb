@@ -197,7 +197,7 @@ class WxobjectController < ApplicationController
   # action request to bind card
   def action_card_bd(input)
     utoken = params[:xml][:FromUserName]
-    card_info = Card.where(:utoken=>utoken).order('validatedate desc').first
+    card_info = Card.where(:utoken=>utoken).order('updated_at desc').first
     return build_response_text_temp {|msg|
               msg.Content=t(:notbindinghelp)
           } if card_info.nil?
@@ -214,7 +214,7 @@ class WxobjectController < ApplicationController
   # action search point has binded
   def action_point_bd(input)
     token = params[:xml][:FromUserName]
-    card_info = Card.where(:utoken=>token,:isbinded=>true).order('validatedate desc').first
+    card_info = Card.where(:utoken=>token,:isbinded=>true).order('updated_at desc').first
     if !card_info.nil? && card_info[:validatedate]<Time.now
        card_info = Card.renew_card token
     end
