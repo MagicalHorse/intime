@@ -53,3 +53,17 @@ gem 'omniauth-weibo-oauth2'
 gem 'omniauth-qq'
 gem 'rest-client'
 gem 'rake', '>= 10.1.0'
+
+gem 'rails_config'
+gem 'kaminari'
+
+group :development, :test do
+  gem "rspec"
+  gem "rspec-rails"
+  gem "factory_girl"
+  gem 'factory_girl_rails'
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-nav'
+  gem 'awesome_print'
+end

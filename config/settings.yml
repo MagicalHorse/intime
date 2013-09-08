@@ -1,0 +1,3 @@
+api:
+  stage: 'http://stage.youhuiin.com'
+  apis: 'http://apis.youhuiin.com/api'

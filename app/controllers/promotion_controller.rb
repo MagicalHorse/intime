@@ -163,4 +163,32 @@ class PromotionController < ApplicationController
      }.to_json()
     
   end
+
+  def get_list
+    promotions = Stage::Promotion.list(page: params[:page], pagesize: params[:pageSize])
+
+    result = {
+      page:       promotions.current_page,
+      pagesize:   params[:pageSize],
+      totalcount: promotions.total_count,
+      totalpaged: promotions.total_pages
+    }
+
+    result[:datas] = promotions.map do |promotion|
+      {
+        title:        promotion.name,
+        imageUrl:     '',
+        url:          '',
+        startDate:    promotion.startdate,
+        endDate:      promotion.enddate,
+        description:  promotion.description,
+        likeCount:    '',
+        storeId:      promotion.store.id,
+        storeName:    promotion.store.name,
+        storeUrl:     ''
+      }
+    end
+
+    render json: result.to_json
+  end
 end
