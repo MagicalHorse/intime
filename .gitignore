@@ -18,5 +18,14 @@
 .ruby-version
 .ruby-gemset
 
+
 /config/database.yml
+
+
+tags
+
+# rails_config
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
 
