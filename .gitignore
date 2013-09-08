@@ -15,3 +15,6 @@
 /tmp
 .elasticbeanstalk/
 /config/database.yml
+.ruby-version
+.ruby-gemset
+tags
