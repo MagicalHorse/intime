@@ -18,6 +18,7 @@
 .ruby-version
 .ruby-gemset
 tags
+*.swp
 
 # rails_config
 config/settings.local.yml
