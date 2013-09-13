@@ -23,6 +23,7 @@
 
 
 tags
+*.swp
 
 # rails_config
 config/settings.local.yml
