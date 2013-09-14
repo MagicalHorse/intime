@@ -1,3 +1,8 @@
 api:
-  stage: 'http://stage.youhuiin.com'
+  stage: 'http://stage2.youhuiin.com'
   apis: 'http://apis.youhuiin.com/api'
+provider:
+  other: 0
+  weibo: 1
+  tqq: 2
+  qq_connect: 3
