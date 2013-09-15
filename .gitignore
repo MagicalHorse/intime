@@ -19,8 +19,12 @@
 .ruby-gemset
 
 
+
 /config/database.yml
 
+
+
+.rvmrc
 
 tags
 *.swp

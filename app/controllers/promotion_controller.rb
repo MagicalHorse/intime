@@ -1,3 +1,4 @@
+# encoding: utf-8
 class PromotionController < ApplicationController
   def show
     pid = params[:id]
@@ -165,30 +166,69 @@ class PromotionController < ApplicationController
   end
 
   def get_list
-    promotions = Stage::Promotion.list(page: params[:page], pagesize: params[:pageSize])
+    #promotions = Stage::Promotion.list(page: params[:page], pagesize: params[:pageSize])
+
+    #result = {
+      #page:       promotions.current_page,
+      #pagesize:   params[:pageSize].to_i > 0 ? params[:pageSize].to_i : 1,
+      #totalcount: promotions.total_count,
+      #totalpaged: promotions.total_pages
+    #}
+
+    #result[:datas] = promotions.map do |promotion|
+      #{
+        #title:        promotion.name,
+        #imageUrl:     '',
+        #url:          '',
+        #startDate:    promotion.startdate,
+        #endDate:      promotion.enddate,
+        #description:  promotion.description,
+        #likeCount:    '',
+        #storeId:      promotion.store.id,
+        #storeName:    promotion.store.name,
+        #storeUrl:     ''
+      #}
+    #end
+
+    result = mock_up
+    render json: result.to_json
+  end
+
+  protected
+
+  def mock_up
+    pagesize = params[:pageSize].to_i > 0 ? params[:pageSize].to_i : 20
+    page     = params[:page].to_i > 0 ? params[:page].to_i : 1
 
     result = {
-      page:       promotions.current_page,
-      pagesize:   params[:pageSize],
-      totalcount: promotions.total_count,
-      totalpaged: promotions.total_pages
+      page:       page,
+      pagesize:   pagesize,
+      totalcount: 100,
+      totalpaged: 100/pagesize,
+      datas: []
     }
 
-    result[:datas] = promotions.map do |promotion|
-      {
-        title:        promotion.name,
-        imageUrl:     '',
-        url:          '',
-        startDate:    promotion.startdate,
-        endDate:      promotion.enddate,
-        description:  promotion.description,
-        likeCount:    '',
-        storeId:      promotion.store.id,
-        storeName:    promotion.store.name,
-        storeUrl:     ''
+    (0..9).each do |i|
+      storeId = case
+                when page==1 && i < 7  then 1
+                when page==2 && i > 4  then 3
+                else
+                  2
+                end
+      result[:datas] << {
+        title:       '四月会员日活动',
+        imageUrl:    'http://yt.seekray.net/0909/temp/280_200_1.jpg',
+        url:         'http://www.baidu.com',
+        startDate:   '2013.06.21',
+        endDate:     '2013.06.21',
+        description: '喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！',
+        likeCount:   900,
+        storeId:     storeId,
+        storeName:   '银泰杭州文化广场店',
+        storeUrl:    'http://www.baidu.com'
       }
     end
 
-    render json: result.to_json
+    result
   end
 end
