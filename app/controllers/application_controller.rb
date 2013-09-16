@@ -58,4 +58,23 @@ class ApplicationController < ActionController::Base
     @is_refresh = params[:type] == 'refresh'
     @refreshts = params[:refreshts]
   end
+
+  def render_items(datas)
+    pagesize = params[:pageSize].to_i > 0 ? params[:pageSize].to_i : 20
+    page     = params[:page].to_i > 0 ? params[:page].to_i : 1
+
+    result = {
+      page:       page,
+      pagesize:   pagesize,
+      totalcount: 100,
+      totalpaged: 100/pagesize,
+      datas: datas
+    }
+
+    render json: result.to_json, callback: params[:callback]
+  end
+
+  # TODO
+  def render_item
+  end
 end
