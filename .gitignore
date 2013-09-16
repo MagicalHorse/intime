@@ -14,5 +14,14 @@
 /log/*.log
 /tmp
 .elasticbeanstalk/
+# /config/database.yml
 .ruby-version
 .ruby-gemset
+.rvmrc
+tags
+*.swp
+
+# rails_config
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
