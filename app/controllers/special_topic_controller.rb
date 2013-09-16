@@ -1,4 +1,11 @@
+# encoding: utf-8
 class SpecialTopicController < ApplicationController
+
+  def get_list
+    result = mock_up
+    render json: result.to_json
+  end
+
   # list api always return json
   # input: 
   # => {page,pagesize,refreshts,sort}
@@ -72,5 +79,34 @@ class SpecialTopicController < ApplicationController
       }
      }.to_json()
     
+  end
+
+  protected
+
+  def mock_up
+    pagesize = params[:pageSize].to_i > 0 ? params[:pageSize].to_i : 20
+    page     = params[:page].to_i > 0 ? params[:page].to_i : 1
+
+    result = {
+      page:       page,
+      pagesize:   pagesize,
+      totalcount: 100,
+      totalpaged: 100/pagesize,
+      datas: []
+    }
+
+    (1..9).each do |i|
+      result[:datas] << {
+        title:       '四月会员日活动',
+        imageUrl:    'http://yt.seekray.net/0909/temp/280_200_1.jpg',
+        url:         'http://www.baidu.com',
+        startDate:   '2013.06.21',
+        endDate:     '2013.06.21',
+        description: '喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！',
+        likeCount:   900,
+      }
+    end
+
+    result
   end
 end

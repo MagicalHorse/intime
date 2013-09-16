@@ -66,6 +66,12 @@ IntimeService::Application.routes.draw do
   
   match "ping/mock"=>"ping#mock"
 
+  resources :special_topic, only: [:index] do
+    collection do
+     get :get_list
+    end
+  end
+
   resources :promotion, only: [:index, :show] do
     collection do
       get :list
