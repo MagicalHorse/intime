@@ -190,32 +190,20 @@ class PromotionController < ApplicationController
       #}
     #end
 
-    result = mock_up
-    render json: result.to_json
+    render_items(mock_up)
   end
 
   protected
 
   def mock_up
-    pagesize = params[:pageSize].to_i > 0 ? params[:pageSize].to_i : 20
-    page     = params[:page].to_i > 0 ? params[:page].to_i : 1
-
-    result = {
-      page:       page,
-      pagesize:   pagesize,
-      totalcount: 100,
-      totalpaged: 100/pagesize,
-      datas: []
-    }
-
-    (0..9).each do |i|
+    (0..9).inject([]) do |_r, _i|
       storeId = case
-                when page==1 && i < 7  then 1
-                when page==2 && i > 4  then 3
+                when [0,1].include?(params[:page].to_i) && _i < 7  then 1
+                when params[:page].to_i == 2 && _i > 4  then 3
                 else
                   2
                 end
-      result[:datas] << {
+      _r << {
         title:       '四月会员日活动',
         imageUrl:    'http://yt.seekray.net/0909/temp/280_200_1.jpg',
         url:         'http://www.baidu.com',
@@ -227,8 +215,8 @@ class PromotionController < ApplicationController
         storeName:   '银泰杭州文化广场店',
         storeUrl:    'http://www.baidu.com'
       }
-    end
 
-    result
+      _r
+    end
   end
 end

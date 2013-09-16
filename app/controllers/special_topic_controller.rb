@@ -2,8 +2,7 @@
 class SpecialTopicController < ApplicationController
 
   def get_list
-    result = mock_up
-    render json: result.to_json
+    render_items(mock_up)
   end
 
   # list api always return json
@@ -84,19 +83,9 @@ class SpecialTopicController < ApplicationController
   protected
 
   def mock_up
-    pagesize = params[:pageSize].to_i > 0 ? params[:pageSize].to_i : 20
-    page     = params[:page].to_i > 0 ? params[:page].to_i : 1
 
-    result = {
-      page:       page,
-      pagesize:   pagesize,
-      totalcount: 100,
-      totalpaged: 100/pagesize,
-      datas: []
-    }
-
-    (1..9).each do |i|
-      result[:datas] << {
+   (1..9).inject([]) do |_r, _i|
+      _r << {
         title:       '四月会员日活动',
         imageUrl:    'http://yt.seekray.net/0909/temp/280_200_1.jpg',
         url:         'http://www.baidu.com',
@@ -105,8 +94,8 @@ class SpecialTopicController < ApplicationController
         description: '喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！',
         likeCount:   900,
       }
-    end
 
-    result
+      _r
+    end
   end
 end
