@@ -18,6 +18,8 @@ end
 
 IntimeService::Application.routes.draw do
   
+  get "comment/get_list"
+
   match "wxmsg/update"=>"wxReply#update"
 
   match "version/latest"=>"version#latest"
@@ -57,6 +59,7 @@ IntimeService::Application.routes.draw do
 
   match "specialtopic/list" => "specialTopic#list"
 
+  get   'product/get_list'
   match "product/search" => "product#search"
   match "product/list" => "product#list"
   match "product/:id" => "product#show"
