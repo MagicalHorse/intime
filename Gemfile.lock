@@ -89,7 +89,6 @@ GEM
     newrelic_rpm (3.6.2.96)
     nokogiri (1.5.9)
     nokogiri (1.5.9-x86-mingw32)
-    oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -99,16 +98,14 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-oauth (1.0.1)
-      oauth
-      omniauth (~> 1.0)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    omniauth-qq (0.3.0)
-      multi_json
+    omniauth-qq-connect (0.2.0)
       omniauth (~> 1.0)
-      omniauth-oauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
+    omniauth-tqq-oauth2 (0.0.4)
+      omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
     omniauth-weibo-oauth2 (0.3.0)
       omniauth (~> 1.0)
@@ -118,6 +115,11 @@ GEM
       coderay (~> 1.0.5)
       method_source (~> 0.8)
       slop (~> 3.4)
+    pry (0.9.12.2-x86-mingw32)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
+      win32console (~> 1.3)
     pry-doc (0.4.6)
       pry (>= 0.9)
       yard (>= 0.8)
@@ -204,6 +206,7 @@ GEM
     uuid (2.3.7)
       macaddr (~> 1.0)
     uuidtools (2.1.4)
+    win32console (1.3.2-x86-mingw32)
     yard (0.8.7)
 
 PLATFORMS
@@ -224,7 +227,8 @@ DEPENDENCIES
   mysql2
   newrelic_rpm
   omniauth (~> 1.0)
-  omniauth-qq
+  omniauth-qq-connect (~> 0.2.0)
+  omniauth-tqq-oauth2 (~> 0.0.4)
   omniauth-weibo-oauth2
   pry-doc
   pry-nav
