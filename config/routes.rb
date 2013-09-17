@@ -59,7 +59,6 @@ IntimeService::Application.routes.draw do
 
   match "specialtopic/list" => "specialTopic#list"
 
-  get   'product/get_list'
   match "product/search" => "product#search"
   match "product/list" => "product#list"
   match "product/:id" => "product#show"
