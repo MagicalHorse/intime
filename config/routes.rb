@@ -18,6 +18,8 @@ end
 
 IntimeService::Application.routes.draw do
   
+  get "comment/get_list"
+
   match "wxmsg/update"=>"wxReply#update"
 
   match "version/latest"=>"version#latest"
