@@ -57,14 +57,26 @@ IntimeService::Application.routes.draw do
 
   match "specialtopic/list" => "specialTopic#list"
 
-  match "product/search" => "product#search"
-  match "product/list" => "product#list"
-  match "product/:id" => "product#show"
+  #match "product/search" => "product#search"
+  #match "product/list" => "product#list"
+  #match "product/:id" => "product#show"
 
   match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
   match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
   
   match "ping/mock"=>"ping#mock"
+
+  resources :profile, only: [:index] do
+    collection do
+      get :get_list
+    end
+  end
+
+  resources :product, only: [:index] do
+    collection do
+     get :get_list
+    end
+  end
 
   resources :special_topic, only: [:index] do
     collection do
