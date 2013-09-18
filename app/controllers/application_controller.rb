@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
     @refreshts = params[:refreshts]
   end
 
-  def render_items(datas)
+  def render_items(datas, options = nil)
     pagesize = params[:pageSize].to_i > 0 ? params[:pageSize].to_i : 20
     page     = params[:page].to_i > 0 ? params[:page].to_i : 1
 
@@ -70,6 +70,8 @@ class ApplicationController < ActionController::Base
       totalpaged: 100/pagesize,
       datas: datas
     }
+
+    result.merge!(options.delete_if {|k,v| v.blank? }) if options.present?
 
     render json: result.to_json, callback: params[:callback]
   end

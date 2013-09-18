@@ -1,5 +1,12 @@
 # encoding: utf-8
 class ProductController < ApplicationController
+
+  def get_list
+    result = {}
+    result[:typeId],result[:barndId],result[:shopId],result[:sort] = params.values_at(:typeId,:brandId,:shopId,:sort)
+    render_items(mock_up,result)
+  end
+
   def show
     pid = params[:id]
     prod = Product.search :per_page=>1,:page=>1 do 
@@ -194,10 +201,27 @@ class ProductController < ApplicationController
      }.to_json()
   end
 
-  private 
+private 
+
 
   def promotion_is_expire(p)
     (p[:promotion].nil?)||p[:promotion].length<1||(p[:promotion].sort{|x,y| y[:endDate].to_time<=>x[:endDate].to_time}[0][:endDate].to_time<Time.now)?false:true
+  end
+
+  def mock_up
+
+   (1..9).inject([]) do |_r, _i|
+      _r << {
+        title:          '开衫连帽卫衣 ASDF335 -2 黛紫色',
+        imageUrl:       'http://yt.seekray.net/0909/temp/440_350_1.jpg',
+        url:            'http://www.baidu.com',
+        price:          11,
+        originalPrice:  22,
+        likeCount:      900,
+      }
+
+      _r
+    end
   end
     
 end
