@@ -3,7 +3,7 @@ module Alipay
     def self.verify?(params)
       if Sign.verify?(params)
         params = Utils.stringify_keys(params)
-        open("https://mapi.alipay.com/gateway.do?service=notify_verify&partner=#{Alipay.pid}&notify_id=#{CGI.escape params['notify_id'].to_s}").read == 'true'
+        open("https://mapi.alipay.com/gateway.do?service=notify_verify&partner=#{Alipay.pid}&notify_id=#{Rack::Utils.escape params['notify_id'].to_s}").read == 'true'
       else
         false
       end
