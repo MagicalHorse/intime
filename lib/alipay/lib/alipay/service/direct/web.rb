@@ -1,6 +1,3 @@
-require 'cgi'
-require 'open-uri'
-
 module Alipay
   module Service
     module Direct

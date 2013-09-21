@@ -17,13 +17,12 @@ module Alipay
       names.each do |name|
         missings << name unless options.has_key?(name)
       end
-      fail(ArgumentError, "Ailpay Error: missing required options: [#{missings.join(', ')}]") if missings.size > 0
+      raise(RequiredArgumentError, "missing required options: [#{missings.join(', ')}]") if missings.size > 0
     end
 
     def self.query_string(options)
-      except_escape_keys = options.delete('except_escape_keys') || []
       options.map do |key, value|
-        "#{CGI.escape(key.to_s)}=#{except_escape_keys.include?(key) ? value.to_s : CGI.escape(value.to_s)}"
+        "#{Rack::Utils.escape(key.to_s)}=#{Rack::Utils.escape(value.to_s)}"
       end.join('&')
     end
   end
