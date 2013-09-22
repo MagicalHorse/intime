@@ -1,0 +1,16 @@
+omniauth:
+  weibo:
+    key: '1136922935'
+    secret: 'cee745ae09ff0000428e0a52757ff175'
+  tqq:
+    key: '801302732'
+    secret: 'cd497771f88f6971ad11855088d050fd'
+  qq_connect:
+    key: '100382932'
+    secret: '8acc22a900a6cf3a144c4e7364dafa78'
+
+
+alipay:
+  pid: '2088011888580823'
+  key: 'n4q74v8r3bnhzsbthx0yf3g1ama9mntm'
+  seller_account: 'maoym@intime.com.cn'
