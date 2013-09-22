@@ -1,5 +1,5 @@
 class CurrentUser
-  ATTRIBUTES = [:email, :level, :nickie, :uid, :provider, :isbindcard, :mobile, :avatar_url, :coupon_count, :point, :like_count, :fans_count, :favor_count, :access_token, :expires_at]
+  ATTRIBUTES = [:email, :level, :nickie, :uid, :provider, :isbindcard, :mobile, :avatar_url, :coupon_count, :point, :like_count, :fans_count, :favor_count, :access_token, :refresh_token]
   attr_accessor *ATTRIBUTES
 
   def initialize(attributes = {})

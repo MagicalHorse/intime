@@ -6,3 +6,17 @@ provider:
   weibo: 1
   tqq: 2
   qq_connect: 3
+omniauth:
+  weibo:
+    key:
+    secret:
+  tqq:
+    key:
+    secret:
+  qq_connect:
+    key:
+    secret:
+alipay:
+  pid:
+  key:
+  seller_email:
