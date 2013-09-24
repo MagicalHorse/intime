@@ -190,7 +190,7 @@ class PromotionController < ApplicationController
       #}
     #end
 
-    render_items(mock_up)
+    render_items(params[:sort].to_i == 3 ? mock_up1 : mock_up)
   end
 
   protected
@@ -218,5 +218,59 @@ class PromotionController < ApplicationController
 
       _r
     end
+  end
+
+  def mock_up1
+    result = []
+
+    promotions = (0..9).inject([]) do |_r, _i|
+      _r << {
+        title:       '四月会员日活动',
+        imageUrl:    'http://yt.seekray.net/0909/temp/280_200_1.jpg',
+        url:         'http://www.baidu.com',
+        startDate:   '2013.06.21',
+        endDate:     '2013.06.21',
+        description: '喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！',
+        likeCount:   900
+      }
+    end
+
+    case params[:page].to_i
+    when 0, 1
+      result << {
+        storeId: 1,
+        storeName: '银泰杭州文化广场店',
+        storeUrl: 'http://www.baidu.com',
+        promotions: promotions[0..5]
+      }
+      result << {
+        storeId: 2,
+        storeName: '银泰杭州店',
+        storeUrl: 'http://www.baidu.com',
+        promotions: promotions[0..3]
+      }
+    when 2
+      result << {
+        storeId: 2,
+        storeName: '银泰西单店',
+        storeUrl: 'http://www.baidu.com',
+        promotions: promotions[0..3]
+      }
+      result << {
+        storeId: 3,
+        storeName: '银泰王府井店',
+        storeUrl: 'http://www.baidu.com',
+        promotions: promotions[0..5]
+      }
+    else
+      result << {
+        storeId: 3,
+        storeName: '银泰北京店',
+        storeUrl: 'http://www.baidu.com',
+        promotions: promotions
+      }
+    end
+
+    result
   end
 end
