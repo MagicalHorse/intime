@@ -1,13 +1,17 @@
 class Front::BaseController < ApplicationController
   layout 'application'
-  helper_method :current_user, :is_login?
+  helper_method :current_user, :signed_in?
 
   def current_user
     @current_user ||= session[:current_user]
   end
 
-  def is_login?
+  def signed_in?
     !!current_user
+  end
+
+  def authenticate!
+    render json: { isSuccessful: false, message: 'no login', statusCode: 500 } unless signed_in?
   end
 
   protected
