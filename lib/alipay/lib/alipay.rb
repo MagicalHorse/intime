@@ -9,8 +9,9 @@ require "alipay/errors"
 require 'alipay/sign'
 require 'alipay/utils'
 require 'alipay/notify'
-require 'alipay/service/direct/wap'
-require 'alipay/service/direct/web'
+require 'alipay/services/direct/payment/web'
+require 'alipay/services/direct/payment/wap'
+require 'alipay/services/direct/refund/web'
 
 module Alipay
   class << self
