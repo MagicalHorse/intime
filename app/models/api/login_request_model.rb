@@ -1,4 +1,3 @@
-require "#{File.dirname(__FILE__)}/restful.rb"
 module API::LoginRequest
   extend API::Restful
 

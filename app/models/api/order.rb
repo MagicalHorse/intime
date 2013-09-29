@@ -1,4 +1,3 @@
-require "#{File.dirname(__FILE__)}/restful.rb"
 module API::Order
   extend API::Restful
 
@@ -21,6 +20,10 @@ module API::Order
 
     def update(req, params = {})
       post(req, params.merge(path: 'order/rma'))
+    end
+
+    def new(req, params = {})
+      post(req, params.merge(path: 'product/detail4p'))
     end
   end
 end

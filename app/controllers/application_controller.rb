@@ -80,11 +80,23 @@ class ApplicationController < ActionController::Base
   def render_item
   end
 
-  def render_500
-    render file: "#{Rails.root}/public/500.html", status: 500
+  def render_500(format = :json)
+    if format.to_sym == :json
+      message = 'internal failed problem.' 
+      message =  yield if block_given?
+      render json: { isSuccessful: false, message: message, statusCode: 500 }
+    else
+      render file: "#{Rails.root}/public/500.html", status: 500
+    end
   end
 
-  def render_404
-    render file: "#{Rails.root}/public/404.html", status: 404
+  def render_404(format = :json)
+    if format.to_sym == :json
+      message = 'not found.'
+      message =  yield if block_given?
+      render json: { isSuccessful: false, message: message, statusCode: 404 }
+    else
+      render file: "#{Rails.root}/public/404.html", status: 404
+    end
   end
 end
