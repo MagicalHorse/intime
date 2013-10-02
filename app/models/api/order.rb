@@ -1,3 +1,5 @@
+require "#{File.dirname(__FILE__)}/restful.rb"
+
 module API::Order
   extend API::Restful
 
