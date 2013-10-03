@@ -8,6 +8,8 @@ class Front::SessionsController < Front::BaseController
       logger.info(login_user)
       set_anonymous_user
     end
+
+    redirect_to root_path
   end
 
   private
