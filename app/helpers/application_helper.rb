@@ -15,4 +15,13 @@ module ApplicationHelper
     return text if text.nil?
     return simple_format(text)
   end
+
+  def oauth_path(provider)
+    case provider.to_s
+    when 'qq_connect', 'weibo', 'tqq2'
+      "/auth/#{provider}"
+    else
+      raise ArgumentError, 'provider can only is qq_connect, weibo and tqq2.'
+    end
+  end
 end

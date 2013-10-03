@@ -9,14 +9,45 @@
           <li><a href="space.html">我的银泰</a></li>
         </ul>
       </div>
-      <div class="section login">
-        <h2>登录银泰</h2>
-        <ul>
-          <li><a href="#">新浪微博</a></li>
-          <li><a href="#">腾讯微博</a></li>
-          <li><a href="#">腾讯QQ</a></li>
-        </ul>
-      </div>
+      <% if signed_in? %>
+        <!--/已经登录位置 -->
+        <div class="section loger">
+          <div class="relative">
+            <div class="photo"><a href="details.html"><img src="<%= current_user.avatar_url %>"></a></div>
+            <div class="tools"> <span><%= current_user.nickie %><em>退出</em></span>
+              <ul>
+                <li><a href="om_df.html" title="订单中心"> </a></li>
+                <li><a href="om.html" title="购物袋"> </a></li>
+                <li><a href="infocenter.html" title="消息"> </a></li>
+                <li><a href="prupdate.html" title="设置"> </a></li>
+                <div class="clearfix"></div>
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="share">
+            <ul>
+              <a href="follow.html"><li>关注<br><%= current_user.like_count %></li></a>
+              <a href="fensi.html"><li>粉丝<br><%= current_user.fans_count %></li></a>
+              <a href="Coupon.html"><li>优惠码<br><%= current_user.onlinecoupontotal %></li></a>
+              <a href="certificate.html"><li>兑换券<br>
+                  <%= current_user.offlinecoupontotal %></li></a>
+              <a href="jddh.html"><li>积点<br>
+                  兑换</li></a>
+              <div class="clearfix"></div>
+            </ul>
+          </div>
+        </div><!--/已经登录位置 -->
+      <% else %>
+        <div class="section login">
+          <h2>登录银泰</h2>
+          <ul>
+            <li><a href="<%= oauth_path('weibo') %>">新浪微博</a></li>
+            <li><a href="<%= oauth_path('tqq2') %>">腾讯微博</a></li>
+            <li><a href="<%= oauth_path('qq_connect') %>">腾讯QQ</a></li>
+          </ul>
+        </div>
+      <% end %>
       <div class="section follow">
         <h2>关注“喜欢银泰”微信</h2>
         <ul>
