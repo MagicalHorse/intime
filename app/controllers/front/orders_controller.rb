@@ -28,28 +28,28 @@ class Front::OrdersController < Front::BaseController
   end
 
   def new
-    render json: API::Product.show(request, productid: params[:id])
+    render json: API::Order.new(request, productid: params[:product_id])
   end
 
-# {
-#   products: [{
-#     productid: 882,
-#     desc: '测试',
-#     quantity: 1,
-#     memo: "第一单",
-#     properties: { sizevalueid: 145, sizevaluename: "MXXL", colorvalueid: 144, colorvaluename: "白色"},
-#   }],
-#   needinvoice: false,
-#   memo: '订单备注',
-#   shippingaddress: {
-#     shippingcontactperson: "vg",
-#     shippingcontactphone:"1352400000",
-#     shippingzipcode: "200184",
-#     shippingaddress: "上海市长宁区什么路"
-#   },
-#   payment: {
-#     paymentcode: "1001",
-#     paymentname: "货到付款"
-#   }
-# }
+#  {
+#    products: [{
+#      productid: 882,
+#      desc: '测试',
+#      quantity: 1,
+#      memo: "第一单",
+#      properties: { sizevalueid: 145, sizevaluename: "MXXL", colorvalueid: 144, colorvaluename: "白色"},
+#    }],
+#    needinvoice: false,
+#    memo: '订单备注',
+#    shippingaddress: {
+#      shippingcontactperson: "vg",
+#      shippingcontactphone:"1352400000",
+#      shippingzipcode: "200184",
+#      shippingaddress: "上海市长宁区什么路"
+#    },
+#    payment: {
+#      paymentcode: "1001",
+#      paymentname: "货到付款"
+#    }
+#  }
 end
