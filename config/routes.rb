@@ -40,6 +40,7 @@ IntimeService::Application.routes.draw do
   end
   scope :module=>'front' do
     get '/auth/:provider/callback', to: 'sessions#create'
+    delete '/sessions', to: 'sessions#destory'
   end
  
   match "hotword/list"=>"hotword#list"
@@ -140,7 +141,7 @@ IntimeService::Application.routes.draw do
 
     resources :products, :only=>[:show]
     resources :promotions, :only=>[:show]
-    resources :orders, except: [:new, :edit]
+    resources :orders
   end
 
   # You can have the root of your site routed with "root"
