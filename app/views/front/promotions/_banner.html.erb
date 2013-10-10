@@ -1,0 +1,9 @@
+<div class="portfolio">
+  <section id="banner" class="royalSlider">
+    <% banners.each do |banner| -%>
+      <div class="rsContent" data-rsDelay="5000">
+        <a href="#"><img class="rsImg" src="<%= banner.image_url -%>" alt="" /></a>
+      </div>
+    <% end -%>
+  </section>
+</div>

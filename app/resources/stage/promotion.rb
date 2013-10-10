@@ -14,8 +14,18 @@ module Stage
           _r
         end
 
-        Kaminari.paginate_array(promotions, total_count: raw_data['totalcount'].to_i).page(raw_data['pageindex']).per(raw_data['pagesize'])
+        Kaminari.paginate_array(
+          promotions,
+          total_count: raw_data['totalcount'].to_i
+        ).page(raw_data['pageindex']).per(raw_data['pagesize'])
       end
+
+    end
+
+    def image_url
+      return '' if resources.blank?
+
+      [resources[0].domain, resources[0].name, "_#{resources[0].width}X0.jpg"].join('')
     end
   end
 end
