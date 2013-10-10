@@ -22,6 +22,20 @@ class Front::BaseController < ApplicationController
     set_current_user(result[:data])
   end
 
+  def render_items(datas, options = nil)
+    result = {
+      page:       datas.current_page,
+      pagesize:   datas.limit_value,
+      totalcount: datas.total_count,
+      totalpaged: datas.total_pages,
+      datas:      datas
+    }
+
+    result.merge!(options.delete_if {|k,v| v.blank? }) if options.present?
+
+    render json: result.to_json, callback: params[:callback]
+  end
+
   protected
 
   def set_current_user(value)

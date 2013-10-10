@@ -1,12 +1,12 @@
 var handler = null;
     var page = 1;
     var isLoading = false;
-    var apiURL = 'http://stage.youhuiin.com/promotion/get_list.json'
+    var apiURL = 'http://stage.youhuiin.com/promotions/get_list.json'
     
     // Prepare layout options.
     var options = {
       autoResize: true, // This will auto-update the layout when the browser window is resized.
-      container: $('#tiles'), // Optional, used for some extra CSS styling
+      container: $('#div'), // Optional, used for some extra CSS styling
       offset: 2, // Optional, the distance between grid items
       itemWidth: 290 // Optional, the width of a grid item
     };
@@ -27,6 +27,7 @@ var handler = null;
      function onLoadData(data) {
       isLoading = false;
       $('#loaderCircle').hide();
+      page++;
       var length = data.datas.length;
 	  var i = 0;
 	  var html = '';
@@ -40,7 +41,7 @@ var handler = null;
 								html+='<p>'+data.datas[i].description+'</p>';
 							html+='</div>';
 							html+='<h3><a href="#" title="">四月会员日活动</a></h3>';
-							html+='<small> <span class="pull-left"><i class="icon-time"></i>2013.06.21-2013.06.21</span> <span class="pull-right"><i class="icon-heart"></i>999+</span> </small> </div>';
+							html+='<small> <span class="pull-left"><i class="icon-time"></i>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 					html+='</li>';
 		    
 		  }
@@ -65,7 +66,6 @@ var handler = null;
      */
     function loadData($sort) {
       $('#loaderCircle').show();
-      //alert(page);
       //alert(type);
 	  sort = $sort;
       $.ajax({
