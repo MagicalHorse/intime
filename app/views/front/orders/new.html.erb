@@ -1,0 +1,127 @@
+<%= content_for :head_nav do -%>
+  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">填写订单</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <!-- 商品信息 -->
+  <section class="promo_info addorder">
+    <div id="picbox" class="carousel slide">
+      <div class="carousel-inner">
+        <div><img src="temp/400_400_1.jpg" alt="相宜本草护肤品正品套装 四倍蚕丝基础护理三件套 补水美白保湿"></div>
+      </div>
+    </div>
+    <div class="infobox">
+      <div class="head">
+        <h1>相宜本草护肤品正品套装 四件包邮 越洋之恋</h1>
+        <ul class="meta relative">
+          <li><span>吊牌价</span>￥<i>478.00</i></li>
+          <li><span>销售价</span>￥<em>239.00</em></li>
+          <li><span>货号</span>1234567890</li>
+          <div class="brand">相宜本草<br>
+            (INOHERB)</div>
+        </ul>
+      </div>
+      <div class="buyinfo">
+        <div class="prop mb20" data-toggle="buttons-radio"> <span class="tages">颜色</span>
+          <button type="button" class="btn">棕色</button>
+          <button type="button" class="btn">黑色</button>
+          <button type="button" class="btn">红色</button>
+        </div>
+        <div class="prop mb20" data-toggle="buttons-radio"> <span class="tages">尺码</span>
+          <button type="button" class="btn">39</button>
+          <button type="button" class="btn">40</button>
+          <button type="button" class="btn">41</button>
+          <button type="button" class="btn">42</button>
+        </div>
+        <div class="item_num mb20" >
+          <div class="change-goods-num"> <span class="tages">数量</span> <a href="#" class="goodsNumMinus"><span class="icon-common-negative"></span></a>
+            <input tyep="text" class="goods-num" value="1" name="3">
+            <a href="#" class="goodsNumPlus"><span class="icon-common-add"></span></a> <small>（库存<span class="">3</span>件）</small> </div>
+        </div>
+        <div class="property">您选择颜色：<span>黑色</span> 尺码：<span>39</span> 购买数量：<span>3</span>件</div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="Logistics_query rtds om_df" style="border:0px; padding:0px; ">
+      <div class="item">
+        <div class="item_tit thzq">
+          <a href="address.html">
+            <span>收货人姓名：</span>韩璐<br>
+            <span>省份：</span>北京-北京-丰台<br>
+            <span>地址：</span>北京市丰台新华街小区5里9号楼<br>
+            <span>邮编：</span>100070<br>
+            <span>手机号码：</span>1381000000<br>
+            <span>固定号码：</span>63000000<br>
+            <span class="it"></span>
+          </a>
+        </div>
+        <div class="item_tit bt" ><span>支付方式：</span> <br>
+          <label><input name="u40" type="radio" id="u42" value="radio" checked >
+            支付宝支付</label>							
+        </div>
+        <div class="item_tit bt" style="line-height: 34px;"><span>发票信息：</span><br>
+          <span>发票类型：</span>
+          <select style="margin-left:0px;">
+            <option>公司</option>
+            <option>个人</option>
+          </select>
+          <br>
+          <span>公司名称：</span>
+          <input id="u1" type="text" placeholder="请填写公司名称">
+          <br>
+          <span>发票内容：</span>
+          <select style="margin-left:0px;">
+            <option>明细</option>
+            <option>服饰</option>
+          </select>
+          <br>
+        </div>
+        <div class="item_tit bt"><span>配送及备注：</span><br>
+          <span>送货时间：</span>
+          <select style="margin-left:0px;">
+            <option>工作日休息日假日均可送货</option>
+            <option>只工作日送货，休息日假日不送货 </option>
+          </select>
+          <br>
+          <span>送货方式：</span>快递(全场免运费)<br>
+          <span>备注：</span>
+          <input id="u1" type="text" placeholder="请填写备注">
+        </div>
+        <div class="item_tit bt ">
+          <dl>
+            <dd><span>赠送积点：</span><strong>1200</strong>
+              <div class="clearfix"></div>
+            </dd>
+            <dd><span>总价：</span><strong>￥1200.00</strong>
+              <div class="clearfix"></div>
+            </dd>
+            <dd><span>快递费：</span><strong>+￥0.00</strong>
+              <div class="clearfix"></div>
+            </dd>
+            <dd><span>需付款项：</span><strong class="on">￥1200.00</strong>
+              <div class="clearfix"></div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;"> <a href="#barcode012" data-toggle="modal" class="btn btn-danger ">提交订单</a>
+      <div id="barcode012" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="mLabel">订单已提交！</h3>
+        </div>
+        <div class="modal-body">
+          <p style="line-height:30px;
+            text-align:center">订单编号：V26347311929643<br>
+            支付方式：支付宝支付</p>
+          <p style="font-size:12px;text-align:center;"><span style="color:#990000">请在24小时内完成支付，过时订单将会自动取消！</span></p>
+        </div>
+        <div class="modal-footer"> <a href="om_it_df.html" class="btn btn-danger" >查看订单</a> <a class="btn btn-danger" data-dismiss="modal">在线支付</a> </div>
+      </div>
+    </p>
+  </section>
+</div>

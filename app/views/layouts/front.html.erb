@@ -8,21 +8,21 @@
     <meta name="keywords" content="银泰商业">
     <%= csrf_meta_tags %>
     <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/login.css" rel="stylesheet">
-    <link href="css/uiscc.css" rel="stylesheet">
-    <link href="css/royalslider.css" rel="stylesheet">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+    <link href="/css/base.css" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
+    <link href="/css/uiscc.css" rel="stylesheet">
+    <%= yield :stylesheets -%>
     <!-- 为IE6-8识别HTML5标签 -->
     <!--[if lt IE 9]><script src="js/html5shiv.js"></script><![endif]-->
 
     <!-- Favicons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="ico/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/ico/favicon.png">
   </head>
   <body>
     <!-- 顶栏 -->
@@ -30,7 +30,7 @@
       <div class="navbar-inner">
         <div class="container">
           <div class="span3 logo">
-            <a class="brand" href="index.html"><img src="images/logo_2x.png" alt="首页"></a>
+            <a class="brand" href="index.html"><img src="/images/logo_2x.png" alt="首页"></a>
           </div>
           <!--/.logo-collapse -->
           <%= yield :head_nav -%>
@@ -45,13 +45,11 @@
     </div>
     <%= render '/front/footer' -%>
     <!-- JS文件放置在文档结尾处，使页面加载速度更快 -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-ujs.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.royalslider.min.js"></script>
-    <script src="js/common.js"></script>
-    <script src="js/scrolltopcontrol.js"></script>
-    <script src="js/jquery.wookmark.js"></script>
-    <script src="js/index_water.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ujs.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/common.js"></script>
+    <script src="/js/scrolltopcontrol.js"></script>
+    <%= yield :javascripts -%>
   </body>
 </html>

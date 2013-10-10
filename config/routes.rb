@@ -40,7 +40,7 @@ IntimeService::Application.routes.draw do
   end
   scope :module=>'front' do
     get '/auth/:provider/callback', to: 'sessions#create'
-    delete '/sessions', to: 'sessions#destory'
+    delete '/logout', to: 'sessions#destory'
   end
  
   match "hotword/list"=>"hotword#list"

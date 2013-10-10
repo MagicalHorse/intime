@@ -1,5 +1,5 @@
 class Front::BaseController < ApplicationController
-  layout 'application'
+  layout 'front'
   helper_method :current_user, :signed_in?
 
   def current_user
