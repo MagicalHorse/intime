@@ -75,11 +75,6 @@ IntimeService::Application.routes.draw do
     end
   end
 
-  resources :product, only: [:index] do
-    collection do
-     get :get_list
-    end
-  end
 
   resources :special_topic, only: [:index] do
     collection do
@@ -154,9 +149,13 @@ IntimeService::Application.routes.draw do
            get 'show'
          end
        end
-     end
 
-    resources :products, :only=>[:show]
+    resources :products, :only=>[:show] do
+      collection do
+        get :my_favorite
+        get :my_share_list
+      end
+    end
     resources :promotions, :only=>[:show]
     resources :orders
   end
