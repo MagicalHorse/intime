@@ -19,18 +19,18 @@ class Front::PromotionsController < Front::BaseController
   def get_list
     promotions = Stage::Promotion.list(page: params[:page], pagesize: params[:pageSize], sort: 1)
 
-    render_items(handle_promotions(promotions))
+    render_items(handle_items(promotions))
   end
 
   protected
-  def handle_promotions(items)
+  def handle_items(items)
     items.map! do |item|
       {
         title:        item.name,
         imageUrl:     item.image_url,
         url:          '',
-        startDate:    item.startdate,
-        endDate:      item.enddate,
+        startDate:    item.startdate.to_date.strftime('%Y.%m.%d'),
+        endDate:      item.enddate.to_date.strftime('%Y.%m.%d'),
         description:  item.description,
         likeCount:    0,
         storeId:      item.store.try(:id),
