@@ -1,0 +1,61 @@
+<div class="sidenav">
+  <div class="span3 aside collapse" >
+    <div class="frame">
+      <div class="section menu">
+        <ul>
+          <li class="active"><a href="index.html">促销专区</a></li>
+          <li><a href="special.html">精彩专题</a></li>
+          <li><a href="gallery.html">随便逛逛</a></li>
+          <li><a href="space.html">我的银泰</a></li>
+        </ul>
+      </div>
+      <% if signed_in? %>
+        <!--/已经登录位置 -->
+        <div class="section loger">
+          <div class="relative">
+            <div class="photo"><a href="details.html"><img src="<%= current_user.avatar_url %>"></a></div>
+            <div class="tools"> <span><%= current_user.nickie %><em><a href="<%= logout_path %>" data-method="delete">退出</a></em></span>
+              <ul><li><a href="om.html" title="预购中心"> </a></li>
+                <li><a href="infocenter.html" title="消息"> </a></li>
+                <li><a href="prupdate.html" title="设置"> </a></li>
+                <div class="clearfix"></div>
+              </ul>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="share">
+            <ul>
+              <a href="follow.html"><li>关注<br><%= current_user.like_count %></li></a>
+              <a href="fensi.html"><li>粉丝<br><%= current_user.fans_count %></li></a>
+              <a href="Coupon.html"><li>优惠码<br><%= current_user.onlinecoupontotal %></li></a>
+              <a href="certificate.html"><li>兑换券<br>
+                  <%= current_user.offlinecoupontotal %></li></a>
+              <a href="jddh.html"><li>积点<br>
+                  兑换</li></a>
+              <div class="clearfix"></div>
+            </ul>
+          </div>
+        </div><!--/已经登录位置 -->
+      <% else %>
+        <div class="section login">
+          <h2>登录银泰</h2>
+          <ul>
+            <li><a href="<%= oauth_path('weibo') %>">新浪微博</a></li>
+            <li><a href="<%= oauth_path('tqq2') %>">腾讯微博</a></li>
+            <li><a href="<%= oauth_path('qq_connect') %>">腾讯QQ</a></li>
+          </ul>
+        </div>
+      <% end %>
+      <div class="section follow">
+        <h2>关注“喜欢银泰”微信</h2>
+        <ul>
+          <li><a href="#"><img src="images/icon_weixin.png" alt="微信"></a></li>
+          <li><a href="#"><img src="images/icon_code.png" alt="二维码"></a></li>
+        </ul>
+      </div>
+      <div class="section download">
+        <h2>银泰 iPhone 客户端下载</h2>
+        <a href="#"><img src="images/ytapp.png" alt="客户端下载"></a> </div>
+    </div>
+  </div>
+</div>

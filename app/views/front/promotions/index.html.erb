@@ -1,0 +1,45 @@
+<%= content_for :stylesheets do -%>
+  <link href="/css/royalslider.css" rel="stylesheet">
+<% end -%>
+<%= content_for :javascripts do -%>
+  <script src="/js/jquery.wookmark.js"></script>
+  <% if params[:sort].to_i == 1 -%>
+    <script src="/js/zxfb.js"></script>
+  <% elsif params[:sort].to_i == 3 -%>
+    <script src="/js/jjks.js"></script>
+  <% else -%>
+    <script src="/js/index_water.js"></script>
+  <% end -%>
+  <script src="/js/jquery.royalslider.min.js"></script>
+<% end -%>
+<%= content_for :head_nav do -%>
+  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+  <ul class="nav">
+    <li <%= ![1, 3].include?(params[:sort].to_i) ? "class=active" : '' -%>>
+      <a href="<%= promotions_path(sort: 2) -%>">距离最近</a>
+    </li>
+    <li <%= params[:sort].to_i == 1 ? "class=active" : ''-%>>
+      <a href="<%= promotions_path(sort: 1) -%>">最新发布</a>
+    </li>
+    <li <%= params[:sort].to_i == 3 ? "class=active" : '' -%>>
+      <a href="<%= promotions_path(sort: 3) -%>">即将开始</a>
+    </li>
+  </ul>
+  <!--/.nav-collapse -->
+<% end -%>
+<div class="span9 main">
+  <!-- 广告图片 -->
+  <%= render 'banner', banners: @banners -%>
+
+  <!-- 活动 -->
+  <section class="portfolio">
+    <!-------距离最近开始------>
+    <ul id="div" class="thumbnails"></ul>
+    <div id="loader">
+      <div id="loaderCircle"></div>
+    </div>
+    <!--------距离最近结束-------->
+  </section>
+  <!--/.main-collapse -->
+</div>
+<div id="navMask"></div>

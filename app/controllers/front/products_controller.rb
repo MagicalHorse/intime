@@ -1,4 +1,4 @@
-class Front::ProductsController < Front::BaseController 
+class Front::ProductsController < Front::BaseController
   def show
     pid = params[:id]
     prod = Product.search :per_page=>1,:page=>1 do 

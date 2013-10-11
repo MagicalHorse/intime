@@ -40,6 +40,7 @@ IntimeService::Application.routes.draw do
   end
   scope :module=>'front' do
     get '/auth/:provider/callback', to: 'sessions#create'
+    delete '/logout', to: 'sessions#destory'
   end
  
   match "hotword/list"=>"hotword#list"
@@ -86,13 +87,16 @@ IntimeService::Application.routes.draw do
     end
   end
 
-  resources :promotion, only: [:index, :show] do
-    collection do
-      get :list
-      get :get_list
+  scope module: :front do
+    resources :promotions, only: [:index] do
+      collection do
+        get :get_list
+      end
     end
   end
+
   match "product/:id" => "product#show"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -134,17 +138,19 @@ IntimeService::Application.routes.draw do
   #   end
 
   # Sample resource route within a namespace:
-   namespace :front do
-       # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
+  namespace :front do
+    # Directs /admin/products/* to Admin::ProductsController
+    #     # (app/controllers/admin/products_controller.rb)
 
-       resources :products, :only=>[:show]
-       resources :promotions, :only=>[:show]
-     end
+    resources :products, :only=>[:show]
+    resources :promotions, :only=>[:show]
+    resources :orders
+  end
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
+  root to: 'front/promotions#index'
 
   # See how all your routes lay out with "rake routes"
 
