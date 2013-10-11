@@ -82,8 +82,7 @@ class ApplicationController < ActionController::Base
 
   def render_500(format = :json)
     if format.to_sym == :json
-      message = 'internal failed problem.' 
-      message =  yield if block_given?
+      message = block_given? ? yield : 'internal failed problem.'
       render json: { isSuccessful: false, message: message, statusCode: 500 }
     else
       render file: "#{Rails.root}/public/500.html", status: 500
@@ -92,8 +91,7 @@ class ApplicationController < ActionController::Base
 
   def render_404(format = :json)
     if format.to_sym == :json
-      message = 'not found.'
-      message =  yield if block_given?
+      message = block_given? ? yield : 'not found.'
       render json: { isSuccessful: false, message: message, statusCode: 404 }
     else
       render file: "#{Rails.root}/public/404.html", status: 404
