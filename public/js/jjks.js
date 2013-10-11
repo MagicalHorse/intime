@@ -1,7 +1,7 @@
 var handler = null;
     var page = 1;
     var isLoading = false;
-    var apiURL = 'http://stage.youhuiin.com/promotion/get_list.json'
+    var apiURL = 'http://stage.youhuiin.com/promotions/get_list.json'
     
     // Prepare layout options.
     var options = {

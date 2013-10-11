@@ -1,5 +1,5 @@
 class Front::BaseController < ApplicationController
-  layout 'application'
+  layout 'front'
   helper_method :current_user, :signed_in?
 
   def current_user
@@ -20,6 +20,20 @@ class Front::BaseController < ApplicationController
     result[:data][:access_token]  = current_user.access_token
     result[:data][:refresh_token] = current_user.refresh_token
     set_current_user(result[:data])
+  end
+
+  def render_items(datas, options = nil)
+    result = {
+      page:       datas.current_page,
+      pagesize:   datas.limit_value,
+      totalcount: datas.total_count,
+      totalpaged: datas.total_pages,
+      datas:      datas
+    }
+
+    result.merge!(options.delete_if {|k,v| v.blank? }) if options.present?
+
+    render json: result.to_json, callback: params[:callback]
   end
 
   protected

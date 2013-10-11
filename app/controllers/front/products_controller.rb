@@ -28,6 +28,8 @@ class Front::ProductsController < Front::BaseController
   def my_share_list
   end
 
+  protected
+
   def mock_up
 
    (1..9).inject([]) do |_r, _i|

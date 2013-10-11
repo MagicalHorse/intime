@@ -40,7 +40,7 @@ IntimeService::Application.routes.draw do
   end
   scope :module=>'front' do
     get '/auth/:provider/callback', to: 'sessions#create'
-    delete '/sessions', to: 'sessions#destory'
+    delete '/logout', to: 'sessions#destory'
   end
  
   match "hotword/list"=>"hotword#list"
@@ -82,12 +82,22 @@ IntimeService::Application.routes.draw do
     end
   end
 
-  resources :promotion, only: [:index, :show] do
-    collection do
-      get :list
-      get :get_list
+  scope module: :front do
+    resources :promotions, only: [:index] do
+      collection do
+        get :get_list
+      end
     end
   end
+
+  #scope module: 'front' do
+    #resources :promotion, only: [:index, :show] do
+      #collection do
+        #get :list
+        #get :get_list
+      #end
+    #end
+  #end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

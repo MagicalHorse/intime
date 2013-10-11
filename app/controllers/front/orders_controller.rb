@@ -28,7 +28,7 @@ class Front::OrdersController < Front::BaseController
   end
 
   def new
-    render json: API::Order.new(request, productid: params[:product_id])
+    #render json: API::Order.new(request, productid: params[:product_id])
   end
 
 #  {
