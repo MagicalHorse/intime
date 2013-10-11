@@ -163,6 +163,8 @@ text-align: center;}
 .thzc {
 	line-height:30px;
 }
+.address .add{float:right;}
+.address .adds{ display:none;text-align:center;}
 /*  logistics.html 物流详情*/
 .logistics, .Logistics_query, .address {
 	position: relative;
@@ -327,6 +329,7 @@ text-align: center;}
 /*填写订单*/
 .addorder .thzq{padding-right: 40px!important;}
 .addorder .thzq a{ display:block;}
+.addorder .thzq a:hover{color: #333;}
 .addorder .thzq .it {
 display: block;
 position: absolute;
@@ -397,6 +400,14 @@ background: url(../images/ico_jt.png) no-repeat;
 .addaddress .thzq span, .address .thzq span {
 	width: 65px!important;
 }
+.address .thzq span.it{
+display: block;
+position: absolute;
+top: 120px;
+right: 20px;
+width: 40px!important;
+height: 40px;
+background: url(../images/ico_ok.png) no-repeat;}
 /*  editaddress.html */
 .editaddress select {
 	margin-left:-4px;
@@ -412,7 +423,9 @@ background: url(../images/ico_jt.png) no-repeat;
 .om_df .item_tit dd strong {
 	display:block;
 	float:right;
+	color:#333;
 }
+.om_df .item_tit dd strong.on{ color:#990000; font-weight:bold;}
 .om_df .item_tit dl {
 	margin: 0px 0 10px 0;
 }
@@ -650,7 +663,6 @@ margin-bottom: 20px;
 -moz-border-radius: 5px;
 border-radius: 5px;
 background:#FFF;
-height:152px;
 	}
 	
 .jddh .content h3 {
@@ -774,6 +786,7 @@ float:none;
 		width:100%;
 		padding:0px;
 }
+.cfxq .vipright h2{ display:none;}
 .jddh .content .hykind{
 	font-size:14px; 
 }
@@ -786,6 +799,8 @@ float:none;
 }
 .om_df .zxzf{right: 0;top: 10px;}
 .om_df .qxdd{top: 36px;}
+.address .add{ display:none;}
+.address .adds{ display:block;text-align:center;}
 }
 
 
