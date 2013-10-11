@@ -83,12 +83,18 @@ IntimeService::Application.routes.draw do
 
   resources :special_topic, only: [:index] do
     collection do
-     get :get_list
+      get :get_list
     end
   end
 
   scope module: :front do
     resources :promotions, only: [:index] do
+      collection do
+        get :get_list
+      end
+    end
+
+    resources :specials, only: [:index] do
       collection do
         get :get_list
       end
