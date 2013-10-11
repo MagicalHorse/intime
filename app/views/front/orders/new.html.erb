@@ -10,25 +10,24 @@
   <section class="promo_info addorder">
     <div id="picbox" class="carousel slide">
       <div class="carousel-inner">
-        <div><img src="temp/400_400_1.jpg" alt="相宜本草护肤品正品套装 四倍蚕丝基础护理三件套 补水美白保湿"></div>
+        <div><img src="<%= middle_pic_url(@product['salecolors'][0]['resource']) %>" alt="<%= @product['name'] %>"></div>
       </div>
     </div>
     <div class="infobox">
       <div class="head">
-        <h1>相宜本草护肤品正品套装 四件包邮 越洋之恋</h1>
+        <h1><%= @product['name'] %></h1>
         <ul class="meta relative">
-          <li><span>吊牌价</span>￥<i>478.00</i></li>
-          <li><span>销售价</span>￥<em>239.00</em></li>
-          <li><span>货号</span>1234567890</li>
-          <div class="brand">相宜本草<br>
-            (INOHERB)</div>
+          <li><span>吊牌价</span>￥<i><%= @product['originprice'] %></i></li>
+          <li><span>销售价</span>￥<em><%= @product['price'] %></em></li>
+          <li><span>货号</span><%= @product['skucode'] %></li>
+          <div class="brand"><%= @product['brandname'] %><br>(<%= @product['brand2name'] %>)</div>
         </ul>
       </div>
       <div class="buyinfo">
         <div class="prop mb20" data-toggle="buttons-radio"> <span class="tages">颜色</span>
-          <button type="button" class="btn">棕色</button>
-          <button type="button" class="btn">黑色</button>
-          <button type="button" class="btn">红色</button>
+          <% @product['salecolors'].each do |salecolor| %>
+            <button type="button" class="btn"><%= salecolor['colorname'] %></button>
+          <% end %>
         </div>
         <div class="prop mb20" data-toggle="buttons-radio"> <span class="tages">尺码</span>
           <button type="button" class="btn">39</button>
@@ -60,7 +59,7 @@
         </div>
         <div class="item_tit bt" ><span>支付方式：</span> <br>
           <label><input name="u40" type="radio" id="u42" value="radio" checked >
-            支付宝支付</label>							
+            支付宝支付</label>
         </div>
         <div class="item_tit bt" style="line-height: 34px;"><span>发票信息：</span><br>
           <span>发票类型：</span>
@@ -72,20 +71,11 @@
           <span>公司名称：</span>
           <input id="u1" type="text" placeholder="请填写公司名称">
           <br>
-          <span>发票内容：</span>
-          <select style="margin-left:0px;">
-            <option>明细</option>
-            <option>服饰</option>
-          </select>
+          <span>备注：</span>
+          <input id="u1" type="text" placeholder="请填写发票明备注">
           <br>
         </div>
         <div class="item_tit bt"><span>配送及备注：</span><br>
-          <span>送货时间：</span>
-          <select style="margin-left:0px;">
-            <option>工作日休息日假日均可送货</option>
-            <option>只工作日送货，休息日假日不送货 </option>
-          </select>
-          <br>
           <span>送货方式：</span>快递(全场免运费)<br>
           <span>备注：</span>
           <input id="u1" type="text" placeholder="请填写备注">
@@ -108,7 +98,7 @@
         </div>
       </div>
     </div>
-    <p style="text-align:center;"> <a href="#barcode012" data-toggle="modal" class="btn btn-danger ">提交订单</a>
+    <p style="text-align:center;"> <a href="javascript:;" id="order_commit" class="btn btn-danger ">提交订单</a>
       <div id="barcode012" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
