@@ -36,6 +36,10 @@ class Front::BaseController < ApplicationController
     render json: result.to_json, callback: params[:callback]
   end
 
+  def check_api_result(result, format = :json)
+    render_500(format) and return unless result[:isSuccessful]
+  end
+
   protected
 
   def set_current_user(value)
@@ -44,7 +48,7 @@ class Front::BaseController < ApplicationController
       :email              => value['email'],
       :level              => value['level'],
       :nickie             => value['nickname'],
-      :uid                => uid,
+      :id                 => value['id'],
       :provider           => provider.present? ? provider.to_i : nil,
       :isbindcard         => value['isbindcard'],
       :mobile             => value['mobile'],
