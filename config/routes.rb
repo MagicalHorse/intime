@@ -75,20 +75,21 @@ IntimeService::Application.routes.draw do
     end
   end
 
-  resources :product, only: [:index] do
-    collection do
-     get :get_list
-    end
-  end
 
   resources :special_topic, only: [:index] do
     collection do
-     get :get_list
+      get :get_list
     end
   end
 
   scope module: :front do
     resources :promotions, only: [:index] do
+      collection do
+        get :get_list
+      end
+    end
+
+    resources :specials, only: [:index] do
       collection do
         get :get_list
       end
@@ -142,7 +143,12 @@ IntimeService::Application.routes.draw do
     # Directs /admin/products/* to Admin::ProductsController
     #     # (app/controllers/admin/products_controller.rb)
 
-    resources :products, :only=>[:show]
+    resources :products, :only=>[:show] do
+      collection do
+        get :my_favorite
+        get :my_share_list
+      end
+    end
     resources :promotions, :only=>[:show]
     resources :orders
   end

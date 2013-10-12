@@ -28,16 +28,17 @@ class Front::OrdersController < Front::BaseController
   end
 
   def new
-    #render json: API::Order.new(request, productid: params[:product_id])
+    result = API::Order.new(request, productid: params[:product_id])
+    check_api_result(result, :html)
+    @product = result[:data]
   end
 
-#  {
+#  ORDER = {
 #    products: [{
-#      productid: 882,
-#      desc: '测试',
+#      productid: 976,
+#      desc: '100%棉，拼接设计，让沉闷的黑色舔了一抹活泼色彩',
 #      quantity: 1,
-#      memo: "第一单",
-#      properties: { sizevalueid: 145, sizevaluename: "MXXL", colorvalueid: 144, colorvaluename: "白色"},
+#      properties: { sizevalueid: 249, sizevaluename: "S", colorvalueid: 248, colorvaluename: "黑色"},
 #    }],
 #    needinvoice: false,
 #    memo: '订单备注',
@@ -52,4 +53,9 @@ class Front::OrdersController < Front::BaseController
 #      paymentname: "货到付款"
 #    }
 #  }
+#
+#  {"data"=>{"orderno"=>"113101153513", "totalamount"=>999.0},
+#   "isSuccessful"=>true,
+#   "statusCode"=>200,
+#   "message"=>"操作成功！"}
 end
