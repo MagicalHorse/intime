@@ -37,11 +37,38 @@ class Front::ProductsController < Front::BaseController
       userid: 1
     }
     result = API::Product.my_share_list(request, options)
-    render :json => temp#gen_share(result)
+    render :json => tmp#gen_share(result)
   end
 
   
   protected
+
+  def tmp
+    {
+      page: 1,
+      pagesize: 10,
+      totalcount: 100,
+      totalpaged: 10,
+      datas: [
+        {
+      title: "开衫连帽卫衣 ASDF335 -2 黛紫色",                  
+      imageUrl: "http://yt.seekray.net/0909/temp/440_350_1.jpg",
+      url: "http://www.baidu.com",
+      price: 11,
+      originalPrice: 22,
+      likeCount: 900
+    },
+      {
+      title: "开衫连帽卫衣 ASDF335 -2 黛紫色",                  
+      imageUrl: "http://yt.seekray.net/0909/temp/440_350_1.jpg",
+      url: "http://www.baidu.com",
+      price: 11,
+      originalPrice: 22,
+      likeCount: 900
+    }
+    ]
+    }
+  end
 
   def temp
     {
