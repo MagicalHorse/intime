@@ -1,15 +1,15 @@
 module Stage
-  class Promotion < Stage::Base
-    self.collection_name = :promotion
+  class Special < Stage::Base
+    self.collection_name = :specialtopic
 
     class << self
       def list(options = {})
-        default_options = { page: 1, pagesize: 10, sort: 1 }
+        default_options = { page: 1, pagesize: 10 }
         options = default_options.merge(options.delete_if {|k, v| v.blank?})
 
         raw_data = get(:list, options)['data']
 
-        promotions = raw_data['promotions'].inject([]) do |_r, _p|
+        promotions = raw_data['specialtopics'].inject([]) do |_r, _p|
           _r << self.new(_p)
           _r
         end
