@@ -3,8 +3,12 @@
     <div class="frame">
       <div class="section menu">
         <ul>
-          <li class="active"><a href="index.html">促销专区</a></li>
-          <li><a href="special.html">精彩专题</a></li>
+          <li <%= controller_name == 'promotions' ? "class=active" : '' -%>>
+            <a href="<%= root_path -%>">促销专区</a>
+          </li>
+          <li <%= controller_name == 'specials' ? 'class=active' : '' -%>>
+            <a href="<%= specials_path -%>">精彩专题</a>
+          </li>
           <li><a href="gallery.html">随便逛逛</a></li>
           <li><a href="<%= my_favorite_front_products_path %>">我的银泰</a></li>
         </ul>
@@ -47,15 +51,11 @@
         </div>
       <% end %>
       <div class="section follow">
-        <h2>关注“喜欢银泰”微信</h2>
         <ul>
-          <li><a href="#"><img src="images/icon_weixin.png" alt="微信"></a></li>
-          <li><a href="#"><img src="images/icon_code.png" alt="二维码"></a></li>
+          <li><h2>下载APP</h2><a href="#"><img src="images/ytapp.png" alt="下载喜欢银泰APP" width="51" height="51"></a></li>
+          <li><h2>关注微信</h2><a href="#"><img src="images/icon_code.png" alt="关注喜欢银泰微信" width="51" height="51"></a></li>
         </ul>
       </div>
-      <div class="section download">
-        <h2>银泰 iPhone 客户端下载</h2>
-        <a href="#"><img src="images/ytapp.png" alt="客户端下载"></a> </div>
     </div>
   </div>
 </div>
