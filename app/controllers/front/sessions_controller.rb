@@ -12,6 +12,9 @@ class Front::SessionsController < Front::BaseController
     redirect_to root_path
   end
 
+  def login
+  end
+
   def destory
     reset_session
     redirect_to root_path
