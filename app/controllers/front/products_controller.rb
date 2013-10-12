@@ -1,6 +1,8 @@
 # encoding: utf-8
 class Front::ProductsController < Front::BaseController 
 
+  before_filter :check_current_user, :only => [:my_favorite, :my_share_list]
+
   def show
     pid = params[:id]
     prod = Product.search :per_page=>1,:page=>1 do 
@@ -37,6 +39,12 @@ class Front::ProductsController < Front::BaseController
 
   
   protected
+
+  def check_current_user
+    if  current_user.blank?
+      redirect_to login_path
+    end
+  end
 
   def gen_data(result)
     items = []
