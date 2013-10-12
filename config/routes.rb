@@ -96,9 +96,9 @@ IntimeService::Application.routes.draw do
       end
     end
   end
-
-  match "product/:id" => "product#show"
   match "promotion/list" =>"promotion#list"
+  match "product/:id" => "product#show"
+  match "promotion/:id" => "promotion#show"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
