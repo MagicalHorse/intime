@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Front::ProductsController < Front::BaseController 
 
-  before_filter :check_current_user, :only => [:my_favorite, :my_share_list]
+  #before_filter :check_current_user, :only => [:my_favorite, :my_share_list]
 
   def show
     pid = params[:id]
@@ -18,6 +18,9 @@ class Front::ProductsController < Front::BaseController
   end
 
   def my_favorite
+  end
+
+  def my_favorite_api
     options = {
       page: params[:page],
       pagesize: 10,
@@ -34,7 +37,7 @@ class Front::ProductsController < Front::BaseController
       userid: 1
     }
     result = API::Product.my_share_list(request, options)
-    render :json => result.to_json
+    render :json => gen_share(result)
   end
 
   
@@ -44,6 +47,24 @@ class Front::ProductsController < Front::BaseController
     if  current_user.blank?
       redirect_to login_path
     end
+  end
+
+  def gen_share(result)
+    items = []
+    result["data"]["items"].each do |item|
+      image_info = item["resources"].first
+      items << {
+        title:     item["productname"],
+        price:     item["price"],
+        oriprice:  item["originprice"],
+        likecount: item["likecount"],
+        url:       "",
+        image:     image_info.blank? ? "" : ApplicationController.helpers.middle_pic_url(image_info)
+      }
+    end
+    result = result["data"].slice(:pageindex, :pagesize, :totalcount, :totalpaged)
+    result[:data] = items
+    result
   end
 
   def gen_data(result)
