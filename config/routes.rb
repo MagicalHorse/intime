@@ -84,7 +84,7 @@ IntimeService::Application.routes.draw do
   end
 
   scope module: :front do
-    resources :promotions, only: [:index] do
+    resources :promotions, only: [:index, :show] do
       collection do
         get :get_list
       end
