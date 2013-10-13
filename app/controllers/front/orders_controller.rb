@@ -8,7 +8,7 @@ class Front::OrdersController < Front::BaseController
       pagesize: 10,
       type: params[:type]
     }
-    render json: API::Order.index(request, options)
+    render json: @orders = format_items(API::Order.index(request, options)[:data])
   end
 
   def create
@@ -43,16 +43,21 @@ class Front::OrdersController < Front::BaseController
   end
 
   def new
-    result = API::Order.new(request, productid: params[:product_id])
-    render_500 { result['message'] } and return unless result[:isSuccessful]
+    respond_to do |format|
+      format.json {
+        result = API::Order.new(request, productid: params[:product_id])
+        render_500 { result['message'] } and return unless result[:isSuccessful]
 
-    result[:data][:address] = API::Address.index(request, page: 1, pagesize: 1)[:data][:items][0]
-    result[:data].delete(:dimension)
-    result[:data][:salecolors].each_with_index do |color, index|
-      resource = result[:data][:salecolors][index].delete(:resource)
-      result[:data][:salecolors][index][:images_url] = resource.is_a?(Hash) ? middle_pic_url(resource) : ''
+        result[:data][:address] = API::Address.index(request, page: 1, pagesize: 1)[:data][:items][0]
+        result[:data].delete(:dimension)
+        result[:data][:salecolors].each_with_index do |color, index|
+          resource = result[:data][:salecolors][index].delete(:resource)
+          result[:data][:salecolors][index][:images_url] = resource.is_a?(Hash) ? middle_pic_url(resource) : ''
+        end
+        render json: result
+      }
+      format.html
     end
-    render json: result
   end
 
   # *input*
