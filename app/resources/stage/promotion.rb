@@ -4,7 +4,7 @@ module Stage
 
     class << self
       def list(options = {})
-        default_options = { page: 1, pagesize: 10, sort: 1 }
+        default_options = { page: 1, pagesize: 10, sort: 1, client_version: '2.3' }
         options = default_options.merge(options.delete_if {|k, v| v.blank?})
 
         raw_data = get(:list, options)['data']
