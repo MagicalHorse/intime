@@ -63,7 +63,7 @@ IntimeService::Application.routes.draw do
 
   match "product/search" => "product#search"
   match "product/list" => "product#list"
-
+  match "promotion/list" => "promotion#list"
 
   match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
   match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
@@ -102,7 +102,7 @@ IntimeService::Application.routes.draw do
       end
     end
   end
-  match "promotion/list" =>"promotion#list"
+
   match "product/:id" => "product#show"
   match "promotion/:id" => "promotion#show"
   # The priority is based upon order of creation:
