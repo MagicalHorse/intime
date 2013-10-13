@@ -1,5 +1,4 @@
 class Front::PromotionsController < Front::BaseController 
-  before_filter :update_user, only: [:index], if: :signed_in?
 
   def show
     pid = params[:id]
