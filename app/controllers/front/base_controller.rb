@@ -22,7 +22,7 @@ class Front::BaseController < ApplicationController
     set_current_user(result[:data])
   end
 
-  def render_items(datas, options = nil)
+  def render_datas(datas, options = nil)
     result = {
       page:       datas.current_page,
       pagesize:   datas.limit_value,
