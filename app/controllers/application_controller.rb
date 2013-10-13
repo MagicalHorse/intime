@@ -2,6 +2,7 @@ require 'auth/authenticate_system'
 class ApplicationController < ActionController::Base
   before_filter :parse_params, :only=>[:list,:search]
   PAGE_ALL_SIZE = 1000
+  helper_method :middle_pic_url
  
   protected
   def error_500
@@ -96,5 +97,9 @@ class ApplicationController < ActionController::Base
     else
       render file: "#{Rails.root}/public/404.html", status: 404
     end
+  end
+
+  def middle_pic_url(r)
+    PIC_DOMAIN + r[:name] + '_320x0.jpg'
   end
 end
