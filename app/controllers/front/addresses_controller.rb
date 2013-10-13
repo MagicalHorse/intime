@@ -19,6 +19,7 @@ class Front::AddressesController < Front::BaseController
   #       shippingdistrictid: 1,                               // 区ID
   #       shippingdistrict: '西湖区',                          // 区
   #       shippingaddress: 'xxx',                              // 送货地址
+  #       shippingzipcode: '100000'                            // 邮编
   #     }
   #   ]
   # }
@@ -40,6 +41,7 @@ class Front::AddressesController < Front::BaseController
   #     shippingdistrictid: 1,                               // 区ID
   #     shippingdistrict: '西湖区',                          // 区
   #     shippingaddress: 'xxx',                              // 送货地址
+  #     shippingzipcode: '100000'                            // 邮编
   #   }
   # }
   #
@@ -60,6 +62,7 @@ class Front::AddressesController < Front::BaseController
   #     shippingdistrictid: 1,                               // 区ID
   #     shippingdistrict: '西湖区',                          // 区
   #     shippingaddress: 'xxx',                              // 送货地址
+  #     shippingzipcode: '100000'                            // 邮编
   #   }
   # }
   # - fail
@@ -85,6 +88,7 @@ class Front::AddressesController < Front::BaseController
   #     shippingdistrictid: 1,                               // 区ID
   #     shippingdistrict: '西湖区',                          // 区
   #     shippingaddress: 'xxx',                              // 送货地址
+  #     shippingzipcode: '100000'                            // 邮编
   #   }
   # }
   # *output*
@@ -104,6 +108,7 @@ class Front::AddressesController < Front::BaseController
   #     shippingdistrictid: 1,                               // 区ID
   #     shippingdistrict: '西湖区',                          // 区
   #     shippingaddress: 'xxx',                              // 送货地址
+  #     shippingzipcode: '100000'                            // 邮编
   #   }
   # }
   # - fail
@@ -120,5 +125,9 @@ class Front::AddressesController < Front::BaseController
   def destory
     result = API::Address.destory(request, id: params[:id])
     render json: result.slice(:isSuccessful, :statusCode, :message, :data)
+  end
+
+  def supportshipments
+    render json: format_items(API::Address.supportshipments(request)[:data], :page, :pagesize, :totalcount, :totalpaged)
   end
 end

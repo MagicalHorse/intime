@@ -1,23 +1,28 @@
-require "#{File.dirname(__FILE__)}/restful.rb"
+module API
+  module Address
+    extend API::Restful
 
-module API::Address
-  extend API::Restful
+    class << self
+      def index(req, params = {})
+        post(req, params.merge(path: 'address/my'))
+      end
 
-  class << self
-    def index(req, params = {})
-      post(req, params.merge(path: 'address/my'))
-    end
+      def update(req, params = {})
+        post(req, params.merge(path: 'address/update'))
+      end
 
-    def update(req, params = {})
-      post(req, params.merge(path: 'address/update'))
-    end
+      def create(req, params = {})
+        post(req, params.merge(path: 'address/create'))
+      end
 
-    def create(req, params = {})
-      post(req, params.merge(path: 'address/create'))
-    end
+      def destory(req, params = {})
+        post(req, params.merge(path: 'address/delete'))
+      end
 
-    def destory(req, params = {})
-      post(req, params.merge(path: 'address/delete'))
+      # 送货地址省市链接
+      def supportshipments(req, params = {})
+        post(req, params.merge(path: 'environment/supportshipments'))
+      end
     end
   end
 end

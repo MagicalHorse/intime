@@ -55,6 +55,34 @@ class Front::OrdersController < Front::BaseController
     render json: result
   end
 
+  # *input*
+  # {
+  #   productid: 1,
+  #   quantity: 1
+  # }
+  #
+  # *output*
+  # - success
+  # {
+  #   isSuccessful: true,                           // 判断是否操作成功
+  #   statusCode: 200,
+  #   message: '操作成功',                          // 提示信息
+  #   data: {
+  #     totalfee: 100,                              // 运费
+  #     totalpoints: 100,                           // 总积分
+  #     totalamount: 100,                           // 总金额
+  #     extendprice: 100                            // 商品价格
+  #   }
+  # }
+  # - fail
+  # {
+  #   isSuccessful: false,                          // 判断是否操作成功
+  #   statusCode: 500,
+  #   message: '操作失败',                          // 提示信息
+  # }
+  def computeamount
+    render json: API::Order.computeamount(request, params.slice(:productid, :quantity))
+  end
 
 #    products: [{
 #      productid: 976,

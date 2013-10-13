@@ -158,8 +158,16 @@ IntimeService::Application.routes.draw do
       end
     end
     resources :promotions, :only=>[:show]
-    resources :orders
-    resources :addresses, only: [:index, :create, :update, :destory]
+    resources :orders do
+      collection do
+        post :computeamount
+      end
+    end
+    resources :addresses, only: [:index, :create, :update, :destory] do
+      collection do
+        get :supportshipments
+      end
+    end
   end
 
   # You can have the root of your site routed with "root"
