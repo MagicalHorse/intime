@@ -1,5 +1,6 @@
 class Front::AddressesController < Front::BaseController
   respond_to :html, :json, only: :index
+  before_filter :authenticate!
 
   # *output*
   # {
