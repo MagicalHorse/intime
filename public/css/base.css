@@ -19,6 +19,19 @@ a:hover {
 	color: #e50050;
 	text-decoration: none;
 }
+
+#loader {
+  height: 16px;
+  text-align: center;
+  padding: 25px 0 25px 0;
+}
+  
+#loaderCircle {
+  width: 16px;
+  height: 16px;
+  margin: 0 auto;
+  background-image: url('../images/loader.gif');
+}
 .fixed {
 	min-height: 120px
 }
@@ -33,7 +46,7 @@ a:hover {
 .btn-danger {
 	background-color: hsl(339, 100%, 35%) !important;
 	background-repeat: repeat-x;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fe4284", endColorstr="#b2003e");
+ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#fe4284", endColorstr="#b2003e");
 	background-image: -khtml-gradient(linear, left top, left bottom, from(#fe4284), to(#b2003e));
 	background-image: -moz-linear-gradient(top, #fe4284, #b2003e);
 	background-image: -ms-linear-gradient(top, #fe4284, #b2003e);
@@ -49,15 +62,8 @@ a:hover {
 /* Logo */
 .logo {
 	margin-left: 0px!important;
-	background: #bd2248;
-	background-image: -webkit-gradient(linear, center top, center bottom, from(#e5004f), to(#bd2248));
-	background-image: -webkit-linear-gradient(top, #e5004f, #bd2248);
-	background-image: -moz-linear-gradient(top, #e5004f, #bd2248);
-	background-image: -o-linear-gradient(top, #e5004f, #bd2248);
-	background-image: -ms-linear-gradient(top, #e5004f, #bd2248);
-	background-image: linear-gradient(to bottom, #e5004f, #bd2248);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e5004f, endColorstr=#bd2248, grandientType=1);
-	border-bottom: solid 5px #ddd;
+	background: #b6b6b6;
+	border-bottom: solid 5px #d6d6d6;
 	position: relative;
 	z-index: 1;
 }
@@ -200,7 +206,6 @@ margin-top: 25px;
 	background-image: -o-linear-gradient(top, #e5004f, #bd2248);
 	background-image: -ms-linear-gradient(top, #e5004f, #bd2248);
 	background-image: linear-gradient(to bottom, #e5004f, #bd2248);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e5004f, endColorstr=#bd2248, grandientType=1);
 	-webkit-box-shadow: inset 0px 0px 10px 4px #bd2248;
 	-moz-box-shadow: inset 0px 0px 10px 4px #bd2248;
 	box-shadow: inset 0px 0px 10px 4px #bd2248;
@@ -259,7 +264,6 @@ display:none;
 	background-image: -o-linear-gradient(top, #fff, #ccc);
 	background-image: -ms-linear-gradient(top, #fff, #ccc);
 	background-image: linear-gradient(to bottom, #fff, #ccc);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#cccccc, grandientType=1);
 	box-shadow: inset 0px 0px 0px 1px #ddd;
 	color:#333;
 	-webkit-border-radius: 4px;
@@ -278,7 +282,6 @@ display:none;
 	background-image: -o-linear-gradient(top, #e5004f, #bd2248);
 	background-image: -ms-linear-gradient(top, #e5004f, #bd2248);
 	background-image: linear-gradient(to bottom, #e5004f, #bd2248);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e5004f, endColorstr=#bd2248, grandientType=1);
 	-webkit-box-shadow: inset 0px 0px 10px 4px #bd2248;
 	-moz-box-shadow: inset 0px 0px 10px 4px #bd2248;
 	box-shadow: inset 0px 0px 10px 4px #bd2248;
@@ -345,7 +348,6 @@ display:none;
 	background-image: -o-linear-gradient(top, #e5004f, #bd2248);
 	background-image: -ms-linear-gradient(top, #e5004f, #bd2248);
 	background-image: linear-gradient(to bottom, #e5004f, #bd2248);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#e5004f, endColorstr=#bd2248, grandientType=1);
 	-webkit-box-shadow: inset 0px 0px 10px 4px #bd2248;
 	-moz-box-shadow: inset 0px 0px 10px 4px #bd2248;
 	box-shadow: inset 0px 0px 10px 4px #bd2248;
@@ -360,7 +362,6 @@ display:none;
 	background-image: -o-linear-gradient(top, #fff, #ccc);
 	background-image: -ms-linear-gradient(top, #fff, #ccc);
 	background-image: linear-gradient(to bottom, #fff, #ccc);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#cccccc, grandientType=1);
 	box-shadow: inset 0px 0px 0px 1px #ddd;
 	color:#333;
 	display: block;
@@ -403,7 +404,6 @@ float:right
 .search {
 	padding-top: 11px;
 }
-.search input{ float:left;}
 .search input[type="text"] {
 	font-size: 12px
 }
@@ -449,7 +449,6 @@ float:right
 
 .aside {
 	float: left;
-	position: fixed;
 	background: #f5f5f7 url(../images/aside_bg.png);
 	-webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
@@ -465,7 +464,7 @@ float:right
 	background: #fafafa;
 	width: 170px;
 	padding: 14px;
-	margin: 15px auto;
+	margin: 20px auto;
 	border: 1px solid #e7e9ea;
 }
 .aside .section {
@@ -475,7 +474,6 @@ float:right
 	font-size: 14px;
 	text-shadow: 1px 1px 1px #fff;
 	text-align: center;
-	line-height: 20px;
 }
 /* 左侧菜单 */
 .aside .menu {
@@ -514,9 +512,9 @@ float:right
 	text-decoration: none;
 }
 /* 登录银泰 */
-.aside .login{
+.aside .login, .aside .follow {
 	text-align: center;
-	padding-bottom: 20px;
+	padding-bottom: 30px;
 	border-bottom: 1px solid #e7e9ea;
 	box-shadow: 0 1px 0 #fff;
 }
@@ -556,14 +554,9 @@ background-image: url(../images/icon_twb_2x.png);
 }
 /* 银泰微信 */
 .aside .follow li {
-	margin: 0 10px;
+	margin: 0 5px;
 	display: inline-block;
 }
-.aside .follow {
-	text-align: center;
-	margin-bottom: 0;
-}
-.aside .follow h2 {margin-top: 0;}
 /* 客户端下载 */
 .aside .download {
 	text-align: center;
@@ -708,15 +701,9 @@ font-weight: normal;}
 }
 .portfolio .thumbnails .thumbnail h3 {
 	font-size: 14px;
+	padding-bottom:28px;
 	margin: 0;
-	line-height:20px;
-	margin-bottom: 5px;
 }
-.portfolio .thumbnails .thumbnail h3.time span{font-size: 12px; color:#e50050;}
-.portfolio .thumbnails .thumbnail h3.bottom{
-	padding:6px 0 30px 0;
-}
-
 .portfolio .thumbnails .thumbnail h3 .icon_title {
 	margin: 0 4px 0 0;
 }
@@ -922,7 +909,6 @@ footer a {
 	background:#fafafa;
 	text-align:center;
 	border: 1px solid #e7e9ea;
-	margin-top:10px;
 }
 .promo_info .infobox .func dd {
 	height: 50px;
@@ -1025,6 +1011,7 @@ padding: 0 5px;
 .addorder input[type="radio"]{
 	margin-top:-3px;}
 .addorder select {
+width: auto!important;
 margin-bottom: 3px;
 padding: 2px;
 width: 216px;
@@ -1034,6 +1021,7 @@ font-size: 14px;
 -webkit-border-radius: 3px;
 -moz-border-radius: 3px;
 border-radius: 3px;
+margin: 0px 10px;
 font-size:12px;
 }
 .addorder input[type="text"] {
@@ -1063,15 +1051,15 @@ display: inline-block;
 list-style: none;
 margin-bottom: 10px;
 clear: both;
-line-height: 20px;
-padding-left: 50px;
+line-height: 28px;
+padding-left: 66px;
 position: relative;
 z-index: 2;
 }
 .promo_info .infobox .head .meta li span {
-margin-left: -50px;
+margin-left: -66px;
 text-align: left;
-width: 50px;
+width: 66px;
 float: left;
 color: #999;
 }
@@ -1133,8 +1121,10 @@ text-decoration: line-through;
 }
 .recom .info .name a {
 	color: #e50050;
+	font-weight:bold;
 }
 .recom .info .name span {
+	font-size: 16px;
 	padding-left: 10px;
 }
 .recom .info .name .code {
@@ -1435,14 +1425,6 @@ element.style {
 }
 
 .promo_info .infobox .buyinfo .property span{ font-weight:bold; color: #c00;}
-.buyinfo .property{
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-	background: #e0e0e0;
-	padding: 5px 10px;
-}
-
 
 
 /* 模态对话框 */
@@ -1452,6 +1434,7 @@ element.style {
 	filter: alpha(opacity=20);
 
 }
+.modal.fade.in {top: 35%;}
 .modal-header {
 	border-bottom: 1px solid #eee;
 	-webkit-border-radius: 6px 6px 0 0;
@@ -1476,9 +1459,6 @@ element.style {
 /* 大于 1200
  ========================================================================== */
 @media (min-width: 1200px) {
- .nav > .pull-right {
-padding-left: 210px;
-}
 .container, .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
 width: 1155px;
 }
@@ -1488,7 +1468,7 @@ width: 1155px;
  overflow: visible!important;
 }
 .aside .frame {
- width: 190px;
+ width: 180px;
  padding: 24px;
 }
 .main {
@@ -1526,9 +1506,6 @@ padding: 5px 30px;
  width: -moz-calc(100% - 220px);
  width: -webkit-calc(100% - 220px);
  width: calc(100% - 220px);
-}
- .nav > .pull-right {
-padding-left: 45px;
 }
 	
 	/*随便逛逛下拉导航*/
@@ -1658,7 +1635,7 @@ padding: 10px 0 0 0;
  padding-right: 1px;
 }
  .navbar .nav > li .icon-undo {
-margin: 0 2px;
+margin: 0 5px;
  width: 24px;
  height: 24px;
 }
@@ -1668,7 +1645,7 @@ margin: 0 2px;
  width: calc(100% - 74px);
 }
  .navbar .nav > li.title, .navbar .nav > li > a {
- padding: 0 5px;
+ padding: 0 8px;
  line-height: 40px;
 }
 .navbar .nav > li.mid {	line-height: 40px;}
@@ -1691,7 +1668,7 @@ display:block
 margin-top: 18px;
 }
 /* 全部分类下拉导航 */
-.navbar .nav li.dropdown .dropdown-menu {top: 40px;}
+.navbar .nav li.dropdown .dropdown-menu {top: 82px;}
  .navbar .nav #menu1 .dropdown-menu,  .navbar .nav #menu2 .dropdown-menu {
  max-height:285px;
  width: -moz-calc(100% - 30px)!important;
@@ -1767,7 +1744,6 @@ position: static;
  position: absolute;
 left: 0;
 top: 40px;
-display: none;
 }
  .search input {
  margin-left: 5px;
@@ -1838,27 +1814,14 @@ text-shadow: none;
 	padding: 0;
 	margin-bottom: 5px;
  }
- .aside .follow,
- .aside .download,
- .aside .loger .tools ul,
- .aside .loger .share{ display:none;}
+ .aside .follow, .aside .download { display:none;}
  #banner {
 margin: 0 10px 10px 0;
 }
  .portfolio .page-header {
 margin: 0 0 10px 0;
 }
- .portfolio .page-header h2 .pull-right{ 
-	background: url(../images/icon-chevron-right_2x.png) no-repeat 0 0;
-	text-indent: -999em;
-	-webkit-background-size: contain;
-	-moz-background-size: contain;
-	background-size: contain;
-	height: 20px;
-	width: 20px;
-	margin-top: 10px;
-	padding: 0;
-}
+.portfolio .page-header h2 .pull-right{ display:none;}
  .thumbnails > li {
 margin-bottom: 10px;
 }
@@ -1940,12 +1903,8 @@ margin:0 10px;
  .promo_info #picbox,  .promo_info #picbox img {
 width:100%;
 }
-.promo_info .infobox .head{margin-bottom: 0;}
-.promo_info .infobox .loca{padding-bottom: 0;}
  .promo_info .infobox .head .pull-right {
-position: absolute;
-right: 0;
-top: 7px;
+padding-top:10px;
 }
  .promo_info .infobox {
 width:100%;
@@ -2006,13 +1965,12 @@ padding: 0px!important;
 	/*相应导航*/
 	
 	
- .thumbnails > li {
+	.thumbnails > li {
  display: block;
- float: none;
- width: 100%;
- margin-left: 0;
+ float: none!important;
+ width: 100%!important;
+ margin-left: 0!important;
 }
-
  footer .container {
  padding: 10px 0 10px 0;
 }
@@ -2049,7 +2007,6 @@ margin: 0 10px;
  .portfolio .page-header h2 .distance {
 display: none;
 }
-
  .shop_detail {
 margin:0 10px 10px 10px;
 }
@@ -2066,11 +2023,10 @@ padding: 0px!important;
 
 .thumbnails > li {
  display: block;
- float: none;
- width: 100%;
- margin-left: 0;
+ float: none!important;
+ width: 100%!important;
+ margin-left: 0!important;
 }
-
 }
 
 
