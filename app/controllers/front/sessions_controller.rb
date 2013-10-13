@@ -31,6 +31,7 @@ class Front::SessionsController < Front::BaseController
                  else Settings.provider.other
                  end
 
+    binding.pry
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => auth_data.uid,
       :outsitenickname  => auth_data.info.nickname,
