@@ -36,6 +36,22 @@ class Front::BaseController < ApplicationController
     render json: result.to_json, callback: params[:callback]
   end
 
+  def format_items(data, *except_keys)
+    result = {
+      page:       data[:pageindex],
+      pagesize:   data[:pagesize],
+      totalcount: data[:totalcount],
+      totalpaged: data[:totalpaged],
+      datas:      data[:items]
+    }
+
+    result.except(*except_keys)
+  end
+
+  def render_items(data, options = nil)
+    render json: format_items(data, options), callback: params[:callback]
+  end
+
   protected
 
   def set_current_user(value)

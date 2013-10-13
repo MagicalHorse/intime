@@ -1,7 +1,7 @@
 var handler = null;
     var page = 1;
     var isLoading = false;
-    var apiURL = 'http://stage.youhuiin.com/profile/get_list.json'
+    var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
     
     // Prepare layout options.
     var options = {

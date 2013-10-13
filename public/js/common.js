@@ -2,9 +2,9 @@
 $(function() {
 	
 
-	$('.sidenav .aside').affix({
-		offset: {top: 0, bottom: 70}
-	})
+	//$('.sidenav .aside').affix({
+		//offset: {top: 0, bottom: 70}
+	//})
 	
 	
 	//导航遮罩
@@ -45,7 +45,7 @@ $(function() {
 		controlsInside: false,
 		imageScaleMode: 'fill',
 		arrowsNavAutoHide: true,//箭头导航是否自动隐藏	true或false
-		arrowsNavHideOnTouch: false,//箭头导航是否在触摸设备中隐藏 true或false
+		arrowsNavHideOnTouch: true,//箭头导航是否在触摸设备中隐藏 true或false
 		autoScaleSlider: true,
 		autoScaleSliderWidth: 400,  
 		autoScaleSliderHeight: 400,

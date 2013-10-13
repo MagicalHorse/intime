@@ -27,7 +27,7 @@ class Front::ProductsController < Front::BaseController
       sourcetype: params[:sourcetype] || 1
     }
     result = API::Product.my_favorite(request, options)
-    render :json => gen_data(result)
+    render :json => gen_data(result).to_json, callback: params[:callback] 
   end
 
   def my_share_list
@@ -37,64 +37,10 @@ class Front::ProductsController < Front::BaseController
       userid: 1
     }
     result = API::Product.my_share_list(request, options)
-    render :json => tmp#gen_share(result)
+    render json: gen_share(result).to_json, callback: params[:callback]
   end
 
   protected
-
-  def tmp
-    {
-      page: 1,
-      pagesize: 10,
-      totalcount: 100,
-      totalpaged: 10,
-      datas: [
-        {
-      title: "开衫连帽卫衣 ASDF335 -2 黛紫色",                  
-      imageUrl: "http://yt.seekray.net/0909/temp/440_350_1.jpg",
-      url: "http://www.baidu.com",
-      price: 11,
-      originalPrice: 22,
-      likeCount: 900
-    },
-      {
-      title: "开衫连帽卫衣 ASDF335 -2 黛紫色",                  
-      imageUrl: "http://yt.seekray.net/0909/temp/440_350_1.jpg",
-      url: "http://www.baidu.com",
-      price: 11,
-      originalPrice: 22,
-      likeCount: 900
-    }
-    ]
-    }
-  end
-
-  def temp
-    {
-      pageindex: 1,
-      pagesize: 10,
-      totalcount: 2,
-      totalpaged: 1,
-      data: [
-        {
-      title: "有货号啊",
-      price: 10,
-      oriprice: 111,
-      likecount: 0,
-      url: "",
-      image: "http://apis.youhuiin.com/fileupload/img/product/20130713/b80b0d28-c77b-438d-af4e-890e1f691b58_320x0.jpg"
-    },
-      {
-      title: "我们在测试18",
-      price: 12,
-      oriprice: 0,
-      likecount: 0,
-      url: "",
-      image: "http://apis.youhuiin.com/fileupload/img/product/20130220/bd63cbad-33de-48ce-b348-65b388cdd376_320x0.jpg"
-    }
-    ]
-    }
-  end
 
   def check_current_user
     if  current_user.blank?
@@ -116,7 +62,7 @@ class Front::ProductsController < Front::BaseController
       }
     end
     result = result["data"].slice(:pageindex, :pagesize, :totalcount, :totalpaged)
-    result[:data] = items
+    result[:datas] = items
     result
   end
 
@@ -134,7 +80,7 @@ class Front::ProductsController < Front::BaseController
       }
     end
     result = result["data"].slice(:pageindex, :pagesize, :totalcount, :totalpaged)
-    result[:data] = items
+    result[:datas] = items
     result
   end
 
