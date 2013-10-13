@@ -20,12 +20,16 @@ module Stage
         ).page(raw_data['pageindex']).per(raw_data['pagesize'])
       end
 
+      def fetch(id)
+        new(get(id)['data'])
+      end
+
     end
 
-    def image_url
-      return '' if resources.blank?
+    def image_urls(size = 320)
+      return [] if resources.blank?
 
-      [PIC_DOMAIN, resources[0].name, "_320X0.jpg"].join('')
+      resources.map { |resource| [PIC_DOMAIN, resource.name, "_#{size}X0.jpg"].join('')}
     end
   end
 end
