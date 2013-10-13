@@ -1,5 +1,4 @@
 class Front::PromotionsController < Front::BaseController 
-  before_filter :update_user, only: [:index], if: :signed_in?
 
   def show
     pid = params[:id]
@@ -19,7 +18,7 @@ class Front::PromotionsController < Front::BaseController
   def get_list
     promotions = Stage::Promotion.list(page: params[:page], pagesize: params[:pageSize], sort: 1)
 
-    render_items(handle_items(promotions))
+    render_datas(handle_items(promotions))
   end
 
   protected
@@ -32,7 +31,7 @@ class Front::PromotionsController < Front::BaseController
         startDate:    item.startdate.to_date.strftime('%Y.%m.%d'),
         endDate:      item.enddate.to_date.strftime('%Y.%m.%d'),
         description:  item.description,
-        likeCount:    0,
+        likeCount:    item.likecount,
         storeId:      item.store.try(:id),
         storeName:    item.store.try(:name),
         storeUrl:     ''

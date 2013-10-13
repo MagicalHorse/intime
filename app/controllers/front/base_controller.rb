@@ -22,7 +22,7 @@ class Front::BaseController < ApplicationController
     set_current_user(result[:data])
   end
 
-  def render_items(datas, options = nil)
+  def render_datas(datas, options = nil)
     result = {
       page:       datas.current_page,
       pagesize:   datas.limit_value,
@@ -36,8 +36,20 @@ class Front::BaseController < ApplicationController
     render json: result.to_json, callback: params[:callback]
   end
 
-  def check_api_result(result, format = :json)
-    render_500(format) and return unless result[:isSuccessful]
+  def format_items(data, *except_keys)
+    result = {
+      page:       data[:pageindex],
+      pagesize:   data[:pagesize],
+      totalcount: data[:totalcount],
+      totalpaged: data[:totalpaged],
+      datas:      data[:items]
+    }
+
+    result.except(*except_keys)
+  end
+
+  def render_items(data, options = nil)
+    render json: format_items(data, options), callback: params[:callback]
   end
 
   protected
