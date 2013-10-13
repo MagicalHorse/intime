@@ -327,7 +327,7 @@ text-align: center;}
 	line-height:36px;
 }
 /*填写订单*/
-.addorder .thzq{padding-right: 40px!important;}
+.addorder .thzq{line-height: 28px;}
 .addorder .thzq a{ display:block;}
 .addorder .thzq a:hover{color: #333;}
 .addorder .thzq .it {
@@ -339,11 +339,28 @@ width: 40px!important;
 height: 40px;
 background: url(../images/ico_jt.png) no-repeat;
 }
-
+.addorder .thzq .alter {margin-top: 10px;}
+.addorder .thzq .alter span{width: 140px!important;}
+.addorder .thzq .modal-body{ max-height:300px;}
+.addorder .thzq .modal-body .item_tit {padding: 0!important}
+.addorder .thzq .modal-body form{ margin:0;}
+.addorder .thzq .modal-footer a{ display:inline-block;}
 .rtds .thzq span, .olrtds .thzq span {
 	width: 90px;
 	display: inline-block;
 }
+.addorder .thzq .add02{text-align:center;margin-bottom: 5px;}
+.addorder .thzq .add02 .btn{
+height: 80px;
+line-height: 80px;
+width: 80px;
+-webkit-border-radius: 40px;
+-moz-border-radius: 40px;
+border-radius: 40px;
+padding: 0;
+font-size: 40px;
+display: inline-block;}
+
 /*  Applyth.html */
 .goods-num {
 	width:20px;

@@ -165,6 +165,7 @@ IntimeService::Application.routes.draw do
     end
     resources :promotions, :only=>[:show]
     resources :orders
+    resources :addresses, only: [:index, :create, :update, :destory]
   end
 
 

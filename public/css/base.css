@@ -1025,7 +1025,6 @@ padding: 0 5px;
 .addorder input[type="radio"]{
 	margin-top:-3px;}
 .addorder select {
-width: auto!important;
 margin-bottom: 3px;
 padding: 2px;
 width: 216px;
@@ -1035,7 +1034,6 @@ font-size: 14px;
 -webkit-border-radius: 3px;
 -moz-border-radius: 3px;
 border-radius: 3px;
-margin: 0px 10px;
 font-size:12px;
 }
 .addorder input[type="text"] {
@@ -1437,6 +1435,14 @@ element.style {
 }
 
 .promo_info .infobox .buyinfo .property span{ font-weight:bold; color: #c00;}
+.buyinfo .property{
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background: #e0e0e0;
+	padding: 5px 10px;
+}
+
 
 
 /* 模态对话框 */
