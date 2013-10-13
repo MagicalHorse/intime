@@ -1,7 +1,7 @@
 var handler = null;
     var page = 1;
     var isLoading = false;
-    var apiURL = 'http://www.wookmark.com/api/json/popular'
+    var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
     
     // Prepare layout options.
     var options = {
@@ -20,7 +20,7 @@ var handler = null;
         // Check if we're within 100 pixels of the bottom edge of the broser window.
         var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
         if(closeToBottom) {
-          loadData(type);
+          loadData(loveType);
         }
       }
     };
@@ -42,14 +42,14 @@ var handler = null;
      */
     function loadData($type) {
       isLoading = true;
-       type = $type;
+       loveType = $type;
       $('#loaderCircle').show();
       //alert(page);
       //alert(type);
       $.ajax({
         url: apiURL,
         dataType: 'jsonp',
-        data: {page: page,'type':type}, // Page parameter to make sure we load new data
+        data: {page: page,'loveType':loveType}, // Page parameter to make sure we load new data
         success: onLoadData
       });
     };
@@ -63,18 +63,14 @@ var handler = null;
       
       // Increment page index for future calls.
       page++;
-      
       // Create HTML for the images.
       var html = '';
-      var i=0, length=data.length, image;
+      var i=0, length=data.datas.length;
       for(; i<length; i++) {
-        image = data[i];
        html+='<li>';
 						html+='<div class="thumbnail">';
 							html+='<div class="action">';
-								html+='<span class="discount">优惠</span>';
-								html+='<span class="triangle"></span>';
-								html+='<a href="product.html"><img src="temp/440_350_1.jpg" alt="开衫连帽卫衣 ASDF335 -2 黛紫色"></a>';
+								html+='<a href="product.html"><img src="'+data.datas[i].imageUrl+'" alt="开衫连帽卫衣 ASDF335 -2 黛紫色"></a>';
 								html+='<span class="like"><i class="icon-heart icon-white"></i>999+</span>';
 							html+='</div>';
 							html+='<h4><a href="product.html">开衫连帽卫衣 ASDF335 -2 黛紫色</a></h4>';
@@ -98,5 +94,5 @@ var handler = null;
       $(document).bind('scroll', onScroll);
       
       // Load first data from the API.
-      loadData();
+      loadData('1');
     });

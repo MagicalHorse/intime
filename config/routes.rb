@@ -147,6 +147,7 @@ IntimeService::Application.routes.draw do
     resources :products, :only=>[:show] do
       collection do
         get :my_favorite
+        get :my_favorite_api
         get :my_share_list
       end
     end
