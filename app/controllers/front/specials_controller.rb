@@ -6,7 +6,7 @@ class Front::SpecialsController < Front::BaseController
   def get_list
     special_topics = Stage::Special.list(page: params[:page], pagesize: params[:pageSize])
 
-    render_items(handle_items(special_topics))
+    render_datas(handle_items(special_topics))
   end
 
   protected
