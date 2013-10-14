@@ -1,8 +1,7 @@
     var handler = null;
     var page = 1;
     var isLoading = false;
-
-    var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
+    var apiURL = 'http://stage.youhuiin.com/profile/get_list.json'
     
     // Prepare layout options.
     var options = {
@@ -43,17 +42,13 @@
      */
     function loadData($type) {
       isLoading = true;
-
-       loveType = $type;
-
+	  loveType = $type;
       $('#loaderCircle').show();
       
       $.ajax({
         url: apiURL,
         dataType: 'jsonp',
-
-        data: {page: page,'loveType':loveType}, // Page parameter to make sure we load new data
-
+        data: {page: page,loveType:loveType}, // Page parameter to make sure we load new data
         success: onLoadData
       });
     };
@@ -67,19 +62,16 @@
       
       // Increment page index for future calls.
       page++;
+      
       // Create HTML for the images.
-
-      var html = '';
-
+     var html = '';
       var i=0, length=data.datas.length;
       for(; i<length; i++) {
        html+='<li>';
 						html+='<div class="thumbnail">';
 							html+='<div class="action">';
-
 								html+='<a href="product.html"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].imageUrl+'"></a>';
 								html+='<span class="like"><i class="icon-heart icon-white"></i>'+data.datas[i].likeCount+'+</span>';
-
 							html+='</div>';
 							html+='<h4><a href="product.html">'+data.datas[i].title+'</a></h4>';
 							html+='<small><span class="pull-left num">吊牌价：<em>￥'+data.datas[i].originalPrice+'</em></span><span class="pull-right price">销售价：<em>￥'+data.datas[i].price+'</em></span></small>';
@@ -100,6 +92,4 @@
       
       // Load first data from the API.
       loadData('1');
-
     });
-

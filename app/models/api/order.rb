@@ -1,6 +1,5 @@
 module API
-  module Order
-    extend API::Restful
+  class Order < API::Base
 
     STATUST = {
       unpaid:     0,    # 创建未支付
