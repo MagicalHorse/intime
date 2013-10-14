@@ -13,6 +13,7 @@ class Front::SessionsController < Front::BaseController
   end
 
   def login
+    redirect_to root_url if signed_in?
   end
 
   def destory
