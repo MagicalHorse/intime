@@ -1,7 +1,7 @@
 <%= content_for :head_nav do -%>
   <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
   <ul class="nav">
-    <li><a href="om_df.html"><i class="icon-undo"></i></a></li>
+    <li><a href="<%= front_orders_path %>"><i class="icon-undo"></i></a></li>
   </ul>
 <% end -%>
 <div class="span9 main">
@@ -9,15 +9,15 @@
     <div class="Logistics_query rtds om_df">
       <div class="item">
         <div class="item_tit relative bb"><span>订单号：</span><%= @order['orderno'] %><br>
-          <span>订单状态：</span><strong><%= @order['status'] %></strong>
+          <span>订单状态：</span><strong id="order_status"><%= @order['status'] %></strong>
           <% if API::Order.can_payment?(@order['statust']) %>
-            <a href="<%= pay_front_order_path(@order['orderno']) %>" target="_blank" class="btn btn-danger absolute zxzf">在线支付</a>
+            <a href="<%= pay_front_order_path(@order['orderno']) %>" id="payment" target="_blank" class="btn btn-danger absolute zxzf">在线支付</a>
           <% end %>
           <% if API::Order.can_cancel?(@order['statust']) %>
-            <%= link_to '取消订单', front_order_path(@order['orderno']), class: "btn absolute zxzf qxdd", method: :delete, confirm: '是否确定要取消订单？' %>
+            <a href="javascript:;" id="cancel" data-order-id="<%= @order['orderno'] %>" class="btn absolute zxzf qxdd">取消订单</a>
           <% end %>
         </div>
-        <a href="product.html">
+        <a href="<%= front_product_path(@product['productid']) %>">
           <div class="item_ct">
             <div class="item_img"><img src="<%= small_pic_url(@product['resource']) %>" /></div>
             <div class="item_pr" style="line-height:18px;"> <span style="font-size:12px;"><%= @product['productname'] %></span><br>
@@ -67,3 +67,6 @@
     </div>
   </form>
 </div>
+<%= content_for :javascripts do %>
+  <script src="<%= static_url('/js/destroy_order.js') %>"></script>
+<% end %>
