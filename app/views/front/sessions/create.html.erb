@@ -1,8 +1,0 @@
-<h1>Front::Sessions#create</h1>
-<p>Find me in app/views/front/sessions/create.html.erb</p>
-<% if signed_in?%>
-	<h1>CurrentUser</h1>
-  <% CurrentUser::ATTRIBUTES.each do |attr| %>
-    <h3><%= h attr %>: <%= h current_user.send(attr) %></h3>
-  <% end %>
-<% end%>

@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
       message = block_given? ? yield : 'internal failed problem.'
       render json: { isSuccessful: false, message: message, statusCode: 500 }
     else
-      render file: "#{Rails.root}/public/500.html", status: 500
+      render file: "#{Rails.root}/public/500.html", status: 500, layout: false
     end
   end
 
@@ -99,7 +99,7 @@ class ApplicationController < ActionController::Base
       message = block_given? ? yield : 'not found.'
       render json: { isSuccessful: false, message: message, statusCode: 404 }
     else
-      render file: "#{Rails.root}/public/404.html", status: 404
+      render file: "#{Rails.root}/public/404.html", status: 404, layout: false
     end
   end
 
