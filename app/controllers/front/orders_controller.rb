@@ -6,9 +6,13 @@ class Front::OrdersController < Front::BaseController
     options = {
       page: params[:page],
       pagesize: 10,
-      type: params[:type]
+      type: params[:type].present? ? params[:type] : 1,
     }
-    render json: @orders = format_items(API::Order.index(request, options)[:data])
+    result = API::Order.index(request, options)[:data]
+    @orders = Kaminari.paginate_array(
+      result[:items],
+      total_count: result[:totalcount].to_i
+    ).page(result[:pageindex]).per(result[:pagesize])
   end
 
   def create
@@ -34,8 +38,8 @@ class Front::OrdersController < Front::BaseController
     @product = @order['products'][0]
   end
 
-  def destory
-    render json: API::Order.show(request, orderno: params[:id])
+  def destroy
+    render json: API::Order.destroy(request, orderno: params[:id])
   end
 
   def update
@@ -96,7 +100,7 @@ class Front::OrdersController < Front::BaseController
       order   = result[:data]
       product = order['products'][0]
 
-      if order['statust'].to_s == API::Order::STATUST[:unpaid].to_s
+      if order['statust'].to_s == API::Order::STATUSES[:unpaid].to_s
         req_data = {
           subject:        product['productname'],
           out_trade_no:   order['orderno'],

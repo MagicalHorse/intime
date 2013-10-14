@@ -1,7 +1,7 @@
 module API
   class Order < API::Base
 
-    STATUST = {
+    STATUSES = {
       unpaid:     0,    # 创建未支付
       paid:       1,    # 已支付
       approval:   2,    # 订单审核通过
@@ -9,6 +9,13 @@ module API
       shipped:    15,   # 订单已发货
       received:   16,   # 用户已签收
       rejected:   10    # 用户拒收
+    }
+
+    TYPES = {
+      unpaid:     1,    # 待支付
+      unreceived: 1,    # 待收货
+      completed:  2,    # 已完成
+      cancelled:  3     # 已取消
     }
 
     class << self
@@ -24,7 +31,7 @@ module API
         post(req, params.merge(path: 'order/detail'))
       end
 
-      def destory(req, params = {})
+      def destroy(req, params = {})
         post(req, params.merge(path: 'order/void'))
       end
 
@@ -43,12 +50,12 @@ module API
 
       # 订单能否取消
       def can_cancel?(statust)
-        STATUST.values_at(:unpaid, :paid, :approval).map(&:to_s).include?(statust.to_s)
+        STATUSES.values_at(:unpaid, :paid, :approval).map(&:to_s).include?(statust.to_s)
       end
 
       # 能否支付
       def can_payment?(statust)
-        STATUST[:unpaid].to_s == statust.to_s
+        STATUSES[:unpaid].to_s == statust.to_s
       end
     end
   end

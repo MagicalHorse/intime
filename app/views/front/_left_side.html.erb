@@ -10,7 +10,7 @@
             <a href="<%= specials_path -%>">精彩专题</a>
           </li>
           <li><a href="gallery.html">随便逛逛</a></li>
-          <li><a href="<%= my_favorite_front_products_path %>">我的银泰</a></li>
+          <li><a href="<%= front_my_favorite_path %>">我的银泰</a></li>
         </ul>
       </div>
       <% if signed_in? %>
@@ -20,7 +20,7 @@
             <div class="photo"><a href="details.html"><img src="<%= current_user.avatar_url %>"></a></div>
             <div class="tools">
               <span><%= current_user.nickie %></span>
-              <ul><li><a href="om.html" title="预购中心"> </a></li>
+              <ul><li><a href="<%= front_profile_path %>" title="预购中心"> </a></li>
                 <li><a href="infocenter.html" title="消息"> </a></li>
                 <li><a href="prupdate.html" title="设置"> </a></li>
                 <li><a href="<%= logout_path %>" data-method="delete" title="退出"></a></li>

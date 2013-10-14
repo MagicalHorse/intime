@@ -29,4 +29,8 @@ module ApplicationHelper
   def static_url(path)
     "#{root_url}#{path}" if path
   end
+
+  def format_time(time)
+    Time.parse(time).strftime('%Y-%m-%d %H:%M:%S') rescue nil
+  end
 end
