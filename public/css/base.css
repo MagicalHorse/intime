@@ -2085,3 +2085,15 @@ padding: 0px!important;
  height: auto;
 }
 }
+#loader {
+  height: 16px;
+  text-align: center;
+  padding: 25px 0 25px 0;
+}
+  
+#loaderCircle {
+  width: 16px;
+  height: 16px;
+  margin: 0 auto;
+  background-image: url('../images/loader.gif');
+}
