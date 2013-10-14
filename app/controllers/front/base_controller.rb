@@ -16,7 +16,7 @@ class Front::BaseController < ApplicationController
     if request.xhr?
       render json: { isSuccessful: false, message: 'no login', statusCode: 500 }
     else
-      redirect_to login_path
+      redirect_to "#{login_path}?return_to=#{Rack::Utils.escape(request.original_url)}"
     end
   end
 
