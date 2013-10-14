@@ -175,6 +175,10 @@ IntimeService::Application.routes.draw do
       collection do
         post :computeamount
       end
+
+      member do
+        get :pay
+      end
     end
     resources :addresses, only: [:index, :create, :update, :destory] do
       collection do
@@ -182,6 +186,8 @@ IntimeService::Application.routes.draw do
       end
     end
   end
+
+  get 'payment/callback', to: 'front/orders#pay_callback'
 
 
   # You can have the root of your site routed with "root"

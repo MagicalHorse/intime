@@ -343,7 +343,9 @@ background: url(../images/ico_jt.png) no-repeat;
 .addorder .thzq .alter span{width: 140px!important;}
 .addorder .thzq .modal-body{ max-height:300px;}
 .addorder .thzq .modal-body .item_tit {padding: 0!important}
-.addorder .thzq .modal-body form{ margin:0;}
+.addorder .thzq .modal-body .item_tit span{width: 90px!important;}
+.addorder .thzq .modal-body form{ margin:0;padding-top: 10px;margin-top: 10px;border-top: 1px solid #e0e0e0;}
+.addorder .thzq .modal-body form label{padding:0;}
 .addorder .thzq .modal-footer a{ display:inline-block;}
 .rtds .thzq span, .olrtds .thzq span {
 	width: 90px;

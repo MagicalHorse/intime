@@ -10,8 +10,12 @@
       <div class="item">
         <div class="item_tit relative bb"><span>订单号：</span><%= @order['orderno'] %><br>
           <span>订单状态：</span><strong><%= @order['status'] %></strong>
-          <a href="#" class="btn btn-danger absolute zxzf">在线支付</a>
-          <a href="#barcode" data-toggle="modal" class="btn absolute zxzf qxdd">取消订单</a>
+          <% if API::Order.can_payment?(@order['statust']) %>
+            <a href="<%= pay_front_order_path(@order['orderno']) %>" target="_blank" class="btn btn-danger absolute zxzf">在线支付</a>
+          <% end %>
+          <% if API::Order.can_cancel?(@order['statust']) %>
+            <%= link_to '取消订单', front_order_path(@order['orderno']), class: "btn absolute zxzf qxdd", method: :delete, confirm: '是否确定要取消订单？' %>
+          <% end %>
         </div>
         <a href="product.html">
           <div class="item_ct">
@@ -27,7 +31,6 @@
           </div>
         </a>
         <div class="item_tit bt thzq"><span>收货人姓名：</span><%= @order['shippingcontactperson'] %><br>
-          <span>省份：</span><%=  %>-<%=  %>-<%=  %><br>
           <span>地址：</span><%= @order['shippingaddress'] %><br>
           <span>邮编：</span><%= @order['shippingzipcode'] %><br>
           <span>手机号码：</span><%= @order['shippingcontactphone'] %><br>
@@ -35,7 +38,6 @@
         <div class="item_tit bt"><span>支付方式：</span><strong><%= @order['paymentname'] %></strong></div>
         <% if @order['needinvoice'] %>
           <div class="item_tit bt"><span>发票信息：</span><br>
-            <span>发票类型：</span><%=  %><br>
             <span>发票抬头：</span><%= @order['invoicetitle'] %><br>
             <span>发票内容：</span><%= @order['invoicedetail'] %><br>
           </div>

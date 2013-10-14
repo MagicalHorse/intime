@@ -26,7 +26,7 @@ module Alipay
 
             Utils.check_required_options(options, REQUEST_TOKEN_URL_REQUIRED_OPTIONS)
             url = "#{GATEWAY_URL}?#{Utils.query_string(options)}"
-              Alipay.logger.debug("-----> #{Time.now.strftime('%y-%m-%d %H:%M:%S')} generate request_token_url: #{url}")
+            Alipay.logger.debug("-----> #{Time.now.strftime('%y-%m-%d %H:%M:%S')} generate request_token_url: #{url}")
             url
           end
 
@@ -52,7 +52,7 @@ module Alipay
 
             Utils.check_required_options(options, AUTH_AND_EXECUTE_URL_REQUIRED_OPTIONS)
             url = "#{GATEWAY_URL}?#{Utils.query_string(options)}"
-              Alipay.logger.debug("-----> #{Time.now.strftime('%y-%m-%d %H:%M:%S')} generate auth_and_execute_url: #{url}")
+            Alipay.logger.debug("-----> #{Time.now.strftime('%y-%m-%d %H:%M:%S')} generate auth_and_execute_url: #{url}")
             url
           end
 

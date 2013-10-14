@@ -19,7 +19,7 @@ class Front::OrdersController < Front::BaseController
         order_no: result[:data][:orderno],
         payment_name: result[:data][:paymentname],
         payment_url: '',
-        order_url: front_order_path(result[:data][:orderno])
+        order_url: front_order_url(result[:data][:orderno])
       }
     end
 
@@ -28,7 +28,7 @@ class Front::OrdersController < Front::BaseController
 
   def show
     result   = API::Order.show(request, orderno: params[:id])
-    render_500(:html) { result['message'] } and return unless result[:isSuccessful]
+    render_404(:html) and return unless result[:isSuccessful]
 
     @order   = result[:data]
     @product = @order['products'][0]
@@ -89,13 +89,53 @@ class Front::OrdersController < Front::BaseController
     render json: API::Order.computeamount(request, params.slice(:productid, :quantity))
   end
 
+  def pay
+    result  = API::Order.show(request, orderno: params[:id])
+
+    if result[:isSuccessful]
+      order   = result[:data]
+      product = order['products'][0]
+
+      if order['statust'].to_s == API::Order::STATUST[:unpaid].to_s
+        req_data = {
+          subject:        product['productname'],
+          out_trade_no:   order['orderno'],
+          total_fee:      0.01,#order['totalamount'],
+          call_back_url:  payment_callback_url,
+          notify_url:     'http://apis.youhuiin.com/api/payment/notify',
+          out_user:       current_user.id
+        }
+        redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
+      else
+        @message = "支付失败，该订单当前状态为#{order[:status]}，不能支付！"
+      end
+    else
+      @message = "支付失败，#{result[:message]}"
+    end
+  end
+
+  # {
+  #   "out_trade_no"  => "113101408139",
+  #   "request_token" => "requestToken",
+  #   "result"        => "success",
+  #   "trade_no"      => "2013101446999897",
+  #   "sign"          => "3d767613bb0cfc8dc846424461676d63",
+  #   "sign_type"     => "MD5"
+  # }
+  def pay_callback
+    redirect_to front_order_path(params['out_trade_no'])
+  end
+
+#  {
 #    products: [{
 #      productid: 976,
 #      desc: '100%棉，拼接设计，让沉闷的黑色舔了一抹活泼色彩',
 #      quantity: 1,
-#      properties: { sizevalueid: 533, sizevaluename: "L", colorvalueid: 248, colorvaluename: "黑色"},
+#      properties: { sizevalueid: 533, sizevaluename: "L", colorvalueid: 531, colorvaluename: "红色"},
 #    }],
-#    needinvoice: false,
+#    needinvoice: true,
+#    invoicetitle: '发票抬头',
+#    invoicedetail: '发票明细',
 #    memo: '订单备注',
 #    shippingaddress: {
 #      shippingcontactperson: "vg",
