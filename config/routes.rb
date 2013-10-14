@@ -179,6 +179,11 @@ IntimeService::Application.routes.draw do
         get :supportshipments
       end
     end
+
+    # 个人中心
+    get '/profile', to: 'profile#index'
+    get '/profile/edit', to: 'profile#edit'
+    put '/profile/update', to: 'profile#update'
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'

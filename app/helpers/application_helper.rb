@@ -25,4 +25,8 @@ module ApplicationHelper
       raise ArgumentError, 'provider can only is qq_connect, weibo and tqq2.'
     end
   end
+
+  def static_url(path)
+    "#{root_url}#{path}" if path
+  end
 end

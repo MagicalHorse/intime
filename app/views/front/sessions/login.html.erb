@@ -1,12 +1,18 @@
-<%= render '/front/left_side' -%>
+<%= content_for :head_nav do -%>
+  <button type="button" id="btopen" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">登录</li>
+  </ul>
+<% end -%>
 <div class="span9 main">
   <div class="login bger">
     <h2>使用合作账号登录</h2>
     <ul class="relative">
-      <li><a href="#"><span><img src="images/icon_swb_x2.png"></span>使用新浪微博账号登录</a></li>
-      <li><a href="#"><span><img src="images/icon_twb_2x.png"></span>使用腾讯QQ账号登录</a></li>
-      <li><a href="#"><span><img src="images/icon_tqq_2x.png"></span>使用腾讯微博账号登录</a></li>
-      <li><a href="#"><span><img src="images/icon_wx_2x.png"></span>关注“喜欢银泰”微信</a></li>
+      <li><a href="<%= oauth_path(:weibo) %>"><span><img src="<%= static_url('/images/icon_swb_x2.png') %>"></span>使用新浪微博账号登录</a></li>
+      <li><a href="<%= oauth_path(:qq_connect) %>"><span><img src="<%= static_url('/images/icon_twb_2x.png') %>"></span>使用腾讯QQ账号登录</a></li>
+      <li><a href="<%= oauth_path(:tqq2) %>"><span><img src="<%= static_url('/images/icon_tqq_2x.png') %>"></span>使用腾讯微博账号登录</a></li>
+      <li><a href="#"><span><img src="<%= static_url('/images/icon_wx_2x.png') %>"></span>关注“喜欢银泰”微信</a></li>
     </ul>
   </div>
 </div>
