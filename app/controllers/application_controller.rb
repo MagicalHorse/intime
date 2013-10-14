@@ -3,7 +3,11 @@ class ApplicationController < ActionController::Base
   before_filter :parse_params, :only=>[:list,:search]
   PAGE_ALL_SIZE = 1000
   helper_method :middle_pic_url
- 
+
+  def default_url_options
+    Settings.default_url_options.to_hash
+  end
+
   protected
   def error_500
     message = 'internal failed problem.' 
@@ -100,6 +104,6 @@ class ApplicationController < ActionController::Base
   end
 
   def middle_pic_url(r)
-    PIC_DOMAIN + r[:name] + '_320x0.jpg'
+    PIC_DOMAIN + r[:name].to_s + '_320x0.jpg' if r.is_a?(::Hash)
   end
 end
