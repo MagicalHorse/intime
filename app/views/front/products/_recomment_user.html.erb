@@ -1,0 +1,14 @@
+<% if (user = product.recommenduser).present? -%>
+<div class="recom">
+  <div class="face"><a href="space.html"><img src="<%= user.logo -%>" alt="<%= user.nickname -%>" width="80" height="80"></a></div>
+  <div class="info">
+    <div class="name"> <a href="space.html"></a><span>推荐</span>
+      <button type="button" class="btn btn-mini"><i class="icon-plus"></i>关注</button>
+    </div>
+    <p><%= product.description -%></p>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<% else -%>
+  <p><%= product.description -%></p>
+<% end -%>
