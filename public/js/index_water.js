@@ -1,8 +1,9 @@
- var handler = null;
+   var handler = null;
     var page = 1;
     var isLoading = false;
-    var apiURL = 'http://www.wookmark.com/api/json/popular'
+    var apiURL = 'http://stage.youhuiin.com/promotions/get_list.json'
     
+    // Prepare layout options.
     var options = {
       autoResize: true, // This will auto-update the layout when the browser window is resized.
       container: $('#tiles'), // Optional, used for some extra CSS styling
@@ -10,76 +11,108 @@
       itemWidth: 210 // Optional, the width of a grid item
     };
     
+    /**
+     * When scrolled all the way to the bottom, add more tiles.
+     */
     function onScroll(event) {
+      // Only check when we're not still waiting for data.
       if(!isLoading) {
+        // Check if we're within 100 pixels of the bottom edge of the broser window.
         var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
         if(closeToBottom) {
-          loadData();
+          loadData(sort);
         }
       }
     };
     
+    /**
+     * Refreshes the layout.
+     */
     function applyLayout() {
+      // Clear our previous layout handler.
       if(handler) handler.wookmarkClear();
       
+      // Create a new layout handler.
       handler = $('#tiles li');
       handler.wookmark(options);
     };
     
-    function loadData() {
+    /**
+     * Loads data from the API.
+     */
+    function loadData($type) {
       isLoading = true;
       $('#loaderCircle').show();
-      
+      sort = $type;
       $.ajax({
         url: apiURL,
         dataType: 'jsonp',
-        data: {page: page}, // Page parameter to make sure we load new data
+        data: {page: page,sort:sort}, // Page parameter to make sure we load new data
         success: onLoadData
       });
     };
     
+    /**
+     * Receives data from the API, creates HTML for images and updates the layout
+     */
     function onLoadData(data) {
       isLoading = false;
       $('#loaderCircle').hide();
       
+      // Increment page index for future calls.
       page++;
       
+      // Create HTML for the images.
       var html = '';
-      var i=0, length=data.length, image;
+      var i=0, length=data.datas.length;
       for(; i<length; i++) {
-        image = data[i];
-        html+='<li>';
-						html+='<div class="thumbnail">';
-							html+='<div class="location"><i class="icon-map-marker"></i><strong>银泰杭州文化广场店</strong>（约1121公里）</div>';
-							html+='<div class="action">'+'<a href="#">'+'<img src="temp/280_200_1.jpg" alt=" ">'+'</a>';
-								html+='<p>'+'喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！'+'</p>';
-							html+='</div>';
-							html+='<h3><a href="#" title="">四月会员日活动</a></h3>';
-							html+='<small> <span class="pull-left"><i class="icon-time"></i>2013.06.21-2013.06.21</span> <span class="pull-right"><i class="icon-heart"></i>999+</span> </small> </div>';
-					html+='</li>';
+        if(sort==1){
+			html+='<li>';
+							html+='<div class="thumbnail">';
+								html+='<h3><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
+								html+='</div>';
+								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
+								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+						html+='</li>';
+		}else if(sort==2) {
+			html+='<li>';
+							html+='<div class="thumbnail">';
+								html+='<h3 class="time">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
+								html+='</div>';
+								html+='<h3 class="bottom"><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+						html+='</li>';
+		} else if(sort==3) {
+			html+='<li>';
+							html+='<div class="thumbnail">';
+								html+='<h3><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
+								html+='</div>';
+								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
+								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+						html+='</li>';
+			}
       }
       
-      $('#tiles').append(html);
+      // Add image HTML to the page.
+      $('#tiles_lsit').append(html);
+      
+      // Apply layout.
       applyLayout();
     };
- $("#recently").click(function(){
- 	  $("#recently_div").show();
- 		$("#news_div").hide();
- 	  $("#future_div").hide();
- 	});
- 	$("#news").click(function(){
- 		$("#recently_div").hide();
- 		$("#news_div").show();
- 	  $("#future_div").hide();
- 	});
- 	$("#future").click(function(){
- 		 $("#recently_div").hide();
- 		$("#news_div").hide();
- 	  $("#future_div").show();
- 	});
- 	 $(document).ready(function(){
- 	 	  $(document).bind('scroll', onScroll);
-      loadData();
- 	 	  $("#news_div").hide();
- 	 	  $("#future_div").hide();
- 	 	});
+    function clears() {
+		page =1;
+		$('#tiles_lsit').empty();
+		}
+    $(document).ready(new function() {
+      // Capture scroll event.
+      $(document).bind('scroll', onScroll);
+      
+      // Load first data from the API.
+      loadData('3');
+    });
