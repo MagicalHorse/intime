@@ -1,6 +1,5 @@
 module API
-  module Product
-    extend API::Restful
+  class Product < API::Base
 
     class << self
 

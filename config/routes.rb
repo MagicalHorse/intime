@@ -83,7 +83,7 @@ IntimeService::Application.routes.draw do
     end
   end
 
-  resources :promotion, only: [:index, :show] do
+  resources :promotion, only: [] do
     collection do
       get :get_list
     end

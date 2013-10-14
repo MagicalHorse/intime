@@ -1,8 +1,7 @@
 var handler = null;
     var page = 1;
     var isLoading = false;
-    var apiURL = ' http://stage.youhuiin.com/front/products/my_favorite_api.json'
-    //var apiURL = ' http://www.intime.com.cn:3000/front/products/my_favorite_api.json'
+    var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
     
     // Prepare layout options.
     var options = {
