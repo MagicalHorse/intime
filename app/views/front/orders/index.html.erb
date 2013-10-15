@@ -10,7 +10,7 @@
 <% end %>
 <div class="span9 main">
   <div class="Logistics_query olrtds autoth">
-    <% if params[:type].to_s == '' || params[:type] == API::Order::TYPES[:unpaid].to_s %>
+    <% if params[:type].blank? || params[:type] == API::Order::TYPES[:unpaid].to_s %>
       <p style="text-align:center;">待付款订单将为您保留24小时，24小时后还未付款将自动取消订单</p>
     <% end %>
     <% if @orders.present? %>
@@ -26,7 +26,7 @@
                 <div class="item_img"><img src="<%= small_pic_url(product['resource']) %>" /></div>
                 <div class="item_pr"> <span><%= product['productname'] %></span><br>
                   货号：<%= product['skucode'] %><br>
-                  品牌：<%= product['andname'] %>(<%= product['brand2name'] %>) </div>
+                  品牌：<%= product['brandname'] %>(<%= product['brand2name'] %>) </div>
                 <div class="item_num">X<%= product['quantity'] %></div>
                 <div class="clearfix"></div>
               </div>
@@ -43,7 +43,13 @@
       <% end %>
       <%= paginate @orders %>
     <% else %>
-      <p style="text-align:center;">您最近还没购买过商品，赶紧去购物吧！</p>
+      <p style="text-align:center;">
+        <% if params[:type].blank? || params[:type] == API::Order::TYPES[:cancelled].to_s %>
+          暂时没有已取消的订单！
+        <% else %>
+          您最近还没购买过商品，赶紧去购物吧！
+        <% end %>
+      </p>
     <% end %>
   </div>
 </div>

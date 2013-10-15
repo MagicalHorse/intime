@@ -12,7 +12,7 @@ module API
     }
 
     TYPES = {
-      unpaid:     1,    # 待支付
+      unpaid:     0,    # 待支付
       unreceived: 1,    # 待收货
       completed:  2,    # 已完成
       cancelled:  3     # 已取消
