@@ -101,6 +101,8 @@ IntimeService::Application.routes.draw do
         get :get_list
       end
     end
+
+    resources :products, only: [:index, :show]
   end
 
   #scope module: 'front' do
