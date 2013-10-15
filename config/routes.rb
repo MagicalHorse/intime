@@ -158,9 +158,12 @@ IntimeService::Application.routes.draw do
     #     # (app/controllers/admin/products_controller.rb)
 
 
-    get '/my_favorite', to: 'users_center#my_favorite'
-    get '/my_share', to: 'users_center#my_share'
+    get '/my_favorite',  to: 'users_center#my_favorite'
+    get '/my_share',     to: 'users_center#my_share'
     get '/my_promotion', to: 'users_center#my_promotion'
+    get '/follows',      to: 'users_center#follows'
+    get '/fans',         to: 'users_center#fans'
+    get '/follow',       to: 'users_center#follow'
 
     resources :products, :only=>[:show] do
       collection do
