@@ -39,6 +39,7 @@ class ProductController < ApplicationController
           :logo=>Resource.absolute_url(recommend_user[:thumnail])
           },
         :favoritecount=>prod_model[:favoriteCount],
+        :likecount=>prod_model[:favoriteCount],
         :sharecount=>prod_model[:shareCount],
         :couponcount=>prod_model[:involvedCount],
         :resources=>sort_resource(prod_model[:resource]),
@@ -47,7 +48,7 @@ class ProductController < ApplicationController
         :promotions=>valid_promotions,
         :is4sale=>prod_model[:is4Sale],
         :contactphone=>section_phone,
-        :upccode=>prod_model[:upcCode]
+        :skucode=>prod_model[:upcCode]
        }
     }
   end

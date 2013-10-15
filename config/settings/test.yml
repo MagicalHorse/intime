@@ -14,3 +14,7 @@ alipay:
   pid: '2088011888580823'
   key: 'n4q74v8r3bnhzsbthx0yf3g1ama9mntm'
   seller_account: 'maoym@intime.com.cn'
+
+default_url_options:
+  host: 'stage.youhuiin.com'
+

@@ -1,6 +1,5 @@
 module API
-  module Address
-    extend API::Restful
+  class Address < API::Base
 
     class << self
       def index(req, params = {})

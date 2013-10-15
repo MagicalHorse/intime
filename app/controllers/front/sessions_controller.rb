@@ -9,10 +9,12 @@ class Front::SessionsController < Front::BaseController
       set_anonymous_user
     end
 
-    redirect_to root_path
+    redirect_to session[:return_to].present? ? session[:return_to] : root_url
   end
 
   def login
+    session[:return_to] = params[:return_to]
+    redirect_to root_url if signed_in?
   end
 
   def destory

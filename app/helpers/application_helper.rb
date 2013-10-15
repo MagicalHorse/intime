@@ -1,18 +1,15 @@
 module ApplicationHelper
 
   def small_pic_url(r)
-    domain = PIC_DOMAIN 
-    return domain + r[:name] +'_120x0.jpg'
+    PIC_DOMAIN + r[:name].to_s + '_120x0.jpg' if r.is_a?(::Hash)
   end
 
   def large_pic_url(r)
-    domain = PIC_DOMAIN
-    return domain + r[:name] +'_640x0.jpg'
+    PIC_DOMAIN + r[:name] +'_640x0.jpg' if r.is_a?(::Hash)
   end
 
   def audio_url(r)
-    domain = AUDIO_DOMAIN
-    return domain + r[:name].gsub('\\','/')+'.mp3'
+    AUDIO_DOMAIN + r[:name].to_s.gsub('\\','/')+'.mp3' if r.is_a?(::Hash)
   end
 
   def newline_to_br(text)
@@ -27,5 +24,13 @@ module ApplicationHelper
     else
       raise ArgumentError, 'provider can only is qq_connect, weibo and tqq2.'
     end
+  end
+
+  def static_url(path)
+    "#{root_url}#{path}" if path
+  end
+
+  def format_time(time)
+    Time.parse(time).strftime('%Y-%m-%d %H:%M:%S') rescue nil
   end
 end

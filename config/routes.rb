@@ -83,7 +83,7 @@ IntimeService::Application.routes.draw do
     end
   end
 
-  resources :promotion, only: [:index, :show] do
+  resources :promotion, only: [] do
     collection do
       get :get_list
     end
@@ -101,6 +101,8 @@ IntimeService::Application.routes.draw do
         get :get_list
       end
     end
+
+    resources :products, only: [:index, :show]
   end
 
   match "product/:id" => "product#show"
@@ -150,11 +152,15 @@ IntimeService::Application.routes.draw do
     # Directs /admin/products/* to Admin::ProductsController
     #     # (app/controllers/admin/products_controller.rb)
 
+
+    get '/my_favorite', to: 'users_center#my_favorite'
+    get '/my_share', to: 'users_center#my_share'
+    get '/my_promotion', to: 'users_center#my_promotion'
+
     resources :products, :only=>[:show] do
       collection do
-        get :my_favorite
         get :my_favorite_api
-        get :my_share_list
+        get :my_share_list_api
       end
     end
     resources :promotions, :only=>[:show]
@@ -162,13 +168,24 @@ IntimeService::Application.routes.draw do
       collection do
         post :computeamount
       end
+
+      member do
+        get :pay
+      end
     end
     resources :addresses, only: [:index, :create, :update, :destory] do
       collection do
         get :supportshipments
       end
     end
+
+    # 个人中心
+    get '/profile', to: 'profile#index'
+    get '/profile/edit', to: 'profile#edit'
+    put '/profile/update', to: 'profile#update'
   end
+
+  get 'payment/callback', to: 'front/orders#pay_callback'
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

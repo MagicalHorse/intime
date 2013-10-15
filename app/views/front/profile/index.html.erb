@@ -1,0 +1,33 @@
+<%= content_for :head_nav do -%>
+  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">预购中心</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="details omjd">
+    <div class="top">
+      <div class="head_img"><span></span><img src="<%= current_user.avatar_url %>" ></div>
+      <div class="cname">
+        <p><span></span><%= current_user.nickie %></p>
+        <p><span>积点：</span><%= current_user.point %></p>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <dl>
+      <dd><a href="<%= front_orders_path %>"><img src="<%= static_url('/images/icon_file_2x.png') %>" width="50" height="50"><br>
+          <span>订单管理</span></a></dd>
+      <dd><a href="<%= front_addresses_path %>"><img src="<%= static_url('/images/icon_home_2x.png') %>" width="50" height="50"><br>
+          <span>收货地址</span></a></dd>
+      <dd><a href="Logistics_query.html"><img src="<%= static_url('/images/icon_truck_2x.png') %>" width="50" height="50"><br>
+          <span>物流查询</span></a></dd>
+      <dd><a href="autoth.html"><img src="<%= static_url('/images/icon_tundo_2x.png') %>" width="50" height="50"><br>
+          <span>自助退货</span></a></dd>
+      <dd><a href="return.html"><img src="<%= static_url('/images/icon_diary_2x.png') %>" width="50" height="50"><br>
+          <span>退货政策</span></a></dd>
+      <div class="clearfix"></div>
+    </dl>
+  </div>
+</div>
+

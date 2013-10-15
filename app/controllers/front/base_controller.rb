@@ -11,7 +11,13 @@ class Front::BaseController < ApplicationController
   end
 
   def authenticate!
-    render json: { isSuccessful: false, message: 'no login', statusCode: 500 } unless signed_in?
+    return true if signed_in?
+
+    if request.xhr?
+      render json: { isSuccessful: false, message: 'no login', statusCode: 500 }
+    else
+      redirect_to "#{login_path}?return_to=#{Rack::Utils.escape(request.original_url)}"
+    end
   end
 
   def update_user

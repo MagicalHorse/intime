@@ -1,6 +1,5 @@
 module API
-  module LoginRequest
-    extend API::Restful
+  class LoginRequest < API::Base
 
     def self.post(req, params = {})
       super(req, params.merge(path: 'customer/outsitelogin'))

@@ -1,6 +1,5 @@
 module API
-  module Customer
-    extend API::Restful
+  class Customer < API::Base
 
     class << self
       def show(req, params = {})
