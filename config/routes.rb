@@ -189,7 +189,7 @@ IntimeService::Application.routes.draw do
         get :pay
       end
     end
-    resources :addresses, only: [:index, :create, :update, :destory] do
+    resources :addresses, only: [:index, :create, :update, :destroy] do
       collection do
         get :supportshipments
       end
