@@ -132,12 +132,12 @@ class Front::OrdersController < Front::BaseController
 
 #  {
 #    products: [{
-#      productid: 976,
-#      desc: '100%棉，拼接设计，让沉闷的黑色舔了一抹活泼色彩',
+#      productid: 977,
+#      desc: '',
 #      quantity: 1,
-#      properties: { sizevalueid: 533, sizevaluename: "L", colorvalueid: 531, colorvaluename: "红色"},
+#      properties: { sizevalueid: 534, sizevaluename: "蓝色", colorvalueid: 537, colorvaluename: "蓝色4"},
 #    }],
-#    needinvoice: true,
+#    needinvoice: 1,
 #    invoicetitle: '发票抬头',
 #    invoicedetail: '发票明细',
 #    memo: '订单备注',
