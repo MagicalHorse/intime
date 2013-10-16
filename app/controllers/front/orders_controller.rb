@@ -6,7 +6,7 @@ class Front::OrdersController < Front::BaseController
     options = {
       page: params[:page],
       pagesize: 10,
-      type: params[:type].present? ? params[:type] : 1,
+      type: params[:type].present? ? params[:type] : API::Order::TYPES[:unpaid],
     }
     result = API::Order.index(request, options)[:data]
     @orders = Kaminari.paginate_array(
@@ -22,7 +22,7 @@ class Front::OrdersController < Front::BaseController
       json[:data] = {
         order_no: result[:data][:orderno],
         payment_name: result[:data][:paymentname],
-        payment_url: '',
+        payment_url: pay_front_order_url(result[:data][:orderno]),
         order_url: front_order_url(result[:data][:orderno])
       }
     end
@@ -104,7 +104,7 @@ class Front::OrdersController < Front::BaseController
         req_data = {
           subject:        product['productname'],
           out_trade_no:   order['orderno'],
-          total_fee:      0.01,#order['totalamount'],
+          total_fee:      order['totalamount'],
           call_back_url:  payment_callback_url,
           notify_url:     'http://apis.youhuiin.com/api/payment/notify',
           out_user:       current_user.id
@@ -132,12 +132,12 @@ class Front::OrdersController < Front::BaseController
 
 #  {
 #    products: [{
-#      productid: 976,
-#      desc: '100%棉，拼接设计，让沉闷的黑色舔了一抹活泼色彩',
+#      productid: 977,
+#      desc: '',
 #      quantity: 1,
-#      properties: { sizevalueid: 533, sizevaluename: "L", colorvalueid: 531, colorvaluename: "红色"},
+#      properties: { sizevalueid: 534, sizevaluename: "蓝色", colorvalueid: 537, colorvaluename: "蓝色4"},
 #    }],
-#    needinvoice: true,
+#    needinvoice: 1,
 #    invoicetitle: '发票抬头',
 #    invoicedetail: '发票明细',
 #    memo: '订单备注',

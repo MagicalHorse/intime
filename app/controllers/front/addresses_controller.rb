@@ -73,6 +73,9 @@ class Front::AddressesController < Front::BaseController
   #   message: '更新失败',                                   // 更新失败的信息
   # }
   def update
+    params[:address][:shippingcontactperson] = params[:address].delete(:shippingperson)
+    params[:address][:shippingcontactphone]  = params[:address].delete(:shippingphone)
+
     result = API::Address.update(request, params[:address].merge(id: params[]))
     render json: result.slice(:isSuccessful, :statusCode, :message, :data)
   end
@@ -119,6 +122,9 @@ class Front::AddressesController < Front::BaseController
   #   message: '创建失败',                                   // 创建失败的信息
   # }
   def create
+    params[:address][:shippingcontactperson] = params[:address].delete(:shippingperson)
+    params[:address][:shippingcontactphone]  = params[:address].delete(:shippingphone)
+
     result = API::Address.create(request, params[:address])
     render json: result.slice(:isSuccessful, :statusCode, :message, :data)
   end

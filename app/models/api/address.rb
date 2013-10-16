@@ -1,5 +1,6 @@
 module API
   class Address < API::Base
+    MAX_SIZE = 8
 
     class << self
       def index(req, params = {})
