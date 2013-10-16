@@ -9,6 +9,9 @@ omniauth:
     key: '100382932'
     secret: '8acc22a900a6cf3a144c4e7364dafa78'
 
+  wechat:
+    key:  wxec92040268f6acec
+    secret: d3bd5d1068c0df6bcde1c757702e1647
 
 alipay:
   pid: '2088011888580823'
