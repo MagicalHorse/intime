@@ -183,6 +183,7 @@ IntimeService::Application.routes.draw do
     resources :orders do
       collection do
         post :computeamount
+        post :confirm
       end
 
       member do

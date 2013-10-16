@@ -8,7 +8,7 @@
 <div class="span9 main">
   <div id="messages"></div>
   <div class="Logistics_query olrtds address">
-    <h5 style="line-height:30px;">常用地址（您还可以添加 <%= API::Address::MAX_SIZE - @addresses[:datas].size %> 个地址）<a href="#add01" data-toggle="modal" class="add btn btn-danger" id="add_address">添加新地址</a></h5>
+    <h5 style="line-height:30px;">常用地址（您还可以添加 <span id="left_addresses_size"><%= API::Address::MAX_SIZE - @addresses[:datas].size %></span> 个地址）<a href="#add01" data-toggle="modal" class="add btn btn-danger" id="add_address">添加新地址</a></h5>
     <div id="add01" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
       <%= form_for :address, url: front_addresses_path, remote: true do |f| %>
         <div class="modal-header">
