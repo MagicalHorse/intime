@@ -16,6 +16,9 @@ omniauth:
   qq_connect:
     key:
     secret:
+  wechat:
+    key:
+    secret: 
 alipay:
   pid:
   key:
