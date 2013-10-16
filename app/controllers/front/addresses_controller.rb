@@ -129,8 +129,8 @@ class Front::AddressesController < Front::BaseController
     render json: result.slice(:isSuccessful, :statusCode, :message, :data)
   end
 
-  def destory
-    result = API::Address.destory(request, id: params[:id])
+  def destroy
+    result = API::Address.destroy(request, id: params[:id])
     render json: result.slice(:isSuccessful, :statusCode, :message, :data)
   end
 
