@@ -19,7 +19,7 @@ module ApplicationHelper
 
   def oauth_path(provider)
     case provider.to_s
-    when 'qq_connect', 'weibo', 'tqq2'
+    when 'qq_connect', 'weibo', 'tqq2','wechat'
       "/auth/#{provider}"
     else
       raise ArgumentError, 'provider can only is qq_connect, weibo and tqq2.'
