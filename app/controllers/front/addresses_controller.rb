@@ -76,7 +76,7 @@ class Front::AddressesController < Front::BaseController
     params[:address][:shippingcontactperson] = params[:address].delete(:shippingperson)
     params[:address][:shippingcontactphone]  = params[:address].delete(:shippingphone)
 
-    result = API::Address.update(request, params[:address].merge(id: params[]))
+    result = API::Address.update(request, params[:address].merge(id: params[:id]))
     render json: result.slice(:isSuccessful, :statusCode, :message, :data)
   end
 
@@ -129,8 +129,8 @@ class Front::AddressesController < Front::BaseController
     render json: result.slice(:isSuccessful, :statusCode, :message, :data)
   end
 
-  def destory
-    result = API::Address.destory(request, id: params[:id])
+  def destroy
+    result = API::Address.destroy(request, id: params[:id])
     render json: result.slice(:isSuccessful, :statusCode, :message, :data)
   end
 

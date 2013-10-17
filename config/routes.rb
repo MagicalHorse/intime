@@ -170,13 +170,14 @@ IntimeService::Application.routes.draw do
     resources :orders do
       collection do
         post :computeamount
+        post :confirm
       end
 
       member do
         get :pay
       end
     end
-    resources :addresses, only: [:index, :create, :update, :destory] do
+    resources :addresses, only: [:index, :create, :update, :destroy] do
       collection do
         get :supportshipments
       end

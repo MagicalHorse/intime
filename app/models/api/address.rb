@@ -15,7 +15,7 @@ module API
         post(req, params.merge(path: 'address/create'))
       end
 
-      def destory(req, params = {})
+      def destroy(req, params = {})
         post(req, params.merge(path: 'address/delete'))
       end
 
