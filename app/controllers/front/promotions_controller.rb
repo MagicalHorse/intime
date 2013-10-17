@@ -15,6 +15,9 @@ class Front::PromotionsController < Front::BaseController
     render_datas(handle_items(promotions))
   end
 
+  def favor
+  end
+
   protected
   def handle_items(items)
     items.map! do |item|

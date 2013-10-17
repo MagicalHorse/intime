@@ -176,9 +176,21 @@ IntimeService::Application.routes.draw do
         get :search_api
       end
     end
-    resources :promotions, :only=>[:show]
+    resources :promotions, :only=>[:index, :show]
 
-    resources :orders, except: [:edit, :update] do
+    resources :specials, :only => [:index] do
+      collection do
+        get :get_list
+      end
+    end
+
+    resources :comments, only: [:index] do
+      collection do
+        get :get_list
+      end
+    end
+
+    resources :orders do
 
       collection do
         post :computeamount
