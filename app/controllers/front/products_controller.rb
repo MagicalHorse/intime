@@ -9,14 +9,40 @@ class Front::ProductsController < Front::BaseController
   def index
   end
 
+  def search_api
+    options = {
+      page: params[:page],
+      pagesize: 10,
+      term: params[:term]
+    }
+    result  = Stage::Product.search(options)
+    results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
+    results.merge! (gen_data(result["data"]["products"]))
+    render :json =>results.to_json , callback: params[:callback]
+  end
+
+  def list_api
+    options = {
+      page: params[:page],
+      pagesize: 10,
+      sortby: params[:sortby] || 1
+    }
+    options.merge!(covert_options_for_search(params[:type], params[:entity_id]))
+    result  = Stage::Product.list(options)
+    results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
+    results.merge! (gen_data(result["data"]["products"]))
+    render :json =>results.to_json , callback: params[:callback]
+  end
+
   def my_favorite_api
     options = {
       page: params[:page],
       pagesize: 10,
       sourcetype: params[:loveType]
     }
-    result = API::Product.my_favorite(request, options)
-    render :json => gen_data(result).to_json, callback: params[:callback] 
+    results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
+    results.merge! (gen_data(result["data"]["items"]))
+    render :json =>results.to_json , callback: params[:callback]
   end
 
   def my_share_list_api
@@ -25,16 +51,32 @@ class Front::ProductsController < Front::BaseController
       pagesize: 10,
       userid: 1
     }
+
     result = API::Product.my_share_list(request, options)
-    render json: gen_share(result).to_json, callback: params[:callback]
+
+    results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
+    results.merge! (gen_data(result["data"]["items"]))
+    render :json =>results.to_json , callback: params[:callback]
   end
 
   protected
 
+  def covert_options_for_search(type, entity_id)
+    options = {}
+    if type == 'category'
+      options[:tagid]    = entity_id
+    elsif type == 'brand'
+      options[:brandid]  = entity_id
+    elsif type == 'store'
+      options[:storied]  = entity_id
+    end
+    options
+  end
 
-  def gen_share(result)
+  def gen_share(datas)
+    results = {}
     items = []
-    result["data"]["items"].each do |item|
+    datas && datas.each do |item|
       image_info = item["resources"].first
       items << {
         title:     item["productname"],
@@ -45,14 +87,14 @@ class Front::ProductsController < Front::BaseController
         imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
       }
     end
-    result = result["data"].slice(:pageindex, :pagesize, :totalcount, :totalpaged)
-    result[:datas] = items
-    result
+    results[:datas] = items
+    results
   end
 
-  def gen_data(result)
+  def gen_data(datas)
+    results = {}
     items = []
-    result["data"]["items"].each do |item|
+    datas && datas.each do |item|
       image_info = item["resources"].first
       items << {
         title:     item["name"],
@@ -63,9 +105,8 @@ class Front::ProductsController < Front::BaseController
         imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
       }
     end
-    result = result["data"].slice(:pageindex, :pagesize, :totalcount, :totalpaged)
-    result[:datas] = items
-    result
+    results[:datas] = items
+    results
   end
 
 end
