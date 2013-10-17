@@ -7,6 +7,10 @@ module Stage
         new(get(id)['data'])
       end
 
+      def list(options = {})
+        get(:list, options)
+      end
+
     end
 
     def image_urls(size = 320)

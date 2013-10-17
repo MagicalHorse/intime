@@ -165,6 +165,7 @@ IntimeService::Application.routes.draw do
          end
        end
 
+    get '/stores',       to: 'common#stores'
 
     get '/my_favorite',  to: 'users_center#my_favorite'
     get '/my_share',     to: 'users_center#my_share'
@@ -177,6 +178,7 @@ IntimeService::Application.routes.draw do
       collection do
         get :my_favorite_api
         get :my_share_list_api
+        get :search_api
       end
     end
     resources :promotions, :only=>[:show]
