@@ -170,11 +170,17 @@ IntimeService::Application.routes.draw do
         get :search_api
       end
     end
-    resources :promotions, :only=>[:show]
+    resources :promotions, :only=>[:index, :show]
 
     resources :stores, only: [:show]
 
     resources :specials, :only => [:index] do
+      collection do
+        get :get_list
+      end
+    end
+
+    resources :comments, only: [:index] do
       collection do
         get :get_list
       end
