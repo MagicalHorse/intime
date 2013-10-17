@@ -52,7 +52,6 @@ class Front::OrdersController < Front::BaseController
         result = API::Order.new(request, productid: params[:product_id])
         render_500 { result['message'] } and return unless result[:isSuccessful]
 
-        result[:data][:address] = API::Address.index(request, page: 1, pagesize: 1)[:data][:items][0]
         result[:data].delete(:dimension)
         result[:data][:salecolors].each_with_index do |color, index|
           resource = result[:data][:salecolors][index].delete(:resource)
@@ -62,6 +61,22 @@ class Front::OrdersController < Front::BaseController
       }
       format.html
     end
+  end
+
+  # *input*
+  # {
+  #   productid: '商品id',
+  #   desc: '商品描述',
+  #   quantity: '数量',
+  #   properties: {
+  #     sizevalueid: '尺码主键',
+  #     sizevaluename: '尺码描述',
+  #     colorvalueid: '颜色主键',
+  #     colorvaluename: '颜色描述'
+  #   }
+  # }
+  def confirm
+    @product = params[:product]
   end
 
   # *input*
