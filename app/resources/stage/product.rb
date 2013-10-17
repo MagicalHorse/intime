@@ -11,6 +11,10 @@ module Stage
         get(:list, options)
       end
 
+      def search(options = {})
+        get(:search, options)
+      end
+
     end
 
     def image_urls(size = 320)
