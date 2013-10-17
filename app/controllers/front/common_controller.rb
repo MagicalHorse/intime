@@ -1,6 +1,6 @@
 class Front::CommonController < Front::BaseController
 
-  def stores
+  def hotwords
     stores   = Stage::Store.list
     brands   = Stage::Brand.group_brands
     tags     = Stage::Tag.list

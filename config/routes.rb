@@ -159,7 +159,7 @@ IntimeService::Application.routes.draw do
          end
        end
 
-    get '/stores',       to: 'common#stores'
+    get '/hotwords',       to: 'common#hotwords'
 
     get '/my_favorite',  to: 'users_center#my_favorite'
     get '/my_share',     to: 'users_center#my_share'
