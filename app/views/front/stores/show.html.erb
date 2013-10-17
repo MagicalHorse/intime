@@ -1,2 +1,14 @@
-<h1>Front::Stores#show</h1>
-<p>Find me in app/views/front/stores/show.html.erb</p>
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">店铺详情</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <%= render 'store_info', store: @store -%>
+
+  <section class="portfolio">
+    <%= render 'new_promotions', promotions: @promotions -%>
+    <%= render 'new_products',   products: @products -%>
+  </section>
+</div>
