@@ -1,7 +1,7 @@
  var handler = null;
     var page = 1;
     var isLoading = false;
-    var apiURL = 'http://stage.youhuiin.com/specials/get_list.json'
+    var apiURL = 'http://stage.youhuiin.com/front/specials/get_list.json'
     
     // Prepare layout options.
     var options = {
@@ -70,7 +70,7 @@
 							html+='<div class="action"> <a href="promo.html"><img src="'+data.datas[i].imageUrl+'" alt="四月会员日活动"></a>';
 								html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 							html+='</div>';
-							html+='<h3 class="bottom"><i class="icon_title"></i><a href="promo.html" title="">'+data.datas[i].title+'</a></h3>';
+							html+='<h3 class="bottom"><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
 							html+='<small> <span class="pull-left"><i class="icon-time"></i>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 					html+='</li>';
       }

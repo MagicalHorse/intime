@@ -106,4 +106,5 @@ class ApplicationController < ActionController::Base
   def middle_pic_url(r)
     PIC_DOMAIN + r[:name].to_s + '_320x0.jpg' if r.is_a?(::Hash)
   end
+
 end

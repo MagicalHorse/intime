@@ -10,4 +10,4 @@
   <span class="pull-right"> <a class="btn btn-danger" href="sort_list.html">查看活动商品</a> </span>
   <div class="clearfix"></div>
 </div>
-<div class="loca"> <span><i class="icon_location"></i><a href="./shop.html"><%= @store.name -%></a><small></small></span></div>
+<div class="loca"> <span><i class="icon_location"></i><a href="<%= front_store_path(@store.id) -%>"><%= @store.name -%></a><small></small></span></div>
