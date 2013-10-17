@@ -153,7 +153,7 @@ IntimeService::Application.routes.draw do
     # Directs /admin/products/* to Admin::ProductsController
     #     # (app/controllers/admin/products_controller.rb)
 
-    get '/stores',       to: 'common#stores'
+    get '/hotwords',       to: 'common#hotwords'
 
     get '/my_favorite',  to: 'users_center#my_favorite'
     get '/my_share',     to: 'users_center#my_share'
@@ -186,7 +186,7 @@ IntimeService::Application.routes.draw do
       end
     end
 
-    resources :orders do
+    resources :orders, except: [:edit, :update] do
       collection do
         post :computeamount
         post :confirm
@@ -201,11 +201,14 @@ IntimeService::Application.routes.draw do
         get :supportshipments
       end
     end
-
+    resources :rmas, only: [:index, :new, :create, :show] do
+      collection do
+        get :pre_index
+      end
+    end
     # 个人中心
     get '/profile', to: 'profile#index'
-    get '/profile/edit', to: 'profile#edit'
-    put '/profile/update', to: 'profile#update'
+    get '/profile/return_policy', to: 'profile#return_policy'
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'

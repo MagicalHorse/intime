@@ -42,10 +42,6 @@ class Front::OrdersController < Front::BaseController
     render json: API::Order.destroy(request, orderno: params[:id])
   end
 
-  def update
-    render json: API::Order.update(request, orderno: params[:id], reason: params[:reason], products: params[:products].to_json)
-  end
-
   def new
     respond_to do |format|
       format.json {
