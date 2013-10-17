@@ -9,7 +9,7 @@ class Front::ProductsController < Front::BaseController
   def index
   end
 
-  def search_api
+  def list_api
     options = {
       page: params[:page],
       pagesize: 10,

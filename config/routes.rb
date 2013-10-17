@@ -172,7 +172,7 @@ IntimeService::Application.routes.draw do
       collection do
         get :my_favorite_api
         get :my_share_list_api
-        get :search_api
+        get :list_api
       end
     end
     resources :promotions, :only=>[:show]
