@@ -9,6 +9,18 @@ class Front::ProductsController < Front::BaseController
   def index
   end
 
+  def search_api
+    options = {
+      page: params[:page],
+      pagesize: 10,
+      term: params[:term]
+    }
+    result  = Stage::Product.search(options)
+    results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
+    results.merge! (gen_data(result["data"]["products"]))
+    render :json =>results.to_json , callback: params[:callback]
+  end
+
   def list_api
     options = {
       page: params[:page],
