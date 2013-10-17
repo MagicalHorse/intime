@@ -15,31 +15,7 @@
         <p style="text-align:center;">待付款订单将为您保留24小时，24小时后还未付款将自动取消订单</p>
       <% end %>
       <% @orders.each do |order| %>
-        <% product = order['products'][0] -%>
-        <form >
-          <div class="item">
-            <a href="<%= front_order_path(order['orderno']) %>">
-              <div class="item_tit bb"><span>订单号：</span><%= order['orderno'] %><br />
-                <span>订单金额：</span><strong>￥<%= order['totalamount'] %></strong><br />
-                <span>下单时间：</span><%= format_time(order['createdate']) %></div>
-              <div class="item_ct">
-                <div class="item_img"><img src="<%= small_pic_url(product['resource']) %>" /></div>
-                <div class="item_pr"> <span><%= product['productname'] %></span><br>
-                  货号：<%= product['skucode'] %><br>
-                  品牌：<%= product['brandname'] %>(<%= product['brand2name'] %>) </div>
-                <div class="item_num">X<%= product['quantity'] %></div>
-                <div class="clearfix"></div>
-              </div>
-            </a>
-            <div class="item_tit bt lh">
-              <span>订单状态：</span><strong><%= order['status'] %></strong>
-              <% if API::Order.can_payment?(order['statust']) %>
-                <a href="<%= pay_front_order_path(order['orderno']) %>" target="_blank" class="fr btn btn-danger ">在线支付</a>
-              <% end %>
-              <div class="clearfix"></div>
-            </div>
-          </div>
-        </form>
+        <%= render partial: 'order', locals: { order: order } %>
       <% end %>
       <%= paginate @orders %>
     <% else %>
