@@ -14,8 +14,8 @@ module API
         post(req, params.merge(path: 'rma/detail'))
       end
 
-      def pre_index(req, params = {})
-        post(req, params.merge(path: ''))
+      def order_index(req, params = {})
+        post(req, params.merge(path: 'rma/orderlist'))
       end
     end
   end
