@@ -1,13 +1,13 @@
 class Front::RmasController < Front::BaseController
+  before_filter :authenticate!
 
   def index
-    options   = { page: params[:page], pagesize: 10 }
-    result    = API::Rma.index(request, options)[:data]
-    @rmas  = Kaminari.paginate_array(
+    options = { page: params[:page], pagesize: 10 }
+    result  = API::Rma.index(request, options)[:data]
+    @rmas   = Kaminari.paginate_array(
       result[:items],
       total_count: result[:totalcount].to_i
     ).page(result[:pageindex]).per(result[:pagesize])
-    render json: @rmas
   end
 
   def new
@@ -26,6 +26,12 @@ class Front::RmasController < Front::BaseController
     render json: API::Rma.show(request, rmano: params[:id])
   end
 
-  def pre_index
+  def order_index
+    options = { page: params[:page], pagesize: 10 }
+    result  = API::Rma.order_index(request, options)[:data]
+    @orders = Kaminari.paginate_array(
+      result[:items],
+      total_count: result[:totalcount].to_i
+    ).page(result[:pageindex]).per(result[:pagesize])
   end
 end
