@@ -1,8 +1,11 @@
-# encoding: utf-8
-class Front::ProfileController < Front::BaseController
-  before_filter :authenticate! 
+class Front::CommentsController < Front::BaseController
+  before_filter :authenticate!, only: [:create]
 
   def index
+  end
+
+  def get_list
+    comments = API::Comment.index(request, params.slice(:sourceid, :sourcetype))
   end
 
   def create

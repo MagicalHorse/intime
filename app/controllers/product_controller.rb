@@ -128,13 +128,15 @@ class ProductController < ApplicationController
         :id=>p[:id],
         :name=>p[:name],
         :price=>p[:price],
+        :unitprice=>p[:unitPrice],
         :resources=>[{
           :domain=>PIC_DOMAIN,
           :name=>default_resource[:name].gsub('\\','/'),
           :width=>default_resource[:width],
           :height=>default_resource[:height]
         }],
-        :promotionFlag =>promotion_is_expire(p)
+        :promotionFlag =>promotion_is_expire(p),
+        :likecount=>p[:favoriteCount]
       }
       if should_include_branddesc == true
         prod_hash[:branddesc]=p[:brand][:description]
@@ -179,13 +181,15 @@ class ProductController < ApplicationController
         :id=>p[:id],
         :name=>p[:name],
         :price=>p[:price],
+        :unitprice=>p[:unitPrice],
         :resources=>[{
           :domain=>PIC_DOMAIN,
           :name=>default_resource[:name].gsub('\\','/'),
           :width=>default_resource[:width],
           :height=>default_resource[:height]
         }],
-        :promotionFlag =>promotion_is_expire(p)
+        :promotionFlag =>promotion_is_expire(p),
+        :likecount=>prod_model[:favoriteCount]
       }
     }
     return render :json=>{:isSuccessful=>true,

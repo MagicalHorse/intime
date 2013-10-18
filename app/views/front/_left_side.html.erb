@@ -7,7 +7,7 @@
             <a href="<%= root_path -%>">促销专区</a>
           </li>
           <li <%= controller_name == 'specials' ? 'class=active' : '' -%>>
-            <a href="<%= specials_path -%>">精彩专题</a>
+            <a href="<%= front_specials_path -%>">精彩专题</a>
           </li>
           <li><a href="gallery.html">随便逛逛</a></li>
           <li><a href="<%= front_my_favorite_path %>">我的银泰</a></li>
@@ -31,8 +31,8 @@
           </div>
           <div class="share">
             <ul>
-              <a href="follow.html"><li>关注<br><%= current_user.like_count %></li></a>
-              <a href="fensi.html"><li>粉丝<br><%= current_user.fans_count %></li></a>
+              <a href="<%= front_follows_path %>"><li>关注<br><%= current_user.like_count %></li></a>
+              <a href="<%= front_fans_path %>"><li>粉丝<br><%= current_user.fans_count %></li></a>
               <a href="Coupon.html"><li>优惠码<br><%= current_user.onlinecoupontotal %></li></a>
               <a href="certificate.html"><li>兑换券<br>
                   <%= current_user.offlinecoupontotal %></li></a>

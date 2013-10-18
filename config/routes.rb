@@ -96,12 +96,6 @@ IntimeService::Application.routes.draw do
       end
     end
 
-    resources :specials, only: [:index] do
-      collection do
-        get :get_list
-      end
-    end
-
     resources :products, only: [:index, :show]
   end
 
@@ -152,6 +146,7 @@ IntimeService::Application.routes.draw do
     # Directs /admin/products/* to Admin::ProductsController
     #     # (app/controllers/admin/products_controller.rb)
 
+    get '/hotwords',       to: 'common#hotwords'
 
     get '/my_favorite',  to: 'users_center#my_favorite'
     get '/my_share',     to: 'users_center#my_share'
@@ -160,14 +155,31 @@ IntimeService::Application.routes.draw do
     get '/fans',         to: 'users_center#fans'
     get '/follow',       to: 'users_center#follow'
 
-    resources :products, :only=>[:show] do
+    resources :products, :only=>[:index, :show] do
       collection do
         get :my_favorite_api
         get :my_share_list_api
+        get :list_api
+        get :search_api
       end
     end
-    resources :promotions, :only=>[:show]
-    resources :orders do
+    resources :promotions, :only=>[:index, :show]
+
+    resources :stores, only: [:show]
+
+    resources :specials, :only => [:index] do
+      collection do
+        get :get_list
+      end
+    end
+
+    resources :comments, only: [:index] do
+      collection do
+        get :get_list
+      end
+    end
+
+    resources :orders, except: [:edit, :update] do
       collection do
         post :computeamount
         post :confirm
@@ -182,11 +194,14 @@ IntimeService::Application.routes.draw do
         get :supportshipments
       end
     end
-
+    resources :rmas, only: [:index, :new, :create, :show] do
+      collection do
+        get :pre_index
+      end
+    end
     # 个人中心
     get '/profile', to: 'profile#index'
-    get '/profile/edit', to: 'profile#edit'
-    put '/profile/update', to: 'profile#update'
+    get '/profile/return_policy', to: 'profile#return_policy'
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'

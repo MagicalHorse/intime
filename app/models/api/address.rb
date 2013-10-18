@@ -8,7 +8,7 @@ module API
       end
 
       def update(req, params = {})
-        post(req, params.merge(path: 'address/update'))
+        post(req, params.merge(path: 'address/edit'))
       end
 
       def create(req, params = {})

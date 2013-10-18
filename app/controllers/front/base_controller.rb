@@ -82,6 +82,8 @@ class Front::BaseController < ApplicationController
       :refresh_token      => value['refresh_token']
     )
 
+    set_login_cookie
+
     session[:current_user] = @current_user
     session[:user_token]   = value[:token]
   end
@@ -90,5 +92,14 @@ class Front::BaseController < ApplicationController
     @current_user = nil
     session[:current_user] = nil
     session[:user_token]   = nil
+  end
+
+  def set_login_cookie
+    cookies[:login] = {
+      value:    @current_user.nickie,
+      domain:   '.intime.com.cn',
+      path:     '/',
+      expires:  Time.now.end_of_day
+    }
   end
 end

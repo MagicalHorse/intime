@@ -4,6 +4,7 @@
 <% end -%>
 <%= content_for :javascripts do -%>
   <script src="/js/jquery.royalslider.min.js"></script>
+  <script src="/js/operate.js"></script>
 <% end -%>
 <%= content_for :head_nav do -%>
   <ul class="nav">
@@ -21,7 +22,7 @@
   </section>
   <div class="infobox">
     <%= render 'head', promotion: @promotion -%>
-    
+
     <%= render 'tool_bar', promotion: @promotion -%>
 
     <div class="detail">
@@ -31,7 +32,6 @@
   </div>
   <div class="clearfix"></div>
   </section>
-  <!-- 评论 -->
   <section class="pinglun">
     <h2>评论<span class="distance">(10)</span></h2>
     <div id="list">
