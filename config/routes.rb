@@ -196,7 +196,7 @@ IntimeService::Application.routes.draw do
     end
     resources :rmas, only: [:index, :new, :create, :show] do
       collection do
-        get :pre_index
+        get :order_index
       end
     end
     # 个人中心
