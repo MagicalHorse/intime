@@ -15,8 +15,10 @@
   </a>
   <div class="item_tit bt lh">
     <span>订单状态：</span><strong><%= order['status'] %></strong>
-    <% if API::Order.can_payment?(order['statust']) %>
+    <% if order_page? && API::Order.can_payment?(order['statust']) %>
       <a href="<%= pay_front_order_path(order['orderno']) %>" target="_blank" class="fr btn btn-danger ">在线支付</a>
+    <% elsif rma_page? && order['canrma'] %>
+      <a href="<%= new_front_rma_path(order_id: order['orderno']) %>" class="btn btn-danger ddf">申请退货</a>
     <% end %>
     <div class="clearfix"></div>
   </div>

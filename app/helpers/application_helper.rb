@@ -33,4 +33,12 @@ module ApplicationHelper
   def format_time(time)
     Time.parse(time).strftime('%Y-%m-%d %H:%M:%S') rescue nil
   end
+
+  def order_page?
+    params[:controller] == 'front/orders'
+  end
+
+  def rma_page?
+    params[:controller] == 'front/rmas'
+  end
 end

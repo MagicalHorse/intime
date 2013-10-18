@@ -1,5 +1,11 @@
 module API
   class Rma < API::Base
+    STATUSES = {
+      new: 1,         # 新创建
+      approval: 2,    # 审核通过，可看邮寄地址
+      completed: 10,  # 退货完成
+      cancelled: -10  # 取消
+    }
 
     class << self
       def index(req, params = {})
