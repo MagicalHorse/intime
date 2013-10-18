@@ -1,4 +1,5 @@
 class Front::RmasController < Front::BaseController
+  respond_to :html, :json
   before_filter :authenticate!
 
   def index
@@ -16,6 +17,7 @@ class Front::RmasController < Front::BaseController
 
     @order   = result[:data]
     @product = @order['products'][0]
+    respond_with @order
   end
 
   def create
@@ -33,5 +35,6 @@ class Front::RmasController < Front::BaseController
       result[:items],
       total_count: result[:totalcount].to_i
     ).page(result[:pageindex]).per(result[:pagesize])
+    respond_with @orders
   end
 end
