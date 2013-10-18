@@ -1,0 +1,22 @@
+<%= content_for :head_nav do %>
+  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+  <ul class="nav">
+    <li><a href="<%= front_profile_path %>"><i class="icon-undo"></i></a></li>
+    <li><a href="<%= order_index_front_rmas_path %>" id="recently">申请退货</a></li>
+    <li><a href="<%= front_rmas_path %>" id="news">退货记录</a></li>
+  </ul>
+<% end %>
+<div class="span9 main">
+  <div class="Logistics_query olrtds autoth">
+    <% if @orders.present? %>
+      <% @orders.each do |order| %>
+        <%= render partial: 'order', locals: { order: order } %>
+      <% end %>
+      <%= paginate @orders %>
+    <% else %>
+      <p style="text-align:center;">
+        您还没有可以申请退货的订单，赶紧去购物吧！
+      </p>
+    <% end %>
+  </div>
+</div>
