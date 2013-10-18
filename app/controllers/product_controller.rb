@@ -189,7 +189,7 @@ class ProductController < ApplicationController
           :height=>default_resource[:height]
         }],
         :promotionFlag =>promotion_is_expire(p),
-        :likecount=>prod_model[:favoriteCount]
+        :likecount=>p[:favoriteCount]
       }
     }
     return render :json=>{:isSuccessful=>true,
