@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> update js and css
 var handler = null;
     var page = 1;
     var isLoading = false;
@@ -88,6 +91,7 @@ var handler = null;
       
       // Load first data from the API.
       loadData('2');
+<<<<<<< HEAD
     });
 =======
 var handler = null;
@@ -182,3 +186,6 @@ var handler = null;
       loadData('2');
     });
 >>>>>>> 我的银泰页面完成
+=======
+    });
+>>>>>>> update js and css

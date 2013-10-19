@@ -21,7 +21,10 @@ class Front::RmasController < Front::BaseController
   end
 
   def create
-    render json: API::Rma.create(request, params.slice(:orderno, :reason, :products))
+    product = JSON.load(params[:rma][:products])[0]
+    product['desc'] = product['productdesc']
+    product['quantity'] = params[:rma][:quantity]
+    render json: API::Rma.create(request, params[:rma].slice(:orderno, :reason).merge(products: [product.slice('productid', 'desc', 'quantity', 'properties')].to_json))
   end
 
   def show

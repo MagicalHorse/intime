@@ -2,12 +2,16 @@
     var page = 1;
     var isLoading = false;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
 =======
     var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
     //var apiURL = 'http://www.intime.com.cn:3000/front/products/my_favorite_api.json'
 >>>>>>> 我的银泰页面完成
+=======
+    var apiURL = 'http://stage.youhuiin.com/profile/get_list.json'
+>>>>>>> update js and css
     
     // Prepare layout options.
     var options = {
@@ -123,9 +127,13 @@
       // Load first data from the API.
       loadData('1');
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     });
 
 =======
     });
 >>>>>>> 我的银泰页面完成
+=======
+    });
+>>>>>>> update js and css
