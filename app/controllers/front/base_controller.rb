@@ -92,6 +92,12 @@ class Front::BaseController < ApplicationController
     @current_user = nil
     session[:current_user] = nil
     session[:user_token]   = nil
+
+    clear_login_cookie
+  end
+
+  def clear_login_cookie
+    cookies[:login] = nil
   end
 
   def set_login_cookie

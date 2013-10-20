@@ -4,7 +4,7 @@ module Stage
 
     class << self
       def fetch(id)
-        new(get(id)['data'])
+        new(get(:detail, id: id)['data'])
       end
 
     end

@@ -9,7 +9,7 @@
         <p><%= promotion.description -%></p>
       </div>
       <h3 class="bottom"><a href="<%= front_promotion_path(promotion.id) -%>" title=""><%= promotion.name -%></a></h3>
-      <small> <span class="pull-left"><i class="icon-time"></i><%= format_time_range(promotion) -%></span> <span class="pull-right"><i class="icon-heart"></i><%= promotion.likecount -%>+</span> </small> </div>
+      <small> <span class="pull-left"><i class="icon-time"></i><%= format_time_range(promotion.startdate, promotion.enddate) -%></span> <span class="pull-right"><i class="icon-heart"></i><%= promotion.likecount -%>+</span> </small> </div>
     </li>
   <% end -%>
 </ul>

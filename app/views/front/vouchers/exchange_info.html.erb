@@ -1,0 +1,22 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">积点兑换</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="details omjd jddh">
+    <%= render 'binding_info' -%>
+    
+    <div class="ct">
+      <%= render 'new_vouchers' -%>
+      <%= render 'binding_card' -%>
+    </div>
+    <div class="bottom">
+      <h2>我的积点记录</h2>
+      <ul>
+        <li>暂无积点记录！</li>
+      </ul>
+    </div>
+  </div>
+</div>

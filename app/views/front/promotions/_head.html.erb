@@ -1,7 +1,7 @@
 <div class="head">
   <span class="pull-left">
     <h1><%= @promotion.name -%></h1>
-    <small><%= format_time_range(@promotion) -%></small>
+    <small><%= format_time_range(@promotion.startdate, @promotion.enddate) -%></small>
     <div class="code">
       <span><i class="icon-heart"></i><%= @promotion.likecount -%>人喜欢</span>
       <span><i class="icon-qrcode"></i><%= @promotion.couponcount -%>人下载优惠码</span>

@@ -11,6 +11,18 @@ module API
       def my_share_list(req, params = {})
         post(req, params.merge(path: 'items/list'))
       end
+
+      def favor(req, params = {})
+        post(req, params.merge(path: 'product/favor'))
+      end
+
+      def unfavor(req, params = {})
+        post(req, params.merge(path: 'product/unfavor'))
+      end
+
+      def download_coupon(req, params = {})
+        post(req, params.merge(path: 'product/coupon', ispass: 0))
+      end
     end
   end
 end

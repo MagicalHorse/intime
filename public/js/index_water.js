@@ -23,7 +23,11 @@ $('#banner').royalSlider({
    var handler = null;
     var page = 1;
     var isLoading = false;
+<<<<<<< HEAD
     var apiURL = 'http://stage.youhuiin.com/promotion/get_list.json'
+=======
+    var apiURL = 'http://stage.youhuiin.com/front/promotions/get_list.json'
+>>>>>>> 添加我的优惠券、我的兑换券、积点兑换页面
     
     // Prepare layout options.
     var options = {
@@ -96,7 +100,7 @@ $('#banner').royalSlider({
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
 								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
-								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 						html+='</li>';
 		}else if(sort==2) {
 			html+='<li>';
@@ -105,8 +109,13 @@ $('#banner').royalSlider({
 								html+='<div class="action"> <a href="#"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
+<<<<<<< HEAD
 								html+='<h3 class="bottom"><i class="icon_title"></i><a href="#" title="">'+data.datas[i].title+'</a></h3>';
 								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+=======
+								html+='<h3 class="bottom"><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+>>>>>>> 添加我的优惠券、我的兑换券、积点兑换页面
 						html+='</li>';
 		} else if(sort==3) {
 			html+='<li>';
@@ -116,7 +125,7 @@ $('#banner').royalSlider({
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
 								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
-								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 						html+='</li>';
 			}
       }
