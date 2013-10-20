@@ -5,7 +5,10 @@
     <% @results && @results.each do |result|%>
     <li class="fans">
     <div class="thumbnail">
-      <div> <a href="#" class="face"><img src="<%= result[:logo]%>" alt="兔斯基爱吃肉" width="80" height="80"></a>
+      <div>
+        <a href="<%= front_path(result[:id])%>" class="face">
+          <img src="<%= result[:logo]%>" alt="兔斯基爱吃肉" width="80" height="80">
+        </a>
         <ul class="info">
           <li class="name"><i class="icon-star"></i><a href="#"><%= result[:nickname]%></a></li>
           <li class="follow">
