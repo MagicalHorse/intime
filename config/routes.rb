@@ -153,14 +153,15 @@ IntimeService::Application.routes.draw do
     # Directs /admin/products/* to Admin::ProductsController
     #     # (app/controllers/admin/products_controller.rb)
 
-    get '/hotwords',       to: 'common#hotwords'
-
-    get '/my_favorite',  to: 'users_center#my_favorite'
-    get '/my_share',     to: 'users_center#my_share'
-    get '/my_promotion', to: 'users_center#my_promotion'
-    get '/follows',      to: 'users_center#follows'
-    get '/fans',         to: 'users_center#fans'
-    get '/follow',       to: 'users_center#follow'
+    get '/hotwords',      to: 'common#hotwords'
+    get '/my_favorite',   to: 'users_center#my_favorite'
+    get '/my_share',      to: 'users_center#my_share'
+    get '/my_promotion',  to: 'users_center#my_promotion'
+    get '/follows',       to: 'users_center#follows'
+    get '/fans',          to: 'users_center#fans'
+    get '/follow',        to: 'users_center#follow'
+    get '/profile',       to: 'users_center#profile'
+    get '/his_info/:userid',       to: 'users_center#his_info'
 
     resources :products, :only=>[:index, :show] do
       collection do
