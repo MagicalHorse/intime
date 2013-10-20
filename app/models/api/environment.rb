@@ -11,6 +11,11 @@ module API
       def supportrmareasons(req, params = {})
         post(req, params.merge(path: 'environment/supportrmareasons'))
       end
+
+      # 运输公司列表
+      def supportshipvias(req, params = {})
+        post(req, params.merge(path: 'environment/supportshipvias'))
+      end
     end
   end
 end

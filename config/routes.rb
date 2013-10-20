@@ -70,13 +70,6 @@ IntimeService::Application.routes.draw do
   
   match "card/find"=>"card#find"
 
-  resources :profile, only: [:index] do
-    collection do
-      get :get_list
-    end
-  end
-
-
   resources :special_topic, only: [:index] do
     collection do
       get :get_list
@@ -166,7 +159,7 @@ IntimeService::Application.routes.draw do
     get '/follows',       to: 'users_center#follows'
     get '/fans',          to: 'users_center#fans'
     get '/follow',        to: 'users_center#follow'
-    get '/profile',       to: 'users_center#profile'
+    #get '/profile',       to: 'users_center#profile'
     get '/his_info/:userid',       to: 'users_center#his_info'
 
     resources :products, :only=>[:index, :show] do
@@ -203,7 +196,7 @@ IntimeService::Application.routes.draw do
       end
     end
     resources :addresses, only: [:index, :create, :update, :destroy]
-    resources :rmas, only: [:index, :new, :create, :show] do
+    resources :rmas do
       collection do
         get :order_index
       end
@@ -212,7 +205,6 @@ IntimeService::Application.routes.draw do
     get '/profile', to: 'profile#index'
     get '/profile/return_policy', to: 'profile#return_policy'
 
-    get '/supportrmareasons', to: 'environment#supportrmareasons'
     get '/supportshipments', to: 'environment#supportshipments'
   end
 
