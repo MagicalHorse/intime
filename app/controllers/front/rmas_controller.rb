@@ -1,5 +1,4 @@
 class Front::RmasController < Front::BaseController
-  respond_to :html, :json
   before_filter :authenticate!
 
   def index
@@ -17,14 +16,17 @@ class Front::RmasController < Front::BaseController
 
     @order   = result[:data]
     @product = @order['products'][0]
-    respond_with @order
+    @reasons = format_items(API::Environment.supportrmareasons(request)[:data], :page, :pagesize, :totalcount, :totalpaged)[:datas]
   end
 
   def create
     product = JSON.load(params[:rma][:products])[0]
     product['desc'] = product['productdesc']
     product['quantity'] = params[:rma][:quantity]
-    render json: API::Rma.create(request, params[:rma].slice(:orderno, :reason).merge(products: [product.slice('productid', 'desc', 'quantity', 'properties')].to_json))
+    product['properties'] = product.slice('sizevalueid', 'sizevalue', 'colorvalueid', 'colorvalue')
+    options = params[:rma].slice(:orderno, :reason, :rmareason).merge(products: [product.slice('productid', 'desc', 'quantity', 'properties')].to_json)
+    logger.debug "------> #{options}"
+    render json: API::Rma.create(request, options)
   end
 
   def show
@@ -38,6 +40,5 @@ class Front::RmasController < Front::BaseController
       result[:items],
       total_count: result[:totalcount].to_i
     ).page(result[:pageindex]).per(result[:pagesize])
-    respond_with @orders
   end
 end

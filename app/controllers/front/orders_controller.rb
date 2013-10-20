@@ -141,28 +141,28 @@ class Front::OrdersController < Front::BaseController
     redirect_to front_order_path(params['out_trade_no'])
   end
 
-#  {
-#    products: [{
-#      productid: 977,
-#      desc: '',
-#      quantity: 1,
-#      properties: { sizevalueid: 534, sizevaluename: "蓝色", colorvalueid: 537, colorvaluename: "蓝色4"},
-#    }],
-#    needinvoice: 1,
-#    invoicetitle: '发票抬头',
-#    invoicedetail: '发票明细',
-#    memo: '订单备注',
-#    shippingaddress: {
-#      shippingcontactperson: "vg",
-#      shippingcontactphone:"1352400000",
-#      shippingzipcode: "200184",
-#      shippingaddress: "上海市长宁区什么路"
-#    },
-#    payment: {
-#      paymentcode: "1001",
-#      paymentname: "货到付款"
-#    }
-#  }
+# ORDER = {
+#   products: [{
+#     productid: 977,
+#     desc: '',
+#     quantity: 1,
+#     properties: { sizevalueid: 534, sizevaluename: "蓝色", colorvalueid: 534, colorvaluename: "蓝色"},
+#   }],
+#   needinvoice: 1,
+#   invoicetitle: '发票抬头',
+#   invoicedetail: '发票明细',
+#   memo: '订单备注',
+#   shippingaddress: {
+#     shippingcontactperson: "vg",
+#     shippingcontactphone:"1352400000",
+#     shippingzipcode: "200184",
+#     shippingaddress: "上海市长宁区什么路"
+#   },
+#   payment: {
+#     paymentcode: "1001",
+#     paymentname: "货到付款"
+#   }
+# }
 #
 #  {"data"=>
 #   {"orderno"=>"113101278125",

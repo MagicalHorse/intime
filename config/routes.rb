@@ -202,11 +202,7 @@ IntimeService::Application.routes.draw do
         get :pay
       end
     end
-    resources :addresses, only: [:index, :create, :update, :destroy] do
-      collection do
-        get :supportshipments
-      end
-    end
+    resources :addresses, only: [:index, :create, :update, :destroy]
     resources :rmas, only: [:index, :new, :create, :show] do
       collection do
         get :order_index
@@ -215,6 +211,9 @@ IntimeService::Application.routes.draw do
     # 个人中心
     get '/profile', to: 'profile#index'
     get '/profile/return_policy', to: 'profile#return_policy'
+
+    get '/supportrmareasons', to: 'environment#supportrmareasons'
+    get '/supportshipments', to: 'environment#supportshipments'
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'

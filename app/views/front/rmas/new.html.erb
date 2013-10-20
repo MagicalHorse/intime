@@ -17,16 +17,18 @@
           <div class="item_img"><img src="<%= small_pic_url(@product['resource']) %>" /></div>
           <div class="item_pr"> <span><%= @product['productname'] %></span><br>
             货号：<%= @product['skucode'] %><br>
-            品牌：<%= @product['brandname'] %>(<%= @product['brand2name'] %>) </div>
+            销售价：<strong>￥</strong><strong class="tkje"><%= @product['price'] %></strong>
+          </div>
           <div class="item_num">
-            <div class="change-goods-num "> <a href="#" class="goodsNumMinus"><span class="icon-common-negative"></span></a>
+            <div class="change-goods-num "> <a href="javascript:;" class="goodsNumMinus"><span class="icon-common-negative"></span></a>
               <%= f.text_field :quantity, class: 'goods-num', value: 1 %>
-              <a href="#" class="goodsNumPlus"><span class="icon-common-add"></span></a> </div>
+              <a href="javascript:;" class="goodsNumPlus"><span class="icon-common-add"></span></a> </div>
           </div>
           <div class="clearfix"></div>
         </div>
         <div class="item_tit bt"><span>退货金额小计：</span><strong><b>￥</b><b class="thjexj"><%= @order['totalamount'] %></b></strong></div>
         <div class="item_tit bt thzq"><span>退货理由：</span>
+          <%= f.select :rmareason, reason_options(@reasons) %>
           <br>
           <%= f.text_area :reason, style: 'width:90%; height:6em;', placeholder: '请填写退货理由' %>
         </div>
