@@ -18,45 +18,8 @@ $(function() {
 
 
 	
-	//首页广告图
-	$('#banner').royalSlider({
-		//arrowsNav: false,是否用箭头导航,默认true
-		loop: true,//是否从最后一张幻灯片滑动到第一张
-		controlsInside: false,
-		imageScaleMode: 'fill',//图片缩放模式	“fill”, “fit”, “fit-if-smaller” 或 “none”
-		autoScaleSlider: true,//是否基于基础宽度自动更新滑块高度	true或false
-		arrowsNavHideOnTouch: true,//箭头导航是否在触摸设备中隐藏 true或fa
-		autoScaleSliderWidth: 880,//幻灯片基础宽度   
-		autoScaleSliderHeight: 300,//幻灯片基础高度
-		slidesSpacing: 0,//幻灯片之间的间隔，单位px
-		controlNavigation: 'bullets',//导航类型	‘bullets’, ‘thumbnails’, ‘tabs’ 或 ‘none’
-		navigateByClick: true,//是否允许在幻灯片上点击鼠标导航	true或false
-		autoPlay: {
-    		// autoplay options go gere
-    		enabled: true,
-    		pauseOnHover: true
-    	},
-		transitionType:'move',//切换过渡类型	‘move’ 或 ‘fade’
-	});
 
-	//产品页面图片
-	$('#picbox').royalSlider({
-		loop: true,
-		controlsInside: false,
-		imageScaleMode: 'fill',
-		arrowsNavAutoHide: true,//箭头导航是否自动隐藏	true或false
-		arrowsNavHideOnTouch: true,//箭头导航是否在触摸设备中隐藏 true或false
-		autoScaleSlider: true,
-		autoScaleSliderWidth: 400,  
-		autoScaleSliderHeight: 400,
-		slidesSpacing: 0,
-		controlNavigation: 'bullets',
-		navigateByClick: true,
-		autoPlay: false,
-		transitionType:'move'
-	});
-	
-	
+
 
     //案例
     $(".portfolio .thumbnails .thumbnail .action").hover(function() {
@@ -68,34 +31,107 @@ $(function() {
 	
 	
 	//产品数量选择器
-	$(".goodsNumMinus").click(function(){
-		if(parseInt($(".goods-num")[0].value)>1){
-			var i = parseInt($(".goods-num")[0].value) - 1;
-			$(".goods-num")[0].value= i;
-			$(".thjexj").text((parseInt($(".tkje").text())*i).toFixed(2));
+	$.fn.iVaryVal=function(iSet,CallBack){
+	/*
+	 * Minus:点击元素--减小
+	 * Add:点击元素--增加
+	 * Input:表单元素
+	 * Min:表单的最小值，非负整数
+	 * Max:表单的最大值，正整数
+	 */
+	iSet=$.extend({Minus:$('.goodsNumMinus'),Add:$('.goodsNumPlus'),Input:$('.goods-num'),Min:0,Max:999},iSet);
+	var C=null,O=null;
+	//插件返回值
+	var $CB={};
+	//增加
+	iSet.Add.each(function(i){
+		$(this).click(function(){
+			O=parseInt(iSet.Input.eq(i).val());
+			(O+1<=iSet.Max) || (iSet.Max==null) ? iSet.Input.eq(i).val(O+1) : iSet.Input.eq(i).val(iSet.Max);
+			//输出当前改变后的值
+			$CB.val=iSet.Input.eq(i).val();
+			$CB.index=i;
+			//回调函数
+			if (typeof CallBack == 'function') {
+                CallBack($CB.val,$CB.index);
+            }
+		});
+	});
+	//减少
+	iSet.Minus.each(function(i){
+		$(this).click(function(){
+			O=parseInt(iSet.Input.eq(i).val());
+			O-1<iSet.Min ? iSet.Input.eq(i).val(iSet.Min) : iSet.Input.eq(i).val(O-1);
+			$CB.val=iSet.Input.eq(i).val();
+			$CB.index=i;
+			//回调函数
+			if (typeof CallBack == 'function') {
+				CallBack($CB.val,$CB.index);
+		  	}
+		});
+	});
+	//手动
+	iSet.Input.bind({
+		'click':function(){
+			O=parseInt($(this).val());
+			$(this).select();
+		},
+		'keyup':function(e){
+			if($(this).val()!=''){
+				C=parseInt($(this).val());
+				//非负整数判断
+				if(/^[1-9]\d*|0$/.test(C)){
+					$(this).val(C);
+					O=C;
+				}else{
+					$(this).val(O);
+				}
+			}
+			//键盘控制：上右--加，下左--减
+			if(e.keyCode==38 || e.keyCode==39){
+				iSet.Add.eq(iSet.Input.index(this)).click();
+			}
+			if(e.keyCode==37 || e.keyCode==40){
+				iSet.Minus.eq(iSet.Input.index(this)).click();
+			}
+			//输出当前改变后的值
+			$CB.val=$(this).val();
+			$CB.index=iSet.Input.index(this);
+			//回调函数
+			if (typeof CallBack == 'function') {
+                CallBack($CB.val,$CB.index);
+            }
+		},
+		'blur':function(){
+			$(this).trigger('keyup');
+			if($(this).val()==''){
+				$(this).val(O);
+			}
+			//判断输入值是否超出最大最小值
+			if(iSet.Max){
+				if(O>iSet.Max){
+					$(this).val(iSet.Max);
+				}
+			}
+			if(O<iSet.Min){
+				$(this).val(iSet.Min);
+			}
+			//输出当前改变后的值
+			$CB.val=$(this).val();
+			$CB.index=iSet.Input.index(this);
+			//回调函数
+			if (typeof CallBack == 'function') {
+                CallBack($CB.val,$CB.index);
+            }
 		}
 	});
-	$(".goodsNumPlus").click(function(){
-		var t = parseInt($(".goods-num")[0].name);
-		if(parseInt($(".goods-num")[0].value)<t){
-		var i = parseInt($(".goods-num")[0].value) + 1;
-		$(".goods-num")[0].value= i;
-		$(".thjexj").text((parseInt($(".tkje").text())*i).toFixed(2));
-		}
-	});
-	$(".goods-num").blur(function(){
-		var t = parseInt($(".goods-num")[0].name);
-		var g = parseInt($(".goods-num")[0].value);
-		if(g>t){
-			$(".goods-num")[0].value = t;
-			$(".thjexj").text((parseInt($(".tkje").text())*t).toFixed(2));
-		}
-		else if(g<1){
-			$(".goods-num")[0].value = 1;
-			$(".thjexj").text((parseInt($(".tkje").text())*1).toFixed(2));
-		}	
-		else{
-			$(".thjexj").text((parseInt($(".tkje").text())*g).toFixed(2));}
+	}
+	//调用
+	$( function() {
+		$('.change-goods-num').iVaryVal({},function(value,index){
+			$('.goods-num').html(value);
+			$(".thjexj").text((parseInt($(".tkje").text())*value).toFixed(2));
+		});		
 	});
 	
 	
