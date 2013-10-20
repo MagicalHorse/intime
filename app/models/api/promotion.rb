@@ -11,6 +11,10 @@ module API
         post(req, params.merge(path: 'promotion/favor/destroy'))
       end
 
+      def download_coupon(req, params = {})
+        post(req, params.merge(path: 'promotion/coupon/create', ispass: 0))
+      end
+
     end
   end
 end

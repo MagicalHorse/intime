@@ -169,8 +169,26 @@ IntimeService::Application.routes.draw do
         get :list_api
         get :search_api
       end
+
+      member do
+        post :favor
+        post :unfavor
+        post :download_coupon
+        post :comment
+      end
     end
-    resources :promotions, :only=>[:index, :show]
+    resources :promotions, :only=>[:index, :show] do
+      collection do
+        get :get_list
+      end
+
+      member do
+        post :favor
+        post :unfavor
+        post :download_coupon
+        post :comment
+      end
+    end
 
     resources :stores, only: [:show]
 
@@ -206,6 +224,20 @@ IntimeService::Application.routes.draw do
         get :order_index
       end
     end
+
+    resources :coupons, only: [:index]
+
+    # 代金券
+    resources :vouchers, only: [:index] do
+      collection do
+        get  :exchange_info
+        get  :binding_card
+
+        post :bindcard
+      end
+    end
+
+    resources :storepromotions, only: [:index, :show]
     # 个人中心
     get '/profile', to: 'profile#index'
     get '/profile/return_policy', to: 'profile#return_policy'

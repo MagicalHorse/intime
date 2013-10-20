@@ -60,6 +60,31 @@ class Front::ProductsController < Front::BaseController
     render :json =>results.to_json , callback: params[:callback]
   end
 
+  def favor
+    API::Product.favor(request, productid: params[:id])
+
+    respond_to { |format| format.js }
+  end
+
+  def unfavor
+    API::Product.unfavor(request, productid: params[:id])
+
+    respond_to { |format| format.js }
+  end
+
+  def download_coupon
+    API::Product.download_coupon(request, productid: params[:id])
+
+    respond_to { |format| format.js }
+  end
+
+  def comment
+    @comment = API::Comment.create(request, params.slice(:content, :replyuser).merge(sourceid: params[:id], sourcetype: 1))
+
+    respond_to { |format| format.js }
+  end
+
+
   protected
 
   def covert_options_for_search(type, entity_id)

@@ -1,0 +1,12 @@
+<div class="Coupon">
+  <ul class="thumbnails">
+    <% coupons.each do |coupon| -%>
+      <% if coupon[:product] -%>
+        <%= render 'product_coupon', coupon: coupon -%>
+      <% elsif coupon[:promotion] -%>
+        <%= render 'promotion_coupon', coupon: coupon -%>
+      <% end -%>
+    <% end -%>
+  </ul>
+</div>
+<%= paginate coupons %>

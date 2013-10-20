@@ -1,42 +1,12 @@
 <dl class="func">
-  <dd><a href="#"><img src="/images/icon_heart_2x.png" width="24" height="24"><span>喜欢</span></a></dd>
-  <dd><a href="#barcode" data-toggle="modal"><img src="/images/icon_barcode_2x.png" width="24" height="24"><span>优惠码</span></a></dd>
-  <div id="barcode" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="mLabel">优惠码</h3>
-    </div>
-    <div class="modal-body">
-      <p>下载成功！在商场收银台结算时请出示该优惠码获得尊享优惠！</p>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-      <a class="btn btn-danger" href="Coupon.html">查看优惠码</a> </div>
-  </div>
-  <dd><a href="#post" data-toggle="modal"><img src="/images/icon_bubbles_2x.png" width="24" height="24"><span>评论</span></a></dd>
-  <div id="post" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="post" aria-hidden="false">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="mLabel">发表评论</h3>
-    </div>
-    <div class="modal-body">
-      <textarea name="message" placeholder="说点什么吧…" style="width:96%;height:100px;margin:0;"></textarea>
-    </div>
-    <div class="modal-footer">
-      <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-      <button class="btn btn-danger">发布</button>
-    </div>
-  </div>
-  <dd><a href="#share" data-toggle="modal"><img src="/images/icon_share_2x.png" width="24" height="24"><span>分享</span></a></dd>
-  <div id="share" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="share" aria-hidden="false">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="mLabel">选择分享方式</h3>
-    </div>
-    <div class="modal-body"> <span><a href="#"><img src="/images/weibo.png">新浪微博</a></span> <span><a href="#"><img src="/images/weixin.png">微信好友</a></span> <span><a href="#"><img src="/images/circle.png">微信朋友圈</a></span> </div>
-    <div class="modal-footer">
-      <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-    </div>
-  </div>
+  <dd>
+    <%= link_to raw("#{image_tag('/images/icon_heart_2x.png', height: 24, width: 24)}<span>喜欢</span>"), favor_front_product_path(product.id), class: 'favor', remote: true, method: :post -%>
+  </dd>
+  <%= render 'download_coupon', product: product -%>
+  
+  <%= render 'comment', product: product -%>
+
+  <%= render 'share', product: product -%>
+  
   <div class="clearfix"></div>
 </dl>

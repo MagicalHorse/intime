@@ -1,17 +1,17 @@
 <section class="shop_detail">
-<span class="img"><img src="<%#= store.image_urls.try(:first) -%>" alt="<%#= store.name -%>"></span>
-<h1><%#= store.name -%></h1>
-<div class="info"> <span><i class="icon_loca"></i><a href="#map" data-toggle="modal"><%#= store.address -%></a></span> <span><i class="icon_phone"></i><%#= store.tel -%></span>
+<span class="img"><img src="<%= store.image_urls.try(:first) -%>" alt="<%= store.name -%>"></span>
+<h1><%= store.name -%></h1>
+<div class="info"> <span><i class="icon_loca"></i><a href="#map" data-toggle="modal"><%= store.location -%></a></span> <span><i class="icon_phone"></i><%= store.tel -%></span>
   <div id="map" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mLabel" aria-hidden="true">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-      <h3 id="mLabel"><%#= store.name -%></h3>
+      <h3 id="mLabel"><%= store.name -%></h3>
     </div>
-    <div class="modal-body"> <img src="http://api.map.baidu.com/staticimage?width=560&amp;height=400&amp;zoom=11"> </div>
+    <div class="modal-body"><%=raw display_store_map(store) -%></div>
   </div>
 </div>
 <hr>
 <div class="brief">
-  <p><%#= store.description -%></p>
+  <p><%= store.description -%></p>
 </div>
 </section>

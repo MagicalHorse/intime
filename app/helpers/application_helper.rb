@@ -41,4 +41,23 @@ module ApplicationHelper
   def rma_page?
     params[:controller] == 'front/rmas'
   end
+
+  def share_with_sina(item)
+    url = case
+          when item.is_a?(Stage::Promotion)
+            front_promotion_url(item.id)
+          when item.is_a?(Stage::Product)
+            front_product_url(item.id)
+          end
+
+    "http://service.weibo.com/share/share.php?url=#{url}&title=#{item.name}&pic="
+  end
+
+  def format_time_range(startdate, enddate)
+    [
+      startdate.to_time.strftime('%Y/%m/%d'),
+      enddate.to_time.strftime('%Y/%m/%d')
+    ].join('-')
+  end
+
 end

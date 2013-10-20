@@ -1,8 +1,6 @@
 module Front::PromotionsHelper
-  def format_time_range(promotion)
-    [
-      promotion.startdate.to_time.strftime('%Y/%m/%d'),
-      promotion.enddate.to_time.strftime('%Y/%m/%d')
-    ].join('-')
+  
+  def display_store_map(store)
+    "<img src=http://api.map.baidu.com/staticimage?center=#{store.lng},#{store.lat}&markers=#{store.lng},#{store.lat}&amp;width=560&amp;height=400&amp;zoom=13&amp;&markerStyles=-1,http://api.map.baidu.com/images/marker_red.png,-1>"   
   end
 end
