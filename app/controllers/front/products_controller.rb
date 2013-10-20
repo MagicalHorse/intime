@@ -17,7 +17,7 @@ class Front::ProductsController < Front::BaseController
     }
     result  = Stage::Product.search(options)
     results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
-    results.merge! (gen_data(result["data"]["products"]))
+    results.merge! (gen_search_data(result["data"]["products"]))
     render :json =>results.to_json , callback: params[:callback]
   end
 
@@ -99,6 +99,24 @@ class Front::ProductsController < Front::BaseController
     options
   end
 
+  def gen_search_data(datas)
+    results = {}
+    items = []
+    datas && datas.each do |item|
+      image_info = item["resources"].first
+      items << {
+        title:     item["name"],
+        price:     item["price"],
+        originalPrice:  item["unitprice"],
+        likeCount: item["likecount"],
+        url:       front_product_path(item["id"]),
+        imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
+      }
+    end
+    results[:datas] = items
+    results
+  end
+
   def gen_share(datas)
     results = {}
     items = []
@@ -109,7 +127,7 @@ class Front::ProductsController < Front::BaseController
         price:     item["price"],
         originalPrice:  item["originprice"],
         likeCount: item["likecount"],
-        url:       "",
+        url:       front_product_path(item["id"]),
         imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
       }
     end
@@ -127,7 +145,7 @@ class Front::ProductsController < Front::BaseController
         price:     item["price"],
         originalPrice:  item["price"],
         likeCount: item["favorable"],
-        url:       "",
+        url:       front_product_path(item["id"]),
         imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
       }
     end

@@ -19,6 +19,8 @@
       <a href="<%= pay_front_order_path(order['orderno']) %>" target="_blank" class="fr btn btn-danger ">在线支付</a>
     <% elsif rma_page? && order['canrma'] %>
       <a href="<%= new_front_rma_path(order_id: order['orderno']) %>" class="btn btn-danger ddf">申请退货</a>
+    <% elsif rma_page? %>
+      <a href="javascript:;" class="btn ddf"><%= order['rmas'][0]['status'] %></a>
     <% end %>
     <div class="clearfix"></div>
   </div>

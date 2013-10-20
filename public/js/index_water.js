@@ -1,3 +1,25 @@
+//首页广告图
+$('#banner').royalSlider({
+	//arrowsNav: false,是否用箭头导航,默认true
+	loop: true,//是否从最后一张幻灯片滑动到第一张
+	controlsInside: false,
+	imageScaleMode: 'fill',//图片缩放模式	“fill”, “fit”, “fit-if-smaller” 或 “none”
+	autoScaleSlider: true,//是否基于基础宽度自动更新滑块高度	true或false
+	arrowsNavHideOnTouch: true,//箭头导航是否在触摸设备中隐藏 true或fa
+	autoScaleSliderWidth: 880,//幻灯片基础宽度   
+	autoScaleSliderHeight: 300,//幻灯片基础高度
+	slidesSpacing: 0,//幻灯片之间的间隔，单位px
+	controlNavigation: 'bullets',//导航类型	‘bullets’, ‘thumbnails’, ‘tabs’ 或 ‘none’
+	navigateByClick: true,//是否允许在幻灯片上点击鼠标导航	true或false
+	autoPlay: {
+		// autoplay options go gere
+		enabled: true,
+		pauseOnHover: true
+	},
+	transitionType:'move',//切换过渡类型	‘move’ 或 ‘fade’
+});
+
+
    var handler = null;
     var page = 1;
     var isLoading = false;
@@ -69,8 +91,8 @@
         if(sort==1){
 			html+='<li>';
 							html+='<div class="thumbnail">';
-								html+='<h3><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
-								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+								html+='<h3><i class="icon_title"></i><a href="promo.html" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<div class="action"> <a href="promo.html"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
 								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
@@ -80,17 +102,22 @@
 			html+='<li>';
 							html+='<div class="thumbnail">';
 								html+='<h3 class="time">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
-								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+								html+='<div class="action"> <a href="#"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
+<<<<<<< HEA
 								html+='<h3 class="bottom"><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
 								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+======
+								html+='<h3 class="bottom"><i class="icon_title"></i><a href="#" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+>>>>>>> 5a11af93288866cf96c99b1d477da9f61a95e07
 						html+='</li>';
 		} else if(sort==3) {
 			html+='<li>';
 							html+='<div class="thumbnail">';
-								html+='<h3><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
-								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+								html+='<h3><i class="icon_title"></i><a href="promo.html" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<div class="action"> <a href="promo.html"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
 								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';

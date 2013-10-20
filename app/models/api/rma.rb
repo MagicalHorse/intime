@@ -23,6 +23,14 @@ module API
       def order_index(req, params = {})
         post(req, params.merge(path: 'rma/orderlist'))
       end
+
+      def update(req, params = {})
+        post(req, params.merge(path: 'rma/update'))
+      end
+
+      def destory(req, params = {})
+        post(req, params.merge(path: 'rma/void'))
+      end
     end
   end
 end

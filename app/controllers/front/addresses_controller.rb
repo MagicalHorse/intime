@@ -133,8 +133,4 @@ class Front::AddressesController < Front::BaseController
     result = API::Address.destroy(request, id: params[:id])
     render json: result.slice(:isSuccessful, :statusCode, :message, :data)
   end
-
-  def supportshipments
-    render json: format_items(API::Address.supportshipments(request)[:data], :page, :pagesize, :totalcount, :totalpaged)
-  end
 end

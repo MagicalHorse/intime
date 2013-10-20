@@ -716,6 +716,8 @@ font-weight: normal;}
 .portfolio .thumbnails .thumbnail h3.bottom{
 	padding:6px 0 30px 0;
 }
+.portfolio .thumbnails .thumbnail h3.mt6{margin:6px 0 0 0 !important;}
+.portfolio .thumbnails .thumbnail .summary { font-size:12px;padding: 6px 0 36px 0;}
 
 .portfolio .thumbnails .thumbnail h3 .icon_title {
 	margin: 0 4px 0 0;
@@ -1094,6 +1096,7 @@ text-decoration: line-through;
 	position: absolute;
 	right: 0;
 	top: 40px;
+	z-index:10;
 	text-align: center;
 }
 .promo_info .infobox .btnbar {
@@ -1492,7 +1495,7 @@ width: 1155px;
  padding: 24px;
 }
 .main {
- min-height: 735px;
+ min-height: 560px;
  width: 870px;
  margin-left: 15px;
 }
@@ -1568,7 +1571,7 @@ margin: 10px auto;
  .main {
 	 width:705px; 
 	 margin-left:15px;
-min-height: 735px;
+min-height: 560px;
 }
 .thumbnails {
 margin-left: -15px;
