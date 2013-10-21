@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> update js and css
 //产品页面图片
 $('#picbox').royalSlider({
 	loop: true,
@@ -125,6 +128,7 @@ var handler = null;
       
       // Load first data from the API.
       loadData();
+<<<<<<< HEAD
     });
 =======
 var handler = null;
@@ -237,3 +241,6 @@ var handler = null;
       loadData();
     });
 >>>>>>> 添加我的优惠券、我的兑换券、积点兑换页面
+=======
+    });
+>>>>>>> update js and css
