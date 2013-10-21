@@ -22,21 +22,23 @@
       </div>
       <div class="item_tit bt"><span>退货金额小计：</span><strong><b>￥<%= @rma['rmaamount'] %></b></strong></div>
       <div class="item_tit bt"><span>退货理由：</span><%= @rma['reason'] %></div>
-      <div class="item_tit bb bt"><span>退货单号：</span><%= @rma['rmano'] %>
+      <div class="item_tit bt thzq"><span>退货单号：</span><%= @rma['rmano'] %>
         <ul>
           <% (@rma['logs'] || []).each do |log| %>
             <li><span><%= format_time(log['createddate']) %></span><br><%= log['memo'] %></li>
           <% end %>
         </ul>
       </div>
-      <h5>退货信息</h5>
-      <div class="item_tit bt thzq">
-        <!-- TODO -->
-        <span>联系人：</span><%= %><br>
-        <span>手机号码：</span><%= @rma['contactphone'] %><br>
-        <span>退货物流：</span><%= @rma['shipvia'] %><br>
-        <span>退货物流单号：</span><%= @rma['shipviano'] %><br>
-      </div>
+      <% if false %>
+        <h5>退货信息</h5>
+        <div class="item_tit bt thzq">
+          <!-- TODO -->
+          <span>联系人：</span><%= %><br>
+          <span>手机号码：</span><%= @rma['contactphone'] %><br>
+          <span>退货物流：</span><%= @rma['shipvia'] %><br>
+          <span>退货物流单号：</span><%= @rma['shipviano'] %><br>
+        </div>
+      <% end %>
       <% if can_display_address?(@rma['statust']) %>
         <p>
           退货包裹请快递到：<br>
@@ -46,4 +48,3 @@
     </div>
   </div>
 </div>
-

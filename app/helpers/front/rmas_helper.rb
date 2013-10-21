@@ -16,4 +16,8 @@ module Front::RmasHelper
       [shipvia['name'], shipvia['id']]
     end
   end
+
+  def verified?(status)
+    API::Rma::STATUSES[:approval] == status.to_i
+  end
 end

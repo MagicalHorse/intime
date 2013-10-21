@@ -1,5 +1,4 @@
 class Front::RmasController < Front::BaseController
-  respond_to :html, :json
   before_filter :authenticate!
 
   def index
@@ -9,7 +8,6 @@ class Front::RmasController < Front::BaseController
       result[:items],
       total_count: result[:totalcount].to_i
     ).page(result[:pageindex]).per(result[:pagesize])
-    respond_with @rmas
   end
 
   def new
@@ -36,7 +34,7 @@ class Front::RmasController < Front::BaseController
     render_404(:html) and return unless result[:isSuccessful]
 
     @rma     = result[:data]
-    @product = @rma['products'][0]
+    @product = @rma['products'][0] rescue {}
   end
 
   def order_index
@@ -53,21 +51,21 @@ class Front::RmasController < Front::BaseController
     render_404(:html) and return unless result[:isSuccessful]
 
     @rma     = result[:data]
-    @product = @rma['products'][0]
-    @shipvias = format_items(API::Environment.supportshipvias(request)[:data], :page, :pagesize, :totalcount, :totalpaged)[:datas]
+    @product = @rma['products'][0] rescue {}
+    #@shipvias = format_items(API::Environment.supportshipvias(request)[:data], :page, :pagesize, :totalcount, :totalpaged)[:datas]
   end
 
   def update
-    render json: API::Rma.update(request, params[:rma])
+    render json: API::Rma.update(request, params[:rma].merge(rmano: params[:id]))
   end
 
   def destroy
     result = API::Rma.destroy(request, rmano: params[:id])
 
     if result[:isSuccessful]
-      redirect_to front_rmas_path, notice: result['message']
+      redirect_to order_index_front_rmas_path, notice: result['message']
     else
-      redirect_to front_rmas_path, alert: result['message']
+      redirect_to order_index_front_rmas_path, alert: result['message']
     end
   end
 end
