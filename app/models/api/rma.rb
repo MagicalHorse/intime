@@ -28,7 +28,7 @@ module API
         post(req, params.merge(path: 'rma/update'))
       end
 
-      def destory(req, params = {})
+      def destroy(req, params = {})
         post(req, params.merge(path: 'rma/void'))
       end
     end
