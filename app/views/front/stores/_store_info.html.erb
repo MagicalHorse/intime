@@ -1,5 +1,5 @@
 <section class="shop_detail">
-<span class="img"><img src="<%= store.image_urls.try(:first) -%>" alt="<%= store.name -%>"></span>
+<span class="img"><img src="<%= store.image_url -%>" alt="<%= store.name -%>"></span>
 <h1><%= store.name -%></h1>
 <div class="info"> <span><i class="icon_loca"></i><a href="#map" data-toggle="modal"><%= store.location -%></a></span> <span><i class="icon_phone"></i><%= store.tel -%></span>
   <div id="map" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mLabel" aria-hidden="true">

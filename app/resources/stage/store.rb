@@ -9,10 +9,10 @@ module Stage
 
     end
 
-    def image_urls(size = 320)
-      return [] if resources.blank?
+    def image_url(size = 320)
+      return nil if resources.blank?
 
-      resources.map { |resource| [PIC_DOMAIN, resource.name, "_#{size}X0.jpg"].join('')}
+      [PIC_DOMAIN, resources.name, "_#{size}X0.jpg"].join('')
     end
   end
 end

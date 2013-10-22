@@ -2,9 +2,14 @@
   <div class="head_img"><span></span><img src="images/head_img.jpg"></div>
   <div class="cname">
     <p style="font-size:16px;">vivimeo</p>
-    <p style="font-size:12px;">
-    <span>会员卡号：</span>未绑定 <%= link_to '绑定', binding_card_front_vouchers_path, class: 'btn btn-danger' -%><br>
-    <span>我的积分：</span>0
+    <p style="font-size:12px;line-height: 20px;">
+    <span>会员卡号：</span>
+    <% if current_user.isbindcard -%>
+      <%= current_user.cardno -%><br>
+    <% else -%>
+      未绑定 <%= link_to '绑定', binding_card_front_vouchers_path, class: 'btn btn-danger' -%><br>
+    <% end -%>
+    <span>我的积分：</span><%= current_user.point -%>
     </p>
   </div>
   <div class="clearfix"></div>

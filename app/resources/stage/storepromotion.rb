@@ -16,6 +16,10 @@ module Stage
 
         Kaminari.paginate_array(promotions, total_count: raw_data['totalcount'].to_i).page(raw_data['pageindex']).per(raw_data['pagesize'])
       end
+
+      def fetch(id)
+        new(get(:detail, id: id, client_version: '2.3')['data'])
+      end
     end
 
   end
