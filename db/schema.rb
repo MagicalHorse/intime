@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130609040017) do
+ActiveRecord::Schema.define(:version => 20131022014202) do
 
   create_table "auth_keys", :force => true do |t|
     t.string   "private"
@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20130609040017) do
     t.integer  "coupontype"
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
+    t.boolean  "islimitonce"
   end
 
   add_index "store_coupons", ["code", "coupontype"], :name => "index_store_coupons_on_code_and_coupontype"
@@ -255,6 +256,24 @@ ActiveRecord::Schema.define(:version => 20130609040017) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.integer  "updatetype"
+  end
+
+  create_table "wx_activity_logs", :force => true do |t|
+    t.integer  "activity_id"
+    t.string   "uid"
+    t.string   "vip_card"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "wx_custom_activities", :force => true do |t|
+    t.string   "key"
+    t.integer  "status"
+    t.datetime "valid_from"
+    t.datetime "valid_end"
+    t.string   "succsss_msg"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "wx_reply_msgs", :force => true do |t|

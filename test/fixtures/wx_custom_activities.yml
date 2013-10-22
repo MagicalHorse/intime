@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  key: MyString
+  status: 1
+  valid_from: 2013-10-22 09:39:54
+  valid_end: 2013-10-22 09:39:54
+  succsss_msg: MyString
+
+two:
+  key: MyString
+  status: 1
+  valid_from: 2013-10-22 09:39:54
+  valid_end: 2013-10-22 09:39:54
+  succsss_msg: MyString
