@@ -7,9 +7,9 @@
     <div class="thumbnail">
       <div class="action">
         <% if product.promotionFlag -%>
-          <span class="discount">优惠</span> <span class="triangle"></span>
+          <span class="discount">优惠</span><span class="triangle"></span>
         <% end -%>
-        <a href="<%= front_product_path(product.id) -%>"><img src="<%= product.image_urls.first -%>"></a> <span class="like"><i class="icon-heart icon-white"></i><%#= product.likecount -%>+</span> </div>
+        <a href="<%= front_product_path(product.id) -%>"><img src="<%= product.image_urls.first -%>"></a> <span class="like"><i class="icon-heart icon-white"></i><%= product.likecount.to_i -%>+</span> </div>
       <h4><a href="<%= front_product_path(product.id) -%>" title=""><%= product.name -%></a></h4>
       <small><span class="pull-left num">吊牌价：<em>¥366</em></span><span class="pull-right price">销售价：<em>¥<%= product.price -%></em></span></small> </div>
     </li>

@@ -1,0 +1,2 @@
+module Front::CouponsHelper
+end

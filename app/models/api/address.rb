@@ -18,11 +18,6 @@ module API
       def destroy(req, params = {})
         post(req, params.merge(path: 'address/delete'))
       end
-
-      # 送货地址省市链接
-      def supportshipments(req, params = {})
-        post(req, params.merge(path: 'environment/supportshipments'))
-      end
     end
   end
 end

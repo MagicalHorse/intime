@@ -1,3 +1,21 @@
+//产品页面图片
+$('#picbox').royalSlider({
+	loop: true,
+	controlsInside: false,
+	imageScaleMode: 'fill',
+	arrowsNavAutoHide: true,//箭头导航是否自动隐藏	true或false
+	arrowsNavHideOnTouch: true,//箭头导航是否在触摸设备中隐藏 true或false
+	autoScaleSlider: true,
+	autoScaleSliderWidth: 400,  
+	autoScaleSliderHeight: 400,
+	slidesSpacing: 0,
+	controlNavigation: 'bullets',
+	navigateByClick: true,
+	autoPlay: false,
+	transitionType:'move'
+});
+
+
 var handler = null;
     var page = 1;
     var isLoading = false;

@@ -17,7 +17,7 @@
         <!--/已经登录位置 -->
         <div class="section loger">
           <div class="relative">
-            <div class="photo"><a href="details.html"><img src="<%= current_user.avatar_url %>"></a></div>
+            <div class="photo"><a href="<%= front_profile_path%>"><img src="<%= current_user.avatar_url %>"></a></div>
             <div class="tools">
               <span><%= current_user.nickie %></span>
               <ul><li><a href="<%= front_profile_path %>" title="预购中心"> </a></li>
@@ -33,11 +33,10 @@
             <ul>
               <a href="<%= front_follows_path %>"><li>关注<br><%= current_user.like_count %></li></a>
               <a href="<%= front_fans_path %>"><li>粉丝<br><%= current_user.fans_count %></li></a>
-              <a href="Coupon.html"><li>优惠码<br><%= current_user.onlinecoupontotal %></li></a>
-              <a href="certificate.html"><li>兑换券<br>
+              <a href="<%= front_coupons_path -%>"><li>优惠码<br><%= current_user.onlinecoupontotal %></li></a>
+              <a href="<%= front_vouchers_path -%>"><li>兑换券<br>
                   <%= current_user.offlinecoupontotal %></li></a>
-              <a href="jddh.html"><li>积点<br>
-                  兑换</li></a>
+              <a href="<%= exchange_info_front_vouchers_path -%>"><li>积点<br>兑换</li></a>
               <div class="clearfix"></div>
             </ul>
           </div>

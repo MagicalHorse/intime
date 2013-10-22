@@ -70,13 +70,6 @@ IntimeService::Application.routes.draw do
   
   match "ping/mock"=>"ping#mock"
 
-  resources :profile, only: [:index] do
-    collection do
-      get :get_list
-    end
-  end
-
-
   resources :special_topic, only: [:index] do
     collection do
       get :get_list
@@ -146,14 +139,15 @@ IntimeService::Application.routes.draw do
     # Directs /admin/products/* to Admin::ProductsController
     #     # (app/controllers/admin/products_controller.rb)
 
-    get '/hotwords',       to: 'common#hotwords'
-
-    get '/my_favorite',  to: 'users_center#my_favorite'
-    get '/my_share',     to: 'users_center#my_share'
-    get '/my_promotion', to: 'users_center#my_promotion'
-    get '/follows',      to: 'users_center#follows'
-    get '/fans',         to: 'users_center#fans'
-    get '/follow',       to: 'users_center#follow'
+    get '/hotwords',      to: 'common#hotwords'
+    get '/my_favorite',   to: 'users_center#my_favorite'
+    get '/my_share',      to: 'users_center#my_share'
+    get '/my_promotion',  to: 'users_center#my_promotion'
+    get '/follows',       to: 'users_center#follows'
+    get '/fans',          to: 'users_center#fans'
+    get '/follow',        to: 'users_center#follow'
+    #get '/profile',       to: 'users_center#profile'
+    get '/his_info/:userid',       to: 'users_center#his_info'
 
     resources :products, :only=>[:index, :show] do
       collection do
@@ -162,8 +156,26 @@ IntimeService::Application.routes.draw do
         get :list_api
         get :search_api
       end
+
+      member do
+        post :favor
+        post :unfavor
+        post :download_coupon
+        post :comment
+      end
     end
-    resources :promotions, :only=>[:index, :show]
+    resources :promotions, :only=>[:index, :show] do
+      collection do
+        get :get_list
+      end
+
+      member do
+        post :favor
+        post :unfavor
+        post :download_coupon
+        post :comment
+      end
+    end
 
     resources :stores, only: [:show]
 
@@ -189,19 +201,31 @@ IntimeService::Application.routes.draw do
         get :pay
       end
     end
-    resources :addresses, only: [:index, :create, :update, :destroy] do
-      collection do
-        get :supportshipments
-      end
-    end
-    resources :rmas, only: [:index, :new, :create, :show] do
+    resources :addresses, only: [:index, :create, :update, :destroy]
+    resources :rmas do
       collection do
         get :order_index
       end
     end
+
+    resources :coupons, only: [:index]
+
+    # 代金券
+    resources :vouchers, only: [:index] do
+      collection do
+        get  :exchange_info
+        get  :binding_card
+
+        post :bindcard
+      end
+    end
+
+    resources :storepromotions, only: [:index, :show]
     # 个人中心
     get '/profile', to: 'profile#index'
     get '/profile/return_policy', to: 'profile#return_policy'
+
+    get '/supportshipments', to: 'environment#supportshipments'
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'

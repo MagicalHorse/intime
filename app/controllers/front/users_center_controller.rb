@@ -1,6 +1,18 @@
 class Front::UsersCenterController < Front::BaseController 
 
-  before_filter :authenticate!
+  before_filter :authenticate!, :except => [:his_info]
+
+  def profile
+    result = API::Customer.show(request)
+    @info = gen_profile(result)
+  end
+
+  def his_info
+    options = {userid: params[:userid]}
+    result  = API::Customer.his_show(request, options)
+    @info   = gen_profile(result)
+    render :profile
+  end
 
   def follows
     options = { type: 0, userId: current_user.id }
@@ -21,6 +33,18 @@ class Front::UsersCenterController < Front::BaseController
   end
 
   protected
+
+  def gen_profile(result)
+    info = {}
+    if result["data"].present?
+      info[:name]   = result["data"]["nickname"]
+      info[:logo]   = result["data"]["logo"]
+      info[:gender] = result["data"]["gender"]
+      info[:desc]   = result["data"]["desc"]
+      info[:mobile] = result["data"]["mobile"]
+    end
+    info
+  end
 
   def gen_data(result)
     items = []

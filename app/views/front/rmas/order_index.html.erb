@@ -7,10 +7,11 @@
   </ul>
 <% end %>
 <div class="span9 main">
+  <%= render 'front/message' %>
   <div class="Logistics_query olrtds autoth">
     <% if @orders.present? %>
       <% @orders.each do |order| %>
-        <%= render partial: 'order', locals: { order: order } %>
+        <%= render partial: 'front/orders/order', locals: { order: order } %>
       <% end %>
       <%= paginate @orders %>
     <% else %>
