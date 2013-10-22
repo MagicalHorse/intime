@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Front::BaseController < ApplicationController
   layout 'front'
   helper_method :current_user, :signed_in?
@@ -12,6 +13,7 @@ class Front::BaseController < ApplicationController
 
   def authenticate!
     return true if signed_in?
+    fake_current_user and return true
 
     if request.xhr?
       render json: { isSuccessful: false, message: 'no login', statusCode: 500 }
@@ -58,6 +60,31 @@ class Front::BaseController < ApplicationController
     render json: format_items(data, options), callback: params[:callback]
   end
 
+  def fake_current_user
+    session[:current_user] = CurrentUser.new({
+      :email=>"",
+      :level=>1,
+      :nickie=>"银泰2013",
+      :id=>45,
+      :provider=>3,
+      :isbindcard=>nil,
+      :mobile=>"",
+      :avatar_url=>"",
+      :coupon_count=>0,
+      :point=>100,
+      :like_count=>0,
+      :fans_count=>0,
+      :favor_count=>0,
+      :access_token=>"FB2166296E70FC4693379C261E27ACF2",
+      :refresh_token=>"6383F262273FF94ECE79A07BE01BF86A",
+      :onlinecoupontotal=>0,
+      :offlinecoupontotal=>0
+    })
+    session[:user_token]   = 'g1vS%2BfIPu1VcU9FBgoe5btrbCIco61HTzS56b9K2P8dlVsTwUjp5pkaIKtopaMXv'
+
+    set_login_cookie
+  end
+
   protected
 
   def set_current_user(value)
@@ -102,7 +129,7 @@ class Front::BaseController < ApplicationController
 
   def set_login_cookie
     cookies[:login] = {
-      value:    @current_user.nickie,
+      value:    current_user.nickie,
       domain:   '.intime.com.cn',
       path:     '/',
       expires:  Time.now.end_of_day
