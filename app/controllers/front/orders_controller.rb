@@ -48,6 +48,7 @@ class Front::OrdersController < Front::BaseController
         result = API::Order.new(request, productid: params[:product_id])
         render_500 { result['message'] } and return unless result[:isSuccessful]
 
+        result[:data][:address] = API::Address.index(request, page: 1, pagesize: 1)[:data][:items][0]
         result[:data].delete(:dimension)
         result[:data][:salecolors].each_with_index do |color, index|
           resource = result[:data][:salecolors][index].delete(:resource)
