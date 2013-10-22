@@ -117,5 +117,5 @@ en:
  scc_p_codenotexist: "优惠码不存在！"
  scc_p_codeexpiredornotstart: "优惠码已过期或未开始！"
  scc_p_codehasused: "优惠码已使用！"
- custom_activity_have_joined: "您已经报名成功！"
- custom_activity_no_card: "参加活动的方式：输入报名+卡号+卡密码"
+ custom_activity_have_joined: "恭喜报名成功，凭此信息带会员卡可至指定门店（银泰杭州武林店、宁波东门店、温州世贸店和金华银泰城，任选一家）参加预购，预购活动详见门店海报。"
+

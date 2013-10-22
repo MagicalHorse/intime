@@ -128,7 +128,7 @@ class WxobjectController < ApplicationController
     else
       if text_attrs.length<=2
         return build_response_text_temp {|msg|
-                  msg.Content = t(:custom_activity_no_card)
+                  msg.Content = WxReplyMsg.get_msg_by_key 'wrongpwd'
              } 
       end
 
