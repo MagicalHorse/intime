@@ -102,7 +102,7 @@ class Front::BaseController < ApplicationController
 
   def set_login_cookie
     cookies[:login] = {
-      value:    @current_user.nickie,
+      value:    current_user.nickie,
       domain:   '.intime.com.cn',
       path:     '/',
       expires:  Time.now.end_of_day

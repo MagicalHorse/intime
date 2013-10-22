@@ -33,6 +33,8 @@ class Front::VouchersController < Front::BaseController
     result = API::Card.bind(request, params.slice(:cardno, :password))
 
     if result[:isSuccessful]
+      current_user.assign_attributes(isbindcard: true, cardno: result['data']['cardno'])
+
       flash[:notice] = '银泰卡绑定成功'
       redirect_to exchange_info_front_vouchers_path
     else
