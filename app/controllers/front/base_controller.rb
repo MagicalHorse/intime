@@ -13,7 +13,7 @@ class Front::BaseController < ApplicationController
 
   def authenticate!
     return true if signed_in?
-    fake_current_user and return true
+    #fake_current_user and return true
 
     if request.xhr?
       render json: { isSuccessful: false, message: 'no login', statusCode: 500 }
@@ -130,7 +130,7 @@ class Front::BaseController < ApplicationController
   def set_login_cookie
     cookies[:login] = {
       value:    current_user.nickie,
-      domain:   '.intime.com.cn',
+      domain:   Settings.domain,
       path:     '/',
       expires:  Time.now.end_of_day
     }

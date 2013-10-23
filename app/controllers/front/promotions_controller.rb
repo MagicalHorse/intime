@@ -1,4 +1,5 @@
 class Front::PromotionsController < Front::BaseController 
+  before_filter :authenticate!, only: [:favor, :unfavor, :download_coupon, :comment]
 
   def show
     @promotion = Stage::Promotion.fetch(params[:id])
