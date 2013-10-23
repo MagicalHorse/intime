@@ -1,0 +1,77 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">兑换活动</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="details cfxq">
+    <div class="vipleft">
+      <h2><em></em><%= @storepromotion.name -%></h2>
+      <div class="content">
+        <p> <span>活动时间：</span><%= format_time_range(@storepromotion.activestartdate, @storepromotion.activeenddate) -%><br>
+        <span>使用有效期：</span><%= format_time_range(@storepromotion.couponstartdate, @storepromotion.couponenddate) -%><br>
+        <span>参与门店：
+        <% @storepromotion.inscopenotice.map(&:storename).each do |storename| -%>
+          </span><%= storename -%><br>
+        <% end -%>
+        </p>
+        <p class="center bb b10"><a href="#barcode" data-toggle="modal" class="btn btn">礼券使用范围</a> <a href="#barcode01" data-toggle="modal" class="btn btn-danger ">我要领兑</a></p>
+        <%= render 'using_range', inscopenotice: @storepromotion.inscopenotice -%>
+        
+        <div id="barcode01" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="mLabel">我要兑换</h3>
+          </div>
+          <div class="modal-body">
+            <p>选取礼券使用门店：
+            <select style="margin-bottom: 4px;">
+              <option>请选择使用商店</option>
+              <option>浙江银泰青春店</option>
+              <option>浙江银泰青春店</option>
+            </select>
+            <br>
+            当前可以用积分：<span style="color:#D10149">5000</span><br>
+            兑换积分:
+            <input id="u1" type="text" placeholder="10000" style="width:50px; margin-bottom: 4px;">
+            = <span style="color:#D10149"><b>100元</b></span> </p>
+          </div>
+          <div class="modal-footer"> <a href="#barcode03" class="btn btn-danger" data-dismiss="modal" data-toggle="modal">兑换</a> </div>
+        </div>
+        <div id="barcode03" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="mLabel">兑换成功</h3>
+          </div>
+          <div class="modal-body">
+            <p style="border-bottom:1px solid #eeeeee;"><span style="display:inline-block; width:90px;">礼券码:</span>13216516<br>
+            <span style="display:inline-block; width:90px;">领兑时间：</span>04月02日
+            11：30：15<br>
+            <span style="display:inline-block; width:90px;">使用有效期：</span>2013-05-22止<br>
+            <span style="display:inline-block; width:90px;">使用门店：</span>浙江银泰文化广场店<br>
+            <span style="display:inline-block; width:90px;">兑换积分:</span>30000<br>
+            <span style="display:inline-block; width:90px;">对金额：</span>300元 </p>
+            <p style="font-size:12px; color:#D10149; line-height:20px;"> 注意事项：<br>
+            1、使用礼券购买商品，只支持退货，不支持换货。<br>
+            2、礼券超过有效期将不能再继续使用，并且积点不支持退回。<br>
+            3、在使用礼券购买商品时，请同时出示会员卡进行购买。</p>
+          </div>
+          <div class="modal-footer"> <a href="cfxq.html" class="btn btn-danger">查看兑换券</a> <a href="jddhhd.html" class="btn btn-danger">继续兑换</a> </div>
+        </div>
+        <p> <span>兑换标准：</span><br>
+        </p><div class="xh">3000点，以每1000点为单位，不同级别的积点按不同的比例领取礼券本次领兑活动将以礼券的方式回馈，具体标准如下：<br>
+        积点分档 可兑领礼券额<br>
+        3000——5万点（不含5万） 每1000点10元礼券<br>
+        5万——10万点（不含10万） 每1000点12元礼券<br>
+        10——15万点（不含15万） 每1000点13元礼券<br>
+        15万点以上 每1000点15元礼券<br>
+      </div>
+      <p></p>
+    </div>
+  </div>
+  <%= render 'notice', notice: @storepromotion.notice -%>
+  
+  <div class="clearfix"></div>
+</div>
+    </div>

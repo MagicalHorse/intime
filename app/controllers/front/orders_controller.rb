@@ -27,7 +27,7 @@ class Front::OrdersController < Front::BaseController
       }
     end
 
-    render json: json
+    render json: json, callback: params[:callback]
   end
 
   def show
@@ -54,7 +54,7 @@ class Front::OrdersController < Front::BaseController
           resource = result[:data][:salecolors][index].delete(:resource)
           result[:data][:salecolors][index][:images_url] = resource.is_a?(Hash) ? middle_pic_url(resource) : ''
         end
-        render json: result
+        render json: result, callback: params[:callback]
       }
       format.html
     end
@@ -102,7 +102,7 @@ class Front::OrdersController < Front::BaseController
   #   message: '操作失败',                          // 提示信息
   # }
   def computeamount
-    render json: API::Order.computeamount(request, params.slice(:productid, :quantity))
+    render json: API::Order.computeamount(request, params.slice(:productid, :quantity)), callback: params[:callback]
   end
 
   def pay

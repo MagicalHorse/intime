@@ -1,5 +1,4 @@
 class Front::AddressesController < Front::BaseController
-  respond_to :html, :json, only: :index
   before_filter :authenticate!
 
   # *output*
@@ -26,7 +25,11 @@ class Front::AddressesController < Front::BaseController
   # }
   def index
     @addresses = format_items(API::Address.index(request, page: 1, pagesize: 8)[:data], :page, :pagesize, :totalcount, :totalpaged)
-    respond_with @addresses
+
+    respond_to do |format|
+      format.json { render json: @addresses, callback: params[:callback] }
+      format.html
+    end
   end
 
   # *input*
@@ -77,7 +80,7 @@ class Front::AddressesController < Front::BaseController
     params[:address][:shippingcontactphone]  = params[:address].delete(:shippingphone)
 
     result = API::Address.update(request, params[:address].merge(id: params[:id]))
-    render json: result.slice(:isSuccessful, :statusCode, :message, :data)
+    render json: result.slice(:isSuccessful, :statusCode, :message, :data), callback: params[:callback]
   end
 
   # *input*
@@ -126,7 +129,7 @@ class Front::AddressesController < Front::BaseController
     params[:address][:shippingcontactphone]  = params[:address].delete(:shippingphone)
 
     result = API::Address.create(request, params[:address])
-    render json: result.slice(:isSuccessful, :statusCode, :message, :data)
+    render json: result.slice(:isSuccessful, :statusCode, :message, :data), callback: params[:callback]
   end
 
   def destroy
