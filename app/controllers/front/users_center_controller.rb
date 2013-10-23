@@ -40,6 +40,13 @@ class Front::UsersCenterController < Front::BaseController
   def follow
     options  = { likeduserid: params[:user_id] }
     result   = API::Follow.follow(request,options)
+    respond_to { |format| format.js }
+  end
+
+  def unfollow
+    options  = { likeduserid: params[:user_id] }
+    result   = API::Follow.unfollow(request,options)
+    respond_to { |format| format.js }
   end
 
   protected

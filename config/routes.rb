@@ -152,12 +152,13 @@ IntimeService::Application.routes.draw do
     get '/my_promotion',  to: 'users_center#my_promotion'
     get '/follows',       to: 'users_center#follows'
     get '/fans',          to: 'users_center#fans'
-    get '/follow',        to: 'users_center#follow'
     get '/my_profile',    to: 'users_center#profile'
     get '/his_favorite/:userid',   to: 'users_center#his_favorite', :as => :his_favorite
     get '/his_promotion/:userid',  to: 'users_center#his_promotion', :as => :his_promotion
     get '/his_share/:userid',      to: 'users_center#his_share', :as => :his_share
     get '/his_profile/:userid',    to: 'users_center#his_info', :as => :his_profile
+    post '/follow/:id',        to: 'users_center#follow', :as => :follow
+    post '/unfollow/:id',        to: 'users_center#unfollow', :as => :unfollow
 
     resources :products, :only=>[:index, :show] do
       collection do
