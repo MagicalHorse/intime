@@ -7,6 +7,7 @@
 <% end %>
 
 <div class="span9 main">
+  <%= render 'front/message' %>
   <div class="details">
     <div class="top">
       <div class="head_img"><span></span><img src="<%= @info[:logo]%>"></div>
@@ -17,7 +18,7 @@
       <div class="clearfix"></div>
     </div>
     <ul class="mid">
-      <li>性别：<%= @info[:gender]%></li>
+      <li>性别：<%= API::Customer::GENDER[@info[:gender].to_i] %></li>
       <li>电话：<%= @info[:mobile]%></li>
     </ul>
   </div>
