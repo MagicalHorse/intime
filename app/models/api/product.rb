@@ -3,6 +3,10 @@ module API
 
     class << self
 
+      def his_favorite(req, params = {})
+        post(req, params.merge(path: 'favorite/daren'))
+      end
+
       #sourcetype: 1喜欢, 2促销
       def my_favorite(req, params = {})
         post(req, params.merge(path: 'favorite/my'))
