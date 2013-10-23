@@ -3,6 +3,7 @@
     var isLoading = false;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
 =======
@@ -12,6 +13,10 @@
 =======
     var apiURL = 'http://stage.youhuiin.com/profile/get_list.json'
 >>>>>>> update js and css
+=======
+    var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
+
+>>>>>>> 他的页面
     
     // Prepare layout options.
     var options = {
@@ -128,6 +133,7 @@
       loadData('1');
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     });
 
@@ -137,3 +143,6 @@
 =======
     });
 >>>>>>> update js and css
+=======
+    });
+>>>>>>> 他的页面

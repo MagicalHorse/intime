@@ -5,7 +5,8 @@
 var handler = null;
     var page = 1;
     var isLoading = false;
-    var apiURL = 'http://stage.youhuiin.com/profile/get_list.json'
+    var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
+    
     
     // Prepare layout options.
     var options = {
@@ -91,6 +92,7 @@ var handler = null;
       
       // Load first data from the API.
       loadData('2');
+<<<<<<< HEAD
 <<<<<<< HEAD
     });
 =======
@@ -189,3 +191,6 @@ var handler = null;
 =======
     });
 >>>>>>> update js and css
+=======
+    });
+>>>>>>> 他的页面

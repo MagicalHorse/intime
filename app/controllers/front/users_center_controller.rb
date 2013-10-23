@@ -1,6 +1,16 @@
 class Front::UsersCenterController < Front::BaseController 
 
-  before_filter :authenticate!, :except => [:his_info]
+  before_filter :authenticate!, :except => [:his_info, :his_favorite]
+
+  def his_favorite
+    @user_id = params[:userid]
+  end
+
+  def his_promotion
+  end
+
+  def his_share
+  end
 
   def profile
     result = API::Customer.show(request)

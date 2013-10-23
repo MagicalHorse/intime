@@ -9,6 +9,19 @@ class Front::ProductsController < Front::BaseController
   def index
   end
 
+  def his_favorite_api
+    options = {
+      page: params[:page],
+      pagesize: 10,
+      sourcetype: params[:loveType],
+      userid:     params[:userid] || 50
+    }
+    result  = API::Product.his_favorite(request, options)
+    results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
+    results.merge! (gen_data(result["data"]["items"]))
+    render :json =>results.to_json , callback: params[:callback]
+  end
+
   def search_api
     options = {
       page: params[:page],
@@ -19,6 +32,13 @@ class Front::ProductsController < Front::BaseController
     results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
     results.merge! (gen_search_data(result["data"]["products"]))
     render :json =>results.to_json , callback: params[:callback]
+  end
+
+  def list
+    @stores   = Stage::Store.list
+    @brands   = Stage::Brand.group_brands
+    @tags     = Stage::Tag.list
+    @hotwords = Stage::HotWord.list
   end
 
   def list_api
@@ -138,7 +158,7 @@ class Front::ProductsController < Front::BaseController
     results = {}
     items = []
     datas && datas.each do |item|
-      image_info = item["resources"].first
+      image_info = item["resources"].first if item["resources"].present?
       items << {
         title:     item["name"],
         price:     item["price"],
