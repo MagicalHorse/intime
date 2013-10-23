@@ -11,9 +11,24 @@
         </a>
         <ul class="info">
           <li class="name"><i class="icon-star"></i><a href="#"><%= result[:nickname]%></a></li>
+
+
           <li class="follow">
-          <button type="button" class="btn btn-mini btn-danger"><i class="icon-plus icon-white"></i>关注</button>
+          <button type="button" class="btn btn-mini btn-danger">
+            <i class="icon-plus icon-white"></i>
+            <%= link_to raw("关注"), front_follow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
+          </button>
           </li>
+
+          <% if false %>
+            <li class="follow">
+            <button type="button" class="btn btn-mini">
+              <i class="icon-minus"></i>
+              <%= link_to raw("取消关注"), front_unfollow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
+            </button>
+            </li>
+          <% end %>
+
           <li class="atten">
           <span>关注<%= result[:liketotal]%></span>
           <span>粉丝<%= result[:likedtotal]%></span>
