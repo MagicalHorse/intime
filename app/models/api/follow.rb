@@ -12,7 +12,8 @@ module API
         post(req, params.merge(path: 'like/create'))
       end
 
-      def fans
+      def unfollow(req, params={})
+        post(req, params.merge(path: 'like/destroy'))
       end
 
     end
