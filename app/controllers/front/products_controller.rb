@@ -128,7 +128,7 @@ class Front::ProductsController < Front::BaseController
         price:     item["price"],
         originalPrice:  item["unitprice"],
         likeCount: item["likecount"],
-        url:       front_product_path(item["id"]),
+        url:       front_product_path(item["id"]||item["productid"]),
         imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
       }
     end
@@ -146,7 +146,7 @@ class Front::ProductsController < Front::BaseController
         price:     item["price"],
         originalPrice:  item["originprice"],
         likeCount: item["likecount"],
-        url:       front_product_path(item["id"]),
+        url:       front_product_path(item["id"]||item["productid"]),
         imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
       }
     end
@@ -164,7 +164,7 @@ class Front::ProductsController < Front::BaseController
         price:     item["price"],
         originalPrice:  item["price"],
         likeCount: item["favorable"],
-        url:       front_product_path(item["id"]),
+        url:       front_product_path(item["id"]||item["productid"]),
         imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
       }
     end
