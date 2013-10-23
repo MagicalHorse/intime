@@ -1,7 +1,6 @@
 ﻿    var handler = null;
     var page = 1;
     var isLoading = false;
-    //var apiURL = 'http://www.intime.com.cn:3000/front/products/my_share_list_api.json'
     var apiURL = 'http://stage.youhuiin.com/front/products/my_share_list_api.json'
     
     // Prepare layout options.

@@ -25,11 +25,18 @@
       
       <%= render 'recomment_user', product: @product -%>
       
-      <div class="loca"> <span><i class="icon_location"></i><a href="<%= front_store_path(@product.store.id) -%>"><%= @product.store.name -%><small></small></a></span> <span><i class="icon_phone"></i><%= @product.store.tel -%></span> </div>
+      <div class="loca">
+        <span><i class="icon_location"></i>
+          <a href="<%= front_store_path(@product.store.id) -%>"><%= @product.store.name -%><small></small></a>
+        </span>
+        <span><i class="icon_phone"></i><%= @product.store.tel -%></span>
+      </div>
 
       <%= render 'tool_bar', product: @product -%>
 
-      <div class="btnbar"> <a class="btn btn-danger" href="orders.html">在线购买</a> </div>
+      <div class="btnbar">
+        <%= link_to '在线购买', new_front_order_path(product_id: @product.id), class: 'btn btn-danger' -%>
+      </div>
     </div>
     <div class="clearfix"></div>
   </section>
