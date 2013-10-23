@@ -12,7 +12,7 @@ class Front::ProfileController < Front::BaseController
   def update
     result = API::Customer.update(request, params[:user].except(:logo))
 
-    if false#result[:isSuccessful]
+    if result[:isSuccessful]
       redirect_to front_my_profile_path, notice: '更新成功。'
     else
       @user = params[:user]
