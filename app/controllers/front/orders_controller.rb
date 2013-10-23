@@ -114,9 +114,9 @@ class Front::OrdersController < Front::BaseController
 
       if order['statust'].to_s == API::Order::STATUSES[:unpaid].to_s
         req_data = {
-          subject:        'test', #product['productname'],
+          subject:        product['productname'],
           out_trade_no:   order['orderno'],
-          total_fee:      0.01, #order['totalamount'],
+          total_fee:      order['totalamount'],
           call_back_url:  payment_callback_url,
           notify_url:     'http://apis.youhuiin.com/api/payment/notify',
           out_user:       current_user.id

@@ -2,6 +2,7 @@
 class Front::BaseController < ApplicationController
   layout 'front'
   helper_method :current_user, :signed_in?
+  before_filter :update_current_user
 
   def current_user
     @current_user ||= session[:current_user]
@@ -13,7 +14,7 @@ class Front::BaseController < ApplicationController
 
   def authenticate!
     return true if signed_in?
-    #fake_current_user and return true
+    fake_current_user and return true
 
     if request.xhr?
       render json: { isSuccessful: false, message: 'no login', statusCode: 500 }
@@ -22,12 +23,15 @@ class Front::BaseController < ApplicationController
     end
   end
 
-  def update_user
-    result = API::Customer.show(request)
-    result[:data] ||= {}
-    result[:data][:access_token]  = current_user.access_token
-    result[:data][:refresh_token] = current_user.refresh_token
-    set_current_user(result[:data])
+  def update_current_user
+    if signed_in? && !request.xhr?
+      result = API::Customer.show(request)
+      result[:data] ||= {}
+      result[:data][:access_token]  = current_user.access_token
+      result[:data][:refresh_token] = current_user.refresh_token
+      set_current_user(result[:data])
+      logger.info("-----> update current_user #{current_user.attributes}")
+    end
   end
 
   def render_datas(datas, options = nil)

@@ -36,7 +36,8 @@ class Front::SessionsController < Front::BaseController
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => auth_data.uid,
       :outsitenickname  => auth_data.info.nickname,
-      :outsitetype      => login_type
+      :outsitetype      => login_type,
+      :outsitetoken     => auth_data.credentials.token
     })
 
     user_hash[:data] ||= {}
