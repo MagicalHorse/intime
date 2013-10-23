@@ -237,6 +237,8 @@ IntimeService::Application.routes.draw do
     # 个人中心
     get '/profile', to: 'profile#index'
     get '/profile/return_policy', to: 'profile#return_policy'
+    get '/profile/edit', to: 'profile#edit'
+    put '/profile/update', to: 'profile#update'
 
     get '/supportshipments', to: 'environment#supportshipments'
   end
