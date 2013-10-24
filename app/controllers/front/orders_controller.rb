@@ -2,10 +2,6 @@
 class Front::OrdersController < Front::BaseController
   before_filter :authenticate!
 
-  # TODO
-  # 前端测试用，暂时加上
-  skip_before_filter :verify_authenticity_token
-
   def index
     options = {
       page: params[:page],
