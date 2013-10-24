@@ -7,4 +7,8 @@ class Front::StorepromotionsController < Front::BaseController
   def show
     @storepromotion = Stage::Storepromotion.fetch(params[:id])
   end
+
+  def exchange
+    
+  end
 end
