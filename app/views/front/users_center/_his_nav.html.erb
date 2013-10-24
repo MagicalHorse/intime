@@ -1,0 +1,10 @@
+<%= content_for :head_nav do -%>
+  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+
+  <ul class="nav">
+    <li><a href="<%= front_his_profile_path(@user_id)%>" >喜欢的宝贝</a></li>
+    <li><a href="<%= front_his_promotion_path(@user_id)%>" >喜欢的促销</a></li>
+    <li><a href="<%= front_his_share_path(@user_id) %>" >他的分享</a></li>
+  </ul>
+
+<% end -%>
