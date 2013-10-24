@@ -44,7 +44,6 @@ class Front::UsersCenterController < Front::BaseController
     options  = { type: 1, userId: current_user.id }
     result   = API::Follow.follows(request,options)
     @results = gen_data(result) if result["data"]["likes"].present?
-    render :follows
   end
 
   def follow
