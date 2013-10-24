@@ -238,7 +238,11 @@ IntimeService::Application.routes.draw do
       end
     end
 
-    resources :storepromotions, only: [:index, :show]
+    resources :storepromotions, only: [:index, :show] do
+      member do
+        post :exchange
+      end
+    end
     # 个人中心
     get '/profile', to: 'profile#index'
     get '/profile/return_policy', to: 'profile#return_policy'
