@@ -152,19 +152,22 @@ IntimeService::Application.routes.draw do
          end
        end
 
-    get '/hotwords',      to: 'common#hotwords'
-    get '/my_favorite',   to: 'users_center#my_favorite'
-    get '/my_share',      to: 'users_center#my_share'
-    get '/my_promotion',  to: 'users_center#my_promotion'
-    get '/follows',       to: 'users_center#follows'
-    get '/fans',          to: 'users_center#fans'
-    get '/my_profile',    to: 'users_center#profile'
-    get '/his_favorite/:userid',   to: 'users_center#his_favorite', :as => :his_favorite
-    get '/his_promotion/:userid',  to: 'users_center#his_promotion', :as => :his_promotion
-    get '/his_share/:userid',      to: 'users_center#his_share', :as => :his_share
-    get '/his_profile/:userid',    to: 'users_center#his_info', :as => :his_profile
-    post '/follow/:id',        to: 'users_center#follow', :as => :follow
-    post '/unfollow/:id',        to: 'users_center#unfollow', :as => :unfollow
+    get '/hotwords',                to: 'common#hotwords'
+    get '/my_favorite',             to: 'users_center#my_favorite'
+    get '/my_share',                to: 'users_center#my_share'
+    get '/my_promotion',            to: 'users_center#my_promotion'
+    get '/follows',                 to: 'users_center#follows'
+    get '/fans',                    to: 'users_center#fans'
+    get '/my_profile',              to: 'users_center#profile'
+    get '/his_favorite/:userid',    to: 'users_center#his_favorite',  as: :his_favorite
+    get '/his_promotion/:userid',   to: 'users_center#his_promotion', as: :his_promotion
+    get '/his_share/:userid',       to: 'users_center#his_share',     as: :his_share
+    get '/his_profile/:userid',     to: 'users_center#his_info',      as: :his_profile
+    post '/follow/:id',             to: 'users_center#follow',        as: :follow
+    post '/unfollow/:id',           to: 'users_center#unfollow',      as: :unfollow
+    get  '/about',                  to: 'about#index',                as: :about
+    get  '/feedback',               to: 'about#feedback',             as: :feedback
+    post '/feedback',               to: 'about#create_feedback',      as: :create_feedback
 
     resources :products, :only=>[:index, :show] do
       collection do
@@ -241,6 +244,7 @@ IntimeService::Application.routes.draw do
     resources :storepromotions, only: [:index, :show] do
       member do
         post :exchange
+        post :amount
       end
     end
     # 个人中心
