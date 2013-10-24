@@ -1,0 +1,49 @@
+<div id="barcode01" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+  <%= form_tag  -%>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="mLabel">我要兑换</h3>
+  </div>
+  <div class="modal-body">
+    <p>选取礼券使用门店：
+    <select style="margin-bottom: 4px;">
+      <option>请选择使用商店</option>
+      <% storepromotion.inscopenotice.each do |shop| -%>
+        <option value='<%= shop.storeid -%>'><%= shop.storename -%></option>
+      <% end -%>
+    </select>
+    <br>
+    当前可以用积分：<span style="color:#D10149"><%= current_user.point -%></span><br>
+    兑换积分:
+    <%= text_field_tag 'score', nil, placeholder: storename.minpoints, style: 'width:50px; margin-bottom: 4px;' -%>
+    = <span style="color:#D10149"><b>0元</b></span><br>
+    身份证号:
+    <%= text_field_tag 'identityno', nil, placeholder: '请输入登记的身份证号', style: 'width:200px; margin-bottom: 4px;' -%>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <a href="#barcode03" class="btn btn-danger" data-dismiss="modal" data-toggle="modal">兑换</a>
+  </div>
+</div>
+
+
+<div id="barcode03" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="mLabel">兑换成功</h3>
+  </div>
+  <div class="modal-body">
+    <p style="border-bottom:1px solid #eeeeee;"><span style="display:inline-block; width:90px;">礼券码:</span>13216516<br>
+    <span style="display:inline-block; width:90px;">领兑时间：</span>04月02日
+    11：30：15<br>
+    <span style="display:inline-block; width:90px;">使用有效期：</span>2013-05-22止<br>
+    <span style="display:inline-block; width:90px;">使用门店：</span>浙江银泰文化广场店<br>
+    <span style="display:inline-block; width:90px;">兑换积分:</span>30000<br>
+    <span style="display:inline-block; width:90px;">对金额：</span>300元 </p>
+    <p style="font-size:12px; color:#D10149; line-height:20px;"> 注意事项：<br>
+    1、使用礼券购买商品，只支持退货，不支持换货。<br>
+    2、礼券超过有效期将不能再继续使用，并且积点不支持退回。<br>
+    3、在使用礼券购买商品时，请同时出示会员卡进行购买。</p>
+  </div>
+  <div class="modal-footer"> <a href="cfxq.html" class="btn btn-danger">查看兑换券</a> <a href="jddhhd.html" class="btn btn-danger">继续兑换</a> </div>
+</div>

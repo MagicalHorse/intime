@@ -14,7 +14,7 @@ class Front::ProductsController < Front::BaseController
       page: params[:page],
       pagesize: 10,
       sourcetype: params[:loveType],
-      userid:     params[:userid] || 50
+      userid:     params[:userid]
     }
     result  = API::Product.his_favorite(request, options)
     results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
@@ -66,11 +66,12 @@ class Front::ProductsController < Front::BaseController
     render :json =>results.to_json , callback: params[:callback]
   end
 
+  #当传userid时 是他的分享，没传是当前用户的分享
   def my_share_list_api
     options = {
       page: params[:page],
       pagesize: 10,
-      userid: 1
+      userid: params[:userid]
     }
 
     result = API::Product.my_share_list(request, options)
