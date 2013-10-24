@@ -4,6 +4,10 @@ class Front::BaseController < ApplicationController
   helper_method :current_user, :signed_in?
   before_filter :update_current_user
 
+  # TODO
+  # 前端测试用，暂时加上
+  skip_before_filter :verify_authenticity_token
+
   def current_user
     @current_user ||= session[:current_user]
   end
