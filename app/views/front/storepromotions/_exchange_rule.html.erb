@@ -1,0 +1,22 @@
+<p> <span>兑换标准：</span><br></p>
+<div class="xh">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>起始积点</th>
+        <th>结束积点</th>
+        <th>兑换比例(100:1)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% rule.each do |_rule| -%>
+        <tr>
+          <td><%= _rule.rangefrom -%></td>
+          <td><%= _rule.rangeto -%></td>
+          <td><%= _rule.ratio -%></td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>
+<p></p>
