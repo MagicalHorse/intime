@@ -2,10 +2,14 @@ require 'auth/authenticate_system'
 class ApplicationController < ActionController::Base
   before_filter :parse_params, :only=>[:list,:search]
   PAGE_ALL_SIZE = 1000
-  helper_method :middle_pic_url
+  helper_method :middle_pic_url, :href_of_avatar_url
 
   def default_url_options
     Settings.default_url_options.to_hash
+  end
+
+  def href_of_avatar_url(avatar_url)
+    avatar_url.present? ? avatar_url : CurrentUser::DEFAULT_AVATAR_URL
   end
 
   protected

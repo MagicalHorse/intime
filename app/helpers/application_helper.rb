@@ -60,7 +60,4 @@ module ApplicationHelper
     ].join('-')
   end
 
-  def href_of_avatar_url(avatar_url)
-    avatar_url.present? ? avatar_url : CurrentUser::DEFAULT_AVATAR_URL
-  end
 end

@@ -71,7 +71,7 @@ class Front::UsersCenterController < Front::BaseController
     if result["data"].present?
       info[:id]     = result["data"]["id"]
       info[:name]   = result["data"]["nickname"]
-      info[:logo]   = result["data"]["logo"].present? ? result["data"]["logo"]  : default_user_logo
+      info[:logo]   = href_of_avatar_url(middle_pic_url(result["logo"]))
       info[:gender] = result["data"]["gender"]
       info[:desc]   = result["data"]["desc"]
       info[:mobile] = result["data"]["mobile"]
@@ -87,7 +87,7 @@ class Front::UsersCenterController < Front::BaseController
       items << {
         id:         item["id"],
         level:      item["level"],
-        logo:       item["logo"].present? ? item["logo"] : default_user_logo,
+        logo:       href_of_avatar_url(middle_pic_url(item["logo"])),
         nickname:   item["nickname"],
         liketotal:  item["liketotal"].present? ? item["liketotal"] : 0,
         likedtotal: item["likedtotal"].present? ? item["likedtotal"]  : 0
