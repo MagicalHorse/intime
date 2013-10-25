@@ -71,16 +71,16 @@
 </style>
 <section class="loger">
 <div class="relative">
-  <div class="photo"><a href="details.html"><img src="<%= @info[:logo]%>"></a></div>
+  <div class="photo"><a href="<%= front_his_profile_path(@info[:id]) %>"><img src="<%= @info[:logo]%>"></a></div>
   <div class="tools"> <span><%= @info[:name]%>
     <em><%= link_to "关注", front_follow_path(@info[:id]), remote: true, method: :post, id: 'follow' -%></em></span></div>
   <div class="clearfix"></div>
 </div>
 <div class="share">
   <ul>
-    <a href="follow.html"><li>关注<br><%= @info[:follows]%></li></a>
-    <a href="fensi.html"><li>粉丝<br><%= @info[:fans]%></li></a>
-    <a href="details.html"><li>详细<br>资料</li></a>
+    <a href="<%= front_follows_path(userid: @info[:id])%>"><li>关注<br><%= @info[:follows]%></li></a>
+    <a href="<%= front_fans_path(userid: @info[:id])%>"><li>粉丝<br><%= @info[:fans]%></li></a>
+    <a href="<%= front_his_profile_path(@info[:id]) %>"><li>详细<br>资料</li></a>
     <div class="clearfix"></div>
   </ul>
 </div>

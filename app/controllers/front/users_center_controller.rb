@@ -25,6 +25,12 @@ class Front::UsersCenterController < Front::BaseController
     @info = gen_profile(result)
   end
 
+  def his_profile
+    options = {userid: params[:userid]}
+    @info  = API::Customer.his_show(request, options)
+    render :profile
+  end
+
   def his_info
     @user_id = params[:userid]
     options = {userid: params[:userid]}
@@ -33,13 +39,15 @@ class Front::UsersCenterController < Front::BaseController
   end
 
   def follows
-    options = { type: 0, userId: current_user.id }
+    userid = params[:userid].present? ? params[:userid] : current_user.id
+    options = { type: 0, userid: userid }
     result = API::Follow.follows(request,options)
     @results = gen_data(result) if result["data"]["likes"].present?
   end
 
   def fans
-    options  = { type: 1, userId: current_user.id }
+    userid = params[:userid].present? ? params[:userid] : current_user.id
+    options  = { type: 1, userId: params[:userid] || userid }
     result   = API::Follow.follows(request,options)
     @results = gen_data(result) if result["data"]["likes"].present?
   end
