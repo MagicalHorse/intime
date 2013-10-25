@@ -25,6 +25,12 @@ class Front::UsersCenterController < Front::BaseController
     @info = gen_profile(result)
   end
 
+  def his_profile
+    options = {userid: params[:userid]}
+    @info  = API::Customer.his_show(request, options)
+    render :profile
+  end
+
   def his_info
     @user_id = params[:userid]
     options = {userid: params[:userid]}
@@ -33,13 +39,15 @@ class Front::UsersCenterController < Front::BaseController
   end
 
   def follows
-    options = { type: 0, userId: current_user.id }
+    userid = params[:userid].present? ? params[:userid] : current_user.id
+    options = { type: 0, userid: userid }
     result = API::Follow.follows(request,options)
     @results = gen_data(result) if result["data"]["likes"].present?
   end
 
   def fans
-    options  = { type: 1, userId: current_user.id }
+    userid = params[:userid].present? ? params[:userid] : current_user.id
+    options  = { type: 1, userId: params[:userid] || userid }
     result   = API::Follow.follows(request,options)
     @results = gen_data(result) if result["data"]["likes"].present?
   end
@@ -63,7 +71,7 @@ class Front::UsersCenterController < Front::BaseController
     if result["data"].present?
       info[:id]     = result["data"]["id"]
       info[:name]   = result["data"]["nickname"]
-      info[:logo]   = result["data"]["logo"].present? ? result["data"]["logo"]  : default_user_logo
+      info[:logo]   = href_of_avatar_url(middle_pic_url(result["logo"]))
       info[:gender] = result["data"]["gender"]
       info[:desc]   = result["data"]["desc"]
       info[:mobile] = result["data"]["mobile"]
@@ -79,7 +87,7 @@ class Front::UsersCenterController < Front::BaseController
       items << {
         id:         item["id"],
         level:      item["level"],
-        logo:       item["logo"].present? ? item["logo"] : default_user_logo,
+        logo:       href_of_avatar_url(middle_pic_url(item["logo"])),
         nickname:   item["nickname"],
         liketotal:  item["liketotal"].present? ? item["liketotal"] : 0,
         likedtotal: item["likedtotal"].present? ? item["likedtotal"]  : 0
