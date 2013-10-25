@@ -60,8 +60,7 @@ module ApplicationHelper
     ].join('-')
   end
 
-  def href_of_user_logo
-    current_user.avatar_url.present? ? current_user.avatar_url : 'http://itoo.yintai.com/fileupload/img/user-logo-default.gif'
+  def href_of_avatar_url(avatar_url)
+    avatar_url.present? ? avatar_url : CurrentUser::DEFAULT_AVATAR_URL
   end
-
 end
