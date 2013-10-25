@@ -6,11 +6,11 @@
 <% end -%>
 <div class="span9 main">
   <div class="details omjd jddh">
-    <%= render 'binding_info' -%>
-    
+    <%= render 'binding_info', card: @card -%>
+
     <div class="ct">
       <%= render 'new_vouchers', storepromotion: @storepromotion -%>
-      <%= render 'binding_card' -%>
+      <%= render 'binding_card', card: @card -%>
     </div>
     <div class="bottom">
       <h2>我的积点记录</h2>

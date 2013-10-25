@@ -24,6 +24,7 @@ class Front::VouchersController < Front::BaseController
 
   def exchange_info
     @storepromotion = Stage::Storepromotion.list(pagesize: 1)[0]
+    @card = API::Card.detail(request)[:data]
   end
 
   def binding_card
