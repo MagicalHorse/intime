@@ -71,7 +71,7 @@ class Front::UsersCenterController < Front::BaseController
     if result["data"].present?
       info[:id]     = result["data"]["id"]
       info[:name]   = result["data"]["nickname"]
-      info[:logo]   = href_of_avatar_url(middle_pic_url(result["logo"]))
+      info[:logo]   = href_of_avatar_url(gen_user_logo(result["data"]["logo"]))
       info[:gender] = result["data"]["gender"]
       info[:desc]   = result["data"]["desc"]
       info[:mobile] = result["data"]["mobile"]
@@ -87,7 +87,7 @@ class Front::UsersCenterController < Front::BaseController
       items << {
         id:         item["id"],
         level:      item["level"],
-        logo:       href_of_avatar_url(middle_pic_url(item["logo"])),
+        logo:       href_of_avatar_url(gen_user_logo(item["logo"])),
         nickname:   item["nickname"],
         liketotal:  item["liketotal"].present? ? item["liketotal"] : 0,
         likedtotal: item["likedtotal"].present? ? item["likedtotal"]  : 0
@@ -97,8 +97,8 @@ class Front::UsersCenterController < Front::BaseController
     end
   end
 
-  def default_user_logo
-    'http://itoo.yintai.com/fileupload/img/user-logo-default.gif'
+  def gen_user_logo(logo)
+    logo.to_s + '_100x100.jpg'
   end
 
 end
