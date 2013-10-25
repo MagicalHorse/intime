@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022014202) do
+ActiveRecord::Schema.define(:version => 20131025014638) do
 
   create_table "auth_keys", :force => true do |t|
     t.string   "private"
@@ -266,6 +266,8 @@ ActiveRecord::Schema.define(:version => 20131022014202) do
     t.datetime "updated_at",  :null => false
   end
 
+  add_index "wx_activity_logs", ["uid", "activity_id"], :name => "index_wx_activity_logs_on_uid_and_activity_id"
+
   create_table "wx_custom_activities", :force => true do |t|
     t.string   "key"
     t.integer  "status"
@@ -274,7 +276,11 @@ ActiveRecord::Schema.define(:version => 20131022014202) do
     t.string   "succsss_msg"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "join_msg"
+    t.string   "how_msg"
   end
+
+  add_index "wx_custom_activities", ["key", "status"], :name => "index_wx_custom_activities_on_key_and_status"
 
   create_table "wx_reply_msgs", :force => true do |t|
     t.string   "rkey"

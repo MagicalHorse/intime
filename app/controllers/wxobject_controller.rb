@@ -106,11 +106,11 @@ class WxobjectController < ApplicationController
   #action to perform custom activity
    def action_custom_activity(input)
     token = input[:FromUserName]
-    text_attrs = input[:Content].split('+')
+    text_attrs = input[:Content].split('@')
     activity = WxCustomActivity.find_by_key_and_status(text_attrs[0],1)
     activity_log = WxActivityLog.find_by_uid_and_activity_id(token,activity[:id])
     return build_response_text_temp {|msg|
-                  msg.Content = t(:custom_activity_have_joined)
+                  msg.Content = activity[:join_msg]
              } unless activity_log.nil?
     
     #persist user request
@@ -128,7 +128,7 @@ class WxobjectController < ApplicationController
     else
       if text_attrs.length<=2
         return build_response_text_temp {|msg|
-                  msg.Content = WxReplyMsg.get_msg_by_key 'wrongpwd'
+                  msg.Content = activity[:how_msg]
              } 
       end
 
