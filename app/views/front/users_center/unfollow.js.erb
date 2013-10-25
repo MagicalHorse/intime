@@ -1,1 +1,1 @@
-$('.func follow').html('<button type="button" class="btn btn-mini btn-danger"><i class="icon-plus icon-white"></i><%= link_to raw("关注"), front_follow_path(result[:id]), remote: true, method: :post -%></button>');
+  $('#unfollow').html('<%= link_to "关注", front_follow_path(1), remote: true, method: :post, id: 'follow' -%>');
