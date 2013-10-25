@@ -1,18 +1,14 @@
-function clears(){
-			   $('#tiles').empty();
-			   page=1;
-			   }
       var handler = null,
           page = 1,
           isLoading = false,
-          apiURL = 'http://www.intime.com.cn:3001/front/products/list_api.json';
+          apiURL = 'http://stage.youhuiin.com/front/products/list_api.json';
 
       // Prepare layout options.
       var options = {
         autoResize: true, // This will auto-update the layout when the browser window is resized.
         container: $('#tiles'), // Optional, used for some extra CSS styling
         offset: 5, // Optional, the distance between grid items
-        itemWidth: 290 // Optional, the width of a grid item
+        //itemWidth: 210 // Optional, the width of a grid item
       };
 
       /**
@@ -46,14 +42,24 @@ function clears(){
       function loadData($type,$entity_id) {
         isLoading = true;
         $('#loaderCircle').show();
-		type = $type;
-        entity_id = $entity_id;
-        $.ajax({
+        type = $type;
+		    entity_id = $entity_id;
+		    if(typeof(entity_id)=="undefined"){
+		    	   $.ajax({
+          url: 'http://stage.youhuiin.com/front/products/search_api.json',
+          dataType: 'jsonp',
+          data: {page: page,term:type}, // Page parameter to make sure we load new data
+          success: onLoadData
+        });
+		    	} else {
+		    		 $.ajax({
           url: apiURL,
           dataType: 'jsonp',
           data: {page: page,type:type,entity_id:entity_id}, // Page parameter to make sure we load new data
           success: onLoadData
         });
+		    		}
+        
       };
 
       /**
@@ -70,14 +76,15 @@ function clears(){
         var html = '';
         var i=0, length=data.datas.length;
         for(; i<length; i++) {
-        html+='<li>';
+			//alert(data.datas[i].imageUrl);
+           html+='<li>';
 						html+='<div class="thumbnail">';
 							html+='<div class="action">';
 								html+='<!--优惠-->';
 								html+='<span class="discount">优惠</span>';
 								html+='<span class="triangle"></span>';
 								html+='<!--优惠-->';
-								html+='<a href="product.html"><img src="temp/440_350_1.jpg" alt="开衫连帽卫衣 ASDF335 -2 黛紫色"></a>';
+								html+='<a href="product.html"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a>';
 								html+='<span class="like"><i class="icon-heart icon-white"></i>999+</span>';
 							html+='</div>';
 							html+='<h4><a href="product.html" title="">开衫连帽卫衣 ASDF335 -2 黛紫色</a></h4>';
@@ -92,10 +99,14 @@ function clears(){
         // Apply layout.
         applyLayout();
       };
-     
+	  function clears(){
+		  page = 1;
+		  $("#tiles").empty();
+		  }
+    
       // Capture scroll event.
       $(document).bind('scroll', onScroll);
 
       // Load first data from the API.
-      loadData('1','2');
-    
+      loadData('c','v');
+		
