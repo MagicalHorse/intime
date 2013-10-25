@@ -156,7 +156,7 @@ IntimeService::Application.routes.draw do
     get  '/feedback',               to: 'about#feedback',             as: :feedback
     post '/feedback',               to: 'about#create_feedback',      as: :create_feedback
      #test order create
-    get '/order/create' ,            to: 'order#create'
+    get '/order/create' ,            to: 'orders#create'
 
     resources :products, :only=>[:index, :show] do
       collection do
