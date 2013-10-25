@@ -18,6 +18,7 @@ class CurrentUser
   # offlinecoupontotal 用户总兑换券数
   ATTRIBUTES = [:email, :level, :nickie, :id, :provider, :isbindcard, :mobile, :avatar_url, :coupon_count, :point, :like_count, :fans_count, :favor_count, :access_token, :refresh_token, :onlinecoupontotal, :offlinecoupontotal]
   attr_accessor *ATTRIBUTES
+  DEFAULT_AVATAR_URL = 'http://itoo.yintai.com/fileupload/img/user-logo-default.gif'
 
   def initialize(attributes = {})
     assign_attributes(attributes)
@@ -26,6 +27,12 @@ class CurrentUser
   def attributes
     ATTRIBUTES.inject({}) do |result, attr|
       result[attr] = send(attr); result
+    end
+  end
+
+  def avatar_url
+    if defined?(@avatar_url)
+      @avatar_url = @avatar_url.present? ? @avatar_url : DEFAULT_AVATAR_URL
     end
   end
 
