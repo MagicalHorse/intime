@@ -22,6 +22,10 @@ class Front::CommentsController < Front::BaseController
     end
   end
 
+  def my_comments
+    @comments = API::Comment.my_comments(request)
+  end
+
   protected
   def handle_items(items)
     items['items'] = items['comments'].inject([]) do |_result, _comment|

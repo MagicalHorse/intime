@@ -156,8 +156,12 @@ IntimeService::Application.routes.draw do
     get  '/about',                  to: 'about#index',                as: :about
     get  '/feedback',               to: 'about#feedback',             as: :feedback
     post '/feedback',               to: 'about#create_feedback',      as: :create_feedback
+
      #test order create
     get '/order/create' ,            to: 'orders#create'
+
+    get  '/my_comments',            to: 'comments#my_comments',       as: :my_comments
+
 
     resources :products, :only=>[:index, :show] do
       collection do
