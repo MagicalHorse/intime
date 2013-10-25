@@ -23,22 +23,12 @@
           </a>
           </li>
 
-
           <li class="follow">
-          <button type="button" class="btn btn-mini btn-danger">
-            <i class="icon-plus icon-white"></i>
-            <%= link_to raw("关注"), front_follow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
+          <button type="button" class="btn btn-mini">
+            <i class="icon-minus"></i>
+            <%= link_to raw("取消关注"), front_unfollow_path(result[:id]), id: 'unfollow', remote: true, method: :post -%>
           </button>
           </li>
-
-          <% if false %>
-            <li class="follow">
-            <button type="button" class="btn btn-mini">
-              <i class="icon-minus"></i>
-              <%= link_to raw("取消关注"), front_unfollow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
-            </button>
-            </li>
-          <% end %>
 
           <li class="atten">
           <span>关注<%= result[:liketotal]%></span>
