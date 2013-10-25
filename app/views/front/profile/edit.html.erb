@@ -10,7 +10,7 @@
   <%= form_for :user, url: front_profile_update_path, method: :put do |f| %>
     <div class="details prupdate">
       <div class="top">
-        <div class="head_img"><span></span><img src="<%= @user['logo'] %>" ></div>
+        <div class="head_img"><span></span><img src="<%= href_of_avatar_url(@user['logo']) %>" ></div>
         <%= f.hidden_field :logo, value: @user['logo'] %>
         <div class="cname">
           <p><span>昵称：</span>
