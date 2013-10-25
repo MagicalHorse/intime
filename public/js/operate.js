@@ -25,7 +25,7 @@ $(document).ready(new function() {
   $('#points').change(function(){
     curVal = $(this).val();
     defaultVal = $(this).attr('placeholder');
-    if(($('.currentScore').html() - curVal) <= 0){
+    if(($('.currentScore').html() - curVal) < 0){
       alert('兑换积点需大于最小积点限制');
     }else{
       $.post('/front/storepromotions/'+$(this).attr('info')+'/amount', {points: curVal}, function(data){

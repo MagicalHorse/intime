@@ -1,0 +1,5 @@
+<% if @result[:isSuccessful] -%>
+  $('#feedback').click();
+<% else -%>
+  alert('<%= @result[:message] -%>')
+<% end -%>
