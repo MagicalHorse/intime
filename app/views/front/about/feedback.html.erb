@@ -8,11 +8,12 @@
   <div class="feedback bger">
     <%= form_tag front_create_feedback_path, remote: true do -%>
       <label for="Provinces">欢迎您提出宝贵的意见和建议：<span>*</span></label>
-      <textarea class="input-area" id="Provinces" placeholder="请输入您的反馈意见（500字以内）"></textarea>
+      <%= text_area_tag 'content', nil, placeholder: '请输入您的反馈意见（500字以内）', id: 'provinces' -%>
       <label for="Consignee">请输入您的联系方式：<span>*</span></label>
-      <input type="text" id="Consignee" class="input" placeholder="手机号、QQ、Email均可" value="" maxlength="15">
+      <%= text_field_tag 'cantact', nil, placeholder: '手机号、QQ、Email均可', maxlength: 15, id: 'consignee' -%>
       <br>
-      <a href="#barcode" data-toggle="modal" class="btn btn-danger ">提交</a>
+      <%= submit_tag '提交', class: 'btn btn-danger', disable_with: '提交中...' -%>
+      <%= link_to '', '#barcode', id: 'feedback', 'data-toggle' => 'modal', class: 'btn btn-danger', style: 'display: none' -%>
       <div id="barcode" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="true" style="display: none;">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

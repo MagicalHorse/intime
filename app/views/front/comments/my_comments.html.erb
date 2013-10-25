@@ -1,0 +1,35 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">消息中心</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="infocenter">
+    <section class="pinglun">
+    <ul class="comments">
+      <% if @comments.present? -%>
+        <p style="text-align:center;font-size: 16px;line-height:30px;">
+        暂无最新消息！
+        </p>
+      <% else -%>
+        <% @comments.each do |comment| -%>
+          <li class="post">
+          <a href="vinfocenter.html">
+            <div class="post-self">
+              <div class="avatar"><img src="temp/noavatar_default.png" alt="龚飞"></div>
+              <div class="comment-body">
+                <div class="comment-header"><span class="user-name highlight">龚飞</span></div>
+                <p>还不错，环境还好，价格也还合理，口味也不错，就是离我家远点，要不是出门顺便路过，也可能不</p>
+                <div class="comment-footer comment-actions"><span class="time">2013-09-05 10:27</span></div>
+              </div>
+              <span class="it"></span>
+            </div>
+          </a>
+          </li>
+        <% end -%>
+      <% end -%>
+    </ul>
+    </section>
+  </div>
+</div>
