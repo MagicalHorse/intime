@@ -1,3 +1,6 @@
+<%= content_for :javascripts do -%>
+  <script src="/js/operate.js"></script>
+<% end -%>
 <%= content_for :head_nav do -%>
   <ul class="nav">
     <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
@@ -16,11 +19,14 @@
           </span><%= storename -%><br>
         <% end -%>
         </p>
-        <p class="center bb b10"><a href="#barcode" data-toggle="modal" class="btn btn">礼券使用范围</a> <a href="#barcode01" data-toggle="modal" class="btn btn-danger ">我要领兑</a></p>
+        <p class="center bb b10">
+        <%= link_to '礼券使用范围', '#barcode', 'data-toggle' => 'modal', class: 'btn' -%>
+        <%= link_to '我要领兑', '#barcode01', 'data-toggle' => 'modal', class: 'btn btn-danger' -%>
+        </p>
         <%= render 'using_range', inscopenotice: @storepromotion.inscopenotice -%>
 
         <%= render 'exchange_form', storepromotion: @storepromotion -%>
-        
+
         <%= render 'exchange_rule', rule: @storepromotion.rule -%>
       </div>
     </div>

@@ -1,7 +1,7 @@
       var handler = null,
           page = 1,
           isLoading = false,
-          apiURL = 'http://stage.youhuiin.com/front/products/his_favorite_api.json?userid=50';
+          apiURL = 'http://stage.youhuiin.com/front/products/my_share_list_api.json?userid=50';
 
       // Prepare layout options.
       var options = {
@@ -42,6 +42,7 @@
       function loadData() {
         isLoading = true;
         $('#loaderCircle').show();
+
         $.ajax({
           url: apiURL,
           dataType: 'jsonp',
@@ -84,12 +85,10 @@
         // Apply layout.
         applyLayout();
       };
-     $(document).ready(new function() {
+ $(document).ready(new function() {
+      // Capture scroll event.
       $(document).bind('scroll', onScroll);
 
       // Load first data from the API.
       loadData();
-    });
-      // Capture scroll event.
-      
-    
+								});

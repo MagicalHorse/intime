@@ -2,9 +2,10 @@
 <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 <ul class="nav">
   <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
-  <li class="title">我的关注</li>
+  <li class="title">我的粉丝</li>
 </ul>
 <% end -%>
+
 <div class="span9 main">
   <!-- follow -->
   <section class="portfolio">
@@ -24,11 +25,20 @@
           </li>
 
           <li class="follow">
-          <button type="button" class="btn btn-mini">
-            <i class="icon-minus"></i>
-            <%= link_to raw("取消关注"), front_unfollow_path(result[:id]), id: 'unfollow', remote: true, method: :post -%>
+          <button type="button" class="btn btn-mini btn-danger">
+            <i class="icon-plus icon-white"></i>
+            <%= link_to raw("关注"), front_follow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
           </button>
           </li>
+
+          <% if false %>
+            <li class="follow">
+            <button type="button" class="btn btn-mini">
+              <i class="icon-minus"></i>
+              <%= link_to raw("取消关注"), front_unfollow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
+            </button>
+            </li>
+          <% end %>
 
           <li class="atten">
           <span>关注<%= result[:liketotal]%></span>

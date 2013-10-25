@@ -1,13 +1,21 @@
 <%= content_for :javascripts do -%>
-  <script src="/js/jspace_share.js"></script>
+  <script src="/js/hjspace_share.js"></script>
 <% end -%>
-<%= render "nav"%>
+<%= render "his_nav"%>
 <div class="span9 main">
+  <%= render "his_profile"%>
 
   <section class="portfolio">
-  <ul id="jspace_list" class="thumbnails pt10 tmode"></ul>
+  <ul id="tiles" class="thumbnails pt10 tmode">
+    <!--<p style="text-align:center;padding-top:150px;font-size: 16px;line-height:30px;">好东西
+    和别人一起分享其乐无穷!<br>
+    共发布0个分享!</p>-->
+  </ul>
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
   </section>
-  
+
 </div>
 
 
