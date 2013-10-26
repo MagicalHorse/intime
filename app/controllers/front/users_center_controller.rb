@@ -98,7 +98,7 @@ class Front::UsersCenterController < Front::BaseController
   end
 
   def gen_user_logo(logo)
-    logo.to_s + '_100x100.jpg'
+    logo.to_s + '_100x100.jpg' if logo.present?
   end
 
 end
