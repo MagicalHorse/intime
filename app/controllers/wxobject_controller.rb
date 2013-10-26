@@ -454,7 +454,7 @@ class WxobjectController < ApplicationController
     lastrequest.save
   end
   def is_custom_activity_avail(input)
-    input_attr = input.split('+')
+    input_attr = input.split('@')
     avail_activity = WxCustomActivity.find_by_key_and_status(input_attr[0],1)
     return false if avail_activity.nil? \
           || avail_activity.valid_from>Time.now \
