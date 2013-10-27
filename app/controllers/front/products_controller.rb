@@ -44,8 +44,7 @@ class Front::ProductsController < Front::BaseController
   def list_api
     options = {
       page: params[:page],
-      pagesize: 10,
-      sortby: params[:sortby] || 1
+      pagesize: 10
     }
     options.merge!(covert_options_for_search(params[:type], params[:entity_id]))
     result  = Stage::Product.list(options)
@@ -115,6 +114,8 @@ class Front::ProductsController < Front::BaseController
       options[:brandid]  = entity_id
     elsif type == 'store'
       options[:storied]  = entity_id
+    elsif type =='sortby' 
+      options[:sortby] = entity_id
     end
     options
   end
