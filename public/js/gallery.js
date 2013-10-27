@@ -84,7 +84,7 @@
 								html+='<span class="discount">优惠</span>';
 								html+='<span class="triangle"></span>';
 								html+='<!--优惠-->';
-								html+='<a href="product.html"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a>';
+								html+='<a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a>';
 								html+='<span class="like"><i class="icon-heart icon-white"></i>999+</span>';
 							html+='</div>';
 							html+='<h4><a href="product.html" title="">开衫连帽卫衣 ASDF335 -2 黛紫色</a></h4>';
