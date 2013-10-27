@@ -93,8 +93,8 @@ class Front::UsersCenterController < Front::BaseController
         likedtotal: item["likedtotal"].present? ? item["likedtotal"]  : 0
       }
     result[:datas] = items
-    result
     end
+    result[:datas]
   end
 
   def gen_user_logo(logo)
