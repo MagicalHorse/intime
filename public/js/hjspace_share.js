@@ -1,7 +1,7 @@
       var handler = null,
           page = 1,
           isLoading = false,
-          apiURL = 'http://stage.youhuiin.com/front/products/my_share_list_api.json?userid=50';
+          apiURL = 'http://stage.youhuiin.com/front/products/my_share_list_api.json';
 
       // Prepare layout options.
       var options = {
