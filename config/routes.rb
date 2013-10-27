@@ -163,6 +163,8 @@ IntimeService::Application.routes.draw do
 
      #test order create
     get '/order/create' ,            to: 'orders#create'
+    get 'address/create',           to: 'addresses#create'
+    get 'address/update',           to: 'addresses#update'
 
     get  '/my_comments',            to: 'comments#my_comments',       as: :my_comments
 
