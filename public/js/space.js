@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
 =======
@@ -15,6 +16,10 @@
 >>>>>>> update js and css
 =======
     var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
+=======
+    //var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
+    var apiURL = 'http://www.intime.com.cn:3000/front/products/my_favorite_api.json'
+>>>>>>> 增加js里面 商品url
 
 >>>>>>> 他的页面
     
@@ -103,8 +108,12 @@
 						html+='<div class="thumbnail">';
 							html+='<div class="action">';
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 								html+='<a href="product.html"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].imageUrl+'"></a>';
+=======
+								html+='<a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].imageUrl+'"></a>';
+>>>>>>> 增加js里面 商品url
 								html+='<span class="like"><i class="icon-heart icon-white"></i>'+data.datas[i].likeCount+'+</span>';
 
 =======

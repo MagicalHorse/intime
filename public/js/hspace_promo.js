@@ -69,7 +69,7 @@ var handler = null;
       for(; i<length; i++) {
          html+='<li>';
 						 html+='<div class="thumbnail">';
-							 html+='<div class="action"> <a href="promo.html" title="'+data.datas[i].title+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a> </div>';
+							 html+='<div class="action"> <a href="'+data.datas[i].url+'" title="'+data.datas[i].title+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a> </div>';
 						 html+='</div>';
 					 html+='</li>';
       }
