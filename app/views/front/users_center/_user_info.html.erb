@@ -1,0 +1,28 @@
+<section class="loger">
+<div class="relative">
+  <div class="photo">
+    <a href="<%= front_my_profile_path %>"><img src="<%= current_user.avatar_url %>"></a>
+  </div>
+  <div class="tools"> <span><%= current_user.nickie %>
+      <em><a href="<%= logout_path %>" data-method="delete" title="退出">退出</a></em>
+    </span>
+    <ul><li><a href="<%= front_profile_path %>" title="预购中心"> </a></li>
+      <li><a href="<%= front_my_comments_path -%>" title="消息"> </a></li>
+      <li><a href="<%= front_profile_edit_path %>" title="设置"> </a></li>
+      <div class="clearfix"></div>
+    </ul>
+  </div>
+  <div class="clearfix"></div>
+</div>
+<div class="share">
+  <ul>
+    <a href="<%= front_follows_path %>"><li>关注<br><%= current_user.like_count %></li></a>
+    <a href="<%= front_fans_path %>"><li>粉丝<br><%= current_user.fans_count %></li></a>
+    <a href="<%= front_coupons_path -%>"><li>优惠码<br><%= current_user.onlinecoupontotal %></li></a>
+    <a href="<%= front_vouchers_path -%>"><li>兑换券<br>
+      <%= current_user.offlinecoupontotal %></li></a>
+    <a href="<%= exchange_info_front_vouchers_path -%>"><li>积点<br>兑换</li></a>
+    <div class="clearfix"></div>
+  </ul>
+</div>
+</section>

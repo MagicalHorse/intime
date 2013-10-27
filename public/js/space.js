@@ -5,6 +5,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
 =======
@@ -20,6 +21,9 @@
     //var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
     var apiURL = 'http://www.intime.com.cn:3000/front/products/my_favorite_api.json'
 >>>>>>> 增加js里面 商品url
+=======
+    var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
+>>>>>>> 我的主页，增加用户信息
 
 >>>>>>> 他的页面
     
