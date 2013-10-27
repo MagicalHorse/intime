@@ -1,27 +1,26 @@
 <%= content_for :javascripts do -%>
   <script src="/js/gallery.js"></script>
-  <script src="/js/jquery.wookmark.js"></script>
-  <script src="/js/jquery.imagesloaded.js"></script>
 <% end -%>
 
 <%= content_for :head_nav do -%>
+  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 
-			<ul class="nav">
+  <ul class="nav">
+
 				<li class="dropdown" id="menu1">
 					<a class="dropdown-toggle" id="drop1" role="button" data-toggle="dropdown" href="javascript:0">分类<b class="caret"></b></a>
-					<ul class="dropdown-menu span9" role="menu" aria-labelledby="drop1">
-						<dl class="hot">
-							<dt>热门分类</dt>
+					<ul class="dropdown-menu span9 ps-container" role="menu" aria-labelledby="drop1" style="">
+            <dl class="hot">
+              <dt>热门分类</dt>
               <% @hotwords[:words] && @hotwords[:words].each do |word| %>
                 <dd role="presentation">
-                <a role="menuitem" tabindex="-1" href="#" onClick="clears(),loadData('#{word}')">
+                <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('fenlei','lianyiqun');">
                   <%= word %>
                 </a>
                 </dd>
               <% end %>
-						</dl>
+            </dl>
 						<dl>
-							<dd role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">全部<span>1700</span></a></dd>
               <% @tags[:tags] && @tags[:tags].each do |tag|%>
                 <dd role="presentation">
                 <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('category',<%= tag[:id]%>);">
@@ -30,12 +29,15 @@
                 </dd>
               <% end %>
 						</dl>
-					</ul>
+            <div class="ps-scrollbar-x" style="left: 0px; bottom: 3px; width: 0px;"></div>
+            <div class="ps-scrollbar-y" style="top: 0px; right: 3px; height: 0px;"></div>
+          </ul>
 				</li>
+
 
 				<li class="dropdown" id="menu2">
 					<a class="dropdown-toggle" id="drop2" role="button" data-toggle="dropdown" href="javascript:0">品牌<b class="caret"></b></a>
-					<ul class="dropdown-menu span9" role="menu" aria-labelledby="drop1">
+					<ul class="dropdown-menu span9 ps-container" role="menu" aria-labelledby="drop1" style="">
 						<dl class="hot">
 							<dt>热门品牌</dt>
               <% @hotwords[:brandwords] && @hotwords[:brandwords].each do |brand| %>
@@ -48,33 +50,33 @@
 						</dl>
 						<dl class="brands">
 							<dt>
-								<span class="all active"><a href="#" data-stopPropagation="true">全部</a></span>
-								<span><a href="#" title="查找以中英文首字母为 A 的品牌" data-stopPropagation="true">A</a></span>
-								<span><a href="#" title="查找以中英文首字母为 B 的品牌"  data-stopPropagation="true">B</a></span>
-								<span><a href="#" title="查找以中英文首字母为 C 的品牌"  data-stopPropagation="true">C</a></span>
-								<span><a href="#" title="查找以中英文首字母为 D 的品牌"  data-stopPropagation="true">D</a></span>
-								<span><a href="#" title="查找以中英文首字母为 E 的品牌"  data-stopPropagation="true">E</a></span>
-								<span><a href="#" title="查找以中英文首字母为 F 的品牌"  data-stopPropagation="true">F</a></span>
-								<span><a href="#" title="查找以中英文首字母为 G 的品牌"  data-stopPropagation="true">G</a></span>
-								<span><a href="#" title="查找以中英文首字母为 H 的品牌"  data-stopPropagation="true">H</a></span>
-								<span><a href="#" title="查找以中英文首字母为 I 的品牌"  data-stopPropagation="true">I</a></span>
-								<span><a href="#" title="查找以中英文首字母为 J 的品牌"  data-stopPropagation="true">J</a></span>
-								<span><a href="#" title="查找以中英文首字母为 K 的品牌"  data-stopPropagation="true">K</a></span>
-								<span><a href="#" title="查找以中英文首字母为 L 的品牌"  data-stopPropagation="true">L</a></span>
-								<span><a href="#" title="查找以中英文首字母为 M 的品牌"  data-stopPropagation="true">M</a></span>
-								<span><a href="#" title="查找以中英文首字母为 N 的品牌"  data-stopPropagation="true">N</a></span>
-								<span><a href="#" title="查找以中英文首字母为 O 的品牌"  data-stopPropagation="true">O</a></span>
-								<span><a href="#" title="查找以中英文首字母为 P 的品牌"  data-stopPropagation="true">P</a></span>
-								<span><a href="#" title="查找以中英文首字母为 Q 的品牌"  data-stopPropagation="true">Q</a></span>
-								<span><a href="#" title="查找以中英文首字母为 R 的品牌"  data-stopPropagation="true">R</a></span>
-								<span><a href="#" title="查找以中英文首字母为 S 的品牌"  data-stopPropagation="true">S</a></span>
-								<span><a href="#" title="查找以中英文首字母为 T 的品牌"  data-stopPropagation="true">T</a></span>
-								<span><a href="#" title="查找以中英文首字母为 U 的品牌"  data-stopPropagation="true">U</a></span>
-								<span><a href="#" title="查找以中英文首字母为 V 的品牌"  data-stopPropagation="true">V</a></span>
-								<span><a href="#" title="查找以中英文首字母为 W 的品牌"  data-stopPropagation="true">W</a></span>
-								<span><a href="#" title="查找以中英文首字母为 X 的品牌"  data-stopPropagation="true">X</a></span>
-								<span><a href="#" title="查找以中英文首字母为 Y 的品牌"  data-stopPropagation="true">Y</a></span>
-								<span><a href="#" title="查找以中英文首字母为 Z 的品牌"  data-stopPropagation="true">Z</a></span>
+								<span class="all active"><a href="#" data-stoppropagation="true">全部</a></span>
+								<span><a href="#" title="查找以中英文首字母为 A 的品牌" data-stoppropagation="true">A</a></span>
+								<span><a href="#" title="查找以中英文首字母为 B 的品牌" data-stoppropagation="true">B</a></span>
+								<span><a href="#" title="查找以中英文首字母为 C 的品牌" data-stoppropagation="true">C</a></span>
+								<span><a href="#" title="查找以中英文首字母为 D 的品牌" data-stoppropagation="true">D</a></span>
+								<span><a href="#" title="查找以中英文首字母为 E 的品牌" data-stoppropagation="true">E</a></span>
+								<span><a href="#" title="查找以中英文首字母为 F 的品牌" data-stoppropagation="true">F</a></span>
+								<span><a href="#" title="查找以中英文首字母为 G 的品牌" data-stoppropagation="true">G</a></span>
+								<span><a href="#" title="查找以中英文首字母为 H 的品牌" data-stoppropagation="true">H</a></span>
+								<span><a href="#" title="查找以中英文首字母为 I 的品牌" data-stoppropagation="true">I</a></span>
+								<span><a href="#" title="查找以中英文首字母为 J 的品牌" data-stoppropagation="true">J</a></span>
+								<span><a href="#" title="查找以中英文首字母为 K 的品牌" data-stoppropagation="true">K</a></span>
+								<span><a href="#" title="查找以中英文首字母为 L 的品牌" data-stoppropagation="true">L</a></span>
+								<span><a href="#" title="查找以中英文首字母为 M 的品牌" data-stoppropagation="true">M</a></span>
+								<span><a href="#" title="查找以中英文首字母为 N 的品牌" data-stoppropagation="true">N</a></span>
+								<span><a href="#" title="查找以中英文首字母为 O 的品牌" data-stoppropagation="true">O</a></span>
+								<span><a href="#" title="查找以中英文首字母为 P 的品牌" data-stoppropagation="true">P</a></span>
+								<span><a href="#" title="查找以中英文首字母为 Q 的品牌" data-stoppropagation="true">Q</a></span>
+								<span><a href="#" title="查找以中英文首字母为 R 的品牌" data-stoppropagation="true">R</a></span>
+								<span><a href="#" title="查找以中英文首字母为 S 的品牌" data-stoppropagation="true">S</a></span>
+								<span><a href="#" title="查找以中英文首字母为 T 的品牌" data-stoppropagation="true">T</a></span>
+								<span><a href="#" title="查找以中英文首字母为 U 的品牌" data-stoppropagation="true">U</a></span>
+								<span><a href="#" title="查找以中英文首字母为 V 的品牌" data-stoppropagation="true">V</a></span>
+								<span><a href="#" title="查找以中英文首字母为 W 的品牌" data-stoppropagation="true">W</a></span>
+								<span><a href="#" title="查找以中英文首字母为 X 的品牌" data-stoppropagation="true">X</a></span>
+								<span><a href="#" title="查找以中英文首字母为 Y 的品牌" data-stoppropagation="true">Y</a></span>
+								<span><a href="#" title="查找以中英文首字母为 Z 的品牌" data-stoppropagation="true">Z</a></span>
 							</dt>
 							<dd role="presentation">
 								<a role="menuitem" tabindex="-1" title="Astalift/艾诗缇" href="#">
@@ -198,7 +200,7 @@
 							<div class="clearfix"></div>
 						</dl>
 						
-					</ul>
+					<div class="ps-scrollbar-x" style="left: 0px; bottom: 3px; width: 0px;"></div><div class="ps-scrollbar-y" style="top: 0px; right: 3px; height: 0px;"></div></ul>
 				</li>
 				
 				<li class="dropdown" id="menu3">
@@ -217,27 +219,18 @@
 				<li class="dropdown" id="menu4">
                 	<a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="javascript:0">排序<b class="caret"></b></a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop4">
-            <li role="presentation" class="active">
-            <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sorted',1);">最新发布</a>
-            </li>
-            <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sorted',2);">价格最高</a>
-            </li>
-            <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sorted',3);">价格最低</a>
-            </li>
-            <li role="presentation">
-            <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sorted',4);">人气最高</a>
-            </li>
+						<li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">最新发布</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">价格最高</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">价格最低</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="#">人气最高</a></li>
 					</ul>
              	</li>
 				<div class="input-append pull-right search">
-					<input type="text" id="search" placeholder="请输入搜索内容">
-					<button class="btn" type="button" onClick="clears(),loadData($('#search').val());"><i class="icon-search icon-large"></i></button>
+					<input type="text" placeholder="请输入搜索内容">
+					<button class="btn" type="button"><i class="icon-search icon-large"></i></button>
 				</div>
 				<!--/.search-collapse -->
-			</ul>	
-			<!--/.nav-collapse -->
+			</ul>
 
 <% end -%>
 
