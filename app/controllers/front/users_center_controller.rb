@@ -39,15 +39,23 @@ class Front::UsersCenterController < Front::BaseController
   end
 
   def follows
-    userid = params[:userid].present? ? params[:userid] : current_user.id
-    options = { type: 0, userid: userid }
+     options = {
+      page: params[:page],
+      pagesize: 10,
+      type: 0,
+      userid: params[:userid].present? ? params[:userid] : current_user.id
+    }
     result = API::Follow.follows(request,options)
     @results = gen_data(result) if result["data"]["likes"].present?
   end
 
   def fans
-    userid = params[:userid].present? ? params[:userid] : current_user.id
-    options  = { type: 1, userId: params[:userid] || userid }
+     options = {
+      page: params[:page],
+      pagesize: 10,
+      type: 1,
+      userid: params[:userid].present? ? params[:userid] : current_user.id
+    }
     result   = API::Follow.follows(request,options)
     @results = gen_data(result) if result["data"]["likes"].present?
   end
