@@ -9,7 +9,7 @@
       <div class="item_img"><img src="<%= small_pic_url(product['resource']) %>" /></div>
       <div class="item_pr"> <span><%= product['productname'] %></span><br>
         货号：<%= product['skucode'] %><br>
-        品牌：<%= product['brandname'] %>(<%= product['brand2name'] %>) </div>
+        品牌：<%= display_product_brand_name product['brandname'], product['brand2name'] %></div>
       <div class="item_num">X<%= product['quantity'] %></div>
       <div class="clearfix"></div>
     </div>
