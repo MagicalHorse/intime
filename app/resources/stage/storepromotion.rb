@@ -22,5 +22,9 @@ module Stage
       end
     end
 
+    def storenames
+      self.inscopenotice.map{|store| store.storename}.join(',')
+    end
+
   end
 end

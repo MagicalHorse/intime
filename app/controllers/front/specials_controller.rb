@@ -37,7 +37,7 @@ class Front::SpecialsController < Front::BaseController
     when 5
       item.targetId
     when 6
-      ''
+      front_storepromotions_path
     end
   end
 end
