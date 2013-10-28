@@ -162,10 +162,10 @@ class Front::ProductsController < Front::BaseController
     datas && datas.each do |item|
       image_info = item["resources"].first if item["resources"].present?
       items << {
-        title:     item["name"],
+        title:     item["name"].blank? ? item["productname"] : item["name"]  ,
         price:     item["price"],
         originalPrice:  item["price"],
-        likeCount: item["favorable"],
+        likeCount: item["likecount"],
         url:       front_product_path(item["id"]||item["productid"]),
         imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
       }
