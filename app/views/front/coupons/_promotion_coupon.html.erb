@@ -1,5 +1,5 @@
 <li>
-<a href="<%= front_promotion_path(coupon[:promotion][:id]) -%>" target="_blank">
+<a href="<%= front_promotion_path(coupon[:promotion][:id]) -%>">
   <div class="thumbnail">
     <span class="hdname"><%= coupon[:promotion][:name] -%></span>
     <span class="yxdate">有效期:<%= format_time_range(coupon[:validstartdate], coupon[:validenddate]) -%></span>

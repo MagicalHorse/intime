@@ -15,7 +15,7 @@
       <br>
       当前可以用积分：<span style="color:#D10149" class='currentScore'><%= current_user.point -%></span><br>
       兑换积分:
-      <%= text_field_tag 'points', nil, placeholder: storepromotion.unitperpoints, style: 'width:50px; margin-bottom: 4px;', info: storepromotion.id -%>
+      <%= text_field_tag 'points', nil, placeholder: 0, style: 'width:50px; margin-bottom: 4px;', info: storepromotion.id -%>
       = <span style="color:#D10149"><b class='money'>0元</b></span><br>
       <span style='width: 200px;'>兑换积点必须是<%= storepromotion.unitperpoints -%>的整数倍</span><br>
       身份证号:

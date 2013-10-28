@@ -3,7 +3,7 @@
   <div class="content">
     <% if storepromotion -%>
       <h3><em></em><%= storepromotion.name -%></h3>
-      <p>参与门店：浙江银泰文化广场店，浙江银泰庆春店...<br>
+      <p>参与门店：<%= storepromotion.storenames -%><br>
       活动时间：<%= format_time_range(@storepromotion.activestartdate, @storepromotion.activeenddate) -%>
       </p>
       <p style="text-align:center; padding-top:5px;">
