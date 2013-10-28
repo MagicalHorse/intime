@@ -71,7 +71,7 @@
        html+='<li>';
 						html+='<div class="thumbnail">';
 							html+='<div class="action">';
-								html+='<a href="product.html"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].imageUrl+'"></a>';
+								html+='<a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].imageUrl+'"></a>';
 								html+='<span class="like"><i class="icon-heart icon-white"></i>'+data.datas[i].likeCount+'+</span>';
 							html+='</div>';
 							html+='<h4><a href="product.html">'+data.datas[i].title+'</a></h4>';

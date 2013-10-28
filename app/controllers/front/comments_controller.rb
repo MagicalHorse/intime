@@ -23,7 +23,13 @@ class Front::CommentsController < Front::BaseController
   end
 
   def my_comments
-    @comments = API::Comment.my_comments(request)
+    options = {page: 1, pagesize: 10}.merge(params.slice(:page, :pagesize))
+    @comments = API::Comment.my_comments(request, options)[:data]
+
+    @comments = Kaminari.paginate_array(
+      @comments[:items],
+      total_count: @comments[:totalcount].to_i
+    ).page(@comments[:pageindex]).per(@comments[:pagesize])
   end
 
   protected

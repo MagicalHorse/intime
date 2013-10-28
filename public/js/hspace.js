@@ -1,7 +1,7 @@
       var handler = null,
           page = 1,
           isLoading = false,
-          apiURL = 'http://stage.youhuiin.com/front/products/his_favorite_api.json?userid=50';
+          apiURL = 'http://stage.youhuiin.com/front/products/his_favorite_api.json';
 
       // Prepare layout options.
       var options = {
@@ -63,13 +63,16 @@
         // Create HTML for the images.
         var html = '';
         var i=0, length=data.datas.length;
-        for(; i<length; i++) {
+        if(length == 0){
+        	html='<p style='text-align:center;font-size: 16px;line-height:30px;'>看到喜欢的东东千万不要错过!<br>共收藏0个东东!<br><a href='index.html' class='btn btn-danger '>找东东</a></p>';
+        	} else {
+        		for(; i<length; i++) {
           html+='<li>';
 						html+='<div class="thumbnail">';
 							html+='<div class="action">';
 								html+='<span class="discount">优惠</span>';
 								html+='<span class="triangle"></span>';
-								html+='<a href="product.html"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a>';
+								html+='<a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a>';
 								html+='<span class="like"><i class="icon-heart icon-white"></i>'+data.datas[i].likeCount+'+</span>';
 							html+='</div>';
 							html+='<h4><a href="product.html">'+data.datas[i].title+'</a></h4>';
@@ -77,6 +80,7 @@
 						html+='</div>';
 					html+='</li>';
         }
+        		}
 
         // Add image HTML to the page.
         $('#tiles').append(html);
