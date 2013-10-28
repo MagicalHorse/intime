@@ -65,6 +65,6 @@ IntimeService::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
-CARD_INFO_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryinfo"
-CARD_POINT_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryscore"
+CARD_INFO_URL = "http://101.71.254.195:8083/intimers/api/vipinfo/queryinfo"
+CARD_POINT_URL = "http://101.71.254.195:8083/intimers/api/vipinfo/queryscore"
 CARD_EXCHANGE_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/exchange"
