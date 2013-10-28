@@ -260,6 +260,13 @@ IntimeService::Application.routes.draw do
     put '/profile/update', to: 'profile#update'
 
     get '/supportshipments', to: 'environment#supportshipments'
+
+    # 前端测试用，正式上去前要删除
+    # FIXME
+    get '/orders_create', to: 'orders#create'
+    get '/addresses_update/:id', to: 'addresses#update'
+    get '/addresses_create', to: 'addresses#create'
+    get '/orders_computeamount', to: 'orders#computeamount'
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'
