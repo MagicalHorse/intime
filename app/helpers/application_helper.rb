@@ -60,4 +60,13 @@ module ApplicationHelper
     ].join('-')
   end
 
+  def display_product_brand_name(brandname, brand2name)
+    if brandname.present? && brand2name.present?
+      h "#{brandname}(#{brand2name})"
+    elsif brandname.present?
+      h brandname
+    elsif brand2name.present?
+      h brand2name
+    end
+  end
 end
