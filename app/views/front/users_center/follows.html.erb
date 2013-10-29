@@ -8,7 +8,12 @@
   <!-- follow -->
   <section class="portfolio">
   <ul class="thumbnails">
-    <% @results && @results.each do |result|%>
+    <% if @results.blank? %>
+      <p style="text-align:center;font-size: 16px;line-height:30px;">
+      还没有关注任何人
+      </p>
+    <% else %>
+    <% @results.each do |result|%>
     <li class="fans">
     <div class="thumbnail">
       <div>
@@ -38,6 +43,7 @@
     </div>
     </li>
   <% end %>
+<% end %>
   </ul>
   </section>
 </div>
