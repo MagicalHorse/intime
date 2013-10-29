@@ -21,7 +21,7 @@ module Stage
     def image_url
       return '' if resources.blank?
 
-      [resources[0].domain, resources[0].name, "_#{resources[0].width}X0.jpg"].join('')
+      [resources[0].domain, resources[0].name, "_#{resources[0].width}X88.jpg"].join('')
     end
   end
 end

@@ -27,7 +27,7 @@
 
         <%= render 'exchange_form', storepromotion: @storepromotion -%>
 
-        <%= render 'exchange_rule', rule: @storepromotion.rule -%>
+        <%= render 'exchange_rule', storepromotion: @storepromotion -%>
       </div>
     </div>
     <%= render 'notice', notice: @storepromotion.notice -%>

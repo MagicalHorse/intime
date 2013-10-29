@@ -6,7 +6,7 @@ class Front::CouponsController < Front::BaseController
     @news_coupons   = API::Coupon.index(request, params.slice(:page).merge(type: 2, pagesize: 10))[:data]
     @expire_coupons = API::Coupon.index(request, params.slice(:page).merge(type: 3, pagesize: 10))[:data]
 
-    @coupons = case params[:type]
+    @coupons = case params[:type].to_i
                when 2
                  @news_coupons
                when 3
