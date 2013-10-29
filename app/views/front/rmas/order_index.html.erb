@@ -7,15 +7,15 @@
 <% end %>
 <div class="span9 main">
   <%= render 'front/message' %>
-  <div class="Logistics_query olrtds autoth">
+  <div class="Logistics_query">
     <% if @orders.present? %>
       <% @orders.each do |order| %>
         <%= render partial: 'front/orders/order', locals: { order: order } %>
       <% end %>
       <%= paginate @orders %>
     <% else %>
-      <p style="text-align:center;">
-        您还没有可以申请退货的订单，赶紧去购物吧！
+      <p style="text-align:center;font-size: 16px;line-height:30px;">
+        暂无符合退货条件的订单！
       </p>
     <% end %>
   </div>

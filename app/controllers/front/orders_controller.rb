@@ -147,7 +147,7 @@ class Front::OrdersController < Front::BaseController
 #     productid: 977,
 #     desc: '',
 #     quantity: 1,
-#     properties: { sizevalueid: 534, sizevaluename: "蓝色", colorvalueid: 534, colorvaluename: "蓝色"},
+#     properties: { sizevalueid: 535, sizevaluename: "S", colorvalueid: 534, colorvaluename: "蓝色"},
 #   }],
 #   needinvoice: 1,
 #   invoicetitle: '发票抬头',
@@ -160,8 +160,8 @@ class Front::OrdersController < Front::BaseController
 #     shippingaddress: "上海市长宁区什么路"
 #   },
 #   payment: {
-#     paymentcode: "1001",
-#     paymentname: "货到付款"
+#     paymentcode: "25",
+#     paymentname: "支付宝"
 #   }
 # }
 #
