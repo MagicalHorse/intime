@@ -36,9 +36,20 @@ class Front::ProductsController < Front::BaseController
 
   def list
     @stores   = Stage::Store.list
-    @brands   = Stage::Brand.group_brands
+    @brands   = gen_brands(Stage::Brand.group_brands)
     @tags     = Stage::Tag.list
     @hotwords = Stage::HotWord.list
+  end
+
+  def gen_brands(brands)
+    result = {}
+    ('A'..'Z').to_a.each do |character|
+      brand_array = brands[:brands].select{|brand| brand[character] }
+      if brand_array.present?
+        result[character] = brand_array.first[character]
+      end
+    end
+    result
   end
 
   def list_api
@@ -162,12 +173,13 @@ class Front::ProductsController < Front::BaseController
     datas && datas.each do |item|
       image_info = item["resources"].first if item["resources"].present?
       items << {
-        title:     item["name"].blank? ? item["productname"] : item["name"]  ,
+        title:     item["name"].blank? ? item["productname"] : item["name"],
         price:     item["price"],
         originalPrice:  item["price"],
         likeCount: item["likecount"],
         url:       front_product_path(item["id"]||item["productid"]),
-        imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info)
+        imageUrl:  image_info.blank? ? "" : middle_pic_url(image_info),
+        flag: item["promotionFlag"]
       }
     end
     results[:datas] = items

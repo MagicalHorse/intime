@@ -85,10 +85,10 @@
 								html+='<span class="triangle"></span>';
 								html+='<!--优惠-->';
 								html+='<a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a>';
-								html+='<span class="like"><i class="icon-heart icon-white"></i>999+</span>';
+								html+='<span class="like"><i class="icon-heart icon-white"></i>'+data.datas[i].likeCount+'+</span>';
 							html+='</div>';
-							html+='<h4><a href="product.html" title="">开衫连帽卫衣 ASDF335 -2 黛紫色</a></h4>';
-							html+='<small><span class="pull-left num">吊牌价：<em>￥366</em></span><span class="pull-right price">销售价：<em>￥299</em></span></small>';
+							html+='<h4><a href="product.html" title="">'+data.datas[i].title+'</a></h4>';
+							html+='<small><span class="pull-left num">吊牌价：<em>￥'+data.datas[i].originalPrice+'</em></span><span class="pull-right price">销售价：<em>￥'+data.datas[i].price+'</em></span></small>';
 						html+='</div>';
 					html+='</li>';
         }

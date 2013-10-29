@@ -15,7 +15,7 @@
       <% else -%>
         <% @comments.each do |comment| -%>
           <li class="post">
-          <a href="vinfocenter.html">
+          <a href="<%= href_of_comment_item(comment) -%>">
             <div class="post-self">
               <div class="avatar"><img src="<%= comment[:commentuser][:logo] -%>" alt="<%= comment[:commentuser][:nickname] -%>"></div>
               <div class="comment-body">

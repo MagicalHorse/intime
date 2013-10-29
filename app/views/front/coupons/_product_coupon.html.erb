@@ -1,10 +1,10 @@
 <li>
-<a href="promo.html">
+<a href="<%= front_product_path(coupon[:product][:id]) -%>">
   <div class="thumbnail">
-    <span class="hdname">四月会员日活动</span>
+    <span class="hdname"><%= coupon[:product][:name] -%></span>
     <span class="yxdate">有效期:<%= format_time_range(coupon[:validatestartdate], coupon[:validatenddate]) -%></span>
-    <span class="dpname"><i class="icon_title"></i>银泰杭州西湖文化广场店</span>
-    <span class="yhm"><b>1322005123<em></em></b></span>
+    <span class="dpname"><i class="icon_title"></i><%= coupon[:product][:store][:name] -%></span>
+    <span class="yhm"><b><%= coupon[:code] -%><em></em></b></span>
   </div>
 </a>
 </li>
