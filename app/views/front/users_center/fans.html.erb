@@ -9,7 +9,12 @@
   <!-- follow -->
   <section class="portfolio">
   <ul class="thumbnails">
-    <% @results && @results.each do |result|%>
+    <% if @results.blank? %>
+      <p style="text-align:center;font-size: 16px;line-height:30px;">
+      怎么还没有丝粉？
+      </p>
+    <% else %>
+    <% @results.each do |result|%>
     <li class="fans">
     <div class="thumbnail">
       <div>
@@ -30,15 +35,6 @@
           </button>
           </li>
 
-          <% if false %>
-            <li class="follow">
-            <button type="button" class="btn btn-mini">
-              <i class="icon-minus"></i>
-              <%= link_to raw("取消关注"), front_unfollow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
-            </button>
-            </li>
-          <% end %>
-
           <li class="atten">
           <span>关注<%= result[:liketotal]%></span>
           <span>粉丝<%= result[:likedtotal]%></span>
@@ -47,6 +43,7 @@
       </div>
     </div>
     </li>
+  <% end %>
   <% end %>
   </ul>
   </section>
