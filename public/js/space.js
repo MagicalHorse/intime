@@ -125,7 +125,7 @@
 								html+='<span class="like"><i class="icon-heart icon-white"></i>'+data.datas[i].likeCount+'+</span>';
 >>>>>>> 我的银泰页面完成
 							html+='</div>';
-							html+='<h4><a href="product.html">'+data.datas[i].title+'</a></h4>';
+							html+='<h4><a href="'+data.datas[i].url+'">'+data.datas[i].title+'</a></h4>';
 							html+='<small><span class="pull-left num">吊牌价：<em>￥'+data.datas[i].originalPrice+'</em></span><span class="pull-right price">销售价：<em>￥'+data.datas[i].price+'</em></span></small>';
 						html+='</div>';
 					html+='</li>';
