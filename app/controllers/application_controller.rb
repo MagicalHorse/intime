@@ -36,7 +36,13 @@ class ApplicationController < ActionController::Base
   def select_defaultresource(resource)
     # default_resource = resource.select{|r| r[:isDefault]==true}
     default_resource = resource.select{|r| r[:type]==1}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}
-    default_resource.first
+    resource = default_resource.first
+    return resource unless resource.nil?
+    {
+      :name=>'fileupload/img/product/default/default',
+      :width=>320,
+      :height=>320
+    }
   end
   def select_defaultaudioresource(resource)
     resource.select{|r| r[:type]==2}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
