@@ -27,7 +27,7 @@ class Front::UsersCenterController < Front::BaseController
 
   def his_profile
     options = {userid: params[:userid]}
-    @info  = API::Customer.his_show(request, options)
+    @info  = gen_profile(API::Customer.his_show(request, options))
     render :profile
   end
 
