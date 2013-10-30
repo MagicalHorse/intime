@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
     resource = default_resource.first
     return resource unless resource.nil?
     {
-      :name=>'fileupload/img/product/default/default',
+      :name=>'product/default/default',
       :width=>320,
       :height=>320
     }
