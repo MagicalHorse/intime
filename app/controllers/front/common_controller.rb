@@ -7,12 +7,14 @@ class Front::CommonController < Front::BaseController
   def stores
     stores = Stage::Store.list
     result = hotwords.slice(:storewords).merge(stores)
+    get_all_brands(results)
     render :json => result.to_json, callback: params[:callback]
   end
 
   def brands
-    brands = Stage::Brand.group_brands
-    result = hotwords.slice(:brandwords).merge(brands)
+    brands     = Stage::Brand.group_brands
+    all_brands = get_all_brands(brands[:brands])
+    result     = hotwords.slice(:brandwords).merge(brands).merge(all_brands)
     render :json => result.to_json, callback: params[:callback]
   end
 
@@ -21,5 +23,6 @@ class Front::CommonController < Front::BaseController
     result = hotwords.slice(:words).merge(tags)
     render :json => result.to_json, callback: params[:callback]
   end
+
 
 end
