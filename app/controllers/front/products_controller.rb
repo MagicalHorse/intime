@@ -36,12 +36,13 @@ class Front::ProductsController < Front::BaseController
 
   def list
     @stores   = Stage::Store.list
-    @brands   = gen_brands(Stage::Brand.group_brands)
+    @brands   = get_group_brands(Stage::Brand.group_brands)
     @tags     = Stage::Tag.list
     @hotwords = Stage::HotWord.list
+    @all_brands = @brands.values.flatten 
   end
 
-  def gen_brands(brands)
+  def get_group_brands(brands)
     result = {}
     ('A'..'Z').to_a.each do |character|
       brand_array = brands[:brands].select{|brand| brand[character] }
