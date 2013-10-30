@@ -1,0 +1,10 @@
+<li>
+<a href="<%= front_promotion_path(coupon[:promotion][:id]) -%>">
+  <div class="thumbnail">
+    <span class="hdname"><%= coupon[:promotion][:name] -%></span>
+    <span class="yxdate">有效期:<%= format_time_range(coupon[:validstartdate], coupon[:validenddate]) -%></span>
+    <span class="dpname"><i class="icon_title"></i><%= coupon[:promotion][:store][:name] -%></span>
+    <span class="yhm"><b><%= coupon[:code] -%><em></em></b></span>
+  </div>
+</a>
+</li>

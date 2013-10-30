@@ -24,6 +24,23 @@
 	border-radius: 5px;}
 .fr{
 	float:right!important;}
+	
+/* 分页 */
+.pager li > a,
+.pager li > span {
+  padding: 5px 14px;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+.pager .active > a,
+.pager li > a:hover,
+.pager li > a:focus,
+.pager .active > span{
+	background: #bd2248;
+	color:#fff;
+}
+
 /*  feedBack.html 意见反馈*/
 .feedback, .tbg {
 	position: relative;
@@ -340,6 +357,19 @@ height: 40px;
 background: url(../images/ico_jt.png) no-repeat;
 }
 .addorder .thzq .alter {margin-top: 10px;}
+
+.addorder .thzq .alter .accordion-group{border: none;}
+.addorder .thzq .alter .accordion-group .conbox{
+	padding: 15px!important;
+	border: 1px solid #e0e0e0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	margin-top: 15px;
+}
+
+
+
 .addorder .thzq .alter span{width: 140px!important;}
 .addorder .thzq .modal-body{ max-height:300px;}
 .addorder .thzq .modal-body .item_tit {padding: 0!important}
@@ -795,6 +825,21 @@ padding-top: 6px;
 
 
 @media (max-width: 979px) {
+
+/* 分页 */
+.pager {
+  margin: 10px 0;
+}
+.pager li > a,
+.pager li > span {
+	display:none;
+}
+
+.pager .previous > a, .pager .previous > span,.pager .next > a, .pager .next > span{
+	display:block;
+}
+
+
 .cfxq .vipleft, .cfxq .vipright {
 		float:none;
 		width:100%;
@@ -820,6 +865,14 @@ float:none;
 .om_df .qxdd{top: 36px;}
 .address .add{ display:none;}
 .address .adds{ display:block;text-align:center;}
+.addorder .thzq .alter span {
+width: 130px!important;
+padding-right: 5px;
+}
+.Logistics_query .item_tit .alter a{padding: 4px 12px;font-size: 14px;}
+.addorder .thzq .alter .accordion-group .conbox span {
+width: 80px!important;
+}
 }
 
 

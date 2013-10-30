@@ -1,0 +1,24 @@
+<div class="Coupon">
+  <ul class="thumbnails">
+    <% if coupons.present? -%>
+      <% coupons.each do |coupon| -%>
+        <% if coupon[:product] -%>
+          <%= render 'product_coupon', coupon: coupon -%>
+        <% elsif coupon[:promotion] -%>
+          <%= render 'promotion_coupon', coupon: coupon -%>
+        <% end -%>
+      <% end -%>
+    <% else -%>
+      <% if [2, 3].include? params[:type].to_i -%>
+        <p style="text-align:center;font-size: 16px;line-height:30px;">
+        暂无优惠码
+        </p>
+      <% else -%>
+        <p style="text-align:center;font-size: 16px;line-height:30px;">
+        好多精彩超值的促销活动千万不要错过!<br>共收藏0个活动!<br><a href="<%= root_path -%>" class="btn btn-danger ">快去下载</a>
+        </p>
+      <% end -%>
+    <% end -%>
+  </ul>
+</div>
+<%= paginate coupons %>

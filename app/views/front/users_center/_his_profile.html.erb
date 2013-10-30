@@ -1,0 +1,87 @@
+<style>
+  /* 达人主页 */
+  .main .loger {
+    display: block;
+    padding: 15px 0 15px 15px;
+    margin-bottom: 10px;
+    background: url(/temp/Nature-Plants-s.jpg) no-repeat center center;
+    background-size: 100% 100%;
+  }
+  .main .loger .relative { margin-left: 80px; }
+  .main .loger li { list-style: none; }
+  .main .loger .photo {
+    width: 70px;
+    height: 70px;
+    margin-left: -80px;
+    float: left;
+  }
+  .main .loger .photo img {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3x;
+  }
+  .main .loger .tools { padding: 5px 0 0 0; }
+  .main .loger .tools span {
+    color: #fff;
+    text-shadow: 0 1px 1px rgba( 0, 0, 0, 0.2 );
+    padding-left: 5px;
+  }
+  .main .loger .tools em {
+    background: rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    font-style: normal;
+    display: inline;
+    padding: 3px 9px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    margin-left: 10px;
+    text-shadow: 0 1px 2px rgba( 0, 0, 0, 0.2 );
+    width: 24px;
+  }
+  .main .loger .tools em a{ color:#fff;}
+  .main .loger .share ul {
+    padding-top: 25px;
+    margin: 0;
+  }
+  .main .loger .share li {
+    float: left;
+    width: 50px;
+    height: 40px;
+    margin-right: 8px;
+    background: rgba(0, 0, 0, 0.5);
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
+    font-size: 12px;
+    text-align: center;
+    line-height: 15px;
+    color: #fff;
+    padding-top: 10px;
+  }
+  .main .loger .share li:nth-child(3) { margin-right: 0; }
+  .main .loger .share li:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: #e50050;
+  }
+  .main .loger .share a {
+    color: #FFF;
+    text-shadow: 0 1px 1px rgba( 0, 0, 0, 0.2 );
+  }
+</style>
+<section class="loger">
+<div class="relative">
+  <div class="photo"><a href="<%= front_his_profile_path(@info[:id]) %>"><img src="<%= @info[:logo]%>"></a></div>
+  <div class="tools"> <span><%= @info[:name]%>
+    <em><%= link_to "关注", front_follow_path(@info[:id]), remote: true, method: :post, id: 'follow' -%></em></span></div>
+  <div class="clearfix"></div>
+</div>
+<div class="share">
+  <ul>
+    <a href="<%= front_follows_path(userid: @info[:id])%>"><li>关注<br><%= @info[:follows]%></li></a>
+    <a href="<%= front_fans_path(userid: @info[:id])%>"><li>粉丝<br><%= @info[:fans]%></li></a>
+    <a href="<%= front_his_profile_path(@info[:id]) %>"><li>详细<br>资料</li></a>
+    <div class="clearfix"></div>
+  </ul>
+</div>
+</section>

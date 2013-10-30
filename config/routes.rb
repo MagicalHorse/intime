@@ -70,13 +70,6 @@ IntimeService::Application.routes.draw do
   
   match "ping/mock"=>"ping#mock"
 
-  resources :profile, only: [:index] do
-    collection do
-      get :get_list
-    end
-  end
-
-
   resources :special_topic, only: [:index] do
     collection do
       get :get_list
@@ -153,24 +146,58 @@ IntimeService::Application.routes.draw do
     # Directs /admin/products/* to Admin::ProductsController
     #     # (app/controllers/admin/products_controller.rb)
 
-    get '/hotwords',       to: 'common#hotwords'
+    get '/hotwords',                to: 'common#hotwords'
+    get '/tags',                    to: 'common#tags'
+    get '/brands',                  to: 'common#brands'
+    get '/stores',                  to: 'common#stores'
 
-    get '/my_favorite',  to: 'users_center#my_favorite'
-    get '/my_share',     to: 'users_center#my_share'
-    get '/my_promotion', to: 'users_center#my_promotion'
-    get '/follows',      to: 'users_center#follows'
-    get '/fans',         to: 'users_center#fans'
-    get '/follow',       to: 'users_center#follow'
+    get '/my_favorite',             to: 'users_center#my_favorite'
+    get '/my_share',                to: 'users_center#my_share'
+    get '/my_promotion',            to: 'users_center#my_promotion'
+    get '/follows',                 to: 'users_center#follows'
+    get '/fans',                    to: 'users_center#fans'
+    get '/my_profile',              to: 'users_center#profile'
+    get '/his_favorite/:userid',    to: 'users_center#his_favorite',  as: :his_favorite
+    get '/his_promotion/:userid',   to: 'users_center#his_promotion', as: :his_promotion
+    get '/his_share/:userid',       to: 'users_center#his_share',     as: :his_share
+    get '/his_info/:userid',        to: 'users_center#his_info',      as: :his_info
+    get '/his_profile/:userid',     to: 'users_center#his_profile',      as: :his_profile
+    post '/follow/:id',             to: 'users_center#follow',        as: :follow
+    post '/unfollow/:id',           to: 'users_center#unfollow',      as: :unfollow
+    get  '/about',                  to: 'about#index',                as: :about
+    get  '/feedback',               to: 'about#feedback',             as: :feedback
+    post '/feedback',               to: 'about#create_feedback',      as: :create_feedback
+    get  '/my_comments',            to: 'comments#my_comments',       as: :my_comments
 
     resources :products, :only=>[:index, :show] do
       collection do
+        get :his_favorite_api, :path => :his_favorite_api
         get :my_favorite_api
         get :my_share_list_api
         get :list_api
+        get :list
         get :search_api
       end
+
+      member do
+        post :favor
+        post :unfavor
+        post :download_coupon
+        post :comment
+      end
     end
-    resources :promotions, :only=>[:index, :show]
+    resources :promotions, :only=>[:index, :show] do
+      collection do
+        get :get_list
+      end
+
+      member do
+        post :favor
+        post :unfavor
+        post :download_coupon
+        post :comment
+      end
+    end
 
     resources :stores, only: [:show]
 
@@ -196,19 +223,45 @@ IntimeService::Application.routes.draw do
         get :pay
       end
     end
-    resources :addresses, only: [:index, :create, :update, :destroy] do
-      collection do
-        get :supportshipments
-      end
-    end
-    resources :rmas, only: [:index, :new, :create, :show] do
+    resources :addresses, only: [:index, :create, :update, :destroy]
+    resources :rmas do
       collection do
         get :order_index
+      end
+    end
+
+    resources :coupons, only: [:index]
+
+    # 代金券
+    resources :vouchers, only: [:index] do
+      collection do
+        get  :exchange_info
+        get  :binding_card
+
+        post :bindcard
+      end
+    end
+
+    resources :storepromotions, only: [:index, :show] do
+      member do
+        post :exchange
+        post :amount
       end
     end
     # 个人中心
     get '/profile', to: 'profile#index'
     get '/profile/return_policy', to: 'profile#return_policy'
+    get '/profile/edit', to: 'profile#edit'
+    put '/profile/update', to: 'profile#update'
+
+    get '/supportshipments', to: 'environment#supportshipments'
+
+    # 前端测试用，正式上去前要删除
+    # FIXME
+    get '/orders_create', to: 'orders#create'
+    get '/addresses_update/:id', to: 'addresses#update'
+    get '/addresses_create', to: 'addresses#create'
+    get '/orders_computeamount', to: 'orders#computeamount'
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'

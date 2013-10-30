@@ -1,8 +1,9 @@
 <%= content_for :javascripts do -%>
-  <script src=<%= static_url("/js/space.js")%> ></script>
+  <script src="/js/space.js"></script>
 <% end -%>
 <%= render "nav"%>
 <div class="span9 main">
+  <%= render "user_info"%> 
 		<section class="portfolio">
 				<ul id="space_list" class="thumbnails tmode">
 				</ul>

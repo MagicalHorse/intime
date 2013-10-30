@@ -1,37 +1,50 @@
+<%= content_for :head_nav do -%>
+<ul class="nav">
+  <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+  <li class="title">我的粉丝</li>
+</ul>
+<% end -%>
+
 <div class="span9 main">
   <!-- follow -->
   <section class="portfolio">
   <ul class="thumbnails">
+    <% if @results.blank? %>
+      <p style="text-align:center;font-size: 16px;line-height:30px;">
+      怎么还没有丝粉？
+      </p>
+    <% else %>
+    <% @results.each do |result|%>
     <li class="fans">
     <div class="thumbnail">
-      <div> <a href="#" class="face"><img src="<%= static_url("temp/face.jpg")%>" alt="兔斯基爱吃肉" width="80" height="80"></a>
+      <div>
+        <a href="<%= front_his_info_path(result[:id])%>" class="face">
+          <img src="<%= result[:logo]%>" alt="<%= result[:nickname]%>" width="80" height="80">
+        </a>
         <ul class="info">
-          <li class="name"><i class="icon-star"></i><a href="#">兔斯基爱吃肉</a></li>
-          <li class="follow">
-          <a href="<%= front_follow_path %>">
-          <button type="button" class="btn btn-mini btn-danger"><i class="icon-plus icon-white"></i>关注</button>
-          <a/>
+          <li class="name"><i class="icon-star"></i>
+          <a href="<%= front_his_info_path(result[:id])%>">
+            <%= result[:nickname]%>
+          </a>
           </li>
-          <li class="atten"><span>关注20</span><span>粉丝99+</span><span>分享3</span></li>
+
+          <li class="follow">
+          <button type="button" class="btn btn-mini btn-danger">
+            <i class="icon-plus icon-white"></i>
+            <%= link_to raw("关注"), front_follow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
+          </button>
+          </li>
+
+          <li class="atten">
+          <span>关注<%= result[:liketotal]%></span>
+          <span>粉丝<%= result[:likedtotal]%></span>
+          <span>分享<%= result[:sharetotal]%></span></li>
         </ul>
       </div>
     </div>
     </li>
-
-    <li class="fans">
-    <div class="thumbnail">
-      <div> <a href="#" class="face"><img src="<%= static_url("temp/face.jpg")%>" alt="兔斯基爱吃肉" width="80" height="80"></a>
-        <ul class="info">
-          <li class="name"><i class="icon-star"></i><a href="#">兔斯基爱吃肉</a></li>
-          <li class="follow">
-          <button type="button" class="btn btn-mini btn-danger"><i class="icon-plus icon-white"></i>关注</button>
-          </li>
-          <li class="atten"><span>关注20</span><span>粉丝99+</span><span>分享3</span></li>
-        </ul>
-      </div>
-    </div>
-    </li>
-
+  <% end %>
+  <% end %>
   </ul>
   </section>
 </div>

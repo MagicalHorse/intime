@@ -3,6 +3,7 @@ var handler = null;
     var isLoading = false;
     var apiURL = 'http://stage.youhuiin.com/front/products/my_favorite_api.json'
     
+    
     // Prepare layout options.
     var options = {
       autoResize: true, // This will auto-update the layout when the browser window is resized.
@@ -69,7 +70,7 @@ var handler = null;
       for(; i<length; i++) {
          html+='<li>';
 						 html+='<div class="thumbnail">';
-							 html+='<div class="action"> <a href="promo.html" title="'+data.datas[i].title+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a> </div>';
+							 html+='<div class="action"> <a href="'+data.datas[i].url+'" title="'+data.datas[i].title+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a> </div>';
 						 html+='</div>';
 					 html+='</li>';
       }

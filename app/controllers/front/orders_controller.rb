@@ -27,7 +27,7 @@ class Front::OrdersController < Front::BaseController
       }
     end
 
-    render json: json
+    render json: json, callback: params[:callback]
   end
 
   def show
@@ -48,12 +48,13 @@ class Front::OrdersController < Front::BaseController
         result = API::Order.new(request, productid: params[:product_id])
         render_500 { result['message'] } and return unless result[:isSuccessful]
 
+        result[:data][:address] = API::Address.index(request, page: 1, pagesize: 1)[:data][:items][0]
         result[:data].delete(:dimension)
         result[:data][:salecolors].each_with_index do |color, index|
           resource = result[:data][:salecolors][index].delete(:resource)
           result[:data][:salecolors][index][:images_url] = resource.is_a?(Hash) ? middle_pic_url(resource) : ''
         end
-        render json: result
+        render json: result, callback: params[:callback]
       }
       format.html
     end
@@ -101,7 +102,7 @@ class Front::OrdersController < Front::BaseController
   #   message: '操作失败',                          // 提示信息
   # }
   def computeamount
-    render json: API::Order.computeamount(request, params.slice(:productid, :quantity))
+    render json: API::Order.computeamount(request, params.slice(:productid, :quantity)), callback: params[:callback]
   end
 
   def pay
@@ -141,28 +142,28 @@ class Front::OrdersController < Front::BaseController
     redirect_to front_order_path(params['out_trade_no'])
   end
 
-#  {
-#    products: [{
-#      productid: 977,
-#      desc: '',
-#      quantity: 1,
-#      properties: { sizevalueid: 534, sizevaluename: "蓝色", colorvalueid: 537, colorvaluename: "蓝色4"},
-#    }],
-#    needinvoice: 1,
-#    invoicetitle: '发票抬头',
-#    invoicedetail: '发票明细',
-#    memo: '订单备注',
-#    shippingaddress: {
-#      shippingcontactperson: "vg",
-#      shippingcontactphone:"1352400000",
-#      shippingzipcode: "200184",
-#      shippingaddress: "上海市长宁区什么路"
-#    },
-#    payment: {
-#      paymentcode: "1001",
-#      paymentname: "货到付款"
-#    }
-#  }
+# ORDER = {
+#   products: [{
+#     productid: 977,
+#     desc: '',
+#     quantity: 1,
+#     properties: { sizevalueid: 535, sizevaluename: "S", colorvalueid: 534, colorvaluename: "蓝色"},
+#   }],
+#   needinvoice: 1,
+#   invoicetitle: '发票抬头',
+#   invoicedetail: '发票明细',
+#   memo: '订单备注',
+#   shippingaddress: {
+#     shippingcontactperson: "vg",
+#     shippingcontactphone:"1352400000",
+#     shippingzipcode: "200184",
+#     shippingaddress: "上海市长宁区什么路"
+#   },
+#   payment: {
+#     paymentcode: "25",
+#     paymentname: "支付宝"
+#   }
+# }
 #
 #  {"data"=>
 #   {"orderno"=>"113101278125",

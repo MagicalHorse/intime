@@ -33,4 +33,40 @@ module ApplicationHelper
   def format_time(time)
     Time.parse(time).strftime('%Y-%m-%d %H:%M:%S') rescue nil
   end
+
+  def order_page?
+    params[:controller] == 'front/orders'
+  end
+
+  def rma_page?
+    params[:controller] == 'front/rmas'
+  end
+
+  def share_with_sina(item)
+    url = case
+          when item.is_a?(Stage::Promotion)
+            front_promotion_url(item.id)
+          when item.is_a?(Stage::Product)
+            front_product_url(item.id)
+          end
+
+    "http://service.weibo.com/share/share.php?url=#{url}&title=#{item.name}&pic="
+  end
+
+  def format_time_range(startdate, enddate)
+    [
+      startdate.to_time.strftime('%Y/%m/%d'),
+      enddate.to_time.strftime('%Y/%m/%d')
+    ].join('-')
+  end
+
+  def display_product_brand_name(brandname, brand2name)
+    if brandname.present? && brand2name.present?
+      h "#{brandname}(#{brand2name})"
+    elsif brandname.present?
+      h brandname
+    elsif brand2name.present?
+      h brand2name
+    end
+  end
 end

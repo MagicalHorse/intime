@@ -30,7 +30,7 @@
       <div class="navbar-inner">
         <div class="container">
           <div class="span3 logo">
-            <a class="brand" href="index.html"><img src="/images/logo_2x.png" alt="首页"></a>
+            <a class="brand" href="<%= root_url %>"><img src="/images/logo_2x.png" alt="首页"></a>
           </div>
           <!--/.logo-collapse -->
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -52,6 +52,11 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/common.js"></script>
     <script src="/js/scrolltopcontrol.js"></script>
+    <script src="/js/jquery.wookmark.js"></script>
+    <script src="/js/jquery.imagesloaded.js"></script>
+    <!--
+    <script src="/js/jquery.cookie.js"></script>
+    -->
     <%= yield :javascripts -%>
   </body>
 </html>

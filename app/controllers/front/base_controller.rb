@@ -1,6 +1,12 @@
+# encoding: utf-8
 class Front::BaseController < ApplicationController
   layout 'front'
   helper_method :current_user, :signed_in?
+  before_filter :update_current_user
+
+  # TODO
+  # 前端测试用，暂时加上
+  skip_before_filter :verify_authenticity_token
 
   def current_user
     @current_user ||= session[:current_user]
@@ -12,6 +18,7 @@ class Front::BaseController < ApplicationController
 
   def authenticate!
     return true if signed_in?
+    fake_current_user and return true
 
     if request.xhr?
       render json: { isSuccessful: false, message: 'no login', statusCode: 500 }
@@ -20,12 +27,15 @@ class Front::BaseController < ApplicationController
     end
   end
 
-  def update_user
-    result = API::Customer.show(request)
-    result[:data] ||= {}
-    result[:data][:access_token]  = current_user.access_token
-    result[:data][:refresh_token] = current_user.refresh_token
-    set_current_user(result[:data])
+  def update_current_user
+    if signed_in? && !request.xhr?
+      result = API::Customer.show(request)
+      result[:data] ||= {}
+      result[:data][:access_token]  = current_user.access_token
+      result[:data][:refresh_token] = current_user.refresh_token
+      set_current_user(result[:data])
+      logger.info("-----> update current_user #{current_user.attributes}")
+    end
   end
 
   def render_datas(datas, options = nil)
@@ -56,6 +66,31 @@ class Front::BaseController < ApplicationController
 
   def render_items(data, options = nil)
     render json: format_items(data, options), callback: params[:callback]
+  end
+
+  def fake_current_user
+    session[:current_user] = CurrentUser.new({
+      :email=>"",
+      :level=>1,
+      :nickie=>"银泰2013",
+      :id=>45,
+      :provider=>3,
+      :isbindcard=>nil,
+      :mobile=>"",
+      :avatar_url=>"",
+      :coupon_count=>0,
+      :point=>100,
+      :like_count=>0,
+      :fans_count=>0,
+      :favor_count=>0,
+      :access_token=>"FB2166296E70FC4693379C261E27ACF2",
+      :refresh_token=>"6383F262273FF94ECE79A07BE01BF86A",
+      :onlinecoupontotal=>0,
+      :offlinecoupontotal=>0
+    })
+    session[:user_token]   = 'g1vS%2BfIPu1VcU9FBgoe5btrbCIco61HTzS56b9K2P8dlVsTwUjp5pkaIKtopaMXv'
+
+    set_login_cookie
   end
 
   protected
@@ -92,12 +127,18 @@ class Front::BaseController < ApplicationController
     @current_user = nil
     session[:current_user] = nil
     session[:user_token]   = nil
+
+    clear_login_cookie
+  end
+
+  def clear_login_cookie
+    cookies[:login] = nil
   end
 
   def set_login_cookie
     cookies[:login] = {
-      value:    @current_user.nickie,
-      domain:   '.intime.com.cn',
+      value:    current_user.nickie,
+      domain:   Settings.domain,
       path:     '/',
       expires:  Time.now.end_of_day
     }
