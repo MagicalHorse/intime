@@ -42,7 +42,7 @@ var handler = null;
         // Check if we're within 100 pixels of the bottom edge of the broser window.
         var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
         if(closeToBottom) {
-          loadData();
+          loadData(sourcetype,sourceid);
         }
       }
     };
@@ -65,11 +65,12 @@ var handler = null;
     function loadData() {
       isLoading = true;
       $('#loaderCircle').show();
-      
+	  //sourcetype = $sourcetype;
+      //sourceid = $sourceid;
       $.ajax({
         url: apiURL,
         dataType: 'jsonp',
-        data: {page: page}, // Page parameter to make sure we load new data
+        data: {page: page,sourcetype:sourcetype,sourceid:sourceid}, // Page parameter to make sure we load new data
         success: onLoadData
       });
     };
@@ -95,7 +96,7 @@ var handler = null;
 							html+='<div class="comment-body">';
 								html+='<div class="comment-header"><a class="user-name highlight" rel="nofollow" target="_blank">'+data.datas[i].customer.nickname+'</a></div>';
 								html+='<p>'+data.datas[i].content+'</p>';
-								html+='<div class="comment-footer comment-actions"><span class="time" datetime="2013-09-05T10:27:03+08:00" title="2013年9月5日 上午10:27:03">4小时前 - 2楼</span><a class="post-reply" href="javascript:void(0);"><span class="icon icon-reply"></span>回复</a></div>';
+								html+='<div class="comment-footer comment-actions"><span class="time" datetime="2013-09-05T10:27:03+08:00" title="2013年9月5日 上午10:27:03">'+data.datas[i].createTime+' - 2楼</span><a class="post-reply" href="javascript:void(0);"><span class="icon icon-reply"></span>回复</a></div>';
 							html+='</div>';
 						html+='</div>';
 						var c=0, leng =data.datas[i].comments.length;
@@ -121,12 +122,22 @@ var handler = null;
       // Apply layout.
       applyLayout();
     };
-  
+  function get_source(){
+	    var str =$('#promo_info').attr('info');
+	    var strs= new Array(); //定义一数组
+		strs=str.split(","); //字符分割      
+				//document.write(strs[i]+"<br/>");    //分割后的字符输
+				sourcetype = strs[0];
+				sourceid = strs[1];
+				//alert(sourcetype);
+				//alert(sourceid);
+	  }
     $(document).ready(new function() {
       // Capture scroll event.
       $(document).bind('scroll', onScroll);
-      
+      get_source();
       // Load first data from the API.
+<<<<<<< HEAD
       loadData();
 <<<<<<< HEAD
     });
@@ -244,3 +255,7 @@ var handler = null;
 =======
     });
 >>>>>>> update js and css
+=======
+      loadData(sourcetype,sourceid);
+    });
+>>>>>>> 更新js css
