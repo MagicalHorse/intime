@@ -180,6 +180,9 @@ text-align: center;}
 .thzc {
 	line-height:30px;
 }
+.thzc p{
+	line-height:1.8em;
+}
 .address .add{float:right;}
 .address .adds{ display:none;text-align:center;}
 /*  logistics.html 物流详情*/
@@ -821,6 +824,9 @@ float:none;
 .autoth .lh {
 padding-top: 6px;
 }
+/* prupdate.html */
+.prupdate .top #u1,
+.prupdate .top textarea{ width:auto;}
 }
 
 
