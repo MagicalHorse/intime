@@ -28,12 +28,14 @@
           </a>
           </li>
 
-          <li class="follow">
-          <button type="button" class="btn btn-mini btn-danger">
-            <i class="icon-plus icon-white"></i>
-            <%= link_to raw("关注"), front_follow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
-          </button>
-          </li>
+          <% if params["userid"].blank? %>
+            <li class="follow">
+            <button type="button" class="btn btn-mini btn-danger">
+              <i class="icon-plus icon-white"></i>
+              <%= link_to raw("关注"), front_follow_path(result[:id]), class: 'favor', remote: true, method: :post -%>
+            </button>
+            </li>
+          <% end %>
 
           <li class="atten">
           <span>关注<%= result[:liketotal]%></span>

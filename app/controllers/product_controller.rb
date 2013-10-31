@@ -85,6 +85,8 @@ class ProductController < ApplicationController
     topicid = params[:topicid]
     promotionid = params[:promotionid]
     storeid = params[:storeid]
+    sort_by = params[:sortby]
+    sort_by ||= 4
     #search the products
     prod = Product.search :per_page=>pagesize, :page=>pageindex do
           query do
@@ -114,10 +116,13 @@ class ProductController < ApplicationController
               }
             }
           end
-          sort {
-            by :sortOrder, 'desc'
-            by :createdDate, 'desc'
-          }
+          case sort_by.to_i
+          when 2 then sort {by :price,'desc'}
+          when 3 then sort {by :price}
+          when 4 then sort {by :sortOrder,'desc'}
+          else sort {by :createdDate,'desc'}
+          end
+          
     end
     # render request
     prods_hash = []       

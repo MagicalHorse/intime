@@ -118,4 +118,8 @@ class ApplicationController < ActionController::Base
     PIC_DOMAIN + name.to_s + '_320x0.jpg' if r.is_a?(::Hash)
   end
 
+  def default_product_pic_url
+    PIC_DOMAIN + "/product/default/default_320x0.jpg"
+  end
+
 end
