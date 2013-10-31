@@ -83,8 +83,8 @@ class Front::UsersCenterController < Front::BaseController
       info[:gender] = result["data"]["gender"]
       info[:desc]   = result["data"]["desc"]
       info[:mobile] = result["data"]["mobile"]
-      info[:follows] = result["data"]["liketotal"].present? ? result["data"]["liketotal"] : 0
-      info[:fans] =    result["data"]["likedtotal"].present? ? result["data"]["likedtotal"] : 0
+      info[:follows] = result["data"]["liketotal"].to_i
+      info[:fans] =    result["data"]["likedtotal"].to_i
     end
     info
   end
@@ -97,8 +97,9 @@ class Front::UsersCenterController < Front::BaseController
         level:      item["level"],
         logo:       href_of_avatar_url(gen_user_logo(item["logo"])),
         nickname:   item["nickname"],
-        liketotal:  item["liketotal"].present? ? item["liketotal"] : 0,
-        likedtotal: item["likedtotal"].present? ? item["likedtotal"]  : 0
+        liketotal:  item["liketotal"].to_i,
+        likedtotal: item["likedtotal"].to_i,
+        sharetotal: item["sharetotal"].to_i
       }
     result[:datas] = items
     end
