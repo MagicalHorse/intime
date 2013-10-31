@@ -12,10 +12,17 @@
     <ul class="thumbnails">
       <% if @vouchers.present? -%>
         <% @vouchers.each do |voucher| -%>
-          <li> <a href="cfxq.html">
-            <div class="thumbnail"> <span class="hdname">VIP回馈“礼”积点领取</span> <span class="yxdate">有效期:2013.04.18</span> <span class="dpname">礼券面额：<em>30元</em></span> <span class="yhm"><b>1322005123<em></em></b></span> </div>
+          <li> <a href="<%= front_voucher_path(voucher[:id]) -%>">
+            <div class="thumbnail">
+              <span class="hdname"><%= voucher[:promotion][:name] %></span>
+              <span class="yxdate">有效期:<%= format_time_range(voucher[:validstartdate], voucher[:validenddate]) -%></span>
+              <span class="dpname">礼券面额：<em><%= voucher[:amount] -%>元</em></span>
+              <span class="yhm"><b><%= voucher[:code] -%><em></em></b></span>
+            </div>
           </a> </li>
         <% end -%>
+
+        <%= paginate @vouchers -%>
       <% else -%>
         <p style="text-align:center;font-size: 16px;line-height:30px;">
         暂无兑换券

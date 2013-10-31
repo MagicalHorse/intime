@@ -15,7 +15,7 @@
 <% end -%>
 <div class="span9 main">
   <!-- 促销信息 -->
-  <section class="promo_info">
+  <section class="promo_info" info='<%= "2,#{@promotion.id}" -%>'>
   <section id="picbox" class="royalSlider">
     <%= @promotion.image_urls(640).each do |image| -%>
       <div class="rsContent"><img class="rsImg" src="<%= image -%>" alt="" /></div>

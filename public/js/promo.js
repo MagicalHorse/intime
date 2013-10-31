@@ -23,7 +23,7 @@ $('#picbox').royalSlider({
 var handler = null;
     var page = 1;
     var isLoading = false;
-    var apiURL = 'http://stage.youhuiin.com/comment/get_list.json'
+    var apiURL = 'http://stage.youhuiin.com/front/comments/get_list.json'
     
     // Prepare layout options.
     var options = {
@@ -123,7 +123,7 @@ var handler = null;
       applyLayout();
     };
   function get_source(){
-	    var str =$('#promo_info').attr('info');
+	    var str =$('.promo_info').attr('info');
 	    var strs= new Array(); //定义一数组
 		strs=str.split(","); //字符分割      
 				//document.write(strs[i]+"<br/>");    //分割后的字符输
@@ -257,5 +257,9 @@ var handler = null;
 >>>>>>> update js and css
 =======
       loadData(sourcetype,sourceid);
+<<<<<<< HEAD
     });
 >>>>>>> 更新js css
+=======
+    });
+>>>>>>> 完善页面展示

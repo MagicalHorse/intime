@@ -50,13 +50,24 @@ module ApplicationHelper
             front_product_url(item.id)
           end
 
-    "http://service.weibo.com/share/share.php?url=#{url}&title=#{item.name}&pic="
+    "http://service.weibo.com/share/share.php?url=#{url}&title=#{item.name}&pic=#{item.image_urls[0]}"
+  end
+
+  def share_with_tengxun(item)
+    url = case
+          when item.is_a?(Stage::Promotion)
+            front_promotion_url(item.id)
+          when item.is_a?(Stage::Product)
+            front_product_url(item.id)
+          end
+
+    "http://share.v.t.qq.com/index.php?c=share&a=index&title=#{item.name}&url=#{url}&pic=#{item.image_urls[0]}"
   end
 
   def format_time_range(startdate, enddate)
     [
-      startdate.to_time.strftime('%Y/%m/%d'),
-      enddate.to_time.strftime('%Y/%m/%d')
+      startdate.to_time.strftime('%Y.%m.%d'),
+      enddate.to_time.strftime('%Y.%m.%d')
     ].join('-')
   end
 
