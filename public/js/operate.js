@@ -1,18 +1,14 @@
 // 主要是详情页的喜欢、优惠码、评论、分享
 $(document).ready(new function() {
-  /**
-  function reloadWithoutLogin(){
-    if($.cookie('login') == null){
-      window.location.replace("/login?return_to="+$(location).attr('href'))
-    }
-  }
-  $('.func .favor').click(function(){
-    reloadWithoutLogin();
+  
+  $('.func .favor').on('ajax:beforeSend', function(){
+    $(this).html('<img alt="Icon_hearts_2x" height="24" src="/images/icon_hearts_2x.png" width="24"><span>取消</span>')
   })
-  $('.func .unfavor').click(function(){
-    reloadWithoutLogin();
+  $('.func .unfavor').on('ajax:beforeSend', function(){
+    $(this).html('<img alt="Icon_heart_2x" height="24" src="/images/icon_heart_2x.png" width="24"><span>喜欢</span>')
   })
 
+  /**
   $('#show_comment').click(function(){
     reloadWithoutLogin();
     $('#post').modal('show');
@@ -22,9 +18,10 @@ $(document).ready(new function() {
     //$(this).attr('disabled', true);
   })
   **/
+
   $('#points').change(function(){
     curVal = $(this).val();
-    defaultVal = $(this).attr('placeholder');
+    defaultVal = $(this).attr('amount');
     if(($('.currentScore').html() - curVal) < 0){
       alert('兑换积点需大于最小积点限制');
     }else{
@@ -36,7 +33,7 @@ $(document).ready(new function() {
 
   $('#exchange').click(function(){
     score = $('#points').val();
-    unitScore = $('#points').attr('placeholder');
+    unitScore = $('#points').attr('amount');
     if($('select[name=storeid]').val()=='0'){
       alert('请选择使用门店');
       return false;

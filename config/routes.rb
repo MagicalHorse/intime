@@ -233,7 +233,7 @@ IntimeService::Application.routes.draw do
     resources :coupons, only: [:index]
 
     # 代金券
-    resources :vouchers, only: [:index] do
+    resources :vouchers, only: [:index, :show] do
       collection do
         get  :exchange_info
         get  :binding_card

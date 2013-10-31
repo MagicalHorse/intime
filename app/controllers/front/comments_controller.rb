@@ -9,7 +9,9 @@ class Front::CommentsController < Front::BaseController
     if params[:sourceid].to_i == 0
       render_items({})
     else
-      comments = API::Comment.index(request, params.slice(:sourceid, :sourcetype, :page, :pagesize))
+      options = {page: 1, pagesize: 10}.merge(params.slice(:page, :pagesize, :sourceid, :sourcetype))
+
+      comments = API::Comment.index(request, options)
 
       render_items((comments['data'].present? ? handle_items(comments['data']) : {}), 'comments')
     end
@@ -46,7 +48,8 @@ class Front::CommentsController < Front::BaseController
           nick_name: _comment['customer']['nick_name'],
           logo: _comment['customer']['logo'],
           url: ''
-        }
+        },
+        comments: []
       }
 
       _result

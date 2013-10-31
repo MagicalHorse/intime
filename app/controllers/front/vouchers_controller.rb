@@ -7,7 +7,7 @@ class Front::VouchersController < Front::BaseController
     @news_vouchers    = API::Voucher.index(request, params.slice(:page).merge(type: 2, pagesize: 20))['data']
     @expire_vouchers  = API::Voucher.index(request, params.slice(:page).merge(type: 3, pagesize: 20))['data']
 
-    @vouchers = case params[:type]
+    @vouchers = case params[:type].to_i
                 when 2
                   @news_vouchers
                 when 3
@@ -20,6 +20,10 @@ class Front::VouchersController < Front::BaseController
       @vouchers[:items],
       total_count: @vouchers[:totalcount].to_i
     ).page(@vouchers[:pageindex]).per(@vouchers[:pagesize])
+  end
+
+  def show
+    @voucher = API::Voucher.show(request, id: params[:id])
   end
 
   def exchange_info
