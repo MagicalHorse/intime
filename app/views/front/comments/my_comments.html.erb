@@ -17,7 +17,7 @@
           <li class="post">
           <a href="<%= href_of_comment_item(comment) -%>">
             <div class="post-self">
-              <div class="avatar"><img src="<%= comment[:commentuser][:logo] -%>" alt="<%= comment[:commentuser][:nickname] -%>"></div>
+              <div class="avatar"><img src="<%= href_of_avatar_url comment[:commentuser][:logo] -%>" alt="<%= comment[:commentuser][:nickname] -%>"></div>
               <div class="comment-body">
                 <div class="comment-header"><span class="user-name highlight"><%= comment[:commentuser][:nickname] -%></span></div>
                 <p><%= comment[:content] -%></p>
