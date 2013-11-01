@@ -7,7 +7,7 @@
 <% end %>
 <div class="span9 main">
   <%= render 'front/message' %>
-  <div class="Logistics_query">
+  <div class="Logistics_query autoth">
     <% if @orders.present? %>
       <% @orders.each do |order| %>
         <%= render partial: 'front/orders/order', locals: { order: order } %>
