@@ -71,7 +71,7 @@
 </style>
 <section class="loger">
 <div class="relative">
-  <div class="photo"><a href="<%= front_his_profile_path(@info[:id]) %>"><img src="<%= @info[:logo]%>"></a></div>
+  <div class="photo"><a href="<%= front_his_profile_path(@info[:id]) %>"><img src="<%= href_of_avatar_url @info[:logo]%>"></a></div>
   <div class="tools"> <span><%= @info[:name]%>
     <em><%= link_to "关注", front_follow_path(@info[:id]), remote: true, method: :post, id: 'follow' -%></em></span></div>
   <div class="clearfix"></div>

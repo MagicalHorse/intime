@@ -144,10 +144,10 @@ class Front::OrdersController < Front::BaseController
 
 # ORDER = {
 #   products: [{
-#     productid: 977,
+#     productid: 487927,
 #     desc: '',
 #     quantity: 1,
-#     properties: { sizevalueid: 535, sizevaluename: "S", colorvalueid: 534, colorvaluename: "蓝色"},
+#     properties: { sizevalueid: 141069, sizevaluename: "180/105 XXL", colorvalueid: 141068, colorvaluename: "01"},
 #   }],
 #   needinvoice: 1,
 #   invoicetitle: '发票抬头',
