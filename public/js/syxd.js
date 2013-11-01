@@ -10,8 +10,8 @@
 		}
    function load_syxd(){
 	             $.ajax({
-						 url:'select.php',
-						 dataType:'json',
+						 url:'http://stage.youhuiin.com/front/supportshipments.json',
+						 dataType:'jsonp',
 						 async:true,
 						 success:function(data){
 							 mm = data.datas;
@@ -29,7 +29,6 @@
 										 var ci = mm[i].items;
 										 var j =0,length =ci.length;
 										 for(; j<length; j++) {
-											 //alert(mm[i].items[j].cityname);
 											 $("#cheng_syxd").append("<option value='"+mm[i].items[j].cityid+"'>"+mm[i].items[j].cityname+"</option>");
 											 }
 										 
@@ -45,7 +44,6 @@
 											 if(mm[i].items[j].cityid==c){
 												 var q=0,leg=mm[i].items[j].items.length;
 												  for(;q<leg;q++){
-													  //alert(mm[i].items[j].items[q].districtname);
 													  $("#qusyxd").append("<option value='"+mm[i].items[j].items[q].districtid+"'>"+mm[i].items[j].items[q].districtname+"</option>");
 													  }
 												 }

@@ -2110,6 +2110,15 @@ padding: 0px!important;
  padding: 0;
  height: auto;
 }
+.addorder .thzq .alter .accordion-group #alter01 .conbox span,
+.addorder .thzq .alter .accordion-group #add01 .conbox span,
+.addorder .thzq .alter .accordion-group #add02 .conbox span {width: 60px!important;}
+.addorder .thzq .alter .accordion-group .conbox input[type="text"]{width: auto;}
+.addorder select{
+	width:auto;
+	height:30px;
+	line-height:30px;
+}
 }
 #loader {
   height: 16px;
