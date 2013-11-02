@@ -4,7 +4,7 @@ module Front::RmasHelper
   def reason_options(reasons)
     reasons.map do |reason|
       [reason['reason'], reason['id']]
-    end.unshift(['请选择退货理由', ''])
+    end.unshift(['请选择退货理由', '']).push(['其他', 'other'])
   end
 
   def can_display_address?(status)
