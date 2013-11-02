@@ -1,7 +1,7 @@
 <%= content_for :head_nav do %>
   <ul class="nav">
     <li><a href="<%= front_rmas_path %>"><i class="icon-undo"></i></a></li>
-    <li class="title">退货记录</li>
+    <li class="title">退货单号：<%= @rma['rmano'] %></li>
   </ul>
 <% end %>
 <div class="span9 main">
