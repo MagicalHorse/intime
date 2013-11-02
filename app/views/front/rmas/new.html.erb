@@ -29,7 +29,7 @@
         <div class="item_tit bt thzq"><span>退货理由：</span>
           <%= f.select :rmareason, reason_options(@reasons) %>
           <br>
-          <%= f.text_area :reason, style: 'width:90%; height:6em;', placeholder: '请填写退货理由' %>
+          <%= f.text_area :reason, style: 'width: 90%; height: 6em; display: none;', placeholder: '请填写退货理由' %>
         </div>
         <p style="text-align:center;">
           <%= f.submit '提交审核', class: 'btn btn-danger', disable_with: '提交中...' %>
