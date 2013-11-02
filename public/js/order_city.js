@@ -10,15 +10,15 @@
 		}
    function city(){
 	             $.ajax({
-						 url:'select.php',
-						 dataType:'json',
+						 url:'http://stage.youhuiin.com/front/supportshipments.json',
+						 dataType:'jsonp',
 						 async:true,
 						 success:function(data){
 							 mm = data.datas;
 							var i=0,length = data.datas.length;
-							 for(; i<length; i++) {
+							for(; i<length; i++) {
 									 $("#province").append("<option value='"+data.datas[i].provinceid+"'>"+data.datas[i].provincename+"</option>");
-									 }
+									}
 						}
 					});
 	   }
@@ -29,7 +29,6 @@
 										 var ci = mm[i].items;
 										 var j =0,length =ci.length;
 										 for(; j<length; j++) {
-											 //alert(mm[i].items[j].cityname);
 											 $("#city").append("<option value='"+mm[i].items[j].cityid+"'>"+mm[i].items[j].cityname+"</option>");
 											 }
 										 
@@ -45,7 +44,6 @@
 											 if(mm[i].items[j].cityid==c){
 												 var q=0,leg=mm[i].items[j].items.length;
 												  for(;q<leg;q++){
-													  //alert(mm[i].items[j].items[q].districtname);
 													  $("#county").append("<option value='"+mm[i].items[j].items[q].districtid+"'>"+mm[i].items[j].items[q].districtname+"</option>");
 													  }
 												 }

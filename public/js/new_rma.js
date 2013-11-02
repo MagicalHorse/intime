@@ -5,4 +5,11 @@ $(document).ready(new function() {
     else
       $('#failed').modal('show');
   });
+
+  $('select#rma_rmareason').on('change', function() {
+    if ($('#rma_rmareason').val() == 'other')
+      $('#rma_reason').show();
+    else
+      $('#rma_reason').hide();
+  });
 });
