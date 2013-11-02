@@ -21,12 +21,14 @@
       </div>
       <div class="item_tit bt"><span>退货金额小计：</span><strong><b>￥<%= @rma['rmaamount'] %></b></strong></div>
       <div class="item_tit bt"><span>退货理由：</span><%= @rma['reason'] %></div>
-      <div class="item_tit bt thzq"><span>退货单号：</span><%= @rma['rmano'] %>
+      <div class="item_tit bb bt"><span>退货单号：</span><%= @rma['rmano'] %>
+      <% if @rma['logs'].present? %>
         <ul>
-          <% (@rma['logs'] || []).each do |log| %>
+          <% @rma['logs'].each do |log| %>
             <li><span><%= format_time(log['createddate']) %></span><br><%= log['memo'] %></li>
           <% end %>
         </ul>
+      <% end %>
       </div>
       <% if false %>
         <h5>退货信息</h5>
