@@ -245,6 +245,10 @@ IntimeService::Application.routes.draw do
 
         post :bindcard
       end
+
+      member do
+        post :void
+      end
     end
 
     resources :storepromotions, only: [:index, :show] do
