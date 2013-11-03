@@ -3,9 +3,11 @@ $(document).ready(new function() {
   
   $('.func .favor').on('ajax:beforeSend', function(){
     $(this).html('<img alt="Icon_hearts_2x" height="24" src="/images/icon_hearts_2x.png" width="24"><span>取消</span>')
+    $('.code .likecount').html(parseInt($('.code .likecount').html()) + 1)
   })
   $('.func .unfavor').on('ajax:beforeSend', function(){
     $(this).html('<img alt="Icon_heart_2x" height="24" src="/images/icon_heart_2x.png" width="24"><span>喜欢</span>')
+    $('.code .downcount').html(parseInt($('.code .downcount').html()) - 1)
   })
 
   /**

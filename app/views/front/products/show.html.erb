@@ -10,6 +10,7 @@
 <%= content_for :head_nav do -%>
   <ul class="nav">
     <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">商品介绍</li>
   </ul>
 <% end -%>
 <div class="span9 main">
@@ -22,9 +23,9 @@
 
     <div class="infobox">
       <%= render 'head', product: @product -%>
-      
+
       <%= render 'recomment_user', product: @product -%>
-      
+
       <div class="loca">
         <span><i class="icon_location"></i>
           <a href="<%= front_store_path(@product.store.id) -%>"><%= @product.store.name -%><small></small></a>
