@@ -29,6 +29,7 @@ $('#banner').royalSlider({
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     var apiURL = 'http://stage.youhuiin.com/promotion/get_list.json'
 =======
     var apiURL = 'http://stage.youhuiin.com/front/promotions/get_list.json'
@@ -48,6 +49,9 @@ $('#banner').royalSlider({
 =======
     var apiURL = 'http://stage.youhuiin.com/promotion/get_list.json'
 >>>>>>> 提交订单页
+=======
+    var apiURL = 'http://stage.youhuiin.com/front/promotions/get_list.json'
+>>>>>>> fix bug
     
     // Prepare layout options.
     var options = {
@@ -115,11 +119,12 @@ $('#banner').royalSlider({
         if(sort==1){
 			html+='<li>';
 							html+='<div class="thumbnail">';
-								html+='<h3><i class="icon_title"></i><a href="promo.html" title="">'+data.datas[i].title+'</a></h3>';
-								html+='<div class="action"> <a href="promo.html"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+								html+='<h3><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
 								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -141,14 +146,18 @@ $('#banner').royalSlider({
 =======
 								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 >>>>>>> 提交订单页
+=======
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+>>>>>>> fix bug
 						html+='</li>';
 		}else if(sort==2) {
 			html+='<li>';
 							html+='<div class="thumbnail">';
 								html+='<h3 class="time">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
-								html+='<div class="action"> <a href="#"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -181,15 +190,20 @@ $('#banner').royalSlider({
 								html+='<h3 class="bottom"><i class="icon_title"></i><a href="#" title="">'+data.datas[i].title+'</a></h3>';
 								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 >>>>>>> 提交订单页
+=======
+								html+='<h3 class="bottom"><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+>>>>>>> fix bug
 						html+='</li>';
 		} else if(sort==3) {
 			html+='<li>';
 							html+='<div class="thumbnail">';
-								html+='<h3><i class="icon_title"></i><a href="promo.html" title="">'+data.datas[i].title+'</a></h3>';
-								html+='<div class="action"> <a href="promo.html"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+								html+='<h3><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
 								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -211,6 +225,9 @@ $('#banner').royalSlider({
 =======
 								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 >>>>>>> 提交订单页
+=======
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+>>>>>>> fix bug
 						html+='</li>';
 			}
       }
@@ -236,6 +253,7 @@ $('#banner').royalSlider({
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     });
 =======
     });
@@ -252,3 +270,6 @@ $('#banner').royalSlider({
 =======
     });
 >>>>>>> 提交订单页
+=======
+    });
+>>>>>>> fix bug

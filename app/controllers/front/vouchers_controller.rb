@@ -32,6 +32,7 @@ class Front::VouchersController < Front::BaseController
   end
 
   def binding_card
+    redirect_to exchange_info_front_vouchers_path if current_user.isbindcard
   end
 
   def bindcard

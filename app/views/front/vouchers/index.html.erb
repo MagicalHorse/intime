@@ -1,6 +1,6 @@
 <%= content_for :head_nav do -%>
   <ul class="nav">
-    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li><a href="<%= front_my_favorite_path -%>"><i class="icon-undo"></i></a></li>
     <li><a href="<%= front_vouchers_path(type: 1) -%>" id="recently">未使用<span class="ycmenu">的兑换券(<%= @recent_vouchers['totalpaged'] -%>)</span></a></li>
     <li><a href="<%= front_vouchers_path(type: 2) -%>" id="news">已使用<span class="ycmenu">的兑换券(<%= @news_vouchers['totalpaged'] -%>)</span></a></li>
     <li><a href="<%= front_vouchers_path(type: 3) -%>" id="future">已过期<span class="ycmenu">的兑换券(<%= @expire_vouchers['totalpaged'] -%>)</span></a></li>
