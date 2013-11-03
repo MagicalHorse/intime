@@ -1,7 +1,11 @@
 module ApplicationHelper
 
   def small_pic_url(r)
-    PIC_DOMAIN + r[:name].to_s + '_120x0.jpg' if r.is_a?(::Hash)
+    if r.is_a?(::Hash) && (name = r[:name] || r['name']).present?
+      PIC_DOMAIN + name.to_s + '_120x0.jpg'
+    else
+      Settings.default_image_url.product.small
+    end
   end
 
   def large_pic_url(r)

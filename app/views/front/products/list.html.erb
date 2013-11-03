@@ -37,7 +37,7 @@
         <dt>热门品牌</dt>
         <% @hotwords[:brandwords] && @hotwords[:brandwords].each do |brand| %>
           <dd role="presentation">
-          <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('brand',<%= brand[:id]%>);">
+          <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('brand',<%= brand["id"]%>);">
             <%= brand["name"] %>
           </a>
           </dd>
