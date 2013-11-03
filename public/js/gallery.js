@@ -7,7 +7,7 @@
       var options = {
         autoResize: true, // This will auto-update the layout when the browser window is resized.
         container: $('#tiles'), // Optional, used for some extra CSS styling
-        offset: 5, // Optional, the distance between grid items
+        offset: 15, // Optional, the distance between grid items
         //itemWidth: 210 // Optional, the width of a grid item
       };
 
@@ -75,14 +75,19 @@
         // Create HTML for the images.
         var html = '';
         var i=0, length=data.datas.length;
-        for(; i<length; i++) {
-			//alert(data.datas[i].imageUrl);
+        if(length==0){
+        	html='<p style="text-align:center;font-size: 16px;line-height:30px;">非常抱歉，暂时还没有人分享过此类商品!</p>';
+        	}else {
+        	for(; i<length; i++) {
+			//alert(data.datas[i].flag);
            html+='<li>';
 						html+='<div class="thumbnail">';
 							html+='<div class="action">';
 								html+='<!--优惠-->';
-								html+='<span class="discount">优惠</span>';
-								html+='<span class="triangle"></span>';
+								if(data.datas[i].flag.toString()=="true"){
+									html+='<span class="discount">优惠</span>';
+									html+='<span class="triangle"></span>';
+									} 
 								html+='<!--优惠-->';
 								html+='<a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].title+'"></a>';
 								html+='<span class="like"><i class="icon-heart icon-white"></i>'+data.datas[i].likeCount+'+</span>';
@@ -92,7 +97,9 @@
 						html+='</div>';
 					html+='</li>';
         }
-
+        	
+        	};
+        		
         // Add image HTML to the page.
         $('#tiles').append(html);
 

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def href_of_avatar_url(avatar_url)
-    avatar_url.present? ? avatar_url : CurrentUser::DEFAULT_AVATAR_URL
+    avatar_url.present? ? avatar_url : Settings.default_image_url.user
   end
 
   protected
@@ -114,12 +114,14 @@ class ApplicationController < ActionController::Base
   end
 
   def middle_pic_url(r)
-    name = r[:name] || r["name"]
-    PIC_DOMAIN + name.to_s + '_320x0.jpg' if r.is_a?(::Hash)
+    if r.is_a?(::Hash) && (name = r[:name] || r['name']).present?
+      PIC_DOMAIN + name.to_s + '_320x0.jpg'
+    else
+      Settings.default_image_url.product.middle
+    end
   end
 
   def default_product_pic_url
-    PIC_DOMAIN + "/product/default/default_320x0.jpg"
+    Settings.default_image_url.product._320
   end
-
 end
