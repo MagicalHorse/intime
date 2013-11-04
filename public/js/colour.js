@@ -1,7 +1,26 @@
+		var getParam = function(name){
+        var search = document.location.search;
+        var pattern = new RegExp("[?&]"+name+"\=([^&]+)", "g");
+        var matcher = pattern.exec(search);
+        var items = null;
+        if(null != matcher){
+                try{
+                        items = decodeURIComponent(decodeURIComponent(matcher[1]));
+                }catch(e){
+                        try{
+                                items = decodeURIComponent(matcher[1]);
+                        }catch(e){
+                                items = matcher[1];
+                        }
+                }
+        }
+        return items;
+};
+ product_id = getParam('product_id');
 function product(){
 	             $.ajax({
-						 //type:"get",
-						 url:'http://stage.youhuiin.com/front/orders/new.json?product_id=487927',
+						 type:"post",
+						 url:'http://stage.youhuiin.com/front/orders/new.json?product_id='+product_id,
 						 //data:{'id':id},
 						 dataType:'jsonp',
 						 async:true,
@@ -42,7 +61,12 @@ function product(){
 						       $('#edit_address').val(data.data.address.displayaddress);
 						       $('#edit_code').val(data.data.address.shippingzipcode);
 						       $('#edit_phone').val(data.data.address.shippingphone);
-				               $('#addressid').val(data.data.address.id);
+						       $("#sheng option[value='"+data.data.address.shippingprovinceid+"']").attr("selected", "selected");
+						       $("#cheng").append("<option value='"+data.data.address.shippingcityid+"'>"+data.data.address.shippingcity+"</option>");
+						       $("#cheng option[value='"+data.data.address.shippingcityid+"']").attr("selected", "selected");
+						       $("#qu").append("<option value='"+data.data.address.shippingdistrictid+"'>"+data.data.address.shippingdistrict+"</option>");
+						       $("#qu option[value='"+data.data.address.shippingdistrictid+"']").attr("selected", "selected");
+				           $('#addressid').val(data.data.address.id);
 							   $('#huohao').html(data.data.skucode);
 							   var m=0,supportpayments =  data.data.supportpayments.length;
 							   for(; m<supportpayments; m++){
