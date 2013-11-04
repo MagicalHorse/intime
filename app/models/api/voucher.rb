@@ -7,7 +7,11 @@ module API
       end
 
       def show(req, params = {})
-        post(req, params.merge(path: 'storepromotion/detail'))
+        post(req, params.merge(path: 'storepromotioncoupon/detail'))
+      end
+
+      def void(req, params = {})
+        post(req, params.merge(path: 'storepromotioncoupon/void'))
       end
     end
   end
