@@ -174,9 +174,11 @@ class ProductController < ApplicationController
     page_index = (page_index_in.nil?)?1:page_index_in.to_i
     term = '' if term.nil?
     products =  Product.search :per_page=>page_size,:page=>page_index do    
+          min_score 1
          query do
-              match ['*.name','*.description','*.engname','*.recommendreason'], term
+              string term, {:fields=>['upcCode','name','description','brand.name','brand.engname','recommendreason'],:minimum_should_match=>'75%'}
               match :status,1
+
             end
           end
     prods_hash = []       
