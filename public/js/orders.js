@@ -1,3 +1,22 @@
+ 		var getParam = function(name){
+        var search = document.location.search;
+        var pattern = new RegExp("[?&]"+name+"\=([^&]+)", "g");
+        var matcher = pattern.exec(search);
+        var items = null;
+        if(null != matcher){
+                try{
+                        items = decodeURIComponent(decodeURIComponent(matcher[1]));
+                }catch(e){
+                        try{
+                                items = decodeURIComponent(matcher[1]);
+                        }catch(e){
+                                items = matcher[1];
+                        }
+                }
+        }
+        return items;
+};
+ product_id = getParam('product_id');
  function add_order(){
 	 // var goods_color = ('#goods_color').innerHTMLs;
 	  var goods_color = $("#goods_color").text();
@@ -28,7 +47,7 @@
 	address.shippingcontactphone = shippingphone;//"收货联系电话";
 	address.shippingzipcode = shippingzipcode;//"收货地址邮编";
 	address.shippingaddress = displayaddress;//"收货地址";
-    product.productid="487927";
+    product.productid=product_id;
     product.desc="";//"商品描述";
 	 product.quantity = goods_num;//"商品数量";
 	 propertie.sizevalueid = sizeid;//"尺码主键";
@@ -59,11 +78,13 @@
 				 $("#order_id").html(data.data.order_no);
 				 $("#payment_name").html(data.data.payment_name);
 				 $("#payment").attr('href',data.data.payment_url); 
-				 $("#check_order").attr('href',data.data.order_url);
-			     $('#barcode012').collapse('show');
+				 $("#check_order").attr('href',data.data.order_url);      
+				  alert(data.message);
+				 // alert('ok');
+				  $('#barcode012').modal('show');
 				 } else {
-					 $('#barcode012').collapse('hide');
-					 alert(data.message);
+					$('#barcode012').modal('hide');
+					  alert(data.message);
 					 }
 				
 			}
@@ -158,7 +179,7 @@ $.ajax({
 						       $('#displayaddress').html(data.data.displayaddress); 
 						       $('#shippingzipcode').html(data.data.shippingzipcode); 
 						       $('#shippingphone').html(data.data.shippingphone);
-							   //alert(data.message);
+							   alert(data.message);
 							   $('#add01').collapse('hide');
 							} else {
 								alert(data.message);
@@ -208,6 +229,11 @@ $.ajax({
 						       $('#displayaddress').html(data.data.displayaddress); 
 						       $('#shippingzipcode').html(data.data.shippingzipcode); 
 						       $('#shippingphone').html(data.data.shippingphone);
+						      
+						       $('#edit_user').html(data.data.shippingperson);
+						       $('#edit_address').html(data.data.displayaddress);
+						       $('#edit_code').html(data.data.shippingzipcode);
+						       $('#edit_phone').html(data.data.shippingphone);
 							   $('#alter01').collapse('hide');
 							   alert(data.message);
 							} else {
