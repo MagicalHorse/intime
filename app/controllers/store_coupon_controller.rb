@@ -40,8 +40,10 @@ class StoreCouponController < ApiBaseController
     return render :json=> error_used_msg if (exist_coupon && [10,-1].include?(exist_coupon.status.to_i))
     
     # void coupon
+    if exist_coupon
      exist_coupon.status = -1
      exist_coupon.save
+    end
 
     render :json=>{:isSuccessful=>true,
       :message =>'success',
