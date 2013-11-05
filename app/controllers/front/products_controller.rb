@@ -42,6 +42,9 @@ class Front::ProductsController < Front::BaseController
     @all_brands = @brands.values.flatten 
   end
 
+  def sort_list
+  end
+
   def get_group_brands(brands)
     result = {}
     ('A'..'Z').to_a.each do |character|
@@ -128,6 +131,10 @@ class Front::ProductsController < Front::BaseController
       options[:storeid]  = entity_id
     elsif type =='sortby' 
       options[:sortby] = entity_id
+    elsif type == 'promotionid'
+      options[:promotionid] = entity_id
+    elsif type == 'specialid'
+      options[:specialid] = entity_id
     end
     options
   end
