@@ -122,6 +122,6 @@ class ApplicationController < ActionController::Base
   end
 
   def default_product_pic_url
-    Settings.default_image_url.product._320
+    Settings.default_image_url.product.middle
   end
 end
