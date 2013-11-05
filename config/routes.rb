@@ -180,6 +180,7 @@ IntimeService::Application.routes.draw do
         get :his_favorite_api, :path => :his_favorite_api
         get :my_favorite_api
         get :my_share_list_api
+        get :sort_list
         get :list_api
         get :list
         get :search_api
