@@ -125,7 +125,7 @@ class Front::ProductsController < Front::BaseController
     elsif type == 'brand'
       options[:brandid]  = entity_id
     elsif type == 'store'
-      options[:storied]  = entity_id
+      options[:storeid]  = entity_id
     elsif type =='sortby' 
       options[:sortby] = entity_id
     end
