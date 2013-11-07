@@ -45,9 +45,9 @@ class Front::CommentsController < Front::BaseController
         floor: 1,
         customer: {
           id: _comment['customer']['id'],
-          nick_name: _comment['customer']['nick_name'],
-          logo: _comment['customer']['logo'],
-          url: ''
+          nickname: _comment['customer']['nickname'],
+          logo: href_of_avatar_url(_comment['customer']['logo']),
+          url: front_his_info_path(_comment['customer']['id'])
         },
         comments: []
       }

@@ -24,6 +24,10 @@ module Stage
         new(get(id)['data'])
       end
 
+      def availoperation(id, token)
+        get(:availoperations, promotionid: id, token: token)
+      end
+
     end
 
     def image_urls(size = 320)

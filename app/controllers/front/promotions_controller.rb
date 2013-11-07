@@ -4,6 +4,8 @@ class Front::PromotionsController < Front::BaseController
   def show
     @promotion = Stage::Promotion.fetch(params[:id])
     @store     = @promotion.store
+    #@comments  = API::Comment.index(request, page: 1, pagesize: 1, sourcetype: 2, sourceid: @promotion.id)[:data]
+    #@promotion_info = Stage::Promotion.availoperation(params[:id], token: request.session[:user_token])
   end
 
   def index

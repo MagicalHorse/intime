@@ -19,11 +19,8 @@ $('#banner').royalSlider({
 	transitionType:'move',//切换过渡类型	‘move’ 或 ‘fade’
 });
 
-      var handler = null,
-          page = 1,
-          isLoading = false,
-          apiURL = 'http://stage.youhuiin.com/promotion/get_list.json';
 
+<<<<<<< HEAD
 <<<<<<< HEAD
    var handler = null;
     var page = 1;
@@ -57,6 +54,12 @@ $('#banner').royalSlider({
 =======
     var apiURL = 'http://stage.youhuiin.com/front/promotions/get_list.json'
 >>>>>>> fix bug
+=======
+   var handler = null;
+    var page = 1;
+    var isLoading = false;
+    var apiURL = 'http://stage.youhuiin.com/front/promotions/get_list.json'
+>>>>>>> 调试促销详情页评论
     
     // Prepare layout options.
     var options = {
@@ -76,6 +79,7 @@ $('#banner').royalSlider({
         var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
         if(closeToBottom) {
           loadData(sort);
+<<<<<<< HEAD
 =======
       // Prepare layout options.
       var options = {
@@ -97,58 +101,62 @@ $('#banner').royalSlider({
             loadData(sort);
           }
 >>>>>>> update js and css
+=======
+>>>>>>> 调试促销详情页评论
         }
-      };
-
-      /**
-       * Refreshes the layout.
-       */
-      function applyLayout() {
-        options.container.imagesLoaded(function() {
-          // Create a new layout handler when images have loaded.
-          handler = $('#tiles li');
-          handler.wookmark(options);
-        });
-      };
-
-      /**
-       * Loads data from the API.
-       */
-      function loadData($type) {
-        isLoading = true;
-        $('#loaderCircle').show();
-        sort = $type;
-        $.ajax({
-          url: apiURL,
-          dataType: 'jsonp',
-          data: {page: page,sort:sort}, // Page parameter to make sure we load new data
-          success: onLoadData
-        });
-      };
-
-      /**
-       * Receives data from the API, creates HTML for images and updates the layout
-       */
-      function onLoadData(data) {
-        isLoading = false;
-        $('#loaderCircle').hide();
-
-        // Increment page index for future calls.
-        page++;
-
-        // Create HTML for the images.
-        var html = '';
-        var i=0, length=data.datas.length;
-				if(length!=0){
-					for(; i<length; i++) {
+      }
+    };
+    
+    /**
+     * Refreshes the layout.
+     */
+    function applyLayout() {
+      // Clear our previous layout handler.
+      if(handler) handler.wookmarkClear();
+      
+      // Create a new layout handler.
+      handler = $('#tiles li');
+      handler.wookmark(options);
+    };
+    
+    /**
+     * Loads data from the API.
+     */
+    function loadData($type) {
+      isLoading = true;
+      $('#loaderCircle').show();
+      sort = $type;
+      $.ajax({
+        url: apiURL,
+        dataType: 'jsonp',
+        data: {page: page,sort:sort}, // Page parameter to make sure we load new data
+        success: onLoadData
+      });
+    };
+    
+    /**
+     * Receives data from the API, creates HTML for images and updates the layout
+     */
+    function onLoadData(data) {
+      isLoading = false;
+      $('#loaderCircle').hide();
+      
+      // Increment page index for future calls.
+      page++;
+      
+      // Create HTML for the images.
+      var html = '';
+      var i=0, length=data.datas.length;
+      for(; i<length; i++) {
         if(sort==1){
 			html+='<li>';
 							html+='<div class="thumbnail">';
-								html+='<h3><i class="icon_title"></i><a href="promo.html" title="">'+data.datas[i].title+'</a></h3>';
-								html+='<div class="action"> <a href="promo.html"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+								html+='<h3><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
 								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -178,14 +186,18 @@ $('#banner').royalSlider({
 =======
 								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 >>>>>>> update js and css
+=======
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+>>>>>>> 调试促销详情页评论
 						html+='</li>';
 		}else if(sort==2) {
 			html+='<li>';
 							html+='<div class="thumbnail">';
 								html+='<h3 class="time">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
-								html+='<div class="action"> <a href="#"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -228,15 +240,20 @@ $('#banner').royalSlider({
 								html+='<h3 class="bottom"><i class="icon_title"></i><a href="#" title="">'+data.datas[i].title+'</a></h3>';
 								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 >>>>>>> update js and css
+=======
+								html+='<h3 class="bottom"><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+>>>>>>> 调试促销详情页评论
 						html+='</li>';
 		} else if(sort==3) {
 			html+='<li>';
 							html+='<div class="thumbnail">';
-								html+='<h3><i class="icon_title"></i><a href="promo.html" title="">'+data.datas[i].title+'</a></h3>';
-								html+='<div class="action"> <a href="promo.html"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+								html+='<h3><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
 									html+='<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 								html+='</div>';
 								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -266,28 +283,30 @@ $('#banner').royalSlider({
 =======
 								html+='<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
 >>>>>>> update js and css
+=======
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+>>>>>>> 调试促销详情页评论
 						html+='</li>';
 			}
       }
-					} else {
-						html ='<p style="text-align:center;font-size: 16px;line-height:30px;">更多精彩活动敬请期待！</p>';
-						}
-        // Add image HTML to the page.
-        $('#tiles').append(html);
-
-        // Apply layout.
-        applyLayout();
-      };
-	   function clears() {
+      
+      // Add image HTML to the page.
+      $('#tiles_lsit').append(html);
+      
+      // Apply layout.
+      applyLayout();
+    };
+    function clears() {
 		page =1;
-		$('#tiles').empty();
+		$('#tiles_lsit').empty();
 		}
-       $(document).ready(new function() {
+    $(document).ready(new function() {
       // Capture scroll event.
       $(document).bind('scroll', onScroll);
-
+      
       // Load first data from the API.
       loadData('3');
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -318,3 +337,6 @@ $('#banner').royalSlider({
 									  });
    
 >>>>>>> update js and css
+=======
+    });
+>>>>>>> 调试促销详情页评论
