@@ -1,3 +1,4 @@
+	<!---->
 		var getParam = function(name){
         var search = document.location.search;
         var pattern = new RegExp("[?&]"+name+"\=([^&]+)", "g");
@@ -17,11 +18,15 @@
         return items;
 };
  product_id = getParam('product_id');
+ <!--商品传递product_id显示对应商品信息-->
 function product(){
 	             $.ajax({
-						 type:"post",
+						 type:"get",
 						 url:'http://stage.youhuiin.com/front/orders/new.json?product_id='+product_id,
-						 //data:{'id':id},
+						 
+
+                         //测试用的product_id 测试成功 加入 product_id 替换 号码
+						
 						 dataType:'jsonp',
 						 async:true,
 						 success:function(data){
@@ -39,10 +44,10 @@ function product(){
 									 //alert(data.data.salecolors[i].colorname);
 									 //alert(le);
 									 if(i==0){
-									 	 $('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"' onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()) href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button>  ");
+									 	 $('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"' onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()) href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button> ");
 									 	 $('#sss').append("<div  class='prop mb20 tab-pane active in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺码</span></div>");
 									 	} else {
-									 		$('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"'  onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()) href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button>");
+									 		$('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"'  onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()) href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button> ");
 									 		$('#sss').append("<div class='prop mb20 tab-pane  in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺码</span></div>");
 									 		}
 										for(;j<le;j++){
@@ -74,11 +79,41 @@ function product(){
 								   }
 						}
 					});
+					
+						   get_jifen();
 	   }
    
   
   $(document).ready(function(){
   	               
 				           product();
+						 
 				          
 							 });
+							 
+	<!--积分获取-->
+function get_jifen(){
+	  var quantity = $("#goods_num").val();
+	           $.ajax({
+					     
+						 //type:"get",
+						 // //测试用的product_id 测试成功 加入 product_id 替换 号码
+						 url:'http://stage.youhuiin.com/front/orders_computeamount',
+						 data:{productid:product_id,quantity:quantity},
+						 dataType:'jsonp',
+						 async:true,
+						 success:function(data){
+							var check1 = data.isSuccessful.toString();
+						    var check2 ="true";
+						    if(check1==check2){
+								$("#kdf").html("+￥"+data.data.totalfee);
+								$("#jidian").html(data.data.totalpoints+"分");
+								$("#zj").html("￥"+data.data.totalamount);
+								$("#xfkx").html("￥"+data.data.extendprice);
+								} else {
+									alert(data.message);
+									}
+						}
+					});
+				
+	   }
