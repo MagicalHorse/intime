@@ -1,5 +1,5 @@
 <dd>
-  <a href="#" data-toggle="modal" id='show_comment'><img src="/images/icon_bubbles_2x.png" width="24" height="24"><span>评论</span></a>
+  <a href="#post" data-toggle="modal" id='show_comment'><img src="/images/icon_bubbles_2x.png" width="24" height="24"><span>评论</span></a>
 </dd>
 <div id="post" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="post" aria-hidden="false">
   <div class="modal-header">
@@ -12,7 +12,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-      <%= submit_tag '发布', class: 'btn btn-danger', id: 'comment' -%>
+      <%= submit_tag '发布', class: 'btn btn-danger', id: 'comment', disable_with: '发布中...' -%>
     </div>
   <% end -%>
 </div>

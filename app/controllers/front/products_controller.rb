@@ -1,6 +1,6 @@
 # encoding: utf-8
-class Front::ProductsController < Front::BaseController 
-
+class Front::ProductsController < Front::BaseController
+  before_filter :authenticate!, only: [:favor, :unfavor, :download_coupon, :comment]
 
   def show
     @product = Stage::Product.fetch(params[:id])
@@ -120,6 +120,12 @@ class Front::ProductsController < Front::BaseController
   end
 
   protected
+
+  def authenticate!
+    return true if signed_in?
+
+    render 'no_login.js.erb' and return
+  end
 
   def covert_options_for_search(type, entity_id)
     options = {}
