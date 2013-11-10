@@ -18,11 +18,15 @@
         return items;
 };
  product_id = getParam('product_id');
- //getParam('product_id');
+<!-- // product_id = getParam('product_id');
+ // product_id = getParam('product_id');-->
  <!--商品传递product_id显示对应商品信息-->
 function product(){
+	
 	             $.ajax({
+					 
 						 type:"get",
+						 
 						 url:'http://stage.youhuiin.com/front/orders/new.json?product_id='+product_id,
 						 
 
@@ -32,8 +36,9 @@ function product(){
 						 async:true,
 						 success:function(data){
 							var i=0,length = data.data.salecolors.length;
-							var len = data.data.address.length;
-							if(len==0){
+							var len = data.data.address.id;
+
+							if(len==null){
 								$('#no_address').show();
 								$('#have_adress').hide();
 								} else {
@@ -52,7 +57,7 @@ function product(){
 									 		$('#sss').append("<div class='prop mb20 tab-pane  in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺码</span></div>");
 									 		}
 										for(;j<le;j++){
-											$('#tab'+i).append("<button type='button' value='"+data.data.salecolors[i].sizes[j].sizeid+"' class='btn' onClick=$('#goods_size').text($(this).text()),$('#sizeid').val($(this).val())>"+data.data.salecolors[i].sizes[j].sizename+"</button>  ");
+											$('#tab'+i).append("<button type='button' value='"+data.data.salecolors[i].sizes[j].sizeid+"' class='btn' onClick=$('#goods_size').text($(this).text()),$('#sizeid').val($(this).val())>"+data.data.salecolors[i].sizes[j].sizename+"</button> ");
 											}
 									 }
 									 

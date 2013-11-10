@@ -105,9 +105,12 @@
 				  alert(data.message);
 				 
 				  $('#barcode012').modal('show');
+				  
 				 } else {
 					$('#barcode012').modal('hide');
+					
 					  alert(data.message);
+					  
 					 }
 				
 			}
@@ -151,7 +154,9 @@
 						var check2 ="true";
 						if(check1==check2){
 							$('#shippingperson').html(data.data.shippingperson);
-									 $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
+							
+							 $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
+							 
 						       $('#displayaddress').html(data.data.displayaddress); 
 						       $('#shippingzipcode').html(data.data.shippingzipcode); 
 						       $('#shippingphone').html(data.data.shippingphone);
@@ -261,8 +266,8 @@ $.ajax({
 						async:true,
 						success:function(data){
 							var check1 = data.isSuccessful.toString();
-						if(check1==check2){
 						var check2 ="true";
+						if(check1==check2){
 							$('#shippingperson').html(data.data.shippingperson);
 									 $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
 						       $('#displayaddress').html(data.data.displayaddress); 
