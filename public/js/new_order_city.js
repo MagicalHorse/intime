@@ -27,7 +27,8 @@
 							 mm = data.datas;
 							var i=0,length = data.datas.length;
 							
-													
+						
+							
 							 for(; i<length; i++) {
 								
 									 $("#sheng").append("<option value='"+data.datas[i].provinceid+"'>"+data.datas[i].provincename+"</option>");
