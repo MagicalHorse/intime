@@ -17,6 +17,7 @@
         return items;
 };
  product_id = getParam('product_id');
+ //getParam('product_id');
  
  function add_order(){
 
@@ -85,9 +86,8 @@
 		   rollback;
 		   }
 	
-alert("订单："+order);
-//http://stage.youhuiin.com/front/orders_create.json  
-//http://stage.youhuiin.com/front/orders
+
+
 	$.ajax({
 		type:"POST",
         url: 'http://stage.youhuiin.com/front/orders_create.json',
@@ -219,6 +219,9 @@ $.ajax({
 						}
 					});
 		  }
+		  
+		  
+		  
 		  function edit_address(){
 			var edit_user = $('#edit_user').val();
 				var shengid = $('#sheng').val();
@@ -232,7 +235,11 @@ $.ajax({
 		  	var edit_phone = $('#edit_phone').val();
 			var addressid = $('#addressid').val();
 			
+		
+			
 			var address = new Object();
+			
+			
 			
 		  	address.shippingperson = edit_user;
 		  	address.shippingphone = edit_phone;
@@ -254,8 +261,8 @@ $.ajax({
 						async:true,
 						success:function(data){
 							var check1 = data.isSuccessful.toString();
-						var check2 ="true";
 						if(check1==check2){
+						var check2 ="true";
 							$('#shippingperson').html(data.data.shippingperson);
 									 $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
 						       $('#displayaddress').html(data.data.displayaddress); 

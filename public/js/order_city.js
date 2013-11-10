@@ -1,6 +1,9 @@
+
+<!--  //未创建--添加使用新地址-->
    function empty_f(){
 	   $("#city").empty();
 	   $("#county").empty();
+	    
 	    $("#county").append("<option>请选择城市</option>");
 	    $("#city").append("<option>请选择城市</option>");
 	   }
@@ -9,6 +12,7 @@
 		  $("#county").append("<option>请选择城市</option>");
 		}
    function city(){
+	    
 	             $.ajax({
 						 url:'http://stage.youhuiin.com/front/supportshipments.json',
 						 dataType:'jsonp',
