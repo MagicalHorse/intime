@@ -1,14 +1,24 @@
+ 
+
+<!-- //修改地址-->
    function empty_sheng(){
 	   $("#cheng").empty();
 	   $("#qu").empty();
+	 
 	    $("#cheng").append("<option>请选择城市</option>");
-	    $("#qu").append("<option>请选择城市</option>");
+	    $("#qu").append("<option>请选择市区</option>");
 	   }
 	function empty_cheng(){
 		 $("#qu").empty();
-		  $("#qu").append("<option>请选择城市</option>");
+		  $("#qu").append("<option>请选择市区</option>");
 		}
+				
+ 
+ 
+<!-- //添加地址数据-->
+ 
    function load_city(){
+	    
 	             $.ajax({
 						 url:'http://stage.youhuiin.com/front/supportshipments.json',
 						 dataType:'jsonp',
@@ -16,12 +26,20 @@
 						 success:function(data){
 							 mm = data.datas;
 							var i=0,length = data.datas.length;
+							
+						
+							
 							 for(; i<length; i++) {
+								
 									 $("#sheng").append("<option value='"+data.datas[i].provinceid+"'>"+data.datas[i].provincename+"</option>");
+									 
+									 
 									 }
+								 
 						}
 					});
 	   }
+	   
   function sheng_change(b) {
 	        var i=0,length = mm.length,b=b;
 			for(; i<length; i++) {
