@@ -36,7 +36,7 @@ function product(){
 						 async:true,
 						 success:function(data){
 							var i=0,length = data.data.salecolors.length;
-							var len = data.data.address.id;
+							var len = data.data.address;
 
 							if(len==null){
 								$('#no_address').show();

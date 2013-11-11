@@ -2080,6 +2080,13 @@ margin: 0 10px;
 display: none;
 }
 
+.thumbnails > li {
+ display: block;
+ float: none;
+ width: 100%;
+ margin-left: 0;
+}
+
  .shop_detail {
 margin:0 10px 10px 10px;
 }
@@ -2094,12 +2101,7 @@ padding: 0px!important;
 }
 /*相应导航*/
 
-.thumbnails > li {
- display: block;
- float: none;
- width: 100%;
- margin-left: 0;
-}
+
 
 }
 
