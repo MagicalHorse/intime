@@ -74,6 +74,7 @@ function loadData() {
 
   $.ajax({
     url: apiURL,
+    dataType: 'jsonp',
     data: {page: page,sourcetype:sourcetype,sourceid:sourceid}, // Page parameter to make sure we load new data
     success: onLoadData
   });

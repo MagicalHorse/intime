@@ -1,5 +1,5 @@
 <dd>
-<% if @promotion_info['iscancoupon'] -%>
+<% if @promotion_info && @promotion_info['iscancoupon'] -%>
   <%= link_to raw("#{image_tag('/images/icon_barcode_2x.png', height: 24, width: 24)}<span>优惠码</span>"), download_coupon_front_promotion_path(promotion.id), remote: true, method: :post -%>
 <% else -%>
   <%= link_to raw("#{image_tag('/images/icon_barcode_2x.png', height: 24, width: 24)}<span>优惠码</span>"), '#'-%>
