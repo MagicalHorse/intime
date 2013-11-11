@@ -1,64 +1,51 @@
-      var handler = null,
+function clears(){
+	page = 1;
+	$('#tiles').empty();
+	//$('#tiles').masonry('reload');
+	$('#tiles').masonry('reloadItems');
+	}
+
+var handler = null,
           page = 1,
-          isLoading = false,
+          _isLoadingMore = false,
           apiURL = 'http://stage.youhuiin.com/front/products/list_api.json';
 
       // Prepare layout options.
-      var options = {
-        autoResize: true, // This will auto-update the layout when the browser window is resized.
-        container: $('#tiles'), // Optional, used for some extra CSS styling
-        offset: 15, // Optional, the distance between grid items
-        //itemWidth: 210 // Optional, the width of a grid item
-      };
+     var scrollContainer = $('#tiles').masonry();
+	 var msnry = scrollContainer.data('masonry');
 
-      /**
-       * When scrolled all the way to the bottom, add more tiles.
-       */
       function onScroll(event) {
         // Only check when we're not still waiting for data.
-        if(!isLoading) {
+        if(!_isLoadingMore) {
           // Check if we're within 100 pixels of the bottom edge of the broser window.
           var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
           if(closeToBottom) {
-            loadData(type,entity_id);
+            //loadData(sort);
+			loadData(type,entity_id);
           }
         }
       };
 
-      /**
-       * Refreshes the layout.
-       */
-      function applyLayout() {
-        options.container.imagesLoaded(function() {
-          // Create a new layout handler when images have loaded.
-          handler = $('#tiles li');
-          handler.wookmark(options);
-        });
-      };
-
-      /**
-       * Loads data from the API.
-       */
       function loadData($type,$entity_id) {
-        isLoading = true;
+        _isLoadingMore = true;
         $('#loaderCircle').show();
-        type = $type;
-		    entity_id = $entity_id;
-		    if(typeof(entity_id)=="undefined"){
-		    	   $.ajax({
-          url: 'http://stage.youhuiin.com/front/products/search_api.json',
-          dataType: 'jsonp',
-          data: {page: page,term:type}, // Page parameter to make sure we load new data
-          success: onLoadData
-        });
-		    	} else {
-		    		 $.ajax({
-          url: apiURL,
-          dataType: 'jsonp',
-          data: {page: page,type:type,entity_id:entity_id}, // Page parameter to make sure we load new data
-          success: onLoadData
-        });
-		    		}
+		type = $type;
+		entity_id = $entity_id;
+		if(typeof(entity_id)=="undefined"){
+					$.ajax({
+						  url: 'http://stage.youhuiin.com/front/products/search_api.json',
+						  dataType: 'jsonp',
+						  data: {page: page,term:type}, // Page parameter to make sure we load new data
+						  success: onLoadData
+					});
+			}else{
+					 $.ajax({
+					  url: apiURL,
+					  dataType: 'jsonp',
+					  data: {page: page,type:type,entity_id:entity_id}, // Page parameter to make sure we load new data
+					  success: onLoadData
+				     });	
+			}
         
       };
 
@@ -66,21 +53,24 @@
        * Receives data from the API, creates HTML for images and updates the layout
        */
       function onLoadData(data) {
-        isLoading = false;
+        _isLoadingMore = false;
         $('#loaderCircle').hide();
 
         // Increment page index for future calls.
         page++;
 
-        // Create HTML for the images.
-        var html = '';
-        var i=0, length=data.datas.length;
-        if(length==0){
-        	html='<p style="text-align:center;font-size: 16px;line-height:30px;">非常抱歉，暂时还没有人分享过此类商品!</p>';
-        	}else {
-        	for(; i<length; i++) {
-			//alert(data.datas[i].flag);
-           html+='<li>';
+          var i=0, length=data.datas.length;
+			var html = '';
+			if (length<=0)
+				return;
+				//alert(length);
+			var elems = [];
+			var fragment = document.createDocumentFragment();
+
+              
+			  for ( ; i < length; i++ ) {
+				  //alert(data.datas[i].title);
+			    html+='<li class="scrollItem">';
 						html+='<div class="thumbnail">';
 							html+='<div class="action">';
 								html+='<!--优惠-->';
@@ -96,24 +86,26 @@
 							html+='<small><span class="pull-left num">吊牌价：<em>￥'+data.datas[i].originalPrice+'</em></span><span class="pull-right price">销售价：<em>￥'+data.datas[i].price+'</em></span></small>';
 						html+='</div>';
 					html+='</li>';
-        }
-        	
-        	};
-        		
-        // Add image HTML to the page.
-        $('#tiles').append(html);
+				var elem = $(html).get(i);
+				fragment.appendChild(elem);
+				elems.push( elem );
+			  }
+			
+				// Start Masonry
+				scrollContainer.imagesLoaded( function(){
+					scrollContainer.masonry({
+						itemSelector : '.scrollItem'
+					});
+				});
 
-        // Apply layout.
-        applyLayout();
+				scrollContainer.append(fragment);
+				msnry.appended(elems);
       };
-	  function clears(){
-		  page = 1;
-		  $("#tiles").empty();
-		  }
-    
+	   
+       $(document).ready(new function() {
       // Capture scroll event.
       $(document).bind('scroll', onScroll);
 
       // Load first data from the API.
-      loadData('c','v');
-		
+      loadData('s','c');
+									  });
