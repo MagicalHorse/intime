@@ -12,7 +12,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-      <%= submit_tag '发布', class: 'btn btn-danger', id: 'comment' -%>
+      <%= submit_tag '发布', class: 'btn btn-danger', id: 'comment', data: { disable_with: '正在发布...' } -%>
     </div>
   <% end -%>
 </div>

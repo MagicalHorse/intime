@@ -5,7 +5,10 @@
     <li><span>吊牌价</span>￥<i><%= product.unitprice -%></i></li>
     <li><span>销售价</span>￥<em><%= product.price -%></em><small>立即节省<%= product.unitprice.to_i - product.price -%></small></li>
   </ul>
-  <div class="code"> <span><i class="icon-heart"></i>23人喜欢</span> <span><i class="icon-qrcode"></i><%= product.couponcount -%>人下载优惠码</span> </div>
+  <div class="code">
+    <span><i class="icon-heart"></i><b class='likecount'><%= product.likecount -%></b>人喜欢</span>
+    <span><i class="icon-qrcode"></i><b class='downcount'><%= product.couponcount -%></b>人下载优惠码</span>
+  </div>
   <div class="brand"><%= product.brand.name -%><br>
     <%= (engname = product.brand.engName).present? ? "(#{engname})" : '' -%>
   </div>

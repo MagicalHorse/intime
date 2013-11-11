@@ -15,6 +15,10 @@ module API
         post(req, params.merge(path: 'promotion/coupon/create', ispass: 0))
       end
 
+      def availoperation(req, params = {})
+        post(req, params.merge(path: 'promotion/availoperations'))
+      end
+
     end
   end
 end

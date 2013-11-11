@@ -4,6 +4,7 @@
     <li class="title">填写订单</li>
   </ul>
 <% end -%>
+
 <div class="span9 main">
   <!-- 商品信息 -->
   <section class="promo_info addorder">
@@ -22,24 +23,24 @@
           <div class="brand">相宜本草<br>
             (INOHERB)</div>
         </ul>
-      </div>         
+      </div>
       <div class="buyinfo">
         <div class="prop mb20" data-toggle="buttons-radio">
           <span class="tages">颜色</span>
           <div id="myTab">
-            
+
           </div>
         </div>
         <div id="sss" class="tab-content">
-          
+
         </div>
-        
+
         <div class="item_num mb20" >
-          <div class="change-goods-num"> <span class="tages">数量</span> <a href="#" class="goodsNumMinus"><span class="icon-common-negative"></span></a>
-            <input tyep="text" class="goods-num" value="1" name="3" id="goods_num">
-            <a href="#" class="goodsNumPlus"><span class="icon-common-add"></span></a></div>
+          <div class="change-goods-num"> <span class="tages">数量</span> <a href="javascript:void(0);" class="goodsNumMinus"  onclick="document.getElementById('goods_num').onchange=get_jifenchangea()"><span class="icon-common-negative"></span></a>
+            <input tyep="text"  class="goods-num" value="1" name="3" id="goods_num">
+            <a href="javascript:void(0);" onClick="document.getElementById('goods_num').onchange=get_jifenchange()" class="goodsNumPlus" ><span class="icon-common-add"></span></a></div>
         </div>
-        <div class="property">您选择颜色：<span id="goods_color"></span> 尺码：<span id="goods_size"></span> 购买数量：<span class="goods-num" id="goods_num">1</span>件</div>
+        <div class="property">您选择颜色：<span id="goods_color"></span> 尺码：<span id="goods_size"></span> 购买数量：<span class="goods-num" id="goods_num" >1</span>件</div>
       </div>
       <input type="hidden" id="colourid"/><input type="hidden" id="sizeid"/>
     </div>
@@ -64,20 +65,20 @@
                     <br>
                     <span>省份：</span>
                     <select id="sheng" onChange="empty_sheng(),sheng_change(this.value);"> 
-                      <option>选择省份</option>
-                      
+
+
                     </select>
                     <br>
                     <span>城市：</span>
                     <select id="cheng" onChange="empty_cheng(),cheng_change(this.value);">
                       <option>选择城市</option>
-                      
+
                     </select>
                     <br>
                     <span>地区：</span>
                     <select id="qu">
                       <option>选择地区</option>
-                      
+
                     </select>
                     <br>
                     <span>收货地址：</span>
@@ -145,7 +146,7 @@
                   <span>城市：</span>
                   <select id="cheng_syxd" onChange="empty_chengsyxd(),chengsyxd_change(this.value);">
                     <option>请选择城市</option>
-                    
+
                   </select>
                   <br>
                   <span>地区：</span>
@@ -185,20 +186,20 @@
                 <input id="name" type="text" placeholder="收货人姓名">
                 <br>
                 <span>省份：</span>
-                <select name=province id=province  onChange="empty_f(),province_change(this.value)">
+                <select name=province id="province"  onChange="empty_f(),province_change(this.value)">
                   <option>请选择省份</option>
-                  
+
                 </select>
                 <br>
                 <span>城市：</span>
-                <select name=city id=city  onChange="empty_h(),cis(this.value)">
+                <select name=city id="city"  onChange="empty_h(),cis(this.value)">
                   <option>请选择城市</option>
                 </select>
                 <br>
                 <span>地区：</span>
-                <select name=county id=county>
+                <select name=county id="county">
                   <option>请选择地区</option>
-                  
+
                 </select>
                 <br>
                 <span>收货地址：</span>
@@ -246,23 +247,23 @@
         </div>
         <div class="item_tit bt ">
           <dl>
-            <dd><span>赠送积点：</span><strong><span id="jidian">￥</span></strong>
+            <dd><span>赠送积点：</span><strong><span id="jidian"></span></strong>
               <div class="clearfix"></div>
             </dd>
-            <dd><span>总价：</span><strong><span id="zj">￥</span></strong>
+            <dd><span>总价：</span><strong><span id="zj"></span></strong>
               <div class="clearfix"></div>
             </dd>
-            <dd><span>快递费：</span><strong><span id="kdf">￥</span></strong>
+            <dd><span>快递费：</span><strong><span id="kdf"></span></strong>
               <div class="clearfix"></div>
             </dd>
-            <dd><span>需付款项：</span><strong class="on"><span id="xfkx">￥</span></strong>
+            <dd><span>需付款项：</span><strong class="on"><span id="xfkx"></span></strong>
               <div class="clearfix"></div>
             </dd>
           </dl>
         </div>
       </div>
     </div>
-    <p style="text-align:center;"> <a href="" data-toggle="modal"  class="btn btn-danger " onClick="add_order()">提交订单</a>
+    <p style="text-align:center;"> <a href="#barcode012"  class="btn btn-danger " onClick="add_order()">提交订单</a>
       <div id="barcode012" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -279,13 +280,14 @@
     </p>
   </section>
 </div>
+
+
 <%= content_for :javascripts do %>
   <script src="<%= static_url('js/colour.js') %>"></script>
   <script src="<%= static_url('js/order_city.js') %>"></script>
   <script src="<%= static_url('js/new_order_city.js') %>"></script>
   <script src="<%= static_url('js/syxd.js') %>"></script>
   <script src="<%= static_url('js/address.js') %>"></script>
-  <script src="<%= static_url('js/jifen.js') %>"></script>
   <script src="<%= static_url('js/orders.js') %>"></script>
 <% end %>
 <script>

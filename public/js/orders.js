@@ -17,7 +17,11 @@
         return items;
 };
  product_id = getParam('product_id');
+ //getParam('product_id');
+ 
  function add_order(){
+
+	
 	 // var goods_color = ('#goods_color').innerHTMLs;
 	  var goods_color = $("#goods_color").text();
 	  var goods_size = $("#goods_size").text();
@@ -41,14 +45,22 @@
    var order = new Object();
    var address = new Object();
    var pay = new Object();
+   
+ if(cellphone.length==11&&cellphone.length==8){
+  
+   
    pay.paymentcode=supportpayments;//"支付方式代码";
    pay.paymentname="支付宝支付";//"支付方式名";//"支付方式名";
     address.shippingcontactperson = shippingperson; //"收货联系人";
 	address.shippingcontactphone = shippingphone;//"收货联系电话";
 	address.shippingzipcode = shippingzipcode;//"收货地址邮编";
 	address.shippingaddress = displayaddress;//"收货地址";
-    product.productid=product_id;
+	
+    product.productid=product_id;//product_id传入对应的商品id
+	 //测试用的product_id 测试成功 加入 product_id 替换 号码
+	 
     product.desc="";//"商品描述";
+	
 	 product.quantity = goods_num;//"商品数量";
 	 propertie.sizevalueid = sizeid;//"尺码主键";
 	 propertie.sizevaluename = goods_size;//"尺码描述";
@@ -64,14 +76,25 @@
 	  order.memo = dis_comments;//"订单备注";
 	  order.shippingaddress = address;
 	  order.payment = pay;
-	var order = JSON.stringify(order);
-	//alert(order);
+	  
+	var order = JSON.stringify(order);//转义json
+	
+	
+	}else{
+		   
+		   alert("您输入的手机号码错误或请加区号！");
+		   rollback;
+		   }
+	
+
+
 	$.ajax({
-		//type:"POST",
-        url: 'http://stage.youhuiin.com/front/orders_create',
+		type:"POST",
+        url: 'http://stage.youhuiin.com/front/orders_create.json',
         dataType: 'jsonp',
         data: {order: order}, // Page parameter to make sure we load new data
         success: function(data){
+				 
 			    var check1 = data.isSuccessful.toString();
 				 var check2 ="true";
 				 if(check1==check2){
@@ -80,11 +103,14 @@
 				 $("#payment").attr('href',data.data.payment_url); 
 				 $("#check_order").attr('href',data.data.order_url);      
 				  alert(data.message);
-				 // alert('ok');
+				 
 				  $('#barcode012').modal('show');
+				  
 				 } else {
 					$('#barcode012').modal('hide');
+					
 					  alert(data.message);
+					  
 					 }
 				
 			}
@@ -103,6 +129,8 @@
 	  var postcode = $("#postcode").val();
 	  var cellphone = $("#cellphone").val();
 	   var address = new Object();
+	   
+	   
 	  address.shippingperson = name;
 	  address.shippingphone = cellphone;
 	  address.shippingprovinceid = provinceid;
@@ -113,6 +141,7 @@
 	  address.shippingdistrict = county;
 	  address.shippingaddress = shaddress;
 	  address.shippingzipcode = postcode;
+	  
 	 //alert(address);
 	  $.ajax({
 						//type:"POST",//get post不区分大小写
@@ -125,7 +154,9 @@
 						var check2 ="true";
 						if(check1==check2){
 							$('#shippingperson').html(data.data.shippingperson);
-									 $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
+							
+							 $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
+							 
 						       $('#displayaddress').html(data.data.displayaddress); 
 						       $('#shippingzipcode').html(data.data.shippingzipcode); 
 						       $('#shippingphone').html(data.data.shippingphone);
@@ -153,6 +184,8 @@ var syxd_user=$("#syxd_username").val();
 			  var cellphone = $("#syxd_phone").val();
 			  var syxd_call = $("#syxd_call").val();
 			 var address = new Object();
+			 
+			
 	  address.shippingperson = syxd_user;
 	  address.shippingphone = cellphone;
 	  address.shippingprovinceid = provinceid;
@@ -163,6 +196,9 @@ var syxd_user=$("#syxd_username").val();
 	  address.shippingdistrict = county;
 	  address.shippingaddress = saddress;
 	  address.shippingzipcode = postcode;
+	  
+	  
+	  
 $.ajax({
 						
 						//type:"POST",//get post不区分大小写
@@ -188,6 +224,9 @@ $.ajax({
 						}
 					});
 		  }
+		  
+		  
+		  
 		  function edit_address(){
 			var edit_user = $('#edit_user').val();
 				var shengid = $('#sheng').val();
@@ -201,7 +240,12 @@ $.ajax({
 		  	var edit_phone = $('#edit_phone').val();
 			var addressid = $('#addressid').val();
 			
+		
+			
 			var address = new Object();
+			
+			
+			
 		  	address.shippingperson = edit_user;
 		  	address.shippingphone = edit_phone;
 		  	address.shippingprovinceid = shengid;

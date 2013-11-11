@@ -1,6 +1,9 @@
+  
+<!--  //选择地址使用-->
    function empty_shengsyxd(){
 	   $("#cheng_syxd").empty();
 	   $("#qusyxd").empty();
+	
 	    $("#cheng_syxd").append("<option>请选择城市</option>");
 	    $("#qusyxd").append("<option>请选择所在区县</option>");
 	   }
@@ -9,6 +12,8 @@
 		  $("#qusyxd").append("<option>请选择所在区县</option>");
 		}
    function load_syxd(){
+	   
+	     
 	             $.ajax({
 						 url:'http://stage.youhuiin.com/front/supportshipments.json',
 						 dataType:'jsonp',

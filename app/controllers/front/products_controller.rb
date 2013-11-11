@@ -1,6 +1,6 @@
 # encoding: utf-8
-class Front::ProductsController < Front::BaseController 
-
+class Front::ProductsController < Front::BaseController
+  before_filter :authenticate!, only: [:favor, :unfavor, :download_coupon, :comment]
 
   def show
     @product = Stage::Product.fetch(params[:id])
@@ -40,6 +40,9 @@ class Front::ProductsController < Front::BaseController
     @tags     = Stage::Tag.list
     @hotwords = Stage::HotWord.list
     @all_brands = @brands.values.flatten 
+  end
+
+  def sort_list
   end
 
   def get_group_brands(brands)
@@ -118,6 +121,12 @@ class Front::ProductsController < Front::BaseController
 
   protected
 
+  def authenticate!
+    return true if signed_in?
+
+    render 'no_login.js.erb' and return
+  end
+
   def covert_options_for_search(type, entity_id)
     options = {}
     if type == 'category'
@@ -128,6 +137,10 @@ class Front::ProductsController < Front::BaseController
       options[:storeid]  = entity_id
     elsif type =='sortby' 
       options[:sortby] = entity_id
+    elsif type == 'promotionid'
+      options[:promotionid] = entity_id
+    elsif type == 'specialid'
+      options[:specialid] = entity_id
     end
     options
   end

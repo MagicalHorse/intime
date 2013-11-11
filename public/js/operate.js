@@ -1,6 +1,7 @@
 // 主要是详情页的喜欢、优惠码、评论、分享
 $(document).ready(new function() {
-  
+
+  /**
   $('.func .favor').on('ajax:beforeSend', function(){
     $(this).html('<img alt="Icon_hearts_2x" height="24" src="/images/icon_hearts_2x.png" width="24"><span>取消</span>')
     $('.code .likecount').html(parseInt($('.code .likecount').html()) + 1)
@@ -10,7 +11,6 @@ $(document).ready(new function() {
     $('.code .downcount').html(parseInt($('.code .downcount').html()) - 1)
   })
 
-  /**
   $('#show_comment').click(function(){
     reloadWithoutLogin();
     $('#post').modal('show');

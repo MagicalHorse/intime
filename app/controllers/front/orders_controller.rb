@@ -54,6 +54,11 @@ class Front::OrdersController < Front::BaseController
           resource = result[:data][:salecolors][index].delete(:resource)
           result[:data][:salecolors][index][:images_url] = resource.is_a?(Hash) ? middle_pic_url(resource) : ''
         end
+        result[:data][:supportpayments] = if mobile_request?
+          result[:data][:supportpayments].select { |r| r[:supportmobile] }
+        else
+          result[:data][:supportpayments].select { |r| r[:supportpc] }
+        end
         render json: result, callback: params[:callback]
       }
       format.html

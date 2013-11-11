@@ -1,6 +1,6 @@
 module API
   class Comment < API::Base
-    
+
     class << self
       def index(req, params = {})
         post(req, params.merge(path: 'comment/list'))

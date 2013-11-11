@@ -154,7 +154,7 @@ IntimeService::Application.routes.draw do
     get '/his_promotion/:userid',   to: 'users_center#his_promotion', as: :his_promotion
     get '/his_share/:userid',       to: 'users_center#his_share',     as: :his_share
     get '/his_info/:userid',        to: 'users_center#his_info',      as: :his_info
-    get '/his_profile/:userid',     to: 'users_center#his_profile',      as: :his_profile
+    get '/his_profile/:userid',     to: 'users_center#his_profile',   as: :his_profile
     post '/follow/:id',             to: 'users_center#follow',        as: :follow
     post '/unfollow/:id',           to: 'users_center#unfollow',      as: :unfollow
     get  '/about',                  to: 'about#index',                as: :about
@@ -174,6 +174,7 @@ IntimeService::Application.routes.draw do
         get :his_favorite_api, :path => :his_favorite_api
         get :my_favorite_api
         get :my_share_list_api
+        get :sort_list
         get :list_api
         get :list
         get :search_api

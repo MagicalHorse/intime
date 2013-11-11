@@ -3,8 +3,8 @@
     <h1><%= @promotion.name -%></h1>
     <small><%= format_time_range(@promotion.startdate, @promotion.enddate) -%></small>
     <div class="code">
-      <span><i class="icon-heart"></i><em class='likecount'><%= @promotion.likecount -%></em>人喜欢</span>
-      <span><i class="icon-qrcode"></i><em class='downcount'><%= @promotion.couponcount -%></em>人下载优惠码</span>
+      <span><i class="icon-heart"></i><b class='likecount'><%= @promotion.likecount -%></b>人喜欢</span>
+      <span><i class="icon-qrcode"></i><b class='downcount'><%= @promotion.couponcount -%></b>人下载优惠码</span>
     </div>
   </span>
   <span class="pull-right"> <a class="btn btn-danger" href="<%= front_products_path(promotionid: @promotion.id) -%>">查看活动商品</a> </span>

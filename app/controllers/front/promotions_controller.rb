@@ -4,6 +4,10 @@ class Front::PromotionsController < Front::BaseController
   def show
     @promotion = Stage::Promotion.fetch(params[:id])
     @store     = @promotion.store
+
+    if signed_in?
+      @promotion_info = API::Promotion.availoperation(request, id: params[:id])['data']
+    end
   end
 
   def index
@@ -41,6 +45,13 @@ class Front::PromotionsController < Front::BaseController
   end
 
   protected
+
+  def authenticate!
+    return true if signed_in?
+
+    render '/front/no_login.js.erb' and return
+  end
+
   def handle_items(items)
     items.map! do |item|
       {
