@@ -6,7 +6,7 @@ class Front::PromotionsController < Front::BaseController
     @store     = @promotion.store
 
     if signed_in?
-      #@promotion_info = Stage::Promotion.availoperation(params[:id], request.session[:user_token])
+      @promotion_info = API::Promotion.availoperation(request, id: params[:id])['data']
     end
   end
 

@@ -1,6 +1,10 @@
 <dl class="func">
   <dd>
+  <% if @promotion_info[:isfavored] -%>
+    <%= link_to raw("#{image_tag('/images/icon_hearts_2x.png', height: 24, width: 24)}<span>喜欢</span>"), unfavor_front_promotion_path(promotion.id), class: 'unfavor', remote: true, method: :post -%>
+  <% else -%>
     <%= link_to raw("#{image_tag('/images/icon_heart_2x.png', height: 24, width: 24)}<span>喜欢</span>"), favor_front_promotion_path(promotion.id), class: 'favor', remote: true, method: :post -%>
+  <% end -%>
   </dd>
   <%= render 'download_coupon', promotion: promotion -%>
 
