@@ -1,76 +1,58 @@
-﻿    var handler = null;
-    var page = 1;
-    var isLoading = false;
-    var apiURL = 'http://stage.youhuiin.com/front/products/my_share_list_api.json'
-    
-    // Prepare layout options.
-    var options = {
-      autoResize: true, // This will auto-update the layout when the browser window is resized.
-      container: $('#tiles'), // Optional, used for some extra CSS styling
-      offset: 2, // Optional, the distance between grid items
-      itemWidth: 290 // Optional, the width of a grid item
-    };
-    
-    /**
-     * When scrolled all the way to the bottom, add more tiles.
-     */
-    function onScroll(event) {
-      // Only check when we're not still waiting for data.
-      if(!isLoading) {
-        // Check if we're within 100 pixels of the bottom edge of the broser window.
-        var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
-        if(closeToBottom) {
-          loadData(loveType);
+ var handler = null,
+          page = 1,
+          _isLoadingMore = false,
+          apiURL = 'http://stage.youhuiin.com/front/products/my_share_list_api.json'
+
+      // Prepare layout options.
+     var scrollContainer = $('#tiles').masonry();
+	 var msnry = scrollContainer.data('masonry');
+
+      function onScroll(event) {
+        // Only check when we're not still waiting for data.
+        if(!_isLoadingMore) {
+          // Check if we're within 100 pixels of the bottom edge of the broser window.
+          var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
+          if(closeToBottom) {
+            //loadData(sort);
+			loadData();
+          }
         }
-      }
-    };
-    
-    /**
-     * Refreshes the layout.
-     */
-    function applyLayout() {
-      // Clear our previous layout handler.
-      if(handler) handler.wookmarkClear();
-      
-      // Create a new layout handler.
-      handler = $('#tiles li');
-      handler.wookmark(options);
-    };
-    
-    /**
-     * Loads data from the API.
-     */
-    function loadData($type) {
-      isLoading = true;
-	  loveType = $type;
-      $('#loaderCircle').show();
-      
-      $.ajax({
-        url: apiURL,
-        dataType: 'jsonp',
-        data: {page: page,loveType:loveType}, // Page parameter to make sure we load new data
-        success: onLoadData
-      });
-    };
-    
-    /**
-     * Receives data from the API, creates HTML for images and updates the layout
-     */
-    function onLoadData(data) {
-      isLoading = false;
-      $('#loaderCircle').hide();
-      
-      // Increment page index for future calls.
-      page++;
-      
-      // Create HTML for the images.
-     var html = '';
-      var i=0, length=data.datas.length;
-     if(length==0){
-		   html+='<p style="text-align:center;padding-top:150px;font-size: 16px;line-height:30px;">好东西和别人一起分享其乐无穷!<br>共发布0个分享!</p>';
-		 }else {
-			 for(; i<length; i++) {
-       html+='<li>';
+      };
+
+      function loadData($sort) {
+        _isLoadingMore = true;
+        $('#loaderCircle').show();
+		sort = $sort;
+		//alert(sort);
+        $.ajax({
+          url: apiURL,
+          dataType: 'jsonp',
+          data: {page: page}, // Page parameter to make sure we load new data
+          success: onLoadData
+        });
+      };
+
+      /**
+       * Receives data from the API, creates HTML for images and updates the layout
+       */
+      function onLoadData(data) {
+        _isLoadingMore = false;
+        $('#loaderCircle').hide();
+
+        // Increment page index for future calls.
+        page++;
+
+          var i=0, length=data.datas.length;
+			var html = '';
+			if (length<=0)
+				return;
+				//alert(length);
+			var elems = [];
+			var fragment = document.createDocumentFragment();
+
+
+			  for ( ; i < length; i++ ) {
+			   html+='<li class="scrollItem">';
 						html+='<div class="thumbnail">';
 							html+='<div class="action">';
 								html+='<a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].imageUrl+'"></a>';
@@ -80,20 +62,26 @@
 							html+='<small><span class="pull-left num">吊牌价：<em>￥'+data.datas[i].originalPrice+'</em></span><span class="pull-right price">销售价：<em>￥'+data.datas[i].price+'</em></span></small>';
 						html+='</div>';
 					html+='</li>';
-      } 
-			 }
-      
-      // Add image HTML to the page.
-      $('#jspace_list').append(html);
-      
-      // Apply layout.
-      applyLayout();
-    };
-  
-    $(document).ready(new function() {
+				var elem = $(html).get(0);
+				fragment.appendChild(elem);
+				elems.push( elem );
+			  }
+			
+				// Start Masonry
+				scrollContainer.imagesLoaded( function(){
+					scrollContainer.masonry({
+						itemSelector : '.scrollItem'
+					});
+				});
+
+				scrollContainer.append(fragment);
+				msnry.appended(elems);
+      };
+	   
+       $(document).ready(new function() {
       // Capture scroll event.
       $(document).bind('scroll', onScroll);
-      
+
       // Load first data from the API.
-      loadData('3');
-    });
+      loadData();
+									  });
