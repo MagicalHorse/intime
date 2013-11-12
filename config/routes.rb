@@ -114,7 +114,13 @@ IntimeService::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
 
        resources :products, :only=>[:show]
-       resources :promotions, :only=>[:show]
+       resources :promotions, :only=>[:show] 
+       
+       resources :exorders do
+         collection do
+           get 'show'
+         end
+       end
      end
 
   # You can have the root of your site routed with "root"
