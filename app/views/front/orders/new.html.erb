@@ -4,13 +4,13 @@
     <li class="title">填写订单</li>
   </ul>
 <% end -%>
-
 <div class="span9 main">
   <!-- 商品信息 -->
   <section class="promo_info addorder">
     <div id="picbox" class="carousel slide">
       <div class="carousel-inner">
-        <div><img src="temp/400_400_1.jpg" alt="相宜本草护肤品正品套装 四倍蚕丝基础护理三件套 补水美白保湿"></div>
+        <!--  -->
+        <div id="order_div_img"  style="width:400px; height:400px;"><img id="order_img" src="temp/400_400_1.jpg" alt="相宜本草护肤品正品套装 四倍蚕丝基础护理三件套 补水美白保湿"></div>
       </div>
     </div>
     <div class="infobox">
@@ -23,7 +23,7 @@
           <div class="brand">相宜本草<br>
             (INOHERB)</div>
         </ul>
-      </div>
+      </div>         
       <div class="buyinfo">
         <div class="prop mb20" data-toggle="buttons-radio">
           <span class="tages">颜色</span>
@@ -122,11 +122,11 @@
                           <span>收货地址：</span>北京市丰台新华街小区5里9号楼<br>
                           <span>邮编：</span>100070<br>
                         </div>
-                      </div>
+                      </div>onClick="edit_address();"
                     </label>-->
                   </form>
                   <div class="modal-footer">
-                    <a href="#alter01" onClick="change();" data-toggle="collapse" class="btn btn-danger" >选择使用</a>
+                    <a href="#alter01"  data-toggle="collapse" class="btn btn-danger"  onClick="change();" >选择使用</a>
                     <a href="#alter01" data-toggle="collapse" class="btn btn-danger">取消</a>
                   </div>
                 </div>
@@ -136,6 +136,7 @@
               <div id="add01" class="collapse">
                 <div class="conbox">
                   <span>收货人：</span>
+
                   <input id="syxd_username" type="text" placeholder="收货人姓名">
                   <br>
                   <span>省份：</span>
@@ -182,8 +183,8 @@
               <h3 id="mLabel">添加新地址</h3>
             </div>
             <div class="modal-body">
-              <div class="item_tit thzq"><span>收货人：</span>
-                <input id="name" type="text" placeholder="收货人姓名">
+              <div class="item_tit thzq" ><span>收货人：</span>
+                <input id="syxd_username" type="text" placeholder="收货人姓名">
                 <br>
                 <span>省份：</span>
                 <select name=province id="province"  onChange="empty_f(),province_change(this.value)">
@@ -280,8 +281,6 @@
     </p>
   </section>
 </div>
-
-
 <%= content_for :javascripts do %>
   <script src="<%= static_url('js/colour.js') %>"></script>
   <script src="<%= static_url('js/order_city.js') %>"></script>
