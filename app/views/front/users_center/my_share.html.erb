@@ -1,18 +1,17 @@
-<%= content_for :javascripts do -%>
-  <script src="/js/jspace_share.js"></script>
-<% end -%>
 <%= render "nav"%>
 <div class="span9 main">
   <%= render "user_info"%> 
+
   <section class="portfolio">
-  <ul id="jspace_list" class="thumbnails pt10 tmode">
-   <!--  <p style="text-align:center;padding-top:150px;font-size: 16px;line-height:30px;">好东西
-    和别人一起分享其乐无穷!<br>
-    共发布0个分享!</p> -->
-  
+  <ul id="tiles" class="thumbnails pt10 tmode">
   </ul>
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
   </section>
   
 </div>
-
-
+<%= content_for :javascripts do -%>
+  <script src="/js/masonry.pkgd.min.js"></script>
+  <script src="/js/jspace_share.js"></script>
+<% end -%>
