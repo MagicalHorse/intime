@@ -7,7 +7,11 @@
       <span><i class="icon-qrcode"></i><b class='downcount'><%= @promotion.couponcount -%></b>人下载优惠码</span>
     </div>
   </span>
-  <span class="pull-right"> <a class="btn btn-danger" href="<%= front_products_path(promotionid: @promotion.id) -%>">查看活动商品</a> </span>
+  <% if @promotion.isproductbinded -%>
+    <span class="pull-right">
+      <a class="btn btn-danger" href="<%= front_products_path(promotionid: @promotion.id) -%>">查看活动商品</a>
+    </span>
+  <% end -%>
   <div class="clearfix"></div>
 </div>
 <div class="loca"> <span><i class="icon_location"></i><a href="<%= front_store_path(@store.id) -%>"><%= @store.name -%></a><small></small></span></div>
