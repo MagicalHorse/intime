@@ -7,6 +7,13 @@ class Front::ProductsController < Front::BaseController
   end
 
   def index
+    if params[:storeid].present?
+      @info = ["storeid", params[:storeid]]
+    elsif params[:promotionid].present?
+      @info = ["promotionid", params[:promotionid]]
+    elsif params[:specialid].present?
+      @info = ["specialid", params[:specialid]]
+    end
   end
 
   def his_favorite_api
