@@ -3,7 +3,7 @@
     <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
   </ul>
 <% end -%>
-<div id="info" info="<%= @info.first%>, <%= @info.last%>"></div>
+<div id="info" info="<%= @info.first%>,<%= @info.last%>"></div>
 
 <div class="span9 main">
   <!-- gallery -->
@@ -20,6 +20,7 @@
   </section>
 </div>
 <%= content_for :javascripts do -%>
+  <script src="/js/jquery.imagesloaded.js"></script>
   <script src="/js/masonry.pkgd.min.js"></script>
   <script src="/js/mousewheel.min.js"></script>
   <script src="/js/sort_list.js"></script>
