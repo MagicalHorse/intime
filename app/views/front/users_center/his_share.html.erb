@@ -1,21 +1,16 @@
-<%= content_for :javascripts do -%>
-  <script src="/js/hjspace_share.js"></script>
-<% end -%>
 <%= render "his_nav"%>
 <div class="span9 main">
-  <%= render "his_profile"%>
-
   <section class="portfolio" info="<%= @user_id%>">
-  <ul id="tiles" class="thumbnails pt10 tmode">
-    <!--<p style="text-align:center;padding-top:150px;font-size: 16px;line-height:30px;">
-    Ta还没有喜欢的分享
-    </p>-->
+  <ul id="tiles" class="thumbnails tmode">
   </ul>
   <div id="loader">
     <div id="loaderCircle"></div>
   </div>
   </section>
-
 </div>
+<%= content_for :javascripts do -%>
+  <script src="/js/masonry.pkgd.min.js"></script>
+  <script src="/js/hjspace_share.js"></script>
+<% end -%>
 
 
