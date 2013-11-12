@@ -46,7 +46,7 @@
    var address = new Object();
    var pay = new Object();
    
- if(cellphone.length==11&&cellphone.length==8){
+ if(cellphone!=null){
   
    
    pay.paymentcode=supportpayments;//"支付方式代码";
@@ -82,14 +82,14 @@
 	
 	}else{
 		   
-		   alert("您输入的手机号码错误或请加区号！");
+		   alert("您输入的手机号码！");
 		   rollback;
 		   }
 	
 
 
 	$.ajax({
-		type:"POST",
+		type:"GET",
         url: 'http://stage.youhuiin.com/front/orders_create.json',
         dataType: 'jsonp',
         data: {order: order}, // Page parameter to make sure we load new data
@@ -217,9 +217,18 @@ $.ajax({
 						       $('#shippingphone').html(data.data.shippingphone);
 							   alert(data.message);
 							   $('#add01').collapse('hide');
+	                           
+							$("#edit_user").val(data.data.shippingperson);
+						
+		                   $("#sheng").val(data.data.shippingprovince);
+		                   $("#edit_address").val(data.data.displayaddress);
+		                   $("#edit_code").val(data.data.shippingzipcode);
+		                   $("#edit_phone").val(data.data.shippingphone);
+//								 
+							   
 							} else {
 								alert(data.message);
-							  $('#add01').collapse('show');
+							 // $('#add01').collapse('show');
 								}
 						}
 					});
@@ -228,6 +237,8 @@ $.ajax({
 		  
 		  
 		  function edit_address(){
+			  
+			  
 			var edit_user = $('#edit_user').val();
 				var shengid = $('#sheng').val();
 		  	var sheng = $('#sheng').find("option:selected").text();
@@ -268,6 +279,7 @@ $.ajax({
 							var check1 = data.isSuccessful.toString();
 						var check2 ="true";
 						if(check1==check2){
+							
 							$('#shippingperson').html(data.data.shippingperson);
 									 $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
 						       $('#displayaddress').html(data.data.displayaddress); 
