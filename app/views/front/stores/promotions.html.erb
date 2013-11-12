@@ -1,9 +1,11 @@
 <%= content_for :javascripts do -%>
+  <script src="/js/jquery.imagesloaded.js"></script>
+  <script src="/js/masonry.pkgd.min.js"></script>
   <script src="/js/zxcx.js"></script>
 <% end -%>
 <%= content_for :head_nav do -%>
   <ul class="nav">
-    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li><a href="<%= front_store_path(params[:id]) -%>"><i class="icon-undo"></i></a></li>
     <li class="title">最新促销</li>
   </ul>
 <% end -%>
