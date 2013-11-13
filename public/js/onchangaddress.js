@@ -17,7 +17,7 @@
 //	
 //	}
 
-<!-- //添加地址：地址改变联动，选择下一级-->
+/*<!-- //添加地址：地址改变联动，选择下一级-->
    function address_sheng(){
 	   $('select[data-name=city_id]').empty();
 	  $('select[data-name=district_id]').empty();
@@ -32,11 +32,11 @@
 				
  
  
-<!-- //添加地址数据-->
+<!-- //添加地址数据-->*/
  
 <!-- //添加地址：地址改变联动，选择下一级 下一步进行点击确认按钮到达回填选项-->
    function load_city(){
-	    
+	     
 	             $.ajax({
 					  //  type:"get",
 						 url:'http://stage.youhuiin.com/front/supportshipments.json',
@@ -65,6 +65,9 @@
 	   }
 	   
   function sheng_change(b) {
+	      
+		
+	  
 	        var i=0,length = mm.length,b=b;
 			for(; i<length; i++) {
 									if(b == mm[i].provinceid) {
@@ -79,6 +82,8 @@
 	}
   
    function shi_change(c){
+	   
+	
 	   var i=0,length = mm.length,c=c;
 			for(; i<length; i++) {							
 										 var j= 0,leng =  mm[i].items.length;
@@ -95,6 +100,33 @@
   
   $(document).ready(function(){
 				           load_city();
-						  
+						   
+					
+		 $('select[data-name=province_id]').change(function(){
+		
+	    $('select[data-name=city_id]').empty(); 
+	    $('select[data-name=city_id]').append("<option>请选择城市</option>");
+		$('select[data-name=district_id]').empty();
+	    $('select[data-name=district_id]').append("<option>请选择市区</option>");
+	   
+	  
+	  
+	   sheng_change($(this).val());
+	   
+	   });
+	   
+	   
+	$('select[data-name=city_id]').change(function(){  
+	 
+	       $('select[data-name=district_id]').empty();
+		   $('select[data-name=district_id]').append("<option>请选择市区</option>");
+	   
+	 
+	      shi_change($(this).val());
+	 
+	  });
+	  
+	  
+	  
 });
 
