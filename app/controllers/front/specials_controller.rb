@@ -15,7 +15,7 @@ class Front::SpecialsController < Front::BaseController
       {
         title:        item.name,
         imageUrl:     item.image_url,
-        url:          generate_specil_url(item),
+        url:          generate_special_url(item),
         startDate:    item.createddate.to_date.strftime('%Y.%m.%d'),
         endDate:      item.createddate.to_date.strftime('%Y.%m.%d'),
         description:  item.descriptio,
@@ -24,7 +24,7 @@ class Front::SpecialsController < Front::BaseController
     end
   end
 
-  def generate_specil_url(item)
+  def generate_special_url(item)
     case item.targetType
     when 0, 1
       front_products_path(topicid: item.targetId)

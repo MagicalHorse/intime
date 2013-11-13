@@ -6,7 +6,7 @@ module API
     def post(req, params = {})
       options       = params.dup.symbolize_keys
       path          = options.delete :path
-      sessionid     = req.session[:session_id]
+      sessionid     = req.session[:session_id] || Time.now.to_i
       token         = req.session[:user_token]
       sign_value    = Digest::MD5.hexdigest("#{API_KEY}client_version#{CLIENT_VERSION}uid#{sessionid}#{API_KEY}")
       options.merge!(sign: sign_value, client_version: CLIENT_VERSION, channel: 'html5', uid: sessionid, token: token)

@@ -1,7 +1,7 @@
- var handler = null,
+var handler = null,
           page = 1,
           _isLoadingMore = false,
-          apiURL = 'http://stage.youhuiin.com/front/products/my_share_list_api.json'
+          apiURL = 'http://stage.youhuiin.com/front/promotions/get_list.json';
 
       // Prepare layout options.
      var scrollContainer = $('#tiles').masonry();
@@ -14,22 +14,22 @@
           var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
           if(closeToBottom) {
             //loadData(sort);
-			loadData();
+			loadData(sort);
           }
         }
       };
 
       function loadData($sort) {
         _isLoadingMore = true;
-        $('#loaderCircle').show();
+        $('#loader').show();
 		sort = $sort;
-		//alert(sort);
-        $.ajax({
-          url: apiURL,
-          dataType: 'jsonp',
-          data: {page: page}, // Page parameter to make sure we load new data
-          success: onLoadData
-        });
+					 $.ajax({
+					  url: apiURL,
+					  dataType: 'jsonp',
+					  data: {page: page,sort:sort}, // Page parameter to make sure we load new data
+					  success: onLoadData
+				     });	
+		
       };
 
       /**
@@ -37,7 +37,7 @@
        */
       function onLoadData(data) {
         _isLoadingMore = false;
-        $('#loaderCircle').hide();
+        $('#loader').hide();
 
         // Increment page index for future calls.
         page++;
@@ -50,19 +50,19 @@
 			var elems = [];
 			var fragment = document.createDocumentFragment();
 
-
+              
 			  for ( ; i < length; i++ ) {
+				  //alert(data.datas[i].title);
 			   html+='<li class="scrollItem">';
-						html+='<div class="thumbnail">';
-							html+='<div class="action">';
-								html+='<a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt="'+data.datas[i].imageUrl+'"></a>';
-								html+='<span class="like"><i class="icon-heart icon-white"></i>'+data.datas[i].likeCount+'+</span>';
-							html+='</div>';
-							html+='<h4><a href="'+data.datas[i].url+'">'+data.datas[i].title+'</a></h4>';
-							html+='<small><span class="pull-left num">吊牌价：<em>￥'+data.datas[i].originalPrice+'</em></span><span class="pull-right price">销售价：<em>￥'+data.datas[i].price+'</em></span></small>';
-						html+='</div>';
-					html+='</li>';
-				var elem = $(html).get(0);
+							html+='<div class="thumbnail">';
+								html+='<h3><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
+								html+='<div class="action"> <a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt=" "></a>';
+									html+='<p>'+data.datas[i].description+'</p>';
+								html+='</div>';
+								html+='<h3 class="time bottom">活动时间：<span>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span></h3>';
+								html+='<small> <span class="pull-left"><a href="'+data.datas[i].storeUrl+'"><i class="icon-map-marker"></i>'+data.datas[i].storeName+'</a></span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
+						html+='</li>';
+				var elem = $(html).get(i);
 				fragment.appendChild(elem);
 				elems.push( elem );
 			  }
@@ -77,11 +77,11 @@
 				scrollContainer.append(fragment);
 				msnry.appended(elems);
       };
+	  
 	   
        $(document).ready(new function() {
       // Capture scroll event.
-      $(document).bind('scroll', onScroll);
-
+       $(document).bind('scroll', onScroll);
       // Load first data from the API.
-      loadData();
+       loadData('1');
 									  });

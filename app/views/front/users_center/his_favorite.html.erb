@@ -1,6 +1,3 @@
-<%= content_for :javascripts do -%>
-  <script src="/js/hspace.js"></script>
-<% end -%>
 <%= content_for :head_nav do -%>
 
   <ul class="nav">
@@ -11,15 +8,21 @@
 
 <% end -%>
 <div class="span9 main">
-  <section class="portfolio" info="<%= @user_id%>" >
+
+  <section class="portfolio"  info="<%= @user_id%>" >
   <ul id="tiles" class="thumbnails tmode">
     <!-- 喜欢的宝贝0商品状态 -->
-    <!-- <p style="text-align:center;font-size: 16px;line-height:30px;">
-    Ta还没有喜欢的商品
-    </p> -->
+    <!--<p style="text-align:center;font-size: 16px;line-height:30px;">
+    Ta还没有喜欢的商品。
+    </p>-->
     <!-- 喜欢的宝贝0商品状态 -->
   </ul>
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
   </section>
 </div>
-
-
+<%= content_for :javascripts do -%>
+  <script src="/js/masonry.pkgd.min.js"></script>
+  <script src="/js/hspace.js"></script>
+<% end -%>

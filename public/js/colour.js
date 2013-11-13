@@ -30,13 +30,13 @@ function product(){
 						 url:'http://stage.youhuiin.com/front/orders/new.json?product_id='+product_id,
 						 
 
-                         //测试用的product_id 测试成功 加入 product_id 替换 号码
+                     <!--    //测试用的product_id 测试成功 加入 product_id 替换 号码-->
 						
 						 dataType:'jsonp',
 						 async:true,
 						 success:function(data){
 							var i=0,length = data.data.salecolors.length;
-							var len = data.data.address.id;
+							var len = data.data.address;
 
 							if(len==null){
 								$('#no_address').show();
@@ -47,17 +47,29 @@ function product(){
 									}
 								 for(; i<length; i++) {
 									 var j=0, le= data.data.salecolors[i].sizes.length;
-									 //alert(data.data.salecolors[i].colorname);
-									 //alert(le);
+									 
 									 if(i==0){
-									 	 $('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"' onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()) href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button> ");
-									 	 $('#sss').append("<div  class='prop mb20 tab-pane active in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺码</span></div>");
+									
+									 	 $('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"' onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()),$('#order_img').attr('src','"+data.data.salecolors[i].images_url+"')  href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button> ");
+										
+										 $('#sss').append("<div  class='prop mb20 tab-pane active in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺1码</span></div>");
+																	 
+										 
 									 	} else {
-									 		$('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"'  onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()) href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button> ");
-									 		$('#sss').append("<div class='prop mb20 tab-pane  in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺码</span></div>");
+											
+									 		$('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"'  onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()),$('#order_img').attr('src','"+data.data.salecolors[i].images_url+"')  href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button> ");
+											
+									
+											
+											
+									 		$('#sss').append("<div class='prop mb20 tab-pane  in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺2码</span></div>");
 									 		}
 										for(;j<le;j++){
+											
 											$('#tab'+i).append("<button type='button' value='"+data.data.salecolors[i].sizes[j].sizeid+"' class='btn' onClick=$('#goods_size').text($(this).text()),$('#sizeid').val($(this).val())>"+data.data.salecolors[i].sizes[j].sizename+"</button> ");
+												 
+											
+											
 											}
 									 }
 									 
@@ -70,7 +82,7 @@ function product(){
 									<!-- //显示价格下的省份地址等：-->
 									 $('#shippingprovince').html(data.data.address.shippingprovince); 
 									 
-									 
+									
 						       $('#displayaddress').html(data.data.address.displayaddress); 
 						       $('#shippingzipcode').html(data.data.address.shippingzipcode); 
 						       $('#shippingphone').html(data.data.address.shippingphone); 

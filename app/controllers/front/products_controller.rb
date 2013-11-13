@@ -7,6 +7,15 @@ class Front::ProductsController < Front::BaseController
   end
 
   def index
+    if params[:storeid].present?
+      @info = ["store", params[:storeid]]
+    elsif params[:promotionid].present?
+      @info = ["promotionid", params[:promotionid]]
+    elsif params[:specialid].present?
+      @info = ["specialid", params[:specialid]]
+    else
+      @info = ['0', '0']
+    end
   end
 
   def his_favorite_api
@@ -135,7 +144,7 @@ class Front::ProductsController < Front::BaseController
       options[:brandid]  = entity_id
     elsif type == 'store'
       options[:storeid]  = entity_id
-    elsif type =='sortby' 
+    elsif type == 'sortby' 
       options[:sortby] = entity_id
     elsif type == 'promotionid'
       options[:promotionid] = entity_id

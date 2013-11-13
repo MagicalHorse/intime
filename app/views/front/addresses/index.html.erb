@@ -22,21 +22,18 @@
             <br>
             <span>省份：</span>
             <select name="address[shippingprovinceid]" data-name="province_id" data-value="">
-              <option value="">请选择省份</option>
             </select>
             <%= f.hidden_field :shippingprovinceid, value: 5 %>
             <%= f.hidden_field :shippingprovince, value: '北京' %>
             <br>
             <span>城市：</span>
             <select name="address[shippingcityid]" data-name="city_id" data-value="">
-              <option value="">请选择城市</option>
             </select>
             <%= f.hidden_field :shippingcityid, value: 6 %>
             <%= f.hidden_field :shippingcity, value: '北京市' %>
             <br>
             <span>地区：</span>
             <select name="address[shippingdistrictid]" data-name="district_id" data-value="">
-              <option value="">请选择地区</option>
             </select>
             <%= f.hidden_field :shippingdistrictid, value: 7 %>
             <%= f.hidden_field :shippingdistrict, value: '朝阳区' %>
@@ -71,4 +68,5 @@
 </div>
 <%= content_for :javascripts do %>
   <script src="<%= static_url('js/addresses.js') %>"></script>
+  <script src="<%= static_url('js/onchangaddress.js') %>"></script>
 <% end %>
