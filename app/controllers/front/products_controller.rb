@@ -133,7 +133,7 @@ class Front::ProductsController < Front::BaseController
   def authenticate!
     return true if signed_in?
 
-    render 'no_login.js.erb' and return
+    render '/front/no_login.js.erb' and return
   end
 
   def covert_options_for_search(type, entity_id)
