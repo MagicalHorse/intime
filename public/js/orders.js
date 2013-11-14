@@ -17,7 +17,7 @@
         return items;
 };
  product_id = getParam('product_id');
- //getParam('product_id');
+ <!--//getParam('product_id');-->
  
  function add_order(){
 
@@ -25,7 +25,7 @@
 	 // var goods_color = ('#goods_color').innerHTMLs;
 	  var goods_color = $("#goods_color").text();
 	  var goods_size = $("#goods_size").text();
-	  var goods_num = $("#goods_num").text();
+	  var goods_num = $("#goods_num").val();
 	  var shippingperson=$("#shippingperson").text();
 	  var shippingprovince=$("#shippingprovince").text();
 	  var displayaddress=$("#displayaddress").text();
@@ -45,7 +45,7 @@
    var order = new Object();
    var address = new Object();
    var pay = new Object();
-   
+
  if(cellphone!=null){
   
    
