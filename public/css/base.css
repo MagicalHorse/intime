@@ -1906,6 +1906,7 @@ width: 100%;
 .portfolio .tmode li .thumbnail { padding:0;margin-left: 10px;}
 .portfolio .tmode li .thumbnail h3{padding: 6px 10px;margin:0;}
 .portfolio .thumbnails .thumbnail h3.bottom {padding: 6px 0 36px 10px;}
+.portfolio .thumbnails .thumbnail .summary{ padding-left:10px;}
 .portfolio .tmode li h4{line-height: 16px; font-size:12px!important; padding:0 10px; margin-top: 8px!important;}
 .portfolio .tmode li .like,.portfolio .tmode li .num{ display:none;}
 .portfolio .tmode li .price{ float:left;margin-left: 10px;}
