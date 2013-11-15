@@ -1,6 +1,6 @@
 class CardController < ApiBaseController
   def find
-    uid = params[:uid]
+    uid = params[:data][:uid]
     return render :json=> error_500_msg('no params!') if uid.nil?
     card_info = Card.where(:utoken=>token,:isbinded=>true).order('updated_at desc').first
     return render :json=> error_500_msg('no card') if card_info.nil?
