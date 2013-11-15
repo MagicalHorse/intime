@@ -1,0 +1,70 @@
+<% content_for :custom_style do -%>
+<style>
+html { background-color: #fff; }
+body {
+	background: #fff;
+	color: #222;
+	height: 100%;
+	padding: 10px 10px 0;
+	position: relative;
+	font: 14px "Microsoft Yahei", Tohoma, Arial, Verdana, "\5b8b\4f53";
+}
+.container{
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+}
+.container h1 {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 30px;
+	margin-bottom: 10px;
+	color: #e50050;
+}
+.container dl.pay-info{
+	padding-top: 10px;
+	border-top: 1px solid #bbb;
+}
+.container dl.pay-info dt{
+	font-weight: bold;
+	color:#777;
+	float: left;
+	width: 80px;
+	clear: left;
+	text-align: right;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.container dl.pay-info dd{
+	margin-left: 100px;
+	text-align:right;
+	margin-bottom: 10px;
+}
+.container h2 {
+	font-size: 15px;
+	font-weight: 600;
+	text-align: center;
+	margin: 15px 0;
+	padding-top:15px;
+	border-top: 1px solid #bbb;
+}
+</style>
+<% end -%>
+<% content_for :title do 
+  @product_name
+ end %>
+ <h1>您好，您已经购买成功！</h1>
+<dl class="pay-info">
+	<dt>商品名：</dt>
+	<dd><%= @product_name%></dd>
+	<dt>商品数量：</dt>
+	<dd><%= @quantity%></dd>
+	<dt>有效期：</dt>
+	<dd><%= @expdate%></dd>
+	<dt>备注：</dt>
+	<dd><%= @remark%></dd>
+</dl>
+<h2>感谢您对银泰商业的关注！</h2>
+
+
