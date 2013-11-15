@@ -8,7 +8,7 @@
   <%= render 'store_info', store: @store -%>
 
   <section class="portfolio">
-    <%= render 'new_promotions', promotions: @promotions -%>
+    <%= render 'new_promotions', promotions: @promotions, store: @store -%>
     <%= render 'new_products',   products: @products -%>
   </section>
 </div>

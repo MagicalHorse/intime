@@ -200,7 +200,11 @@ IntimeService::Application.routes.draw do
       end
     end
 
-    resources :stores, only: [:show]
+    resources :stores, only: [:show] do
+      member do
+        get :promotions
+      end
+    end
 
     resources :specials, :only => [:index] do
       collection do

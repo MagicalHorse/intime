@@ -8,11 +8,13 @@ class Front::ProductsController < Front::BaseController
 
   def index
     if params[:storeid].present?
-      @info = ["storeid", params[:storeid]]
+      @info = ["store", params[:storeid]]
     elsif params[:promotionid].present?
       @info = ["promotionid", params[:promotionid]]
     elsif params[:specialid].present?
       @info = ["specialid", params[:specialid]]
+    else
+      @info = ['0', '0']
     end
   end
 
@@ -131,7 +133,7 @@ class Front::ProductsController < Front::BaseController
   def authenticate!
     return true if signed_in?
 
-    render 'no_login.js.erb' and return
+    render '/front/no_login.js.erb' and return
   end
 
   def covert_options_for_search(type, entity_id)
@@ -142,7 +144,7 @@ class Front::ProductsController < Front::BaseController
       options[:brandid]  = entity_id
     elsif type == 'store'
       options[:storeid]  = entity_id
-    elsif type =='sortby' 
+    elsif type == 'sortby' 
       options[:sortby] = entity_id
     elsif type == 'promotionid'
       options[:promotionid] = entity_id

@@ -8,4 +8,7 @@ class Front::StoresController < Front::BaseController
 
   def index
   end
+
+  def promotions
+  end
 end

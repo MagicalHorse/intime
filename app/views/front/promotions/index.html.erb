@@ -3,6 +3,8 @@
 <% end -%>
 <%= content_for :javascripts do -%>
   <script src="/js/jquery.royalslider.min.js"></script>
+  <script src="/js/scrolltopcontrol.js"></script>
+  <script src="/js/masonry.pkgd.min.js"></script>
   <script src="/js/index_water.js"></script>
 <% end -%>
 <%= content_for :head_nav do -%>
@@ -16,7 +18,7 @@
   <%= render 'banner', banners: @banners -%>
 
   <section class="portfolio">
-    <ul id="tiles_lsit" class="thumbnails"></ul>
+    <ul id="tiles" class="thumbnails"></ul>
     <div id="loader"><div id="loaderCircle"></div></div>
   </section>
 </div>

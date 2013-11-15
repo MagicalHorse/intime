@@ -17,7 +17,7 @@
         return items;
 };
  product_id = getParam('product_id');
- //getParam('product_id');
+ <!--//getParam('product_id');-->
  
  function add_order(){
 
@@ -25,7 +25,7 @@
 	 // var goods_color = ('#goods_color').innerHTMLs;
 	  var goods_color = $("#goods_color").text();
 	  var goods_size = $("#goods_size").text();
-	  var goods_num = $("#goods_num").text();
+	  var goods_num = $("#goods_num").val();
 	  var shippingperson=$("#shippingperson").text();
 	  var shippingprovince=$("#shippingprovince").text();
 	  var displayaddress=$("#displayaddress").text();
@@ -45,7 +45,7 @@
    var order = new Object();
    var address = new Object();
    var pay = new Object();
-   
+
  if(cellphone!=null){
   
    
@@ -89,7 +89,7 @@
 
 
 	$.ajax({
-		type:"GET",
+		type:"get",
         url: 'http://stage.youhuiin.com/front/orders_create.json',
         dataType: 'jsonp',
         data: {order: order}, // Page parameter to make sure we load new data
@@ -100,11 +100,15 @@
 				 if(check1==check2){
 				 $("#order_id").html(data.data.order_no);
 				 $("#payment_name").html(data.data.payment_name);
-				 $("#payment").attr('href',data.data.payment_url); 
-				 $("#check_order").attr('href',data.data.order_url);      
+				 $("#payment").attr("href",data.data.payment_url);	 <!-- //Online payment link-->
+				
 				  alert(data.message);
 				 
-				  $('#barcode012').modal('show');
+				  $('#barcode012').modal('show');<!-- //Display payment order window-->
+				  //View order link
+
+				  $("#check_order").attr("href",data.data.order_url);
+				  
 				  
 				 } else {
 					$('#barcode012').modal('hide');

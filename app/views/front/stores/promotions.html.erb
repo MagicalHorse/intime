@@ -1,0 +1,20 @@
+<%= content_for :javascripts do -%>
+  <script src="/js/masonry.pkgd.min.js"></script>
+  <script src="/js/zxcx.js"></script>
+<% end -%>
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="<%= front_store_path(params[:id]) -%>"><i class="icon-undo"></i></a></li>
+    <li class="title">最新促销</li>
+  </ul>
+<% end -%>
+
+<div class="span9 main">
+  <section class="portfolio" info='storeid,<%= params[:id] -%>'>
+  <ul id="tiles" class="thumbnails tmode">
+  </ul>
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
+  </section>
+</div>
