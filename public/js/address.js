@@ -46,49 +46,51 @@ function address(){
 			
 			                   $('#shippingperson').html(address[i].shippingperson);
 							   $('#shippingprovince').html(address[i].shippingprovince+" "+address[i].shippingcity+" "+address[i].shippingdistrict); 
-						       $('#displayaddress').html(address[i].displayaddress); 
+						       $('#shippingaddress').html(address[i].shippingaddress); 
 						       $('#shippingzipcode').html(address[i].shippingzipcode); 
 						       $('#shippingphone').html(address[i].shippingphone); 
 							  
 							 
 							 //再次更新表单添加到隐藏的列表中
 							 $("#edit_user").val(address[i].shippingperson);
-						
-							 
-							<!--// 
-//							 if(address[i].shippingprovince==$("#sheng").find("option").eq(i).attr("value")){
-//								 
-//								 
-//								 }else{
-//									 
-//									 $("#sheng").val(address[i].shippingprovince); 
-//									 }-->
-		   $("#sheng").val(address[i].shippingprovince); 
-		  $("#edit_address").val(address[i].displayaddress);
-		  $("#edit_code").val(address[i].shippingzipcode);
-		  $("#edit_phone").val(address[i].shippingphone);
-				
+                          
+							 if(address[i].shippingprovince==$("#sheng").find("option").eq(i).attr("value")){
+								
+								   $("#sheng").find("option").eq(i).attr("value");
+								   $("#cheng").find("option").eq(i).attr("value");
+								   $("#qu").find("option").eq(i).attr("value");
+								
+								 }else{
+									 
+							    $("#sheng").append("<option value='"+address[i].shippingprovinceid+"'>"+address[i].shippingprovince+"</option>");
+								$("#sheng option[value='"+address[i].shippingprovinceid+"']").attr("selected", "selected");
+                                $("#cheng").append("<option value='"+address[i].shippingcityid+"'>"+address[i].shippingcity+"</option>");
+						        $("#cheng option[value='"+address[i].shippingcityid+"']").attr("selected", "selected");
+						        $("#qu").append("<option value='"+address[i].shippingdistrictid+"'>"+address[i].shippingdistrict+"</option>");
+						        $("#qu option[value='"+address[i].shippingdistrictid+"']").attr("selected", "selected");
+		   
+		   
+		   
+									  $("#edit_address").val(address[i].shippingaddress);
+									  $("#edit_code").val(address[i].shippingzipcode);
+									  $("#edit_phone").val(address[i].shippingphone);
+		  
+		  
+		  $("#sheng option").each(function () {
+											var text = $(this).text();
+											if ($("#sheng option:contains('" + text + "')").length > 1)
+												$("#sheng option:contains('" + text + "'):gt(0)").remove();
+									   
+                                        })
+		  
+								 }
 						 }
 		 }
 		
 	// alert(address);
 	  }
 	  
-	  function change_ercib(i){
-		  
-		  alert(address[i].shippingperson);
-		  
-		
-		 
-
-		
-		<!--//  =$('#shippingprovince').text();
-//          =$('#displayaddress').text();
-//		  =$('#shippingzipcode').text();
-//		  =$('#shippingphone').text();
-//		-->
-		  
-		  }
+	
   $(document).ready(function(){
   	               
 				           address();

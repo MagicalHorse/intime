@@ -10,7 +10,7 @@
     </a>
   </div>
   <p style="text-align:center;"> <a href="#alter<%= address['id'] %>" data-toggle="modal" class="btn">修改</a> <a href="#delete<%= address['id'] %>" data-toggle="modal" class="btn ">删除</a>
-    <div id="alter<%= address['id'] %>" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+    <div id="alter<%= address['id'] %>" class="modal hide fade in" role="dialog" aria-labelledby="barcode" aria-hidden="false">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="mLabel">修改当前地址</h3>
@@ -23,20 +23,17 @@
           <span>省份：</span>
           <select name="address[shippingprovinceid]" data-name="province_id" data-value="<%= address[:shippingprovinceid] %>">
           </select>
-          <%= f.hidden_field :shippingprovinceid, value: 5 %>
-          <%= f.hidden_field :shippingprovince, value: '北京' %>
+          <%= f.hidden_field :shippingprovince, value: address[:shippingprovince] %>
           <br>
           <span>城市：</span>
           <select name="address[shippingcityid]" data-name="city_id" data-value="<%= address[:shippingcityid] %>">
           </select>
-          <%= f.hidden_field :shippingcityid, value: 6 %>
-          <%= f.hidden_field :shippingcity, value: '北京市' %>
+          <%= f.hidden_field :shippingcity, value: address[:shippingcity] %>
           <br>
           <span>地区：</span>
           <select name="address[shippingdistrictid]" data-name="district_id" data-value="<%= address[:shippingdistrictid] %>">
           </select>
-          <%= f.hidden_field :shippingdistrictid, value: 7 %>
-          <%= f.hidden_field :shippingdistrict, value: '朝阳区' %>
+          <%= f.hidden_field :shippingdistrict, value: address[:shippingdistrict] %>
           <br>
           <span>收货地址：</span>
           <%= f.text_field :shippingaddress, value: address[:shippingaddress] %>
@@ -55,7 +52,7 @@
       </div>
     </div>
 
-    <div id="delete<%= address['id'] %>" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+    <div id="delete<%= address['id'] %>" class="modal hide fade in" role="dialog" aria-labelledby="barcode" aria-hidden="false">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="mLabel">删除地址</h3>

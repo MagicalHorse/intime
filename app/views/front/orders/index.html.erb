@@ -1,29 +1,25 @@
 <%= content_for :head_nav do %>
   <ul class="nav">
     <li><a href="<%= front_profile_path %>"><i class="icon-undo"></i></a></li>
-    <li><a href="<%= front_orders_path(type: API::Order::TYPES[:unpaid]) %>" id="recently">待付款<span class="ycmenu">的订单</span></a></li>
-    <li><a href="<%= front_orders_path(type: API::Order::TYPES[:unreceived]) %>" id="news">待收货<span class="ycmenu">的订单</span></a></li>
-    <li><a href="<%= front_orders_path(type: API::Order::TYPES[:completed]) %>" id="future">已完成<span class="ycmenu">的订单</span></a></li>
-    <li><a href="<%= front_orders_path(type: API::Order::TYPES[:cancelled]) %>" id="future">已取消<span class="ycmenu">的订单</span></a></li>
+    <li<%= ' class="active"'.html_safe if unpaid_orders_page? -%>><a href="<%= front_orders_path(type: API::Order::TYPES[:unpaid]) %>" id="recently">待付款<span class="ycmenu">订单</span></a></li>
+    <li<%= ' class="active"'.html_safe if unreceived_orders_page? -%>><a href="<%= front_orders_path(type: API::Order::TYPES[:unreceived]) %>" id="news">待收货<span class="ycmenu">订单</span></a></li>
+    <li<%= ' class="active"'.html_safe if completed_orders_page? -%>><a href="<%= front_orders_path(type: API::Order::TYPES[:completed]) %>" id="future">已完成<span class="ycmenu">订单</span></a></li>
+    <li<%= ' class="active"'.html_safe if cancelled_orders_page? -%>><a href="<%= front_orders_path(type: API::Order::TYPES[:cancelled]) %>" id="future">已取消<span class="ycmenu">订单</span></a></li>
   </ul>
 <% end %>
 <div class="span9 main">
   <div class="Logistics_query olrtds autoth">
     <% if @orders.present? %>
       <% if params[:type].to_s == '' || params[:type] == API::Order::TYPES[:unpaid].to_s %>
-        <p style="text-align:center;">待付款订单将为您保留24小时，24小时后还未付款将自动取消订单</p>
+        <p class="text-center">待付款订单将为您保留24小时，24小时后还未付款将自动取消订单</p>
       <% end %>
       <% @orders.each do |order| %>
         <%= render partial: 'order', locals: { order: order } %>
       <% end %>
       <%= paginate @orders %>
     <% else %>
-      <p style="text-align:center;">
-        <% if params[:type].blank? || params[:type] == API::Order::TYPES[:cancelled].to_s %>
-          暂时没有已取消的订单！
-        <% else %>
-          您最近还没购买过商品，赶紧去购物吧！
-        <% end %>
+      <p style="text-align:center;font-size: 16px;line-height:30px;">
+        您还没有购买过商品，赶快去逛逛吧！
       </p>
     <% end %>
   </div>
