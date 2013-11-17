@@ -1,5 +1,8 @@
 <%= render "his_nav"%>
 <div class="span9 main">
+
+  <%= render "his_profile"%>
+
   <section class="portfolio"  info="<%= @user_id%>" >
   <ul id="tiles" class="thumbnails tmode">
     <!-- 喜欢的宝贝0商品状态 -->
@@ -16,4 +19,15 @@
 <%= content_for :javascripts do -%>
   <script src="/js/masonry.pkgd.min.js"></script>
   <script src="/js/hspace.js"></script>
+  <script type="text/javascript">
+    function get_source(){
+      userid =$('.portfolio').attr('info');
+    }
+$(document).ready(function() {
+    index = intime.index;
+    $(document).bind('scroll', index.onScroll);
+    get_source();
+    index.loadData('1',userid);
+    });
+  </script>
 <% end -%>
