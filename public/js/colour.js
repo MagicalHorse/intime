@@ -52,7 +52,7 @@ function product(){
 									
 									 	 $('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"' onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()),$('#order_img').attr('src','"+data.data.salecolors[i].images_url+"')  href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button> ");
 										
-										 $('#sss').append("<div  class='prop mb20 tab-pane active in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺1码</span></div>");
+										 $('#sss').append("<div  class='prop mb20 tab-pane active in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺码</span></div>");
 																	 
 										 
 									 	} else {
@@ -62,7 +62,7 @@ function product(){
 									
 											
 											
-									 		$('#sss').append("<div class='prop mb20 tab-pane  in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺2码</span></div>");
+									 		$('#sss').append("<div class='prop mb20 tab-pane  in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺码</span></div>");
 									 		}
 										for(;j<le;j++){
 											
@@ -75,37 +75,54 @@ function product(){
 									 
 									
 									 
-									 
+									
 									 $("#originprice").html(data.data.originprice);
 									 $("#price").html(data.data.price);
+									<!-- //shou-->
 									 $('#shippingperson').html(data.data.address.shippingperson);
 									<!-- //显示价格下的省份地址等：-->
-									 $('#shippingprovince').html(data.data.address.shippingprovince); 
-									 
 									
-						       $('#displayaddress').html(data.data.address.displayaddress); 
+						       $('#shippingprovince').html(data.data.address.shippingprovince+" "+
+							   data.data.address.shippingcity+" "+data.data.address.shippingdistrict
+							   );
+						       $('#shippingaddress').html(data.data.address.shippingaddress); 
 						       $('#shippingzipcode').html(data.data.address.shippingzipcode); 
 						       $('#shippingphone').html(data.data.address.shippingphone); 
-						       $('#edit_user').val(data.data.address.shippingperson);
-						       $('#edit_address').val(data.data.address.displayaddress);
+						      
+							  
+							  
+							   $('#edit_user').val(data.data.address.shippingperson);
+						       $('#edit_address').val(data.data.address.shippingaddress);
 						       $('#edit_code').val(data.data.address.shippingzipcode);
 						       $('#edit_phone').val(data.data.address.shippingphone);
 							   
-							  
-							   
-							      $("#sheng").append("<option value='"+data.data.address.shippingprovinceid+"'>"+data.data.address.shippingprovince+"</option>");
+							     $("#sheng").append("<option value='"+data.data.address.shippingprovinceid+"'>"+data.data.address.shippingprovince+"</option>");
 						       $("#sheng option[value='"+data.data.address.shippingprovinceid+"']").attr("selected", "selected");
-							
-							 
-							  
+							   
+							   //The above test will be repeated, removing duplicate items
+
+							  $("#sheng option").each(function () {
+											var text = $(this).text();
+											if ($("#sheng option:contains('" + text + "')").length > 1)
+												$("#sheng option:contains('" + text + "'):gt(0)").remove();
+									   
+                                        })
+							   
+				
 						       $("#cheng").append("<option value='"+data.data.address.shippingcityid+"'>"+data.data.address.shippingcity+"</option>");
 						       $("#cheng option[value='"+data.data.address.shippingcityid+"']").attr("selected", "selected");
 						       $("#qu").append("<option value='"+data.data.address.shippingdistrictid+"'>"+data.data.address.shippingdistrict+"</option>");
 						       $("#qu option[value='"+data.data.address.shippingdistrictid+"']").attr("selected", "selected");
 				           $('#addressid').val(data.data.address.id);
+						   
 							   $('#huohao').html(data.data.skucode);
+							   
 							   var m=0,supportpayments =  data.data.supportpayments.length;
+							   
+							   
+							   
 							   for(; m<supportpayments; m++){
+								   
 								   $('#supportpayments').append("<label><input name='supportpayments' type='radio'  value='"+data.data.supportpayments[m].code+"'/>"+data.data.supportpayments[m].name+"</label>");
 								   }
 						}
@@ -180,9 +197,11 @@ function get_jifen(){
 		   }
 		   <!--积分获取1-->
 		   function  get_jifenchangea(){
+			
 		   
-		    var quantity = ($("#goods_num").val()-0)-1;
-		
+		     var   quantity = ($("#goods_num").val()-0)-1;
+			
+			   
 	
 	           $.ajax({
 					     

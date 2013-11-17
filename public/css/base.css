@@ -1452,13 +1452,14 @@ element.style {
 	border-radius: 0;
 	border: 1px solid #cccccc;
 	padding: 3px 8px;
+	margin-bottom: 6px;
 }
 .promo_info .infobox .buyinfo .prop button.active,  .promo_info .infobox .buyinfo .prop button:hover {
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
-	border: 2px solid #df0001;
-	margin: -1px;
+	border: 1px solid #df0001;
+	margin-bottom: 6px;
 }
 .promo_info .infobox .buyinfo .prop button.active {
 	background: url(../images/prop_active.gif) no-repeat right bottom;
@@ -1764,6 +1765,10 @@ margin-bottom:2px;
  .navbar .nav #menu2 .dropdown-menu .brands dd a {
 display: block;
 height: 45px;
+background: rgba(0, 0, 0, 0.4);
+}
+ .navbar .nav #menu2 .dropdown-menu .brands dd a:hover{
+background: rgba(0, 0, 0, 0.6); 
 }
  .navbar .nav #menu2 .dropdown-menu .brands dd p {
 display:block;
@@ -1944,12 +1949,11 @@ margin:0;
 }
  .shop_detail .info span {
  display:block;
- height: 34px;
- line-height: 34px;
+ line-height: 20px;
  background: #aaa;
- text-indent: 1em;
  font-weight: normal;
  color:#eee;
+ padding: 7px 16px;
 }
  .shop_detail .info span:nth-child(2) {
 border-top: 1px solid #999;
@@ -2074,6 +2078,7 @@ padding: 10px 10px 5px 10px;
 }
  .navbar .nav #menu1 .dropdown-menu dl{ margin-bottom:5px;}
 
+.main{min-height: 380px!important;}
 
  .portfolio {
 margin: 0 10px;
@@ -2092,6 +2097,8 @@ display: none;
  .shop_detail {
 margin:0 10px 10px 10px;
 }
+/* 收货地址管理 */
+.address .modal-body{max-height: 180px;}
 }
 
 

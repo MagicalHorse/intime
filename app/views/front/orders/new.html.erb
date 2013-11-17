@@ -10,7 +10,7 @@
     <div id="picbox" class="carousel slide">
       <div class="carousel-inner">
         <!--  -->
-        <div id="order_div_img"  style="width:400px; height:400px;"><img id="order_img" src="temp/400_400_1.jpg" alt="相宜本草护肤品正品套装 四倍蚕丝基础护理三件套 补水美白保湿"></div>
+        <div id="order_div_img"><img id="order_img" src="temp/400_400_1.jpg" alt="相宜本草护肤品正品套装 四倍蚕丝基础护理三件套 补水美白保湿"></div>
       </div>
     </div>
     <div class="infobox">
@@ -23,7 +23,7 @@
           <div class="brand">相宜本草<br>
             (INOHERB)</div>
         </ul>
-      </div>         
+      </div>
       <div class="buyinfo">
         <div class="prop mb20" data-toggle="buttons-radio">
           <span class="tages">颜色</span>
@@ -50,9 +50,13 @@
         <div id="have_adress" class="item_tit thzq" style="display:none;">
           <span>收货人姓名：</span><em style="font-style: normal;" id="shippingperson"></em><br/>
           <span>省份：</span><em style="font-style: normal;" id="shippingprovince"></em><br>
-          <span>地址：</span><em style="font-style: normal;" id="displayaddress"></em><br/>
+          <span>地址：</span><em style="font-style: normal;" id="shippingaddress"></em><br/>
+
           <span>邮编：</span><em style="font-style: normal;" id="shippingzipcode"></em><br>
           <span>手机号码：</span><em style="font-style: normal;" id="shippingphone"></em><br>
+
+
+
           <div id="accordion01" class="alter">
             <span><a href="#alter01" data-toggle="collapse" data-parent="#accordion01" class="btn">修改本收货地址</a></span>
             <span><a href="#add01" data-toggle="collapse" data-parent="#accordion01" class="btn">使用新收货地址</a></span>
@@ -98,32 +102,7 @@
                   </div>
                   <span style="font-size:14px;width:200px !important;">使用其他地址</span>
                   <form id="address" name="form1" method="post" action="">
-                    <!--<label style="padding:0">
-                      <div class="item">
-                        <div class="item_tit thzq lh25">
-                          <input type="radio" name="RadioGroup1" value="韩璐" id="RadioGroup1_0">
-                          <span>收货人：</span>韩璐<br>
-                          <span>手机号码：</span>1381000000<br>
-                          <span>固定电话：</span>63000000<br>
-                          <span>省份：</span>北京-北京-丰台<br>
-                          <span>收货地址：</span>北京市丰台新华街小区5里9号楼<br>
-                          <span>邮编：</span>100070<br>
-                        </div>
-                      </div>
-                    </label>
-                    <label style="padding:0">
-                      <div class="item">
-                        <div class="item_tit thzq lh25">
-                          <input type="radio" name="RadioGroup1" value="单选" id="RadioGroup1_1">
-                          <span>收货人：</span>韩璐<br>
-                          <span>手机号码：</span>1381000000<br>
-                          <span>固定电话：</span>63000000<br>
-                          <span>省份：</span>北京-北京-丰台<br>
-                          <span>收货地址：</span>北京市丰台新华街小区5里9号楼<br>
-                          <span>邮编：</span>100070<br>
-                        </div>
-                      </div>onClick="edit_address();"
-                    </label>-->
+
                   </form>
                   <div class="modal-footer">
                     <a href="#alter01"  data-toggle="collapse" class="btn btn-danger"  onClick="change();" >选择使用</a>
@@ -219,11 +198,11 @@
               <a class="btn btn-danger" data-dismiss="modal">取消</a>
             </div>
           </div>
-        </div>						
-        <!--用户未创建过收货地址状态-->						
+        </div>
+        <!--用户未创建过收货地址状态-->
         <div class="item_tit bt" id="supportpayments" ><span>支付方式：</span> <br>
           <!--<label><input name="u40" type="radio" id="u42" value="radio" checked />
-            支付宝支付</label>-->							
+            支付宝支付</label>-->
         </div>
         <div class="item_tit bt" style="line-height: 34px;"><span>发票信息：</span><br>
           <span>发票抬头：</span>
@@ -276,11 +255,12 @@
             支付方式：<i id="payment_name"></i></p>
           <p style="font-size:12px;text-align:center;"><span style="color:#990000">请在24小时内完成支付，过时订单将会自动取消！</span></p>
         </div>
-        <div class="modal-footer"> <a href="" id="check_order" class="btn" >查看订单</a> <a href="" id="payment" class="btn btn-danger">在线支付</a> </div>
+        <div class="modal-footer"> <a href="" id="check_order" class="btn" >查看订单</a> <a href="" id="payment" class="btn btn-danger" data-dismiss="modal">在线支付</a> </div>
       </div>
     </p>
   </section>
 </div>
+
 <%= content_for :javascripts do %>
   <script src="<%= static_url('js/colour.js') %>"></script>
   <script src="<%= static_url('js/order_city.js') %>"></script>

@@ -28,7 +28,7 @@
 	  var goods_num = $("#goods_num").val();
 	  var shippingperson=$("#shippingperson").text();
 	  var shippingprovince=$("#shippingprovince").text();
-	  var displayaddress=$("#displayaddress").text();
+	  var shippingaddress=$("#shippingaddress").text();
 	  var shippingzipcode=$("#shippingzipcode").text();
 	  var shippingphone=$("#shippingphone").text();
 	  var supportpayments=$("input[name='supportpayments']:checked").val();
@@ -46,15 +46,30 @@
    var address = new Object();
    var pay = new Object();
 
- if(cellphone!=null){
-  
+ if(cellphone==null){
+	 
+	 alert("请输入您的手机号码！");
+	  rollback;
+	 }else if(goods_color==""){
+		 
+		 alert("请选择相应的颜色！");
+		  rollback;
+		 }else if(goods_size==""){
+			 alert("请选择大小尺寸！");
+			  rollback;
+			 }else if(supportpayments==null){
+				 alert("请选择您的支付方式！");
+				  rollback;
+				 }
+				 else{
+			
    
    pay.paymentcode=supportpayments;//"支付方式代码";
    pay.paymentname="支付宝支付";//"支付方式名";//"支付方式名";
     address.shippingcontactperson = shippingperson; //"收货联系人";
 	address.shippingcontactphone = shippingphone;//"收货联系电话";
 	address.shippingzipcode = shippingzipcode;//"收货地址邮编";
-	address.shippingaddress = displayaddress;//"收货地址";
+	address.shippingaddress = shippingaddress;//"收货地址";
 	
     product.productid=product_id;//product_id传入对应的商品id
 	 //测试用的product_id 测试成功 加入 product_id 替换 号码
@@ -79,13 +94,6 @@
 	  
 	var order = JSON.stringify(order);//转义json
 	
-	
-	}else{
-		   
-		   alert("您输入的手机号码！");
-		   rollback;
-		   }
-	
 
 
 	$.ajax({
@@ -94,7 +102,7 @@
         dataType: 'jsonp',
         data: {order: order}, // Page parameter to make sure we load new data
         success: function(data){
-				 
+				
 			    var check1 = data.isSuccessful.toString();
 				 var check2 ="true";
 				 if(check1==check2){
@@ -102,13 +110,13 @@
 				 $("#payment_name").html(data.data.payment_name);
 				 $("#payment").attr("href",data.data.payment_url);	 <!-- //Online payment link-->
 				
-				  alert(data.message);
+				 //alert(data.message);
 				 
 				  $('#barcode012').modal('show');<!-- //Display payment order window-->
 				  //View order link
 
 				  $("#check_order").attr("href",data.data.order_url);
-				  
+				  //window.location.href="om_df.html";
 				  
 				 } else {
 					$('#barcode012').modal('hide');
@@ -119,7 +127,7 @@
 				
 			}
       });
-	 
+	   }
 	  }
   function add_address(){
 	  var name=$("#name").val();
@@ -174,9 +182,12 @@
 					});
 	  }
 
+//Using the new address.
+
 function new_address(){
 
 var syxd_user=$("#syxd_username").val();
+
 		   var provinceid = $("#sheng_syxd").val();
 			  var province =$("#sheng_syxd").find("option:selected").text();
 			  var cityid = $("#cheng_syxd").val();
@@ -189,6 +200,9 @@ var syxd_user=$("#syxd_username").val();
 			  var syxd_call = $("#syxd_call").val();
 			 var address = new Object();
 			 
+		<!--//	alert("对应地址一下："+provinceid+" "+province+" "+cityid+" "+city+" "+countyid+" "+county+" "+saddress+" "+postcode+" "+cellphone+" "+syxd_call+" "+address);
+//			
+//			-->
 			
 	  address.shippingperson = syxd_user;
 	  address.shippingphone = cellphone;
@@ -214,20 +228,57 @@ $.ajax({
 						var check1 = data.isSuccessful.toString();
 						var check2 ="true";
 						if(check1==check2){
+							
 						       $('#shippingperson').html(data.data.shippingperson);
 							   $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
-						       $('#displayaddress').html(data.data.displayaddress); 
+						       $('#shippingaddress').html(data.data.shippingaddress); 
 						       $('#shippingzipcode').html(data.data.shippingzipcode); 
 						       $('#shippingphone').html(data.data.shippingphone);
 							   alert(data.message);
 							   $('#add01').collapse('hide');
-	                           
-							$("#edit_user").val(data.data.shippingperson);
-						
-		                   $("#sheng").val(data.data.shippingprovince);
-		                   $("#edit_address").val(data.data.displayaddress);
+	                          
+							  
+							   
+						  $("#edit_user").val(data.data.shippingperson);
+						  
+		                  //Add a new address backfill to modify the address bar
+
+						 
+							 if(data.data.shippingprovince==$("#sheng").find("option").eq(i).attr("value")){
+								
+								   $("#sheng").find("option").eq(i).attr("value");
+								   $("#cheng").find("option").eq(i).attr("value");
+								   $("#qu").find("option").eq(i).attr("value");
+															 
+								 }else{
+									 
+									    $("#sheng").val(data.data.shippingprovince); 
+										$("#cheng").val(data.data.shippingcity);
+										$("#qu").val(data.data.shippingdistrict);
+										
+										//Removing duplicate items.
+
+										$("#sheng option").each(function () {
+											var text = $(this).text();
+											if ($("#sheng option:contains('" + text + "')").length > 1)
+												$("#sheng option:contains('" + text + "'):gt(0)").remove();
+									   
+                                        })
+										
+									 }
+
+						   
+		                   $("#edit_address").val(data.data.shippingaddress);
 		                   $("#edit_code").val(data.data.shippingzipcode);
 		                   $("#edit_phone").val(data.data.shippingphone);
+						   
+						    $("#sheng option").each(function () {
+											var text = $(this).text();
+											if ($("#sheng option:contains('" + text + "')").length > 1)
+												$("#sheng option:contains('" + text + "'):gt(0)").remove();
+									   
+                                        })
+						   
 //								 
 							   
 							} else {
@@ -239,7 +290,8 @@ $.ajax({
 		  }
 		  
 		  
-		  
+		  //修改的保存使用地址，并且更新地址，到当前地址。
+		  //在提交之后地址变更为修改完的地址。下次登录就是显示的这个地址。
 		  function edit_address(){
 			  
 			  
@@ -255,8 +307,7 @@ $.ajax({
 		  	var edit_phone = $('#edit_phone').val();
 			var addressid = $('#addressid').val();
 			
-		
-			
+					
 			var address = new Object();
 			
 			
@@ -283,17 +334,19 @@ $.ajax({
 							var check1 = data.isSuccessful.toString();
 						var check2 ="true";
 						if(check1==check2){
-							
+							//更新之后显示一致
 							$('#shippingperson').html(data.data.shippingperson);
-									 $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
-						       $('#displayaddress').html(data.data.displayaddress); 
+						    $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
+						       $('#shippingaddress').html(data.data.shippingaddress); 
 						       $('#shippingzipcode').html(data.data.shippingzipcode); 
 						       $('#shippingphone').html(data.data.shippingphone);
 						      
+							  
 						       $('#edit_user').html(data.data.shippingperson);
 						       $('#edit_address').html(data.data.displayaddress);
 						       $('#edit_code').html(data.data.shippingzipcode);
 						       $('#edit_phone').html(data.data.shippingphone);
+							   
 							   $('#alter01').collapse('hide');
 							   alert(data.message);
 							} else {
