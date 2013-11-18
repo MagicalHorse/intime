@@ -54,7 +54,7 @@
     </div>
 
     <% if @addresses[:datas].blank? %>
-      <p style="text-align: center;">您还没有创建收货地址</p>
+      <%= display_blank_prompt('您还没有创建收货地址！') %>
     <% else %>
       <% @addresses[:datas].each do |address| %>
         <%= render partial: 'address', locals: { address: address } %>

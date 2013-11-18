@@ -50,7 +50,7 @@ function product(){
 									 
 									 if(i==0){
 									
-									 	 $('#myTab').append("<button type='button' value='"+data.data.salecolors[i].colorid+"' onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()),$('#order_img').attr('src','"+data.data.salecolors[i].images_url+"')  href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button> ");
+									 	 $('#myTab').append("<button  type='button' value='"+data.data.salecolors[i].colorid+"' onClick=$('#goods_color').text($(this).text()),$('#colourid').val($(this).val()),$('#order_img').attr('src','"+data.data.salecolors[i].images_url+"')  href='#tab"+i+"' data-toggle='tab' class='btn'>"+data.data.salecolors[i].colorname+"</button> ");
 										
 										 $('#sss').append("<div  class='prop mb20 tab-pane active in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺码</span></div>");
 																	 
@@ -135,8 +135,6 @@ function product(){
   $(document).ready(function(){
   	               
 				           product();
-						 
-				          
 							 });
 							 
 	<!--积分获取-->
