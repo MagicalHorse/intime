@@ -1,0 +1,34 @@
+<script type="text/javascript">
+//产品页面图片
+$('#picbox').royalSlider({
+	loop: true,
+	controlsInside: false,
+	imageScaleMode: 'fill',
+	arrowsNavAutoHide: true,//箭头导航是否自动隐藏	true或false
+	arrowsNavHideOnTouch: true,//箭头导航是否在触摸设备中隐藏 true或false
+	autoScaleSlider: true,
+	autoScaleSliderWidth: 400,  
+	autoScaleSliderHeight: 400,
+	slidesSpacing: 0,
+	controlNavigation: 'bullets',
+	navigateByClick: true,
+	autoPlay: false,
+	transitionType:'move'
+});
+
+</script>
+<script type="text/javascript">
+function get_source(){
+	   var str =$('#promo_infoo').attr('info');
+	   var arr= new Array(); //定义一数组
+       arr=str.split(","); //字符分割   
+	   sourceid = arr[0];
+	   sourcetype = arr[1];
+	   }
+$(document).ready(function() {
+		 index = intime.index;
+		$(document).bind('scroll', index.onScroll);
+		get_source();
+		index.loadData(sourceid,sourcetype);
+	});
+</script>
