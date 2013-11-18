@@ -3,7 +3,6 @@
   <link href="/css/ajax_page.css" rel="stylesheet">
 <% end -%>
 <%= content_for :javascripts do -%>
-  <script src="/js/jquery.royalslider.min.js"></script>
   <script src="/js/product.js"></script>
   <script src="/js/operate.js"></script>
 <% end -%>
@@ -35,9 +34,11 @@
 
       <%= render 'tool_bar', product: @product -%>
 
-      <div class="btnbar">
-        <%= link_to '在线购买', new_front_order_path(product_id: @product.id), class: 'btn btn-danger' -%>
-      </div>
+      <% if @product.is4sale -%>
+        <div class="btnbar">
+          <%= link_to '在线购买', new_front_order_path(product_id: @product.id), class: 'btn btn-danger' -%>
+        </div>
+      <% end -%>
     </div>
     <div class="clearfix"></div>
   </section>
@@ -45,3 +46,6 @@
 
   <%= render 'comments', product: @product -%>
 </div>
+<%= content_for :single_jss do -%>
+  <%= render 'single_js' -%>
+<% end -%>

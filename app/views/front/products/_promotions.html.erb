@@ -1,11 +1,11 @@
-<% if (promotions = product.promotions).present? -%>
+<% if (promotions = product.promotions).present? && promotion = promotions.first -%>
   <section class="events_info">
     <h2>参与活动详情</h2>
-    <div class="picbox"> <a href="promo.html"><img src="temp/400_400_2.jpg" alt="银泰杭州武林店"></a> </div>
+    <div class="picbox">
+      <%= link_to image_tag("temp/400_400_2.jpg"), front_promotion_url(promotion.id) -%>
+    </div>
     <div class="infobox">
-      <p>银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>
-      <p>6.27-6.30，下载活动优惠码，并成功消费，积点就会飞进你的APP碗里来！</p>
-      <p>先购先得，赠完即止！</p>
+      <%= promotion.content -%>
     </div>
     <div class="clearfix"></div>
   </section>

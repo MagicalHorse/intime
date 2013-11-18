@@ -27,6 +27,10 @@ module API
       def download_coupon(req, params = {})
         post(req, params.merge(path: 'product/coupon', ispass: 0))
       end
+
+      def availoperation(req, params = {})
+        post(req, params.merge(path: 'product/availoperations'))
+      end
     end
   end
 end

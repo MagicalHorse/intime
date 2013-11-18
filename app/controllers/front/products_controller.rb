@@ -4,6 +4,10 @@ class Front::ProductsController < Front::BaseController
 
   def show
     @product = Stage::Product.fetch(params[:id])
+
+    if signed_in?
+      @product_info = API::Product.availoperation(request, id: params[:id])['data']
+    end
   end
 
   def index
@@ -123,7 +127,7 @@ class Front::ProductsController < Front::BaseController
   end
 
   def comment
-    @comment = API::Comment.create(request, params.slice(:content, :replyuser).merge(sourceid: params[:id], sourcetype: 1))
+    @comment = API::Comment.create(request, params.slice(:content, :replyuser).merge(sourceid: params[:id], sourcetype: 1))[:data]
 
     respond_to { |format| format.js }
   end
