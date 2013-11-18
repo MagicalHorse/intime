@@ -21,7 +21,7 @@
               <a href="<%= front_my_profile_path %>"><img src="<%= current_user.avatar_url %>"></a>
             </div>
             <div class="tools">
-              <span><%= current_user.nickie %></span>
+              <span><%= current_user.nickie %><em><a href="<%= logout_path %>" data-method="delete" title="退出">退出</a></em></span>
               <ul><li><a href="<%= front_profile_path %>" title="预购中心"> </a></li>
                 <li><a href="<%= front_my_comments_path -%>" title="消息"> </a></li>
                 <li><a href="<%= front_profile_edit_path %>" title="设置"> </a></li>
@@ -55,8 +55,8 @@
       <% end %>
       <div class="section follow">
         <ul>
-          <li><h2>下载APP</h2><a href="#"><img src="/images/ytapp.png" alt="下载喜欢银泰APP" width="51" height="51"></a></li>
-          <li><h2>关注微信</h2><a href="#"><img src="/images/icon_code.png" alt="关注喜欢银泰微信" width="51" height="51"></a></li>
+          <li><h2>下载APP</h2><a target="_blank" href="https://itunes.apple.com/cn/app/xi-huan-yin-tai-guang-shang/id615975780?mt=8"><img src="<%= static_url("images/ytapp.png") -%>" alt="下载喜欢银泰APP" width="51" height="51"></a></li>
+          <li><h2>关注微信</h2><a href="javascript:;"><img src="<%= static_url("images/icon_code.png") %>" alt="关注喜欢银泰微信" width="51" height="51"></a></li>
         </ul>
       </div>
     </div>

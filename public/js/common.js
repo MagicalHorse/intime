@@ -17,10 +17,6 @@ $(function() {
 	});
 
 
-	
-
-
-
     //案例
     $(".portfolio .thumbnails .thumbnail .action").hover(function() {
         $(this).find("p").fadeIn(200);
@@ -133,9 +129,5 @@ $(function() {
 			$(".thjexj").text((parseInt($(".tkje").text())*value).toFixed(2));
 		});		
 	});
-	
-	
-
-
 
 });

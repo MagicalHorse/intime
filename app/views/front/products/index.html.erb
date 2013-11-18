@@ -1,26 +1,42 @@
 <%= content_for :head_nav do -%>
   <ul class="nav">
     <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">商品列表</li>
   </ul>
 <% end -%>
 <div id="info" info="<%= @info.first%>,<%= @info.last%>"></div>
 
 <div class="span9 main">
-  <!-- gallery -->
   <section class="portfolio">
   <ul id="tiles" class="thumbnails tmode">
-    <!--如果没有内容-->
-    <!--<p style="text-align:center;padding-top:150px;font-size: 16px;line-height:30px;">
-    没有符合条件的信息！</p>-->
-    <!--如果没有内容-->
+    <p style="text-align:center;font-size: 16px;line-height:30px;">
+    很抱歉，暂时还没有商品！
+    </p>
   </ul>
   <div id="loader">
     <div id="loaderCircle"></div>
   </div>
   </section>
+  
 </div>
 <%= content_for :javascripts do -%>
   <script src="/js/masonry.pkgd.min.js"></script>
   <script src="/js/mousewheel.min.js"></script>
   <script src="/js/sort_list.js"></script>
+  <script type="text/javascript">
+    function get_source(){
+      var str =$('#info').attr('info');
+      var arr= new Array(); //定义一数组
+      arr=str.split(","); //字符分割   
+      type = arr[0];
+      entity_id = arr[1];
+    }
+$(document).ready(function() {
+    get_source();
+    var index = intime.index;
+    $(document).bind('scroll', index.onScroll);
+    index.loadData(type,entity_id);
+    });
+  </script>
+  
 <% end %>

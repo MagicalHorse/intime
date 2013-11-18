@@ -1,12 +1,15 @@
 <%= render "his_nav"%>
 <div class="span9 main">
+
+  <%= render "his_profile"%>
+
   <section class="portfolio"  info="<%= @user_id%>" >
   <ul id="tiles" class="thumbnails tmode">
-    <!-- 喜欢的宝贝0商品状态 -->
-    <!--<p style="text-align:center;font-size: 16px;line-height:30px;">
-    Ta还没有喜欢的商品。
-    </p>-->
-    <!-- 喜欢的宝贝0商品状态 -->
+    <!-- 喜欢的促销0活动状态 -->
+    <p style="text-align:center;font-size: 16px;line-height:30px;">
+    Ta还没有喜欢的促销。
+    </p>
+    <!-- 喜欢的促销0活动状态 -->
   </ul>
   <div id="loader">
     <div id="loaderCircle"></div>
@@ -15,7 +18,18 @@
 </div>
 <%= content_for :javascripts do -%>
   <script src="/js/masonry.pkgd.min.js"></script>
-  <script src="/js/hspace_promo.js" ></script>
+  <script src="/js/hspace.js" ></script>
+  <script type="text/javascript">
+    function get_source(){
+      userid =$('.portfolio').attr('info');
+    }
+$(document).ready(function() {
+    index = intime.index;
+    $(document).bind('scroll', index.onScroll);
+    get_source();
+    index.loadData('1',userid);
+    });
+  </script>
 <% end -%>
 
 

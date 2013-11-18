@@ -11,7 +11,7 @@
         <dt>热门分类</dt>
         <% @hotwords[:words] && @hotwords[:words].each do |word| %>
           <dd role="presentation">
-          <a role="menuitem" tabindex="-1" href="#" onClick="clears(),loadData('#{word}')">
+          <a role="menuitem" tabindex="-1" href="#" onClick="gallery.clears(),gallery.loadData('#{word}')">
             <%= word %>
           </a>
           </dd>
@@ -19,11 +19,11 @@
       </dl>
       <dl>
         <dd role="presentation">
-        <a role="menuitem" class="active" tabindex="-1" href="#" onclick="clears(),loadData('category','');">全部</a>
+        <a role="menuitem" class="active" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('category','');">全部</a>
         </dd>
         <% @tags[:tags] && @tags[:tags].each do |tag|%>
           <dd role="presentation">
-          <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('category',<%= tag[:id]%>);">
+          <a role="menuitem" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('category',<%= tag[:id]%>);">
             <%= tag[:name] %>
           </a>
           </dd>
@@ -40,7 +40,7 @@
         <dt>热门品牌</dt>
         <% @hotwords[:brandwords] && @hotwords[:brandwords].each do |brand| %>
           <dd role="presentation">
-          <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('brand',<%= brand["id"]%>);">
+          <a role="menuitem" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('brand',<%= brand["id"]%>);">
             <%= brand["name"] %>
           </a>
           </dd>
@@ -57,7 +57,7 @@
           <div class="tab-pane" id="brandALL">
             <% @all_brands && @all_brands.each do |brand| %>
               <dd role="presentation">
-              <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('brand',<%= brand[:id]%>);">
+              <a role="menuitem" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('brand',<%= brand[:id]%>);">
                 <p style="display:block"><%= brand[:name]%></p>
               </a>
               </dd>
@@ -68,7 +68,7 @@
             <div class="tab-pane" id="brand<%= character%>">
               <% @brands[character] && @brands[character].each do |brand| %>
                 <dd role="presentation">
-                <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('brand',<%= brand[:id]%>);">
+                <a role="menuitem" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('brand',<%= brand[:id]%>);">
                   <p style="display:block" ><%= brand[:name]%></p>
                 </a>
                 </dd>
@@ -90,7 +90,7 @@
       <li role="presentation" class="active"><a role="menuitem"  class="active" tabindex="-1" href="#">全部门店</a></li>
       <% @stores[:stores] && @stores[:stores].each do |store| %>
         <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('store',<%= store[:id]%>);">
+        <a role="menuitem" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('store',<%= store[:id]%>);">
           <%= store[:name] %>
         </a>
         </li>
@@ -102,23 +102,23 @@
     <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="javascript:0">排序<b class="caret"></b></a>
     <ul class="dropdown-menu" role="menu" aria-labelledby="drop4">
       <li role="presentation" class="active">
-      <a role="menuitem" class="active" tabindex="-1" href="#" onclick="clears(),loadData('sortby',1);">最新发布</a>
+      <a role="menuitem" class="active" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('sortby',1);">最新发布</a>
       </li>
       <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sortby',2);">价格最高</a>
+      <a role="menuitem" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('sortby',2);">价格最高</a>
       </li>
       <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sortby',3);">价格最低</a>
+      <a role="menuitem" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('sortby',3);">价格最低</a>
       </li>
       <li role="presentation">
-      <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sortby',4);">人气最高</a>
+      <a role="menuitem" tabindex="-1" href="#" onclick="gallery.clears(),gallery.loadData('sortby',4);">人气最高</a>
       </li>
     </ul>
     </li>
 
     <div class="input-append pull-right search">
       <input type="text" id="search" placeholder="请输入搜索内容">
-      <button class="btn" type="button" onClick="clears(),loadData($('#search').val());">
+      <button class="btn" type="button" onClick="gallery.clears(),gallery.loadData($('#search').val());">
         <i class="icon-search icon-large"></i>
       </button>
     </div>
@@ -130,9 +130,14 @@
 <div class="span9 main">
   <section class="portfolio">
   <ul id="tiles" class="thumbnails tmode">
-    <!-- 非常抱歉，暂时还没有人分享过此类商品 -->
+
   </ul>
+  <div id="no_data"><p style="text-align:center;font-size: 16px;line-height:30px;">分类目录下暂时没有更多的商品!</p></div>
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
   </section>
+  
 </div>
 
 <%= content_for :javascripts do -%>
@@ -144,7 +149,7 @@
     $('.navbar .nav #menu1 .dropdown-menu,.navbar .nav #menu2 .dropdown-menu').perfectScrollbar({
       wheelSpeed: 30,
       wheelPropagation: false
-    });        
+    });	
 
     //停止监听下拉菜单 & 启动标签页 & 选中效果
     $('#myTab a').click(function (e) {
@@ -174,6 +179,11 @@
       $("#menu4 .dropdown-menu li a").removeClass("active");
       $(this).addClass("active");
     });
-
+    $(document).ready(function() {
+      $('#no_data').hide();
+      gallery = intime.gallery;
+      $(document).bind('scroll', gallery.onScroll);
+      gallery.loadData('s','c');
+    });
   </script>
 <% end -%>

@@ -1,16 +1,29 @@
 <%= render "his_nav"%>
 <div class="span9 main">
+
+  <%= render "his_profile"%>
+
   <section class="portfolio" info="<%= @user_id%>">
-  <ul id="tiles" class="thumbnails tmode">
+  <ul class="thumbnails pt10 tmode">
+    <p style="text-align:center;font-size: 16px;line-height:30px;">好东西
+    和别人一起分享其乐无穷!<br>
+    共发布0个分享!</p>
   </ul>
-  <div id="loader">
-    <div id="loaderCircle"></div>
-  </div>
   </section>
+
 </div>
 <%= content_for :javascripts do -%>
   <script src="/js/masonry.pkgd.min.js"></script>
-  <script src="/js/hjspace_share.js"></script>
+  <script src="/js/hspace.js"></script>
+  <script type="text/javascript">
+    function get_source(){
+      userid =$('.portfolio').attr('info');
+    }
+$(document).ready(function() {
+    index = intime.index;
+    $(document).bind('scroll', index.onScroll);
+    get_source();
+    index.loadData('1',userid);
+    });
+  </script>
 <% end -%>
-
-
