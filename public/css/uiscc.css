@@ -220,6 +220,7 @@ text-align: center;}
 /*  Logistics_query.html 物流详情*/
 
 .Logistics_query .item {
+	position:relative;
 	padding:0px 15px;
 	border: 1px solid #e0e0e0;
 	-webkit-border-radius: 5px;
@@ -455,8 +456,8 @@ display: inline-block;}
 .address .thzq span.it{
 display: block;
 position: absolute;
-top: 120px;
-right: 20px;
+top: 40%;
+right: 0;
 width: 40px!important;
 height: 40px;
 background: url(../images/ico_ok.png) no-repeat;}
