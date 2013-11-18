@@ -1,4 +1,3 @@
-
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {

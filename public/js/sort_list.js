@@ -4,7 +4,6 @@ $.extend(intime, {
 	index: {
 		_page: 1,
 		_sort: '',
-		_searchpath: 'front/products/search_api.json',
 		_listpath: 'front/products/list_api.json',
 		_container: $('#tiles'),
 		_msnry: null,
@@ -13,31 +12,41 @@ $.extend(intime, {
 
 		onLoad: function(data) {
 			var _this = intime.index;
+			var length = data.datas.length;
+			if (_this._page == 1) {
+				if (length <= 0) {
+					$('#no_data').show();
+					return;
+				};
+			} else {
+				if (length <= 0) {
+					$('#last_page').show();
+					return;
+				};
+			}
 			_this._page++;
 
-			var length = data.datas.length;
-			if (length <= 0) return;
 			var elems = [];
 			var fragment = document.createDocumentFragment();
 			$(data.datas).each(function() {
 				var html = '';
 				var one = this;
-				html+='<li class="scrollItem">';
-				html+='<div class="thumbnail">';
-				html+='<div class="action">';
-				html+='<!--优惠-->';
-				if(one.flag.toString()=="true"){
-					html+='<span class="discount">优惠</span>';
-					html+='<span class="triangle"></span>';
-					} 
-				html+='<!--优惠-->';
-				html+='<a href="'+one.url+'"><img src="'+one.imageUrl+'" alt="'+one.title+'"></a>';
-				html+='<span class="like"><i class="icon-heart icon-white"></i>'+one.likeCount+'+</span>';
-				html+='</div>';
-				html+='<h4><a href="'+one.url+'" title="">'+one.title+'</a></h4>';
-				html+='<small><span class="pull-left num">吊牌价：<em>￥'+one.originalPrice+'</em></span><span class="pull-right price">销售价：<em>￥'+one.price+'</em></span></small>';
-				html+='</div>';
-				html+='</li>';
+				html += '<li class="scrollItem">';
+				html += '<div class="thumbnail">';
+				html += '<div class="action">';
+				html += '<!--优惠-->';
+				if (one.flag.toString() == "true") {
+					html += '<span class="discount">优惠</span>';
+					html += '<span class="triangle"></span>';
+				}
+				html += '<!--优惠-->';
+				html += '<a href="product.html"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a>';
+				html += '<span class="like"><i class="icon-heart icon-white"></i>' + one.likeCount + '+</span>';
+				html += '</div>';
+				html += '<h4><a href="product.html" title="">' + one.title + '</a></h4>';
+				html += '<small><span class="pull-left num">吊牌价：<em>￥' + one.originalPrice + '</em></span><span class="pull-right price">销售价：<em>￥' + one.price + '</em></span></small>';
+				html += '</div>';
+				html += '</li>';
 				var elem = $(html).get(0);
 				fragment.appendChild(elem);
 				elems.push(elem);
@@ -57,7 +66,8 @@ $.extend(intime, {
 		},
 		loadData: function($type, $entity_id) {
 			this._isLoadingMore = true;
-			$('#loaderCircle').show();
+			$('#loader').show();
+			$('#no_data,#last_page').hide();
 			var _this = this;
 			type = $type;
 			entity_id = $entity_id;
@@ -72,7 +82,7 @@ $.extend(intime, {
 				success: this.onLoad
 			}).always(function() {
 				_this._isLoadingMore = false;
-				$('#loaderCircle').hide();
+				$('#loader').hide();
 			});
 
 		},
@@ -82,9 +92,9 @@ $.extend(intime, {
 			this._container.empty();
 			if (this._msnry) {
 				var items = this._msnry.getItemElements();
-				if (items && items.length>0) {
-					this._msnry.remove(items);	
-					this._isMsnryInit= false;
+				if (items && items.length > 0) {
+					this._msnry.remove(items);
+					this._isMsnryInit = false;
 					this._msnry.destroy();
 				}
 			}
