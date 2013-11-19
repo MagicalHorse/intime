@@ -1,20 +1,7 @@
 <%= render "nav"%>
 <div class="span9 main">
-  <%= render "user_info"%> 
-
-  <section class="portfolio">
-  <!-- 喜欢的宝贝0商品状态 -->
-  <p style="text-align:center;font-size: 16px;line-height:30px;">
-  看到喜欢的东东千万不要错过!
-  </p>
-  <!-- 喜欢的宝贝0商品状态 -->
-  
-  <ul id="tiles" class="thumbnails tmode"></ul>
-  <div id="loader">
-    <div id="loaderCircle"></div>
-  </div>
-  </section>
-    
+  <%= render "user_info"%>
+  <%= render "my_intime"%>
 </div>
 <%= content_for :javascripts do -%>
   <script src="/js/masonry.pkgd.min.js"></script>
