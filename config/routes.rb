@@ -219,9 +219,9 @@ IntimeService::Application.routes.draw do
       end
     end
 
-    resources :comments, only: [:index] do
+    resources :comments  do
       collection do
-        get :get_list
+        get  :get_list
       end
     end
 

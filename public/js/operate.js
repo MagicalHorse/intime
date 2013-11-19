@@ -54,4 +54,10 @@ $(document).ready(new function() {
       return false;
     }
   })
+
 })
+
+function reply_comment(id, userName){
+  $('.modal-header #mLabel').html('回复`'+userName+'`');
+  $('#sourceid').val(id);
+}

@@ -1,0 +1,2 @@
+$('#reply .close').click();
+$(<%= "reply_#{params[:comment][:sourceid]}" %>).append("<%= escape_javascript(render 'front/comments/comment_info', comment: @comment) -%>")

@@ -18,11 +18,9 @@ class Front::CommentsController < Front::BaseController
   end
 
   def create
-    @comment = API::Comment.create(request, params[:comment].merge(replyuser: current_user.id))
+    @comment = API::Comment.create(request, params[:comment].merge(replyuser: current_user.id, sourcetype: 3))[:data]
 
-    respond_to do |format|
-      format.js
-    end
+    respond_to { |format| format.js }
   end
 
   def my_comments
