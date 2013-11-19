@@ -4,8 +4,7 @@ $.extend(intime, {
 	index: {
 		_page: 1,
 		_sort: '',
-		_searchpath: 'front/products/search_api.json',
-		_listpath: 'front/products/my_favorite_api.json',
+		_listpath: 'front/products/list_api.json',
 		_container: $('#tiles'),
 		_msnry: null,
 		_isMsnryInit: false,
@@ -13,16 +12,35 @@ $.extend(intime, {
 
 		onLoad: function(data) {
 			var _this = intime.index;
+			var length = data.datas.length;
+			if (_this._page == 1) {
+				if (length <= 0) {
+					if (loveType == 1) {
+						$('#my_like').show();
+						return;
+					} else if (loveType == 2) {
+						$('#my_like').show();
+						return;
+					} else if (loveType == 3) {
+						$('#my_share').show();
+						return;
+					}
+
+				}
+			} else {
+				if (length <= 0) {
+					$('#last_page').show();
+					return;
+				}
+			}
 			_this._page++;
 
-			var length = data.datas.length;
-			if (length <= 0) return;
 			var elems = [];
 			var fragment = document.createDocumentFragment();
-			$(data.datas).each(function() {
-				var html = '';
-				var one = this;
-				if (loveType == 1) {
+			if (loveType == 1) {
+				$(data.datas).each(function() {
+					var html = '';
+					var one = this;
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<div class="action">';
@@ -33,13 +51,27 @@ $.extend(intime, {
 					html += '<small><span class="pull-left num">吊牌价：<em>￥' + one.originalPrice + '</em></span><span class="pull-right price">销售价：<em>￥' + one.price + '</em></span></small>';
 					html += '</div>';
 					html += '</li>';
-				} else if (loveType == 2) {
+					var elem = $(html).get(0);
+					fragment.appendChild(elem);
+					elems.push(elem);
+				});
+			} else if (loveType == 2) {
+				$(data.datas).each(function() {
+					var html = '';
+					var one = this;
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<div class="action"> <a href="promo.html" title="' + one.title + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a> </div>';
 					html += '</div>';
 					html += '</li>';
-				} else if (loveType == 3) {
+					var elem = $(html).get(0);
+					fragment.appendChild(elem);
+					elems.push(elem);
+				});
+			} else if (loveType == 3) {
+				$(data.datas).each(function() {
+					var html = '';
+					var one = this;
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<div class="action">';
@@ -50,11 +82,11 @@ $.extend(intime, {
 					html += '<small><span class="pull-left num">吊牌价：<em>￥' + one.originalPrice + '</em></span><span class="pull-right price">销售价：<em>￥' + one.price + '</em></span></small>';
 					html += '</div>';
 					html += '</li>';
-				}
-				var elem = $(html).get(0);
-				fragment.appendChild(elem);
-				elems.push(elem);
-			});
+					var elem = $(html).get(0);
+					fragment.appendChild(elem);
+					elems.push(elem);
+				});
+			};
 			_this._container.append(fragment);
 			_this._container.imagesLoaded(function() {
 				if (!_this._isMsnryInit) {
@@ -69,7 +101,8 @@ $.extend(intime, {
 		},
 		loadData: function($loveType) {
 			this._isLoadingMore = true;
-			$('#loaderCircle').show();
+			$('#loader').show();
+			$('#my_like,#my_share,#last_page').hide();
 			var _this = this;
 			loveType = $loveType;
 			$.ajax({
@@ -82,13 +115,14 @@ $.extend(intime, {
 				success: this.onLoad
 			}).always(function() {
 				_this._isLoadingMore = false;
-				$('#loaderCircle').hide();
+				$('#loader').hide();
 			});
 
 		},
 		clears: function() {
 
 			this._page = 1;
+			$('#my_share,#my_like,#last_page').hide();
 			this._container.empty();
 			if (this._msnry) {
 				var items = this._msnry.getItemElements();

@@ -574,6 +574,20 @@ background-image: url(../images/icon_twb_2x.png);
 .main {
 	float: right;
 }
+
+/* 数据为空 */
+.no_data{display:none;margin: 0;}
+.no_data h5{ font-size: 16px; }
+.no_data i{ 
+	background: url(../images/icon_info.png) no-repeat 0px center;
+	background-size: 17px; 
+	vertical-align: text-top;
+	display: inline-block;
+	margin-right: 2px;
+	width:18px; 
+	height:18px;
+	
+}
 /* 缩略图组合 */
 .portfolio {
 }
@@ -908,6 +922,7 @@ footer a {
 	border: 1px solid #ddd;
 }
 .promo_info #picbox img {
+	width:100%;
 }
 .promo_info .infobox {
 	width:450px;

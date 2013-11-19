@@ -5,7 +5,7 @@
     <div class="name"> <a href="space.html"></a><span>推荐</span>
       <button type="button" class="btn btn-mini">
         <i class="icon-plus"></i>
-        <%= link_to raw("关注"), front_follow_path(user.id), id: 'follow', remote: true, method: :post -%>
+        <%= link_to raw("关注"), front_follow_path(user.id), id: 'follow', remote: true, method: :post, disable_with: '关注中...' -%>
       </button>
     </div>
     <p><%= product.description -%></p>

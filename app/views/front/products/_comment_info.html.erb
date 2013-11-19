@@ -1,4 +1,4 @@
-<li class="post">
+<li class="post scrollItem">
 <div class="post-self">
   <div class="avatar">
     <%= link_to image_tag(href_of_avatar_url(comment[:customer][:logo]), alt: comment[:customer][:nickname]), front_his_info_path(comment[:customer_id]) -%>
@@ -10,7 +10,7 @@
     <p><%= comment[:content] -%></p>
     <div class="comment-footer comment-actions">
       <span class="time" datetime="<%= format_time(comment[:createddate]) -%>" title="<%= format_time(comment[:createddate]) -%>"><%= format_time(comment[:createddate]) -%></span>
-      <a class="post-reply" href="javascript:void(0);">
+      <a class="post-reply" href="#reply" data-toggle="modal">
         <span class="icon icon-reply"></span>回复
       </a>
     </div>

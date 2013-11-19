@@ -18,9 +18,7 @@
       <% end %>
       <%= paginate @orders %>
     <% else %>
-      <p style="text-align:center;font-size: 16px;line-height:30px;">
-        您还没有购买过商品，赶快去逛逛吧！
-      </p>
+      <%= display_blank_prompt('您还没有购买过商品，赶快去逛逛吧！') %>
     <% end %>
   </div>
 </div>

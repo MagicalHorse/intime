@@ -1,90 +1,105 @@
- var handler = null;
-    var page = 1;
-    var isLoading = false;
-    var apiURL = 'http://stage.youhuiin.com/front/specials/get_list.json'
-    
-    // Prepare layout options.
-    var options = {
-      autoResize: true, // This will auto-update the layout when the browser window is resized.
-      container: $('#tiles'), // Optional, used for some extra CSS styling
-      offset: 5, // Optional, the distance between grid items
-      itemWidth: 290 // Optional, the width of a grid item
-    };
-    
-    /**
-     * When scrolled all the way to the bottom, add more tiles.
-     */
-    function onScroll(event) {
-      // Only check when we're not still waiting for data.
-      if(!isLoading) {
-        // Check if we're within 100 pixels of the bottom edge of the broser window.
-        var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
-        if(closeToBottom) {
-          loadData();
-        }
-      }
-    };
-    
-    /**
-     * Refreshes the layout.
-     */
-    function applyLayout() {
-      // Clear our previous layout handler.
-      if(handler) handler.wookmarkClear();
-      
-      // Create a new layout handler.
-      handler = $('#special_list li');
-      handler.wookmark(options);
-    };
-    
-    /**
-     * Loads data from the API.
-     */
-    function loadData() {
-      isLoading = true;
-      $('#loaderCircle').show();
-      $.ajax({
-        url: apiURL,
-        dataType: 'jsonp',
-        data: {page: page}, // Page parameter to make sure we load new data
-        success: onLoadData
-      });
-    };
-    
-    /**
-     * Receives data from the API, creates HTML for images and updates the layout
-     */
-    function onLoadData(data) {
-      isLoading = false;
-      $('#loaderCircle').hide();
-      
-      // Increment page index for future calls.
-      page++;
-      
-      // Create HTML for the images.
-      var html = '';
-      var i=0, length=data.datas.length;
-      for(; i<length; i++) {
-       html+='<li>';
-						html+='<div class="thumbnail">';
-							html+='<div class="action"><a href="'+data.datas[i].url+'"><img src="'+data.datas[i].imageUrl+'" alt="四月会员日活动"></a></div>';
-							html+='<h3 class="mt6"><i class="icon_title"></i><a href="'+data.datas[i].url+'" title="">'+data.datas[i].title+'</a></h3>';
-							html+='<div class="summary">'+data.datas[i].description+'</div>';
-							html+='<small> <span class="pull-left"><i class="icon-time"></i>'+data.datas[i].startDate+'-'+data.datas[i].endDate+'</span> <span class="pull-right"><i class="icon-heart"></i>'+data.datas[i].likeCount+'+</span> </small> </div>';
-					html+='</li>';
-      }
-      
-      // Add image HTML to the page.
-      $('#special_list').append(html);
-      
-      // Apply layout.
-      applyLayout();
-    };
-  
-    $(document).ready(new function() {
-      // Capture scroll event.
-      $(document).bind('scroll', onScroll);
-      
-      // Load first data from the API.
-      loadData();
-    });
+window.intime = window.intime || {};
+intime = window.intime;
+$.extend(intime, {
+	index: {
+		_page: 1,
+		_sort: '',
+		_listpath: 'front/specials/get_list.json',
+		_container: $('#tiles'),
+		_msnry: null,
+		_isMsnryInit: false,
+		_isLoadingMore: false,
+
+		onLoad: function(data) {
+			var _this = intime.index;
+			var length = data.datas.length;
+			if (_this._page == 1) {
+				if (length <= 0) {
+					$('#no_data').show();
+					return;
+				}
+
+			} else {
+				if (length <= 0) {
+					$('#last_page').show();
+					return;
+				}
+			}
+			_this._page++;
+
+			var elems = [];
+			var fragment = document.createDocumentFragment();
+			$(data.datas).each(function() {
+				var html = '';
+				var one = this;
+				html += '<li class="scrollItem">';
+				html += '<div class="thumbnail">';
+				html += '<div class="action"><a href="' + one.url + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a></div>';
+				html += '<h3 class="mt6"><i class="icon_title"></i><a href="promo.html" title="">' + one.title + '</a></h3>';
+				html += '<div class="summary">' + one.description + '</div>';
+				html += '<small> <span class="pull-left"><i class="icon-time"></i>' + one.startDate + '</span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';
+				html += '</li>';
+				var elem = $(html).get(0);
+				fragment.appendChild(elem);
+				elems.push(elem);
+			});
+			_this._container.append(fragment);
+			_this._container.imagesLoaded(function() {
+				if (!_this._isMsnryInit) {
+					_this._isMsnryInit = true;
+					_this._container.masonry({
+						itemSelector: '.scrollItem'
+					});
+					_this._msnry = _this._container.data('masonry');
+				} else {
+					_this._msnry.appended(elems);
+				}
+			});
+		},
+		loadData: function() {
+			this._isLoadingMore = true;
+			$('#loader').show();
+			$('#no_data,#last_page').hide();
+			var _this = this;
+			$.ajax({
+				url: this.listUrl(),
+				dataType: 'jsonp',
+				data: {
+					page: this._page
+				},
+				success: this.onLoad
+			}).always(function() {
+				_this._isLoadingMore = false;
+				$('#loader').hide();
+			});
+
+		},
+		clears: function() {
+
+			this._page = 1;
+			this._container.empty();
+			if (this._msnry) {
+				var items = this._msnry.getItemElements();
+				if (items && items.length > 0) {
+					this._msnry.remove(items);
+					this._isMsnryInit = false;
+					this._msnry.destroy();
+				}
+			}
+		},
+		onScroll: function(event) {
+			// Only check when we're not still waiting for data.
+			var _this = intime.index;
+			if (!_this._isLoadingMore) {
+				// Check if we're within 100 pixels of the bottom edge of the broser window.
+				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
+				if (closeToBottom) {
+					_this.loadData();
+				}
+			}
+		},
+		listUrl: function() {
+			return intime.env.host + this._listpath;
+		}
+	}
+});
