@@ -189,7 +189,11 @@ $.extend(intime, {
 	index: {
 		_page: 1,
 		_sort: '',
+<<<<<<< HEAD
 		_listpath: 'front/products/list_api.json',
+=======
+		_listpath: 'front/products/my_favorite_api.json',
+>>>>>>> 更新我的银泰  他的银泰 随便逛逛
 		_container: $('#tiles'),
 		_msnry: null,
 		_isMsnryInit: false,
