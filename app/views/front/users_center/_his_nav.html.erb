@@ -1,9 +1,9 @@
 <%= content_for :head_nav do -%>
 
   <ul class="nav">
-    <li><a href="<%= front_his_info_path(@user_id)%>" onClick="index.clears(),index.loadData('1',userid);">喜欢的宝贝</a></li>
-    <li><a href="<%= front_his_promotion_path(@user_id)%>" onClick="index.clears(),index.loadData('2',userid);">喜欢的促销</a></li>
-    <li><a href="<%= front_his_share_path(@user_id) %>" onClick="index.clears(),index.loadData('3',userid);">Ta的分享</a></li>
+    <li><a href="javascript:void(0)" onClick="index.clears(),index.loadData('1',userid);">喜欢的宝贝</a></li>
+    <li><a href="javascript:void(0)" onClick="index.clears(),index.loadData('2',userid);">喜欢的促销</a></li>
+    <li><a href="javascript:void(0)" onClick="index.clears(),index.loadData('3',userid);">Ta的分享</a></li>
   </ul>
 
 <% end -%>
