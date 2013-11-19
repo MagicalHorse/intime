@@ -1,21 +1,16 @@
 <%= render "nav"%>
 <div class="span9 main">
   <%= render "user_info"%> 
-  <section class="portfolio">
-  <ul id="tiles" class="thumbnails pt10 tmode">
-    <!-- 喜欢的促销0活动状态 -->
-    <!--<p style="text-align:center;font-size: 16px;line-height:30px;">
-    好多精彩超值的促销活动千万不要错过!<br>共收藏0个活动!<br><a href="index.html" class="btn btn-danger ">去看看促销</a>
-    </p>-->
-    <!-- 喜欢的促销0活动状态 -->
-  </ul>
-  <div id="loader">
-    <div id="loaderCircle"></div>
-  </div>
-  </section>
+  <%= render "my_intime"%>
 </div>
 <%= content_for :javascripts do -%>
-  <script src="/js/masonry.pkgd.min.js"></script>
-  <script src="/js/space_promo.js" ></script>
+  <script src="/js/space.js" ></script>
+  <script type="text/javascript">
+ $(document).ready(function() {
+      index = intime.index;
+     $(document).bind('scroll', index.onScroll);
+     index.loadData('1');
+   });
+ </script>
 <% end %>
 

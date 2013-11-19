@@ -1,18 +1,15 @@
 <%= render "nav"%>
 <div class="span9 main">
   <%= render "user_info"%> 
-
-  <section class="portfolio">
-  <p style="text-align:center;font-size: 16px;line-height:30px;">
-  好东西和别人一起分享其乐无穷!
-  </p>
-  <ul id="tiles" class="thumbnails pt10 tmode">
-
-  </ul>
-  </section>
-
+  <%= render "my_intime"%>
 </div>
 <%= content_for :javascripts do -%>
-  <script src="/js/masonry.pkgd.min.js"></script>
-  <script src="/js/jspace_share.js"></script>
+  <script src="/js/space.js"></script>
+  <script type="text/javascript">
+ $(document).ready(function() {
+      index = intime.index;
+     $(document).bind('scroll', index.onScroll);
+     index.loadData('1');
+   });
+ </script>
 <% end -%>

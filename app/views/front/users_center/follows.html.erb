@@ -9,9 +9,9 @@
   <section class="portfolio">
   <ul class="thumbnails">
     <% if @results.blank? %>
-      <p style="text-align:center;font-size: 16px;line-height:30px;">
-      还没有关注任何人
-      </p>
+      <div id="no_data" class="no_data alert alert-error text-center" style="display:block">
+        <h5><i></i>关注Ta人，看Ta人喜欢和分享~~Ta还没有关注任何人~~</h5>
+      </div>
     <% else %>
     <% @results.each do |result|%>
     <li class="fans">

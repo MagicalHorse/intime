@@ -9,18 +9,22 @@
 <div class="span9 main">
   <section class="portfolio">
   <ul id="tiles" class="thumbnails tmode">
-    <p style="text-align:center;font-size: 16px;line-height:30px;">
-    很抱歉，暂时还没有商品！
-    </p>
+
   </ul>
+
   <div id="loader">
     <div id="loaderCircle"></div>
   </div>
-  </section>
-  
+
+  <div id="no_data" class="no_data alert alert-error text-center">
+    <h5><i></i>很抱歉，暂时还没有商品！</h5>
+  </div>
+  <div id="last_page" class="no_data alert alert-error text-center">
+    <h5>最后一页</h5>
+  </div>
+  </section> 
 </div>
 <%= content_for :javascripts do -%>
-  <script src="/js/masonry.pkgd.min.js"></script>
   <script src="/js/mousewheel.min.js"></script>
   <script src="/js/sort_list.js"></script>
   <script type="text/javascript">
