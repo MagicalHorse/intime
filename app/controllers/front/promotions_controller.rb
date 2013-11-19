@@ -39,7 +39,7 @@ class Front::PromotionsController < Front::BaseController
   end
 
   def comment
-    @comment = API::Comment.create(request, params.slice(:content, :replyuser).merge(sourceid: params[:id], sourcetype: 2))
+    @comment = API::Comment.create(request, params.slice(:content, :replyuser).merge(sourceid: params[:id], sourcetype: 2))[:data]
 
     respond_to { |format| format.js }
   end

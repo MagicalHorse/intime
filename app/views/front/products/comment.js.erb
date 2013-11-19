@@ -1,1 +1,2 @@
 $('#post .close').click();
+$('#tiles').prepend("<%= escape_javascript(render 'front/products/comment_info', comment: @comment) -%>")
