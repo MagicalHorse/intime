@@ -4,7 +4,7 @@ $.extend(intime, {
 	index: {
 		_page: 1,
 		_sort: '',
-		_listpath: 'front/products/list_api.json',
+		_listpath: 'front/products/my_favorite_api.json',
 		_container: $('#tiles'),
 		_msnry: null,
 		_isMsnryInit: false,
@@ -44,10 +44,10 @@ $.extend(intime, {
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<div class="action">';
-					html += '<a href="product.html"><img src="' + one.imageUrl + '" alt="' + one.imageUrl + '"></a>';
+					html += '<a href="' + one.url + '"><img src="' + one.imageUrl + '" alt="' + one.imageUrl + '"></a>';
 					html += '<span class="like"><i class="icon-heart icon-white"></i>' + one.likeCount + '+</span>';
 					html += '</div>';
-					html += '<h4><a href="product.html">' + one.title + '</a></h4>';
+					html += '<h4><a href="' + one.url + '">' + one.title + '</a></h4>';
 					html += '<small><span class="pull-left num">吊牌价：<em>￥' + one.originalPrice + '</em></span><span class="pull-right price">销售价：<em>￥' + one.price + '</em></span></small>';
 					html += '</div>';
 					html += '</li>';
@@ -61,7 +61,7 @@ $.extend(intime, {
 					var one = this;
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
-					html += '<div class="action"> <a href="promo.html" title="' + one.title + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a> </div>';
+					html += '<div class="action"> <a href="' + one.url + '" title="' + one.title + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a> </div>';
 					html += '</div>';
 					html += '</li>';
 					var elem = $(html).get(0);
@@ -75,10 +75,10 @@ $.extend(intime, {
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<div class="action">';
-					html += '<a href="product.html"><img src="' + one.imageUrl + '" alt="' + one.imageUrl + '"></a>';
+					html += '<a href="' + one.url + '"><img src="' + one.imageUrl + '" alt="' + one.imageUrl + '"></a>';
 					html += '<span class="like"><i class="icon-heart icon-white"></i>' + one.likeCount + '+</span>';
 					html += '</div>';
-					html += '<h4><a href="product.html">' + one.title + '</a></h4>';
+					html += '<h4><a href="' + one.url + '">' + one.title + '</a></h4>';
 					html += '<small><span class="pull-left num">吊牌价：<em>￥' + one.originalPrice + '</em></span><span class="pull-right price">销售价：<em>￥' + one.price + '</em></span></small>';
 					html += '</div>';
 					html += '</li>';
