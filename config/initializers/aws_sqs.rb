@@ -1,4 +1,5 @@
 require 'eventmachine'
+require 'sqs_subscriber.rb'
 module ISAwsSqs
   def self.start
     if defined?(PhusionPassenger)
@@ -10,7 +11,7 @@ module ISAwsSqs
         Thread.new {
           EM.run do
             #AMQP.channel ||= AMQP::Channel.new(AMQP.connect(:host=> Q_SERVER, :user=> Q_USER, :pass => Q_PASS, :vhost => Q_VHOST ))
-            sqs_setup if Rails.env.production?
+            sqs_setup unless Rails.env.development?
           end
         }
         die_gracefully_on_signal
