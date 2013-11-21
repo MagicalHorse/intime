@@ -91,6 +91,6 @@ module ApplicationHelper
 
   # 显示没有数据的提示
   def display_blank_prompt(msg)
-    render 'front/blank_prompt', locals: { msg: msg }
+    render partial: 'front/blank_prompt', locals: { msg: msg }
   end
 end
