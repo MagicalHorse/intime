@@ -1,0 +1,137 @@
+window.intime = window.intime || {};
+intime = window.intime;
+$.extend(intime, {
+	gallery: {
+		_page: 1,
+		_sort: '',
+		_searchpath: 'front/products/search_api.json',
+		_listpath: 'front/products/list_api.json',
+		_container: $('#tiles'),
+		_msnry: null,
+		_isMsnryInit: false,
+		_isLoadingMore: false,
+
+		onLoad: function(data) {
+			var _this = intime.gallery;
+			var length = data.datas.length;
+			if (_this._page == 1) {
+				if (length <= 0) {
+					$('#no_data').show();
+					return;
+				}
+			} else {
+				if (length <= 0) {
+					$('#last_page').show();
+					return;
+				}
+			}
+			_this._page++;
+
+			var elems = [];
+			var fragment = document.createDocumentFragment();
+			$(data.datas).each(function() {
+				var html = '';
+				var one = this;
+				html += '<li class="scrollItem">';
+				html += '<div class="thumbnail">';
+				html += '<div class="action">';
+				html += '<!--优惠-->';
+				if (one.flag.toString() == "true") {
+					html += '<span class="discount">优惠</span>';
+					html += '<span class="triangle"></span>';
+				}
+				html += '<!--优惠-->';
+				html += '<a href="' + one.url + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a>';
+				html += '<span class="like"><i class="icon-heart icon-white"></i>' + one.likeCount + '+</span>';
+				html += '</div>';
+				html += '<h4><a href="product.html" title="">' + one.title + '</a></h4>';
+				html += '<small><span class="pull-left num">吊牌价：<em>￥' + one.originalPrice + '</em></span><span class="pull-right price">销售价：<em>￥' + one.price + '</em></span></small>';
+				html += '</div>';
+				html += '</li>';
+				var elem = $(html).get(0);
+				fragment.appendChild(elem);
+				elems.push(elem);
+			});
+			_this._container.append(fragment);
+			_this._container.imagesLoaded(function() {
+				if (!_this._isMsnryInit) {
+					_this._isMsnryInit = true;
+					_this._msnry = new Masonry(_this._container[0], {
+						itemSelector: '.scrollItem'
+					});
+				} else {
+					_this._msnry.appended(elems);
+				}
+			});
+		},
+		loadData: function($type, $entity_id) {
+			this._isLoadingMore = true;
+			$('#loader').show();
+			$('#no_data,#last_page').hide();
+			var _this = this;
+			type = $type;
+			entity_id = $entity_id;
+			if ($entity_id) {
+				$.ajax({
+					url: this.listUrl(),
+					dataType: 'jsonp',
+					data: {
+						page: this._page,
+						type: $type,
+						entity_id: $entity_id
+					},
+					success: this.onLoad
+				}).always(function() {
+					_this._isLoadingMore = false;
+					$('#loader').show();
+					$('#no_data').hide();
+				});
+
+			} else {
+				$.ajax({
+					url: this.searchUrl(),
+					dataType: 'jsonp',
+					data: {
+						page: this._page,
+						term: $type
+					},
+					success: this.onLoad
+				}).always(function() {
+					_this._isLoadingMore = false;
+					$('#loader').hide();
+				});
+			}
+
+		},
+		clears: function() {
+
+			this._page = 1;
+			this._container.empty();
+			if (this._msnry) {
+				var items = this._msnry.getItemElements();
+				if (items && items.length > 0) {
+					this._msnry.remove(items);
+					this._isMsnryInit = false;
+					this._msnry.destroy();
+				}
+			}
+		},
+		onScroll: function(event) {
+			// Only check when we're not still waiting for data.
+			var _this = intime.gallery;
+			if (!_this._isLoadingMore) {
+				// Check if we're within 100 pixels of the bottom edge of the broser window.
+				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
+				if (closeToBottom) {
+					_this.loadData(type, entity_id);
+				}
+			}
+		},
+		searchUrl: function() {
+			return intime.env.host + this._searchpath;
+		},
+		listUrl: function() {
+			return intime.env.host + this._listpath;
+		}
+	}
+});

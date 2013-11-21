@@ -1,0 +1,60 @@
+
+    #main{
+        width:980px;
+        margin:0px auto;
+    }
+    
+    .pager .cur {
+        border-top-color: rgb(255, 255, 255);
+        border: 1px solid #fff;
+        background: 0;
+        font-weight: bold;
+        color: #000;
+    }
+    .pager a, .pager span {
+        margin-top: 5px;
+    }
+    .pager a, .pager span {
+        background: none repeat scroll 0 0 #fff;
+        border: 1px solid #e7ecf0;
+        color: #0000cd;
+        float: left;
+        height: 22px;
+        line-height: 22px;
+        margin-right: 5px;
+        overflow: hidden;
+        text-align: center;
+        text-decoration: none;
+        width: auto;
+        padding: 0 8px;
+    }
+    .pager span {
+        background: none repeat scroll 0 0 #fff;
+        border: 1px solid #e7ecf0;
+        color: #0000cd;
+        float: left;
+        height: 22px;
+        line-height: 22px;
+        margin-right: 5px;
+        overflow: hidden;
+        text-align: center;
+        text-decoration: none;
+        width: auto;
+        padding: 0 8px;
+    }
+    .pager {
+        border-top: 0;
+        padding: 12px 0 30px 15px;
+        float: left;
+    }
+    .clearfix {
+        display: block;
+    }
+    .pager {
+        float: left;
+        font-family: Arial;
+        font-size: 13px;
+    }
+    .clearfix {
+    zoom: 1;
+    }

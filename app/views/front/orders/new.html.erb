@@ -193,7 +193,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <a class="btn btn-danger" data-dismiss="modal" onClick="intime.orderaddress.add_address();">确定</a>
+              <a class="btn btn-danger" onClick="intime.orderaddress.add_address();">确定</a>
               <a class="btn btn-danger" data-dismiss="modal">取消</a>
             </div>
           </div>
@@ -259,16 +259,7 @@
     </p>
   </section>
 </div>
-
-<%= content_for :javascripts do %>
-  <script src="<%= static_url('js/environment.js') %>"></script>
-  <script src="<%= static_url('js/orderaddress.js') %>"></script>
-  <script src="<%= static_url('js/order.js') %>"></script>
-  <script src="<%= static_url('js/gallery.js') %>"></script>
-  <script src="<%= static_url('js/product.js') %>"></script>
-  <script src="<%= static_url('js/index_water.js') %>"></script>
-  <script src="<%= static_url('js/special.js') %>"></script>
-<% end %>
+<% content_for :javascripts do %>
 <script>
 function ontip(){
   var v= $('#invoice').val();
@@ -278,3 +269,4 @@ $(document).ready(function(){
   intime.order.init();
 });
 </script>
+<% end %>
