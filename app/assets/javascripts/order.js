@@ -199,8 +199,8 @@ $.extend(intime, {
                         if(check1==check2){
                             $("#order_id").html(data.data.order_no);
                             $("#payment_name").html(data.data.payment_name);
-                            $("#payment").attr("href",data.data.payment_url);	 <!-- //Online payment link-->
-                             $('#barcode012').modal('show');<!-- //Display payment order window-->
+                            $("#payment").attr("href",data.data.payment_url);
+                             $('#barcode012').modal('show');
                              $("#check_order").attr("href",data.data.order_url);
 		
                         } else {

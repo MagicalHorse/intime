@@ -10,7 +10,15 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
-//= require bootstrap
+//= require jquery.min.js
+//= require jquery-ujs.js
+//= require jquery.imagesloaded.js
+//= require jquery.royalslider.min.js
+//= require jquery.slimscroll.min.js
+//= require masonry.pkgd.min.js
+//= require bootstrap.min.js
+//= require scrolltopcontrol.js
+//= require environment.js
+//= require common.js
+//= require_self
 //= require_tree .
