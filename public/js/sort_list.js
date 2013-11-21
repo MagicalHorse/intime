@@ -1,7 +1,7 @@
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {
-	index: {
+	storeproduct: {
 		_page: 1,
 		_sort: '',
 		_listpath: 'front/products/list_api.json',
@@ -11,7 +11,7 @@ $.extend(intime, {
 		_isLoadingMore: false,
 
 		onLoad: function(data) {
-			var _this = intime.index;
+			var _this = intime.storeproduct;
 			var length = data.datas.length;
 			if (_this._page == 1) {
 				if (length <= 0) {
@@ -40,17 +40,10 @@ $.extend(intime, {
 					html += '<span class="triangle"></span>';
 				}
 				html += '<!--优惠-->';
-<<<<<<< HEAD
 				html += '<a href="' + one.url + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a>';
 				html += '<span class="like"><i class="icon-heart icon-white"></i>' + one.likeCount + '+</span>';
 				html += '</div>';
 				html += '<h4><a href="' + one.url + '" title="">' + one.title + '</a></h4>';
-=======
-				html += '<a href="product.html"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a>';
-				html += '<span class="like"><i class="icon-heart icon-white"></i>' + one.likeCount + '+</span>';
-				html += '</div>';
-				html += '<h4><a href="product.html" title="">' + one.title + '</a></h4>';
->>>>>>> 9614a3f131fe3f0734217232d1065e960e7ad6a7
 				html += '<small><span class="pull-left num">吊牌价：<em>￥' + one.originalPrice + '</em></span><span class="pull-right price">销售价：<em>￥' + one.price + '</em></span></small>';
 				html += '</div>';
 				html += '</li>';
@@ -108,7 +101,7 @@ $.extend(intime, {
 		},
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
-			var _this = intime.index;
+			var _this = intime.storeproduct;
 			if (!_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
