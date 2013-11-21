@@ -33,10 +33,8 @@ IntimeService::Application.configure do
   config.assets.compress = true
 
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
   
-  config.assets.digest = true
-
   config.active_record.logger = Logger.new(STDOUT)
   config.active_resource.logger = Logger.new(STDOUT)
 end

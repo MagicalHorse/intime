@@ -9,7 +9,6 @@
   <section class="promo_info addorder">
     <div id="picbox" class="carousel slide">
       <div class="carousel-inner">
-        <!--  -->
         <div id="order_div_img"><img id="order_img" src="temp/400_400_1.jpg" alt="相宜本草护肤品正品套装 四倍蚕丝基础护理三件套 补水美白保湿"></div>
       </div>
     </div>
@@ -23,7 +22,7 @@
           <div class="brand">相宜本草<br>
             (INOHERB)</div>
         </ul>
-      </div>
+      </div>         
       <div class="buyinfo">
         <div class="prop mb20" data-toggle="buttons-radio">
           <span class="tages">颜色</span>
@@ -36,9 +35,9 @@
         </div>
 
         <div class="item_num mb20" >
-          <div class="change-goods-num"> <span class="tages">数量</span> <a href="javascript:void(0);" class="goodsNumMinus"  onclick="document.getElementById('goods_num').onchange=get_jifenchangea()"><span class="icon-common-negative"></span></a>
+          <div class="change-goods-num"> <span class="tages">数量</span> <a href="javascript:void(0);" class="goodsNumMinus"><span class="icon-common-negative"></span></a>
             <input tyep="text"  class="goods-num" value="1" name="3" id="goods_num">
-            <a href="javascript:void(0);" onClick="document.getElementById('goods_num').onchange=get_jifenchange()" class="goodsNumPlus" ><span class="icon-common-add"></span></a></div>
+            <a href="javascript:void(0);"  class="goodsNumPlus" ><span class="icon-common-add"></span></a></div>
         </div>
         <div class="property">您选择颜色：<span id="goods_color"></span> 尺码：<span id="goods_size"></span> 购买数量：<span class="goods-num" id="goods_num" >1</span>件</div>
       </div>
@@ -68,13 +67,13 @@
                     <input id="edit_user" type="text" value="">
                     <br>
                     <span>省份：</span>
-                    <select id="sheng" onChange="empty_sheng(),sheng_change(this.value);"> 
+                    <select id="sheng" onChange="intime.order.provinceChanged(this.value,1,'#cheng');"> 
 
 
                     </select>
                     <br>
                     <span>城市：</span>
-                    <select id="cheng" onChange="empty_cheng(),cheng_change(this.value);">
+                    <select id="cheng" onChange="intime.order.cityChanged(this.value,1,'#qu');">
                       <option>选择城市</option>
 
                     </select>
@@ -97,7 +96,7 @@
                     <input type="hidden" value="" id="addressid"/>
                   </div>
                   <div class="modal-footer">
-                    <a href="" data-toggle="collapse" class="btn btn-danger" onClick="edit_address();">保存使用</a>
+                    <a href="" data-toggle="collapse" class="btn btn-danger" onClick="intime.orderaddress.edit_address();">保存使用</a>
                     <a href="#alter01" data-toggle="collapse" class="btn btn-danger">取消</a>
                   </div>
                   <span style="font-size:14px;width:200px !important;">使用其他地址</span>
@@ -105,7 +104,7 @@
 
                   </form>
                   <div class="modal-footer">
-                    <a href="#alter01"  data-toggle="collapse" class="btn btn-danger"  onClick="change();" >选择使用</a>
+                    <a href="#alter01"  data-toggle="collapse" class="btn btn-danger"  onClick="intime.orderaddress.change();" >选择使用</a>
                     <a href="#alter01" data-toggle="collapse" class="btn btn-danger">取消</a>
                   </div>
                 </div>
@@ -119,12 +118,12 @@
                   <input id="syxd_username" type="text" placeholder="收货人姓名">
                   <br>
                   <span>省份：</span>
-                  <select id="sheng_syxd" onChange="empty_shengsyxd(),shengsyxd_change(this.value);">
+                  <select id="sheng_syxd" onChange="intime.order.provinceChanged(this.value,2,'#cheng_syxd');">
                     <option>请选择省份</option>
                   </select>
                   <br>
                   <span>城市：</span>
-                  <select id="cheng_syxd" onChange="empty_chengsyxd(),chengsyxd_change(this.value);">
+                  <select id="cheng_syxd" onChange="intime.order.cityChanged(this.value,2,'#qusyxd');">
                     <option>请选择城市</option>
 
                   </select>
@@ -144,7 +143,7 @@
                   <input id="syxd_phone" type="text" placeholder="有效手机号码">
                   <br>
                   <div class="modal-footer">
-                    <a href="" data-toggle="collapse" id="addnew_address" class="btn btn-danger" onClick="new_address();">确定</a>
+                    <a href="" data-toggle="collapse" id="addnew_address" class="btn btn-danger" onClick="intime.orderaddress.new_address();">确定</a>
                     <a href="#add01" data-toggle="collapse" class="btn btn-danger">取消</a>
                   </div>
                 </div>
@@ -166,13 +165,13 @@
                 <input id="syxd_username" type="text" placeholder="收货人姓名">
                 <br>
                 <span>省份：</span>
-                <select name=province id="province"  onChange="empty_f(),province_change(this.value)">
+                <select name=province id="province"  onChange="intime.order.provinceChanged(this.value,3,'#city');">
                   <option>请选择省份</option>
 
                 </select>
                 <br>
                 <span>城市：</span>
-                <select name=city id="city"  onChange="empty_h(),cis(this.value)">
+                <select name=city id="city"  onChange="intime.order.cityChanged(this.value,3,'#county');">
                   <option>请选择城市</option>
                 </select>
                 <br>
@@ -194,15 +193,15 @@
               </div>
             </div>
             <div class="modal-footer">
-              <a class="btn btn-danger" data-dismiss="modal" onClick="add_address();">确定</a>
+              <a class="btn btn-danger" onClick="intime.orderaddress.add_address();">确定</a>
               <a class="btn btn-danger" data-dismiss="modal">取消</a>
             </div>
           </div>
-        </div>
-        <!--用户未创建过收货地址状态-->
+        </div>						
+        <!--用户未创建过收货地址状态-->						
         <div class="item_tit bt" id="supportpayments" ><span>支付方式：</span> <br>
           <!--<label><input name="u40" type="radio" id="u42" value="radio" checked />
-            支付宝支付</label>-->
+              支付宝支付</label>-->							
         </div>
         <div class="item_tit bt" style="line-height: 34px;"><span>发票信息：</span><br>
           <span>发票抬头：</span>
@@ -228,50 +227,46 @@
         <div class="item_tit bt ">
           <dl>
             <dd><span>赠送积点：</span><strong><span id="jidian"></span></strong>
-              <div class="clearfix"></div>
+            <div class="clearfix"></div>
             </dd>
             <dd><span>总价：</span><strong><span id="zj"></span></strong>
-              <div class="clearfix"></div>
+            <div class="clearfix"></div>
             </dd>
             <dd><span>快递费：</span><strong><span id="kdf"></span></strong>
-              <div class="clearfix"></div>
+            <div class="clearfix"></div>
             </dd>
             <dd><span>需付款项：</span><strong class="on"><span id="xfkx"></span></strong>
-              <div class="clearfix"></div>
+            <div class="clearfix"></div>
             </dd>
           </dl>
         </div>
       </div>
     </div>
-    <p style="text-align:center;"> <a href="javascript:;"  class="btn btn-danger " onClick="add_order()">提交订单</a>
-      <div id="barcode012" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 id="mLabel">订单已提交！</h3>
-        </div>
-        <div class="modal-body">
-          <p  style="line-height:30px;
-            text-align:center">订单编号：<i id="order_id"></i><br>
-            支付方式：<i id="payment_name"></i></p>
-          <p style="font-size:12px;text-align:center;"><span style="color:#990000">请在24小时内完成支付，过时订单将会自动取消！</span></p>
-        </div>
-        <div class="modal-footer"> <a href="" id="check_order" class="btn" >查看订单</a> <a href="" id="payment" class="btn btn-danger">在线支付</a> </div>
+    <p style="text-align:center;"> <a href="javascript:void(0)" id="add_order" class="btn btn-danger " onClick="intime.order.add_order()">提交订单</a>
+    <div id="barcode012" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="mLabel">订单已提交！</h3>
       </div>
+      <div class="modal-body">
+        <p  style="line-height:30px;
+        text-align:center">订单编号：<i id="order_id"></i><br>
+        支付方式：<i id="payment_name"></i></p>
+        <p style="font-size:12px;text-align:center;"><span style="color:#990000">请在24小时内完成支付，过时订单将会自动取消！</span></p>
+      </div>
+      <div class="modal-footer"> <a href="" id="check_order" class="btn" >查看订单</a> <a href="" id="payment" class="btn btn-danger">在线支付</a> </div>
+    </div>
     </p>
   </section>
 </div>
-
-<%= content_for :javascripts do %>
-  <script src="<%= static_url('js/colour.js') %>"></script>
-  <script src="<%= static_url('js/order_city.js') %>"></script>
-  <script src="<%= static_url('js/new_order_city.js') %>"></script>
-  <script src="<%= static_url('js/syxd.js') %>"></script>
-  <script src="<%= static_url('js/address.js') %>"></script>
-  <script src="<%= static_url('js/orders.js') %>"></script>
-<% end %>
+<% content_for :javascripts do %>
 <script>
-  function ontip(){
-    var v= $('#invoice').val();
-    if (v=='invoice_2') {$('#form-tip').show();} else {$('#form-tip').hide();}
-  }
+function ontip(){
+  var v= $('#invoice').val();
+  if (v=='invoice_2') {$('#form-tip').show();} else {$('#form-tip').hide();}
+}
+$(document).ready(function(){
+  intime.order.init();
+});
 </script>
+<% end %>

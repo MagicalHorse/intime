@@ -29,7 +29,11 @@ class Front::ProductsController < Front::BaseController
       sourcetype: params[:loveType],
       userid:     params[:userid]
     }
-    result  = API::Product.his_favorite(request, options)
+    if options[:sourcetype] == "3"
+      result = API::Product.my_share_list(request, options)
+    else
+      result  = API::Product.his_favorite(request, options)
+    end
     results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
     results.merge! (gen_data(result["data"]["items"]))
     render :json =>results.to_json , callback: params[:callback]

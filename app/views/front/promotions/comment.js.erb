@@ -1,2 +1,3 @@
 $('#post .close').click();
-$('#comment_list').prepend("<%= escape_javascript(render 'front/promotions/comment_info', comment: @comment) -%>")
+$('#tiles').prepend("<%= escape_javascript(render 'front/promotions/comment_info', comment: @comment) -%>")
+$('#no_data').hide();

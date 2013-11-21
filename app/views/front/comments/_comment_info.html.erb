@@ -1,0 +1,18 @@
+<ul class='children'>
+  <li class="post scrollItem">
+  <div class="post-self">
+    <div class="avatar">
+      <%= link_to image_tag(href_of_avatar_url(comment[:customer][:logo]), alt: comment[:customer][:nickname]), front_his_info_path(comment[:customer_id]) -%>
+    </div>
+    <div class="comment-body">
+      <div class="comment-header">
+        <%= link_to comment[:customer][:nickname], '', class: 'user-name highlight', rel: 'nofollow' -%>
+      </div>
+      <p><%= comment[:content] -%></p>
+      <div class="comment-footer comment-actions">
+        <span class="time" datetime="<%= format_time(comment[:createddate]) -%>" title="<%= format_time(comment[:createddate]) -%>"><%= format_time(comment[:createddate]) -%></span>
+      </div>
+    </div>
+  </div>
+  </li>
+</ul>
