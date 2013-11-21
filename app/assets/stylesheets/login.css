@@ -1,0 +1,270 @@
+/* 登陆后 */
+.aside .loger {
+
+}
+.aside .loger .photo,
+.aside .loger .tools { float: left; }
+.aside .loger .photo,
+.aside .loger .photo img {
+	width: 55px;
+	height: 55px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3x;
+}
+.aside .loger .tools {
+	padding-left: 10px;
+	padding-top: 1px;
+}
+.aside .loger .tools span { text-shadow: 0 1px 1px rgba( 0, 0, 0, 0.2 ); }
+.aside .loger .tools em {
+	background: rgba(0, 0, 0, 0.1);
+	font-size: 12px;
+	font-style: normal;
+	display: inline;
+	padding: 3px 9px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin-left: 10px;
+	text-shadow: 0 1px 2px rgba( 0, 0, 0, 0.2 );
+	display: none;
+}
+.aside .loger .tools ul {
+	margin-top: 11px;
+	background: rgba(0, 0, 0, 0.1);
+	padding: 4px 6px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+}
+.aside .loger .tools li {
+	float: left;
+	width: 18px;
+	height: 18px;
+	margin: 0 5px;
+	background: red;
+	opacity: 0.6;
+}
+.aside .loger .tools li:hover { opacity: 0.8; }
+.aside .loger .tools li a {
+	display: block;
+	width: 18px;
+	height: 18px;
+}
+.aside .loger .tools li:first-child {
+	background: url(../images/cart.png) no-repeat;
+	background-size: 18px 18px;
+}
+.aside .loger .tools li:nth-child(2) {
+	background: url(../images/envelop.png) no-repeat;
+	background-size: 18px 18px;
+}
+.aside .loger .tools li:nth-child(3) {
+	background: url(../images/cog.png) no-repeat;
+	background-size: 18px 18px;
+}
+.aside .loger .tools li:nth-child(4) {
+	background: url(../images/quit.png) no-repeat;
+	background-size: 18px 18px;
+}
+.aside .loger .share ul {
+	width: 190px;
+	padding-top: 10px;
+}
+.aside .loger .share li {
+	float: left;
+	width: 52px;
+	height: 41px;
+	margin: 10px 10px 0px 0px;
+	background: rgba(0, 0, 0, 0.3);
+	-moz-border-radius: 26px;
+	-webkit-border-radius: 26px;
+	border-radius: 26px;
+	font-size: 12px;
+	text-align: center;
+	line-height: 15px;
+	color: #fff;
+	padding-top: 11px;
+}
+.aside .loger .share li:nth-child(3) { margin-right: 0; }
+.aside .loger .share li:hover { background: rgba(0, 0, 0, 0.2); }
+.aside .loger .share a {
+	color: #FFF;
+	text-shadow: 0 1px 1px rgba( 0, 0, 0, 0.2 );
+}
+.aside .loger .share li a:hover { text-decoration: none; }
+.main .loger { display: none; }
+
+/* 980与1200之间
+ ========================================================================== */
+@media (min-width: 980px) and (max-width: 1199px) {
+.aside .loger .tools ul{padding:4px;}
+.aside .loger .tools li{margin: 0 3px;}
+}
+
+/* 小于980
+ ========================================================================== */
+@media (max-width: 979px) {
+.aside .loger { margin: 0; }
+.aside .loger .tools em { background: rgba(0, 0, 0, 0.3); }
+.aside .loger .tools ul {
+	background: rgba(0, 0, 0, 0.3);
+	padding: 10px;
+}
+.aside .loger .tools { padding: 5px 0 0 0; }
+.aside .loger .tools span {
+	position: absolute;
+	left: 64px;
+	top: 3px;
+}
+.aside .loger .tools span em {
+	display: block;
+	margin: 10px 0 0 0;
+	width: 24px;
+}
+.aside .loger .tools li {
+	width: 30px;
+	height: 30px;
+	margin: 0 10px;
+}
+.aside .loger .tools li a {
+	width: 30px;
+	height: 30px;
+}
+.aside .loger .tools li:first-child {
+	background: url(../images/ycart.png) no-repeat;
+	background-size: 28px 28px;
+}
+.aside .loger .tools li:nth-child(2) {
+	background: url(../images/yenvelop.png) no-repeat;
+	background-size: 28px 28px;
+}
+.aside .loger .tools li:nth-child(3) {
+	background: url(../images/ycog.png) no-repeat;
+	background-size: 28px 28px;
+}
+/* 达人主页 */
+.main .loger {
+	display: block;
+	padding: 15px 0 15px 15px;
+	margin-bottom: 10px;
+	background: url(../temp/Nature-Plants-s.jpg) no-repeat center center;
+	background-size: 100%;
+}
+.main .loger .relative { margin-left: 80px; }
+.main .loger li { list-style: none; }
+.main .loger .photo {
+	width: 70px;
+	height: 70px;
+	margin-left: -80px;
+	float: left;
+}
+.main .loger .photo img {
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3x;
+}
+.main .loger .tools { padding: 5px 0 0 0; }
+.main .loger .tools span {
+	color: #fff;
+	text-shadow: 0 1px 1px rgba( 0, 0, 0, 0.2 );
+	padding-left: 5px;
+}
+.main .loger .tools em {
+	background: rgba(0, 0, 0, 0.3);
+	font-size: 12px;
+	font-style: normal;
+	display: inline;
+	padding: 3px 9px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	margin-left: 10px;
+	text-shadow: 0 1px 2px rgba( 0, 0, 0, 0.2 );
+	width: 24px;
+}
+.main .loger .tools em a{ color:#fff;}
+.main .loger .tools ul {
+	padding: 10px 0 0 0;
+	margin: 0;
+}
+.main .loger .tools li {
+	width: 36px;
+	height: 36px;
+	margin: 0 5px;
+	float: left;
+	text-indent: -999em;
+	background: rgba(0, 0, 0, 0.3);
+	-moz-border-radius: 18px;
+	-webkit-border-radius: 18px;
+	border-radius: 18px;
+}
+.main .loger .tools li:hover { background: rgba(0, 0, 0, 0.2); }
+.main .loger .tools li a {
+	display: block;
+	width: 36px;
+	height: 36px;
+}
+.main .loger .tools li:first-child a {
+	background: url(../images/ycart.png) no-repeat center center;
+	background-size: 60%;
+}
+.main .loger .tools li:first-child a:hover {
+	background: url(../images/cart.png) no-repeat center center;
+	background-size: 60%;
+}
+.main .loger .tools li:nth-child(2) a {
+	background: url(../images/yenvelop.png) no-repeat center center;
+	background-size: 60%;
+}
+.main .loger .tools li:nth-child(2) a:hover {
+	background: url(../images/envelop.png) no-repeat center center;
+	background-size: 60%;
+}
+.main .loger .tools li:nth-child(3) a {
+	background: url(../images/ycog.png) no-repeat center center;
+	background-size: 60%;
+}
+.main .loger .tools li:nth-child(3) a:hover {
+	background: url(../images/cog.png) no-repeat center center;
+	background-size: 60%;
+}
+.main .loger .share ul {
+	padding-top: 25px;
+	margin: 0;
+}
+.main .loger .share li {
+	float: left;
+	width: 50px;
+	height: 40px;
+	margin-right: 8px;
+	background: rgba(0, 0, 0, 0.5);
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+	font-size: 12px;
+	text-align: center;
+	line-height: 15px;
+	color: #fff;
+	padding-top: 10px;
+}
+.main .loger .share li:nth-child(3) { margin-right: 0; }
+.main .loger .share li:hover {
+	background: rgba(255, 255, 255, 0.6);
+	color: #e50050;
+}
+.main .loger .share a {
+	color: #FFF;
+	text-shadow: 0 1px 1px rgba( 0, 0, 0, 0.2 );
+}
+}
+/* 小于767
+ ========================================================================== */
+@media (max-width: 767px) {
+/* 达人主页 */
+.main .loger {
+	padding: 10px 0 10px 10px;
+	margin: 0 10px 10px 10px;
+}
+}
