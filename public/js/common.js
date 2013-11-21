@@ -122,12 +122,6 @@ $(function() {
 		}
 	});
 	}
-	//调用
-	$( function() {
-		$('.change-goods-num').iVaryVal({},function(value,index){
-			$('.goods-num').html(value);
-			$(".thjexj").text((parseInt($(".tkje").text())*value).toFixed(2));
-		});		
-	});
+	
 
 });

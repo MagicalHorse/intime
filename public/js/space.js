@@ -186,14 +186,18 @@ var handler = null,
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {
-	index: {
+	space: {
 		_page: 1,
 		_sort: '',
+<<<<<<< HEAD
 <<<<<<< HEAD
 		_listpath: 'front/products/list_api.json',
 =======
 		_listpath: 'front/products/my_favorite_api.json',
 >>>>>>> 更新我的银泰  他的银泰 随便逛逛
+=======
+		_listpath: 'front/products/list_api.json',
+>>>>>>> update js
 		_container: $('#tiles'),
 		_msnry: null,
 		_isMsnryInit: false,
@@ -201,7 +205,7 @@ $.extend(intime, {
 >>>>>>> 我喜欢的宝贝
 
 		onLoad: function(data) {
-			var _this = intime.index;
+			var _this = intime.space;
 			var length = data.datas.length;
 			if (_this._page == 1) {
 				if (length <= 0) {
@@ -358,7 +362,7 @@ $.extend(intime, {
 		},
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
-			var _this = intime.index;
+			var _this = intime.space;
 			if (!_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
@@ -372,8 +376,12 @@ $.extend(intime, {
 		}
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 });
 >>>>>>> 我喜欢的宝贝
 =======
 });
 >>>>>>> update blank prompt
+=======
+});
+>>>>>>> update js

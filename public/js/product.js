@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> update js and css
 //产品页面图片
@@ -25,10 +26,13 @@ $('#picbox').royalSlider({
 >>>>>>> update blank prompt
 =======
 >>>>>>> 完善详情页评论功能
+=======
+>>>>>>> update js
 
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {
+<<<<<<< HEAD
 	index: {
 		
 		_page: 1,
@@ -38,10 +42,18 @@ $.extend(intime, {
 =======
 		_listpath: 'front/comments/get_list.json',
 >>>>>>> 完善详情页评论功能
+=======
+	product: {
+		
+		_page: 1,
+		_sort: '',
+		_listpath: 'comment/get_list.json',
+>>>>>>> update js
 		_container: $('#tiles'),
 		_msnry: null,
 		_isMsnryInit: false,
 		_isLoadingMore: false,
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 		onLoad: function(data) {
@@ -379,6 +391,12 @@ var handler = null;
 		onLoad: function(data) {
 			
 			var _this = intime.index;
+=======
+
+		onLoad: function(data) {
+			
+			var _this = intime.product;
+>>>>>>> update js
 			var length = data.datas.length;
 			if (_this._page == 1) {
 				if (length <= 0) {
@@ -469,7 +487,10 @@ var handler = null;
 				$('#loader').hide();
 			});
 
+<<<<<<< HEAD
 >>>>>>> 完善详情页评论功能
+=======
+>>>>>>> update js
 		},
 		clears: function() {
 
@@ -487,7 +508,11 @@ var handler = null;
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
 			
+<<<<<<< HEAD
 			var _this = intime.index;
+=======
+			var _this = intime.product;
+>>>>>>> update js
 			if (!_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
@@ -502,6 +527,7 @@ var handler = null;
 		}
 	}
 });
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> update blank prompt
 =======
@@ -646,3 +672,5 @@ $.extend(intime, {
 	}
 });
 >>>>>>> 完善详情页评论
+=======
+>>>>>>> update js

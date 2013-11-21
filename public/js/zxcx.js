@@ -1,7 +1,7 @@
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {
-	index: {
+	storepromotion: {
 		_page: 1,
 		_sort: '',
 		_listpath: 'front/promotions/get_list.json',
@@ -11,7 +11,7 @@ $.extend(intime, {
 		_isLoadingMore: false,
 
 		onLoad: function(data) {
-			var _this = intime.index;
+			var _this = intime.storepromotion;
 			var length = data.datas.length;
 			if (_this._page == 1) {
 				if (length <= 0) {
@@ -34,12 +34,12 @@ $.extend(intime, {
 				var one = this;
 				html += '<li class="scrollItem">';
 				html += '<div class="thumbnail">';
-				html += '<h3><i class="icon_title"></i><a href="promo.html" title="">' + one.title + '</a></h3>';
-				html += '<div class="action"> <a href="promo.html"><img src="' + one.imageUrl + '" alt=" "></a>';
+				html += '<h3><i class="icon_title"></i><a href="' + one.url + '" title="">' + one.title + '</a></h3>';
+				html += '<div class="action"> <a href="' + one.url + '"><img src="' + one.imageUrl + '" alt=" "></a>';
 				html += '<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
 				html += '</div>';
 				html += '<h3 class="time bottom">活动时间：<span>' + one.startDate + '-' + one.endDate + '</span></h3>';
-				html += '<small> <span class="pull-left"><a href="shop.html"><i class="icon-map-marker"></i>' + one.storeName + '</a></span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';
+				html += '<small> <span class="pull-left"><a href="'+ one.storeUrl +'"><i class="icon-map-marker"></i>' + one.storeName + '</a></span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';
 				html += '</li>';
 				var elem = $(html).get(0);
 				fragment.appendChild(elem);
@@ -93,7 +93,7 @@ $.extend(intime, {
 		},
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
-			var _this = intime.index;
+			var _this = intime.storepromotion;
 			if (!_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);

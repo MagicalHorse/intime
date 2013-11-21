@@ -1,8 +1,15 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {
 	index: {
+=======
+window.intime = window.intime || {};
+intime = window.intime;
+$.extend(intime, {
+	hspace: {
+>>>>>>> update js
 		_page: 1,
 		_sort: '',
 		_listpath: 'front/products/list_api.json',
@@ -12,6 +19,7 @@ $.extend(intime, {
 		_isLoadingMore: false,
 
 		onLoad: function(data) {
+<<<<<<< HEAD
 			var _this = intime.index;
 			var length = data.datas.length;
 			if (_this._page == 1) {
@@ -284,6 +292,9 @@ $.extend(intime, {
 
 		onLoad: function(data) {
 			var _this = intime.index;
+=======
+			var _this = intime.hspace;
+>>>>>>> update js
 			var length = data.datas.length;
 			if (_this._page == 1) {
 				if (length <= 0) {
@@ -408,7 +419,11 @@ $.extend(intime, {
 		},
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
+<<<<<<< HEAD
 			var _this = intime.index;
+=======
+			var _this = intime.hspace;
+>>>>>>> update js
 			if (!_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
@@ -421,5 +436,9 @@ $.extend(intime, {
 			return intime.env.host + this._listpath;
 		}
 	}
+<<<<<<< HEAD
 });
 >>>>>>> 更新我的银泰  他的银泰 随便逛逛
+=======
+});
+>>>>>>> update js
