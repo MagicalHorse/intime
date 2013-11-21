@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> update js and css
 //产品页面图片
@@ -533,6 +534,8 @@ var handler = null;
 =======
 >>>>>>> 完善详情页评论功能
 =======
+=======
+>>>>>>> change product.js an promo.js
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {
@@ -671,6 +674,9 @@ $.extend(intime, {
 		}
 	}
 });
+<<<<<<< HEAD
 >>>>>>> 完善详情页评论
 =======
 >>>>>>> update js
+=======
+>>>>>>> change product.js an promo.js
