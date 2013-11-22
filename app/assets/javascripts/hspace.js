@@ -4,7 +4,7 @@ $.extend(intime, {
 	hspace: {
 		_page: 1,
 		_sort: '',
-		_listpath: 'front/products/list_api.json',
+		_listpath: 'front/products/his_favorite_api.json',
 		_container: $('#tiles'),
 		_msnry: null,
 		_isMsnryInit: false,
