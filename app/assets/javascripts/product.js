@@ -1,7 +1,7 @@
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {
-	index: {
+	product: {
 		
 		_page: 1,
 		_sort: '',
@@ -13,7 +13,7 @@ $.extend(intime, {
 
 		onLoad: function(data) {
 			
-			var _this = intime.index;
+			var _this = intime.product;
 			var length = data.datas.length;
 			if (_this._page == 1) {
 				if (length <= 0) {
@@ -121,7 +121,7 @@ $.extend(intime, {
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
 			
-			var _this = intime.index;
+			var _this = intime.product;
 			if (!_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);

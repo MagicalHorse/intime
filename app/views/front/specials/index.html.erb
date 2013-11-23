@@ -5,10 +5,27 @@
 <% end -%>
 <div class="span9 main">
   <section class="portfolio">
-    <ul id="special_list" class="thumbnails">
-    </ul>
-    <div id="loader">
-      <div id="loaderCircle"></div>
-    </div>
+  <ul id="tiles" class="thumbnails tmode">
+  </ul>
+
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
+
+  <div id="no_data" class="no_data alert alert-error text-center">
+    <h5><i></i>还没有专题，我们将尽快上传！</h5>
+  </div>
+  <div id="last_page" class="no_data alert alert-error text-center">
+    <h5>最后一页</h5>
+  </div>
   </section>
 </div>
+<%= content_for :single_jss do -%>
+<script type="text/javascript">
+$(document).ready(function() {
+		var index = intime.special;
+		$(document).bind('scroll', index.onScroll);
+		index.loadData();
+	});
+</script>
+<% end -%>
