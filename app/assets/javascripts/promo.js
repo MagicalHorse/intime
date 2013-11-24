@@ -26,7 +26,7 @@ $.extend(intime, {
 			}
 			_this._page++;
 			var num = data.totalcount;
-	        $('#totalcount').html('('+num+')');
+	        $('#totalcount').html(num);
 			if (length <= 0) return;
 			var elems = [];
 			var fragment = document.createDocumentFragment();

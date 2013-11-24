@@ -38,13 +38,13 @@ class Front::CommentsController < Front::BaseController
     items['items'] = items['comments'].inject([]) do |_result, _comment|
       _result << {
         commentId: _comment['commentid'],
-        content:  _comment['content'],
+        content:  format_newline(_comment['content']),
         createTime: _comment['createddate'],
         floor: 1,
         customer: {
           id: _comment['customer']['id'],
           nickname: _comment['customer']['nickname'],
-          logo: href_of_avatar_url(_comment['customer']['logo']),
+          logo: href_of_avatar_url(_comment['customer']['logo'].present? ? "#{_comment['customer']['nickname']}_100x100.jpg" : nil),
           url: front_his_info_path(_comment['customer']['id'])
         },
         comments: []
