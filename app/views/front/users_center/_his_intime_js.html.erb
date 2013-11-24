@@ -1,0 +1,13 @@
+<%= content_for :javascripts do -%>
+  <script type="text/javascript">
+    function get_source(){
+      userid =$('.portfolio').attr('info');
+    }
+$(document).ready(function() {
+    hspace = intime.hspace;
+    $(document).bind('scroll', hspace.onScroll);
+    get_source();
+    hspace.loadData('1',userid);
+    });
+</script>
+<% end -%>
