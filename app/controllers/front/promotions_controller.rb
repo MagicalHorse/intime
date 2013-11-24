@@ -15,7 +15,8 @@ class Front::PromotionsController < Front::BaseController
   end
 
   def get_list
-    promotions = Stage::Promotion.list(params.slice(:page, :sort).merge(pagesize: params[:pageSize]))
+    params[:storeid] = params[:entity_id]
+    promotions = Stage::Promotion.list(params.slice(:page, :sort, :storeid).merge(pagesize: params[:pageSize]))
 
     render_datas(handle_items(promotions))
   end

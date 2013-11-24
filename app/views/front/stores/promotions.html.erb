@@ -14,3 +14,20 @@
   </div>
   </section>
 </div>
+<%= content_for :single_jss do -%>
+<script type="text/javascript">
+  function get_source(){
+    var str =$('.portfolio').attr('info');
+    var arr= new Array(); //定义一数组
+    arr=str.split(","); //字符分割   
+    type = arr[0];
+    entity_id = arr[1];
+  }
+$(document).ready(function() {
+    get_source();
+    var index = intime.storepromotion;
+    $(document).bind('scroll', index.onScroll);
+    index.loadData(type, entity_id);
+});
+</script>
+<% end -%>

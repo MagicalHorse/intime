@@ -58,18 +58,21 @@ $.extend(intime, {
 				}
 			});
 		},
-		loadData: function($sort) {
+		loadData: function($type, $entity_id) {
 			this._isLoadingMore = true;
 			$('#loader').show();
 			$('#no_data,#last_page').hide();
 			var _this = this;
-			sort = $sort;
+      type = $type;
+      entity_id = $entity_id;
 			$.ajax({
 				url: this.listUrl(),
 				dataType: 'jsonp',
 				data: {
 					page: this._page,
-					sort: $sort
+					sort: 1,
+          type: type,
+          entity_id: entity_id
 				},
 				success: this.onLoad
 			}).always(function() {
@@ -98,7 +101,7 @@ $.extend(intime, {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
 				if (closeToBottom) {
-					_this.loadData(sort);
+					_this.loadData(type, entity_id);
 				}
 			}
 		},
