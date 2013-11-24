@@ -1,20 +1,6 @@
 <%= render "his_nav"%>
 <div class="span9 main">
-
   <%= render "his_profile"%>
   <%= render "his_intime"%>
-
 </div>
-<%= content_for :javascripts do -%>
-  <script type="text/javascript">
-    function get_source(){
-      userid =$('.portfolio').attr('info');
-    }
-$(document).ready(function() {
-    index = intime.index;
-    $(document).bind('scroll', index.onScroll);
-    get_source();
-    index.loadData('1',userid);
-    });
-  </script>
-<% end -%>
+<%= render "his_intime_js"%>
