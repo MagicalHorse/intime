@@ -83,7 +83,7 @@ $.extend(intime, {
 					success: this.onLoad
 				}).always(function() {
 					_this._isLoadingMore = false;
-					$('#loader').show();
+					$('#loader').hide();
 					$('#no_data').hide();
 				});
 
