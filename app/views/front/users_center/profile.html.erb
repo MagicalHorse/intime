@@ -1,6 +1,6 @@
 <%= content_for :head_nav do %>
   <ul class="nav">
-    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li><a href="<%= front_profile_path %>"><i class="icon-undo"></i></a></li>
     <li class="title">详细资料</li>
   </ul>
 <% end %>
@@ -12,7 +12,7 @@
       <div class="head_img"><span></span><img src="<%= href_of_avatar_url(@info[:logo]) %>"></div>
       <div class="cname">
         <p><span>昵称：</span><%= @info[:name]%></p>
-        <p><span>签名：</span><%= @info[:desc]%></p>
+        <p><span>签名：</span><%= format_newline @info[:desc] %></p>
       </div>
       <div class="clearfix"></div>
     </div>

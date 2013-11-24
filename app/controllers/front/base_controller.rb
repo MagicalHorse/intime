@@ -18,10 +18,9 @@ class Front::BaseController < ApplicationController
 
   def authenticate!
     return true if signed_in?
-    #fake_current_user and return true
 
     if request.xhr?
-      render json: { isSuccessful: false, message: 'no login', statusCode: 500 }
+      render js: "window.location='#{login_path}?return_to=#{Rack::Utils.escape(request.original_url)}'"
     else
       redirect_to "#{login_path}?return_to=#{Rack::Utils.escape(request.original_url)}"
     end
