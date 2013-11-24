@@ -3,12 +3,5 @@
   <%= render "user_info"%>
   <%= render "my_intime"%>
 </div>
-<%= content_for :javascripts do -%>
-  <script type="text/javascript">
- $(document).ready(function() {
-      index = intime.index;
-     $(document).bind('scroll', index.onScroll);
-     index.loadData('1');
-   });
- </script>
-<% end -%>
+<%= render "my_intime_js"%>
+
