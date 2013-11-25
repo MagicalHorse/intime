@@ -141,7 +141,8 @@ class ProductController < ApplicationController
           :height=>default_resource[:height]
         }],
         :promotionFlag =>promotion_is_expire(p),
-        :likecount=>p[:favoriteCount]
+        :likecount=>p[:favoriteCount],
+        :is4sale=>p[:is4Sale]
       }
       if should_include_branddesc == true
         prod_hash[:branddesc]=p[:brand][:description]
@@ -196,7 +197,8 @@ class ProductController < ApplicationController
           :height=>default_resource[:height]
         }],
         :promotionFlag =>promotion_is_expire(p),
-        :likecount=>p[:favoriteCount]
+        :likecount=>p[:favoriteCount],
+        :is4sale=>p[:is4Sale]
       }
     }
     return render :json=>{:isSuccessful=>true,
