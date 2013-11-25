@@ -829,7 +829,7 @@ float:none;
 padding-top: 6px;
 }
 /* prupdate.html */
-.prupdate .top #u1,
+.prupdate .top .u1,
 .prupdate .top textarea{ width:auto;}
 /* addaddress */
 .addaddress .thzq span, .address .thzq input,

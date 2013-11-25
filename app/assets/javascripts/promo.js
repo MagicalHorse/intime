@@ -9,6 +9,7 @@ $.extend(intime, {
 		_msnry: null,
 		_isMsnryInit: false,
 		_isLoadingMore: false,
+		_canLoadMore: false,
 
 		onLoad: function(data) {
 			var _this = intime.promotion;
@@ -18,15 +19,18 @@ $.extend(intime, {
 					$('#no_data').show();
 					return;
 				}
+
+			} 
+			if (_this._page<data.totalpaged){
+				_this._canLoadMore = true;
+
 			} else {
-				if (length <= 0) {
-					$('#last_page').show();
-					return;
-				}
+				_this._canLoadMore = false;
+				$('#last_page').show();
 			}
 			_this._page++;
 			var num = data.totalcount;
-	        $('#totalcount').html(num);
+	        $('#totalcount').html('('+num+')');
 			if (length <= 0) return;
 			var elems = [];
 			var fragment = document.createDocumentFragment();
@@ -102,7 +106,8 @@ $.extend(intime, {
 
 		},
 		clears: function() {
-
+			this._canLoadMore = false;
+			this._isLoadingMore = false;
 			this._page = 1;
 			this._container.empty();
 			if (this._msnry) {
@@ -117,7 +122,7 @@ $.extend(intime, {
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
 			var _this = intime.promotion;
-			if (!_this._isLoadingMore) {
+			if (_this._canLoadMore && !_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
 				if (closeToBottom) {

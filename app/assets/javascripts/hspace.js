@@ -4,12 +4,26 @@ $.extend(intime, {
 	hspace: {
 		_page: 1,
 		_sort: '',
-		_listpath: 'front/products/his_favorite_api.json',
+		_listpath: 'front/products/list_api.json',
 		_container: $('#tiles'),
 		_msnry: null,
 		_isMsnryInit: false,
 		_isLoadingMore: false,
+		_canLoadMore: false,
+		_userid: $('.portfolio').attr('info'),
 
+		init: function(){
+			$(document).bind('scroll', this.onScroll);
+			var _this = this;
+			$('.nav>li').click(function(){
+				$('.nav>li').removeClass('active');
+				$(this).addClass('active');
+				var sort = $(this).find('a:first').attr('data-hspacetype');
+				_this.clears();
+				_this.loadData(sort,_this._userid);
+			});
+			$('.nav>li :first').click();
+		},
 		onLoad: function(data) {
 			var _this = intime.hspace;
 			var length = data.datas.length;
@@ -27,11 +41,13 @@ $.extend(intime, {
 					}
 
 				}
+			} 
+			if (_this._page<data.totalpaged){
+				_this._canLoadMore = true;
+
 			} else {
-				if (length <= 0) {
-					$('#last_page').show();
-					return;
-				}
+				_this._canLoadMore = false;
+				$('#last_page').show();
 			}
 			_this._page++;
 
@@ -122,7 +138,8 @@ $.extend(intime, {
 
 		},
 		clears: function() {
-
+			this._isLoadingMore = false;
+			this._canLoadMore = false;
 			this._page = 1;
 			this._container.empty();
 			if (this._msnry) {
@@ -137,7 +154,7 @@ $.extend(intime, {
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
 			var _this = intime.hspace;
-			if (!_this._isLoadingMore) {
+			if (_this._canLoadMore && !_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
 				if (closeToBottom) {
