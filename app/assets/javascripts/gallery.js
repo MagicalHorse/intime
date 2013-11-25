@@ -12,6 +12,7 @@ $.extend(intime, {
 		_isLoadingMore: false,
 		_canLoadMore: false,
 		init: function(){
+			var _this = this;
 			$('#no_data').hide();
 			
 			$(document).bind('scroll', this.onScroll);
@@ -31,8 +32,24 @@ $.extend(intime, {
 			$(".nav a[role='menuitem']").click(function(){
 				$(".nav a[role='menuitem']").removeClass("active");
 				$(this).addClass("active");
+				var searchKey = $(this).attr('data-gallerykey');
+				var searchType = $(this).attr('data-gallerytype');
+				_this.clears();
+				if (searchKey == undefined) {
+					_this.loadData(searchType);
+				} else {
+					_this.loadData(searchType,searchKey);
+				}
+				
 			});
 			
+			$("#btnSearch").click(function(){
+				var key = $('#search').val();
+				if (key.length<=0)
+					return;
+				_this.clears();
+				_this.loadData(key);
+			});
 			this.loadData('s','c');
 		},
 		onLoad: function(data) {
@@ -111,7 +128,6 @@ $.extend(intime, {
 				}).always(function() {
 					_this._isLoadingMore = false;
 					$('#loader').hide();
-					$('#no_data').hide();
 				});
 
 			} else {
