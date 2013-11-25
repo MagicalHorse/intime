@@ -38,7 +38,7 @@ class Front::CommentsController < Front::BaseController
     items['items'] = items['comments'].inject([]) do |_result, _comment|
       _result << {
         commentId: _comment['commentid'],
-        content:  format_newline(_comment['content']),
+        content:  comment_content(_comment),#format_newline(_comment['content']),
         createTime: _comment['createddate'],
         floor: 1,
         customer: {
@@ -54,5 +54,13 @@ class Front::CommentsController < Front::BaseController
     end
 
     items
+  end
+
+  def comment_content(comment)
+    if comment['resources'].present? && comment['resources'][0]['type'] == 2
+      '语音评论，请下载IPHONE App'
+    else
+      comment['content']
+    end
   end
 end

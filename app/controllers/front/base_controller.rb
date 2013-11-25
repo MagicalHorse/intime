@@ -149,7 +149,7 @@ class Front::BaseController < ApplicationController
 
   # \r\n 替换成 br
   def format_newline(text)
-    (h text.to_s).gsub(/\r?\n/, '<br />').html_safe
+    (ERB::Util.html_escape text.to_s).gsub(/\r?\n/, '<br />').html_safe
   end
 
   # http://detectmobilebrowsers.com/
