@@ -1,4 +1,3 @@
-
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {
@@ -6,12 +5,11 @@ $.extend(intime, {
 		
 		_page: 1,
 		_sort: '',
-		_listpath: 'comment/get_list.json',
+		_listpath: 'front/comments/get_list.json',
 		_container: $('#tiles'),
 		_msnry: null,
-		_isMsnryInit: false,
+		_isMsnryInit: true,
 		_isLoadingMore: false,
-		_canLoadMore: false,
 
 		onLoad: function(data) {
 			
@@ -22,14 +20,11 @@ $.extend(intime, {
 					$('#no_data').show();
 					return;
 				}
-
-			} 
-			if (_this._page<data.totalpaged){
-				_this._canLoadMore = true;
-
 			} else {
-				_this._canLoadMore = false;
-				$('#last_page').show();
+				if (length <= 0) {
+					$('#last_page').show();
+					return;
+				}
 			}
 			_this._page++;
 			var num = data.totalcount;
@@ -43,13 +38,13 @@ $.extend(intime, {
 				var html = '';
 				var one = this;
 				leng = one.comments.length;
-				html += '<li class="post scrollItem">';
+				html += '<li class="post scrollItem" id="reply_'+one.commentId+'">';
 				html += '<div class="post-self">';
-				html += '<div class="avatar"><a rel="nofollow author" href="#" title="' + one.customer.nickname + '"><img src="' + one.customer.logo + '" alt="' + one.customer.nickname + '"></a></div>';
+				html += '<div class="avatar"><a rel="nofollow author" href="'+one.customer.url+'" title="' + one.customer.nickname + '"><img src="' + one.customer.logo + '" alt="' + one.customer.nickname + '"></a></div>';
 				html += '<div class="comment-body">';
-				html += '<div class="comment-header"><a class="user-name highlight" rel="nofollow" target="_blank">' + one.customer.nickname + '</a></div>';
+				html += '<div class="comment-header"><a class="user-name highlight" href="'+one.customer.url+'" rel="nofollow" target="_blank">' + one.customer.nickname + '</a></div>';
 				html += '<p>' + one.content + '</p>';
-				html += '<div class="comment-footer comment-actions"><span class="time" datetime="' + one.createTime + '" title="' + one.createTime + '">' + one.createTime + ' - ' + one.floor + '楼</span><a class="post-reply" href="#reply" data-toggle="modal"><span class="icon icon-reply"></span>回复</a></div>';
+				html += '<div class="comment-footer comment-actions"><span class="time" datetime="' + one.createTime + '" title="' + one.createTime + '">' + one.createTime + '</span><a class="post-reply" href="#reply" data-toggle="modal" onclick="reply_comment(\''+one.commentId+'\', \''+one.customer.nickname+'\')"><span class="icon icon-reply"></span>回复</a></div>';
 				html += '</div>';
 				html += '</div>';
 				var c = 0,
@@ -59,11 +54,11 @@ $.extend(intime, {
 						html += '<ul class="children">';
 						html += '<li class="post">';
 						html += '<div class="post-self">';
-						html += '<div class="avatar"><a rel="nofollow author" href="#" title="Lengxu"><img src="' + one.comments[c].customer.logo + '" alt="' + one.comments[c].customer.nickname + '"></a></div>';
+						html += '<div class="avatar"><a rel="nofollow author" href="'+one.customer.url+'" title="Lengxu"><img src="' + one.comments[c].customer.logo + '" alt="' + one.comments[c].customer.nickname + '"></a></div>';
 						html += '<div class="comment-body">';
-						html += '<div class="comment-header"><a class="user-name highlight" href="#" rel="nofollow" target="_blank">' + one.comments[c].customer.nickname + '</a></div>';
+						html += '<div class="comment-header"><a class="user-name highlight" href="'+one.customer.url+'" rel="nofollow" target="_blank">' + one.comments[c].customer.nickname + '</a></div>';
 						html += '<p>' + one.comments[c].content + '</p>';
-						html += '<div class="comment-footer comment-actions"><span class="time" datetime="' + one.comments[c].createTime + '" title="' + one.comments[c].createTime + '">' + one.comments[c].createTime + '</span><a class="post-reply" href="#reply" data-toggle="modal"><span class="icon icon-reply"></span>回复</a></div>';
+						html += '<div class="comment-footer comment-actions"><span class="time" datetime="' + one.comments[c].createTime + '" title="' + one.comments[c].createTime + '">' + one.comments[c].createTime + '</span></div>';
 						html += '</div>';
 						html += '</div>';
 						html += '</li>';
@@ -111,8 +106,7 @@ $.extend(intime, {
 
 		},
 		clears: function() {
-			this._canLoadMore = false;
-			this._isLoadingMore = false;
+
 			this._page = 1;
 			this._container.empty();
 			if (this._msnry) {

@@ -11,10 +11,9 @@ $.extend(intime, {
         init:function(){
             this._productid=this._parseParam('product_id');
             this._loadCities();
-            this._loadColors();
             this._get_jifen();
             $("#goods_num").change(this._get_jifen);
-            intime.orderaddress.init();
+            
             $('.change-goods-num').iVaryVal(intime,function(value,index){
                     $('.goods-num').html(value);
                     $("#goods_num").change();
@@ -228,7 +227,8 @@ $.extend(intime, {
                         $("#sheng").append("<option value='"+one.provinceid+"'>"+one.provincename+"</option>");
                         $("#sheng_syxd").append("<option value='"+one.provinceid+"'>"+one.provincename+"</option>");
                     });
-							
+					intime.order._loadColors();
+					intime.orderaddress.init();		
                 }
             });
         },
