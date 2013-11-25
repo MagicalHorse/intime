@@ -88,7 +88,7 @@
       <% @hotwords[:storewords] && @hotwords[:storewords].each do |store| %>
         <li role="presentation">
         <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="store" data-gallerykey="<%= store[:id]%>">
-          <%= store[:name] %>
+          <%= store["name"] %>
         </a>
         </li>
       <% end %>
