@@ -1,7 +1,11 @@
 <%= content_for :head_nav do -%>
 <ul class="nav">
   <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
-  <li class="title">我的粉丝</li>
+  <% if params[:userid].present? %>
+    <li class="title">Ta的粉丝</li>
+  <% else %>
+    <li class="title">我的粉丝</li>
+  <% end %>
 </ul>
 <% end -%>
 
@@ -40,7 +44,7 @@
           <li class="atten">
           <span>关注<%= result[:liketotal]%></span>
           <span>粉丝<%= result[:likedtotal]%></span>
-          <span>分享<%= result[:sharetotal]%></span></li>
+          </li>
         </ul>
       </div>
     </div>

@@ -219,7 +219,8 @@ class Front::ProductsController < Front::BaseController
         likeCount: item["likecount"],
         url:       front_product_path(item["id"]||item["productid"]),
         imageUrl:  image_info.blank? ? default_product_pic_url : middle_pic_url(image_info),
-        flag: item["promotionFlag"]
+        flag: item["promotionFlag"],
+        is4sale: item["is4sale"]
       }
     end
     results[:datas] = items

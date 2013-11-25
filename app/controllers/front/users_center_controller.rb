@@ -85,6 +85,7 @@ class Front::UsersCenterController < Front::BaseController
       info[:mobile] = result["data"]["mobile"]
       info[:follows] = result["data"]["liketotal"].to_i
       info[:fans] =    result["data"]["likedtotal"].to_i
+      info[:isliked] = result["data"]["isliked"]
     end
     info
   end
