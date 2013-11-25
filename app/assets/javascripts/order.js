@@ -260,33 +260,33 @@ $.extend(intime, {
                             $('#sss').append("<div class='prop mb20 tab-pane  in' id='tab"+i+"' data-toggle='buttons-radio'><span class='tages'>尺码</span></div>");
                         }
                         for(;j<le;j++){
-                            $('#tab'+i).append("<button type='button' value='"+data.data.salecolors[i].sizes[j].sizeid+"' class='btn' onClick=$('#goods_size').text($(this).text()),$('#sizeid').val($(this).val())>"+data.data.salecolors[i].sizes[j].sizename+"</button> ");
+                            $('#tab'+i).append("<button type='button' value='"+data.data.salecolors[i].sizes[j].sizeid+"' class='btn' onClick=$('#goods_size').text($(this).text()),$('#sizeid').val($(this).val())>"+data.data.salecolors[i].sizes[j].sizename+"</button>");
                         }
                     }
-										 
+					$(".infobox>.head>h1").html(data.data.name);					 
                     $("#originprice").html(data.data.originprice);
                     $("#price").html(data.data.price);
-                    $('#shippingperson').html(data.data.address.shippingperson);
-                    //显示价格下的省份地址等
-                    $('#shippingprovince').html(data.data.address.shippingprovince+" "+data.data.address.shippingcity+" "+data.data.address.shippingdistrict);
-                    $('#shippingaddress').html(data.data.address.shippingaddress); 
-                    $('#shippingzipcode').html(data.data.address.shippingzipcode); 
-                    $('#shippingphone').html(data.data.address.shippingphone); 
-                    $('#edit_user').val(data.data.address.shippingperson);
-                    $('#edit_address').val(data.data.address.shippingaddress);
-                    $('#edit_code').val(data.data.address.shippingzipcode);
-                    $('#edit_phone').val(data.data.address.shippingphone);
-
-                    $('#addressid').val(data.data.address.id);
                     $('#huohao').html(data.data.skucode);
-
-                    intime.orderaddress.refresh_editzone(data.data.address.shippingprovinceid,data.data.address.shippingcityid,data.data.address.shippingdistrictid);
-                   
-				
+					$('.brand').html(data.data.brandname+'<br>'+data.data.brand2name);
                     var m=0,supportpayments =  data.data.supportpayments.length;
                     for(; m<supportpayments; m++){
                         $('#supportpayments').append("<label><input name='supportpayments' type='radio'  value='"+data.data.supportpayments[m].code+"'/>"+data.data.supportpayments[m].name+"</label>");
                     }
+					if (data.data.address) {
+						$('#shippingperson').html(data.data.address.shippingperson);
+						//显示价格下的省份地址等
+						$('#shippingprovince').html(data.data.address.shippingprovince+" "+data.data.address.shippingcity+" "+data.data.address.shippingdistrict);
+						$('#shippingaddress').html(data.data.address.shippingaddress); 
+						$('#shippingzipcode').html(data.data.address.shippingzipcode); 
+						$('#shippingphone').html(data.data.address.shippingphone); 
+						$('#edit_user').val(data.data.address.shippingperson);
+						$('#edit_address').val(data.data.address.shippingaddress);
+						$('#edit_code').val(data.data.address.shippingzipcode);
+						$('#edit_phone').val(data.data.address.shippingphone);
+
+						$('#addressid').val(data.data.address.id);
+						intime.orderaddress.refresh_editzone(data.data.address.shippingprovinceid,data.data.address.shippingcityid,data.data.address.shippingdistrictid);
+					}
                 }
             });
         },

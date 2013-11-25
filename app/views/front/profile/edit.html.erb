@@ -13,7 +13,7 @@
         <%= f.hidden_field :logo, value: @user['logo'] %>
         <div class="cname">
           <p><span>昵称：</span>
-            <input id="user_nickname" type="text" value="<%= @user['nickname'] %>" name="user[nickname]" />
+            <input class="u1" id="user_nickname" type="text" value="<%= @user['nickname'] %>" name="user[nickname]" />
           </p>
           <p><span>签名：</span>
             <textarea style=" height:40px;" id="user_desc" name="user[desc]"><%= @user['desc'] %></textarea>
@@ -28,7 +28,7 @@
           <label><%= f.radio_button :gender, 2, checked: @user['gender'].to_i == 2 %><%= API::Customer::GENDER[2] %></label>
         </li>
         <li>电话：
-          <input id="user_mobile" name="user[mobile]" value="<%= @user['mobile'] %>" type="text" />
+          <input class="u1" id="user_mobile" name="user[mobile]" value="<%= @user['mobile'] %>" type="text" />
         </li>
       </ul>
       <p style="text-align:center; padding-top:20px;">
