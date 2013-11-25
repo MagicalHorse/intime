@@ -1,9 +1,7 @@
 <%= content_for :javascripts do -%>
   <script type="text/javascript">
     $(document).ready(function() {
-        space = intime.space;
-        $(document).bind('scroll', space.onScroll);
-        space.loadData('1');
+        intime.space.init();
         });
   </script>
 <% end -%>
