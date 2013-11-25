@@ -53,7 +53,7 @@ $.extend(intime, {
             });
         },
         add_address:function (){
-            var name=$("#name").val();
+            var name=$("#username").val();
             var provinceid = $("#province").val();
             var province =$("#province").find("option:selected").text();
             var cityid = $("#city").val();
@@ -97,7 +97,6 @@ $.extend(intime, {
                         $('#add02').collapse('hide');
                         intime.orderaddress.refresh_editzone(data.data.shippingprovinceid,data.data.shippingcityid,data.data.shippingdistrictid);
                     } else {
-                        $('#add02').collapse('show');
                         alert(data.message);
                     }   
                 }

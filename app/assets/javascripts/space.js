@@ -9,7 +9,19 @@ $.extend(intime, {
 		_msnry: null,
 		_isMsnryInit: false,
 		_isLoadingMore: false,
-
+		_canLoadMore: false,
+		init: function(){
+			$(document).bind('scroll', this.onScroll);
+			var _this = this;
+			$('.nav>li').click(function(){
+				$('.nav>li').removeClass('active');
+				$(this).addClass('active');
+				var sort = $(this).find('a:first').attr('data-spacetype');
+				_this.clears();
+				_this.loadData(sort);
+			});
+			$('.nav>li :first').click();
+		},
 		onLoad: function(data) {
 			var _this = intime.space;
 			var length = data.datas.length;
@@ -27,11 +39,13 @@ $.extend(intime, {
 					}
 
 				}
+			} 
+			if (_this._page<data.totalpaged){
+				_this._canLoadMore = true;
+
 			} else {
-				if (length <= 0) {
-					$('#last_page').show();
-					return;
-				}
+				_this._canLoadMore = false;
+				$('#last_page').show();
 			}
 			_this._page++;
 
@@ -120,7 +134,8 @@ $.extend(intime, {
 
 		},
 		clears: function() {
-
+			this._isLoadingMore = false;
+			this._canLoadMore = false;
 			this._page = 1;
 			$('#my_share,#my_like,#last_page').hide();
 			this._container.empty();
@@ -136,7 +151,7 @@ $.extend(intime, {
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
 			var _this = intime.space;
-			if (!_this._isLoadingMore) {
+			if (_this._canLoadMore && !_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
 				if (closeToBottom) {

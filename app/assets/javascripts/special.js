@@ -9,7 +9,12 @@ $.extend(intime, {
 		_msnry: null,
 		_isMsnryInit: false,
 		_isLoadingMore: false,
-
+		_canLoadMore: false,
+		init: function(){
+			$(document).bind('scroll', this.onScroll);
+			this.loadData();
+		},
+		
 		onLoad: function(data) {
 			var _this = intime.special;
 			var length = data.datas.length;
@@ -19,11 +24,13 @@ $.extend(intime, {
 					return;
 				}
 
+			} 
+			if (_this._page<data.totalpaged){
+				_this._canLoadMore = true;
+
 			} else {
-				if (length <= 0) {
-					$('#last_page').show();
-					return;
-				}
+				_this._canLoadMore = false;
+				$('#last_page').show();
 			}
 			_this._page++;
 
@@ -37,7 +44,7 @@ $.extend(intime, {
 				html += '<div class="action"><a href="' + one.url + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a></div>';
 				html += '<h3 class="mt6"><i class="icon_title"></i><a href="' + one.url + '" title="">' + one.title + '</a></h3>';
 				html += '<div class="summary">' + one.description + '</div>';
-				html += '<small> <span class="pull-left"><i class="icon-time"></i>' + one.startDate + '</span></small> </div>';
+				html += '<small> <span class="pull-left"><i class="icon-time"></i>' + one.startDate + '</span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';
 				html += '</li>';
 				var elem = $(html).get(0);
 				fragment.appendChild(elem);
@@ -74,23 +81,11 @@ $.extend(intime, {
 			});
 
 		},
-		clears: function() {
 
-			this._page = 1;
-			this._container.empty();
-			if (this._msnry) {
-				var items = this._msnry.getItemElements();
-				if (items && items.length > 0) {
-					this._msnry.remove(items);
-					this._isMsnryInit = false;
-					this._msnry.destroy();
-				}
-			}
-		},
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
 			var _this = intime.special;
-			if (!_this._isLoadingMore) {
+			if (_this._canLoadMore && !_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
 				if (closeToBottom) {

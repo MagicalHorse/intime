@@ -7,9 +7,21 @@ $.extend(intime, {
 		_listpath: 'front/promotions/get_list.json',
 		_container: $('#tiles'),
 		_msnry: null,
+		_canLoadMore: false,
 		_isMsnryInit: false,
 		_isLoadingMore: false,
-
+		init: function(){
+			$(document).bind('scroll', this.onScroll);
+			var _this = this;
+			$('.nav>li').click(function(){
+				$('.nav>li').removeClass('active');
+				$(this).addClass('active');
+				var sort = $(this).find('a:first').attr('data-sort');
+				_this.clears();
+				_this.loadData(sort);
+			});
+			$('.nav>li :first').click();
+		},
 		onLoad: function(data) {
 			var _this = intime.index;
 			var length = data.datas.length;
@@ -18,25 +30,33 @@ $.extend(intime, {
 					$('#no_data').show();
 					return;
 				}
+
+			} 
+			if (_this._page<data.totalpaged){
+				_this._canLoadMore = true;
+
 			} else {
-				if (length <= 0) {
-					$('#last_page').show();
-					return;
-				}
+				_this._canLoadMore = false;
+				$('#last_page').show();
 			}
 			_this._page++;
-
+			
 			var elems = [];
 			var fragment = document.createDocumentFragment();
-			if (sort == 1) {
+			if (_this._sort == 1) {
 				$(data.datas).each(function() {
 					var html = '';
 					var one = this;
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<h3><i class="icon_title"></i><a href="' + one.url + '" title="">' + one.title + '</a></h3>';
+<<<<<<< HEAD
 					html += '<div class="action"> <a href="' + one.url + '"><img src="' + one.imageUrl + '" alt=" "></a>';
 					html += '<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
+=======
+					html += '<div class="action"> <a href="promo.html"><img src="' + one.imageUrl + '" alt=" "></a>';
+					html += '<p>'+one.title+'</p>';
+>>>>>>> 7875a6f74bd8c547ff024ad413da69f4439a8fa9
 					html += '</div>';
 					html += '<h3 class="time bottom">活动时间：<span>' + one.startDate + '-' + one.endDate + '</span></h3>';
 					html += '<small> <span class="pull-left"><a href="'+ one.storeUrl +'"><i class="icon-map-marker"></i>' + one.storeName + '</a></span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';
@@ -45,15 +65,20 @@ $.extend(intime, {
 					fragment.appendChild(elem);
 					elems.push(elem);
 				});
-			} else if (sort == 2) {
+			} else if (_this._sort == 2) {
 				$(data.datas).each(function() {
 					var html = '';
 					var one = this;
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<h3 class="time">活动时间：<span>' + one.startDate + '-' + one.endDate + '</span></h3>';
+<<<<<<< HEAD
 					html += '<div class="action"> <a href="' + one.url + '"><img src="' + one.imageUrl + '" alt=" "></a>';
 					html += '<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
+=======
+					html += '<div class="action"> <a href="#"><img src="' + one.imageUrl + '" alt=" "></a>';
+					html += '<p>'+one.title+'</p>';
+>>>>>>> 7875a6f74bd8c547ff024ad413da69f4439a8fa9
 					html += '</div>';
 					html += '<h3 class="bottom"><i class="icon_title"></i><a href="' + one.url + '" title="">' + one.title + '</a></h3>';
 					html += '<small> <span class="pull-left"><a href="'+ one.storeUrl +'"><i class="icon-map-marker"></i>' + one.storeName + '</a></span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';
@@ -62,7 +87,7 @@ $.extend(intime, {
 					fragment.appendChild(elem);
 					elems.push(elem);
 				});
-			} else if (sort == 3) {
+			} else if (_this._sort == 3) {
 				$(data.datas).each(function() {
 					var html = '';
 					var one = this;
@@ -70,7 +95,7 @@ $.extend(intime, {
 					html += '<div class="thumbnail">';
 					html += '<h3><i class="icon_title"></i><a href="' + one.url + '" title="">' + one.title + '</a></h3>';
 					html += '<div class="action"> <a href="' + one.url + '"><img src="' + one.imageUrl + '" alt=" "></a>';
-					html += '<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
+					html += '<p>'+one.title+'</p>';
 					html += '</div>';
 					html += '<h3 class="time bottom">活动时间：<span>' + one.startDate + '-' + one.endDate + '</span></h3>';
 					html += '<small> <span class="pull-left"><a href="'+ one.storeUrl +'"><i class="icon-map-marker"></i>' + one.storeName + '</a></span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';
@@ -98,7 +123,7 @@ $.extend(intime, {
 			$('#loader').show();
 			$('#no_data,#last_page').hide();
 			var _this = this;
-			sort = $sort;
+			this._sort = $sort;
 			$.ajax({
 				url: this.listUrl(),
 				dataType: 'jsonp',
@@ -115,6 +140,7 @@ $.extend(intime, {
 		},
 		clears: function() {
 			this._page = 1;
+			this._canLoadMore = false;
 			$('#no_data,#last_page').hide();
 			this._container.empty();
 			if (this._msnry) {
@@ -129,11 +155,11 @@ $.extend(intime, {
 		onScroll: function(event) {
 			// Only check when we're not still waiting for data.
 			var _this = intime.index;
-			if (!_this._isLoadingMore) {
+			if (_this._canLoadMore && !_this._isLoadingMore) {
 				// Check if we're within 100 pixels of the bottom edge of the broser window.
 				var closeToBottom = ($(window).scrollTop() + $(window).height() > $(document).height() - 100);
 				if (closeToBottom) {
-					_this.loadData(sort);
+					_this.loadData(_this._sort);
 				}
 			}
 		},
