@@ -146,45 +146,9 @@
 
 <%= content_for :javascripts do -%>
   <script>
-    //分类&品牌滚动条
-    $('.navbar .nav #menu1 .dropdown-menu,.navbar .nav #menu2 .dropdown-menu').perfectScrollbar({
-      wheelSpeed: 30,
-      wheelPropagation: false
-    });	
-
-    //停止监听下拉菜单 & 启动标签页 & 选中效果
-    $('#myTab a').click(function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      $(this).tab('show');
-      $("#myTab a").removeClass("active");
-      $(this).addClass("active");
-    })
-
-    $("#menu2 .hot a").click(function(){
-      $("#menu2 .hot a").removeClass("active");
-      $(this).addClass("active");
-    });
-
-    $("#menu1 .dropdown-menu a").click(function(){
-      $("#menu1 .dropdown-menu a").removeClass("active");
-      $(this).addClass("active");
-    });
-
-    $("#menu3 .dropdown-menu li a").click(function(){
-      $("#menu3 .dropdown-menu li a").removeClass("active");
-      $(this).addClass("active");
-    });
-
-    $("#menu4 .dropdown-menu li a").click(function(){
-      $("#menu4 .dropdown-menu li a").removeClass("active");
-      $(this).addClass("active");
-    });
     $(document).ready(function() {
-      $('#no_data').hide();
-      gallery = intime.gallery;
-      $(document).bind('scroll', gallery.onScroll);
-      gallery.loadData('s','c');
+      gallery = intime.gallery;                                                                                                              
+      gallery.init();
     });
   </script>
 <% end -%>
