@@ -98,4 +98,9 @@ module ApplicationHelper
   def format_newline(text)
     (h text.to_s).gsub(/\r?\n/, '<br />').html_safe
   end
+
+  def follow_user?(user_id)
+    result = API::Customer.his_show(request, userid: user_id)
+    result['isSuccessful'] && result['data']['isliked']
+  end
 end

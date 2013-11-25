@@ -50,13 +50,8 @@ $.extend(intime, {
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<h3><i class="icon_title"></i><a href="' + one.url + '" title="">' + one.title + '</a></h3>';
-<<<<<<< HEAD
-					html += '<div class="action"> <a href="' + one.url + '"><img src="' + one.imageUrl + '" alt=" "></a>';
-					html += '<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
-=======
-					html += '<div class="action"> <a href="promo.html"><img src="' + one.imageUrl + '" alt=" "></a>';
+					html += '<div class="action"> <a href="'+one.url+'"><img src="' + one.imageUrl + '" alt=" "></a>';
 					html += '<p>'+one.title+'</p>';
->>>>>>> 7875a6f74bd8c547ff024ad413da69f4439a8fa9
 					html += '</div>';
 					html += '<h3 class="time bottom">活动时间：<span>' + one.startDate + '-' + one.endDate + '</span></h3>';
 					html += '<small> <span class="pull-left"><a href="'+ one.storeUrl +'"><i class="icon-map-marker"></i>' + one.storeName + '</a></span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';
@@ -72,13 +67,9 @@ $.extend(intime, {
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<h3 class="time">活动时间：<span>' + one.startDate + '-' + one.endDate + '</span></h3>';
-<<<<<<< HEAD
-					html += '<div class="action"> <a href="' + one.url + '"><img src="' + one.imageUrl + '" alt=" "></a>';
-					html += '<p>喜欢银泰，乐享三倍积点。银泰年中庆，小积点也能玩出大动作，三倍积点大赠送啦！</p>';
-=======
-					html += '<div class="action"> <a href="#"><img src="' + one.imageUrl + '" alt=" "></a>';
+
+					html += '<div class="action"> <a href="'+one.url+'"><img src="' + one.imageUrl + '" alt=" "></a>';
 					html += '<p>'+one.title+'</p>';
->>>>>>> 7875a6f74bd8c547ff024ad413da69f4439a8fa9
 					html += '</div>';
 					html += '<h3 class="bottom"><i class="icon_title"></i><a href="' + one.url + '" title="">' + one.title + '</a></h3>';
 					html += '<small> <span class="pull-left"><a href="'+ one.storeUrl +'"><i class="icon-map-marker"></i>' + one.storeName + '</a></span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';

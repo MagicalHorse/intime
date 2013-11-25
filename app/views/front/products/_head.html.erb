@@ -9,7 +9,7 @@
     <span><i class="icon-heart"></i><b class='likecount'><%= product.likecount -%></b>人喜欢</span>
     <span><i class="icon-qrcode"></i><b class='downcount'><%= product.couponcount -%></b>人下载优惠码</span>
   </div>
-  <div class="brand"><%= product.brand.name -%><br>
+  <div class="brand"><%= link_to product.brand.name, front_products_path(brandid: product.brand.id) -%><br>
     <%= (engname = product.brand.engName).present? ? "(#{engname})" : '' -%>
   </div>
 </div>
