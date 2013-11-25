@@ -113,7 +113,8 @@ class Front::BaseController < ApplicationController
       :onlinecoupontotal  => value['onlinecoupontotal'],
       :offlinecoupontotal => value['offlinecoupontotal'],
       :access_token       => value['access_token'],
-      :refresh_token      => value['refresh_token']
+      :refresh_token      => value['refresh_token'],
+      :levle              => value['level']
     )
 
     set_login_cookie
