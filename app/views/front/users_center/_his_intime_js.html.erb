@@ -4,10 +4,7 @@
       userid =$('.portfolio').attr('info');
     }
 $(document).ready(function() {
-    hspace = intime.hspace;
-    $(document).bind('scroll', hspace.onScroll);
-    get_source();
-    hspace.loadData('1',userid);
+    intime.hspace.init();
     });
 </script>
 <% end -%>
