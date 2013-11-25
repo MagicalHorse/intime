@@ -18,8 +18,7 @@ class Front::SpecialsController < Front::BaseController
         url:          generate_special_url(item),
         startDate:    item.createddate.to_date.strftime('%Y.%m.%d'),
         endDate:      item.createddate.to_date.strftime('%Y.%m.%d'),
-        description:  item.descriptio,
-        likeCount:    0
+        description:  item.descriptio
       }
     end
   end

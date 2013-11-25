@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Front::BaseController < ApplicationController
   layout 'front'
-  helper_method :current_user, :signed_in?
+  helper_method :current_user, :signed_in?, :gen_user_logo, :format_newline
   before_filter :update_current_user
 
   # TODO
@@ -18,10 +18,9 @@ class Front::BaseController < ApplicationController
 
   def authenticate!
     return true if signed_in?
-    #fake_current_user and return true
 
     if request.xhr?
-      render json: { isSuccessful: false, message: 'no login', statusCode: 500 }
+      render js: "window.location='#{login_path}?return_to=#{Rack::Utils.escape(request.original_url)}'"
     else
       redirect_to "#{login_path}?return_to=#{Rack::Utils.escape(request.original_url)}"
     end
@@ -142,6 +141,15 @@ class Front::BaseController < ApplicationController
       path:     '/',
       expires:  Time.now.end_of_day
     }
+  end
+
+  def gen_user_logo(logo)
+    logo.to_s + '_100x100.jpg' if logo.present?
+  end
+
+  # \r\n 替换成 br
+  def format_newline(text)
+    (h text.to_s).gsub(/\r?\n/, '<br />').html_safe
   end
 
   # http://detectmobilebrowsers.com/

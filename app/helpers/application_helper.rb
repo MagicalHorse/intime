@@ -93,4 +93,9 @@ module ApplicationHelper
   def display_blank_prompt(msg)
     render partial: 'front/blank_prompt', locals: { msg: msg }
   end
+
+  # \r\n 替换成 br
+  def format_newline(text)
+    (h text.to_s).gsub(/\r?\n/, '<br />').html_safe
+  end
 end
