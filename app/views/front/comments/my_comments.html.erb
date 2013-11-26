@@ -17,10 +17,10 @@
           <li class="post">
           <a href="<%= href_of_comment_item(comment) -%>">
             <div class="post-self">
-              <div class="avatar"><img src="<%= href_of_avatar_url comment[:commentuser][:logo] -%>" alt="<%= comment[:commentuser][:nickname] -%>"></div>
+              <div class="avatar"><img src="<%= href_of_avatar_url comment[:commentuser][:logo].present? ? "#{comment[:commentuser][:logo]}_100x100.jpg" : nil -%>" alt="<%= comment[:commentuser][:nickname] -%>"></div>
               <div class="comment-body">
                 <div class="comment-header"><span class="user-name highlight"><%= comment[:commentuser][:nickname] -%></span></div>
-                <p><%= comment[:content] -%></p>
+                <p><%= format_newline(comment[:content]) -%></p>
                 <div class="comment-footer comment-actions"><span class="time"><%= comment[:createddate] -%></span></div>
               </div>
               <span class="it"></span>
