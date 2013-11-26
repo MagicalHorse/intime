@@ -21,7 +21,7 @@ config/database.yml
 tags
 *.swp
 .project
-# public/assets
+public/assets
 
 # rails_config
 config/settings.local.yml
