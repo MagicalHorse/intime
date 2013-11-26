@@ -73,7 +73,15 @@
 <div class="relative">
   <div class="photo"><a href="<%= front_his_profile_path(@info[:id]) %>"><img src="<%= href_of_avatar_url @info[:logo]%>"></a></div>
   <div class="tools"> <span><%= @info[:name]%>
-    <em><%= link_to "关注", front_follow_path(@info[:id]), remote: true, method: :post, id: 'follow' -%></em></span></div>
+      <em>
+        <% if @info[:isliked].blank? %>
+          <%= link_to "关注", front_follow_path(@info[:id]), remote: true, method: :post, id: 'follow' -%>
+        <% else %>
+          <%= link_to "取消关注", front_unfollow_path(@info[:id]), remote: true, method: :post, id: 'unfollow' -%>
+        <% end %>
+      </em>
+    </span>
+  </div>
   <div class="clearfix"></div>
 </div>
 <div class="share">
