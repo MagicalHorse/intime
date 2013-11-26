@@ -57,7 +57,7 @@ class Front::CommentsController < Front::BaseController
 
   def comment_content(comment)
     if comment['resources'].present? && comment['resources'][0]['type'] == 2
-      '语音评论，请下载IPHONE App'
+      'download' #'语音评论，请下载IPHONE App'
     else
       comment['content']
     end
