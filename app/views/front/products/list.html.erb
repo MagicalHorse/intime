@@ -8,7 +8,7 @@
         <dt>热门分类</dt>
         <% @hotwords[:words] && @hotwords[:words].each do |word| %>
           <dd role="presentation">
-          <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerykey="<%= word %>" >
+          <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="<%= word %>" >
             <%= word %>
           </a>
           </dd>
@@ -37,7 +37,7 @@
         <dt>热门品牌</dt>
         <% @hotwords[:brandwords] && @hotwords[:brandwords].each do |brand| %>
           <dd role="presentation">
-          <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="brand" data-gallerykey="<%= brand[:id]%>">
+          <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="brand" data-gallerykey="<%= brand["id"]%>">
             <%= brand["name"] %>
           </a>
           </dd>
@@ -87,7 +87,7 @@
       <li role="presentation" class="active"><a role="menuitem"  class="active" tabindex="-1" href="javascript:void(0)">全部门店</a></li>
       <% @hotwords[:storewords] && @hotwords[:storewords].each do |store| %>
         <li role="presentation">
-        <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="store" data-gallerykey="<%= store[:id]%>">
+        <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="store" data-gallerykey="<%= store["id"]%>">
           <%= store["name"] %>
         </a>
         </li>
