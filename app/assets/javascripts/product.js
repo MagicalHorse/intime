@@ -51,6 +51,9 @@ $.extend(intime, {
 				html += '<div class="comment-body">';
 				html += '<div class="comment-header"><a class="user-name highlight" href="'+one.customer.url+'" rel="nofollow" target="_blank">' + one.customer.nickname + '</a></div>';
 				html += '<p>' + one.content + '</p>';
+        if(one.replyUser) {
+          html += '<br>回复&nbsp;' + one.replyUser + '</p>';
+        }
 				html += '<div class="comment-footer comment-actions"><span class="time" datetime="' + one.createTime + '" title="' + one.createTime + '">' + one.createTime + '</span><a class="post-reply" href="#reply" data-toggle="modal" onclick="reply_comment(\''+one.commentId+'\', \''+one.customer.nickname+'\')"><span class="icon icon-reply"></span>回复</a></div>';
 				html += '</div>';
 				html += '</div>';

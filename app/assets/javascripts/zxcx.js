@@ -61,18 +61,19 @@ $.extend(intime, {
 				}
 			});
 		},
-		loadData: function($sort) {
+		loadData: function($type, $entity_id) {
 			this._isLoadingMore = true;
 			$('#loader').show();
 			$('#no_data,#last_page').hide();
 			var _this = this;
-			sort = $sort;
 			$.ajax({
 				url: this.listUrl(),
 				dataType: 'jsonp',
 				data: {
 					page: this._page,
-					sort: $sort
+          sort: 1,
+					type: $type,
+					entity_id: $entity_id
 				},
 				success: this.onLoad
 			}).always(function() {
