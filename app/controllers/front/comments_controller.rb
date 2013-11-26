@@ -58,9 +58,9 @@ class Front::CommentsController < Front::BaseController
 
   def comment_content(comment)
     if comment['resources'].present? && comment['resources'][0]['type'] == 2
-      '语音评论，请下载IPHONE App'
+      I18n.t('notsupportvoice')
     else
-      comment['content']
+      format_newline(comment['content'])
     end
   end
 end
