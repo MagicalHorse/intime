@@ -36,7 +36,7 @@ class Front::CommentsController < Front::BaseController
   protected
   def handle_items(items)
     items['items'] = items['comments'].inject([]) do |_result, _comment|
-      _result << {
+      comment = {
         commentId: _comment['commentid'],
         content:  comment_content(_comment),#format_newline(_comment['content']),
         createTime: _comment['createddate'],
@@ -44,12 +44,17 @@ class Front::CommentsController < Front::BaseController
         customer: {
           id: _comment['customer']['id'],
           nickname: _comment['customer']['nickname'],
-          logo: href_of_avatar_url(_comment['customer']['logo'].present? ? "#{_comment['customer']['nickname']}_100x100.jpg" : nil),
+          logo: href_of_avatar_url(_comment['customer']['logo'].present? ? "#{_comment['customer']['logo']}_100x100.jpg" : nil),
           url: front_his_info_path(_comment['customer']['id'])
         },
         comments: []
       }
 
+      if _comment['replycustomer_id'].present?
+        comment.merge!({replyUser: _comment['replycustomer_nickname']})
+      end
+
+      _result << comment
       _result
     end
 
