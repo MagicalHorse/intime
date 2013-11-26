@@ -162,7 +162,7 @@
             </div>
             <div class="modal-body">
               <div class="item_tit thzq" ><span>收货人：</span>
-                <input id="syxd_username" type="text" placeholder="收货人姓名">
+                <input id="username" type="text" placeholder="收货人姓名">
                 <br>
                 <span>省份：</span>
                 <select name=province id="province"  onChange="intime.order.provinceChanged(this.value,3,'#city');">
@@ -193,7 +193,7 @@
               </div>
             </div>
             <div class="modal-footer">
-              <a class="btn btn-danger" onClick="intime.orderaddress.add_address();">确定</a>
+              <a class="btn btn-danger" data-dismiss="modal" onClick="intime.orderaddress.add_address();">确定</a>
               <a class="btn btn-danger" data-dismiss="modal">取消</a>
             </div>
           </div>
@@ -243,15 +243,13 @@
       </div>
     </div>
     <p style="text-align:center;"> <a href="javascript:void(0)" id="add_order" class="btn btn-danger " onClick="intime.order.add_order()">提交订单</a>
-    <div id="barcode012" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+    <div id="barcode012" class="modal hide fade" data-backdrop="static">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="mLabel">订单已提交！</h3>
       </div>
       <div class="modal-body">
-        <p  style="line-height:30px;
-        text-align:center">订单编号：<i id="order_id"></i><br>
-        支付方式：<i id="payment_name"></i></p>
+        <p style="line-height:30px;text-align:center">订单编号：<i id="order_id"></i><br>
+        支付方式：<strong id="payment_name"></strong></p>
         <p style="font-size:12px;text-align:center;"><span style="color:#990000">请在24小时内完成支付，过时订单将会自动取消！</span></p>
       </div>
       <div class="modal-footer"> <a href="" id="check_order" class="btn" >查看订单</a> <a href="" id="payment" class="btn btn-danger">在线支付</a> </div>
