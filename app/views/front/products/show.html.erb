@@ -24,7 +24,9 @@
         <span><i class="icon_location"></i>
           <a href="<%= front_store_path(@product.store.id) -%>"><%= @product.store.name -%><small></small></a>
         </span>
-        <span><i class="icon_phone"></i><%= @product.store.tel -%></span>
+        <% if @product.contactphone.present? -%>
+          <span><i class="icon_phone"></i><%= @product.contactphone -%></span>
+        <% end -%>
       </div>
 
       <%= render 'tool_bar', product: @product -%>

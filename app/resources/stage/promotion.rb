@@ -33,7 +33,17 @@ module Stage
     def image_urls(size = 320)
       return [] if resources.blank?
 
-      resources.map { |resource| [PIC_DOMAIN, resource.name, "_#{size}X0.jpg"].join('')}
+      result = []
+      resources.each do |resource|
+        if resource.respond_to?(:type)
+          next unless resource.type.to_i == 1
+
+          result << [PIC_DOMAIN, resource.name, "_#{size}X0.jpg"].join('')
+        else
+          result << [PIC_DOMAIN, resource.name, "_#{size}X0.jpg"].join('')
+        end
+      end
+      result
     end
   end
 end

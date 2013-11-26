@@ -17,6 +17,8 @@ class Front::ProductsController < Front::BaseController
       @info = ["promotionid", params[:promotionid]]
     elsif params[:specialid].present?
       @info = ["specialid", params[:specialid]]
+    elsif params[:brandid].present?
+      @info = ['brand', params[:brandid]]
     else
       @info = ['0', '0']
     end
