@@ -44,7 +44,7 @@ $.extend(intime, {
 				html += '<div class="action"><a href="' + one.url + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a></div>';
 				html += '<h3 class="mt6"><i class="icon_title"></i><a href="' + one.url + '" title="">' + one.title + '</a></h3>';
 				html += '<div class="summary">' + one.description + '</div>';
-				html += '<small> <span class="pull-left"><i class="icon-time"></i>' + one.startDate + '</span> <span class="pull-right"><i class="icon-heart"></i>' + one.likeCount + '+</span> </small> </div>';
+				html += '<small> <span class="pull-left"><i class="icon-time"></i>' + one.startDate + '</span></small> </div>';
 				html += '</li>';
 				var elem = $(html).get(0);
 				fragment.appendChild(elem);

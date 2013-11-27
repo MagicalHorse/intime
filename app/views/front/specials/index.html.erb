@@ -5,7 +5,7 @@
 <% end -%>
 <div class="span9 main">
   <section class="portfolio">
-  <ul id="tiles" class="thumbnails tmode">
+  <ul id="tiles" class="thumbnails">
   </ul>
 
   <div id="loader">
@@ -23,9 +23,7 @@
 <%= content_for :single_jss do -%>
 <script type="text/javascript">
 $(document).ready(function() {
-		var index = intime.special;
-		$(document).bind('scroll', index.onScroll);
-		index.loadData();
+		intime.special.init();
 	});
 </script>
 <% end -%>

@@ -1,8 +1,8 @@
 <%= content_for :head_nav do -%>
   <ul class="nav">
-    <li><a href="#" onclick="intime.index.clears(),intime.index.loadData('3');;">距离最近</a></li>
-    <li><a href="#" onclick="intime.index.clears(),intime.index.loadData('1');;">最新发布</a></li>
-    <li><a href="#" onclick="intime.index.clears(),intime.index.loadData('2');;">即将开始</a></li>
+    <li><a href="javascript:void(0)" data-sort="3">距离最近</a></li>
+    <li><a href="javascript:void(0)" data-sort="1">最新发布</a></li>
+    <li><a href="javascript:void(0)" data-sort="2">即将开始</a></li>
   </ul>
 <% end -%>
 <div class="span9 main">
@@ -22,10 +22,8 @@
 <%= content_for :single_jss do -%>
 <script type="text/javascript">
   $(document).ready(function() {
-      var index = intime.index;
-      $(document).bind('scroll', index.onScroll);
-      index.loadData('3');
-   });
+    intime.index.init();
+  });
 </script>
 <script type="text/javascript">
 ////首页广告图
