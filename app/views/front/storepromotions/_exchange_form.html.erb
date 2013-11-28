@@ -1,4 +1,4 @@
-<div id="barcode01" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+<div id="barcode01" class="modal hide fade in" role="dialog" aria-labelledby="barcode" aria-hidden="false">
   <%= form_tag exchange_front_storepromotion_path(storepromotion.id), remote: true do  -%>
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -13,8 +13,8 @@
         <% end -%>
       </select>
       <br>
-      当前可以用积分：<span style="color:#D10149" class='currentScore'><%= current_user.point -%></span><br>
-      兑换积分:
+      当前可以用积点：<span style="color:#D10149" class='currentScore'><%= current_user_point -%></span><br>
+      兑换积点:
       <%= text_field_tag 'points', nil, placeholder: 0, amount: storepromotion.unitperpoints, style: 'width:50px; margin-bottom: 4px;', info: storepromotion.id -%>
       = <span style="color:#D10149"><b class='money'>0元</b></span><br>
       <span style='width: 200px;'>兑换积点必须是<%= storepromotion.unitperpoints -%>的整数倍</span><br>

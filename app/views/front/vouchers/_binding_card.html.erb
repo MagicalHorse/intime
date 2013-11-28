@@ -3,7 +3,7 @@
   <div class="content hui">
     <p class="hykind">
       <% if current_user.isbindcard -%>
-        会员卡类型：<%= card[:type] -%><br>
+        会员卡类型：<%= card[:lvl] -%><br>
         会员卡卡号：<%= card[:cardno] -%><br>
         会员卡总积点数：<%= card[:amount] -%>
       <% else -%>

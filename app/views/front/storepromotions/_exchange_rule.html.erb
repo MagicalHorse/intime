@@ -3,18 +3,13 @@
 <div class="xh">
   <table class="table">
     <thead>
-      <tr>
-        <th>起始积点</th>
-        <th>结束积点</th>
-        <th>兑换比例(100:1)</th>
-      </tr>
     </thead>
     <tbody>
       <% storepromotion.rule.each do |_rule| -%>
         <tr>
-          <td><%= _rule.rangefrom -%></td>
-          <td><%= _rule.rangeto -%></td>
-          <td><%= _rule.ratio -%></td>
+          <td>积点大于等于<br><%= _rule.rangefrom -%></td>
+          <td>积点小于<br><%= _rule.rangeto -%></td>
+          <td>兑换比例<br><%= _rule.ratio -%></td>
         </tr>
       <% end -%>
     </tbody>

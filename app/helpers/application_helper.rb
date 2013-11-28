@@ -103,4 +103,11 @@ module ApplicationHelper
     result = API::Customer.his_show(request, userid: user_id)
     result['isSuccessful'] && result['data']['isliked']
   end
+
+  def current_user_point
+    return current_user.point unless current_user.isbindcard
+
+    result = API::Card.detail(request)['data']
+    current_user.point + result['amount'].to_i
+  end
 end
