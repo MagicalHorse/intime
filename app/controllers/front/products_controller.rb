@@ -15,8 +15,8 @@ class Front::ProductsController < Front::BaseController
       @info = ["store", params[:storeid]]
     elsif params[:promotionid].present?
       @info = ["promotionid", params[:promotionid]]
-    elsif params[:specialid].present?
-      @info = ["specialid", params[:specialid]]
+    elsif params[:topicid].present?
+      @info = ["topicid", params[:topicid]]
     elsif params[:brandid].present?
       @info = ['brand', params[:brandid]]
     else
@@ -164,8 +164,8 @@ class Front::ProductsController < Front::BaseController
       options[:sortby] = entity_id
     elsif type == 'promotionid'
       options[:promotionid] = entity_id
-    elsif type == 'specialid'
-      options[:specialid] = entity_id
+    elsif type == 'topicid'
+      options[:topicid] = entity_id
     end
     options
   end

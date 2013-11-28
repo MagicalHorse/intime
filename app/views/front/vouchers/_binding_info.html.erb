@@ -9,7 +9,7 @@
     <% else -%>
       未绑定 <%= link_to '绑定', binding_card_front_vouchers_path, class: 'btn btn-danger' -%><br>
     <% end -%>
-    <span>我的积分：</span><%= current_user.point -%>
+    <span>我的积分：</span><%= current_user.point + card[:amount].to_i -%>
     </p>
   </div>
   <div class="clearfix"></div>

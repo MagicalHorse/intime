@@ -26,7 +26,7 @@ class Front::SpecialsController < Front::BaseController
   def generate_special_url(item)
     case item.targetType
     when 0, 1
-      front_products_path(topicid: item.targetId)
+      front_products_path(topicid: item.id)
     when 2
       front_promotion_path(item.targetId)
     when 3

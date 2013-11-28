@@ -25,7 +25,7 @@ $(document).ready(new function() {
     curVal = $(this).val();
     defaultVal = $(this).attr('amount');
     if(($('.currentScore').html() - curVal) < 0){
-      alert('兑换积点需大于最小积点限制');
+      alert('当前可用积点不足');
     }else{
       $.post('/front/storepromotions/'+$(this).attr('info')+'/amount', {points: curVal}, function(data){
         $('.money').html(data.amount + '元')
@@ -41,7 +41,7 @@ $(document).ready(new function() {
       return false;
     }
     if(($('.currentScore').html() - score) < 0){
-      alert('兑换积点需大于最小积点限制');
+      alert('当前可用积点不足');
       return false;
     }
     if(score == 0 || score%unitScore != 0){
