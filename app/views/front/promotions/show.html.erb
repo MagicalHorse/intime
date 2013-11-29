@@ -9,7 +9,7 @@
 <% end -%>
 <div class="span9 main">
   <!-- 促销信息 -->
-  <section class="promo_info" info='<%= "#{@promotion.id},2" -%>'>
+  <section class="promo_info">
   <section id="picbox" class="royalSlider">
     <%= @promotion.image_urls(640).each do |image| -%>
       <div class="rsContent"><img class="rsImg" src="<%= image -%>" alt="" /></div>
@@ -45,6 +45,8 @@
     <h5>最后一页</h5>
   </div>
   </section>
+  <a class="pro_prev" href="javascript:void(0)">上一个</a>
+  <a class="pro_next" href="javascript:void(0)">下一个</a>
 </div>
 <%= content_for :single_jss do -%>
 <script type="text/javascript">
@@ -66,19 +68,10 @@ $('#picbox').royalSlider({
 
 </script>
 <script type="text/javascript">
-  function get_source(){
-    var str =$('.promo_info').attr('info');
-    var arr= new Array(); //定义一数组
-    arr=str.split(","); //字符分割   
-    sourceid = arr[0];
-    sourcetype = arr[1];
-  }
 $(document).ready(function() {
-    index = intime.promotion;
-    $(document).bind('scroll', index.onScroll);
-    get_source();
-    index.loadData(sourceid,sourcetype);
-    });
+    var index = intime.promotion.init("<%= @promotion.nextgtpid.present? ? front_promotion_path(@promotion.nextgtpid) : '' -%>","<%= @promotion.nextltpid.present? ? front_promotion_path(@promotion.nextltpid) : '' -%>");
+    index.loadData('<%= @promotion.id -%>', '2');
+});
 </script>
 
 <% end -%>

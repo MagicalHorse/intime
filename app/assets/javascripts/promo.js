@@ -10,6 +10,40 @@ $.extend(intime, {
 		_isMsnryInit: true,
 		_isLoadingMore: false,
 		_canLoadMore: false,
+		_gtTarget:'',
+		_ltTarget:'',
+		init:function(ltTarget,gtTarget){
+			$(document).bind('scroll', this.onScroll);
+			var _this = this;
+			this._gtTarget = gtTarget;
+			this._ltTarget = ltTarget;
+			$("#picbox").addClass("noSwipe");
+			var swipeHandler = {
+				swipeStatus:function(event,phase,direction,distance, duration, fingerCount ){
+					if (phase == 'start'){
+						_this._showSlide(true);
+					} else if(phase =='cancel' || phase =='end'){
+						_this._showSlide(false);
+					}
+				}
+			};
+			if (this._gtTarget!=''){
+				$.extend(swipeHandler,{
+					swipeLeft:function(event, direction, distance, duration, fingerCount) {
+							document.location.href = _this._gtTarget;
+						}
+				});
+			}
+			if (this._ltTarget!=''){
+				$.extend(swipeHandler,{
+					swipeRight:function(event, direction, distance, duration, fingerCount) {
+							document.location.href = _this._ltTarget;
+					}
+				});
+			}
+			$("body").swipe(swipeHandler);
+			return this;
+		},
 
 		onLoad: function(data) {
 			var _this = intime.promotion;
@@ -135,6 +169,14 @@ $.extend(intime, {
 		},
 		listUrl: function() {
 			return intime.env.host + this._listpath;
+		},
+		_showSlide: function(flag){
+			if (flag == false){
+				$(".pro_prev,.pro_next").fadeOut();
+			} else {
+				$(".pro_prev,.pro_next").stop(true, true).fadeTo("show", .2);
+			}
+			
 		}
 	}
 });

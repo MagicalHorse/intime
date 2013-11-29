@@ -1560,6 +1560,22 @@ element.style {
 
 
 
+.pro_prev, .pro_next {
+	width: 65px;
+	height: 90px;
+	display: none;
+	background: #000 url(../images/slider-dir.png) no-repeat 0 center;
+	position: fixed;
+	top: 50%;
+	z-index: 10;
+	cursor: pointer;
+	text-indent: -9999px;
+	filter: alpha(opacity=20);
+	opacity: 0.2;
+}
+.pro_prev { left: 0; }
+.pro_next { background-position: -65px center; right: 0; }
+.pro_prev:hover, .pro_next:hover { filter: alpha(opacity=50) !important; opacity: 0.5 !important; }
 
 
 

@@ -42,7 +42,9 @@
   <%= render 'promotions', product: @product -%>
 
   <%= render 'comments', product: @product -%>
+  <a class="pro_prev" href="javascript:void(0)">上一个</a>
+  <a class="pro_next" href="javascript:void(0)">下一个</a>
 </div>
 <%= content_for :single_jss do -%>
-  <%= render 'single_js' -%>
+  <%= render 'single_js', product: @product -%>
 <% end -%>

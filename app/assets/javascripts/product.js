@@ -1,8 +1,7 @@
 window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime, {
-	product: {
-		
+	product: {		
 		_page: 1,
 		_sort: '',
 
@@ -13,7 +12,42 @@ $.extend(intime, {
 		_isLoadingMore: false,
 		_canLoadMore: false,
 
-
+		_gtTarget:'',
+		_ltTarget:'',
+		init:function(ltTarget,gtTarget){
+			$(document).bind('scroll', this.onScroll);
+			this._showSlide(false);
+			var _this = this;
+			this._gtTarget = gtTarget;
+			this._ltTarget = ltTarget;
+			$("#picbox").addClass("noSwipe");
+			var swipeHandler = {
+				swipeStatus:function(event,phase,direction,distance, duration, fingerCount ){
+					if (phase == 'start'){
+						_this._showSlide(true);
+					} else if(phase =='cancel' || phase =='end'){
+						_this._showSlide(false);
+					}
+				}
+			};
+			if (this._gtTarget!=''){
+				$.extend(swipeHandler,{
+					swipeLeft:function(event, direction, distance, duration, fingerCount) {
+							document.location.href = _this._gtTarget;
+						}
+				});
+			}
+			if (this._ltTarget!=''){
+				$.extend(swipeHandler,{
+					swipeRight:function(event, direction, distance, duration, fingerCount) {
+							document.location.href = _this._ltTarget;
+					}
+				});
+			}
+			$("body").swipe(swipeHandler);
+			return this;
+		},
+		
 		onLoad: function(data) {
 			
 			var _this = intime.product;
@@ -144,6 +178,14 @@ $.extend(intime, {
 		},
 		listUrl: function() {
 			return intime.env.host + this._listpath;
+		},
+		_showSlide: function(flag){
+			if (flag == false){
+				$(".pro_prev,.pro_next").fadeOut();
+			} else {
+				$(".pro_prev,.pro_next").stop(true, true).fadeTo("show", .2);
+			}
+			
 		}
 	}
 });
