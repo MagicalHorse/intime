@@ -15,6 +15,32 @@ class ProductController < ApplicationController
             end
           end
     return render :json=>error_500 if prod.total<=0
+    next_gt_pid = nil
+    next_lt_pid = nil
+    next_gt_prod = Product.search :per_page=>1,:page=>1 do 
+            query do
+              match :status,1
+              
+            end
+            filter :range,{
+                  'id' =>{
+                    'gt'=>pid
+                  }
+                }
+          end
+    next_gt_pid = next_gt_prod.results[0][:id] if next_gt_prod.total>0
+    next_lt_prod = Product.search :per_page=>1,:page=>1 do 
+            query do
+              match :status,1
+              
+            end
+            filter :range,{
+                  'id' =>{
+                    'lt'=>pid
+                  }
+                }
+          end
+    next_lt_pid = next_lt_prod.results[0][:id] if next_lt_prod.total>0
     prod_model = prod.results[0]
     recommend_user = User.esfind_by_id prod_model[:createUserId]
     valid_promotions = find_valid_promotions(prod_model[:promotion])
@@ -38,6 +64,69 @@ class ProductController < ApplicationController
           :level=>recommend_user[:level],
           :logo=>Resource.absolute_url(recommend_user[:thumnail])
           },
+        :favoritecount=>prod_model[:favoriteCount],
+        :likecount=>prod_model[:favoriteCount],
+        :sharecount=>prod_model[:shareCount],
+        :couponcount=>prod_model[:involvedCount],
+        :resources=>sort_resource(prod_model[:resource]),
+        :tag=>prod_model[:tag],
+        :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
+        :promotions=>valid_promotions,
+        :is4sale=>prod_model[:is4Sale],
+        :contactphone=>section_phone,
+        :skucode=>prod_model[:upcCode],
+        :nextgtpid=>next_gt_pid,
+        :nextltpid=>next_lt_pid
+       }
+    }
+  end
+  
+  def next
+    pid = params[:id]
+    next_type = params[:type].to_i
+    prod = Product.search :per_page=>1,:page=>1 do 
+            query do
+              match :status,1
+              
+            end
+            if next_type==1
+                filter :range,{
+                  'id' =>{
+                    'gt'=>pid
+                  }
+                }
+              else
+                filter :range,{
+                  'id' =>{
+                    'lt'=>pid
+                  }
+                }
+              end
+          end
+    return render :json=>error_500 if prod.total<=0
+    prod_model = prod.results[0]
+    recommend_user = User.esfind_by_id prod_model[:createUserId]
+    recommend_node = (recommend_user.nil?)?{:id=>prod_model[:createUserId],:nickname=>'',:level=>0,:logo=>nil} \
+                :{:id=>recommend_user[:id],
+                :nickname=>recommend_user[:nickie],
+                :level=>recommend_user[:level],
+                :logo=>Resource.absolute_url(recommend_user[:thumnail])}
+    valid_promotions = find_valid_promotions(prod_model[:promotion])
+    section_phone = prod_model[:section][:contactPhone] unless prod_model[:section].nil?
+    return render :json=>{
+      :isSuccessful=>true,
+      :message =>'success',
+      :statusCode =>'200',
+      :data=>{
+        :id=>prod_model[:id],
+        :name=>prod_model[:name],
+        :brand=>prod_model[:brand],
+        :description=>prod_model[:description],
+        :price=>prod_model[:price],
+        :unitprice=>prod_model[:unitPrice],
+        :recommendedreason=>prod_model[:recommendedReason],
+        :recommenduser_id=>prod_model[:recommendUserId],
+        :recommenduser=>recommend_node,
         :favoritecount=>prod_model[:favoriteCount],
         :likecount=>prod_model[:favoriteCount],
         :sharecount=>prod_model[:shareCount],

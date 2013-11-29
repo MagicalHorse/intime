@@ -8,6 +8,80 @@ class PromotionController < ApplicationController
             end
           end
     return render :json=> error_500 if prom.total<=0
+    next_gt_pid = nil
+    next_lt_pid = nil
+    next_gt_prod = Promotion.search :per_page=>1,:page=>1 do 
+            query do
+              match :status,1
+              
+            end
+            filter :range,{
+                  'id' =>{
+                    'gt'=>pid
+                  }
+                }
+          end
+    next_gt_pid = next_gt_prod.results[0][:id] if next_gt_prod.total>0
+    next_lt_prod = Promotion.search :per_page=>1,:page=>1 do 
+            query do
+              match :status,1
+              
+            end
+            filter :range,{
+                  'id' =>{
+                    'lt'=>pid
+                  }
+                }
+          end
+    next_lt_pid = next_lt_prod.results[0][:id] if next_lt_prod.total>0
+    prod_model = prom.results[0]
+    return render :json=>{
+      :isSuccessful=>true,
+      :message =>'success',
+      :statusCode =>'200',
+      :data=>{
+        :id=>prod_model[:id],
+        :name=>prod_model[:name],
+        :description=>prod_model[:description],
+        :startdate=>prod_model[:startDate],
+        :enddate=>prod_model[:endDate],
+        :likecount=>prod_model[:likeCount],
+        :sharecount=>prod_model[:shareCount],
+        :couponcount=>prod_model[:involvedCount],
+        :favoritecount=>prod_model[:favoriteCount],
+        :resources=>sort_resource(prod_model[:resource]),
+        :isproductbinded=>prod_model[:isProdBindable],      
+        :tag=>prod_model[:tag],
+        :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
+        :nextgtpid=>next_gt_pid,
+        :nextltpid=>next_lt_pid
+      }
+    }
+  end
+  
+  def next
+    pid = params[:id]
+    next_type = params[:type].to_i
+    prom = Promotion.search :per_page=>1,:page=>1 do 
+            query do
+              match :status,1
+              
+            end
+            if next_type==1
+                filter :range,{
+                  'id' =>{
+                    'gt'=>pid
+                  }
+                }
+              else
+                filter :range,{
+                  'id' =>{
+                    'lt'=>pid
+                  }
+                }
+              end
+          end
+    return render :json=> error_500 if prom.total<=0
     prod_model = prom.results[0]
     return render :json=>{
       :isSuccessful=>true,
@@ -30,7 +104,6 @@ class PromotionController < ApplicationController
       }
     }
   end
-  
   # list api always return json
   # input: 
   # => {page,pagesize,refreshts,sort,lng,lat}
