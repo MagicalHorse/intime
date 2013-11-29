@@ -55,10 +55,11 @@ class Front::ProductsController < Front::BaseController
 
   def list
     @stores   = Stage::Store.list
-    @brands   = get_group_brands(Stage::Brand.group_brands)
+    @brands   = Stage::Brand.group_brands[:brands]
     @tags     = Stage::Tag.list
     @hotwords = Stage::HotWord.list
-    @all_brands = @brands.values.flatten 
+    @all_brands = @brands.map{|b| b.values}.flatten 
+    @brand_keys = @brands.map{|b| b.keys}.flatten 
   end
 
   def sort_list
