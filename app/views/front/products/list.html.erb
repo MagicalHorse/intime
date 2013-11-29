@@ -15,9 +15,6 @@
         <% end %>
       </dl>
       <dl>
-        <dd role="presentation">
-        <a role="menuitem" class="active" tabindex="-1" href="javascript:void(0)" data-gallerytype="category" data-gallerykey="" >全部</a>
-        </dd>
         <% @tags[:tags] && @tags[:tags].each do |tag|%>
           <dd role="presentation">
           <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="category" data-gallerykey="<%= tag[:id]%>">
@@ -46,8 +43,8 @@
       <dl class="brands">
         <dt id="myTab">
         <span class="all active"><a href="#brandALL" class="active" title="查看全部品牌的产品">全部</a></span>
-        <% ('A'..'Z').to_a.each do |character| %>
-          <span><a href="#brand<%= character%>" title="查找以中英文首字母为 <%= character%> 的品牌"><%= character%></a></span>
+        <%  @brand_keys.each do |brand_key|%>
+          <span><a href="#brand<%= brand_key%>" title="查找以中英文首字母为 <%= brand_key%> 的品牌"><%= brand_key%></a></span>
         <% end %>
         </dt>
         <div id="myTabContent" class="tab-content" style="overflow:visible;">
@@ -61,12 +58,12 @@
             <% end %>
           </div>
 
-          <% ('A'..'Z').to_a.each do |character| %>
-            <div class="tab-pane" id="brand<%= character%>">
-              <% @brands[character] && @brands[character].each do |brand| %>
+          <% @brands.each do |brand| %>
+            <div class="tab-pane" id="brand<%= brand.keys[0] %>">
+              <% brand.values.flatten.each do |value| %>
                 <dd role="presentation">
-                <a role="menuitem" tabindex="-1" href="javascript:void(0)" data-gallerytype="brand" data-gallerykey="<%= brand[:id]%>">
-                  <p style="display:block" ><%= brand[:name]%></p>
+                <a role="menuitem" tabindex="-1" href="javascript:void(0)" data-gallerytype="brand" data-gallerykey="<%= value[:id]%>">
+                  <p style="display:block" ><%= value[:name]%></p>
                 </a>
                 </dd>
               <% end %>
@@ -84,7 +81,6 @@
     <li class="dropdown" id="menu3">
     <a class="dropdown-toggle" id="drop3" role="button" data-toggle="dropdown" href="javascript:0">商店<b class="caret"></b></a>
     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-      <li role="presentation" class="active"><a role="menuitem"  class="active" tabindex="-1" href="javascript:void(0)">全部门店</a></li>
       <% @hotwords[:storewords] && @hotwords[:storewords].each do |store| %>
         <li role="presentation">
         <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="store" data-gallerykey="<%= store["id"]%>">

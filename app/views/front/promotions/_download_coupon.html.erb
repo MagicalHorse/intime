@@ -1,8 +1,8 @@
 <dd>
-<% if @promotion_info && @promotion_info['iscancoupon'] -%>
-  <%= link_to raw("#{image_tag('/images/icon_barcode_2x.png', height: 24, width: 24)}<span>优惠码</span>"), download_coupon_front_promotion_path(promotion.id), remote: true, method: :post -%>
-<% else -%>
+<% if @promotion_info.blank? || !@promotion_info['ifcancoupon'] -%>
   <%= image_tag '/images/icon_barcode_2x.png', height: 24, width: 24 -%><span>优惠码</span>
+<% else -%>
+  <%= link_to raw("#{image_tag('/images/icon_barcode_2x.png', height: 24, width: 24)}<span>优惠码</span>"), download_coupon_front_promotion_path(promotion.id), remote: true, method: :post, disable_with: "#{image_tag('/images/icon_barcode_2x.png', height: 24, width: 24)}<span>下载中</span>" -%>
 <% end -%>
 </dd>
 <div id="barcode" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
@@ -15,5 +15,6 @@
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-    <a class="btn btn-danger" href="#">查看优惠码</a> </div>
+    <%= link_to '查看优惠码', front_coupons_path, class: 'btn btn-danger' -%>
+  </div>
 </div>

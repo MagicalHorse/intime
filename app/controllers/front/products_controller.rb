@@ -15,8 +15,8 @@ class Front::ProductsController < Front::BaseController
       @info = ["store", params[:storeid]]
     elsif params[:promotionid].present?
       @info = ["promotionid", params[:promotionid]]
-    elsif params[:specialid].present?
-      @info = ["specialid", params[:specialid]]
+    elsif params[:topicid].present?
+      @info = ["topicid", params[:topicid]]
     elsif params[:brandid].present?
       @info = ['brand', params[:brandid]]
     else
@@ -55,10 +55,11 @@ class Front::ProductsController < Front::BaseController
 
   def list
     @stores   = Stage::Store.list
-    @brands   = get_group_brands(Stage::Brand.group_brands)
+    @brands   = Stage::Brand.group_brands[:brands]
     @tags     = Stage::Tag.list
     @hotwords = Stage::HotWord.list
-    @all_brands = @brands.values.flatten 
+    @all_brands = @brands.map{|b| b.values}.flatten 
+    @brand_keys = @brands.map{|b| b.keys}.flatten 
   end
 
   def sort_list
@@ -164,8 +165,8 @@ class Front::ProductsController < Front::BaseController
       options[:sortby] = entity_id
     elsif type == 'promotionid'
       options[:promotionid] = entity_id
-    elsif type == 'specialid'
-      options[:specialid] = entity_id
+    elsif type == 'topicid'
+      options[:topicid] = entity_id
     end
     options
   end
