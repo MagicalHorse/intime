@@ -15,9 +15,6 @@
         <% end %>
       </dl>
       <dl>
-        <dd role="presentation">
-        <a role="menuitem" class="active" tabindex="-1" href="javascript:void(0)" data-gallerytype="category" data-gallerykey="" >全部</a>
-        </dd>
         <% @tags[:tags] && @tags[:tags].each do |tag|%>
           <dd role="presentation">
           <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="category" data-gallerykey="<%= tag[:id]%>">
@@ -84,7 +81,6 @@
     <li class="dropdown" id="menu3">
     <a class="dropdown-toggle" id="drop3" role="button" data-toggle="dropdown" href="javascript:0">商店<b class="caret"></b></a>
     <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-      <li role="presentation" class="active"><a role="menuitem"  class="active" tabindex="-1" href="javascript:void(0)">全部门店</a></li>
       <% @hotwords[:storewords] && @hotwords[:storewords].each do |store| %>
         <li role="presentation">
         <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="store" data-gallerykey="<%= store["id"]%>">
