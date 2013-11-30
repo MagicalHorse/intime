@@ -20,7 +20,7 @@ class Front::BaseController < ApplicationController
     return true if signed_in?
 
     if request.xhr?
-      render js: "window.location='#{login_path}?return_to=#{Rack::Utils.escape(request.original_url)}'"
+      render js: "window.location='#{login_path}?return_to=#{Rack::Utils.escape(request.referrer)}'"
     else
       redirect_to "#{login_path}?return_to=#{Rack::Utils.escape(request.original_url)}"
     end

@@ -47,12 +47,6 @@ class Front::PromotionsController < Front::BaseController
 
   protected
 
-  def authenticate!
-    return true if signed_in?
-
-    render '/front/no_login.js.erb' and return
-  end
-
   def handle_items(items)
     items.map! do |item|
       {
