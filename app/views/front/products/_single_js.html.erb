@@ -17,17 +17,8 @@ $('#picbox').royalSlider({
 
 </script>
 <script type="text/javascript">
-function get_source(){
-	   var str =$('#promo_infoo').attr('info');
-	   var arr= new Array(); //定义一数组
-       arr=str.split(","); //字符分割   
-	   sourceid = arr[0];
-	   sourcetype = arr[1];
-	   }
 $(document).ready(function() {
-		 index = intime.product;
-		$(document).bind('scroll', index.onScroll);
-		get_source();
-		index.loadData(sourceid,sourcetype);
-	});
+		 var index = intime.product.init('<%= product.nextgtpid.present? ? front_product_path(product.nextgtpid) : "" -%>','<%= product.nextltpid.present? ? front_product_path(product.nextltpid) : "" -%>');
+     index.loadData("<%= product.id -%>", "1");
+});
 </script>
