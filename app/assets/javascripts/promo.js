@@ -12,36 +12,42 @@ $.extend(intime, {
 		_canLoadMore: false,
 		_gtTarget:'',
 		_ltTarget:'',
+		_supportTouch:'ontouchstart' in window,
 		init:function(ltTarget,gtTarget){
 			$(document).bind('scroll', this.onScroll);
 			var _this = this;
 			this._gtTarget = gtTarget;
 			this._ltTarget = ltTarget;
 			$("#picbox").addClass("noSwipe");
-			var swipeHandler = {
-				swipeStatus:function(event,phase,direction,distance, duration, fingerCount ){
-					if (phase == 'start'){
-						_this._showSlide(true);
-					} else if(phase =='cancel' || phase =='end'){
-						_this._showSlide(false);
-					}
-				}
-			};
-			if (this._gtTarget!=''){
+			var swipeHandler = {allowPageScroll:"vertical"};
+			if (this._supportTouch){
 				$.extend(swipeHandler,{
-					swipeLeft:function(event, direction, distance, duration, fingerCount) {
-							document.location.href = _this._gtTarget;
+					swipeStatus:function(event,phase,direction,distance, duration, fingerCount ){
+						if (phase == 'start'){
+							_this._showSlide(true);
+						} else if(phase == 'end' || phase =='cancel'){
+							_this._showSlide(false);
 						}
-				});
-			}
-			if (this._ltTarget!=''){
-				$.extend(swipeHandler,{
-					swipeRight:function(event, direction, distance, duration, fingerCount) {
-							document.location.href = _this._ltTarget;
+						return true;
 					}
 				});
+			
+				if (this._gtTarget!=''){
+					$.extend(swipeHandler,{
+						swipeLeft:function(event, direction, distance, duration, fingerCount) {
+								document.location.href = _this._gtTarget;
+							}
+					});
+				}
+				if (this._ltTarget!=''){
+					$.extend(swipeHandler,{
+						swipeRight:function(event, direction, distance, duration, fingerCount) {
+								document.location.href = _this._ltTarget;
+						}
+					});
+				}
+				$("body").swipe(swipeHandler);
 			}
-			$("body").swipe(swipeHandler);
 			return this;
 		},
 
@@ -172,9 +178,9 @@ $.extend(intime, {
 		},
 		_showSlide: function(flag){
 			if (flag == false){
-				$(".pro_prev,.pro_next").fadeOut();
+				$(".pro_prev,.pro_next").hide();
 			} else {
-				$(".pro_prev,.pro_next").stop(true, true).fadeTo("show", .2);
+				$(".pro_prev,.pro_next").show();
 			}
 			
 		}

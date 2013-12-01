@@ -29,6 +29,7 @@ class Front::VouchersController < Front::BaseController
   def exchange_info
     @storepromotion = Stage::Storepromotion.list(pagesize: 1)[0]
     @card = API::Card.detail(request)[:data]
+    point_list
   end
 
   def binding_card
@@ -53,5 +54,16 @@ class Front::VouchersController < Front::BaseController
       flash[:notice] = '银泰卡绑定失败，请确认卡号和密码。'
       redirect_to binding_card_front_vouchers_path
     end
+  end
+
+  protected
+
+  def point_list
+    result = API::Point.index(request, params.slice(:page).merge(pagesize: 10))['data']
+
+    @records = Kaminari.paginate_array(
+      result['points'],
+      total_count: result['totalcount'].to_i
+    ).page(result['pageindex']).per(result['pagesize'])
   end
 end
