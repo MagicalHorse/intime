@@ -208,7 +208,7 @@ class Front::ProductsController < Front::BaseController
     items = []
     datas && datas.each do |item|
       id = item["id"]||item["productid"]
-      url = type == "2" ? front_promotion(id) : front_product_path(id)
+      url = type == "2" ? front_promotion_path(id) : front_product_path(id)
       image_info = item["resources"].first if item["resources"].present?
       items << {
         title:     item["name"].blank? ? item["productname"] : item["name"],
