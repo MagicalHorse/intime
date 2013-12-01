@@ -45,7 +45,7 @@ class PromotionController < ApplicationController
         :description=>prod_model[:description],
         :startdate=>prod_model[:startDate],
         :enddate=>prod_model[:endDate],
-        :likecount=>prod_model[:likeCount],
+        :likecount=>prod_model[:favoriteCount],
         :sharecount=>prod_model[:shareCount],
         :couponcount=>prod_model[:involvedCount],
         :favoritecount=>prod_model[:favoriteCount],
