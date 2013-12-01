@@ -37,7 +37,7 @@ class Front::ProductsController < Front::BaseController
       result  = API::Product.his_favorite(request, options)
     end
     results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
-    results.merge! (gen_data(result["data"]["items"]), options[:sourcetype])
+    results.merge! (gen_data(result["data"]["items"], options[:sourcetype]))
     render :json =>results.to_json , callback: params[:callback]
   end
 
