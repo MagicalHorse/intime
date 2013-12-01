@@ -37,7 +37,7 @@ class Front::ProductsController < Front::BaseController
       result  = API::Product.his_favorite(request, options)
     end
     results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
-    results.merge! (gen_data(result["data"]["items"]))
+    results.merge! (gen_data(result["data"]["items"]), options[:sourcetype])
     render :json =>results.to_json , callback: params[:callback]
   end
 
@@ -203,17 +203,19 @@ class Front::ProductsController < Front::BaseController
     results
   end
 
-  def gen_data(datas)
+  def gen_data(datas, type = nil)
     results = {}
     items = []
     datas && datas.each do |item|
+      id = item["id"]||item["productid"]
+      url = type == "2" ? front_promotion(id) : front_product_path(id)
       image_info = item["resources"].first if item["resources"].present?
       items << {
         title:     item["name"].blank? ? item["productname"] : item["name"],
         price:     item["price"],
         originalPrice:  item["price"],
         likeCount: item["likecount"],
-        url:       front_product_path(item["id"]||item["productid"]),
+        url:       url, 
         imageUrl:  image_info.blank? ? default_product_pic_url : middle_pic_url(image_info),
         flag: item["promotionFlag"],
         is4sale: item["is4sale"]
