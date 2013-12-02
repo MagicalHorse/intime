@@ -39,7 +39,7 @@ class Front::VouchersController < Front::BaseController
   def void
     result = API::Voucher.void(request, storecouponid: params[:id])
 
-    result[:isSuccessful] ? redirect_to(front_storepromotions_path) : redirect_to(front_voucher_path(params[:id]))
+    result[:isSuccessful] ? redirect_to(front_vouchers_path) : redirect_to(front_voucher_path(params[:id]))
   end
 
   def bindcard
