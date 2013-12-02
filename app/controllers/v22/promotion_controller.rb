@@ -126,7 +126,7 @@ class V22::PromotionController < PromotionController
           :width=>default_resource[:width],
           :height=>default_resource[:height]
         }],
-        :likecount=>p[:likeCount]
+        :likecount=>p[:favoriteCount]
       }
     }
     return render :json=>{:isSuccessful=>true,
