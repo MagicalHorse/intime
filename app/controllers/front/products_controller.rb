@@ -102,7 +102,7 @@ class Front::ProductsController < Front::BaseController
     end
 
     results = result["data"].slice("pageindex", "pagesize", "totalcount", "totalpaged")
-    results.merge! (gen_data(result["data"]["items"]))
+    results.merge! (gen_data(result["data"]["items"], options[:sourcetype]))
     render :json =>results.to_json , callback: params[:callback]
   end
 
