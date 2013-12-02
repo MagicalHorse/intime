@@ -3,9 +3,9 @@ intime = window.intime;
 $.extend(intime, {
     order: {
         _citypath:"front/supportshipments.json",
-        _computepath:"front/orders_computeamount",
+        _computepath:"front/orders/computeamount.json",
         _colorpath:"front/orders/new.json?product_id=",
-        _ordercreatepath:"front/orders_create.json",
+        _ordercreatepath:"front/orders.json",
         _$cities:null,
         _productid:0,
         init:function(){
@@ -98,9 +98,10 @@ $.extend(intime, {
         _get_jifen:function (){
             var quantity = $("#goods_num").val();
             $.ajax({
+				type:'post',
                 url:intime.order._computeUrl(),
                 data:{productid:intime.order._productid,quantity:quantity},
-                dataType:'jsonp',
+                dataType:'json',
                 async:true,
                 success:function(data){
                     var check1 = data.isSuccessful.toString();
@@ -141,12 +142,7 @@ $.extend(intime, {
             var address = new Object();
             var pay = new Object();
 
-            if(cellphone==null){
-				 
-                alert("请输入您的手机号码！");
-                return;
-            }else if(goods_color==""){
-					 
+            if(goods_color==""){	 
                 alert("请选择相应的颜色！");
                 return;
             }else if(goods_size==""){
@@ -155,8 +151,10 @@ $.extend(intime, {
             }else if(supportpayments==null){
                 alert("请选择您的支付方式！");
                 return;
-            }
-            else{
+            } else if(shippingzipcode==""){
+				alert("地址邮编不能为空！");
+				return;
+			} else {
                 pay.paymentcode=supportpayments;//"支付方式代码";
                 pay.paymentname="支付宝支付";//"支付方式名";//"支付方式名";
                 address.shippingcontactperson = shippingperson; //"收货联系人";
@@ -187,10 +185,10 @@ $.extend(intime, {
                 $("#add_order").text('订单提交中...'); 
 
                 $.ajax({
-                    type:"get",
+                    type:'post',
                     url: intime.env.host+this._ordercreatepath,
-                    dataType: 'jsonp',
-                    data: {order: order}, // Page parameter to make sure we load new data
+                    dataType: 'json',
+                    data: {order: order}, 
                     success: function(data){
 							
                         var check1 = data.isSuccessful.toString();
@@ -267,7 +265,7 @@ $.extend(intime, {
                     $("#originprice").html(data.data.originprice);
                     $("#price").html(data.data.price);
                     $('#huohao').html(data.data.skucode);
-					$('.brand').html(data.data.brandname+'<br>'+data.data.brand2name);
+					$('.infobox .brand').html(data.data.brandname+'<br>'+data.data.brand2name);
                     var m=0,supportpayments =  data.data.supportpayments.length;
                     for(; m<supportpayments; m++){
                         $('#supportpayments').append("<label><input name='supportpayments' type='radio'  value='"+data.data.supportpayments[m].code+"'/>"+data.data.supportpayments[m].name+"</label>");
