@@ -88,7 +88,7 @@ $.extend(intime, {
 					html += '<span class="bag"></span>';
 				}
 				html += '</div>';
-				html += '<h4><a href="product.html" title="">' + one.title + '</a></h4>';
+				html += '<h4><a href="'+one.url+'" title="">' + one.title + '</a></h4>';
 				html += '<small><span class="pull-left num">吊牌价：<em>￥' + one.originalPrice + '</em></span><span class="pull-right price">销售价：<em>￥' + one.price + '</em></span></small>';
 				html += '</div>';
 				html += '</li>';

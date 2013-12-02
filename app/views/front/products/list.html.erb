@@ -35,7 +35,7 @@
         <% @hotwords[:brandwords] && @hotwords[:brandwords].each do |brand| %>
           <dd role="presentation">
           <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="brand" data-gallerykey="<%= brand["id"]%>">
-            <%= brand["name"] %>
+            <strong><%= brand["name"] %></strong>
           </a>
           </dd>
         <% end %>

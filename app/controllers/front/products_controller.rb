@@ -6,7 +6,7 @@ class Front::ProductsController < Front::BaseController
     @product = Stage::Product.fetch(params[:id])
 
     if signed_in?
-      @product_info = API::Product.availoperation(request, id: params[:id])['data']
+      @product_info = API::Product.availoperation(request, productid: params[:id])['data']
     end
   end
 
