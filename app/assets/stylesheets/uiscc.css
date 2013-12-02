@@ -940,3 +940,12 @@ margin-left: 15px;
 	padding-top: 85px;
 }
 }
+
+
+/* 积分兑换页 分页CSS*/
+.pagination ul{
+border:0px!important;
+}
+.pagination li{
+padding-left: 0px!important;
+}

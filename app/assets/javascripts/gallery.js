@@ -26,6 +26,7 @@ $.extend(intime, {
 				e.preventDefault();
 				e.stopPropagation();
 				$(this).tab('show');
+				$("#menu2").removeClass("active");
 				$("#myTab a").removeClass("active");
 				$(this).addClass("active");
 			})

@@ -178,7 +178,7 @@ $.extend(intime, {
             address.shippingzipcode = edit_code;
             $.ajax({
                 type:"post",
-                url:intime.env.host+this._updateaddresspath+addressid,
+                url:intime.env.host+this._updateaddresspath+addressid+'.json',
                 data:{'address':address},
                 dataType:'json',
                 async:true,
