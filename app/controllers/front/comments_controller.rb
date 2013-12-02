@@ -44,7 +44,7 @@ class Front::CommentsController < Front::BaseController
         customer: {
           id: _comment['customer']['id'],
           nickname: _comment['customer']['nickname'],
-          logo: href_of_avatar_url(_comment['customer']['logo'].present? ? "#{_comment['customer']['logo']}_100x100.jpg" : nil),
+          logo: href_of_avatar_url(_comment['customer']['logo']),
           url: front_his_info_path(_comment['customer']['id'])
         },
         comments: []

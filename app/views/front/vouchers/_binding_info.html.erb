@@ -1,5 +1,5 @@
 <div class="top">
-  <div class="head_img"><span></span><img src="<%= href_of_avatar_url(current_user.avatar_url.present? ? "#{current_user.avatar_url}_100x100.jpg" : nil) -%>"></div>
+  <div class="head_img"><span></span><img src="<%= href_of_avatar_url(current_user.avatar_url) -%>"></div>
   <div class="cname">
     <p style="font-size:16px;"><%= current_user.nickie -%></p>
     <p style="font-size:12px;line-height: 20px;">
