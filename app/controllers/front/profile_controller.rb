@@ -3,6 +3,7 @@ class Front::ProfileController < Front::BaseController
   before_filter :authenticate!
 
   def index
+    @card = API::Card.detail(request)[:data]
   end
 
   def edit
