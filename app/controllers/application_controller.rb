@@ -2,7 +2,7 @@ require 'auth/authenticate_system'
 class ApplicationController < ActionController::Base
   before_filter :parse_params, :only=>[:list,:search]
   PAGE_ALL_SIZE = 1000
-  helper_method :middle_pic_url, :href_of_avatar_url
+  helper_method :middle_pic_url, :href_of_avatar_url, :default_product_pic_url
 
   def default_url_options
     Settings.default_url_options.to_hash

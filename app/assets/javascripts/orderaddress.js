@@ -3,8 +3,8 @@ intime = window.intime;
 $.extend(intime, {
     orderaddress: {
         _addresspath:"front/addresses.json",
-        _addaddresspath:"front/addresses_create",
-        _updateaddresspath:"front/addresses_update/",
+        _addaddresspath:"front/addresses.json",
+        _updateaddresspath:"front/addresses/",
         _address:null,
         init:function(){
             $.ajax({
@@ -78,10 +78,10 @@ $.extend(intime, {
             address.shippingzipcode = postcode;
 
             $.ajax({
-                //type:"POST",//get post不区分大小写
+                type:"post",
                 url:intime.env.host+this._addaddresspath,
                 data:{'address':address},
-                dataType:'jsonp',
+                dataType:'json',
                 async:true,
                 success:function(data){
                     var check1 = data.isSuccessful.toString();
@@ -128,9 +128,10 @@ $.extend(intime, {
             address.shippingaddress = saddress;
             address.shippingzipcode = postcode;  
             $.ajax({
+				type:'post',
                 url:intime.env.host+this._addaddresspath,
                 data:{'address':address},
-                dataType:'jsonp',
+                dataType:'json',
                 async:true,
                 success:function(data){
                     var check1 = data.isSuccessful.toString();
@@ -176,10 +177,10 @@ $.extend(intime, {
             address.shippingaddress = edit_address;
             address.shippingzipcode = edit_code;
             $.ajax({
-                //type:"POST",//get post不区分大小写
+                type:"post",
                 url:intime.env.host+this._updateaddresspath+addressid,
                 data:{'address':address},
-                dataType:'jsonp',
+                dataType:'json',
                 async:true,
                 success:function(data){
                     var check1 = data.isSuccessful.toString();
