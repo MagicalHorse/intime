@@ -7,6 +7,7 @@ class Front::ProfileController < Front::BaseController
 
   def edit
     @user = API::Customer.show(request)[:data].slice(:desc, :nickname, :logo, :gender, :mobile)
+    @user[:logo] = gen_user_logo @user[:logo]
   end
 
   def update
@@ -16,6 +17,7 @@ class Front::ProfileController < Front::BaseController
       redirect_to front_my_profile_path, notice: '更新成功。'
     else
       @user = params[:user]
+      @user[:logo] = gen_user_logo @user[:logo]
       flash.alert = result[:message]
       render :edit
     end
