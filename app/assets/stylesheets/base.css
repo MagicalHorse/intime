@@ -347,6 +347,7 @@ a:hover {
 
 
 .navbar .nav #menu2 .dropdown-menu .brands dt {
+  width: 100%;
 	line-height: 24px;
 	margin-bottom: 20px;
 	float: left;
