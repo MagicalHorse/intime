@@ -283,6 +283,9 @@ a:hover {
 	padding: 3px 8px;
 	text-decoration: none;
 	font-weight: normal;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .navbar .nav #menu1 .dropdown-menu a.active,
 .navbar .nav #menu1 .dropdown-menu dd a:hover,
@@ -306,6 +309,7 @@ a:hover {
 	padding: 15px 15px 10px 15px;
 	min-height: 170px;
 	overflow: hidden;
+	max-height:535px;
 }
 .navbar .nav #menu2 .dropdown-menu dl {
 	float: left;
@@ -332,9 +336,13 @@ a:hover {
 	font-weight: normal;
 	margin: 0 2px 20px 2px;
 }
-.navbar .nav #menu2 .dropdown-menu dd span {
-	display: block;
-}
+.navbar .nav #menu2 .dropdown-menu dd span,.navbar .nav #menu2 .dropdown-menu dd strong {
+    display: block;
+	font-weight:normal;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+  }
 /*.navbar .nav li.dropdown #menu2 dl dd:nth-child(9n+1){ margin-left:0 }*/
 
 
@@ -398,7 +406,10 @@ a:hover {
 	height: 45px;
 }
 .navbar .nav #menu2 .dropdown-menu .brands dd p {
-	display: none
+	display: none;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .navbar .nav #menu3 .dropdown-menu {
 	padding: 15px;
@@ -2253,4 +2264,7 @@ body {
 	height: 25px;
 	margin: 0 auto;
 	background-image: url('../images/loader.gif');
+}
+.huax{
+text-decoration: line-through;
 }
