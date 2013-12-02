@@ -7,10 +7,14 @@
 <div class="span9 main">
   <div class="details omjd">
     <div class="top">
-      <div class="head_img"><span></span><img src="<%= current_user.avatar_url %>" ></div>
+      <div class="head_img"><span></span><img src="<%= href_of_avatar_url(current_user.avatar_url.present? ? "#{current_user.avatar_url}_100x100.jpg" : nil) %>" ></div>
       <div class="cname">
         <p><span></span><%= current_user.nickie %></p>
-        <p><span>积点：</span><%= current_user.point %></p>
+        <% if current_user.isbindcard -%>
+          <p><span>积点：</span><%= current_user.point + @card[:amount] %></p>
+        <% else -%>
+          <p><span>积点：</span><%= current_user.point %></p>
+        <% end -%>
       </div>
       <div class="clearfix"></div>
     </div>
