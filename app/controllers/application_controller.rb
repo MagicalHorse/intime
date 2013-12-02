@@ -9,7 +9,13 @@ class ApplicationController < ActionController::Base
   end
 
   def href_of_avatar_url(avatar_url)
-    avatar_url.present? ? avatar_url : Settings.default_image_url.user
+    if avatar_url.present? && avatar_url =~ /\d+x\d+\.jpg$/i
+      avatar_url
+    elsif avatar_url.present?
+      "#{avatar_url}_100x100.jpg"
+    else
+      Settings.default_image_url.user
+    end
   end
 
   protected
