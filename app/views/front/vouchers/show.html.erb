@@ -15,10 +15,10 @@
         <span>使用门店：</span><%= @voucher[:promotion][:inscopenotice].map{|item| item[:storename]}.join(',') -%><br>
         <span>兑换积点：</span><%= @voucher[:points] -%><br>
         <span>兑换金额：</span><b style="color:#D10149;"><%= @voucher[:amount] -%>元</b><br>
-        <em class="xr">特别提醒：请在使用礼券购买商品时，请同时出示会员卡进行购买。</em> </p>
+        <em class="xr">特别提醒：<%= format_newline(@voucher[:promotion][:usagenotice]) -%></em> </p>
         <% @voucher[:promotion][:inscopenotice].each do |_item| -%>
           <p> <span>使用门店：</span><%= _item[:storename] -%><br>
-          </p><div class="xh"><%= _item[:excludes] -%></div>
+          </p><div class="xh"><%= format_newline(_item[:excludes]) -%></div>
           <p></p>
         <% end -%>
       </div>
@@ -27,7 +27,7 @@
       <h2>　</h2>
       <div class="content">
         <p>注意事项</p>
-        <p class="xh"><%= @voucher[:promotion][:notice] -%></p>
+        <p class="xh"><%= format_newline(@voucher[:promotion][:notice]) -%></p>
       </div>
     </div>
     <div class="clear">

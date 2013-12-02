@@ -1,15 +1,16 @@
 <div class="top">
-  <div class="head_img"><span></span><img src="<%= current_user.avatar_url -%>"></div>
+  <div class="head_img"><span></span><img src="<%= href_of_avatar_url(current_user.avatar_url.present? ? "#{current_user.avatar_url}_100x100.jpg" : nil) -%>"></div>
   <div class="cname">
     <p style="font-size:16px;"><%= current_user.nickie -%></p>
     <p style="font-size:12px;line-height: 20px;">
     <span>会员卡号：</span>
     <% if current_user.isbindcard -%>
       <%= card[:cardno] -%><br>
+      <span>我的积分：</span><%= current_user.point + card[:amount].to_i -%>
     <% else -%>
       未绑定 <%= link_to '绑定', binding_card_front_vouchers_path, class: 'btn btn-danger' -%><br>
+      <span>我的积分：</span><%= current_user.point -%>
     <% end -%>
-    <span>我的积分：</span><%= current_user.point + card[:amount].to_i -%>
     </p>
   </div>
   <div class="clearfix"></div>
