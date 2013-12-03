@@ -6,5 +6,5 @@ default_image_url:
     middle: http://apis.youhuiin.com/fileupload/img/product\default\default_320x0.jpg
   user: http://itoo.yintai.com/fileupload/img/user-logo-default.gif
 payment_code:
-  alipay: 26
+  alipay: 25
   wxpay:  28
