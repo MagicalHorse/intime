@@ -14,7 +14,6 @@
 //= require jquery-ujs.js
 //= require jquery.imagesloaded.js
 //= require jquery.royalslider.min.js
-//= require jquery.slimscroll.min.js
 //= require masonry.pkgd.min.js
 //= require bootstrap.min.js
 //= require scrolltopcontrol.js
