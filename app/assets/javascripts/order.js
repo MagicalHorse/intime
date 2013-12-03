@@ -156,7 +156,7 @@ $.extend(intime, {
 				return;
 			} else {
                 pay.paymentcode=supportpayments;//"支付方式代码";
-                pay.paymentname="支付宝支付";//"支付方式名";//"支付方式名";
+                pay.paymentname=supportpayments_name;//"支付方式名";
                 address.shippingcontactperson = shippingperson; //"收货联系人";
                 address.shippingcontactphone = shippingphone;//"收货联系电话";
                 address.shippingzipcode = shippingzipcode;//"收货地址邮编";
