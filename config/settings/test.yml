@@ -30,6 +30,6 @@ default_image_url:
 
 
 payment_code:
-  alipay: 26
+  alipay: 25
   wxpay:  28
 
