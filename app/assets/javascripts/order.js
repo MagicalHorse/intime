@@ -215,7 +215,7 @@ $.extend(intime, {
         _loadCities:function(){
             $.ajax({
                 url: this._cityUrl(),
-                dataType:'jsonp',
+                dataType:'json',
                 async:true,
                 success:function(data){
                     intime.order._$cities = $(data.datas);
@@ -234,7 +234,7 @@ $.extend(intime, {
             $.ajax({			 
                 type:"get",			 
                 url:this._colorUrl(),
-                dataType:'jsonp',
+                dataType:'json',
                 async:true,
                 success:function(data){
                     var i=0,length = data.data.salecolors.length;
