@@ -125,7 +125,7 @@ class Front::OrdersController < Front::BaseController
             out_trade_no:   order['orderno'],
             total_fee:      order['totalamount'],
             call_back_url:  payment_callback_url,
-            notify_url:     'http://apis.youhuiin.com/api/payment/notify',
+            notify_url:     Settings.alipay_notify_url,
             out_user:       current_user.id
           }
           redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
@@ -155,36 +155,4 @@ class Front::OrdersController < Front::BaseController
   def pay_callback
     redirect_to front_order_path(params['out_trade_no'])
   end
-
-# ORDER = {
-#   products: [{
-#     productid: 487927,
-#     desc: '',
-#     quantity: 1,
-#     properties: { sizevalueid: 141069, sizevaluename: "180/105 XXL", colorvalueid: 141068, colorvaluename: "01"},
-#   }],
-#   needinvoice: 1,
-#   invoicetitle: '发票抬头',
-#   invoicedetail: '发票明细',
-#   memo: '订单备注',
-#   shippingaddress: {
-#     shippingcontactperson: "vg",
-#     shippingcontactphone:"1352400000",
-#     shippingzipcode: "200184",
-#     shippingaddress: "上海市长宁区什么路"
-#   },
-#   payment: {
-#     paymentcode: "25",
-#     paymentname: "支付宝"
-#   }
-# }
-#
-#  {"data"=>
-#   {"orderno"=>"113101278125",
-#    "totalamount"=>999.0,
-#    "paymentcode"=>"1001",
-#    "paymentname"=>"������������"},
-#    "isSuccessful"=>true,
-#    "statusCode"=>200,
-#    "message"=>"操作成功！
 end
