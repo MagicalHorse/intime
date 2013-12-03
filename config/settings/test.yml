@@ -1,2 +1,5 @@
 default_url_options:
   host: 'stage.youhuiin.com'
+payment_code:
+  alipay: 26
+  wxpay:  28

@@ -119,7 +119,7 @@ class Front::OrdersController < Front::BaseController
 
       if order['statust'].to_s == API::Order::STATUSES[:unpaid].to_s
         case order['paymentcode'].to_s
-        when Settings.payment_code.alipay then
+        when Settings.payment_code.alipay.to_s then
           req_data = {
             subject:        product['productname'],
             out_trade_no:   order['orderno'],
@@ -129,7 +129,7 @@ class Front::OrdersController < Front::BaseController
             out_user:       current_user.id
           }
           redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
-        when Settings.payment_code.wxpay then
+        when Settings.payment_code.wxpay.to_s then
           pay_url = API::Order.wxpay_url(request,{orderno:params[:id],clientip:request.remote_ip,returnurl:payment_callback_url})
           redirect_to pay_url[:data][:payurl]
         else
