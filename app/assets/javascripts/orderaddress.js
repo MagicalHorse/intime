@@ -9,7 +9,7 @@ $.extend(intime, {
         init:function(){
             $.ajax({
                 url:intime.env.host+this._addresspath,
-                dataType:'jsonp',
+                dataType:'json',
                 async:true,
                 success:function(data){
                     intime.orderaddress._address = $(data.datas);
@@ -177,7 +177,7 @@ $.extend(intime, {
             address.shippingaddress = edit_address;
             address.shippingzipcode = edit_code;
             $.ajax({
-                type:"post",
+                type:"put",
                 url:intime.env.host+this._updateaddresspath+addressid+'.json',
                 data:{'address':address},
                 dataType:'json',
