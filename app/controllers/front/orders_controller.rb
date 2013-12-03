@@ -118,15 +118,24 @@ class Front::OrdersController < Front::BaseController
       product = order['products'][0]
 
       if order['statust'].to_s == API::Order::STATUSES[:unpaid].to_s
-        req_data = {
-          subject:        product['productname'],
-          out_trade_no:   order['orderno'],
-          total_fee:      order['totalamount'],
-          call_back_url:  payment_callback_url,
-          notify_url:     'http://apis.youhuiin.com/api/payment/notify',
-          out_user:       current_user.id
-        }
-        redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
+        case order['paymentcode'].to_s
+        when Settings.payment_code.alipay then
+          req_data = {
+            subject:        product['productname'],
+            out_trade_no:   order['orderno'],
+            total_fee:      order['totalamount'],
+            call_back_url:  payment_callback_url,
+            notify_url:     'http://apis.youhuiin.com/api/payment/notify',
+            out_user:       current_user.id
+          }
+          redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
+        when Settings.payment_code.wxpay then
+          pay_url = API::Order.wxpay_url(request,{orderno:params[:id],clientip:request.remote_ip,returnurl:payment_callback_url})
+          redirect_to pay_url[:data][:payurl]
+        else
+             @message = "支付方式不支持！"
+        end
+        
       else
         @message = "支付失败，该订单当前状态为#{order[:status]}，不能支付！"
       end
