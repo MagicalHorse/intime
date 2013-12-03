@@ -20,10 +20,16 @@ alipay:
 
 default_url_options:
   host: 'stage.youhuiin.com'
+
   
 default_image_url:
   product:
     small: http://apis.youhuiin.com/fileupload/img/product\default\default_120x0.jpg
     middle: http://apis.youhuiin.com/fileupload/img/product\default\default_320x0.jpg
   user: http://itoo.yintai.com/fileupload/img/user-logo-default.gif
+
+
+payment_code:
+  alipay: 26
+  wxpay:  28
 
