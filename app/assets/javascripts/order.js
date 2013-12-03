@@ -128,7 +128,7 @@ $.extend(intime, {
             var shippingzipcode=$("#shippingzipcode").text();
             var shippingphone=$("#shippingphone").text();
             var supportpayments=$("input[name='supportpayments']:checked").val();
-            var supportpayments_name=$("input[name='supportpayments']:checked").text();
+            var supportpayments_name=$("input[name='supportpayments']:checked").attr('data-payname');
             var company_name=$("#company_name").val();
             var bill_comments=$("#bill_comments").val();
             var dis_comments=$("#dis_comments").val();
@@ -268,7 +268,7 @@ $.extend(intime, {
 					$('.infobox .brand').html(data.data.brandname+'<br>'+data.data.brand2name);
                     var m=0,supportpayments =  data.data.supportpayments.length;
                     for(; m<supportpayments; m++){
-                        $('#supportpayments').append("<label><input name='supportpayments' type='radio'  value='"+data.data.supportpayments[m].code+"'/>"+data.data.supportpayments[m].name+"</label>");
+                        $('#supportpayments').append("<label><input name='supportpayments' type='radio' data-payname='"+data.data.supportpayments[m].name+"'  value='"+data.data.supportpayments[m].code+"'/>"+data.data.supportpayments[m].name+"</label>");
                     }
 					if (data.data.address) {
 						$('#shippingperson').html(data.data.address.shippingperson);
