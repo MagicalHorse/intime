@@ -13,7 +13,7 @@
           <% if API::Order.can_payment?(@order['statust']) %>
             <a href="<%= pay_front_order_path(@order['orderno']) %>" id="payment" target="_blank" class="btn btn-danger absolute zxzf">在线支付</a>
           <% end %>
-          <% if API::Order.can_cancel?(@order['statust']) %>
+          <% if @order['canvoid'] %>
             <a href="javascript:;" id="cancel" data-order-id="<%= @order['orderno'] %>" class="btn absolute zxzf qxdd">取消订单</a>
           <% end %>
         </div>
