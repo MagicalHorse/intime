@@ -6,10 +6,10 @@
     <span>会员卡号：</span>
     <% if current_user.isbindcard -%>
       <%= card[:cardno] -%><br>
-      <span>我的积分：</span><%= current_user.point + card[:amount].to_i -%>
+      <span>我的积点：</span><%= current_user.point + card[:amount].to_i -%>
     <% else -%>
       未绑定 <%= link_to '绑定', binding_card_front_vouchers_path, class: 'btn btn-danger' -%><br>
-      <span>我的积分：</span><%= current_user.point -%>
+      <span>我的积点：</span><%= current_user.point -%>
     <% end -%>
     </p>
   </div>
