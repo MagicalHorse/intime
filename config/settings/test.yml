@@ -32,4 +32,6 @@ default_image_url:
 payment_code:
   alipay: 25
   wxpay:  28
+  
+alipay_notify_url: http://apis.youhuiin.com/api/payment/notify
 
