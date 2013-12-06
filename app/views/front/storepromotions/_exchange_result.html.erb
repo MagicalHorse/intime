@@ -13,7 +13,7 @@
     <span style="display:inline-block; width:90px;">对金额：</span><%= coupon[:amount] -%>元
     </p>
     <p style="font-size:12px; color:#D10149; line-height:20px;"> 注意事项：<br>
-    <%= coupon[:exclude] -%>
+    <%= format_newline(coupon[:exclude]) -%>
   <% else -%>
     <p style="border-bottom:1px solid #eeeeee;">
       <%= result[:message] -%>
