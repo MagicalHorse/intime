@@ -21,7 +21,7 @@ $.extend(intime, {
 			var _this = this;
 			this._gtTarget = gtTarget;
 			this._ltTarget = ltTarget;
-			$("#picbox").addClass("noSwipe");
+			$("#picbox,#toTop").addClass("noSwipe");
 			var swipeHandler = {allowPageScroll:"vertical"};
 			if (this._supportTouch){
 				$.extend(swipeHandler,{
@@ -189,7 +189,10 @@ $.extend(intime, {
 			if (flag == false){
 				$(".pro_prev,.pro_next").hide();
 			} else {
-				$(".pro_prev,.pro_next").show();
+				if (this._gtTarget != '')
+					$(".pro_next").show();
+				if (this._ltTarget !='')
+					$(".pro_prev").show();
 			}
 			
 		}
