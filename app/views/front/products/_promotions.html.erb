@@ -2,10 +2,10 @@
   <section class="events_info">
     <h2>参与活动详情</h2>
     <div class="picbox">
-      <%= link_to image_tag("temp/400_400_2.jpg"), front_promotion_url(promotion.id) -%>
+      <%= link_to image_tag(display_promotion_image_url(promotion)), front_promotion_url(promotion.id) -%>
     </div>
     <div class="infobox">
-      <%= promotion.description -%>
+      <%= format_newline(promotion.description) -%>
     </div>
     <div class="clearfix"></div>
   </section>
