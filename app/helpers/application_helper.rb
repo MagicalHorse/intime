@@ -74,8 +74,8 @@ module ApplicationHelper
 
   def format_time_range(startdate, enddate)
     [
-      startdate.to_time.strftime('%Y.%m.%d'),
-      enddate.to_time.strftime('%Y.%m.%d')
+      startdate.to_time.localtime.strftime('%Y.%m.%d'),
+      enddate.to_time.localtime.strftime('%Y.%m.%d')
     ].join('-')
   end
 
