@@ -16,8 +16,8 @@ class Front::SpecialsController < Front::BaseController
         title:        item.name,
         imageUrl:     item.image_url,
         url:          generate_special_url(item),
-        startDate:    item.createddate.to_time.localtime.strftime('%Y.%m.%d'),
-        endDate:      item.createddate.to_time.localtime.strftime('%Y.%m.%d'),
+        startDate:    change_time_zone(item.createddate).strftime('%Y.%m.%d'),
+        endDate:      change_time_zone(item.createddate).strftime('%Y.%m.%d'),
         description:  item.descriptio
       }
     end
