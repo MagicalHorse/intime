@@ -63,6 +63,10 @@ class WxobjectController < ApplicationController
           response
           } 
       end
+      # check if baoming activity is available
+      if is_custom_activity_avail(input_text)
+        return method(:action_custom_activity)
+      end
       if input_text == 'Hello2BizUser'
         return method(:action_say_hello)
       elsif [t(:commandjf),'jd'].include? input_text
@@ -77,8 +81,6 @@ class WxobjectController < ApplicationController
         return method(:action_msg_dh)
       elsif t(:commandpg)== input_text
         return method(:action_msg_pg)
-      #elsif [t(:commandhelp),'h','help'].include? input_text
-        #return method(:action_not_recognize)
       elsif /^\d+$/ =~ input_text_array[0] && input_text_array[0].length>9
         return method(:action_point_nb)
       else
@@ -101,6 +103,52 @@ class WxobjectController < ApplicationController
       method(:action_forward2_tt)
     end
   end
+  #action to perform custom activity
+   def action_custom_activity(input)
+    token = input[:FromUserName]
+    text_attrs = input[:Content].split('@')
+    activity = WxCustomActivity.find_by_key_and_status(text_attrs[0],1)
+    activity_log = WxActivityLog.find_by_uid_and_activity_id(token,activity[:id])
+    return build_response_text_temp {|msg|
+                  msg.Content = activity[:join_msg]
+             } unless activity_log.nil?
+    
+    #persist user request
+    log_use_request {|request|
+      request.lastaction = RequestAction::ACTION_EX_POINT+'-'+activity[:id].to_s
+      }
+    
+    #check use have binded card
+    card_info = Card.where(:utoken=>token,:isbinded=>true).order('updated_at desc').first
+    if !card_info.nil?
+      WxActivityLog.create(:uid=>token,:activity_id=>activity[:id],:vip_card=>card_info.decryp_card_no)
+      return build_response_text_temp {|msg|
+                  msg.Content = activity[:succsss_msg]
+             } 
+    else
+      if text_attrs.length<=2
+        return build_response_text_temp {|msg|
+                  msg.Content = activity[:how_msg]
+             } 
+      end
+
+      card_info = Card.find_by_nopwd input[:FromUserName],text_attrs[1],text_attrs[2]
+      return build_response_text_temp {|msg|
+            msg.Content = WxReplyMsg.get_msg_by_key 'wrongpwd'
+          } if card_info.nil?
+      Card.transaction do 
+        card_info[:isbinded]=true
+        card_info.save
+        
+        WxActivityLog.create(:uid=>token,:activity_id=>activity[:id],:vip_card=>text_attrs[1])
+      end
+      return build_response_text_temp {|msg|
+                msg.Content = activity[:succsss_msg]
+           } 
+    end
+    
+  end
+  
   def action_forward2_tt(input)
     post_http_msg(URI('http://gw.weigou.qq.com/wxapi/get_msg.xhtml'),request.raw_post)
   end
@@ -404,6 +452,15 @@ class WxobjectController < ApplicationController
     lastrequest.msg = params[:xml].to_json
     yield lastrequest if block_given?
     lastrequest.save
+  end
+  def is_custom_activity_avail(input)
+    input_attr = input.split('@')
+    avail_activity = WxCustomActivity.find_by_key_and_status(input_attr[0],1)
+    return false if avail_activity.nil? \
+          || avail_activity.valid_from>Time.now \
+          || avail_activity.valid_end<Time.now
+    true
+    
   end
   def small_pic_url(domain,name)
     domain = PIC_DOMAIN 

@@ -68,7 +68,38 @@ IntimeService::Application.routes.draw do
   match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
   match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
   
-  match "ping/mock"=>"ping#mock"
+  match "card/find"=>"card#find"
+
+  resources :special_topic, only: [:index] do
+    collection do
+      get :get_list
+    end
+  end
+
+  resources :promotion, only: [] do
+    collection do
+      get :get_list
+    end
+  end
+
+  scope module: :front do
+    resources :promotions, only: [:index, :show] do
+      collection do
+        get :get_list
+      end
+    end
+
+    resources :products, only: [:index, :show]
+  end
+
+  #scope module: 'front' do
+    #resources :promotion, only: [:index, :show] do
+      #collection do
+        #get :list
+        #get :get_list
+      #end
+    #end
+  #end
 
   resources :special_topic, only: [:index] do
     collection do
@@ -145,6 +176,11 @@ IntimeService::Application.routes.draw do
   namespace :front do
     # Directs /admin/products/* to Admin::ProductsController
     #     # (app/controllers/admin/products_controller.rb)
+       resources :exorders do
+         collection do
+           get 'show'
+         end
+       end
 
     get '/hotwords',                to: 'common#hotwords'
     get '/tags',                    to: 'common#tags'

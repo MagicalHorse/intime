@@ -14,10 +14,12 @@
 /log/*.log
 /tmp
 .elasticbeanstalk/
+
 config/database.yml
 .ruby-version
 .ruby-gemset
 .rvmrc
+
 tags
 *.swp
 .project

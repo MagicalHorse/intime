@@ -60,11 +60,14 @@ $.extend(intime, {
 					$('#no_data').show();
 					return;
 				}
+			} 
+			if (_this._page<data.totalpaged){
+				_this._canLoadMore = true;
+
 			} else {
-				if (length <= 0) {
-					$('#last_page').show();
-					return;
-				}
+				_this._canLoadMore = false;
+				$('#last_page').show();
+
 			}
 			_this._page++;
 			var num = data.totalcount;
@@ -149,7 +152,8 @@ $.extend(intime, {
 
 		},
 		clears: function() {
-
+			this._canLoadMore = false;
+			this._isLoadingMore = false;
 			this._page = 1;
 			this._container.empty();
 			if (this._msnry) {
