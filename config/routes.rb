@@ -101,6 +101,37 @@ IntimeService::Application.routes.draw do
     #end
   #end
 
+  resources :special_topic, only: [:index] do
+    collection do
+      get :get_list
+    end
+  end
+
+  resources :promotion, only: [] do
+    collection do
+      get :get_list
+    end
+  end
+
+  scope module: :front do
+    resources :promotions, only: [:index, :show] do
+      collection do
+        get :get_list
+      end
+    end
+
+    resources :products, only: [:index, :show]
+  end
+
+  #scope module: 'front' do
+    #resources :promotion, only: [:index, :show] do
+      #collection do
+        #get :list
+        #get :get_list
+      #end
+    #end
+  #end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -145,7 +176,6 @@ IntimeService::Application.routes.draw do
   namespace :front do
     # Directs /admin/products/* to Admin::ProductsController
     #     # (app/controllers/admin/products_controller.rb)
-       
        resources :exorders do
          collection do
            get 'show'
@@ -212,7 +242,6 @@ IntimeService::Application.routes.draw do
       end
     end
 
-
     resources :specials, :only => [:index] do
       collection do
         get :get_list
@@ -225,8 +254,7 @@ IntimeService::Application.routes.draw do
       end
     end
 
-    resources :orders do
-
+    resources :orders, except: [:edit, :update] do
       collection do
         post :computeamount
         post :confirm
@@ -282,7 +310,6 @@ IntimeService::Application.routes.draw do
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'
-
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

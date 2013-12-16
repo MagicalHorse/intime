@@ -4,14 +4,11 @@ $.extend(intime, {
 	product: {		
 		_page: 1,
 		_sort: '',
-
-		_listpath: 'comment/get_list.json',
+		_listpath: 'front/comments/get_list.json',
 		_container: $('#tiles'),
 		_msnry: null,
-		_isMsnryInit: false,
+		_isMsnryInit: true,
 		_isLoadingMore: false,
-		_canLoadMore: false,
-
 		_gtTarget:'',
 		_ltTarget:'',
 		_supportTouch:'ontouchstart' in window,
@@ -84,7 +81,6 @@ $.extend(intime, {
 				var html = '';
 				var one = this;
 				leng = one.comments.length;
-
 				html += '<li class="post scrollItem" id="reply_'+one.commentId+'">';
 				html += '<div class="post-self">';
 				html += '<div class="avatar"><a rel="nofollow author" href="'+one.customer.url+'" title="' + one.customer.nickname + '"><img src="' + one.customer.logo + '" alt="' + one.customer.nickname + '"></a></div>';

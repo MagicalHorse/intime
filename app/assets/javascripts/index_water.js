@@ -67,7 +67,6 @@ $.extend(intime, {
 					html += '<li class="scrollItem">';
 					html += '<div class="thumbnail">';
 					html += '<h3 class="time">活动时间：<span>' + one.startDate + '-' + one.endDate + '</span></h3>';
-
 					html += '<div class="action"> <a href="'+one.url+'"><img src="' + one.imageUrl + '" alt=" "></a>';
 					html += '<p>'+one.title+'</p>';
 					html += '</div>';
