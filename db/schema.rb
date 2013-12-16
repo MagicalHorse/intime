@@ -258,6 +258,30 @@ ActiveRecord::Schema.define(:version => 20130624013326) do
     t.integer  "updatetype"
   end
 
+  create_table "wx_activity_logs", :force => true do |t|
+    t.integer  "activity_id"
+    t.string   "uid"
+    t.string   "vip_card"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "wx_activity_logs", ["uid", "activity_id"], :name => "index_wx_activity_logs_on_uid_and_activity_id"
+
+  create_table "wx_custom_activities", :force => true do |t|
+    t.string   "key"
+    t.integer  "status"
+    t.datetime "valid_from"
+    t.datetime "valid_end"
+    t.string   "succsss_msg"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "join_msg"
+    t.string   "how_msg"
+  end
+
+  add_index "wx_custom_activities", ["key", "status"], :name => "index_wx_custom_activities_on_key_and_status"
+
   create_table "wx_reply_msgs", :force => true do |t|
     t.string   "rkey"
     t.string   "rmsg"

@@ -24,5 +24,6 @@ class RequestAction
   ACTION_PROD_LIST_MR = 'PROD_LIST_MR'
   # exchange card point
   ACTION_EX_POINT = 'Exchange_Point'
-  #
+  # intent to join custom activity
+  ACTION_EX_POINT = 'Customer_Activity'
 end

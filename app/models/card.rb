@@ -2,10 +2,13 @@ require 'digest/sha1'
 require 'net/http'
 require 'openssl'
 require 'json'
+require 'base64'
 class Card < ActiveRecord::Base
   attr_accessible :level, :no, :point, :utoken, :validatedate, :isbinded
   CARD_SERVICE_KEY ='intimeit'
-
+  def decryp_card_no
+    Card.decryp_card_no self.no
+  end
   
   class<<self
     # call remote card service to retrieve the latest card information
@@ -68,6 +71,12 @@ class Card < ActiveRecord::Base
       return !card_exchange_hash.nil? && card_exchange_hash["Success"]==true
 
     end
+    def decryp_card_no(number)
+      cipher = OpenSSL::Cipher.new('des-ecb')
+      cipher.decrypt
+      cipher.key = CARD_SERVICE_KEY
+      cipher.update(Base64.decode64(number))+cipher.final
+    end
    private
     def get_card_score(encrp_no)
       encryp_card_no = encrp_no
@@ -81,6 +90,7 @@ class Card < ActiveRecord::Base
       cipher.key = CARD_SERVICE_KEY
       encry_card_no =[cipher.update(number)+cipher.final].pack('m')
     end
+    
     def post_card_service(uri, body)
       req = Net::HTTP::Post.new(uri.path)
       req.body = body
