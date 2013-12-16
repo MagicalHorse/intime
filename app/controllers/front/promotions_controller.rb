@@ -1,4 +1,4 @@
-class Front::PromotionsController < Front::BaseController 
+class Front::PromotionsController < Front::BaseController
   before_filter :authenticate!, only: [:favor, :unfavor, :download_coupon, :comment]
 
   def show
@@ -53,8 +53,8 @@ class Front::PromotionsController < Front::BaseController
         title:        item.name,
         imageUrl:     item.image_urls.first,
         url:          front_promotion_path(item.id),
-        startDate:    item.startdate.to_time.localtime.strftime('%Y.%m.%d'),
-        endDate:      item.enddate.to_time.localtime.strftime('%Y.%m.%d'),
+        startDate:    change_time_zone(item.startdate).strftime('%Y.%m.%d'),
+        endDate:      change_time_zone(item.enddate).strftime('%Y.%m.%d'),
         description:  item.description,
         likeCount:    item.likecount,
         storeId:      item.store.try(:id),
