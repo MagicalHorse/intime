@@ -79,7 +79,7 @@ class Front::BaseController < ApplicationController
       :provider           => provider.present? ? provider.to_i : nil,
       :isbindcard         => value['isbindcard'],
       :mobile             => value['mobile'],
-      :avatar_url         => gen_user_logo(value['logo']),
+      :avatar_url         => href_of_avatar_url(value['logo']),
       :coupon_count       => value['coupontotal'],
       :point              => value['pointtotal'],
       :like_count         => value['liketotal'],
