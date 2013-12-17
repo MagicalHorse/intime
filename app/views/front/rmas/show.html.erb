@@ -10,7 +10,7 @@
       <h5>要退货的商品</h5>
       <div class="item_tit bb"><span>订单号：</span><%= @rma['orderno'] %> </div>
       <div class="item_ct">
-        <div class="item_img"><img src="<%= @product['resource'] %>" /></div>
+        <div class="item_img"><img src="<%= small_pic_url(@product['resource']) %>" /></div>
         <div class="item_pr">
           <span><%= @product['productname'] %></span><br>
           货号：<%= @product['skucode'] %><br>
