@@ -135,10 +135,13 @@ $.extend(intime, {
             var colorvalueid = $(".yanse").val();
             var colourid = $("#colourid").val();
             var sizeid = $("#sizeid").val();
-            var invoice = $("#invoice").find("option:selected").text();
+            var invoice = $("#invoice").find("option:selected").val();
 			if (invoice == 'invoice_2') {
 				invoice = $("#company_name").val();
+			} else {
+				invoice = $("#invoice").find("option:selected").text();
 			}
+			
             var product = new Object();
             var propertie = new Object();
             var order = new Object();
