@@ -136,6 +136,9 @@ $.extend(intime, {
             var colourid = $("#colourid").val();
             var sizeid = $("#sizeid").val();
             var invoice = $("#invoice").find("option:selected").text();
+			if (invoice == 'invoice_2') {
+				invoice = $("#company_name").val();
+			}
             var product = new Object();
             var propertie = new Object();
             var order = new Object();
@@ -153,6 +156,9 @@ $.extend(intime, {
                 return;
             } else if(shippingzipcode==""){
 				alert("地址邮编不能为空！");
+				return;
+			} else if(invoice ==''){
+				alert("发票抬头不能为空");
 				return;
 			} else {
                 pay.paymentcode=supportpayments;//"支付方式代码";
