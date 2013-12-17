@@ -42,11 +42,18 @@
             <span>发票内容：</span><%= @order['invoicedetail'] %><br>
           </div>
         <% end %>
+
         <div class="item_tit bt">
           <span>配送及备注：</span><br>
           <span>送货方式：</span>快递<br>
           <span>备注：</span><%= @order['memo'] %>
         </div>
+       <% if @order['ships'].any? %>
+        <div class="item_tit bt"><span>物流信息：</span><br>
+			<span>物流公司：</span><%= @order['ships'][0]['shipvianame'] %><br>
+			<span>物流单号：</span><%= @order['ships'][0]['shipno'] %>
+		</div>
+		 <% end %>
         <div class="item_tit bt ">
           <dl>
             <dd><span>赠送积点：</span><strong><%= @order['totalpoints'] %></strong>
