@@ -79,7 +79,7 @@ class Front::UsersCenterController < Front::BaseController
     if result["data"].present?
       info[:id]     = result["data"]["id"]
       info[:name]   = result["data"]["nickname"]
-      info[:logo]   = href_of_avatar_url(gen_user_logo(result["data"]["logo"]))
+      info[:logo]   = href_of_avatar_url(result["data"]["logo"])
       info[:gender] = result["data"]["gender"]
       info[:desc]   = result["data"]["desc"]
       info[:mobile] = result["data"]["mobile"]
@@ -96,7 +96,7 @@ class Front::UsersCenterController < Front::BaseController
       items << {
         id:         item["id"],
         level:      item["level"],
-        logo:       href_of_avatar_url(gen_user_logo(item["logo"])),
+        logo:       href_of_avatar_url(item["logo"]),
         nickname:   item["nickname"],
         liketotal:  item["liketotal"].to_i,
         likedtotal: item["likedtotal"].to_i,
