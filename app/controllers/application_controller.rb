@@ -2,7 +2,22 @@ require 'auth/authenticate_system'
 class ApplicationController < ActionController::Base
   before_filter :parse_params, :only=>[:list,:search]
   PAGE_ALL_SIZE = 1000
- 
+  helper_method :middle_pic_url, :href_of_avatar_url, :default_product_pic_url
+
+  def default_url_options
+    Settings.default_url_options.to_hash
+  end
+
+  def href_of_avatar_url(avatar_url)
+    if avatar_url.present? && avatar_url =~ /\d+x\d+\.jpg$/i
+      avatar_url
+    elsif avatar_url.present?
+      "#{avatar_url}_100x100.jpg"
+    else
+      Settings.default_image_url.user
+    end
+  end
+
   protected
   def error_500
     message = 'internal failed problem.' 
@@ -31,7 +46,13 @@ class ApplicationController < ActionController::Base
   def select_defaultresource(resource)
     # default_resource = resource.select{|r| r[:isDefault]==true}
     default_resource = resource.select{|r| r[:type]==1}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}
-    default_resource.first
+    resource = default_resource.first
+    return resource unless resource.nil?
+    {
+      :name=>'product/default/default',
+      :width=>320,
+      :height=>320
+    }
   end
   def select_defaultaudioresource(resource)
     resource.select{|r| r[:type]==2}.sort{|x,y| y[:sortOrder].to_i<=>x[:sortOrder].to_i}.first
@@ -57,5 +78,56 @@ class ApplicationController < ActionController::Base
     @pagesize = [(pagesize ||=20).to_i,20].min
     @is_refresh = params[:type] == 'refresh'
     @refreshts = params[:refreshts]
+  end
+
+  def render_items(datas, options = nil)
+    pagesize = params[:pageSize].to_i > 0 ? params[:pageSize].to_i : 20
+    page     = params[:page].to_i > 0 ? params[:page].to_i : 1
+
+    result = {
+      page:       page,
+      pagesize:   pagesize,
+      totalcount: 100,
+      totalpaged: 100/pagesize,
+      datas: datas
+    }
+
+    result.merge!(options.delete_if {|k,v| v.blank? }) if options.present?
+
+    render json: result.to_json, callback: params[:callback]
+  end
+
+  # TODO
+  def render_item
+  end
+
+  def render_500(format = :json)
+    if format.to_sym == :json
+      message = block_given? ? yield : 'internal failed problem.'
+      render json: { isSuccessful: false, message: message, statusCode: 500 }
+    else
+      render file: "#{Rails.root}/public/500.html", status: 500, layout: false
+    end
+  end
+
+  def render_404(format = :json)
+    if format.to_sym == :json
+      message = block_given? ? yield : 'not found.'
+      render json: { isSuccessful: false, message: message, statusCode: 404 }
+    else
+      render file: "#{Rails.root}/public/404.html", status: 404, layout: false
+    end
+  end
+
+  def middle_pic_url(r)
+    if r.is_a?(::Hash) && (name = r[:name] || r['name']).present?
+      PIC_DOMAIN + name.to_s + '_320x0.jpg'
+    else
+      Settings.default_image_url.product.middle
+    end
+  end
+
+  def default_product_pic_url
+    Settings.default_image_url.product.middle
   end
 end

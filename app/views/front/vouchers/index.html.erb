@@ -1,0 +1,34 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="<%= front_my_favorite_path -%>"><i class="icon-undo"></i></a></li>
+    <li><a href="<%= front_vouchers_path(type: 1) -%>" id="recently">未使用<span class="ycmenu">的兑换券(<%= @recent_vouchers['totalpaged'] -%>)</span></a></li>
+    <li><a href="<%= front_vouchers_path(type: 2) -%>" id="news">已使用<span class="ycmenu">的兑换券(<%= @news_vouchers['totalpaged'] -%>)</span></a></li>
+    <li><a href="<%= front_vouchers_path(type: 3) -%>" id="future">已过期<span class="ycmenu">的兑换券(<%= @expire_vouchers['totalpaged'] -%>)</span></a></li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <section class="portfolio ">
+  <div id="div" class="Coupon">
+    <ul class="thumbnails">
+      <% if @vouchers.present? -%>
+        <% @vouchers.each do |voucher| -%>
+          <li> <a href="<%= front_voucher_path(voucher[:id]) -%>">
+            <div class="thumbnail">
+              <span class="hdname"><%= voucher[:promotion][:name] %></span>
+              <span class="yxdate">有效期:<%= format_time_range(voucher[:validstartdate], voucher[:validenddate]) -%></span>
+              <span class="dpname">礼券面额：<em><%= voucher[:amount] -%>元</em></span>
+              <span class="yhm"><b><%= voucher[:code] -%><em></em></b></span>
+            </div>
+          </a> </li>
+        <% end -%>
+
+        <%= paginate @vouchers -%>
+      <% else -%>
+        <p style="text-align:center;font-size: 16px;line-height:30px;">
+        暂无兑换券
+        </p>
+      <% end -%>
+    </ul>
+  </div>
+  </section>
+</div>

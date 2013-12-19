@@ -1,0 +1,2 @@
+$('.func dd:first-child').html('<%= link_to raw("#{image_tag('/images/icon_hearts_2x.png', height: 24, width: 24)}<span>取消</span>"), unfavor_front_product_path(params[:id]), class: 'unfavor', remote: true, method: :post -%>');
+$('.likecount').html(parseInt($('.likecount').html()) + 1)

@@ -1,4 +1,12 @@
+# encoding: utf-8
 class ProductController < ApplicationController
+
+  def get_list
+    result = {}
+    result[:typeId],result[:barndId],result[:shopId],result[:sort] = params.values_at(:typeId,:brandId,:shopId,:sort)
+    render_items(mock_up,result)
+  end
+
   def show
     pid = params[:id]
     prod = Product.search :per_page=>1,:page=>1 do 
@@ -7,6 +15,32 @@ class ProductController < ApplicationController
             end
           end
     return render :json=>error_500 if prod.total<=0
+    next_gt_pid = nil
+    next_lt_pid = nil
+    next_gt_prod = Product.search :per_page=>1,:page=>1 do 
+            query do
+              match :status,1
+              
+            end
+            filter :range,{
+                  'id' =>{
+                    'gt'=>pid
+                  }
+                }
+          end
+    next_gt_pid = next_gt_prod.results[0][:id] if next_gt_prod.total>0
+    next_lt_prod = Product.search :per_page=>1,:page=>1 do 
+            query do
+              match :status,1
+              
+            end
+            filter :range,{
+                  'id' =>{
+                    'lt'=>pid
+                  }
+                }
+          end
+    next_lt_pid = next_lt_prod.results[0][:id] if next_lt_prod.total>0
     prod_model = prod.results[0]
     recommend_user = User.esfind_by_id prod_model[:createUserId]
     valid_promotions = find_valid_promotions(prod_model[:promotion])
@@ -31,6 +65,7 @@ class ProductController < ApplicationController
           :logo=>Resource.absolute_url(recommend_user[:thumnail])
           },
         :favoritecount=>prod_model[:favoriteCount],
+        :likecount=>prod_model[:favoriteCount],
         :sharecount=>prod_model[:shareCount],
         :couponcount=>prod_model[:involvedCount],
         :resources=>sort_resource(prod_model[:resource]),
@@ -39,7 +74,70 @@ class ProductController < ApplicationController
         :promotions=>valid_promotions,
         :is4sale=>prod_model[:is4Sale],
         :contactphone=>section_phone,
-        :upccode=>prod_model[:upcCode]
+        :skucode=>prod_model[:upcCode],
+        :nextgtpid=>next_gt_pid,
+        :nextltpid=>next_lt_pid
+       }
+    }
+  end
+  
+  def next
+    pid = params[:id]
+    next_type = params[:type].to_i
+    prod = Product.search :per_page=>1,:page=>1 do 
+            query do
+              match :status,1
+              
+            end
+            if next_type==1
+                filter :range,{
+                  'id' =>{
+                    'gt'=>pid
+                  }
+                }
+              else
+                filter :range,{
+                  'id' =>{
+                    'lt'=>pid
+                  }
+                }
+              end
+          end
+    return render :json=>error_500 if prod.total<=0
+    prod_model = prod.results[0]
+    recommend_user = User.esfind_by_id prod_model[:createUserId]
+    recommend_node = (recommend_user.nil?)?{:id=>prod_model[:createUserId],:nickname=>'',:level=>0,:logo=>nil} \
+                :{:id=>recommend_user[:id],
+                :nickname=>recommend_user[:nickie],
+                :level=>recommend_user[:level],
+                :logo=>Resource.absolute_url(recommend_user[:thumnail])}
+    valid_promotions = find_valid_promotions(prod_model[:promotion])
+    section_phone = prod_model[:section][:contactPhone] unless prod_model[:section].nil?
+    return render :json=>{
+      :isSuccessful=>true,
+      :message =>'success',
+      :statusCode =>'200',
+      :data=>{
+        :id=>prod_model[:id],
+        :name=>prod_model[:name],
+        :brand=>prod_model[:brand],
+        :description=>prod_model[:description],
+        :price=>prod_model[:price],
+        :unitprice=>prod_model[:unitPrice],
+        :recommendedreason=>prod_model[:recommendedReason],
+        :recommenduser_id=>prod_model[:recommendUserId],
+        :recommenduser=>recommend_node,
+        :favoritecount=>prod_model[:favoriteCount],
+        :likecount=>prod_model[:favoriteCount],
+        :sharecount=>prod_model[:shareCount],
+        :couponcount=>prod_model[:involvedCount],
+        :resources=>sort_resource(prod_model[:resource]),
+        :tag=>prod_model[:tag],
+        :store=>Store.to_store_with_distace(prod_model[:store],[params[:lat]||=0,params[:lng]||=0]),
+        :promotions=>valid_promotions,
+        :is4sale=>prod_model[:is4Sale],
+        :contactphone=>section_phone,
+        :skucode=>prod_model[:upcCode]
        }
     }
   end
@@ -76,6 +174,8 @@ class ProductController < ApplicationController
     topicid = params[:topicid]
     promotionid = params[:promotionid]
     storeid = params[:storeid]
+    sort_by = params[:sortby]
+    sort_by ||= 4
     #search the products
     prod = Product.search :per_page=>pagesize, :page=>pageindex do
           query do
@@ -105,10 +205,13 @@ class ProductController < ApplicationController
               }
             }
           end
-          sort {
-            by :sortOrder, 'desc'
-            by :createdDate, 'desc'
-          }
+          case sort_by.to_i
+          when 2 then sort {by :price,'desc'}
+          when 3 then sort {by :price}
+          when 4 then sort {by :sortOrder,'desc'}
+          else sort {by :createdDate,'desc'}
+          end
+          
     end
     # render request
     prods_hash = []       
@@ -119,13 +222,16 @@ class ProductController < ApplicationController
         :id=>p[:id],
         :name=>p[:name],
         :price=>p[:price],
+        :unitprice=>p[:unitPrice],
         :resources=>[{
           :domain=>PIC_DOMAIN,
           :name=>default_resource[:name].gsub('\\','/'),
           :width=>default_resource[:width],
           :height=>default_resource[:height]
         }],
-        :promotionFlag =>promotion_is_expire(p)
+        :promotionFlag =>promotion_is_expire(p),
+        :likecount=>p[:favoriteCount],
+        :is4sale=>p[:is4Sale]
       }
       if should_include_branddesc == true
         prod_hash[:branddesc]=p[:brand][:description]
@@ -157,9 +263,11 @@ class ProductController < ApplicationController
     page_index = (page_index_in.nil?)?1:page_index_in.to_i
     term = '' if term.nil?
     products =  Product.search :per_page=>page_size,:page=>page_index do    
+          min_score 1
          query do
-              match ['*.name','*.description','*.engname','*.recommendreason'], term
+              string term, {:fields=>['upcCode','name','description','brand.name','brand.engname','recommendreason'],:minimum_should_match=>'75%'}
               match :status,1
+
             end
           end
     prods_hash = []       
@@ -170,13 +278,16 @@ class ProductController < ApplicationController
         :id=>p[:id],
         :name=>p[:name],
         :price=>p[:price],
+        :unitprice=>p[:unitPrice],
         :resources=>[{
           :domain=>PIC_DOMAIN,
           :name=>default_resource[:name].gsub('\\','/'),
           :width=>default_resource[:width],
           :height=>default_resource[:height]
         }],
-        :promotionFlag =>promotion_is_expire(p)
+        :promotionFlag =>promotion_is_expire(p),
+        :likecount=>p[:favoriteCount],
+        :is4sale=>p[:is4Sale]
       }
     }
     return render :json=>{:isSuccessful=>true,
@@ -192,10 +303,27 @@ class ProductController < ApplicationController
       }
      }.to_json()
   end
- 
-private 
+
+  private  
+
   def promotion_is_expire(p)
     (p[:promotion].nil?)||p[:promotion].length<1||(p[:promotion].sort{|x,y| y[:endDate].to_time<=>x[:endDate].to_time}[0][:endDate].to_time<Time.now)?false:true
+  end
+
+  def mock_up
+
+   (1..9).inject([]) do |_r, _i|
+      _r << {
+        title:          '开衫连帽卫衣 ASDF335 -2 黛紫色',
+        imageUrl:       'http://yt.seekray.net/0909/temp/440_350_1.jpg',
+        url:            'http://www.baidu.com',
+        price:          11,
+        originalPrice:  22,
+        likeCount:      900,
+      }
+
+      _r
+    end
   end
     
 end

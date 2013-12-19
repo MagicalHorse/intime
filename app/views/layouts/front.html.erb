@@ -1,61 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <title><%= content_for?(:title) ? yield(:title) : t(:common_title) %></title>
-    <%= stylesheet_link_tag "application", :media => "all" %>  
-     <link href="http://cdn.kendostatic.com/2013.1.514/styles/kendo.common.min.css" rel="stylesheet" />
-    <link href="http://cdn.kendostatic.com/2013.1.514/styles/kendo.bootstrap.min.css" rel="stylesheet" />
-    <%= javascript_include_tag "application" %>
-    <script src="http://cdn.kendostatic.com/2013.1.514/js/kendo.all.min.js"></script>
+    <title>银泰商业</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="银泰商业">
+    <meta name="keywords" content="银泰商业">
+    <%= csrf_meta_tags %>
+    <!-- Le styles -->
+    <%= stylesheet_link_tag :application -%>
+    <%= yield :stylesheets -%>
+    <!-- 为IE6-8识别HTML5标签 -->
+    <!--[if lt IE 9]><script src="js/html5shiv.js"></script><![endif]-->
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="/ico/favicon.png">
   </head>
   <body>
-  	<div class="navbar navbar-static-top navbar-inverse">
-	    <div class="navbar-inner">
-	      <div class="container">
-	        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-	          <span class="icon-bar"></span>
-	          <span class="icon-bar"></span>
-	          <span class="icon-bar"></span>
-	        </a>
-	        <a class="brand"><img class="logo" src="http://images.rottentomatoescdn.com/images/trademark/flixster-logo.png" /> Search</a>
-	        <div class="nav-collapse">
-	          <ul class="nav">
-	            <li>
-	              <a href="#">Home</a>
-	            </li>
-	            <li>
-	              <a href="http://www.rottentomatoes.com">Rotten Tomatoes</a>
-	            </li>
-	          </ul>
-	        </div>
-	      </div>
-	    </div>
-  	</div>
-  	<%= render "share/bread_crumb"%>
-  	<div class="container">
-           <div class="row">
-           	<div class="span12">
-              <%= yield %>    
-              </div>     
+    <!-- 顶栏 -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="span3 logo">
+            <a class="brand" href="<%= root_url %>"><img src="/images/logo_2x.png" alt="首页"></a>
           </div>
+          <!--/.logo-collapse -->
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".aside"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+          <%= yield :head_nav -%>
+        </div>
+      </div>
     </div>
-    <%= render "share/footer"%>
-   <script type="text/javascript">
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-39584119-1']);
-	  _gaq.push(['_setDomainName', 'youhuiin.com']);
-	  _gaq.push(['_trackPageview']);
-	
-	  (function() {
-	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-	
-	</script>
+    <div class="container">
+      <div class="row">
+        <%= render '/front/left_side' -%>
+        <%= yield -%>
+      </div>
+      <div id="navMask"></div>
+    </div>
+    <%= render '/front/footer' -%>
+    <!-- JS文件放置在文档结尾处，使页面加载速度更快 -->
+    <%= javascript_include_tag :application %>
+    <%= yield :javascripts -%>
+    <%= yield :single_jss -%>
   </body>
 </html>

@@ -1,0 +1,12 @@
+<% if (promotions = product.promotions).present? && promotion = promotions.first -%>
+  <section class="events_info">
+    <h2>参与活动详情</h2>
+    <div class="picbox">
+      <%= link_to image_tag(display_promotion_image_url(promotion)), front_promotion_url(promotion.id) -%>
+    </div>
+    <div class="infobox">
+      <%= format_newline(promotion.description) -%>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+<% end -%>

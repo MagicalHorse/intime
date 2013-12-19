@@ -5,4 +5,12 @@ module Front::ProductsHelper
   def audio_resource(p)
     @product.resource.select{|r| r[:type]==2}
   end
+
+  def display_promotion_image_url(promotion)
+    if (resource = promotion.resource[0]).present?
+      [PIC_DOMAIN, resource.name, "_320X0.jpg"].join('')
+    else
+      Settings.default_image_url.product.small
+    end
+  end
 end

@@ -1,0 +1,18 @@
+<p> <span>兑换标准：</span><br></p>
+<span>最低兑换积点为<%= storepromotion.minpoints -%></span><br>
+<div class="xh">
+  <table class="table">
+    <thead>
+    </thead>
+    <tbody>
+      <% storepromotion.rule.each do |_rule| -%>
+        <tr>
+          <td>积点大于等于<br><%= _rule.rangefrom -%></td>
+          <td>积点小于<br><%= _rule.rangeto -%></td>
+          <td>兑换比例<br><%= _rule.ratio -%></td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>
+<p></p>

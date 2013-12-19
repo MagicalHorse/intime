@@ -1,0 +1,16 @@
+<div class="vipleft">
+  <h2><a href="<%= front_storepromotions_path -%>">最新积点兑换活动</a></h2>
+  <div class="content">
+    <% if storepromotion -%>
+      <h3><em></em><%= storepromotion.name -%></h3>
+      <p>参与门店：<%= storepromotion.storenames -%><br>
+      活动时间：<%= format_time_range(@storepromotion.activestartdate, @storepromotion.activeenddate) -%>
+      </p>
+      <p style="text-align:center; padding-top:5px;">
+      <%= link_to '兑换', front_storepromotion_path(storepromotion.id), class: 'btn btn-danger' -%>
+      </p>
+    <% else -%>
+      <p style="text-align:center; line-height:40px; font-size:14px;">暂无最新积点兑换活动！</p>
+    <% end -%>
+  </div>
+</div>

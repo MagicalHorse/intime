@@ -1,0 +1,79 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="<%= front_orders_path %>"><i class="icon-undo"></i></a></li>
+    <li class="title"><span class="ycmenu">订单号：</span><%= @order['orderno'] %></li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <form>
+    <div class="Logistics_query rtds om_df">
+      <div class="item">
+        <div class="item_tit relative bb"><span>订单号：</span><%= @order['orderno'] %><br>
+          <span>订单状态：</span><strong id="order_status"><%= @order['status'] %></strong>
+          <% if API::Order.can_payment?(@order['statust']) %>
+            <a href="<%= pay_front_order_path(@order['orderno']) %>" id="payment" target="_blank" class="btn btn-danger absolute zxzf">在线支付</a>
+          <% end %>
+          <% if @order['canvoid'] %>
+            <a href="javascript:;" id="cancel" data-order-id="<%= @order['orderno'] %>" class="btn absolute zxzf qxdd">取消订单</a>
+          <% end %>
+        </div>
+        <a href="<%= front_product_path(@product['productid']) %>">
+          <div class="item_ct">
+            <div class="item_img"><img src="<%= small_pic_url(@product['resource']) %>" /></div>
+            <div class="item_pr" style="line-height:18px;"> <span style="font-size:12px;"><%= @product['productname'] %></span><br>
+              货号：<%= @product['skucode'] %><br>
+              颜色：<%= @product['colorvalue'] %> 尺码：<%= @product['sizevalue'] %><br>
+              销售价：<strong>￥<%= @product['price'] %></strong> 数量 ：<strong><%= @product['quantity'] %></strong> </div>
+            <div class="item_num">
+              <div class="jt"></div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </a>
+        <div class="item_tit bt thzq"><span>收货人姓名：</span><%= @order['shippingcontactperson'] %><br>
+          <span>地址：</span><%= @order['shippingaddress'] %><br>
+          <span>邮编：</span><%= @order['shippingzipcode'] %><br>
+          <span>手机号码：</span><%= @order['shippingcontactphone'] %><br>
+        </div>
+        <div class="item_tit bt"><span>支付方式：</span><strong><%= @order['paymentname'] %></strong></div>
+        <% if @order['needinvoice'] %>
+          <div class="item_tit bt"><span>发票信息：</span><br>
+            <span>发票抬头：</span><%= @order['invoicetitle'] %><br>
+            <span>发票内容：</span><%= @order['invoicedetail'] %><br>
+          </div>
+        <% end %>
+
+        <div class="item_tit bt">
+          <span>配送及备注：</span><br>
+          <span>送货方式：</span>快递<br>
+          <span>备注：</span><%= @order['memo'] %>
+        </div>
+       <% if @order['ships'].any? %>
+        <div class="item_tit bt"><span>物流信息：</span><br>
+			<span>物流公司：</span><%= @order['ships'][0]['shipvianame'] %><br>
+			<span>物流单号：</span><%= @order['ships'][0]['shipno'] %>
+		</div>
+		 <% end %>
+        <div class="item_tit bt ">
+          <dl>
+            <dd><span>赠送积点：</span><strong><%= @order['totalpoints'] %></strong>
+              <div class="clearfix"></div>
+            </dd>
+            <dd><span>总价：</span><strong>￥<%= @order['extendprice'] %></strong>
+              <div class="clearfix"></div>
+            </dd>
+            <dd><span>快递费：</span><strong>+￥<%= @order['totalfee'] %></strong>
+              <div class="clearfix"></div>
+            </dd>
+            <dd><span>需付款项：</span><strong class="on">￥<%= @order['totalamount'] %></strong>
+              <div class="clearfix"></div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<%= content_for :javascripts do %>
+  <script src="<%= static_url('js/destroy_order.js') %>"></script>
+<% end %>

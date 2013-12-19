@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="mLabel"><%= result[:isSuccessful] ? '兑换成功' : '兑换失败' -%></h3>
+</div>
+<div class="modal-body">
+  <% if result[:isSuccessful] && (coupon = result[:data]) -%>
+    <p style="border-bottom:1px solid #eeeeee;">
+    <span style="display:inline-block; width:90px;">礼券码:</span><%= coupon[:code] -%><br>
+    <span style="display:inline-block; width:90px;">领兑时间：</span><%= coupon[:createddate] -%><br>
+    <span style="display:inline-block; width:90px;">使用有效期：</span><%= format_time_range(coupon[:validstartdate], coupon[:validenddate]) -%><br>
+    <span style="display:inline-block; width:90px;">使用门店：</span><%= coupon[:storename] -%><br>
+    <span style="display:inline-block; width:90px;">兑换积分:</span><%= coupon[:points] -%><br>
+    <span style="display:inline-block; width:90px;">对金额：</span><%= coupon[:amount] -%>元
+    </p>
+    <p style="font-size:12px; color:#D10149; line-height:20px;"> 注意事项：<br>
+    <%= format_newline(coupon[:exclude]) -%>
+  <% else -%>
+    <p style="border-bottom:1px solid #eeeeee;">
+      <%= result[:message] -%>
+    </p>
+  <% end -%>
+
+</div>
+<div class="modal-footer">
+  <% if result[:isSuccessful] -%>
+    <%= link_to '查看兑换券', front_vouchers_path, class: 'btn btn-danger' -%>
+    <%= link_to '继续兑换', front_storepromotions_path, class: 'btn btn-danger' -%>
+  <% end -%>
+</div>

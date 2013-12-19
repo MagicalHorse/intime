@@ -1,0 +1,29 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="<%= front_his_info_path(current_user.id) -%>"><i class="icon-undo"></i></a></li>
+    <li class="title">积点兑换</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="details omjd jddh">
+    <%= render 'binding_info', card: @card -%>
+
+    <div class="ct">
+      <%= render 'new_vouchers', storepromotion: @storepromotion -%>
+      <%= render 'binding_card', card: @card -%>
+    </div>
+    <div class="bottom">
+      <h2>我的积点记录</h2>
+      <ul>
+        <% if @records.present? -%>
+          <% @records.each do |point| -%>
+            <li><%= point['name'] -%><span><%= format_time(point['createddate']) -%></span></li>
+          <% end -%>
+        <% else -%>
+          <li>暂无积点记录！</li>
+        <% end -%>
+      </ul>
+    </div>
+    <%= paginate @records -%>
+  </div>
+</div>

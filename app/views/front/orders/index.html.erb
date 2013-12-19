@@ -1,0 +1,24 @@
+<%= content_for :head_nav do %>
+  <ul class="nav">
+    <li><a href="<%= front_profile_path %>"><i class="icon-undo"></i></a></li>
+    <li<%= ' class="active"'.html_safe if unpaid_orders_page? -%>><a href="<%= front_orders_path(type: API::Order::TYPES[:unpaid]) %>" id="recently">待付款<span class="ycmenu">订单</span></a></li>
+    <li<%= ' class="active"'.html_safe if unreceived_orders_page? -%>><a href="<%= front_orders_path(type: API::Order::TYPES[:unreceived]) %>" id="news">待收货<span class="ycmenu">订单</span></a></li>
+    <li<%= ' class="active"'.html_safe if completed_orders_page? -%>><a href="<%= front_orders_path(type: API::Order::TYPES[:completed]) %>" id="future">已完成<span class="ycmenu">订单</span></a></li>
+    <li<%= ' class="active"'.html_safe if cancelled_orders_page? -%>><a href="<%= front_orders_path(type: API::Order::TYPES[:cancelled]) %>" id="future">已取消<span class="ycmenu">订单</span></a></li>
+  </ul>
+<% end %>
+<div class="span9 main">
+  <div class="Logistics_query olrtds autoth">
+    <% if @orders.present? %>
+      <% if params[:type].to_s == '' || params[:type] == API::Order::TYPES[:unpaid].to_s %>
+        <p class="text-center">待付款订单将为您保留1小时，1小时后还未付款将自动取消订单</p>
+      <% end %>
+      <% @orders.each do |order| %>
+        <%= render partial: 'order', locals: { order: order } %>
+      <% end %>
+      <%= paginate @orders %>
+    <% else %>
+      <%= display_blank_prompt('您还没有购买过商品，赶快去逛逛吧！') %>
+    <% end %>
+  </div>
+</div>

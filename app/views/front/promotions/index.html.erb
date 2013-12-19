@@ -1,0 +1,61 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:void(0)" data-sort="3">距离最近</a></li>
+    <li><a href="javascript:void(0)" data-sort="1">最新发布</a></li>
+    <li><a href="javascript:void(0)" data-sort="2">即将开始</a></li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <%= render 'banner', banners: @banners -%>
+
+  <section class="portfolio">
+    <ul id="tiles" class="thumbnails"></ul>
+    <div id="loader"><div id="loaderCircle"></div></div>
+    <div id="no_data" class="no_data alert alert-error text-center">
+      <h5><i></i>更多精彩活动敬请期待！</h5>
+    </div>
+    <div id="last_page" class="no_data alert alert-error text-center">
+      <h5>最后一页</h5>
+    </div>
+  </section>
+</div>
+<%= content_for :single_jss do -%>
+<script type="text/javascript">
+  $(document).ready(function() {
+    intime.index.init();
+  });
+</script>
+<script type="text/javascript">
+////首页广告图
+$('#banner').royalSlider({
+    //arrowsNav: false,是否用箭头导航,默认true
+    loop: true,
+    //是否从最后一张幻灯片滑动到第一张
+    controlsInside: false,
+    imageScaleMode: 'fill',
+    //图片缩放模式	“fill”, “fit”, “fit-if-smaller” 或 “none”
+    autoScaleSlider: true,
+    //是否基于基础宽度自动更新滑块高度	true或false
+    arrowsNavHideOnTouch: true,
+    //箭头导航是否在触摸设备中隐藏 true或fa
+    autoScaleSliderWidth: 880,
+    //幻灯片基础宽度   
+    autoScaleSliderHeight: 300,
+    //幻灯片基础高度
+    slidesSpacing: 0,
+    //幻灯片之间的间隔，单位px
+    controlNavigation: 'bullets',
+    //导航类型	‘bullets’, ‘thumbnails’, ‘tabs’ 或 ‘none’
+    navigateByClick: true,
+    //是否允许在幻灯片上点击鼠标导航	true或false
+    autoPlay: {
+        // autoplay options go gere
+        enabled: true,
+        pauseOnHover: true
+    },
+    transitionType: 'move',
+    //切换过渡类型	‘move’ 或 ‘fade’
+});
+
+</script>
+<% end -%>

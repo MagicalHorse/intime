@@ -1,0 +1,70 @@
+<%= content_for :head_nav do %>
+  <ul class="nav">
+    <li><a href="<%= front_rma_path %>"><i class="icon-undo"></i></a></li>
+    <li class="title">审核通过</li>
+  </ul>
+<% end %>
+<div class="span9 main">
+  <div class="Logistics_query olrtds">
+    <div class="item" style="position:relative;">
+      <h5>
+        要退货的商品
+        <% if @rma['canvoid'] %>
+          <a href="#barcode" data-toggle="modal" class="btn btn-danger absolute zxzf" style="right: 10px;">取消退换</a>
+          <div id="barcode" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="mLabel">取消退货</h3>
+            </div>
+            <div class="modal-body">
+              <p>您是否要取消退货！</p>
+            </div>
+            <div class="modal-footer">
+              <%= link_to '确认', front_rma_path(@rma['rmano']), class: 'btn btn-danger', method: :delete %>
+            </div>
+          </div>
+        <% end %>
+      </h5>
+      <div class="item_tit bb"><span>订单号：</span><%= @rma['orderno'] %> </div>
+      <div class="item_ct">
+        <div class="item_img"><img src="<%= @product['resource'] %>" /></div>
+        <div class="item_pr"> <span><%= @product['productname'] %></span><br>
+          货号：<%= @product['skucode'] %><br>
+          销售价：<strong>￥<%= @product['price'] %></strong> </div>
+        <div class="item_num">X<%= @product['quantity'] %></div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="item_tit bt"><span>退货金额小计：</span><strong><b>￥<%= @rma['rmaamount'] %></b></strong></div>
+      <div class="item_tit bt thzq"><span>退货理由：</span><%= @rma['reason'] %></div>
+      <% if false %>
+        <h5>请填写退货信息</h5>
+        <%= form_for :rma, url: front_rma_path(@rma['rmano']), method: :put do |f| %>
+          <div class="item_tit bt thzq"><span>联系人：</span>
+            <%= f.text_field :contactperson, value: @rma['contactphone'], placeholder: '输入联系人姓名' %>
+            <br>
+            <span>手机号码：</span>
+            <%= f.text_field :contactphone, value: @rma['contactphone'], placeholder: '有效手机号码' %>
+            <br>
+            <span>退货物流：</span>
+            <select id="rma_shipvia" name="rma[shipvia]">
+              <%= options_for_select shipvia_options(@shipvias), selected: @rma['shipvia'].to_i %>
+            </select>
+            <br>
+            <span>退货物流单号：</span>
+            <%= f.text_field :shipviano, value: @rma['shipviano'], placeholder: '输入退货物流单号' %>
+            <br>
+          </div>
+          <p style="text-align:center;">
+            <%= f.submit '提交', class: 'btn btn-danger', disable_with: '提交中...' %>
+          </p>
+        <% end %>
+      <% end %>
+      <% if can_display_address?(@rma['statust']) %>
+        <p>
+          退货包裹请快递到：<br>
+          <%= @rma['mailaddress'] %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

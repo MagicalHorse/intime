@@ -1,0 +1,11 @@
+<%= content_for :head_nav do -%>
+
+  <ul class="nav">
+    <li><a href="javascript:void(0)"  data-spacetype="1" >喜欢的宝贝</a></li>
+    <li><a href="javascript:void(0)"  data-spacetype="2" >喜欢的促销</a></li>
+    <% if current_user && current_user.level == 2%>
+      <li><a href="javascript:void(0)"  data-spacetype="3" >我的分享</a></li>
+    <% end %>
+  </ul>
+
+<% end -%>

@@ -1,0 +1,160 @@
+<%= content_for :head_nav do -%>
+
+			<ul class="nav">
+				<li class="dropdown" id="menu1">
+					<a class="dropdown-toggle" id="drop1" role="button" data-toggle="dropdown" href="javascript:0">分类<b class="caret"></b></a>
+					<ul class="dropdown-menu span9 ps-container" role="menu" aria-labelledby="drop1">
+						<dl class="hot">
+							<dt>热门分类</dt>
+              <% @hotwords[:words] && @hotwords[:words].each do |word| %>
+                <dd role="presentation">
+                <a role="menuitem" tabindex="-1" href="#" onClick="clears(),loadData('#{word}')">
+                  <%= word %>
+                </a>
+                </dd>
+              <% end %>
+						</dl>
+						<dl>
+							<dd role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">全部<span>1700</span></a></dd>
+              <% @tags[:tags] && @tags[:tags].each do |tag|%>
+                <dd role="presentation">
+                <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('category',<%= tag[:id]%>);">
+                  <%= tag[:name] %>
+                </a>
+                </dd>
+              <% end %>
+						</dl>
+					</ul>
+				</li>
+
+				<li class="dropdown" id="menu2">
+					<a class="dropdown-toggle" id="drop2" role="button" data-toggle="dropdown" href="javascript:0">品牌<b class="caret"></b></a>
+					<ul class="dropdown-menu span9" role="menu" aria-labelledby="drop1">
+						<dl class="hot">
+							<dt>热门品牌</dt>
+              <% @hotwords[:brandwords] && @hotwords[:brandwords].each do |brand| %>
+                <dd role="presentation">
+                <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('brand',<%= brand[:id]%>);">
+                  <%= brand["name"] %>
+                </a>
+                </dd>
+              <% end %>
+						</dl>
+						<dl class="brands">
+							<dt id="myTab">
+								<span class="all active"><a href="#brandALL" title="查看全部品牌的产品">全部</a></span>
+								<span><a href="#brandA" title="查找以中英文首字母为 A 的品牌">A</a></span>
+								<span><a href="#brandB" title="查找以中英文首字母为 B 的品牌">B</a></span>
+								<span><a href="#" title="查找以中英文首字母为 C 的品牌">C</a></span>
+								<span><a href="#" title="查找以中英文首字母为 D 的品牌">D</a></span>
+								<span><a href="#" title="查找以中英文首字母为 E 的品牌">E</a></span>
+								<span><a href="#" title="查找以中英文首字母为 F 的品牌">F</a></span>
+								<span><a href="#" title="查找以中英文首字母为 G 的品牌">G</a></span>
+								<span><a href="#" title="查找以中英文首字母为 H 的品牌">H</a></span>
+								<span><a href="#" title="查找以中英文首字母为 I 的品牌">I</a></span>
+								<span><a href="#" title="查找以中英文首字母为 J 的品牌">J</a></span>
+								<span><a href="#" title="查找以中英文首字母为 K 的品牌">K</a></span>
+								<span><a href="#" title="查找以中英文首字母为 L 的品牌">L</a></span>
+								<span><a href="#" title="查找以中英文首字母为 M 的品牌">M</a></span>
+								<span><a href="#" title="查找以中英文首字母为 N 的品牌">N</a></span>
+								<span><a href="#" title="查找以中英文首字母为 O 的品牌">O</a></span>
+								<span><a href="#" title="查找以中英文首字母为 P 的品牌">P</a></span>
+								<span><a href="#" title="查找以中英文首字母为 Q 的品牌">Q</a></span>
+								<span><a href="#" title="查找以中英文首字母为 R 的品牌">R</a></span>
+								<span><a href="#" title="查找以中英文首字母为 S 的品牌">S</a></span>
+								<span><a href="#" title="查找以中英文首字母为 T 的品牌">T</a></span>
+								<span><a href="#" title="查找以中英文首字母为 U 的品牌">U</a></span>
+								<span><a href="#" title="查找以中英文首字母为 V 的品牌">V</a></span>
+								<span><a href="#" title="查找以中英文首字母为 W 的品牌">W</a></span>
+								<span><a href="#" title="查找以中英文首字母为 X 的品牌">X</a></span>
+								<span><a href="#" title="查找以中英文首字母为 Y 的品牌">Y</a></span>
+								<span><a href="#" title="查找以中英文首字母为 Z 的品牌">Z</a></span>
+							</dt>
+							<div id="myTabContent" class="tab-content" style="overflow:visible;">
+								<div class="tab-pane active" id="brandALL">
+									<dd role="presentation">
+										<a role="menuitem" tabindex="-1" title="Astalift/艾诗缇" href="#">
+											<img src="temp/brands_90_45_1.jpg" alt="Astalift/艾诗缇">
+										<p>艾诗缇<span>(Astalift)</span></p>
+										</a>
+									</dd>
+									<dd role="presentation">
+										<a role="menuitem" tabindex="-1" title="COACH" href="#">
+											<img src="temp/brands_90_45_2.jpg" alt="COACH">
+											<p>蔻驰<span>(COACH)</span></p>
+										</a>								
+									</dd>
+									<dd role="presentation">
+										<a role="menuitem" tabindex="-1" title="LEVI'S" href="#"><img src="temp/brands_90_45_3.jpg" alt="LEVI'S">
+											<p>李维斯<span>(LEVI'S)</span></p>
+										</a>
+									</dd>
+								</div>
+
+                <% ('A'..'Z').to_a.each do |character| %>
+                  <div class="tab-pane" id="brand#{character}">
+                    <% @brands[character] && @brands[character].each do |brand| %>
+                      <dd role="presentation">
+                      <p><a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('brand',<%= brand[:id]%>);"><%= brand[:name]%></a></p>
+                      </dd>
+                    <% end %>
+                  </div>
+                <% end %>
+
+							</div>
+
+							<div class="clearfix"></div>
+						</dl>
+						
+					</ul>
+				</li>
+        
+				<li class="dropdown" id="menu3">
+                	<a class="dropdown-toggle" id="drop3" role="button" data-toggle="dropdown" href="javascript:0">商店<b class="caret"></b></a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+						<li role="presentation" class="active"><a role="menuitem" tabindex="-1" href="#">全部门店</a></li>
+            <% @stores[:stores] && @stores[:stores].each do |store| %>
+              <li role="presentation">
+              <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('store',<%= store[:id]%>);">
+                <%= store[:name] %>
+              </a>
+              </li>
+            <% end %>
+					</ul>
+             	</li>
+				<li class="dropdown" id="menu4">
+                	<a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="javascript:0">排序<b class="caret"></b></a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="drop4">
+            <li role="presentation" class="active">
+            <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sorted',1);">最新发布</a>
+            </li>
+            <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sorted',2);">价格最高</a>
+            </li>
+            <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sorted',3);">价格最低</a>
+            </li>
+            <li role="presentation">
+            <a role="menuitem" tabindex="-1" href="#" onclick="clears(),loadData('sorted',4);">人气最高</a>
+            </li>
+					</ul>
+             	</li>
+				<div class="input-append pull-right search">
+					<input type="text" id="search" placeholder="请输入搜索内容">
+					<button class="btn" type="button" onClick="clears(),loadData($('#search').val());"><i class="icon-search icon-large"></i></button>
+				</div>
+				<!--/.search-collapse -->
+			</ul>	
+			<!--/.nav-collapse -->
+
+<% end -%>
+
+<div class="span9 main">
+  <section class="portfolio">
+  <ul id="tiles" class="thumbnails tmode">
+  </ul>
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
+  </section>
+</div>

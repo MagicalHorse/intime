@@ -1,0 +1,16 @@
+<section class="pinglun">
+  <h2>评论<span id="totalcount" class="distance"></span></h2>
+  <div id="list">
+    <ul id="tiles" class="comments"></ul>
+    <div id="no_data" class="no_data alert alert-error text-center">
+      <h5><a href="#post" data-toggle="modal" style="display:block;color:#E50050;">抢沙发</a></h5>
+    </div>
+    <div id="last_page" class="no_data alert alert-error text-center">
+      <h5>最后一页</h5>
+    </div>
+    <%= render '/front/comments/comment' -%>
+  </div>
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
+</section>

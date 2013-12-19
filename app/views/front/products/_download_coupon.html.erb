@@ -1,0 +1,19 @@
+<dd>
+<% if @product_info.blank? || !@product_info['ifcancoupon'] -%>
+  <%= image_tag '/images/icon_barcodex_2x.png', height: 24, width: 24 -%><span>优惠码</span>
+<% else -%>
+  <%= link_to raw("#{image_tag('/images/icon_barcode_2x.png', height: 24, width: 24)}<span>优惠码</span>"), download_coupon_front_product_path(product.id), remote: true, method: :post, disable_with: "#{image_tag('/images/icon_barcode_2x.png', height: 24, width: 24)}<span>下载中</span>" -%>
+<% end -%>
+</dd>
+<div id="barcode" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="mLabel">优惠码</h3>
+  </div>
+  <div class="modal-body">
+    <p>下载成功！在商场收银台结算时请出示该优惠码获得尊享优惠！</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    <a class="btn btn-danger" href="#">查看优惠码</a> </div>
+</div>

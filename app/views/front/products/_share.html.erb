@@ -1,0 +1,14 @@
+<dd><a href="#share" data-toggle="modal"><img src="/images/icon_share_2x.png" width="24" height="24"><span>分享</span></a></dd>
+<div id="share" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="share" aria-hidden="false">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="mLabel">选择分享方式</h3>
+  </div>
+  <div class="modal-body">
+    <span><a href="<%= share_with_sina(product) -%>" target='_blank'><img src="/images/weibo.png">新浪微博</a></span>
+    <span><a href="<%= share_with_tengxun(product) -%>"><img src="/images/weibo_t.png">腾讯微博</a></span>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+  </div>
+</div>

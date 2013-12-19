@@ -1,0 +1,47 @@
+<%= content_for :head_nav do -%>
+<ul class="nav">
+  <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+  <% if params[:userid].present? %>
+    <li class="title">Ta的粉丝</li>
+  <% else %>
+    <li class="title">我的粉丝</li>
+  <% end %>
+</ul>
+<% end -%>
+
+<div class="span9 main">
+  <!-- follow -->
+  <section class="portfolio">
+  <ul class="thumbnails">
+    <% if @results.blank? %>
+      <div id="no_data" class="no_data alert alert-error text-center" style="display:block">
+        <h5><i></i>怎么还木有人关注我~~还没有任何人粉Ta~~</h5>
+      </div>
+    <% else %>
+    <% @results.each do |result|%>
+    <li class="fans">
+    <div class="thumbnail">
+      <div>
+        <a href="<%= front_his_info_path(result[:id])%>" class="face">
+          <img src="<%= href_of_avatar_url result[:logo]%>" alt="<%= result[:nickname]%>" width="80" height="80">
+        </a>
+        <ul class="info">
+          <li class="name"><i class="icon-star"></i>
+          <a href="<%= front_his_info_path(result[:id])%>">
+            <%= result[:nickname]%>
+          </a>
+          </li>
+
+          <li class="atten">
+          <span>关注<%= result[:liketotal]%></span>
+          <span>粉丝<%= result[:likedtotal]%></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </li>
+  <% end %>
+  <% end %>
+  </ul>
+  </section>
+</div>

@@ -1,0 +1,51 @@
+<%= content_for :head_nav do %>
+  <ul class="nav">
+    <li><a href="<%= front_rmas_path %>"><i class="icon-undo"></i></a></li>
+    <li class="title">退货单号：<%= @rma['rmano'] %></li>
+  </ul>
+<% end %>
+<div class="span9 main">
+  <div class="Logistics_query rtds">
+    <div class="item">
+      <h5>要退货的商品</h5>
+      <div class="item_tit bb"><span>订单号：</span><%= @rma['orderno'] %> </div>
+      <div class="item_ct">
+        <div class="item_img"><img src="<%= small_pic_url(@product['resource']) %>" /></div>
+        <div class="item_pr">
+          <span><%= @product['productname'] %></span><br>
+          货号：<%= @product['skucode'] %><br>
+          销售价：<strong>￥<%= @product['price'] %></strong>
+        </div>
+        <div class="item_num">X<%= @product['quantity'] %></div>
+        <div class="clearfix"></div>
+      </div>
+      <div class="item_tit bt"><span>退货金额小计：</span><strong><b>￥<%= @rma['rmaamount'] %></b></strong></div>
+      <div class="item_tit bt"><span>退货理由：</span><%= @rma['reason'] %></div>
+      <div class="item_tit bb bt"><span>退货单号：</span><%= @rma['rmano'] %>
+      <% if @rma['logs'].present? %>
+        <ul>
+          <% @rma['logs'].each do |log| %>
+            <li><span><%= format_time(log['createddate']) %></span><br><%= log['memo'] %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      </div>
+      <% if false %>
+        <h5>退货信息</h5>
+        <div class="item_tit bt thzq">
+          <!-- TODO -->
+          <span>联系人：</span><%= %><br>
+          <span>手机号码：</span><%= @rma['contactphone'] %><br>
+          <span>退货物流：</span><%= @rma['shipvia'] %><br>
+          <span>退货物流单号：</span><%= @rma['shipviano'] %><br>
+        </div>
+      <% end %>
+      <% if can_display_address?(@rma['statust']) %>
+        <p>
+          退货包裹请快递到：<br>
+          <%= @rma['mailaddress'] %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

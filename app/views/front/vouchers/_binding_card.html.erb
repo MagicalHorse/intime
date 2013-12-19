@@ -1,0 +1,16 @@
+<div class="vipright">
+  <h2>我的会员卡</h2>
+  <div class="content hui">
+    <p class="hykind">
+      <% if current_user.isbindcard -%>
+        会员卡类型：<%= card[:lvl] -%><br>
+        会员卡卡号：<%= card[:cardno] -%><br>
+        会员卡总积点数：<%= card[:amount] -%>
+      <% else -%>
+        您还没有绑定会员卡<br>
+        <a href="<%= binding_card_front_vouchers_path -%>" class="btn btn-danger">绑定</a>
+      <% end -%>
+    </p>
+  </div>
+</div>
+<div class="clear"></div>

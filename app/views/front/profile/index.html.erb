@@ -1,0 +1,34 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="<%= front_my_favorite_path %>"><i class="icon-undo"></i></a></li>
+    <li class="title">预购中心</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="details omjd">
+    <div class="top">
+      <div class="head_img"><span></span><img src="<%= href_of_avatar_url(current_user.avatar_url) %>" ></div>
+      <div class="cname">
+        <p><span></span><%= current_user.nickie %></p>
+        <% if current_user.isbindcard -%>
+          <p><span>积点：</span><%= current_user.point + @card[:amount] %></p>
+        <% else -%>
+          <p><span>积点：</span><%= current_user.point %></p>
+        <% end -%>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <dl>
+      <dd><a href="<%= front_orders_path %>"><img src="<%= static_url('images/icon_file_2x.png') %>" width="50" height="50"><br>
+          <span>订单管理</span></a></dd>
+      <dd><a href="<%= front_addresses_path %>"><img src="<%= static_url('images/icon_home_2x.png') %>" width="50" height="50"><br>
+          <span>收货地址</span></a></dd>
+      <dd><a href="<%= order_index_front_rmas_path %>"><img src="<%= static_url('images/icon_tundo_2x.png') %>" width="50" height="50"><br>
+          <span>自助退货</span></a></dd>
+      <dd><a href="<%= front_profile_return_policy_path %>"><img src="<%= static_url('images/icon_diary_2x.png') %>" width="50" height="50"><br>
+          <span>退货政策</span></a></dd>
+      <div class="clearfix"></div>
+    </dl>
+  </div>
+</div>
+

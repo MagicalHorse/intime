@@ -1,0 +1,41 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="<%= exchange_info_front_vouchers_path -%>"><i class="icon-undo"></i></a></li>
+    <li class="title">会员卡绑定</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <% if flash[:notice] -%>
+    <div class="alert alert-error">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <%= flash[:notice] -%>
+    </div>
+  <% end -%>
+  <div class="details omjd hykbd">
+    <%= form_tag bindcard_front_vouchers_path, method: :post do -%>
+      <div class="bdtd">
+        <p><span>卡号：</span>
+        <%= text_field_tag :cardno, nil, placeholder: '请输入您的会员卡卡号' -%>
+        </p>
+        <p><span>密码：</span>
+        <%= password_field_tag :password, nil, placeholder: '请输入您的会员卡密码' -%>
+        </p>
+        <p>
+        <a href="#barcode" data-toggle="modal" class="btn btn-danger ">绑定</a>
+        </p>
+        <div id="barcode" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="mLabel">会员卡绑定</h3>
+          </div>
+          <div class="modal-body">
+            <p>您确定要绑定会员卡吗？</p>
+          </div>
+          <div class="modal-footer">
+            <%= submit_tag '确认', class: 'btn btn-danger', 'aria-hidden' => 'true' -%>
+            <a class="btn " data-dismiss="modal" aria-hidden="true">取消</a> </div>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div id="barcode" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="mLabel">礼券使用范围</h3>
+  </div>
+  <div class="modal-body">
+    <% inscopenotice.each do |notice| -%>
+      <h4 style="font-size:14px; font-weight:normal; border-bottom:1px solid #eeeeee; line-height:30px; margin: 0 0 5px 0;">使用门店：<%= notice.storename -%></h4>
+      <p style="font-size:12px; line-height:16px;">使用范围：<%= format_newline(notice.excludes) -%></p>
+    <% end -%>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">确认</button>
+  </div>
+</div>

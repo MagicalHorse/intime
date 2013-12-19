@@ -1,0 +1,68 @@
+<%= form_for :address, url: front_address_path(address[:id]), method: :put, remote: true, html: { class: 'update_address' } do |f| %>
+  <div class="item">
+    <a href="javascript:;">
+      <div class="item_tit thzq lh25" >
+        <span>收货人：</span><%= address['shippingperson'] %><br>
+        <span>手机号码：</span><%= address['shippingphone'] %><br>
+        <span>收货地址：</span><%= address['shippingprovince'] %><%= address['shippingcity'] %><%= address['shippingdistrict'] %><%= address['shippingaddress'] %><br>
+        <span>邮编：</span><%= address['shippingzipcode'] %><br>
+      </div>
+    </a>
+  </div>
+  <p style="text-align:center;"> <a href="#alter<%= address['id'] %>" data-toggle="modal" class="btn">修改</a> <a href="#delete<%= address['id'] %>" data-toggle="modal" class="btn ">删除</a>
+    <div id="alter<%= address['id'] %>" class="modal hide fade in" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="mLabel">修改当前地址</h3>
+      </div>
+      <div class="modal-body">
+        <div class="messages"></div>
+        <div class="item_tit thzq"><span>收货人：</span>
+          <%= f.text_field :shippingperson, value: address[:shippingperson] %>
+          <br>
+          <span>省份：</span>
+          <select name="address[shippingprovinceid]" data-name="province_id" data-value="<%= address[:shippingprovinceid] %>">
+          </select>
+          <%= f.hidden_field :shippingprovince, value: address[:shippingprovince] %>
+          <br>
+          <span>城市：</span>
+          <select name="address[shippingcityid]" data-name="city_id" data-value="<%= address[:shippingcityid] %>">
+          </select>
+          <%= f.hidden_field :shippingcity, value: address[:shippingcity] %>
+          <br>
+          <span>地区：</span>
+          <select name="address[shippingdistrictid]" data-name="district_id" data-value="<%= address[:shippingdistrictid] %>">
+          </select>
+          <%= f.hidden_field :shippingdistrict, value: address[:shippingdistrict] %>
+          <br>
+          <span>收货地址：</span>
+          <%= f.text_field :shippingaddress, value: address[:shippingaddress] %>
+          <br>
+          <span>邮编：</span>
+          <%= f.text_field :shippingzipcode, value: address[:shippingzipcode] %>
+          <br>
+          <span>手机号码：</span>
+          <%= f.text_field :shippingphone, value: address[:shippingphone] %>
+          <br>
+        </div>
+      </div>
+      <div class="modal-footer">
+          <%= f.submit '保存', class: 'btn btn-danger', disable_with: '提交中...' %>
+        <a class="btn btn-danger" data-dismiss="modal">取消</a>
+      </div>
+    </div>
+
+    <div id="delete<%= address['id'] %>" class="modal hide fade in" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="mLabel">删除地址</h3>
+      </div>
+      <div class="modal-body">
+        <p>是否确定要删除地址？</p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to '确认', front_address_path(address['id']), method: :delete, class: 'btn btn-danger delete_address', remote: true, disable_with: '删除中...' %>
+      </div>
+    </div>
+  </p>
+<% end %>

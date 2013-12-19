@@ -1,2 +1,44 @@
-<h1>Front::Products#index</h1>
-<p>Find me in app/views/front/products/index.html.erb</p>
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">商品列表</li>
+  </ul>
+<% end -%>
+<div id="info" info="<%= @info.first%>,<%= @info.last%>"></div>
+
+<div class="span9 main">
+  <section class="portfolio">
+  <ul id="tiles" class="thumbnails tmode">
+
+  </ul>
+
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
+
+  <div id="no_data" class="no_data alert alert-error text-center">
+    <h5><i></i>很抱歉，暂时还没有商品！</h5>
+  </div>
+  <div id="last_page" class="no_data alert alert-error text-center">
+    <h5>最后一页</h5>
+  </div>
+  </section> 
+</div>
+<%= content_for :javascripts do -%>
+  <script type="text/javascript">
+    function get_source(){
+      var str =$('#info').attr('info');
+      var arr= new Array(); //定义一数组
+      arr=str.split(","); //字符分割   
+      type = arr[0];
+      entity_id = arr[1];
+    }
+$(document).ready(function() {
+    get_source();
+    var index = intime.storeproduct;
+    $(document).bind('scroll', index.onScroll);
+    index.loadData(type,entity_id);
+    });
+  </script>
+  
+<% end %>

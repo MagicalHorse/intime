@@ -50,6 +50,23 @@ gem 'uuid'
 gem 'geocoder'
 gem 'omniauth', '~> 1.0'
 gem 'omniauth-weibo-oauth2'
-gem 'omniauth-qq'
+gem "omniauth-tqq-oauth2", "~> 0.0.4"
+gem "omniauth-qq-connect", "~> 0.2.0"
+gem "omniauth-wechat",:git => "git://github.com/victorgong/omniauth-wechat"
 gem 'rest-client'
 gem 'rake', '>= 10.1.0'
+
+gem 'rails_config'
+gem 'kaminari'
+
+group :development, :test do
+  gem "rspec"
+  gem "rspec-rails"
+  gem "factory_girl"
+  gem 'factory_girl_rails'
+  gem 'pry-rails'
+  gem 'pry-doc'
+  gem 'pry-nav'
+  gem 'awesome_print'
+  gem 'quiet_assets'
+end

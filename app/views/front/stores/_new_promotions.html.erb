@@ -1,0 +1,17 @@
+<% if promotions.present? -%>
+  <div class="page-header"> 
+    <h2><a href="<%= promotions_front_store_path(store.id) -%>"><i class="icon_location"></i>最新促销<span class="pull-right">更多&gt;&gt;</span></a></h2>
+  </div>
+  <ul class="thumbnails">
+    <% promotions.each do |promotion| -%>
+      <li class="rsContent" data-rsdelay="5000">
+      <div class="thumbnail">
+        <div class="action"> <a href="<%= front_promotion_path(promotion.id) -%>"><img src="<%= promotion.image_urls.try(:first) -%>" alt=" "></a>
+          <p><%= promotion.description -%></p>
+        </div>
+        <h3 class="bottom"><a href="<%= front_promotion_path(promotion.id) -%>" title=""><%= promotion.name -%></a></h3>
+        <small> <span class="pull-left"><i class="icon-time"></i><%= format_time_range(promotion.startdate, promotion.enddate) -%></span> <span class="pull-right"><i class="icon-heart"></i><%= promotion.likecount -%>+</span> </small> </div>
+      </li>
+    <% end -%>
+  </ul>
+<% end -%>

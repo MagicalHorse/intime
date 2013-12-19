@@ -1,0 +1,3 @@
+<% if @result[:isSuccessful] -%>
+  $('#unfollow').html('<%= link_to "关注", front_follow_path(@result[:data][:user][:id]), remote: true, method: :post, id: 'follow' -%>');
+<% end -%>

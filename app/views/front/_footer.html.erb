@@ -1,0 +1,13 @@
+<footer>
+<div class="container">
+  <div class="pull-right">
+    <a href="<%= root_url %>">首页</a>|
+    <a href="<%= front_feedback_path -%>">意见反馈</a>|
+    <a href="<%= front_about_path -%>">关于</a>
+    <% if !signed_in? %>
+      |<a href="<%= login_url %>">登录</a>
+    <% end -%>
+  </div>
+  <div class="pull-left">Copyright © 2013 i.intime.com.cn. All Rights Reserved</div>
+</div>
+</footer>

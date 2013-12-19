@@ -1,0 +1,63 @@
+<%= content_for :head_nav do %>
+  <ul class="nav">
+    <li><a href="<%= order_index_front_rmas_path %>"><i class="icon-undo"></i></a></li>
+    <li class="title">提交审核</li>
+  </ul>
+<% end %>
+<div class="span9 main">
+  <div class="Logistics_query olrtds Applyth">
+    <%= form_for :rma, url: front_rmas_path, remote: true, html: { id: 'new_rma' } do |f| %>
+      <div class="item">
+        <h5>要退货的商品</h5>
+        <div class="item_tit bb"><span>订单号：</span><%= @order['orderno'] %></div>
+        <%= f.hidden_field :orderno, value: @order['orderno'] -%>
+        <%= f.hidden_field :products, value: @order['products'].to_json %>
+        <div class="item_ct">
+          <div class="item_img"><img src="<%= small_pic_url(@product['resource']) %>" /></div>
+          <div class="item_pr"> <span><%= @product['productname'] %></span><br>
+            货号：<%= @product['skucode'] %><br>
+            销售价：<strong>￥</strong><strong class="tkje"><%= @product['price'] %></strong>
+          </div>
+          <div class="item_num">
+            <div class="change-goods-num "> <a href="javascript:;" class="goodsNumMinus"><span class="icon-common-negative"></span></a>
+              <%= f.text_field :quantity, class: 'goods-num', value: 1 %>
+              <a href="javascript:;" class="goodsNumPlus"><span class="icon-common-add"></span></a> </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="item_tit bt"><span>退货金额小计：</span><strong><b>￥</b><b class="thjexj"><%= @order['totalamount'] %></b></strong></div>
+        <div class="item_tit bt thzq"><span>退货理由：</span>
+          <%= f.select :rmareason, reason_options(@reasons) %>
+          <br>
+          <%= f.text_area :reason, style: 'width: 90%; height: 6em; display: none;', placeholder: '请填写退货理由' %>
+        </div>
+        <p style="text-align:center;">
+          <%= f.submit '提交审核', class: 'btn btn-danger', disable_with: '提交中...' %>
+          <div id="succeed" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="succeed" aria-hidden="false">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="mLabel">申请退货</h3>
+            </div>
+            <div class="modal-body">
+              <p>退货申请已提交，请您耐心等待审核，审核通过后请您将商品、发票、发货单快递到指定收货地址，我们将尽快为您办理退货！</p>
+            </div>
+            <div class="modal-footer"> <a href="<%= front_rmas_path %>" class="btn btn-danger">确认</a> </div>
+          </div>
+          <div id="failed" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="failed" aria-hidden="false">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="mLabel">申请退货</h3>
+            </div>
+            <div class="modal-body">
+              <p>申请失败，请重新申请！</p>
+            </div>
+            <div class="modal-footer"> <a href="javascript:;" class="btn btn-danger" data-dismiss="modal" aria-hidden="true">确认</a> </div>
+          </div>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= content_for :javascripts do %>
+  <script src="<%= static_url('js/new_rma.js') %>"></script>
+<% end %>

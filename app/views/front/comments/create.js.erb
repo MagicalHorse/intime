@@ -1,0 +1,3 @@
+$('#reply .close').click();
+$('#tiles').prepend("<%= escape_javascript(render 'front/comments/comment_info', comment: @comment) -%>")
+$('#totalcount').html(parseInt($('#totalcount').html()) + 1);

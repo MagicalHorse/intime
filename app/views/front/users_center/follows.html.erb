@@ -1,0 +1,55 @@
+<%= content_for :head_nav do -%>
+<ul class="nav">
+  <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+  <% if params[:userid].present? %>
+    <li class="title">Ta的关注</li>
+  <% else %>
+    <li class="title">我的关注</li>
+  <% end %>
+</ul>
+<% end -%>
+<div class="span9 main">
+  <!-- follow -->
+  <section class="portfolio">
+  <ul class="thumbnails">
+    <% if @results.blank? %>
+      <div id="no_data" class="no_data alert alert-error text-center" style="display:block">
+        <h5><i></i>关注Ta人，看Ta人喜欢和分享~~Ta还没有关注任何人~~</h5>
+      </div>
+    <% else %>
+    <% @results.each do |result|%>
+    <li class="fans">
+    <div class="thumbnail">
+      <div>
+        <a href="<%= front_his_info_path(result[:id])%>" class="face">
+          <img src="<%= href_of_avatar_url result[:logo]%>" alt="<%= result[:nickname]%>" width="80" height="80">
+        </a>
+        <ul class="info">
+          <li class="name"><i class="icon-star"></i>
+          <a href="<%= front_his_info_path(result[:id])%>">
+            <%= result[:nickname]%>
+          </a>
+          </li>
+
+          <% if params["userid"].blank? %>
+            <li class="follow">
+            <button type="button" class="btn btn-mini">
+              <i class="icon-minus"></i>
+              <%= link_to raw("取消关注"), front_unfollow_path(result[:id]), id: 'unfollow', remote: true, method: :post -%>
+            </button>
+            </li>
+          <% end %>
+
+          <li class="atten">
+          <span>关注<%= result[:liketotal]%></span>
+          <span>粉丝<%= result[:likedtotal]%></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    </li>
+  <% end %>
+<% end %>
+  </ul>
+  </section>
+</div>

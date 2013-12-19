@@ -1,0 +1,269 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">填写订单</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <!-- 商品信息 -->
+  <section class="promo_info addorder">
+    <div id="picbox" class="carousel slide">
+      <div class="carousel-inner">
+        <div id="order_div_img"><img id="order_img" src="<%= default_product_pic_url %>" alt=""></div>
+      </div>
+    </div>
+    <div class="infobox">
+      <div class="head">
+        <h1></h1>
+        <ul class="meta relative">
+          <li><span>吊牌价</span>￥<i id="originprice"></i></li>
+          <li><span>销售价</span>￥<em id="price"></em></li>
+          <li><span>货号</span><p id="huohao"></p></li>
+          <div class="brand"></div>
+        </ul>
+      </div>         
+      <div class="buyinfo">
+        <div class="prop mb20" data-toggle="buttons-radio">
+          <span class="tages">颜色</span>
+          <div id="myTab">
+
+          </div>
+        </div>
+        <div id="sss" class="tab-content">
+
+        </div>
+
+        <div class="item_num mb20" >
+          <div class="change-goods-num"> <span class="tages">数量</span> <a href="javascript:void(0);" class="goodsNumMinus"><span class="icon-common-negative"></span></a>
+            <input tyep="text"  class="goods-num" value="1" name="3" id="goods_num">
+            <a href="javascript:void(0);"  class="goodsNumPlus" ><span class="icon-common-add"></span></a></div>
+        </div>
+        <div class="property">您选择颜色：<span id="goods_color"></span> 尺码：<span id="goods_size"></span> 购买数量：<span class="goods-num" id="goods_num" >1</span>件</div>
+      </div>
+      <input type="hidden" id="colourid"/><input type="hidden" id="sizeid"/>
+    </div>
+    <div class="clearfix"></div>
+    <div class="Logistics_query rtds om_df" style="border:0px; padding:0px; ">
+      <div class="item">
+        <div id="have_adress" class="item_tit thzq" style="display:none;">
+          <span>收货人姓名：</span><em style="font-style: normal;" id="shippingperson"></em><br/>
+          <span>省份：</span><em style="font-style: normal;" id="shippingprovince"></em><br>
+          <span>地址：</span><em style="font-style: normal;" id="shippingaddress"></em><br/>
+
+          <span>邮编：</span><em style="font-style: normal;" id="shippingzipcode"></em><br>
+          <span>手机号码：</span><em style="font-style: normal;" id="shippingphone"></em><br>
+
+
+
+          <div id="accordion01" class="alter">
+            <span><a href="#alter01" data-toggle="collapse" data-parent="#accordion01" class="btn">修改本收货地址</a></span>
+            <span><a href="#add01" data-toggle="collapse" data-parent="#accordion01" class="btn">使用新收货地址</a></span>
+            <div class="accordion-group">
+              <div id="alter01" class="collapse">
+                <div class="conbox">
+                  <div class="item_tit thzq">
+                    <span>收货人：</span>
+                    <input id="edit_user" type="text" value="">
+                    <br>
+                    <span>省份：</span>
+                    <select id="sheng" onChange="intime.order.provinceChanged(this.value,1,'#cheng');"> 
+
+
+                    </select>
+                    <br>
+                    <span>城市：</span>
+                    <select id="cheng" onChange="intime.order.cityChanged(this.value,1,'#qu');">
+                      <option>选择城市</option>
+
+                    </select>
+                    <br>
+                    <span>地区：</span>
+                    <select id="qu">
+                      <option>选择地区</option>
+
+                    </select>
+                    <br>
+                    <span>收货地址：</span>
+                    <input id="edit_address" type="text" value="">
+                    <br>
+                    <span>邮编：</span>
+                    <input id="edit_code" type="text" value="">
+                    <br>
+                    <span>手机号码：</span>
+                    <input id="edit_phone" type="text" value="">
+                    <br>
+                    <input type="hidden" value="" id="addressid"/>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="" data-toggle="collapse" class="btn btn-danger" onClick="intime.orderaddress.edit_address();">保存使用</a>
+                    <a href="#alter01" data-toggle="collapse" class="btn btn-danger">取消</a>
+                  </div>
+                  <span style="font-size:14px;width:200px !important;">使用其他地址</span>
+                  <form id="address" name="form1" method="post" action="">
+
+                  </form>
+                  <div class="modal-footer">
+                    <a href="#alter01"  data-toggle="collapse" class="btn btn-danger"  onClick="intime.orderaddress.change();" >选择使用</a>
+                    <a href="#alter01" data-toggle="collapse" class="btn btn-danger">取消</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-group">
+              <div id="add01" class="collapse">
+                <div class="conbox">
+                  <span>收货人：</span>
+
+                  <input id="syxd_username" type="text" placeholder="收货人姓名">
+                  <br>
+                  <span>省份：</span>
+                  <select id="sheng_syxd" onChange="intime.order.provinceChanged(this.value,2,'#cheng_syxd');">
+                    <option>请选择省份</option>
+                  </select>
+                  <br>
+                  <span>城市：</span>
+                  <select id="cheng_syxd" onChange="intime.order.cityChanged(this.value,2,'#qusyxd');">
+                    <option>请选择城市</option>
+
+                  </select>
+                  <br>
+                  <span>地区：</span>
+                  <select id="qusyxd">
+                    <option>请选择地区</option>
+                  </select>
+                  <br>
+                  <span>收货地址：</span>
+                  <input id="syxd_address" type="text" placeholder="收货人地址">
+                  <br>
+                  <span>邮编：</span>
+                  <input id="syxd_code" type="text" placeholder="邮政编码">
+                  <br>
+                  <span>手机号码：</span>
+                  <input id="syxd_phone" type="text" placeholder="有效手机号码">
+                  <br>
+                  <div class="modal-footer">
+                    <a href="" data-toggle="collapse" id="addnew_address" class="btn btn-danger" onClick="intime.orderaddress.new_address();">确定</a>
+                    <a href="#add01" data-toggle="collapse" class="btn btn-danger">取消</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--用户未创建过收货地址状态-->
+        <div id="no_address" class="item_tit thzq" style="display:none;">
+          <span style="width:200px !important;">您还没有创建收货地址</span>
+          <div class="add02"><a href="#add02" data-toggle="modal" ><span class="btn">+</span></a></div>
+          <div id="add02" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h3 id="mLabel">添加新地址</h3>
+            </div>
+            <div class="modal-body">
+              <div class="item_tit thzq" ><span>收货人：</span>
+                <input id="username" type="text" placeholder="收货人姓名">
+                <br>
+                <span>省份：</span>
+                <select name=province id="province"  onChange="intime.order.provinceChanged(this.value,3,'#city');">
+                  <option>请选择省份</option>
+
+                </select>
+                <br>
+                <span>城市：</span>
+                <select name=city id="city"  onChange="intime.order.cityChanged(this.value,3,'#county');">
+                  <option>请选择城市</option>
+                </select>
+                <br>
+                <span>地区：</span>
+                <select name=county id="county">
+                  <option>请选择地区</option>
+
+                </select>
+                <br>
+                <span>收货地址：</span>
+                <input id="shaddress" type="text" placeholder="收货人地址">
+                <br>
+                <span>邮编：</span>
+                <input id="postcode" type="text" placeholder="邮政编码">
+                <br>
+                <span>手机号码：</span>
+                <input id="cellphone" type="text" placeholder="有效手机号码">
+                <br>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a class="btn btn-danger" data-dismiss="modal" onClick="intime.orderaddress.add_address();">确定</a>
+              <a class="btn btn-danger" data-dismiss="modal">取消</a>
+            </div>
+          </div>
+        </div>						
+        <!--用户未创建过收货地址状态-->						
+        <div class="item_tit bt" id="supportpayments" ><span>支付方式：</span> <br>
+          <!--<label><input name="u40" type="radio" id="u42" value="radio" checked />
+              支付宝支付</label>-->							
+        </div>
+        <div class="item_tit bt" style="line-height: 34px;"><span>发票信息：</span><br>
+          <span>发票抬头：</span>
+          <select id="invoice" onChange="ontip()" style="margin-left:0px;">
+            <option value="invoice_1">个人</option>
+            <option value="invoice_2">公司</option>
+          </select>
+          <br>
+          <div id="form-tip" style="display:none">
+            <span>公司名称：</span>
+            <input id="company_name" type="text" placeholder="请填写公司名称">
+            <br>
+          </div>
+          <span>发票备注：</span>
+          <input id="bill_comments" type="text" placeholder="请填写发票备注">
+          <br>
+        </div>
+        <div class="item_tit bt"><span>配送及备注：</span><br>
+          <span>送货方式：</span>快递(全场免运费)<br>
+          <span>备注：</span>
+          <input id="dis_comments" type="text" placeholder="请填写备注">
+        </div>
+        <div class="item_tit bt ">
+          <dl>
+            <dd><span>赠送积点：</span><strong><span id="jidian"></span></strong>
+            <div class="clearfix"></div>
+            </dd>
+            <dd><span>总价：</span><strong><span id="zj"></span></strong>
+            <div class="clearfix"></div>
+            </dd>
+            <dd><span>快递费：</span><strong><span id="kdf"></span></strong>
+            <div class="clearfix"></div>
+            </dd>
+            <dd><span>需付款项：</span><strong class="on"><span id="xfkx"></span></strong>
+            <div class="clearfix"></div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;"> <a href="javascript:void(0)" id="add_order" class="btn btn-danger " onClick="intime.order.add_order()">提交订单</a>
+    <div id="barcode012" class="modal hide fade" data-backdrop="static">
+      <div class="modal-header">
+        <h3 id="mLabel">订单已提交！</h3>
+      </div>
+      <div class="modal-body">
+        <p style="line-height:30px;text-align:center">订单编号：<i id="order_id"></i><br>
+        支付方式：<strong id="payment_name"></strong></p>
+        <p style="font-size:12px;text-align:center;"><span style="color:#990000">请在1小时内完成支付，过时订单将会自动取消！</span></p>
+      </div>
+      <div class="modal-footer"> <a href="" id="check_order" class="btn" >查看订单</a> <a href="" id="payment" class="btn btn-danger">在线支付</a> </div>
+    </div>
+    </p>
+  </section>
+</div>
+<% content_for :javascripts do %>
+<script>
+function ontip(){
+  var v= $('#invoice').val();
+  if (v=='invoice_2') {$('#form-tip').show();} else {$('#form-tip').hide();}
+}
+$(document).ready(function(){
+  intime.order.init();
+});
+</script>
+<% end %>

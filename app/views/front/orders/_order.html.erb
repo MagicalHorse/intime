@@ -1,0 +1,30 @@
+<% product = order['products'][0] rescue {} -%>
+<% rma = order['rmas'][0] rescue {} -%>
+<div class="item">
+  <a href="<%= front_order_path(order['orderno']) %>">
+    <div class="item_tit bb"><span>订单号：</span><%= order['orderno'] %><br />
+      <span>订单金额：</span><strong>￥<%= order['totalamount'] %></strong><br />
+      <span>下单时间：</span><%= format_time(order['createdate']) %></div>
+    <div class="item_ct">
+      <div class="item_img"><img src="<%= small_pic_url(product['resource']) %>" /></div>
+      <div class="item_pr"> <span><%= product['productname'] %></span><br>
+        货号：<%= product['skucode'] %><br>
+        品牌：<%= display_product_brand_name product['brandname'], product['brand2name'] %></div>
+      <div class="item_num">X<%= product['quantity'] %></div>
+      <div class="clearfix"></div>
+    </div>
+  </a>
+  <div class="item_tit bt lh">
+    <span>订单状态：</span><strong><%= order['status'] %></strong>
+    <% if order_page? && API::Order.can_payment?(order['statust']) %>
+      <a href="<%= pay_front_order_path(order['orderno']) %>" target="_blank" class="fr btn btn-danger ">在线支付</a>
+    <% elsif rma_page? && order['canrma'] %>
+      <a href="<%= new_front_rma_path(order_id: order['orderno']) %>" class="btn btn-danger ddf">申请退货</a>
+    <% elsif rma_page? && verified?(rma['statust']) %>
+      <a href="<%= edit_front_rma_path(rma['rmano']) %>" class="fr btn btn-danger "><%= order['rmas'][0]['status'] %></a>
+    <% elsif rma_page? %>
+      <a href="javascript:;" class="btn ddf"><%= order['rmas'][0]['status'] %></a>
+    <% end %>
+    <div class="clearfix"></div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div id="barcode01" class="modal hide fade in" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+  <%= form_tag exchange_front_storepromotion_path(storepromotion.id), remote: true do  -%>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="mLabel">我要兑换</h3>
+    </div>
+    <div class="modal-body">
+      <p>选取礼券使用门店：
+      <select name='storeid' style="margin-bottom: 4px;">
+        <option value='0'>请选择使用商店</option>
+        <% storepromotion.inscopenotice.each do |shop| -%>
+          <option value='<%= shop.storeid -%>'><%= shop.storename -%></option>
+        <% end -%>
+      </select>
+      <br>
+      当前可以用积点：<span style="color:#D10149" class='currentScore'><%= current_user_point -%></span><br>
+      兑换积点:
+      <%= text_field_tag 'points', nil, placeholder: 0, amount: storepromotion.unitperpoints, style: 'width:50px; margin-bottom: 4px;', info: storepromotion.id -%>
+      = <span style="color:#D10149"><b class='money'>0元</b></span><br>
+      <span style='width: 200px;'>兑换积点必须是<%= storepromotion.unitperpoints -%>的整数倍</span><br>
+      身份证号:
+      <%= text_field_tag 'identityno', nil, placeholder: '请输入登记的身份证号', style: 'width:200px; margin-bottom: 4px;' -%>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <%= submit_tag '兑换', class: 'btn btn-danger', id: 'exchange', data: {disable_with: '正在提交...'} -%>
+      <%= link_to '', '#barcode03', id: 'display', class: 'btn btn-danger', 'data-dismiss' => 'modal', 'data-toggle' => 'modal', style: 'display: none;' -%>
+    </div>
+  <% end -%>
+</div>
+
+
+<div id="barcode03" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+</div>

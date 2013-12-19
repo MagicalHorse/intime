@@ -1,0 +1,27 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">兑换活动</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="details omjd jddh">
+    <div class="ct">
+      <% @storepromotions.each do |storepromotion| -%>
+        <div class="vipleft">
+          <div class="content">
+            <h3><em></em><%= storepromotion.name -%></h3>
+            <p>参与门店：<%= storepromotion.storenames -%><br>
+            活动时间：<%= format_time_range(storepromotion.activestartdate, storepromotion.activeenddate) -%> </p>
+            <p style="text-align:center; padding-top:5px;">
+            <%= link_to '兑换', front_storepromotion_path(storepromotion.id), class: 'btn btn-danger' -%>
+            </p>
+          </div>
+        </div>
+      <% end -%>
+
+      <div class="clear"></div>
+    </div>
+    <%= paginate @storepromotions -%>
+  </div>
+</div>

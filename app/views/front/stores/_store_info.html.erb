@@ -1,0 +1,22 @@
+<section class="shop_detail">
+<span class="img">
+  <a href='#map' data-toggle='modal'>
+    <img src="<%= store.image_url -%>" alt="<%= store.name -%>">
+  </a>
+</span>
+<h1><%= store.name -%></h1>
+<div class="info"> <span><i class="icon_loca"></i><a href="#map" data-toggle="modal"><%= store.location -%></a></span> <span><i class="icon_phone"></i><%= store.tel -%></span>
+  <div id="map" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="mLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="mLabel"><%= store.name -%></h3>
+    </div>
+    <div class="modal-body"><%=raw display_store_map(store) -%></div>
+  </div>
+</div>
+<hr>
+<div class="brief">
+  <p><%= store.description -%></p>
+</div>
+<div class="clearfix"></div>
+</section>

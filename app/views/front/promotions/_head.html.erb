@@ -1,0 +1,17 @@
+<div class="head">
+  <span class="pull-left">
+    <h1><%= @promotion.name -%></h1>
+    <small><%= format_time_range(@promotion.startdate, @promotion.enddate) -%></small>
+    <div class="code">
+      <span><i class="icon-heart"></i><b class='likecount'><%= @promotion.favoritecount -%></b>人喜欢</span>
+      <span><i class="icon-qrcode"></i><b class='downcount'><%= @promotion.couponcount -%></b>人下载优惠码</span>
+    </div>
+  </span>
+  <% if @promotion.isproductbinded -%>
+    <span class="pull-right">
+      <a class="btn btn-danger" href="<%= front_products_path(promotionid: @promotion.id) -%>">查看活动商品</a>
+    </span>
+  <% end -%>
+  <div class="clearfix"></div>
+</div>
+<div class="loca"> <span><i class="icon_location"></i><a href="<%= front_store_path(@store.id) -%>"><%= @store.name -%></a><small></small></span></div>

@@ -1,0 +1,37 @@
+<%= content_for :javascripts do -%>
+  <script src="/js/operate.js"></script>
+<% end -%>
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">兑换信息</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="details cfxq">
+    <div class="vipleft">
+      <h2><em></em><%= @storepromotion.name -%></h2>
+      <div class="content">
+        <p> <span>活动时间：</span><%= format_time_range(@storepromotion.activestartdate, @storepromotion.activeenddate) -%><br>
+        <span>使用有效期：</span><%= format_time_range(@storepromotion.couponstartdate, @storepromotion.couponenddate) -%><br>
+        <span>参与门店：
+        <% @storepromotion.inscopenotice.map(&:storename).each do |storename| -%>
+          </span><%= storename -%><br>
+        <% end -%>
+        </p>
+        <p class="center bb b10">
+        <%= link_to '礼券使用范围', '#barcode', 'data-toggle' => 'modal', class: 'btn' -%>
+        <%= link_to '我要领兑', '#barcode01', 'data-toggle' => 'modal', class: 'btn btn-danger' -%>
+        </p>
+        <%= render 'using_range', inscopenotice: @storepromotion.inscopenotice -%>
+
+        <%= render 'exchange_form', storepromotion: @storepromotion -%>
+
+        <%= render 'exchange_rule', storepromotion: @storepromotion -%>
+      </div>
+    </div>
+    <%= render 'notice', notice: @storepromotion.notice -%>
+
+    <div class="clearfix"></div>
+  </div>
+</div>

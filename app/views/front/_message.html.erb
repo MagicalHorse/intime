@@ -1,0 +1,5 @@
+<% if flash.notice.present? %>
+  <div class="alert alert-success"><a class="close" data-dismiss="alert" href="#">x</a><%= flash.notice %></div>
+<% elsif flash.alert.present? %>
+  <div class="alert alert-error"><a class="close" data-dismiss="alert" href="#">x</a><%= flash.alert %></div>
+<% end %>

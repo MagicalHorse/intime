@@ -1,0 +1,73 @@
+<%= content_for :head_nav do %>
+  <ul class="nav">
+    <li><a href="<%= front_profile_path %>"><i class="icon-undo"></i></a></li>
+    <li class="title">收货地址管理</li>
+  </ul>
+<% end %>
+<div class="span9 main">
+  <div id="messages"></div>
+  <div class="Logistics_query olrtds address">
+    <h5 style="line-height:30px;">常用地址（您还可以添加 <span id="left_addresses_size"><%= API::Address::MAX_SIZE - @addresses[:datas].size %></span> 个地址）<a href="#add01" data-toggle="modal" class="add btn btn-danger" id="add_address">添加新地址</a></h5>
+    <div id="add01" class="modal hide fade in" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+      <%= form_for :address, url: front_addresses_path, remote: true do |f| %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="mLabel">添加新地址</h3>
+        </div>
+        <div class="modal-body">
+          <div class="messages"></div>
+          <div class="item_tit thzq">
+            <span>收货人：</span>
+            <%= f.text_field :shippingperson, placeholder: '收货人姓名' %>
+            <br>
+            <span>省份：</span>
+            <select name="address[shippingprovinceid]" data-name="province_id" data-value="">
+            </select>
+            <%= f.hidden_field :shippingprovince %>
+            <br>
+            <span>城市：</span>
+            <select name="address[shippingcityid]" data-name="city_id" data-value="">
+            </select>
+            <%= f.hidden_field :shippingcity %>
+            <br>
+            <span>地区：</span>
+            <select name="address[shippingdistrictid]" data-name="district_id" data-value="">
+            </select>
+            <%= f.hidden_field :shippingdistrict %>
+            <br>
+            <span>收货地址：</span>
+            <%= f.text_field :shippingaddress, placeholder: '收货人地址' %>
+            <br>
+            <span>邮编：</span>
+            <%= f.text_field :shippingzipcode, placeholder: '邮政编码' %>
+            <br>
+            <span>手机号码：</span>
+            <%= f.text_field :shippingphone, placeholder: '有效手机号码' %>
+            <br>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit '确定', class: 'btn btn-danger', disable_with: '提交中...' %>
+          <a class="btn btn-danger" data-dismiss="modal">取消</a>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @addresses[:datas].blank? %>
+      <%= display_blank_prompt('您还没有创建收货地址！') %>
+    <% else %>
+      <% @addresses[:datas].each do |address| %>
+        <%= render partial: 'address', locals: { address: address } %>
+      <% end %>
+    <% end %>
+    <p class="adds"><a href="#add01" data-toggle="modal" class="btn btn-danger">添加新地址</a> </p>
+  </div>
+</div>
+<%= content_for :javascripts do %>
+  <script src="<%= static_url('js/addresses.js') %>"></script>
+  <script>
+    $(document).ready(function(){
+      intime.addresslist.init();
+    });
+  </script>
+<% end %>

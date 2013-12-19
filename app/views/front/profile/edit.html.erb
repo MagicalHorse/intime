@@ -1,0 +1,39 @@
+<%= content_for :head_nav do %>
+  <ul class="nav">
+    <li><a href="<%= front_my_profile_path %>"><i class="icon-undo"></i></a></li>
+    <li class="title">修改资料</li>
+  </ul>
+<% end %>
+<div class="span9 main">
+  <%= render 'front/message' %>
+  <%= form_for :user, url: front_profile_update_path, method: :put do |f| %>
+    <div class="details prupdate">
+      <div class="top">
+        <div class="head_img"><span></span><img src="<%= href_of_avatar_url(@user['logo']) %>" ></div>
+        <%= f.hidden_field :logo, value: @user['logo'] %>
+        <div class="cname">
+          <p><span>昵称：</span>
+            <input class="u1" id="user_nickname" type="text" value="<%= @user['nickname'] %>" name="user[nickname]" />
+          </p>
+          <p><span>签名：</span>
+            <textarea style=" height:40px;" id="user_desc" name="user[desc]"><%= @user['desc'] %></textarea>
+          </p>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+      <ul class="mid editdate">
+        <li>性别：
+          <label><%= f.radio_button :gender, 0, checked: @user['gender'].to_i == 0 %><%= API::Customer::GENDER[0] %></label>
+          <label><%= f.radio_button :gender, 1, checked: @user['gender'].to_i == 1 %><%= API::Customer::GENDER[1] %></label>
+          <label><%= f.radio_button :gender, 2, checked: @user['gender'].to_i == 2 %><%= API::Customer::GENDER[2] %></label>
+        </li>
+        <li>电话：
+          <input class="u1" id="user_mobile" name="user[mobile]" value="<%= @user['mobile'] %>" type="text" />
+        </li>
+      </ul>
+      <p style="text-align:center; padding-top:20px;">
+        <%= f.submit '保存修改', class: 'btn btn-danger', disable_with: '提交中...' %>
+      </p>
+    </div>
+  <% end %>
+</div>

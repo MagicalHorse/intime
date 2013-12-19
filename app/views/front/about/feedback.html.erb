@@ -1,0 +1,31 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">意见反馈</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="feedback bger">
+    <%= form_tag front_create_feedback_path, remote: true do -%>
+      <label for="Provinces">欢迎您提出宝贵的意见和建议：<span>*</span></label>
+      <%= text_area_tag 'content', nil, placeholder: '请输入您的反馈意见（500字以内）', id: 'provinces' -%>
+      <label for="Consignee">请输入您的联系方式：<span>*</span></label>
+      <%= text_field_tag 'cantact', nil, placeholder: '手机号、QQ、Email均可', maxlength: 15, id: 'consignee' -%>
+      <br>
+      <%= submit_tag '提交', class: 'btn btn-danger', disable_with: '提交中...' -%>
+      <%= link_to '', '#barcode', id: 'feedback', 'data-toggle' => 'modal', class: 'btn btn-danger', style: 'display: none' -%>
+      <div id="barcode" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="true" style="display: none;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="mLabel">意见反馈</h3>
+        </div>
+        <div class="modal-body">
+          <p>已记录，感谢您的宝贵的意见!</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">确认</button>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="<%= front_my_favorite_path -%>"><i class="icon-undo"></i></a></li>
+    <li><a href="<%= front_coupons_path(type: 1) -%>" id="recently">未使用<span class="ycmenu">的优惠码(<%= @recent_coupons[:totalcount] -%>)</span></a></li>
+    <li><a href="<%= front_coupons_path(type: 2) -%>" id="news">已使用<span class="ycmenu">的优惠码(<%= @news_coupons[:totalcount] -%>)</span></a></li>
+    <li><a href="<%= front_coupons_path(type: 3) -%>" id="future">已过期<span class="ycmenu">的优惠码(<%= @expire_coupons[:totalcount] -%>)</span></a></li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <section class="portfolio ">
+
+  <%= render 'coupon_list', coupons: @coupons -%>
+
+  </section>
+</div>

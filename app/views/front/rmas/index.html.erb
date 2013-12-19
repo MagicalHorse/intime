@@ -1,0 +1,20 @@
+<%= content_for :head_nav do %>
+  <ul class="nav">
+    <li><a href="<%= front_profile_path %>"><i class="icon-undo"></i></a></li>
+    <li><a href="<%= order_index_front_rmas_path %>" id="recently">申请退货</a></li>
+    <li class="active"><a href="<%= front_rmas_path %>" id="news">退货记录</a></li>
+  </ul>
+<% end %>
+<div class="span9 main">
+  <div class="Logistics_query">
+    <% if @rmas.present? %>
+      <% @rmas.each do |rma| %>
+        <%= render partial: 'rma', locals: { rma: rma } %>
+      <% end %>
+      <%= paginate @rmas %>
+    <% else %>
+      <%= display_blank_prompt('暂无退货记录！') %>
+    <% end %>
+  </div>
+</div>
+

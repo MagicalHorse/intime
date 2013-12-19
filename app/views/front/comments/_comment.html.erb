@@ -1,0 +1,16 @@
+<div id="reply" class="modal hide fade in" role="dialog" aria-labelledby="post" aria-hidden="false">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="mLabel">回复‘***’</h3>
+  </div>
+  <%= form_tag(front_comments_path, method: :post, remote: true) do -%>
+    <div class="modal-body">
+      <%= text_area_tag 'comment[content]', nil, style: 'width:96%;height:100px;margin:0;', placeholder: '说点什么吧…' -%>
+      <%= hidden_field_tag 'comment[sourceid]', 0, id: 'sourceid' -%>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+      <%= submit_tag '发布', class: 'btn btn-danger', id: 'comment', data: { disable_with: '正在发布...' } -%>
+    </div>
+  <% end -%>
+</div>

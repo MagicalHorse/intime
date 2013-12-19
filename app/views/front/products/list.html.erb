@@ -1,0 +1,150 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+
+    <li class="dropdown" id="menu1">
+    <a class="dropdown-toggle" id="drop1" role="button" data-toggle="dropdown" href="javascript:0">分类<b class="caret"></b></a>
+    <ul class="dropdown-menu span9 ps-container" role="menu" aria-labelledby="drop1" style="">
+      <dl class="hot">
+        <dt>热门分类</dt>
+        <% @hotwords[:words] && @hotwords[:words].each do |word| %>
+          <dd role="presentation">
+          <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="<%= word %>" >
+            <%= word %>
+          </a>
+          </dd>
+        <% end %>
+      </dl>
+      <dl>
+        <% @tags[:tags] && @tags[:tags].each do |tag|%>
+          <dd role="presentation">
+          <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="category" data-gallerykey="<%= tag[:id]%>">
+            <%= tag[:name] %>
+          </a>
+          </dd>
+        <% end %>
+      </dl>
+      <div class="ps-scrollbar-x" style="left: 0px; bottom: 3px; width: 0px;"></div>
+      <div class="ps-scrollbar-y" style="top: 0px; right: 3px; height: 0px;"></div></ul>
+    </li>
+
+    <li class="dropdown" id="menu2">
+    <a class="dropdown-toggle" id="drop2" role="button" data-toggle="dropdown" href="javascript:void(0)">品牌<b class="caret"></b></a>
+    <ul class="dropdown-menu span9 ps-container" role="menu" aria-labelledby="drop1" style="">
+      <dl class="hot">
+        <dt>热门品牌</dt>
+        <% @hotwords[:brandwords] && @hotwords[:brandwords].each do |brand| %>
+          <dd role="presentation">
+          <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="brand" data-gallerykey="<%= brand["id"]%>">
+            <strong><%= brand["name"] %></strong>
+          </a>
+          </dd>
+        <% end %>
+      </dl>
+      <dl class="brands">
+        <dt id="myTab">
+        <span class="all active"><a href="#brandALL" class="active" title="查看全部品牌的产品">全部</a></span>
+        <%  @brand_keys.each do |brand_key|%>
+          <span><a href="#brand<%= brand_key%>" title="查找以中英文首字母为 <%= brand_key%> 的品牌"><%= brand_key%></a></span>
+        <% end %>
+        </dt>
+        <div id="myTabContent" class="tab-content" style="overflow:visible;">
+          <div class="tab-pane" id="brandALL">
+            <% @all_brands && @all_brands.each do |brand| %>
+              <dd role="presentation">
+              <a role="menuitem" tabindex="-1" href="javascript:void(0)" data-gallerytype="brand" data-gallerykey="<%= brand[:id]%>">
+                <p style="display:block"><%= brand[:name]%></p>
+              </a>
+              </dd>
+            <% end %>
+          </div>
+
+          <% @brands.each do |brand| %>
+            <div class="tab-pane" id="brand<%= brand.keys[0] %>">
+              <% brand.values.flatten.each do |value| %>
+                <dd role="presentation">
+                <a role="menuitem" tabindex="-1" href="javascript:void(0)" data-gallerytype="brand" data-gallerykey="<%= value[:id]%>">
+                  <p style="display:block" ><%= value[:name]%></p>
+                </a>
+                </dd>
+              <% end %>
+            </div>
+          <% end %>
+
+        </div>
+        <div class="clearfix"></div>
+      </dl>
+      <div class="ps-scrollbar-x" style="left: 0px; bottom: 3px; width: 0px;"></div>
+      <div class="ps-scrollbar-y" style="top: 0px; right: 3px; height: 0px;"></div>
+    </ul>
+    </li>
+				
+    <li class="dropdown" id="menu3">
+    <a class="dropdown-toggle" id="drop3" role="button" data-toggle="dropdown" href="javascript:0">商店<b class="caret"></b></a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+      <% @hotwords[:storewords] && @hotwords[:storewords].each do |store| %>
+        <li role="presentation">
+        <a role="menuitem" tabindex="-1" href="javascript:void(0)"  data-gallerytype="store" data-gallerykey="<%= store["id"]%>">
+          <%= store["name"] %>
+        </a>
+        </li>
+      <% end %>
+    </ul>
+    </li>
+
+    <li class="dropdown" id="menu4">
+    <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="javascript:void(0)">排序<b class="caret"></b></a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="drop4">
+      <li role="presentation" class="active">
+      <a role="menuitem" class="active" tabindex="-1" href="javascript:void(0)" data-gallerytype="sortby" data-gallerykey="1" >最新发布</a>
+      </li>
+      <li role="presentation">
+      <a role="menuitem" tabindex="-1" href="javascript:void(0)" data-gallerytype="sortby" data-gallerykey="2" >价格最高</a>
+      </li>
+      <li role="presentation">
+      <a role="menuitem" tabindex="-1" href="javascript:void(0)" data-gallerytype="sortby" data-gallerykey="3" >价格最低</a>
+      </li>
+      <li role="presentation">
+      <a role="menuitem" tabindex="-1" href="javascript:void(0)" data-gallerytype="sortby" data-gallerykey="4">人气最高</a>
+      </li>
+    </ul>
+    </li>
+
+    <div class="input-append pull-right search">
+      <input type="text" id="search" placeholder="请输入搜索内容">
+      <button class="btn" type="button" id="btnSearch" type="button">
+        <i class="icon-search icon-large"></i>
+      </button>
+    </div>
+    <!--/.search-collapse -->
+  </ul>
+
+<% end -%>
+
+<div class="span9 main">
+  <section class="portfolio">
+  <ul id="tiles" class="thumbnails tmode"></ul>
+
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
+
+  <div id="no_data" class="no_data alert alert-error text-center">
+    <h5><i></i>很抱歉，暂时还没有商品！</h5>
+  </div>
+
+  <div id="last_page" class="no_data alert alert-error text-center">
+    <h5>最后一页</h5>
+  </div>
+
+  </section>
+  
+</div>
+
+<%= content_for :javascripts do -%>
+  <script>
+    $(document).ready(function() {
+      gallery = intime.gallery;                                                                                                              
+      gallery.init();
+    });
+  </script>
+<% end -%>

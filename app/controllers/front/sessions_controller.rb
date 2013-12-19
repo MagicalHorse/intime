@@ -1,4 +1,5 @@
 class Front::SessionsController < Front::BaseController
+
   def create
     login_user = login_from_api
     if login_user[:isSuccessful]==true
@@ -7,16 +8,41 @@ class Front::SessionsController < Front::BaseController
       logger.info(login_user)
       set_anonymous_user
     end
+
+    redirect_to session[:return_to].present? ? session[:return_to] : root_url
   end
-  private 
+
+  def login
+    session[:return_to] = params[:return_to]
+    redirect_to root_url if signed_in?
+  end
+
+  def destory
+    reset_session
+    redirect_to root_path
+  end
+
+  private
+
   def login_from_api
     auth_data = request.env['omniauth.auth']
-    login_type =0
-    if auth_data.provider=='weibo'
-      login_type=1
-    elsif auth_data.provider=='qq_connect'
-      login_type=3
-    end
-    API::LoginRequest.post(request,{:outsiteuid=>auth_data.uid,:outsitenickname=>auth_data.info.nickname,:outsitetype=>login_type})
+    login_type = case auth_data.provider
+                 when 'weibo'      then Settings.provider.weibo
+                 when 'tqq2'       then Settings.provider.tqq
+                 when 'qq_connect' then Settings.provider.qq_connect
+                 else Settings.provider.other
+                 end
+
+    user_hash = API::LoginRequest.post(request, {
+      :outsiteuid       => auth_data.uid,
+      :outsitenickname  => auth_data.info.nickname,
+      :outsitetype      => login_type,
+      :outsitetoken     => auth_data.credentials.token
+    })
+
+    user_hash[:data] ||= {}
+    user_hash[:data][:access_token]  = auth_data.credentials.token
+    user_hash[:data][:refresh_token] = auth_data.credentials.refresh_token
+    user_hash
   end
 end

@@ -1,0 +1,16 @@
+<dl class="func">
+  <dd>
+  <% if @product_info.present? && @product_info[:isfavored] -%>
+    <%= link_to raw("#{image_tag('/images/icon_hearts_2x.png', height: 24, width: 24)}<span>取消</span>"), unfavor_front_product_path(product.id), class: 'unfavor', remote: true, method: :post -%>
+  <% else -%>
+    <%= link_to raw("#{image_tag('/images/icon_heart_2x.png', height: 24, width: 24)}<span>喜欢</span>"), favor_front_product_path(product.id), class: 'favor', remote: true, method: :post -%>
+  <% end -%>
+  </dd>
+  <%= render 'download_coupon', product: product -%>
+  
+  <%= render 'comment', product: product -%>
+
+  <%= render 'share', product: product -%>
+  
+  <div class="clearfix"></div>
+</dl>

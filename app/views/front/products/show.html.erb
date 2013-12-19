@@ -1,31 +1,50 @@
-<% content_for :title do 
-  @product[:name]
- end %>
- <div class="well">
-<h4><%=@product[:brand][:name]+' - '+ @product[:name]%></h4>
-<div>
-<% @product.resource.select{|r| r[:type]==1}.each do |r| %>
-	<a href="<%= large_pic_url(r)%>">
-	<img src="<%= large_pic_url(r) %>" class="img-rounded">
-	</a>
-<% end %>
-</div>
-<div>
-<% @product.resource.select{|r| r[:type]==2}.each do |r| %>
-	<audio controls>
-		<source src="<%= audio_url(r)%>" type="audio/mpeg" />
-	</audio>
-<% end %>
-</div>
-<div>
-<label><%= newline_to_br(@product[:description])%></label>
-</div>
-<div>
-	<dl>
-		<dt><%=@product[:store][:name]%></dt>
-		<dd><%=@product[:store][:address]%></dd>
-		<dd><%=@product[:store][:tel]%></dd>
-	</dl>
-</div>
-</div>
+<%= content_for :javascripts do -%>
+  <script src="/js/operate.js"></script>
+<% end -%>
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">商品介绍</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <section class="promo_info">
+    <section id="picbox" class="royalSlider">
+    <%= @product.image_urls.each do |image_url| -%>
+      <div class="rsContent"><img class="rsImg" src="<%= image_url -%>" alt="" /></div>
+    <% end -%>
+    </section>
 
+    <div class="infobox">
+      <%= render 'head', product: @product -%>
+
+      <%= render 'recomment_user', product: @product -%>
+
+      <div class="loca">
+        <span><i class="icon_location"></i>
+          <a href="<%= front_store_path(@product.store.id) -%>"><%= @product.store.name -%><small></small></a>
+        </span>
+        <% if @product.contactphone.present? -%>
+          <span><i class="icon_phone"></i><%= @product.contactphone -%></span>
+        <% end -%>
+      </div>
+
+      <%= render 'tool_bar', product: @product -%>
+
+      <% if @product.is4sale -%>
+        <div class="btnbar">
+          <%= link_to '在线购买', new_front_order_path(product_id: @product.id), class: 'btn btn-danger' -%>
+        </div>
+      <% end -%>
+    </div>
+    <div class="clearfix"></div>
+  </section>
+  <%= render 'promotions', product: @product -%>
+
+  <%= render 'comments', product: @product -%>
+  <a class="pro_prev" href="javascript:void(0)">上一个</a>
+  <a class="pro_next" href="javascript:void(0)">下一个</a>
+</div>
+<%= content_for :single_jss do -%>
+  <%= render 'single_js', product: @product -%>
+<% end -%>

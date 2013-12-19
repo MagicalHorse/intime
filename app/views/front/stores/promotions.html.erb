@@ -1,0 +1,25 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="<%= front_store_path(params[:id]) -%>"><i class="icon-undo"></i></a></li>
+    <li class="title">最新促销</li>
+  </ul>
+<% end -%>
+
+<div class="span9 main">
+  <section class="portfolio">
+  <ul id="tiles" class="thumbnails tmode">
+  </ul>
+  <div id="loader">
+    <div id="loaderCircle"></div>
+  </div>
+  </section>
+</div>
+<%= content_for :single_jss do -%>
+<script type="text/javascript">
+$(document).ready(function() {
+    var index = intime.storepromotion;
+    $(document).bind('scroll', index.onScroll);
+    index.loadData('storeid', <%= params[:id] -%>);
+});
+</script>
+<% end -%>

@@ -1,0 +1,16 @@
+<% product = rma['products'][0] -%>
+<div class="item">
+  <div class="item_tit bb"><span>退货单号：</span><%= rma['rmano'] %> <br />
+    <span>申请时间：</span><%= format_time(rma['createdate']) %></div>
+  <a href="<%= front_rma_path(rma['rmano']) %>" >
+    <div class="item_ct">
+      <div class="item_img"><img src="<%= small_pic_url(product['resource']) %>" /></div>
+      <div class="item_pr"> <span><%= product['productname'] %></span><br>
+        货号：<%= product['skucode'] %><br>
+        品牌：<%= product['brandname'] %>(<%= product['brand2name'] %>) </div>
+      <div class="item_num">X<%= product['quantity'] %></div>
+      <div class="clearfix"></div>
+    </div>
+  </a>
+  <div class="item_tit bt"><span>退货状态：</span><strong><%= rma['status'] %></strong></div>
+</div>

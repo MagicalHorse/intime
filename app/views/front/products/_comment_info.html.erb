@@ -1,0 +1,19 @@
+<li class="post scrollItem" id="reply_<%= comment[:commentid] -%>">
+<div class="post-self">
+  <div class="avatar">
+    <%= link_to image_tag(href_of_avatar_url(gen_user_logo(comment[:customer][:logo])), alt: comment[:customer][:nickname]), front_his_info_path(comment[:customer_id]) -%>
+  </div>
+  <div class="comment-body">
+    <div class="comment-header">
+      <%= link_to comment[:customer][:nickname], front_his_info_path(comment[:customer_id]), class: 'user-name highlight', rel: 'nofollow' -%>
+    </div>
+    <p><%= format_newline(comment[:content]) -%></p>
+    <div class="comment-footer comment-actions">
+      <span class="time" datetime="<%= format_time(comment[:createddate]) -%>" title="<%= format_time(comment[:createddate]) -%>"><%= format_time(comment[:createddate]) -%></span>
+      <a class="post-reply" href="#reply" data-toggle='modal' onclick="reply_comment('<%= comment[:commentid] -%>', '<%= comment[:customer][:nickname] -%>')">
+        <span class="icon icon-reply"></span>回复
+      </a>
+    </div>
+  </div>
+</div>
+</li>

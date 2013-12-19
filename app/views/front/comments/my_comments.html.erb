@@ -1,0 +1,37 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">消息中心</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="infocenter">
+    <section class="pinglun">
+    <ul class="comments">
+      <% if @comments.blank? -%>
+        <p style="text-align:center;font-size: 16px;line-height:30px;">
+        暂无最新消息！
+        </p>
+      <% else -%>
+        <% @comments.each do |comment| -%>
+          <li class="post">
+          <a href="<%= href_of_comment_item(comment) -%>">
+            <div class="post-self">
+              <div class="avatar"><img src="<%= href_of_avatar_url comment[:commentuser][:logo].present? ? "#{comment[:commentuser][:logo]}_100x100.jpg" : nil -%>" alt="<%= comment[:commentuser][:nickname] -%>"></div>
+              <div class="comment-body">
+                <div class="comment-header"><span class="user-name highlight"><%= comment[:commentuser][:nickname] -%></span></div>
+                <p><%= format_newline(comment[:content]) -%></p>
+                <div class="comment-footer comment-actions"><span class="time"><%= comment[:createddate] -%></span></div>
+              </div>
+              <span class="it"></span>
+            </div>
+          </a>
+          </li>
+        <% end -%>
+
+        <%= paginate @comments -%>
+      <% end -%>
+    </ul>
+    </section>
+  </div>
+</div>

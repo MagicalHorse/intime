@@ -1,0 +1,51 @@
+<%= content_for :head_nav do -%>
+  <ul class="nav">
+    <li><a href="javascript:history.go(-1);"><i class="icon-undo"></i></a></li>
+    <li class="title">兑换券信息</li>
+  </ul>
+<% end -%>
+<div class="span9 main">
+  <div class="details cfxq">
+    <div class="vipleft">
+      <h2><em></em><%= @voucher[:promotion][:name] -%></h2>
+      <div class="content">
+        <p class="lqm">礼券码：<%= @voucher[:code] -%></p>
+        <p class="bb b10"> <span>领兑时间：</span><%= format_time(@voucher[:createddate]) -%><br>
+        <span>礼券有效期：</span><%= format_date(@voucher[:validenddate]) -%>止<br>
+        <span>使用门店：</span><%= @voucher[:promotion][:inscopenotice].map{|item| item[:storename]}.join(',') -%><br>
+        <span>兑换积点：</span><%= @voucher[:points] -%><br>
+        <span>兑换金额：</span><b style="color:#D10149;"><%= @voucher[:amount] -%>元</b><br>
+        <em class="xr">特别提醒：<%= format_newline(@voucher[:promotion][:usagenotice]) -%></em> </p>
+        <% @voucher[:promotion][:inscopenotice].each do |_item| -%>
+          <p> <span>使用门店：</span><%= _item[:storename] -%><br>
+          </p><div class="xh"><%= format_newline(_item[:excludes]) -%></div>
+          <p></p>
+        <% end -%>
+      </div>
+    </div>
+    <div class="vipright">
+      <h2>　</h2>
+      <div class="content">
+        <p>注意事项</p>
+        <p class="xh"><%= format_newline(@voucher[:promotion][:notice]) -%></p>
+      </div>
+    </div>
+    <div class="clear">
+      <p class="center" style="padding-top:20px;"> <a href="#barcode" data-toggle="modal" class="btn btn-danger ">取消兑换</a>
+      </p><div id="barcode" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="barcode" aria-hidden="false">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="mLabel">取消兑换</h3>
+      </div>
+      <div class="modal-body">
+        <p>您是否确定要取消兑换？</p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to '确认', void_front_voucher_path(@voucher[:id]), class: 'btn btn-danger', 'data-dismiss' => 'modal', 'aria-hidden' => 'true', method: :post -%>
+        <a class="btn" data-dismiss="modal" aria-hidden="true">取消</a>
+      </div>
+    </div>
+    <p></p>
+  </div>
+</div>
+    </div>
