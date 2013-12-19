@@ -15,7 +15,7 @@
 /tmp
 .elasticbeanstalk/
 
-config/database.yml
+#config/database.yml
 .ruby-version
 .ruby-gemset
 .rvmrc
