@@ -35,3 +35,8 @@ payment_code:
   
 alipay_notify_url: http://iapi.intime.com.cn/api/payment/notify
 
+api:
+  stage: 'http://i.intime.com.cn'
+  apis: 'http://iapi.intime.com.cn/api'
+domain: 'intime.com.cn'
+
