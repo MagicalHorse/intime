@@ -2,7 +2,7 @@ window.intime = window.intime || {};
 intime = window.intime;
 $.extend(intime,{
 	env:{
-		host: '',
+		host: '/',
 		pagesize: 10
 	}
 });
