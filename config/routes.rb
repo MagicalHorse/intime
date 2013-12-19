@@ -61,9 +61,9 @@ IntimeService::Application.routes.draw do
 
   match "specialtopic/list" => "specialTopic#list"
 
-  #match "product/search" => "product#search"
-  #match "product/list" => "product#list"
-  #match "product/:id" => "product#show"
+  match "product/search" => "product#search"
+  match "product/list" => "product#list"
+  
 
   match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
   match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
@@ -310,7 +310,8 @@ IntimeService::Application.routes.draw do
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'
-
+  match "product/:id" => "product#show"
+  match "promotion/:id" => "promotion#show"
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
