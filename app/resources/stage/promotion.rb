@@ -38,9 +38,9 @@ module Stage
         if resource.respond_to?(:type)
           next unless resource.type.to_i == 1
 
-          result << [PIC_DOMAIN, resource.name, "_#{size}X0.jpg"].join('')
+          result << [PIC_DOMAIN, resource.name, "_#{size}x0.jpg"].join('')
         else
-          result << [PIC_DOMAIN, resource.name, "_#{size}X0.jpg"].join('')
+          result << [PIC_DOMAIN, resource.name, "_#{size}x0.jpg"].join('')
         end
       end
       result

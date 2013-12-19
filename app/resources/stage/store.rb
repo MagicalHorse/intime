@@ -24,7 +24,7 @@ module Stage
     def image_url(size = 320)
       return nil if resources.blank?
 
-      [PIC_DOMAIN, resources.name, "_#{size}X0.jpg"].join('')
+      [PIC_DOMAIN, resources.name, "_#{size}x200.jpg"].join('')
     end
   end
 end
