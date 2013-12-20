@@ -1,7 +1,7 @@
 omniauth:
   weibo:
-    key: '1136922935'
-    secret: 'cee745ae09ff0000428e0a52757ff175'
+    key: '1979938254'
+    secret: '6970002e4a00849c10dbbd9b9054523e'
   tqq:
     key: '801450633'
     secret: '01f2081d530ecbe15e9097dd02cee160'
