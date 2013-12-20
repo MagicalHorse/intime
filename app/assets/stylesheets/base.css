@@ -850,13 +850,13 @@ a:hover {
 /* 我的关注 */
 .portfolio .thumbnails .fans .thumbnail {
 	height: 80px;
-	padding: 10px 10px 10px 80px;
+	padding: 10px 10px 10px 90px;
 }
 .portfolio .thumbnails .thumbnail .face {
 	width: 80px;
 	height: 80px;
 	float: left;
-	margin-left: -70px;
+	margin-left: -80px;
 }
 .portfolio .thumbnails .thumbnail .info {
 	float: left;
