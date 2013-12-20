@@ -96,6 +96,9 @@ $.extend(intime, {
                         $('#shippingphone').html(data.data.shippingphone);
                         $('#add02').collapse('hide');
                         intime.orderaddress.refresh_editzone(data.data.shippingprovinceid,data.data.shippingcityid,data.data.shippingdistrictid);
+					
+						$('#no_address').hide();
+                        $('#have_adress').show();
                     } else {
                         alert(data.message);
                     }   
