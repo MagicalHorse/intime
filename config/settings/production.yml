@@ -24,7 +24,7 @@ default_url_options:
   
 default_image_url:
   product:
-    small: http://s3-ap-southeast-1.amazonaws.com/intimeoom/fileupload/img/product\default\default_120x0.jpg
+    small: http://s3-ap-southeast-1.amazonaws.com/intimeoo/fileupload/img/product\default\default_120x0.jpg
     middle: http://s3-ap-southeast-1.amazonaws.com/intimeoo/fileupload/img/product\default\default_320x0.jpg
   user: http://s3-ap-southeast-1.amazonaws.com/intimeoo/fileupload/img/user-logo-default.gif
 
