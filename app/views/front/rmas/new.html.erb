@@ -25,7 +25,6 @@
           </div>
           <div class="clearfix"></div>
         </div>
-        <div class="item_tit bt"><span>退货金额小计：</span><strong><b>￥</b><b class="thjexj"><%= @order['totalamount'] %></b></strong></div>
         <div class="item_tit bt thzq"><span>退货理由：</span>
           <%= f.select :rmareason, reason_options(@reasons) %>
           <br>
@@ -60,4 +59,9 @@
 </div>
 <%= content_for :javascripts do %>
   <script src="<%= static_url('js/new_rma.js') %>"></script>
+  <script type="text/javascript">
+  	$(document).ready(function(){	  
+  		$('.change-goods-num').iVaryVal({Min:1});
+  	})
+  </script>
 <% end %>

@@ -12,6 +12,5 @@ $(document).ready(new function() {
     else
       $('#rma_reason').hide();
   });
-  
-  $('.change-goods-num').iVaryVal();
+
 });
