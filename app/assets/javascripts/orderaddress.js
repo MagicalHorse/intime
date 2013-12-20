@@ -202,7 +202,7 @@ $.extend(intime, {
 			$("#edit_address").val(data.data.shippingaddress);
 			$("#edit_code").val(data.data.shippingzipcode);
 			$("#edit_phone").val(data.data.shippingphone);
-			intime.orderaddress._address_list_new_html(data.data);
+			$("#address").append(intime.orderaddress._address_list_new_html(data.data));
 			intime.orderaddress.refresh_editzone(data.data.shippingprovinceid,data.data.shippingcityid,data.data.shippingdistrictid);
 		},
 		_address_list_new_html:function(one){
