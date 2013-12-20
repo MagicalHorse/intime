@@ -16,18 +16,7 @@ $.extend(intime, {
                     var html="";
                     intime.orderaddress._address.each(function(){
                         var one = this;
-                        html+="<label style='padding:0'>";
-                        html+="<div class='item'>";
-                        html+="<div class='item_tit thzq lh25'>";
-                        html+="<input  type='radio'  name='RadioGroup1' value='"+one.id+"' id='RadioGroup1_1'>";
-                        html+="<span>收货人：</span><span id='consignee_name'>"+one.shippingperson+"</span><br>";
-                        html+="<span>手机号码：</span><span id='consignee_phone'>"+one.shippingphone+"</span><br>";
-                        html+="<span>省份：</span>"+one.shippingprovince+"-"+one.shippingcity+"-"+one.shippingdistrict+"<br>";
-                        html+="<span>收货地址：</span>"+one.displayaddress+"<br>";
-                        html+="<span>邮编：</span>"+one.shippingzipcode+"<br>";
-                        html+="</div>";
-                        html+="</div>";
-                        html+="</label>";
+                        html+= intime.orderaddress._address_list_new_html(one);
                     });
                     $("#address").append(html);
                 }
@@ -87,16 +76,9 @@ $.extend(intime, {
                     var check1 = data.isSuccessful.toString();
                     var check2 ="true";
                     if(check1==check2){
-                        $('#shippingperson').html(data.data.shippingperson);
-						
-                        $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
-						 
-                        $('#displayaddress').html(data.data.displayaddress); 
-                        $('#shippingzipcode').html(data.data.shippingzipcode); 
-                        $('#shippingphone').html(data.data.shippingphone);
+                        intime.orderaddress._new_address_insert(data);	
                         $('#add02').collapse('hide');
-                        intime.orderaddress.refresh_editzone(data.data.shippingprovinceid,data.data.shippingcityid,data.data.shippingdistrictid);
-					
+                        						
 						$('#no_address').hide();
                         $('#have_adress').show();
                     } else {
@@ -140,18 +122,10 @@ $.extend(intime, {
                     var check1 = data.isSuccessful.toString();
                     var check2 ="true";
                     if(check1==check2){
-								
-                        $('#shippingperson').html(data.data.shippingperson);
-                        $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
-                        $('#shippingaddress').html(data.data.shippingaddress); 
-                        $('#shippingzipcode').html(data.data.shippingzipcode); 
-                        $('#shippingphone').html(data.data.shippingphone);
+						intime.orderaddress._new_address_insert(data);		
                         $('#add01').collapse('hide');	   
-                        $("#edit_user").val(data.data.shippingperson);
-                        $("#edit_address").val(data.data.shippingaddress);
-                        $("#edit_code").val(data.data.shippingzipcode);
-                        $("#edit_phone").val(data.data.shippingphone);
-                        intime.orderaddress.refresh_editzone(data.data.shippingprovinceid,data.data.shippingcityid,data.data.shippingdistrictid);
+                        
+
                     }
                 }
             });
@@ -194,9 +168,7 @@ $.extend(intime, {
                         $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
                         $('#shippingaddress').html(data.data.shippingaddress); 
                         $('#shippingzipcode').html(data.data.shippingzipcode); 
-                        $('#shippingphone').html(data.data.shippingphone);
-								  
-								  
+                        $('#shippingphone').html(data.data.shippingphone);		  
                         $('#edit_user').html(data.data.shippingperson);
                         $('#edit_address').html(data.data.displayaddress);
                         $('#edit_code').html(data.data.shippingzipcode);
@@ -219,6 +191,36 @@ $.extend(intime, {
             $("#cheng").change();
 			$("#qu").val(did).prop('selected',true);
 
-        }
+        }，
+		_new_address_insert: function(data){
+			$('#shippingperson').html(data.data.shippingperson);
+			$('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
+			$('#shippingaddress').html(data.data.shippingaddress); 
+			$('#shippingzipcode').html(data.data.shippingzipcode); 
+			$('#shippingphone').html(data.data.shippingphone);   
+			$("#edit_user").val(data.data.shippingperson);
+			$("#edit_address").val(data.data.shippingaddress);
+			$("#edit_code").val(data.data.shippingzipcode);
+			$("#edit_phone").val(data.data.shippingphone);
+			intime.orderaddress._address_list_new_html(data.data);
+			intime.orderaddress.refresh_editzone(data.data.shippingprovinceid,data.data.shippingcityid,data.data.shippingdistrictid);
+		}，
+		_address_list_new_html:function(one){
+			var html = "";
+			html+="<label style='padding:0'>";
+			html+="<div class='item'>";
+			html+="<div class='item_tit thzq lh25'>";
+			html+="<input  type='radio'  name='RadioGroup1' value='"+one.id+"' id='RadioGroup1_1'>";
+			html+="<span>收货人：</span><span id='consignee_name'>"+one.shippingperson+"</span><br>";
+			html+="<span>手机号码：</span><span id='consignee_phone'>"+one.shippingphone+"</span><br>";
+			html+="<span>省份：</span>"+one.shippingprovince+"-"+one.shippingcity+"-"+one.shippingdistrict+"<br>";
+			html+="<span>收货地址：</span>"+one.displayaddress+"<br>";
+			html+="<span>邮编：</span>"+one.shippingzipcode+"<br>";
+			html+="</div>";
+			html+="</div>";
+			html+="</label>";
+			return html;
+		}
+		
     }
 });
