@@ -191,7 +191,7 @@ $.extend(intime, {
             $("#cheng").change();
 			$("#qu").val(did).prop('selected',true);
 
-        }，
+        },
 		_new_address_insert: function(data){
 			$('#shippingperson').html(data.data.shippingperson);
 			$('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
@@ -204,7 +204,7 @@ $.extend(intime, {
 			$("#edit_phone").val(data.data.shippingphone);
 			intime.orderaddress._address_list_new_html(data.data);
 			intime.orderaddress.refresh_editzone(data.data.shippingprovinceid,data.data.shippingcityid,data.data.shippingdistrictid);
-		}，
+		},
 		_address_list_new_html:function(one){
 			var html = "";
 			html+="<label style='padding:0'>";
