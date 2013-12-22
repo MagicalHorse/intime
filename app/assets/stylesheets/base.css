@@ -857,6 +857,7 @@ a:hover {
 	height: 80px;
 	float: left;
 	margin-left: -80px;
+	overflow: hidden;
 }
 .portfolio .thumbnails .thumbnail .info {
 	float: left;
