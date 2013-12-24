@@ -1,5 +1,6 @@
 require 'eventmachine'
 require 'sqs_subscriber'
+
 module ISAwsSqs
   def self.start
     if defined?(PhusionPassenger)
@@ -49,4 +50,4 @@ module ISAwsSqs
   end
 end
    
-ISAwsSqs.start
+#ISAwsSqs.start

@@ -43,6 +43,7 @@ class ProductController < ApplicationController
     next_lt_pid = next_lt_prod.results[0][:id] if next_lt_prod.total>0
     prod_model = prod.results[0]
     recommend_user = User.esfind_by_id prod_model[:createUserId]
+    recommend_user||={:id=>0,:nickname=>nil,:level=>nil,:logon=>nil}
     valid_promotions = find_valid_promotions(prod_model[:promotion])
     section_phone = prod_model[:section][:contactPhone] unless prod_model[:section].nil?
     return render :json=>{

@@ -1,5 +1,37 @@
+omniauth:
+  weibo:
+    key: '1136922935'
+    secret: 'cee745ae09ff0000428e0a52757ff175'
+  tqq:
+    key: '801450633'
+    secret: '01f2081d530ecbe15e9097dd02cee160'
+  qq_connect:
+    key: '100382932'
+    secret: '8acc22a900a6cf3a144c4e7364dafa78'
+
+  wechat:
+    key:  wxec92040268f6acec
+    secret: d3bd5d1068c0df6bcde1c757702e1647
+
+alipay:
+  pid: '2088011888580823'
+  key: 'n4q74v8r3bnhzsbthx0yf3g1ama9mntm'
+  seller_account: 'maoym@intime.com.cn'
+
 default_url_options:
   host: 'stage.youhuiin.com'
+
+  
+default_image_url:
+  product:
+    small: http://apis.youhuiin.com/fileupload/img/product\default\default_120x0.jpg
+    middle: http://apis.youhuiin.com/fileupload/img/product\default\default_320x0.jpg
+  user: http://itoo.yintai.com/fileupload/img/user-logo-default.gif
+
+
 payment_code:
   alipay: 25
   wxpay:  29
+  
+alipay_notify_url: http://apis.youhuiin.com/api/payment/notify
+

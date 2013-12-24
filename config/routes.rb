@@ -64,9 +64,8 @@ IntimeService::Application.routes.draw do
   match "product/search" => "product#search"
   match "product/list" => "product#list"
   
-   match "promotion/list" => "promotion#list"
+  match "promotion/list" => "promotion#list"
   
-
   match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
   match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
   
@@ -125,15 +124,8 @@ IntimeService::Application.routes.draw do
     resources :products, only: [:index, :show]
   end
 
-  #scope module: 'front' do
-    #resources :promotion, only: [:index, :show] do
-      #collection do
-        #get :list
-        #get :get_list
-      #end
-    #end
-  #end
-
+  match "product/:id" => "product#show"
+  match "promotion/:id" => "promotion#show"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -205,7 +197,14 @@ IntimeService::Application.routes.draw do
     get  '/about',                  to: 'about#index',                as: :about
     get  '/feedback',               to: 'about#feedback',             as: :feedback
     post '/feedback',               to: 'about#create_feedback',      as: :create_feedback
+
+     #test order create
+    get '/order/create' ,            to: 'orders#create'
+    get 'address/create',           to: 'addresses#create'
+    get 'address/update',           to: 'addresses#update'
+
     get  '/my_comments',            to: 'comments#my_comments',       as: :my_comments
+
 
     resources :products, :only=>[:index, :show] do
       collection do
@@ -309,6 +308,7 @@ IntimeService::Application.routes.draw do
     get '/addresses_update/:id', to: 'addresses#update'
     get '/addresses_create', to: 'addresses#create'
     get '/orders_computeamount', to: 'orders#computeamount'
+
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'
