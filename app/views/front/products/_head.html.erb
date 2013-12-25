@@ -3,7 +3,7 @@
   <ul class="meta relative">
     <li><span>货号</span><%= product.skucode -%></li>
     <li><span>吊牌价</span>￥<i><%= product.unitprice -%></i></li>
-    <li><span>销售价</span>￥<em><%= product.price -%></em><small>立即节省<%= product.unitprice.to_i - product.price -%></small></li>
+    <li><span>销售价</span>￥<em><%= product.price -%></em><small>立即节省<%= format_price(product.unitprice.to_i - product.price) -%></small></li>
   </ul>
   <div class="code">
     <span><i class="icon-heart"></i><b class='likecount'><%= product.likecount -%></b>人喜欢</span>

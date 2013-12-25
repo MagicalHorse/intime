@@ -13,4 +13,8 @@ module Front::ProductsHelper
       Settings.default_image_url.product.small
     end
   end
+
+  def format_price(price)
+    "%.2f" % price
+  end
 end
