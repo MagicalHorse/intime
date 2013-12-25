@@ -124,18 +124,25 @@ class Front::OrdersController < Front::BaseController
             subject:        product['productname'],
             out_trade_no:   order['orderno'],
             total_fee:      order['totalamount'],
-            call_back_url:  payment_callback_url,
-            notify_url:     Settings.alipay_notify_url,
-            out_user:       current_user.id
+            notify_url:     Settings.alipay_notify_url
           }
-          redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
+
+          if mobile_request?
+            req_data[:out_user]      = current_user.id
+            req_data[:call_back_url] = payment_callback_url
+            redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
+          else
+            req_data[:return_url]    = Settings.alipay_notify_url
+            req_data[:body]          = product['productname']
+            req_data[:show_url]      = product_url(product['id'])
+            redirect_to Alipay::Services::Direct::Payment::Web.url(req_data)
+          end
         when Settings.payment_code.wxpay.to_s then
           pay_url = API::Order.wxpay_url(request,{orderno:params[:id],clientip:request.remote_ip,returnurl:payment_callback_url})
           redirect_to pay_url[:data][:payurl]
         else
-             @message = "支付方式不支持！"
+          @message = "支付方式不支持！"
         end
-        
       else
         @message = "支付失败，该订单当前状态为#{order[:status]}，不能支付！"
       end
