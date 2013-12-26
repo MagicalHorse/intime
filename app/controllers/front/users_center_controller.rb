@@ -46,7 +46,16 @@ class Front::UsersCenterController < Front::BaseController
       userid: params[:userid].present? ? params[:userid] : current_user.id
     }
     result = API::Follow.follows(request,options)
-    @results = gen_data(result) if result["data"]["likes"].present?
+
+    if result["data"]["likes"].present?
+      @results = gen_data(result)
+
+      @results = Kaminari.paginate_array(
+        @results,
+        total_count: result["data"]["totalcount"].to_i
+      ).page(result["data"]["pageindex"]).per(result["data"]["pagesize"])
+    end
+
   end
 
   def fans
@@ -57,7 +66,15 @@ class Front::UsersCenterController < Front::BaseController
       userid: params[:userid].present? ? params[:userid] : current_user.id
     }
     result   = API::Follow.follows(request,options)
-    @results = gen_data(result) if result["data"]["likes"].present?
+    if result["data"]["likes"].present?
+      @results = gen_data(result)
+
+      @results = Kaminari.paginate_array(
+        @results,
+        total_count: result["data"]["totalcount"].to_i
+      ).page(result["data"]["pageindex"]).per(result["data"]["pagesize"])
+    end
+
   end
 
   def follow
