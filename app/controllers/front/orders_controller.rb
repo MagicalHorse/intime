@@ -133,8 +133,8 @@ class Front::OrdersController < Front::BaseController
             redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
           else
             req_data[:return_url]    = payment_callback_url
-            req_data[:body]          = product['description']
-            req_data[:show_url]      = product_url(product['id'])
+            req_data[:body]          = product['productdesc']
+            req_data[:show_url]      = product_url(product['productid'])
             redirect_to Alipay::Services::Direct::Payment::Web.url(req_data)
           end
         when Settings.payment_code.wxpay.to_s then
