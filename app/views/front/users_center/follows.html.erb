@@ -11,7 +11,7 @@
 <div class="span9 main">
   <!-- follow -->
   <section class="portfolio">
-  <ul class="thumbnails">
+   <ul class="thumbnails">
     <% if @results.blank? %>
       <div id="no_data" class="no_data alert alert-error text-center" style="display:block">
         <h5><i></i>关注Ta人，看Ta人喜欢和分享~~Ta还没有关注任何人~~</h5>
@@ -49,6 +49,7 @@
     </div>
     </li>
   <% end %>
+  <%= paginate @results -%>
 <% end %>
   </ul>
   </section>
