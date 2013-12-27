@@ -42,7 +42,7 @@
       </dl>
       <dl class="brands">
         <dt id="myTab">
-        <span class="all active"><a href="#brandALL" class="active" title="查看全部品牌的产品">全部</a></span>
+        <span class="all"><a href="#brandALL" title="查看全部品牌的产品">全部</a></span>
         <%  @brand_keys.each do |brand_key|%>
           <span><a href="#brand<%= brand_key%>" title="查找以中英文首字母为 <%= brand_key%> 的品牌"><%= brand_key%></a></span>
         <% end %>
@@ -94,8 +94,8 @@
     <li class="dropdown" id="menu4">
     <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="javascript:void(0)">排序<b class="caret"></b></a>
     <ul class="dropdown-menu" role="menu" aria-labelledby="drop4">
-      <li role="presentation" class="active">
-      <a role="menuitem" class="active" tabindex="-1" href="javascript:void(0)" data-gallerytype="sortby" data-gallerykey="1" >最新发布</a>
+      <li role="presentation">
+      <a role="menuitem" tabindex="-1" href="javascript:void(0)" data-gallerytype="sortby" data-gallerykey="1" >最新发布</a>
       </li>
       <li role="presentation">
       <a role="menuitem" tabindex="-1" href="javascript:void(0)" data-gallerytype="sortby" data-gallerykey="2" >价格最高</a>
