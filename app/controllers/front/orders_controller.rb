@@ -132,8 +132,8 @@ class Front::OrdersController < Front::BaseController
             req_data[:call_back_url] = payment_callback_url
             redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
           else
-            req_data[:return_url]    = Settings.alipay_notify_url
-            req_data[:body]          = product['productname']
+            req_data[:return_url]    = payment_callback_url
+            req_data[:body]          = product['description']
             req_data[:show_url]      = product_url(product['id'])
             redirect_to Alipay::Services::Direct::Payment::Web.url(req_data)
           end
