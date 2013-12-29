@@ -123,18 +123,19 @@ class Front::OrdersController < Front::BaseController
           req_data = {
             subject:        product['productname'],
             out_trade_no:   order['orderno'],
-            total_fee:      order['totalamount'],
-            notify_url:     Settings.alipay_notify_url
+            total_fee:      order['totalamount']
           }
 
           if mobile_request?
             req_data[:out_user]      = current_user.id
             req_data[:call_back_url] = payment_callback_url
+            req_data[:notify_url] = Settings.alipay_notify_urlq
             redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
           else
             req_data[:return_url]    = payment_callback_url
             req_data[:body]          = product['productdesc']
             req_data[:show_url]      = product_url(product['productid'])
+            req_data[:notify_url] = Settings.alipay_pc_notify_url
             redirect_to Alipay::Services::Direct::Payment::Web.url(req_data)
           end
         when Settings.payment_code.wxpay.to_s then

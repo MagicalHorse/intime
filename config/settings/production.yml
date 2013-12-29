@@ -34,6 +34,7 @@ payment_code:
   wxpay:  29
   
 alipay_notify_url: http://iapi.intime.com.cn/api/payment/notify
+alipay_pc_notify_url: http://iapi.intime.com.cn/api/payment/notify2
 
 api:
   stage: 'http://i.intime.com.cn'
