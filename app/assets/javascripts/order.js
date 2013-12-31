@@ -130,7 +130,7 @@ $.extend(intime, {
             var supportpayments=$("input[name='supportpayments']:checked").val();
             var supportpayments_name=$("input[name='supportpayments']:checked").attr('data-payname');
             var company_name=$("#company_name").val();
-            var bill_comments=$("#bill_comments").val();
+            var bill_comments=$("#bill_comments").find("option:selected").val();
             var dis_comments=$("#dis_comments").val();
             var colorvalueid = $(".yanse").val();
             var colourid = $("#colourid").val();

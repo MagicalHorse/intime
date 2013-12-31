@@ -59,9 +59,12 @@ class Front::OrdersController < Front::BaseController
         else
           result[:data][:supportpayments].select { |r| r[:supportpc] }
         end
+        
         render json: result, callback: params[:callback]
       }
-      format.html
+      format.html {
+        @invoices = API::Environment.supportinvoicedetails(request)[:data]
+      }
     end
   end
 

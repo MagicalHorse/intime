@@ -9,4 +9,10 @@ module Front::OrdersHelper
       params[:type].to_s == API::Order::TYPES[status].to_s
     end
   end
+  
+  def invoice_options(invoices)
+    invoices.map do |invoice|
+      [invoice['name'], invoice['name']]
+    end.unshift(['请选择发票明细', ''])
+  end
 end

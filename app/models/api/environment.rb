@@ -16,6 +16,11 @@ module API
       def supportshipvias(req, params = {})
         post(req, params.merge(path: 'environment/supportshipvias'))
       end
+      
+      # support invoice details
+       def supportinvoicedetails(req, params = {})
+        post(req, params.merge(path: 'environment/supportinvoicedetails'))
+      end
     end
   end
 end
