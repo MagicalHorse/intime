@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Front::OrdersHelper
 
   def unpaid_orders_page?
