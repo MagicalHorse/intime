@@ -214,8 +214,10 @@
             <input id="company_name" type="text" placeholder="请填写公司名称">
             <br>
           </div>
-          <span>发票备注：</span>
-          <input id="bill_comments" type="text" placeholder="请填写发票备注">
+          <span>发票明细：</span>
+          <select id="bill_comments" style="margin-left:0px;">
+          	<%= options_for_select invoice_options(@invoices)%>
+          </select>
           <br>
         </div>
         <div class="item_tit bt"><span>配送及备注：</span><br>
