@@ -63,7 +63,7 @@ class Front::OrdersController < Front::BaseController
         render json: result, callback: params[:callback]
       }
       format.html {
-        @invoices = API::Environment.supportinvoicedetails(request)[:data]
+        @invoices = API::Environment.supportinvoicedetails(request)[:data][:items]
       }
     end
   end
