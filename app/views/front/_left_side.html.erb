@@ -56,9 +56,17 @@
       <div class="section follow">
         <ul>
           <li><h2>下载APP</h2><a target="_blank" href="https://itunes.apple.com/cn/app/xi-huan-yin-tai-guang-shang/id615975780?mt=8"><img src="<%= static_url("images/ytapp.png") -%>" alt="下载喜欢银泰APP" width="51" height="51"></a></li>
-          <li><h2>关注微信</h2><a href="javascript:;"><img src="<%= static_url("images/icon_code.png") %>" alt="关注喜欢银泰微信" width="51" height="51"></a></li>
+          <li><h2>关注微信</h2><a href="#qrcode" data-toggle="modal"><img src="<%= static_url("images/icon_code.png") %>" alt="关注喜欢银泰微信" width="51" height="51"></a></li>
         </ul>
       </div>
     </div>
+  </div>
+
+  <div id="qrcode" class="modal hide fade" style="width: 260px;margin-left: -130px;" tabindex="-1" role="dialog" aria-labelledby="mLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="mLabel">关注喜欢银泰微信</h3>
+    </div>
+    <div class="modal-body"><img src="<%= static_url("images/qrcode_200x200.jpg") %>"></div>
   </div>
 </div>
