@@ -74,6 +74,7 @@ $.extend(intime, {
 
 			var elems = [];
 			var fragment = document.createDocumentFragment();
+			var image_lazy_class = 'lazy'+_this._page.toString();
 			$(data.datas).each(function() {
 				var html = '';
 				var one = this;
@@ -87,7 +88,8 @@ $.extend(intime, {
 				//html += '<a href="' + one.url + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a>';
 				
 				var holder_mock = intime.gallery._format_holder_url(one);
-				html += '<a href="' + one.url + '"><img class="lazy" data-src="'+holder_mock +'" origin-src="'+ one.imageUrl + '" alt="' + one.title + '"></a>';
+
+				html += '<a href="' + one.url + '"><img class="'+image_lazy_class+'" data-src="'+holder_mock +'" origin-src="'+ one.imageUrl + '" alt="' + one.title + '"></a>';
 				if (one.is4sale && one.is4sale.toString() =="true") {
 					html += '<span class="bag"></span>';
 				}
@@ -100,23 +102,24 @@ $.extend(intime, {
 				fragment.appendChild(elem);
 				elems.push(elem);
 			});
-			_this._container.append(fragment);		
-			Holder.run();	
-			if (!_this._isMsnryInit) {
-				_this._isMsnryInit = true;
-				_this._msnry = new Masonry(_this._container[0], {
-					itemSelector: '.scrollItem'
-				});
+			_this._container.append(fragment);	
+			var holder_class_name = '.'+image_lazy_class;
+			Holder.run({images:holder_class_name});	
+			_this._container.imagesLoaded(function() {
+				if (!_this._isMsnryInit) {
+					_this._isMsnryInit = true;
+					_this._msnry = new Masonry(_this._container[0], {
+						itemSelector: '.scrollItem'
+					});
 
-			} else {
-				_this._msnry.appended(elems);
-			}
-			_this._msnry.layout();
+				} else {
+					_this._msnry.appended(elems);
+				}
+			});
 			$(elems).each(function() {
-				var lazyImage = $(this).find(".lazy");
+				var lazyImage = $(this).find(holder_class_name);
 				var originUrl = lazyImage.attr('origin-src');
 				lazyImage.attr('src',originUrl);
-				//lazyImage.removeAttr('data-src');
 			});
 		},
 		loadData: function($type, $entity_id) {
