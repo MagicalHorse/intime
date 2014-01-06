@@ -110,8 +110,8 @@ $.extend(intime, {
 			} else {
 				_this._msnry.appended(elems);
 			}
-			$(".lazy").each(function() {
-				$(this).attr('src')=$(this).attr('origin-src');
+			$(elems).each(function() {
+				$(this).find(".lazy").attr('src',$(this).attr('origin-src'));
 			});
 		},
 		loadData: function($type, $entity_id) {
