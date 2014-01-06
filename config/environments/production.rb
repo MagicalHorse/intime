@@ -66,6 +66,6 @@ IntimeService::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
 
-CARD_INFO_URL = "http://60.191.88.70:9090/intimers/api/vipinfo/queryinfo"
-CARD_POINT_URL = "http://60.191.88.70:9090/intimers/api/vipinfo/queryscore"
+CARD_INFO_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryinfo"
+CARD_POINT_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/queryscore"
 CARD_EXCHANGE_URL = "http://122.224.218.142:9997/intimers/api/vipinfo/exchange"
