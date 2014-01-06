@@ -176,7 +176,9 @@ class Front::ProductsController < Front::BaseController
         originalPrice:  item["unitprice"],
         likeCount: item["likecount"],
         url:       front_product_path(item["id"]||item["productid"]),
-        imageUrl:  image_info.blank? ? default_product_pic_url : middle_pic_url(image_info),
+        imageUrl:  image_info.blank? ? default_product_pic_url : middle_pic_url(image_info),       
+        imageOriginWidth: image_info.blank? ?320 : image_info["width"],
+        imageOriginHeight: image_info.blank? ?320 : image_info["height"],
         flag: item["promotionFlag"],
         is4sale: item["is4sale"]
       }
@@ -217,6 +219,8 @@ class Front::ProductsController < Front::BaseController
         likeCount: item["likecount"],
         url:       url, 
         imageUrl:  image_info.blank? ? default_product_pic_url : middle_pic_url(image_info),
+        imageOriginWidth: image_info.blank? ?320 : image_info["width"],
+        imageOriginHeight: image_info.blank? ?320 : image_info["height"],
         flag: item["promotionFlag"],
         is4sale: item["is4sale"]
       }
