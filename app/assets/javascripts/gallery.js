@@ -111,7 +111,9 @@ $.extend(intime, {
 				_this._msnry.appended(elems);
 			}
 			$(elems).each(function() {
-				$(this).find(".lazy").attr('src',$(this).attr('origin-src'));
+				var lazyImage = $(this).find(".lazy");
+				var originUrl = lazyImage.attr('origin-src');
+				lazyImage.attr('src',originUrl);
 			});
 		},
 		loadData: function($type, $entity_id) {
