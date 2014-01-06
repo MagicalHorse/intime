@@ -186,7 +186,7 @@ $.extend(intime, {
 		_format_holder_url :function(product){
 			var mock_width = 320;
 			var mock_height = product.imageOriginHeight/product.imageOriginWidth * mock_width;
-			return 'holder.js/'+mock_width.toSring()+'x'+mock_height.toSring();
+			return 'holder.js/'+mock_width.toString()+'x'+mock_height.toString();
 		}
 	}
 });
