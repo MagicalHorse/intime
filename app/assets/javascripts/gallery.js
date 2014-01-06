@@ -116,7 +116,7 @@ $.extend(intime, {
 				var lazyImage = $(this).find(".lazy");
 				var originUrl = lazyImage.attr('origin-src');
 				lazyImage.attr('src',originUrl);
-				lazyImage.removeAttr('data-src');
+				//lazyImage.removeAttr('data-src');
 			});
 		},
 		loadData: function($type, $entity_id) {
