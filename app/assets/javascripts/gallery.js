@@ -100,7 +100,8 @@ $.extend(intime, {
 				fragment.appendChild(elem);
 				elems.push(elem);
 			});
-			_this._container.append(fragment);			
+			_this._container.append(fragment);		
+			Holder.run();	
 			if (!_this._isMsnryInit) {
 				_this._isMsnryInit = true;
 				_this._msnry = new Masonry(_this._container[0], {
