@@ -190,7 +190,7 @@ $.extend(intime, {
 		_format_holder_url :function(product){
 			var mock_width = 320;
 			var mock_height = parseInt(product.imageOriginHeight/product.imageOriginWidth * mock_width);
-			return 'holder.js/'+mock_width.toString()+'x'+mock_height.toString();
+			return 'holder.js/'+mock_width.toString()+'x'+mock_height.toString()+'/auto';
 		}
 	}
 });
