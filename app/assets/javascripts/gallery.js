@@ -107,9 +107,11 @@ $.extend(intime, {
 				_this._msnry = new Masonry(_this._container[0], {
 					itemSelector: '.scrollItem'
 				});
+
 			} else {
 				_this._msnry.appended(elems);
 			}
+			_this._msnry.layout();
 			$(elems).each(function() {
 				var lazyImage = $(this).find(".lazy");
 				var originUrl = lazyImage.attr('origin-src');
