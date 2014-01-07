@@ -57,7 +57,7 @@ class Front::ProductsController < Front::BaseController
     configurations = Stage::Product.list_configurations
     @stores   = configurations[:stores]
     @brands   = configurations[:brands]
-    @tags     = Sconfigurations[:tags]
+    @tags     = configurations[:tags]
     @hotwords = configurations[:hotwords]
     @all_brands = @brands.map{|b| b.values}.flatten 
     @brand_keys = @brands.map{|b| b.keys}.flatten 
