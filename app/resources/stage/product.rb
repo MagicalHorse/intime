@@ -36,7 +36,7 @@ module Stage
         configurations = nil;
         dc = nil;
         if Rails.env.production?
-          dc = Dalli::Client.new("#{Settings.elasticache.host}#{Settings.elasticache.port}", { :namespace => "i.intime.com.cn", :compress => true })
+          dc = Dalli::Client.new("#{Settings.elasticache.host}:#{Settings.elasticache.port}", { :namespace => "i.intime.com.cn", :compress => true })
           configurations = dc.get(config_cache_key)
         end
         return configurations unless configurations.nil?
@@ -46,7 +46,7 @@ module Stage
         hotwords = Stage::HotWord.list
         configurations = {:stores=>stores,:brands=>brands,:tags=>tags,:hotwords=>hotwords}
         if Rails.env.production?
-          dc = Dalli::Client.new("#{Settings.elasticache.host}#{Settings.elasticache.port}", { :namespace => "i.intime.com.cn", :compress => true }) if dc.nil?
+          dc = Dalli::Client.new("#{Settings.elasticache.host}:#{Settings.elasticache.port}", { :namespace => "i.intime.com.cn", :compress => true }) if dc.nil?
           dc.set(config_cache_key,configurations,1.hour)
         end
         configurations
