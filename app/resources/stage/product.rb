@@ -32,7 +32,7 @@ module Stage
       end
       
       def list_configurations
-        cache_get('product_list_configurations',4.hour) {
+        cache_get('product_list_configurations',4.hours) {
           stores   = Stage::Store.list
           brands   = Stage::Brand.group_brands[:brands]
           tags     = Stage::Tag.list
