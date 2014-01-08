@@ -11,7 +11,7 @@ module Cacheable
     return cache_item unless cache_item.nil?   
     if Rails.env.production?
       dc = Dalli::Client.new("#{Settings.elasticache.host}:#{Settings.elasticache.port}", { :namespace => "i.intime.com.cn", :compress => true }) if dc.nil?
-      dc.set(key,cache_item,expires)
+      dc.set(key,cache_item)
     end
     cache_item
   end
