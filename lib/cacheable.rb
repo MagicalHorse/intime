@@ -2,6 +2,7 @@ require 'dalli'
 module Cacheable
   def cache_get(key,expires)
     dc = nil;
+    cache_item = nil;
     if Rails.env.production?
       dc = Dalli::Client.new("#{Settings.elasticache.host}:#{Settings.elasticache.port}", { :namespace => "i.intime.com.cn", :compress => true })
       cache_item = dc.get(key)
