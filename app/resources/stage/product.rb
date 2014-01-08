@@ -1,8 +1,8 @@
-require 'dalli'
+require 'cacheable'
 module Stage
   class Product < Stage::Base
     self.collection_name = :product
-
+    extend Cacheable
     class << self
       def fetch(id)
         new(get(id)['data'])
@@ -32,24 +32,14 @@ module Stage
       end
       
       def list_configurations
-        config_cache_key = 'product_list_configurations'
-        configurations = nil;
-        dc = nil;
-        if Rails.env.production?
-          dc = Dalli::Client.new("#{Settings.elasticache.host}:#{Settings.elasticache.port}", { :namespace => "i.intime.com.cn", :compress => true })
-          configurations = dc.get(config_cache_key)
-        end
-        return configurations unless configurations.nil?
-        stores   = Stage::Store.list
-        brands   = Stage::Brand.group_brands[:brands]
-        tags     = Stage::Tag.list
-        hotwords = Stage::HotWord.list
-        configurations = {:stores=>stores,:brands=>brands,:tags=>tags,:hotwords=>hotwords}
-        if Rails.env.production?
-          dc = Dalli::Client.new("#{Settings.elasticache.host}:#{Settings.elasticache.port}", { :namespace => "i.intime.com.cn", :compress => true }) if dc.nil?
-          dc.set(config_cache_key,configurations,1.hour)
-        end
-        configurations
+        fetch('product_list_configurations',4.hour) {
+          stores   = Stage::Store.list
+          brands   = Stage::Brand.group_brands[:brands]
+          tags     = Stage::Tag.list
+          hotwords = Stage::HotWord.list
+          configurations = {:stores=>stores,:brands=>brands,:tags=>tags,:hotwords=>hotwords}
+          configurations
+        }
       end
     end
 
