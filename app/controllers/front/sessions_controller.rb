@@ -1,5 +1,5 @@
 class Front::SessionsController < Front::BaseController
-
+  skip_before_filter :update_current_user
   def create
     login_user = login_from_api
     if login_user[:isSuccessful]==true
@@ -26,7 +26,6 @@ class Front::SessionsController < Front::BaseController
 
   def login_from_api
     auth_data = request.env['omniauth.auth']
-    logger.info(auth_data)
     login_type = case auth_data.provider
                  when 'weibo'      then Settings.provider.weibo
                  when 'tqq2'       then Settings.provider.tqq
