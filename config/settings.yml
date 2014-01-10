@@ -6,6 +6,7 @@ provider:
   weibo: 1
   tqq: 2
   qq_connect: 3
+  wechat: 4
 omniauth:
   weibo:
     key:

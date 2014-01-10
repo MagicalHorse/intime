@@ -108,7 +108,7 @@ GEM
     omniauth-tqq-oauth2 (0.0.4)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
-    omniauth-wechat (0.0.1)
+    omniauth-wechat (0.0.4)
       multi_json
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
@@ -238,7 +238,7 @@ DEPENDENCIES
   omniauth (~> 1.0)
   omniauth-qq-connect (~> 0.2.0)
   omniauth-tqq-oauth2 (~> 0.0.4)
-  omniauth-wechat
+  omniauth-wechat (~> 0.0.4)
   omniauth-weibo-oauth2
   pry-doc
   pry-nav
