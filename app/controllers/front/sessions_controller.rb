@@ -26,6 +26,8 @@ class Front::SessionsController < Front::BaseController
 
   def login_from_api
     auth_data = request.env['omniauth.auth']
+    logger.info('login in')
+    logger.info(auth_data)
     login_type = case auth_data.provider
                  when 'weibo'      then Settings.provider.weibo
                  when 'tqq2'       then Settings.provider.tqq
