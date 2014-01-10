@@ -2,7 +2,7 @@
 class Front::BaseController < ApplicationController
   layout 'front'
   helper_method :current_user, :signed_in?, :gen_user_logo, :format_newline,:oauth_path
-  #before_filter :wechat_login
+  before_filter :wechat_login
 
   def current_user
     @current_user ||= session[:current_user]
