@@ -24,7 +24,7 @@ class Front::BaseController < ApplicationController
 
   def wechat_login
     if (!signed_in?) && wechat_request?
-       redirect_to oauth_path('wechat')
+       redirect_to oauth_path('weixin')
     end
 =begin
     if signed_in? && !request.xhr?
