@@ -2,7 +2,7 @@
 class Front::BaseController < ApplicationController
   layout 'front'
   helper_method :current_user, :signed_in?, :gen_user_logo, :format_newline,:oauth_path
-  before_filter :wechat_login
+  #before_filter :wechat_login
 
   def current_user
     @current_user ||= session[:current_user]
@@ -24,7 +24,7 @@ class Front::BaseController < ApplicationController
 
   def wechat_login
     if (!signed_in?) && wechat_request?
-      return redirect_to oauth_path('wechat')
+       redirect_to oauth_path('wechat')
     end
 =begin
     if signed_in? && !request.xhr?

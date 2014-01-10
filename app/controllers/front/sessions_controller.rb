@@ -1,5 +1,5 @@
 class Front::SessionsController < Front::BaseController
-  skip_filter :wechat_login,:only=>[:create,:login]
+  #skip_filter :wechat_login,:only=>[:create,:login]
   def create
     logger.info('login in')
     login_user = login_from_api
