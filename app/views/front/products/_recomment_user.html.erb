@@ -1,8 +1,8 @@
 <% if (user = product.recommenduser).present? -%>
 <div class="recom">
-  <div class="face"><a href="<%= front_his_profile_path(user.id) -%>"><img src="<%= href_of_avatar_url user.logo -%>" alt="<%= user.nickname -%>" width="80" height="80"></a></div>
+  <div class="face"><a href="<%= front_his_info_path(user.id) -%>"><img src="<%= href_of_avatar_url user.logo -%>" alt="<%= user.nickname -%>" width="80" height="80"></a></div>
   <div class="info">
-    <div class="name"> <a href="space.html"></a><span>推荐</span>
+    <div class="name"> <a href="<%= front_his_info_path(user.id) -%>"><%= user.nickname -%></a><span>推荐</span>
       <button type="button" class="btn btn-mini">
         <i class="icon-plus"></i>
         <% if follow_user?(user.id) -%>
