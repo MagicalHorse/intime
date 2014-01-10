@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Front::BaseController < ApplicationController
   layout 'front'
-  helper_method :current_user, :signed_in?, :gen_user_logo, :format_newline
+  helper_method :current_user, :signed_in?, :gen_user_logo, :format_newline,:oauth_path
   before_filter :update_current_user
 
   def current_user
@@ -24,7 +24,7 @@ class Front::BaseController < ApplicationController
 
   def update_current_user
     if !(signed_in?) && wechat_request?
-      return redirect_to '/auth/wechat'
+      return redirect_to oauth_path('wechat')
     end
 =begin
     if signed_in? && !request.xhr?
@@ -141,5 +141,14 @@ class Front::BaseController < ApplicationController
   
   def wechat_request?
     mobile_request? && /MicroMessenger/i.match(request.user_agent)
+  end
+  
+  def oauth_path(provider)
+    case provider.to_s
+    when 'qq_connect', 'weibo', 'tqq2','wechat'
+      "/auth/#{provider}"
+    else
+      raise ArgumentError, 'provider can only is qq_connect, weibo and tqq2.'
+    end
   end
 end

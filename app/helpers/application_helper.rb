@@ -21,14 +21,7 @@ module ApplicationHelper
     return simple_format(text)
   end
 
-  def oauth_path(provider)
-    case provider.to_s
-    when 'qq_connect', 'weibo', 'tqq2','wechat'
-      "/auth/#{provider}"
-    else
-      raise ArgumentError, 'provider can only is qq_connect, weibo and tqq2.'
-    end
-  end
+  
 
   def static_url(path)
     "#{root_url}#{path}" if path
