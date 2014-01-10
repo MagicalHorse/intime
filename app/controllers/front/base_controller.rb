@@ -145,7 +145,7 @@ class Front::BaseController < ApplicationController
   
   def oauth_path(provider)
     case provider.to_s
-    when 'qq_connect', 'weibo', 'tqq2','wechat'
+    when 'qq_connect', 'weibo', 'tqq2','weixin'
       "/auth/#{provider}"
     else
       raise ArgumentError, 'provider can only is qq_connect, weibo and tqq2.'

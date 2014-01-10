@@ -32,7 +32,7 @@ class Front::SessionsController < Front::BaseController
                  when 'weibo'      then Settings.provider.weibo
                  when 'tqq2'       then Settings.provider.tqq
                  when 'qq_connect' then Settings.provider.qq_connect
-                 when 'wechat'      then Settings.provider.wechat
+                 when 'weixin'      then Settings.provider.wechat
                  else Settings.provider.other
                  end
 
