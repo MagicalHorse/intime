@@ -1,6 +1,7 @@
 class Front::SessionsController < Front::BaseController
-  skip_filter :update_current_user,:only=>[:create,:login,:destory]
+  skip_filter :wechat_login,:only=>[:create,:login]
   def create
+    logger.info('login in')
     login_user = login_from_api
     if login_user[:isSuccessful]==true
       set_current_user(login_user[:data])
@@ -26,8 +27,7 @@ class Front::SessionsController < Front::BaseController
 
   def login_from_api
     auth_data = request.env['omniauth.auth']
-    logger.info('login in')
-    logger.info(auth_data)
+
     login_type = case auth_data.provider
                  when 'weibo'      then Settings.provider.weibo
                  when 'tqq2'       then Settings.provider.tqq
