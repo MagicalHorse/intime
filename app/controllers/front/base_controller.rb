@@ -24,7 +24,7 @@ class Front::BaseController < ApplicationController
 
   def update_current_user
     if !(signed_in?) && wechat_request?
-      return redirect_to oauth_path('wechat')
+      return redirect_to '/auth/wechat'
     end
 =begin
     if signed_in? && !request.xhr?
