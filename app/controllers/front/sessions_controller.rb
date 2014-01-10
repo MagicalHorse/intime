@@ -1,7 +1,6 @@
 class Front::SessionsController < Front::BaseController
   skip_filter :wechat_login,:only=>[:create,:login]
   def create
-    logger.info('login in')
     login_user = login_from_api
     if login_user[:isSuccessful]==true
       set_current_user(login_user[:data])
@@ -40,7 +39,7 @@ class Front::SessionsController < Front::BaseController
       :outsiteuid       => auth_data.uid,
       :outsitenickname  => auth_data.info.nickname,
       :outsitetype      => login_type,
-      :outsitetoken     => '' #auth_data.credentials.token
+      :outsitetoken     => auth_data.credentials.token
     })
 
     user_hash[:data] ||= {}
