@@ -85,11 +85,9 @@ $.extend(intime, {
 					html += '<span class="discount">优惠</span>';
 					html += '<span class="triangle"></span>';
 				}
-				//html += '<a href="' + one.url + '"><img src="' + one.imageUrl + '" alt="' + one.title + '"></a>';
-				
 				var holder_mock = intime.gallery._format_holder_url(one);
 
-				html += '<a href="' + one.url + '"><img class="'+image_lazy_class+'" data-src="'+holder_mock +'" origin-src="'+ one.imageUrl + '" alt="' + one.title + '"></a>';
+				html += '<a href="' + one.url + '"><img class="'+image_lazy_class+'" data-src="'+holder_mock +'" data-original="'+ one.imageUrl + '" alt="' + one.title + '"></a>';
 				if (one.is4sale && one.is4sale.toString() =="true") {
 					html += '<span class="bag"></span>';
 				}
@@ -115,12 +113,11 @@ $.extend(intime, {
 				} else {
 					_this._msnry.appended(elems);
 				}
+				$(elems).each(function() {
+					$(this).find(holder_class_name).lazyload();
+				});
 			});
-			$(elems).each(function() {
-				var lazyImage = $(this).find(holder_class_name);
-				var originUrl = lazyImage.attr('origin-src');
-				lazyImage.attr('src',originUrl);
-			});
+			
 		},
 		loadData: function($type, $entity_id) {
 			this._isLoadingMore = true;
