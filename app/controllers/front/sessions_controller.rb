@@ -1,5 +1,5 @@
 class Front::SessionsController < Front::BaseController
-  skip_before_filter :update_current_user
+  skip_filter :update_current_user,:only=>[:create,:login,:destory]
   def create
     login_user = login_from_api
     if login_user[:isSuccessful]==true
