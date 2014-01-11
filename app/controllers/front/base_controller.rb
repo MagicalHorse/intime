@@ -15,7 +15,7 @@ class Front::BaseController < ApplicationController
     return true if signed_in?
 
     auth_path = login_path
-    auth_path = oauth_path('weixin') if wechat_request?
+    auth_path = oauth_path('wechat') if wechat_request?
     if request.xhr?
       render js: "window.location='#{auth_path}?return_to=#{Rack::Utils.escape(request.referrer)}'"
     else
@@ -143,7 +143,7 @@ class Front::BaseController < ApplicationController
   
   def oauth_path(provider)
     case provider.to_s
-    when 'qq_connect', 'weibo', 'tqq2','weixin'
+    when 'qq_connect', 'weibo', 'tqq2','wechat'
       "/auth/#{provider}"
     else
       raise ArgumentError, 'provider can only is qq_connect, weibo and tqq2.'
