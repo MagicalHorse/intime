@@ -7,7 +7,7 @@ end
 OmniAuth.config.logger = Rails.logger
 if Rails.env.production?
   OmniAuth.config.on_failure = Proc.new do |env|
-    Rails.logger.error(env)
+    Rails.logger.error(env['omniauth.error'])
     [302, {'Location' => '/', 'Content-Type'=> 'text/html'}, []]
   end
 end
