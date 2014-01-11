@@ -2,7 +2,6 @@
 class Front::BaseController < ApplicationController
   layout 'front'
   helper_method :current_user, :signed_in?, :gen_user_logo, :format_newline,:oauth_path
-  before_filter :wechat_login
 
   def current_user
     @current_user ||= session[:current_user]
@@ -15,17 +14,16 @@ class Front::BaseController < ApplicationController
   def authenticate!
     return true if signed_in?
 
+    auth_path = login_path
+    auth_path = oauth_path('weixin') if wechat_request?
     if request.xhr?
-      render js: "window.location='#{login_path}?return_to=#{Rack::Utils.escape(request.referrer)}'"
+      render js: "window.location='#{auth_path}?return_to=#{Rack::Utils.escape(request.referrer)}'"
     else
-      redirect_to "#{login_path}?return_to=#{Rack::Utils.escape(request.original_url)}"
+      redirect_to "#{auth_path}?return_to=#{Rack::Utils.escape(request.original_url)}"
     end
   end
 
   def wechat_login
-    if (!signed_in?) && wechat_request?
-       redirect_to oauth_path('weixin')
-    end
 =begin
     if signed_in? && !request.xhr?
       result = API::Customer.show(request)

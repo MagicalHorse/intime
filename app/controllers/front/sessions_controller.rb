@@ -1,5 +1,4 @@
 class Front::SessionsController < Front::BaseController
-  skip_filter :wechat_login,:only=>[:create,:login]
   def create
     login_user = login_from_api
     if login_user[:isSuccessful]==true
@@ -8,7 +7,8 @@ class Front::SessionsController < Front::BaseController
       logger.info(login_user)
       set_anonymous_user
     end
-
+    
+    redirect_to params[:return_to] if params[:return_to].presents?
     redirect_to session[:return_to].present? ? session[:return_to] : root_url
   end
 
