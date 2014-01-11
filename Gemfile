@@ -52,7 +52,7 @@ gem 'omniauth', '~> 1.0'
 gem 'omniauth-weibo-oauth2'
 gem "omniauth-tqq-oauth2", "~> 0.0.4"
 gem "omniauth-qq-connect", "~> 0.2.0"
-gem "omniauth-wechat","~> 0.1.2"
+gem "omniauth-wechat","~> 0.1.3"
 gem 'rest-client'
 gem 'rake', '>= 10.1.0'
 
