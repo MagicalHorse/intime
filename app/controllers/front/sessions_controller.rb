@@ -8,7 +8,7 @@ class Front::SessionsController < Front::BaseController
       set_anonymous_user
     end
     
-    redirect_to params[:return_to] if params[:return_to].presents?
+    redirect_to params[:return_to] unless params[:return_to].nil?
     redirect_to session[:return_to].present? ? session[:return_to] : root_url
   end
 
