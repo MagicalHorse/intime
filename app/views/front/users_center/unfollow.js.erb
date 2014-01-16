@@ -1,5 +1,5 @@
 <% if @result[:isSuccessful] 
 	  user_id = @result[:data][:user][:id]
 -%>
-  $('#unfollow<%= user_id.to_s%>').html('<%= link_to "关注", front_follow_path(user_id), remote: true, method: :post, id: "follow<%= user_id.to_s%>" -%>');
+  $('#unfollow<%= user_id.to_s%>').html('<%= link_to "关注", front_follow_path(user_id), remote: true, method: :post, id: "follow#{user_id}" -%>');
 <% end -%>
