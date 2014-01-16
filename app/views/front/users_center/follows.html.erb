@@ -35,7 +35,7 @@
             <li class="follow">
             <button type="button" class="btn btn-mini">
               <i class="icon-minus"></i>
-              <%= link_to raw("取消关注"), front_unfollow_path(result[:id]), id: 'unfollow', remote: true, method: :post -%>
+              <%= link_to raw("取消关注"), front_unfollow_path(result[:id]), id: "unfollow#{result[:id]}", remote: true, method: :post -%>
             </button>
             </li>
           <% end %>

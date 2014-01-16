@@ -6,9 +6,9 @@
       <button type="button" class="btn btn-mini">
         <i class="icon-plus"></i>
         <% if follow_user?(user.id) -%>
-          <%= link_to raw("取消关注"), front_unfollow_path(user.id), id: 'unfollow', remote: true, method: :post -%>
+          <%= link_to raw("取消关注"), front_unfollow_path(user.id), id: "unfollow#{user.id}", remote: true, method: :post -%>
         <% else -%>
-          <%= link_to raw("关注"), front_follow_path(user.id), id: 'follow', remote: true, method: :post -%>
+          <%= link_to raw("关注"), front_follow_path(user.id), id: "follow#{user.id}", remote: true, method: :post -%>
       <% end -%>
       </button>
     </div>

@@ -108,12 +108,13 @@ GEM
     omniauth-tqq-oauth2 (0.0.4)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
+    omniauth-wechat (0.1.23)
+      multi_json
+      oauth2
+      omniauth (~> 1.0)
     omniauth-weibo-oauth2 (0.3.0)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
-    omniauth-weixin (0.0.1)
-      omniauth (~> 1.0)
-      omniauth-oauth2 (~> 1.1)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -237,8 +238,8 @@ DEPENDENCIES
   omniauth (~> 1.0)
   omniauth-qq-connect (~> 0.2.0)
   omniauth-tqq-oauth2 (~> 0.0.4)
+  omniauth-wechat (~> 0.1.15)
   omniauth-weibo-oauth2
-  omniauth-weixin
   pry-doc
   pry-nav
   pry-rails

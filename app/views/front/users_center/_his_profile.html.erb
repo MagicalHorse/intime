@@ -75,9 +75,9 @@
   <div class="tools"> <span><%= @info[:name]%>
       <em>
         <% if @info[:isliked].blank? %>
-          <%= link_to "关注", front_follow_path(@info[:id]), remote: true, method: :post, id: 'follow' -%>
+          <%= link_to "关注", front_follow_path(@info[:id]), remote: true, method: :post, id: "follow#{@info[:id]}" -%>
         <% else %>
-          <%= link_to "取消关注", front_unfollow_path(@info[:id]), remote: true, method: :post, id: 'unfollow' -%>
+          <%= link_to "取消关注", front_unfollow_path(@info[:id]), remote: true, method: :post, id: "unfollow#{@info[:id]}" -%>
         <% end %>
       </em>
     </span>
