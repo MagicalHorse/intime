@@ -8,6 +8,7 @@ class Front::SessionsController < Front::BaseController
       set_anonymous_user
     end
     return_url = session[:return_to]
+    logger.debug session
     return_url = root_url if return_url.nil?
     redirect_to(return_url) and return
   end
