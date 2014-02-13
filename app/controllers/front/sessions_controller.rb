@@ -8,7 +8,6 @@ class Front::SessionsController < Front::BaseController
       set_anonymous_user
     end
     
-    return redirect_to request.env['omniauth.origin'] unless request.env['omniauth.origin'].nil?
     redirect_to session[:return_to].present? ? session[:return_to] : root_url
   end
 
