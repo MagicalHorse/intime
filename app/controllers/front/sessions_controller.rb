@@ -8,14 +8,15 @@ class Front::SessionsController < Front::BaseController
       set_anonymous_user
     end
     return_url = session[:return_to]
-    logger.debug session
     return_url = root_url if return_url.nil?
     redirect_to(return_url) and return
   end
 
   def login
     session[:return_to] = params[:return_to]
-    redirect_to root_url if signed_in?
+    if signed_in?
+      redirect_to(root_url) and return
+    end
   end
 
   def destory

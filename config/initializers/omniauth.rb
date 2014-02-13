@@ -7,12 +7,6 @@ end
 OmniAuth.config.logger = Rails.logger
 #if Rails.env.production?
 
-  OmniAuth.config.before_callback_phase= Proc.new do |env|
-    # override session's return_to url here
-    env['rack.session'][:return_to] = env['omniauth.params']['return_to']
-    Rails.logger.debug "return url in rack:#{env['rack.session'][:return_to]}"
-  end
-
   OmniAuth.config.on_failure = Proc.new do |env|
     Rails.logger.error(env['omniauth.error'])
     [302, {'Location' => '/', 'Content-Type'=> 'text/html'}, []]
