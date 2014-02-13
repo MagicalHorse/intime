@@ -132,7 +132,7 @@ class Front::OrdersController < Front::BaseController
           if mobile_request?
             req_data[:out_user]      = current_user.id
             req_data[:call_back_url] = payment_callback_url
-            req_data[:notify_url] = Settings.alipay_notify_urlq
+            req_data[:notify_url] = Settings.alipay_notify_url
             redirect_to Alipay::Services::Direct::Payment::Wap.url(req_data: req_data)
           else
             req_data[:return_url]    = payment_callback_url
