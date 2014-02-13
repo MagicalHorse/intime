@@ -5,12 +5,15 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   provider :wechat, Settings.omniauth.wechat.key, Settings.omniauth.wechat.secret
 end
 OmniAuth.config.logger = Rails.logger
-if Rails.env.production?
+#if Rails.env.production?
+=begin
+  OmniAuth.config.before_callback_phase= Proc.new do |env|
+    session[:return_to] = env['omniauth.params']['return_to']
+  end
+=end
   OmniAuth.config.on_failure = Proc.new do |env|
     Rails.logger.error(env['omniauth.error'])
     [302, {'Location' => '/', 'Content-Type'=> 'text/html'}, []]
   end
-  OmniAuth.config.before_callback_phase= Proc.new do |env|
-    session[:return_to] = env['omniauth.params']['return_to']
-  end
-end
+
+#end
