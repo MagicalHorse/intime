@@ -1,12 +1,3 @@
-GIT
-  remote: git://github.com/victorgong/omniauth-wechat.git
-  revision: 8763cd86790225cbe427c75e2d5885a9008963e4
-  specs:
-    omniauth-wechat (0.1.24)
-      multi_json
-      oauth2
-      omniauth (~> 1.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -117,6 +108,10 @@ GEM
     omniauth-tqq-oauth2 (0.0.4)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
+    omniauth-wechat (0.1.23)
+      multi_json
+      oauth2
+      omniauth (~> 1.0)
     omniauth-weibo-oauth2 (0.3.0)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
@@ -218,7 +213,6 @@ GEM
     uuid (2.3.7)
       macaddr (~> 1.0)
     uuidtools (2.1.4)
-    win32console (1.3.2)
     win32console (1.3.2-x86-mingw32)
     yard (0.8.7)
 
@@ -243,7 +237,7 @@ DEPENDENCIES
   omniauth (~> 1.0)
   omniauth-qq-connect (~> 0.2.0)
   omniauth-tqq-oauth2 (~> 0.0.4)
-  omniauth-wechat!
+  omniauth-wechat
   omniauth-weibo-oauth2
   pry-doc
   pry-nav
