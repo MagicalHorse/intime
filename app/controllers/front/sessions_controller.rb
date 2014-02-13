@@ -8,6 +8,7 @@ class Front::SessionsController < Front::BaseController
       set_anonymous_user
     end
     return_url = request.env['omniauth.params']['return_to']
+    logger.debug(request.env['omniauth.params'])
     return_url = root_url if return_url.nil?
     redirect_to(return_url) unless(return_url.nil?) and return
   end
