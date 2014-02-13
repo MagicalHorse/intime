@@ -10,4 +10,7 @@ if Rails.env.production?
     Rails.logger.error(env['omniauth.error'])
     [302, {'Location' => '/', 'Content-Type'=> 'text/html'}, []]
   end
+  OmniAuth.config.before_callback_phase = Proc.new do |env|
+    session[:return_to] = env['omniauth.params']['return_to']
+  end
 end
