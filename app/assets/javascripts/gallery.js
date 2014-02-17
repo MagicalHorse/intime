@@ -51,7 +51,7 @@ $.extend(intime, {
 				_this.clears();
 				_this.loadData(key);
 			});
-			this.loadData('s','c');
+			this.loadData('sortby','1');
 		},
 		onLoad: function(data) {
 			var _this = intime.gallery;
