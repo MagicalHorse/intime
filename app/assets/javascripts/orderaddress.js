@@ -29,7 +29,7 @@ $.extend(intime, {
                 if(one.id == addressid){
                     $('#shippingperson').html(one.shippingperson);
                     $('#shippingprovince').html(one.shippingprovince+" "+one.shippingcity+" "+one.shippingdistrict); 
-                    $('#shippingaddress').html(one.shippingaddress); 
+                    $('#shippingaddress').html(one.displayaddress); 
                     $('#shippingzipcode').html(one.shippingzipcode); 
                     $('#shippingphone').html(one.shippingphone); 	 
                     $("#edit_user").val(one.shippingperson);
@@ -166,7 +166,7 @@ $.extend(intime, {
                         //更新之后显示一致
                         $('#shippingperson').html(data.data.shippingperson);
                         $('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
-                        $('#shippingaddress').html(data.data.shippingaddress); 
+                        $('#shippingaddress').html(data.data.displayaddress); 
                         $('#shippingzipcode').html(data.data.shippingzipcode); 
                         $('#shippingphone').html(data.data.shippingphone);		  
                         $('#edit_user').html(data.data.shippingperson);
@@ -195,7 +195,7 @@ $.extend(intime, {
 		_new_address_insert: function(data){
 			$('#shippingperson').html(data.data.shippingperson);
 			$('#shippingprovince').html(data.data.shippingprovince+" "+data.data.shippingcity+" "+data.data.shippingdistrict); 
-			$('#shippingaddress').html(data.data.shippingaddress); 
+			$('#shippingaddress').html(data.data.displayaddress); 
 			$('#shippingzipcode').html(data.data.shippingzipcode); 
 			$('#shippingphone').html(data.data.shippingphone);   
 			$("#edit_user").val(data.data.shippingperson);
