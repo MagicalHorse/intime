@@ -283,7 +283,7 @@ $.extend(intime, {
 						$('#shippingperson').html(data.data.address.shippingperson);
 						//显示价格下的省份地址等
 						$('#shippingprovince').html(data.data.address.shippingprovince+" "+data.data.address.shippingcity+" "+data.data.address.shippingdistrict);
-						$('#shippingaddress').html(data.data.address.shippingaddress); 
+						$('#shippingaddress').html(data.data.address.displayaddress); 
 						$('#shippingzipcode').html(data.data.address.shippingzipcode); 
 						$('#shippingphone').html(data.data.address.shippingphone); 
 						$('#edit_user').val(data.data.address.shippingperson);

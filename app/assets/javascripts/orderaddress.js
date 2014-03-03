@@ -170,7 +170,7 @@ $.extend(intime, {
                         $('#shippingzipcode').html(data.data.shippingzipcode); 
                         $('#shippingphone').html(data.data.shippingphone);		  
                         $('#edit_user').html(data.data.shippingperson);
-                        $('#edit_address').html(data.data.displayaddress);
+                        $('#edit_address').html(data.data.shippingaddress);
                         $('#edit_code').html(data.data.shippingzipcode);
                         $('#edit_phone').html(data.data.shippingphone);
                         intime.orderaddress.refresh_editzone(data.data.shippingprovinceid,data.data.shippingcityid,data.data.shippingdistrictid);
@@ -214,7 +214,7 @@ $.extend(intime, {
 			html+="<span>收货人：</span><span id='consignee_name'>"+one.shippingperson+"</span><br>";
 			html+="<span>手机号码：</span><span id='consignee_phone'>"+one.shippingphone+"</span><br>";
 			html+="<span>省份：</span>"+one.shippingprovince+"-"+one.shippingcity+"-"+one.shippingdistrict+"<br>";
-			html+="<span>收货地址：</span>"+one.displayaddress+"<br>";
+			html+="<span>收货地址：</span>"+one.shippingaddress+"<br>";
 			html+="<span>邮编：</span>"+one.shippingzipcode+"<br>";
 			html+="</div>";
 			html+="</div>";
