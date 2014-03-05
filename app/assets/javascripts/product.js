@@ -12,7 +12,7 @@ $.extend(intime, {
 		_gtTarget:'',
 		_ltTarget:'',
 		_supportTouch:'ontouchstart' in window,
-		init:function(ltTarget,gtTarget){
+		init:function(gtTarget,ltTarget){
 			$(document).bind('scroll', this.onScroll);
 			this._showSlide(false);
 			var _this = this;
