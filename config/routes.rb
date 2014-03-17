@@ -311,6 +311,10 @@ IntimeService::Application.routes.draw do
 
   end
 
+  namespace :weixin do
+    
+  end
+
   get 'payment/callback', to: 'front/orders#pay_callback'
   match "product/:id" => "product#show"
   match "promotion/:id" => "promotion#show"
