@@ -10,7 +10,7 @@ payment_code:
   wxpay:  28
 alipay_notify_url: http://111.207.166.195/api/payment/notify
 wx:
-	appid: "wx69c8e957bfd6d041"
-	appsecret: "3ce01d91e45c244151ec5c27dc94ed6a"
-	backdomain: "freebird.ngork.com"
-	token: "cnjobs"
+  appid: "wx69c8e957bfd6d041"
+  appsecret: "3ce01d91e45c244151ec5c27dc94ed6a"
+  backdomain: "freebird.ngork.com"
+  token: "cnjobs"
