@@ -1,5 +1,3 @@
-module Ims
-  class store < Ims::Base
-    
-  end
+class Ims::Store < Ims::Base
+
 end
