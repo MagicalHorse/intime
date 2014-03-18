@@ -313,12 +313,27 @@ IntimeService::Application.routes.draw do
 
   namespace :ims do
     resource :auth
-    resources :cards
-    namespace :store do
-      resources :collocations do
-        resources :banners
+    resources :products
+    resources :cards, only: [:index]
+    post    :recharge
+
+    resources :card_orders, only: [:new, :create, :show]
+    resources :accounts, only: [:new, :create] do
+      collection do
+        get   :mine
+        get   :set_phone
+        post  :resend_sms
       end
     end
+
+    namespace :store do
+      namespace :store do
+        resources :collocations do
+          resources :banners
+        end
+      end
+    end
+
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'
