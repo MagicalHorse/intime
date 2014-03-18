@@ -31,7 +31,7 @@
 
       <%= render 'tool_bar', product: @product -%>
 
-      <% if @product_info.is4sale -%>
+      <% if @product_info[:is4sale] -%>
         <div class="btnbar">
           <%= link_to '在线购买', new_front_order_path(product_id: @product.id), class: 'btn btn-danger' -%>
         </div>
