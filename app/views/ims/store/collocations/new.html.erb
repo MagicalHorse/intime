@@ -1,0 +1,17 @@
+<h2>新建搭配</h2>
+<%= form_for @collocation do |f| %>
+<p>
+  大图：
+</p>
+<p>
+  <span>添加</span>
+  <span>添加</span>
+  <span>添加</span>
+</p>
+<p>
+  <%= f.text :description %>
+</p>
+<p>
+  <%= submit_tag "提交" %>
+</p>
+<% end %>

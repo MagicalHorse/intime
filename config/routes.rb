@@ -3,7 +3,7 @@ class VersionConstraint
     @version = version[0].to_i unless version.nil?
     @version = 2*100+1*10+1 if @version.nil? || @version ==0
   end
- 
+
   def matches?(request)
     current_ver = request.query_parameters[:client_version]
     return false if current_ver.nil?
@@ -17,7 +17,7 @@ class VersionConstraint
 end
 
 IntimeService::Application.routes.draw do
-  
+
   get "comment/get_list"
 
   match "wxmsg/update"=>"wxReply#update"
@@ -43,7 +43,7 @@ IntimeService::Application.routes.draw do
     delete '/logout', to: 'sessions#destory'
     get '/login', to: 'sessions#login'
   end
- 
+
   match "hotword/list"=>"hotword#list"
   match "banner/list"=>"banner#list"
 
@@ -63,12 +63,12 @@ IntimeService::Application.routes.draw do
 
   match "product/search" => "product#search"
   match "product/list" => "product#list"
-  
+
   match "promotion/list" => "promotion#list"
-  
+
   match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
   match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
-  
+
   match "card/find"=>"card#find"
 
   resources :special_topic, only: [:index] do
@@ -313,6 +313,7 @@ IntimeService::Application.routes.draw do
 
   namespace :ims do
     resource :auth
+    resources :products
     resources :accounts, only: [:new, :create] do
       collection do
         get   :mine
@@ -327,14 +328,25 @@ IntimeService::Application.routes.draw do
         post    :give
       end
     end
-    resources :card_gifts, only: [] do 
-      post    :accept
-      post    :return
-      get     :give_page
-      post    :give
+    resources :card_gifts, only: [] do
+      member do
+        post    :accept
+        post    :return
+        get     :give_page
+        post    :give
+      end
     end
     resources :card_orders, only: [:new, :create, :show]
     resources :recharge_histroy, only: [:index]
+
+    namespace :store do
+      namespace :store do
+        resources :collocations do
+          resources :banners
+        end
+      end
+    end
+
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'
