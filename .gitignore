@@ -32,3 +32,4 @@ config/environments/*.local.yml
 config/database.yml
 
 Gemfile.lock
+config/settings/development.yml
