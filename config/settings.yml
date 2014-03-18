@@ -1,6 +1,6 @@
 api:
-  stage: 'http://stage2.youhuiin.com'
-  apis: 'http://apis.youhuiin.com/api'
+  stage: 'localhost'
+  apis: 'http://111.207.166.195/api'
 provider:
   other: 0
   weibo: 1
