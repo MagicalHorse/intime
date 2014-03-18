@@ -1,0 +1,15 @@
+WeixinJSBridge.invoke('getBrandWCPayRequest',{
+"appId" : "<%= Setting.wx.appid %>", //公众号名称，由商户传入
+"timeStamp" : "<%= @timeStamp_val %>", //时间戳 这里随意使用了一个值
+"nonceStr" : "<%= @nonceStr_val %>", //随机串
+"package" : "<%= @package_val %>",//扩展字段，由商户传入
+"signType" : "SHA1", //微信签名方式:sha1
+"paySign" : "<%= @paySign_val %>" //微信签名
+},function(res){
+// 返回 res.err_msg,取值
+// get_brand_wcpay_request:cancel 用户取消
+// get_brand_wcpay_request:fail 发送失败
+// get_brand_wcpay_request:ok 发送成功
+WeixinJSBridge.log(res.err_msg);
+alert(res.err_code+res.err_desc);
+});
