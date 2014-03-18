@@ -312,7 +312,8 @@ IntimeService::Application.routes.draw do
   end
 
   namespace :ims do
-    
+    resource :auth
+    resources :cards
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'
