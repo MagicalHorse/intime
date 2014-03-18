@@ -1,5 +1,3 @@
-module Ims
-  class Product < Ims::Base
-    
-  end
+class Ims::Product < Ims::Base
+  
 end
