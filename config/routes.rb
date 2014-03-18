@@ -317,6 +317,12 @@ IntimeService::Application.routes.draw do
       resources :products
       resources :cards, only: [:index]
       post    :recharge
+
+      namespace :store do
+        resources :collocations do
+          resources :banners
+        end
+      end
     end
     resources :card_orders, only: [:new, :create, :show]
     resources :accounts, only: [:new, :create] do
