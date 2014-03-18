@@ -339,13 +339,11 @@ IntimeService::Application.routes.draw do
     resources :card_orders, only: [:new, :create, :show]
     resources :recharge_histroy, only: [:index]
 
-    namespace :store do
       namespace :store do
         resources :collocations do
           resources :banners
         end
       end
-    end
 
   end
 
