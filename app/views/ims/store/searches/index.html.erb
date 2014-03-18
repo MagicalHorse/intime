@@ -1,0 +1,31 @@
+<%= form_tag ims_store_searches_path, method: "GET", id: "search" do %>
+  <%= text_field_tag "keywords", params[:keywords], placeholder: "搜索商品名称、品牌、货号等" %>
+  <%= submit_tag "搜索" %>
+<% end %>
+
+<% if params[:keywords].blank? %>
+
+<%= link_to "100元以内", "javascript:void(0);", class: "keywords", value: "100元以内" %>
+<%= link_to "100~200元", "javascript:void(0);", class: "keywords", value: "100~200元" %>
+<%= link_to "200元~300元", "javascript:void(0);", class: "keywords", value: "200元~300元" %>
+
+<% else %>
+
+   <% 3.times.each do %>
+     <%= image_tag "/images/1.jpg" %>
+   <% end %>
+
+<% end %>
+
+
+<%= content_for :javascripts do -%>
+<script type="text/javascript">
+  $(function(){
+    $(".keywords").on("click", function(){
+      keywords = $(this).attr("value")
+      $("#keywords").val(keywords)
+      $("#search").submit()
+    })
+  })
+</script>
+<% end %>

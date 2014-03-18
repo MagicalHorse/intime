@@ -4,6 +4,10 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   end
 
+  def show
+
+  end
+
   def new
 
   end

@@ -313,7 +313,6 @@ IntimeService::Application.routes.draw do
 
   namespace :ims do
     resource :auth
-    resources :products
     resources :accounts, only: [:new, :create] do
       collection do
         get   :mine
@@ -340,10 +339,10 @@ IntimeService::Application.routes.draw do
     resources :recharge_histroy, only: [:index]
 
     namespace :store do
-      namespace :store do
-        resources :collocations do
-          resources :banners
-        end
+      resources :products
+      resources :searches, only: :index
+      resources :collocations do
+        resources :banners
       end
     end
 
