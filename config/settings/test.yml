@@ -19,7 +19,7 @@ alipay:
   seller_account: 'maoym@intime.com.cn'
 
 default_url_options:
-  host: 'stage.youhuiin.com'
+  host: 'localhost'
 
   
 default_image_url:

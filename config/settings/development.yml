@@ -1,5 +1,5 @@
 default_url_options:
-  host: 'stage.youhuiin.com'
+  host: 'localhost'
 default_image_url:
   product:
     small: http://111.207.166.195/fileupload/img/product/default/default_120x0.jpg

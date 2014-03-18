@@ -311,7 +311,7 @@ IntimeService::Application.routes.draw do
 
   end
 
-  namespace :weixin do
+  namespace :ims do
     
   end
 
