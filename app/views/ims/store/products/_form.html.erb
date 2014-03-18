@@ -1,0 +1,32 @@
+
+
+
+<%= form_tag ims_store_products_path do %>
+  选择图片： <%= file_field_tag "image" %>
+  品牌: <%= select_tag "brand_id", options_for_select(["品牌1", "品牌2"]) %>
+  销售编码: <%= select_tag "coding_id", options_for_select(["编码1", "编码2"]) %>
+  货号: <%= text_field_tag "item" %>
+  吊牌价（元）: <%= text_field_tag "brand_price" %>
+  微信价（元）: <%= text_field_tag "weixin_price" %>
+  分类: <%= select_tag "category_id", options_for_select(["分类1", "分类2"]) %>
+  尺码: <%= select_tag "size_id", options_for_select(["尺码1", "尺码2"]), multiple: "multiple" %>
+  <%= submit_tag "提交" %>
+<% end %>
+
+
+<%= content_for :javascripts do -%>
+<script type="text/javascript">
+  $(function(){
+    $("#category_id").on("change", function(){
+      category_id = $(this).val()
+      $.get("", {category_id: category_id}, function(data){
+        data = [["1", "尺码1"]]
+        $("#size_id").html("")
+        $.each(data, function(index, value){
+          $("#size_id").append("<option value='"+value[0]+"'>"+value[1]+"</option>")
+        })
+      })
+    })
+  })
+</script>
+<% end %>
