@@ -1,5 +1,4 @@
 class Ims::AccountsController < Ims::BaseController
-  skip_before_filter :wx_auth!
   
   # 我的账号
   def mine

@@ -313,10 +313,6 @@ IntimeService::Application.routes.draw do
 
   namespace :ims do
     resource :auth
-    resources :cards, only: [:index] do 
-      post    :recharge
-    end
-    resources :card_orders, only: [:new, :create, :show]
     resources :accounts, only: [:new, :create] do
       collection do
         get   :mine
@@ -324,6 +320,21 @@ IntimeService::Application.routes.draw do
         post  :resend_sms
       end
     end
+    resources :cards, only: [:index] do
+      member do
+        post    :recharge
+        get     :give_page
+        post    :give
+      end
+    end
+    resources :card_gifts, only: [] do 
+      post    :accept
+      post    :return
+      get     :give_page
+      post    :give
+    end
+    resources :card_orders, only: [:new, :create, :show]
+    resources :recharge_histroy, only: [:index]
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'

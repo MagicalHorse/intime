@@ -1,5 +1,4 @@
 class Ims::CardOrdersController < Ims::BaseController
-  skip_before_filter :wx_auth!
 
   def create
     params[:type]
