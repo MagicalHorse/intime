@@ -1,4 +1,7 @@
 class Ims::CardsController < Ims::BaseController
-  def index
+
+  def recharge
+    
   end
+
 end

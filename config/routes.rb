@@ -313,9 +313,18 @@ IntimeService::Application.routes.draw do
 
   namespace :ims do
     resource :auth
-    resources :cards
     namespace :store do
       resources :products
+      resources :cards, only: [:index]
+      post    :recharge
+    end
+    resources :card_orders, only: [:new, :create, :show]
+    resources :accounts, only: [:new, :create] do
+      collection do
+        get   :mine
+        get   :set_phone
+        post  :resend_sms
+      end
     end
   end
 
