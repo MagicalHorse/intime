@@ -339,9 +339,16 @@ IntimeService::Application.routes.draw do
     resources :recharge_histroy, only: [:index]
 
     namespace :store do
-      resources :products
+      resources :products do
+        collection do
+          get :tutorials
+        end
+      end
       resources :searches, only: :index
       resources :collocations do
+        collection do
+          get :tutorials
+        end
         resources :banners, only: [:index, :new, :create, :destroy]
       end
     end
