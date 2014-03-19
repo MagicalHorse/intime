@@ -8,14 +8,37 @@
 </p>
 <br/>
 <p>
-  <span><%= link_to "新拍产品", new_ims_store_product_path %></span>
-  <span>添加</span>
-  <span>添加</span>
+
 </p>
+<p id="add">
+  <%= link_to image_tag("/images/1.jpg"),  ims_store_product_path(1)%>
+  <a href="javascript:void(0);">添加产品</a>
+</p>
+  <ul style="display:none;" id="add_list">
+    <li><span><%= link_to "新拍产品", new_ims_store_product_path %></span></li>
+    <li><span><%= link_to "已拍产品", ims_store_products_path %></span></li>
+    <li><span><%= link_to "系统产品", ims_store_searches_path %></span></li>
+  </ul>
 <p>
-  <%= f.text_field :description %>
+  描述：<%= f.text_area :description %>
 </p>
+
+<p>
+  定制人：<%= f.text_field :customer %>
+</p>
+
 <p>
   <%= f.submit "提交" %>
 </p>
 <% end %>
+
+
+<%= content_for :javascripts do -%>
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $("#add a").click(function(){
+      $("#add_list").show();
+    });
+  });
+</script>
+<% end -%>
