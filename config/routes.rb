@@ -342,7 +342,7 @@ IntimeService::Application.routes.draw do
       resources :products
       resources :searches, only: :index
       resources :collocations do
-        resources :banners
+        resources :banners, only: [:index, :new, :create, :destroy]
       end
     end
 

@@ -2,7 +2,11 @@
 <%= form_for ims_store_collocations_path do |f| %>
 <p>
   大图：
+  <%= link_to new_ims_store_collocation_banner_path("collocation_id") do %>
+    <%= image_tag "/images/1.jpg" %>
+  <% end %>
 </p>
+<br/>
 <p>
   <span><%= link_to "新拍产品", new_ims_store_product_path %></span>
   <span>添加</span>

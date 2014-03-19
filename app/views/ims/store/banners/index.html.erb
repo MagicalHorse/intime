@@ -1,0 +1,43 @@
+<% 2.times.each do %>
+  <span>
+  <%= image_tag "/images/1.jpg" %>
+  <%= link_to "删除", "javascript:void(0);", class: "delete_banner", value: "banner_id" %>
+  </span>
+<% end %>
+
+<%= form_tag ims_store_collocation_banners_path("collocation_id"), multipart: true do %>
+  <%= file_field_tag "image", id: "add_banner" %>
+<% end %>
+
+<%= content_for :javascripts do -%>
+<script type="text/javascript">
+  $(function(){
+
+    $(document).on("click", ".delete_banner", function(){
+      if(confirm("确认删除吗?")){
+        this_ele = $(this)
+        banner_id = this_ele.attr("value")
+        collocation_id = 1111
+        $.post("/ims/store/collocations/"+collocation_id+"/banners/"+banner_id, {_method: "delete"}, function(data){
+          this_ele.parents("span").remove()
+        }, "json")
+      }
+    })
+
+    $("#add_banner").on("", function(){
+
+    })
+
+    $("#category_id").on("change", function(){
+      category_id = $(this).val()
+      $.get("", {category_id: category_id}, function(data){
+        data = [["1", "尺码1"]]
+        $("#size_id").html("")
+        $.each(data, function(index, value){
+          $("#size_id").append("<option value='"+value[0]+"'>"+value[1]+"</option>")
+        })
+      })
+    })
+  })
+</script>
+<% end %>
