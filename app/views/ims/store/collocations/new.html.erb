@@ -1,17 +1,17 @@
 <h2>新建搭配</h2>
-<%= form_for @collocation do |f| %>
+<%= form_for ims_store_collocations_path do |f| %>
 <p>
   大图：
 </p>
 <p>
-  <span>添加</span>
+  <span><%= link_to "新拍产品", new_ims_store_product_path %></span>
   <span>添加</span>
   <span>添加</span>
 </p>
 <p>
-  <%= f.text :description %>
+  <%= f.text_field :description %>
 </p>
 <p>
-  <%= submit_tag "提交" %>
+  <%= f.submit "提交" %>
 </p>
 <% end %>
