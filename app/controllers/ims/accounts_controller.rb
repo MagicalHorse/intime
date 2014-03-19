@@ -24,13 +24,23 @@ class Ims::AccountsController < Ims::BaseController
   # 设置密码
   def create_password
     params[:password]
-
   end
 
   # 重置密码
   def reset_password
     params[:old_password]
     params[:new_password]
+  end
+
+  # 修改密码
+  def change_password
+    params[:old_password]
+    params[:new_password]
+  end
+
+  # 用于扫描的页面
+  def scan_page
+    @code
   end
 
 end
