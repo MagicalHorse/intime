@@ -16,4 +16,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     redirect_to ims_store_products_path
   end
 
+  def tutorials
+  end
+
 end
