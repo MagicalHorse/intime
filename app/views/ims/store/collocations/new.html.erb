@@ -2,8 +2,11 @@
 <%= form_for ims_store_collocations_path do |f| %>
 <p>
   大图：
-  <%= link_to image_tag("/images/1.jpg"),  ims_store_product_path(1)%>
+  <%= link_to new_ims_store_collocation_banner_path("collocation_id") do %>
+    <%= image_tag "/images/1.jpg" %>
+  <% end %>
 </p>
+<br/>
 <p>
 
 </p>
