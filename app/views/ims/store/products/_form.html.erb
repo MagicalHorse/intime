@@ -1,7 +1,11 @@
 
 
 
-<%= form_tag url, method: method do %>
+<%= form_tag url, method: method, multipart: true do %>
+  <% if nil %>
+  选择图片： <%= file_field_tag "image", id: "browse", style: "position: absolute; width: 10px; filter: alpha(opacity=0);opacity: 0; top: 0px;" %>
+  <%= image_tag "/images/1.jpg", id: "img" %>
+  <% end %>
   选择图片： <%= file_field_tag "image" %>
   品牌: <%= select_tag "brand_id", options_for_select(["品牌1", "品牌2"]) %>
   销售编码: <%= select_tag "coding_id", options_for_select(["编码1", "编码2"]) %>
@@ -17,6 +21,28 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+    <% if nil %>
+      function ss() {
+        var img = document.getElementById("img")
+        var file = document.getElementById('browse')
+        img.onmousemove = function(e) {
+          var x, y
+          if (e) {
+            x = e.clientX; y = e.clientY
+          }
+          else {
+            x = event.x; y = event.y
+          }
+          window.status = x + "," + y
+          file.style.left = (x - 10) + 'px'
+          file.style.top = (y - 10) + 'px'
+        }
+
+      }
+
+      ss()
+    <% end %>
+
     $("#category_id").on("change", function(){
       category_id = $(this).val()
       $.get("", {category_id: category_id}, function(data){
