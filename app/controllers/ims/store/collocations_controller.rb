@@ -15,7 +15,7 @@ class Ims::Store::CollocationsController < Ims::Store::BaseController
   end
 
   def show
-    @collocation = Ims::Collocation.find(params[:id])
+    # @collocation = Ims::Collocation.find(params[:id])
   end
 
 

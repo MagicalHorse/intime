@@ -30,17 +30,12 @@ IntimeService::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Do not compress assets
-  config.assets.compress = true
-
   # Expands the lines which load the assets
-  config.assets.debug = false
-  
+  config.assets.debug = true
+
   config.active_record.logger = Logger.new(STDOUT)
   config.active_resource.logger = Logger.new(STDOUT)
 end
 CARD_INFO_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryinfo"
 CARD_POINT_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryscore"
 CARD_EXCHANGE_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/exchange"
-
-
