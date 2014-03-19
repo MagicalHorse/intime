@@ -19,5 +19,6 @@
 //= require scrolltopcontrol.js
 //= require environment.js
 //= require common.js
+//= require jquery.form.js
 //= require_self
 //= require_tree .
