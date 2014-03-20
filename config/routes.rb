@@ -345,6 +345,7 @@ IntimeService::Application.routes.draw do
     end
 
     namespace :store do
+      resources :themes, only: [:index, :edit, :update]
       resources :products do
         collection do
           get :tutorials
@@ -358,8 +359,8 @@ IntimeService::Application.routes.draw do
         resources :banners, only: [:index, :new, :create, :destroy]
       end
       resources :stores, only: [:index, :show, :edit, :update]
-      resources :incomes, only: [:index, :new, :create] do 
-        collection do 
+      resources :incomes, only: [:index, :new, :create] do
+        collection do
           get :my, :list
         end
       end

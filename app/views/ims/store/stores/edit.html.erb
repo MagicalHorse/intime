@@ -1,7 +1,7 @@
 <%= form_for(:store, url: "/ims/store/stores/update", method: 'put')  do |f| %>
  <p><%= f.text_field :name, placeholder: "名称" %></p>
  <p><%= f.file_field :pic, :onchange=>"preImg(this.id,'imgPre');" %>
-<img id="imgPre" src="" style="display: block;" />   
+   <img id="imgPre" src="" style="display: block;" />
  </p>
  <p><%= f.text_field :phone, placeholder: "电话" %></p>
  <p><%= f.submit "修改" %></p>
@@ -9,19 +9,19 @@
 
 
 <% content_for :javascripts do -%>
-<script type="text/javascript">
-function preImg(sourceId, targetId) {  
-    if (typeof FileReader === 'undefined') {  
-        alert('Your browser does not support FileReader...');  
-        return;  
-    }  
-    var reader = new FileReader();  
+  <script type="text/javascript">
+    function preImg(sourceId, targetId) {
+      if (typeof FileReader === 'undefined') {
+        alert('Your browser does not support FileReader...');
+        return;
+      }
+      var reader = new FileReader();
 
-    reader.onload = function(e) {  
-        var img = document.getElementById(targetId);  
-        img.src = this.result;  
-    }  
-    reader.readAsDataURL(document.getElementById(sourceId).files[0]);  
-  }  
- </script>
+      reader.onload = function(e) {
+        var img = document.getElementById(targetId);
+        img.src = this.result;
+      }
+      reader.readAsDataURL(document.getElementById(sourceId).files[0]);
+   }
+  </script>
 <% end -%>
