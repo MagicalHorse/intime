@@ -345,7 +345,8 @@ IntimeService::Application.routes.draw do
     end
 
     namespace :store do
-      resources :themes, only: [:index, :edit, :update]
+      resources :suggesstions, only: [:new, :create]
+      resources :themes, only: [:index, :update]
       resources :products do
         collection do
           get :tutorials

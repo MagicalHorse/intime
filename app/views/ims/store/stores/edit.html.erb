@@ -12,16 +12,16 @@
   <script type="text/javascript">
     function preImg(sourceId, targetId) {
       if (typeof FileReader === 'undefined') {
-        alert('Your browser does not support FileReader...');
-        return;
+        alert('Your browser does not support FileReader...')
+        return
       }
-      var reader = new FileReader();
+      var reader = new FileReader()
 
       reader.onload = function(e) {
-        var img = document.getElementById(targetId);
-        img.src = this.result;
+        var img = document.getElementById(targetId)
+        img.src = this.result
       }
-      reader.readAsDataURL(document.getElementById(sourceId).files[0]);
-   }
+      reader.readAsDataURL(document.getElementById(sourceId).files[0])
+    }
   </script>
 <% end -%>
