@@ -1,5 +1,10 @@
 class Ims::CardsController < Ims::BaseController
 
+  # 充值历史
+  def index
+    
+  end
+
   # 给自己充值
   def recharge
     # API_NEED: 充值礼品卡接口
