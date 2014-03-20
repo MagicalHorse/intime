@@ -1,0 +1,22 @@
+<%= form_tag ims_order_returns_reasons_path("order_id") do %>
+  退货原因： <%= select_tag "reason_id", options_for_select(["颜色不好看", "尺码不对", "其他"]) %>
+  <%= text_field_tag "reason", nil, placeholder: "其他理由", style: "display: #{false ? 'inline' : 'none'}" %>
+  退货说明： <%= text_field_tag "remark", nil, placeholder: "退货备注" %>
+
+
+  注意事项：
+  提交提现申请后，我们将尽快对您的申请进行审核。请您耐心等待！祝您购物愉快！
+  <%= submit_tag "提交申请" %>
+
+<% end %>
+
+<% content_for :javascripts do %>
+<script>
+  $(function(){
+    $("#reason_id").on("change", function(){
+      var reason = $(this).val()
+      $("#reason").toggle(reason == "其他")
+    })
+  })
+</script>
+<% end %>
