@@ -357,6 +357,8 @@ IntimeService::Application.routes.draw do
         end
         resources :banners, only: [:index, :new, :create, :destroy]
       end
+
+      resources :stores, only: [:index, :show, :edit, :update]
     end
 
   end
