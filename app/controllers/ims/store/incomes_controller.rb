@@ -11,7 +11,7 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
   end
 
   def create
-    render json: {status: true}.to_json
+    redirect_to my_ims_store_incomes_path
   end
 
   def list

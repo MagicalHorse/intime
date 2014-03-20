@@ -1,4 +1,4 @@
-<%= form_tag new_ims_store_income_path do |f| %>
+<%= form_tag ims_store_incomes_path, method: 'post' do |f| %>
 <p>提现金额：<%= text_field_tag :amount %></p>
 <p>银行：<%= text_field_tag :bank_id %></p>
 <p>卡号：<%= text_field_tag :card_id %></p>

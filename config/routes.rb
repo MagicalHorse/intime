@@ -363,6 +363,8 @@ IntimeService::Application.routes.draw do
           get :my, :list
         end
       end
+
+      resources :orders, only: [:index, :show]
     end
 
   end
