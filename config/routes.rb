@@ -337,6 +337,12 @@ IntimeService::Application.routes.draw do
     end
     resources :card_orders, only: [:new, :create, :show]
     resources :recharge_histroy, only: [:index]
+    resources :orders, only: [:new, :create, :show] do
+      member do
+        put :change_state
+        get :payments
+      end
+    end
 
     namespace :store do
       resources :products do
