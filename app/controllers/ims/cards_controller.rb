@@ -12,7 +12,8 @@ class Ims::CardsController < Ims::BaseController
     # 2、返回：卡号、金额、是否成功
 
     if "has no account"
-      redirect_to "绑卡页面"
+      # "绑卡页面"
+      redirect_to ""
     end
   end
 
