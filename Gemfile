@@ -37,7 +37,7 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-gem 'rb-readline', '~>0.4.2'
+# gem 'rb-readline', '~>0.4.2'
 gem 'mysql2'
 
 gem 'tire'

@@ -10,6 +10,10 @@ class Ims::BaseController < ApplicationController
     session[:back_url]||ims_cards_path
   end
   
+  def current_user_id
+    session[:inner_user_id]
+  end
+  
   def wx_auth!
     raise Ims::Unauthorized unless session[:wx_openid]
   end

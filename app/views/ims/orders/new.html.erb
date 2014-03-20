@@ -1,4 +1,3 @@
-
 <%= form_tag ims_orders_path, id: "new_order" do %>
   <%= image_tag "/images/1.jpg" %>
   D&G女士休闲鞋-0123423123
@@ -15,9 +14,6 @@
 
   <%= link_to "微信安全支付", "javascript:void(0);", id: "save_order" %>
 <% end %>
-
-
-
 
 <% content_for :javascripts do %>
 <script>
@@ -51,13 +47,16 @@
 
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
       WeixinJSBridge.invoke('editAddress',{
-        "appId" : <%= Settings.wx.appid %>,
-        "scope" : "jsapi_address",
-        "signType" : "sha1",
-        "addrSign" : "<%= @addrSign_val %>",
-        "timeStamp" : "<%= @timeStamp_val %>",
-        "nonceStr" : "<%= @nonceStr_val %>",
+        appId: "<%= Settings.wx.appid %>",
+        scope: "jsapi_address",
+        signType: "sha1",
+        addrSign: "<%= @addrSign_val %>",
+        timeStamp: "<%= @timeStamp_val %>",
+        nonceStr: "<%= @nonceStr_val %>"
       },function(res){
+        for(var name in res){
+          if(typeof res[name] !== 'function'){document.writeln(name+"+:+"+res[name]);}
+        }
       //若 res 中所带的返回值不为空，则表示用户选择该返回值作为收货地址。否则若返回空，则表示用户取消了这一次编辑收货地址。
         status = res.err_msg
         if(status["edit_address"] == "ok"){
