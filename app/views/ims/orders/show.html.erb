@@ -1,0 +1,43 @@
+请在1小时内完成支付，过时订单将会自动取消！
+
+订单号：11402284226
+
+订单状态：<span id="order_status">待付款</span>
+
+<%= link_to "立即支付", "javascript:void(0);", value: "order_id" %>
+
+<%= link_to do %>
+<%= image_tag "/images/1.jpg" %>
+<% end %>
+
+
+
+
+收货人姓名：何青山
+
+地址：北京北京市朝阳区测试地址
+
+手机号码：18700001111
+
+<%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: "order_id" %>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      $("#cancel_order").on("click", function(){
+        if(confirm("是否要取消订单?")){
+          this_ele = $(this)
+          order_id = this_ele.attr("value")
+          $.post("/ims/orders/"+order_id+"/change_state", {_method: "put"}, function(data){
+            if(data["status"] == true){
+              $("#order_status").text("已取消")
+              this_ele.remove()
+            }else{
+              alert("取消订单失败")
+            }
+          }, "json")
+        }
+      })
+    })
+  </script>
+<% end %>
