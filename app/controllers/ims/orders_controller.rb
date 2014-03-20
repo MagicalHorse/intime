@@ -25,4 +25,7 @@ class Ims::OrdersController < Ims::BaseController
   def change_state
     render json: {status: true, id: 1}.to_json
   end
+
+  def cancel
+  end
 end

@@ -19,11 +19,37 @@
 
 手机号码：18700001111
 
-<%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: "order_id" %>
+<br/>
+<% 2.times.each do %>
+退货时间：2014年3月21日
+
+退货编号：REQWRDAS123ASDF
+
+退货原因：颜色不喜欢
+
+退货方式：线上申请
+
+退货状态：退货审核中
+
+退货地址：浙江省杭州市上城区银泰武林店
+
+<% end %>
+
+
+
+
+<% if true %>
+  <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: "order_id" %>
+<% end %>
+
+<% if true %>
+  <%= link_to '申请退货', new_ims_order_returns_reason_path("order_id") %>
+<% end %>
 
 <% content_for :javascripts do %>
   <script>
     $(function(){
+
       $("#cancel_order").on("click", function(){
         if(confirm("是否要取消订单?")){
           this_ele = $(this)
@@ -38,6 +64,7 @@
           }, "json")
         }
       })
+
     })
   </script>
 <% end %>

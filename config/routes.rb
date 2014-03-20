@@ -342,7 +342,13 @@ IntimeService::Application.routes.draw do
         put :change_state
         get :payments
       end
+      resources :returns_reasons, only: [:new, :create] do
+        collection do
+          get "result"
+        end
+      end
     end
+
 
     namespace :store do
       resources :suggesstions, only: [:new, :create]
