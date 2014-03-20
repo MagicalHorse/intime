@@ -1,9 +1,9 @@
 class Ims::OrdersController < Ims::BaseController
   def new
     @timeStamp_val = Time.now.to_i
-    @nonceStr_val = ("a".."z").to_a.simple(9)
+    @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     sign = {
-      appid: Setting.wx.appid,
+      appid: Settings.wx.appid,
       url: "http://open.weixin.qq.com/",
       timeStamp: @timeStamp_val,
       nonceStr: @nonceStr_val,
