@@ -337,8 +337,16 @@ IntimeService::Application.routes.draw do
     end
     resources :card_orders, only: [:new, :create, :show]
     resources :recharge_histroy, only: [:index]
+    resources :orders, only: [:new, :create, :show] do
+      member do
+        put :change_state
+        get :payments
+      end
+    end
 
     namespace :store do
+      resources :suggesstions, only: [:new, :create]
+      resources :themes, only: [:index, :update]
       resources :products do
         collection do
           get :tutorials
@@ -351,6 +359,14 @@ IntimeService::Application.routes.draw do
         end
         resources :banners, only: [:index, :new, :create, :destroy]
       end
+      resources :stores, only: [:index, :show, :edit, :update]
+      resources :incomes, only: [:index, :new, :create] do
+        collection do
+          get :my, :list
+        end
+      end
+
+      resources :orders, only: [:index, :show]
     end
 
   end

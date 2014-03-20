@@ -1,11 +1,10 @@
 <%= link_to "教程", tutorials_ims_store_products_path %>
 
 <%= form_tag url, method: method, multipart: true do %>
-  <% if nil %>
-  选择图片： <%= file_field_tag "image", id: "browse", style: "position: absolute; width: 10px; filter: alpha(opacity=0);opacity: 0; top: 0px;" %>
-  <%= image_tag "/images/1.jpg", id: "img" %>
-  <% end %>
-  选择图片： <%= file_field_tag "image" %>
+  选择图片： <%= file_field_tag "image", style: "display: none;", id: "input" %>
+  <div id="result">
+    <%= image_tag "/images/1.jpg", id: "img" %>
+  </div>
   品牌: <%= select_tag "brand_id", options_for_select(["品牌1", "品牌2"]) %>
   销售编码: <%= select_tag "coding_id", options_for_select(["编码1", "编码2"]) %>
   货号: <%= text_field_tag "item" %>
@@ -20,27 +19,20 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
-    <% if nil %>
-      function ss() {
-        var img = document.getElementById("img")
-        var file = document.getElementById('browse')
-        img.onmousemove = function(e) {
-          var x, y
-          if (e) {
-            x = e.clientX; y = e.clientY
-          }
-          else {
-            x = event.x; y = event.y
-          }
-          window.status = x + "," + y
-          file.style.left = (x - 10) + 'px'
-          file.style.top = (y - 10) + 'px'
-        }
 
-      }
+    var result = document.getElementById("result");
+    var input = document.getElementById("input");
 
-      ss()
-    <% end %>
+    if(typeof FileReader==='undefined'){
+      result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
+      input.setAttribute('disabled','disabled');
+    }else{
+      input.addEventListener('change',readFile,false);
+    }
+
+    $(document).on("click", "#result img", function(){
+      $("#input").trigger("click")
+    })
 
     $("#category_id").on("change", function(){
       category_id = $(this).val()
@@ -52,6 +44,20 @@
         })
       })
     })
+
+    function readFile(){
+      var file = this.files[0];
+      if(!/image\/\w+/.test(file.type)){
+        alert("文件必须为图片！");
+        return false;
+      }
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = function(e){
+        result.innerHTML = '<img src="'+this.result+'"/>'
+      }
+    }
+
   })
 </script>
 <% end %>
