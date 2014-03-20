@@ -1,0 +1,79 @@
+礼品卡
+
+<%= image_tag "/image/1.jpg" %><br/>
+
+
+银泰礼品卡在线销售，史无前例的O2O行为，错过将后悔一生。希望您能把握此次机会
+
+<%= link_to "上架", "javascript:void(0);", class: "card" %>
+
+
+
+商品搭配
+
+<% 2.times.each do %>
+  <%= image_tag "/images/1.jpg" %>
+  <%= link_to '专为xxx定制的套装组合', new_ims_store_collocation_path("collocation_id") %>
+  <!-- 这里要改为编辑 -->
+  组合价: ￥109.00
+  <%= link_to "上架", "javascript:void(0);", class: "collocation", value: "collocation_id" %>
+<% end %>
+
+
+<% content_for :javascripts do %>
+<script>
+  $(function(){
+
+    $(document).on("click", ".collocation", function(){
+      this_ele = $(this)
+      store_id = "store_id"
+      collocation_id = this_ele.attr("value")
+      text = this_ele.text()
+      if(text == "上架"){
+        $.post("", {store_id: store_id, collocation_id: collocation_id}, function(data){
+          if(true){
+            this_ele.text("下架")
+          }else{
+            alert(text+"失败")
+          }
+        })
+      }else if(text == "下架"){
+        $.post("", {_method: "delete", collocation_id: collocation_id}, function(data){
+          if(true){
+            this_ele.text("上架")
+          }else{
+            alert(text+"失败")
+          }
+
+        })
+      }
+    })
+
+    $(document).on("click", ".card", function(){
+      this_ele = $(this)
+      store_id = "store_id"
+      text = this_ele.text()
+      if(text == "上架"){
+        $.post("", {store_id: store_id}, function(data){
+          if(true){
+            this_ele.text("下架")
+          }else{
+            alert(text+"失败")
+          }
+        })
+      }else if(text == "下架"){
+        $.post("", {_method: "delete"}, function(data){
+          if(true){
+            this_ele.text("上架")
+          }else{
+            alert(text+"失败")
+          }
+
+        })
+      }
+    })
+  })
+</script>
+<% end %>
+
+

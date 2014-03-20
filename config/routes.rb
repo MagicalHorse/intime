@@ -351,6 +351,7 @@ IntimeService::Application.routes.draw do
 
 
     namespace :store do
+      resources :sells, only: :index
       resources :suggesstions, only: [:new, :create]
       resources :themes, only: [:index, :update]
       resources :products do
