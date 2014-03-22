@@ -317,6 +317,8 @@ IntimeService::Application.routes.draw do
       collection do
         get   :mine
         get   :set_phone
+        get   :phone_page
+        get   :verify_phone
         post  :resend_sms
       end
     end

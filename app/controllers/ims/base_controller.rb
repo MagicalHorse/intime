@@ -17,4 +17,17 @@ class Ims::BaseController < ApplicationController
   def wx_auth!
     raise Ims::Unauthorized unless session[:wx_openid]
   end
+
+  private
+
+  # 生成验证短信验证码
+  def generate_sms
+    session[:sms_code] = (0..9).to_a.sample(6)
+  end
+
+  # 验证短信内容，创建一次访问许可
+  def validate_sms!
+    session[:sms_code] = params[:sms_code]
+  end
+
 end

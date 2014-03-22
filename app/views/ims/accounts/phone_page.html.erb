@@ -1,0 +1,8 @@
+<%= form_tag(verify_phone_ims_accounts_path, :method => 'get') do %>
+  请输入手机号：
+  <%= text_field_tag "phone", "" %>
+  <%= submit_tag "下一步" %>
+<% end %>
+
+1、手机号将作为您的银泰礼品卡卡号</br>
+2、手机号将用来接收验证码，作为绑定凭证</br>
