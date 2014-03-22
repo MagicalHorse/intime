@@ -1,5 +1,24 @@
-我们已发送验证码短信到这个号码
-<%= @phone %></br>
-请填写验证码<input />
 
-重发验证码
+
+为了保证您的银泰礼品卡资金安全，请设置支付密码
+
+<%= form_tag(ims_accounts_path, :method => 'post') do %>
+  <%= password_field_tag "pwd", "" %><br />
+  <%= password_field_tag "comfirm_pwd", "" %><br />
+  <%= submit_tag "确认" %>
+
+<% end %>
+
+
+
+支付密码可以用于礼品卡查询和购买支付，请妥善保管
+
+<%= content_for :javascripts do %>
+  <script src="/js/holder.js"></script>
+  <script>
+    $(document).ready(function() {
+      gallery = intime.gallery;                                                                                                              
+      gallery.init();
+    });
+  </script>
+<% end %>

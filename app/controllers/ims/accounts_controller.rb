@@ -28,7 +28,7 @@ class Ims::AccountsController < Ims::BaseController
   # 增加密码，进行保存
   def new
     # 通过当前手机号，得知手机已经开户，把手机号绑定当前用户
-    if true
+    if false
       session[:phone] = nil
       redirect_to mine_ims_accounts_path
     end
@@ -39,7 +39,14 @@ class Ims::AccountsController < Ims::BaseController
     # API_NEED: 创建资金账户
     # 此接口需要支持能同时充值一张充值卡、如果此用户是买卡后进行的绑卡，需要将当时所购卡，进行充值
     API::Giftcard.create(request, {phone: session[:phone], pwd: params[:pwd]})
-    session[:sms_code] = nil
+    if true
+      # 如果保存成功，则跳往个人主页
+      session[:sms_code] = nil
+      redirect_to mine_ims_accounts_path
+    else
+      # 如果不成功，跳回密码页面
+      redirect_to new_ims_account_path
+    end
   end
 
   # 重置密码
