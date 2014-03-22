@@ -2,7 +2,6 @@
 
 <%= image_tag "/image/1.jpg" %><br/>
 
-
 银泰礼品卡在线销售，史无前例的O2O行为，错过将后悔一生。希望您能把握此次机会
 
 <%= link_to "上架", "javascript:void(0);", class: "card" %>
@@ -19,6 +18,7 @@
   <%= link_to "上架", "javascript:void(0);", class: "collocation", value: "collocation_id" %>
 <% end %>
 
+<%= link_to '添加搭配商品', new_ims_store_collocation_path %>
 
 <% content_for :javascripts do %>
 <script>
