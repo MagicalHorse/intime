@@ -1,4 +1,5 @@
 class Ims::BaseController < ApplicationController
+  layout 'ims'
   before_filter :wx_auth! unless Rails.env.development?
   
   rescue_from Ims::Unauthorized do

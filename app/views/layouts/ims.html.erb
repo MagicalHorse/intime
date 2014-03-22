@@ -1,0 +1,68 @@
+<html><head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>我的店铺</title>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<%= stylesheet_link_tag "ims/application", :media => "all" %>
+<%= javascript_include_tag 'ims/application' %>
+
+ <!--[if lte IE 6]>
+ <script type="text/javascript" src="ims_assets/bootstrap-2.3.2/js/ie-js/bootstrap-ie.js"></script>
+ <![endif]-->
+<script type="text/javascript" charset="utf-8" src="http://www.webwa.re/js/doubanradio/extension.js"></script></head>
+<body style="">
+
+<div class="wrap">
+<a class="top-link" href="#TOP">
+	<i class="fa fa-arrow-up"></i>
+</a>
+
+<%= yield %>
+
+<footer>
+  <div class="footer-inner">
+    <div class="row-fluid">
+      <div class="span3"><a class="nav1" href="#">
+     <%= image_tag "/images/ims/main-index.png" %>
+      </a></div>
+      <div class="span3">
+        <a class="nav2 nav--current" href="#">成交记录</a>
+      </div>
+      <div class="span3"><a class="nav3" href="#">我的收益</a></div>
+      <div class="span3">
+        <div class="btn-group dropup">
+          <a href="#" class="btn btn-link dropdown-toggle nav4" data-toggle="dropdown">更多</a>
+          
+          <ul class="dropdown-menu pull-right bottom-caret">
+            <li class="nav-down1 active"><a href="#">编辑资料</a></li>
+            <li class="nav-down2"><a href="#">更换主题</a></li>
+            <li class="nav-down3"><a href="#">意见反馈</a></li>
+            <li class="nav-caret"><b class="caret"></b></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="text/javascript">
+
+  //简历编辑页右侧吸顶
+  $(window).bind("scroll",function(){
+    var that = $(this);
+    if (that.scrollTop() > 218){
+      $('#head-menu').addClass('nav-fixed');
+    } else{
+      $('#head-menu').removeClass('nav-fixed');
+    }
+  });
+</script>
+
+
+</div>
+
+
+</body></html>

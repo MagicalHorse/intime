@@ -1,0 +1,27 @@
+.face-img {background:#e3e4e8;}
+.shop-name{color: #7d022f;}
+.module-title h3{ color: #676767; background-color: #ece9ea;}
+.module-content p a{color:#676767;}
+.share-link{ background-color: #f86b9f;}
+.share-link i{ color: #ffffff;}
+.price-box em{ color: #f86b9f;}
+.price-box span{ color: #c3c6cb;}
+.nav1,
+.nav2,
+.nav3,
+.footer-inner .nav4{ color: #c3c6cb;}
+.nav2:focus,
+.nav2:hover,
+.nav3:focus,
+.nav3:hover,
+.footer-inner.nav4:focus,
+.footer-inner.nav4:hover{ color: #c3c6cb; text-decoration: none;}
+.nav2.nav-current,
+.nav3.nav-current,
+.footer-inner .nav4.nav-current{color:#f86b9f;}
+
+.footer-inner .nav4:focus{ color:#F86B9F;}
+.footer-inner .dropdown-menu.pull-right{ background-color: rgba(248, 107, 159, 0.85);}
+.footer-inner .dropdown-menu > li > a{ color: #ffffff;}
+.footer-inner .dropdown-menu > li > a:hover,
+.footer-inner .dropdown-menu > li.active > a{background-color: #ed518b; background-image: url(/images/ims/more.png); background-repeat: no-repeat;}

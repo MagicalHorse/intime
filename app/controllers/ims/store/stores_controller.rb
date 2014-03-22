@@ -15,5 +15,9 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   def show
   end
 
+  def my
+    
+  end
+
   
 end

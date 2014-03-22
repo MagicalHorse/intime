@@ -368,7 +368,11 @@ IntimeService::Application.routes.draw do
         end
         resources :banners, only: [:index, :new, :create, :destroy]
       end
-      resources :stores, only: [:index, :show, :edit, :update]
+      resources :stores, only: [:index, :show, :edit, :update] do 
+        collection do 
+          get 'my'
+        end
+      end
       resources :incomes, only: [:index, :new, :create] do
         collection do
           get :my, :list
