@@ -10,7 +10,7 @@ class Ims::AccountsController < Ims::BaseController
     @account = nil
   end
 
-  # 绑定之：验证手机号页面
+  # 绑定系列：验证手机号页面
   def verify_phone
     session[:phone] = params[:phone]
     generate_sms
@@ -24,6 +24,7 @@ class Ims::AccountsController < Ims::BaseController
     generate_sms
     # API_NEED: 发送手机验证码（用于绑卡）
     API::Sms.send(request, {to: session[:phone], text: "#{session[:sms_code]}"})
+    render nothing: true
   end
 
   # 手机验证通过，增加密码

@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery.min.js
+//= require jquery_ujs
 //= require bootstrap.min.js
 //= require jquery.form.js
 //= require_self

@@ -337,7 +337,11 @@ IntimeService::Application.routes.draw do
         post    :give
       end
     end
-    resources :card_orders, only: [:new, :create, :show]
+    resources :card_orders, only: [:new, :create, :show] do
+      member do
+        get :check_status
+      end
+    end
     resources :recharge_histroy, only: [:index]
     resources :orders, only: [:new, :create, :show] do
       member do
