@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::BaseController < ApplicationController
   layout 'ims'
   before_filter :wx_auth! unless Rails.env.development?
@@ -24,11 +25,15 @@ class Ims::BaseController < ApplicationController
   # 生成验证短信验证码
   def generate_sms
     session[:sms_code] = (0..9).to_a.sample(6)
+    session[:sms_code] = 111111
   end
 
   # 验证短信内容，创建一次访问许可
   def validate_sms!
-    session[:sms_code] = params[:sms_code]
+    if session[:sms_code].to_i != params[:sms_code].to_i
+      redirect_to mine_ims_accounts_path 
+      p "验证失败，跳出"
+    end
   end
 
 end
