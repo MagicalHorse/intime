@@ -1,0 +1,57 @@
+
+.back-wrap-inner{margin-bottom: 100px; padding: 0; margin-top: 0; border-top:0;}
+.module-bg-white{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
+.module-bg-white2{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee;}
+.module-title2 h3{ margin: 0; font-size: 26px; font-weight: normal;S}
+.module-title2 h3 i{ margin-right: 8px;}
+.title-link{ font: 21px/40px "microsoft yahei";}
+.title-link i{ margin-left: 10px; font-size: 28px;}
+.module-pull{margin-top: 50px;}
+.show-imgbox-no{border:2px dashed #eeeeee;}
+.show-imgbox-yes{border:2px solid #eeeeee;}
+
+.mini-imgbox {margin-top: 50px;} 
+.mini-imgbox ul{margin: 0; list-style: none; width: 100%；}
+.mini-imgbox ul li{ position: relative; margin:0 5px 5px 0; padding: 0; border:2px dashed #eeeeee;}
+.mini-imgbox ul li:focus,
+.mini-imgbox ul li:hover,
+.mini-imgbox ul li:active{ border:2px solid #f86b9f;}
+.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.mini-imgbox ul li img{ width: 100px;}
+.mini-imgbox ul li.add-link a{ display: block;}
+
+
+.upload-img {margin-top: 50px;} 
+.upload-img ul{margin: 0; list-style: none; width: 100%；}
+.upload-img ul li{ position: relative; margin:0 5px 5px 0; padding: 4px; border:2px solid #eeeeee; border-radius: 5px;}
+.upload-img ul li:focus,
+.upload-img ul li:hover,
+.upload-img ul li:active{ border:2px solid #f86b9f;}
+.upload-img ul li i{ position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.upload-img ul li img{ width: 180px;}
+.upload-img ul li.add-link{ border:2px dashed #eeeeee; background-color: #f6f8fa;}
+.upload-img ul li.add-link a{ display: block; }
+.module-title2 small{ font: 18px/40px "microsoft yahei"; color: #b7bbc2;}
+
+.goods-describe { margin-top: 20px;}
+.goods-describe textarea{ width: 100%; padding: 0;  min-height: 60px; font: 22px/34px "microsoft yahei"; color: #676767; border:0; box-shadow: none;}
+.module-formbox{margin-top:10px; }
+.module-formbox form{margin-bottom:0; }
+.module-formbox input{width:60%; margin-right: 10px;}
+.module-formbox input,
+.module-formbox  .help-inlinetext {color: #c3c6cb; font-size: 21px; height: 34px; line-height: 34px;}
+.module-uploadimg{position: relative;}
+.module-uploadimg .title-link{position: absolute; bottom: 2%; color: #dadada; white-space: nowrap;}
+
+
+
+
+/*-------------------------------Css Bootm---------------------------------*/
+.bottom-btnbox{ padding: 20px 0; background-color: #f2f1f1; text-align: center; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
+.bottom-btnbox .btn{ font-size: 24px; margin-right: 20px; width: 208px;}
+.bottom-btnbox .btn:last-child{ margin-right: 0;}
+.bottom-btnbox .btn i{ margin-right: 10px;}
+.bottom-btnbox form{margin: 0;}
+
+
+

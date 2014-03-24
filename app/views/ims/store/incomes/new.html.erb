@@ -1,7 +1,35 @@
-<%= form_tag ims_store_incomes_path, method: 'post' do |f| %>
+<%= form_tag ims_store_incomes_path, method: 'post', id: "income_form" do |f| %>
 <p>提现金额：<%= text_field_tag :amount %></p>
 <p>银行：<%= text_field_tag :bank_id %></p>
 <p>卡号：<%= text_field_tag :card_id %></p>
 <p>用户姓名：<%= text_field_tag :name %></p>
 <p><%= submit_tag "提交" %></p>
+<% end %>
+
+<%= content_for :javascripts do -%>
+<script type="text/javascript">
+  $(function(){
+
+    $("#income_form").validate({
+      rules: {
+        "amount": {
+          required: true
+        },
+        "bank_id": {
+          required: true
+        },
+        "card_id": {
+          required: true
+        },
+        "name": {
+          required: true
+        }
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
+      }
+    })
+
+  })
+</script>
 <% end %>

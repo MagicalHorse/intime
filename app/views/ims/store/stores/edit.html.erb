@@ -1,4 +1,4 @@
-<%= form_for(:store, url: "/ims/store/stores/update", method: 'put')  do |f| %>
+<%= form_for(:store, url: "/ims/store/stores/update", method: 'put', html: {id: "store_form"})  do |f| %>
  <p><%= f.text_field :name, placeholder: "名称" %></p>
  <p><%= f.file_field :pic, :onchange=>"preImg(this.id,'imgPre');" %>
    <img id="imgPre" src="" style="display: block;" />
@@ -10,6 +10,25 @@
 
 <% content_for :javascripts do -%>
   <script type="text/javascript">
+
+    $("#store_form").validate({
+      rules: {
+        "store[name]": {
+          required: true,
+          maxlength: 20
+        },
+        "store[phone]": {
+          required: true
+        },
+        "store[pic]": {
+          required: true
+        }
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
+      }
+    })
+
     function preImg(sourceId, targetId) {
       if (typeof FileReader === 'undefined') {
         alert('Your browser does not support FileReader...')

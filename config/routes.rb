@@ -370,10 +370,10 @@ IntimeService::Application.routes.draw do
         collection do
           get :tutorials
         end
-        resources :banners, only: [:index, :new, :create, :destroy]
+        resources :banners, only: [:index, :create, :destroy]
       end
-      resources :stores, only: [:index, :show, :edit, :update] do 
-        collection do 
+      resources :stores, only: [:index, :show, :edit, :update] do
+        collection do
           get 'my'
         end
       end

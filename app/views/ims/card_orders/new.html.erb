@@ -1,29 +1,32 @@
+<%= form_tag ims_card_orders_path, id: "new_card_order", remote: true, method: 'post' do %>
+  购卡金额:
+  <% [100, 200, 500, 1000].each do |money| %>
+    <%= radio_button_tag "money", money %><%= money %>
+  <% end %>
+  <br/>
+  我已阅读并同意《银泰礼品卡服务协议》: <%= check_box_tag "is_accept" %>
+  <%= submit_tag "确认购卡" %>
 
-<%= form_tag ims_card_orders_path, remote: true, method: 'post' do %>
-选择：<br />
-<%= radio_button_tag "price", 100 %>100<br />
-<%= radio_button_tag "price", 200 %>200<br />
-<%= radio_button_tag "price", 500 %>500<br />
-<%= radio_button_tag "price", 1000 %>1000<br />
-
-
-<%= check_box_tag 'accept' %>我已阅读并同意《银泰礼品卡服务协议》<br />
-
-<%= submit_tag("确认购卡", id: "submit") %>
 <% end %>
 
 <%= content_for :javascripts do %>
 <script>
-  $(document).ready(function() {
-    $("#submit").click(function(){
-      if( $("#accept").prop("checked") == false ){
-        alert("您必须同意礼品卡服务协议");
-        return false;
-      }else if( $("input[name='price']:checked").val() == undefined ){
-        alert("请选择礼品卡");
-        return false;
+  $(function(){
+
+    $("#new_card_order").validate({
+      rules: {
+        "money": {
+          required: true
+        },
+        "is_accept": {
+          required: true
+        }
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
       }
     })
+
   });
 </script>
-<% end %>
+<% end -%>

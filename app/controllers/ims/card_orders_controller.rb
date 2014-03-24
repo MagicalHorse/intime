@@ -32,5 +32,5 @@ class Ims::CardOrdersController < Ims::BaseController
     @price = 500
     @code = 'AF135GBGQS'
   end
-  
+
 end

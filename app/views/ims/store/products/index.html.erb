@@ -1,5 +1,36 @@
-<% 4.times.each do %>
-  <%= image_tag "/images/1.jpg" %>
-  <%= link_to "编辑", edit_ims_store_product_path("id") %>
-  <%= link_to "选择", "javascript:void(0);" %>
-<% end %>
+<div class="module module-bg-white clearfix">
+  <% 4.times.each do %>
+    <!-- list start -->
+    <div class="p-list p-list-first clearfix">
+      <div class="row-fluid">
+      <div class="span4">
+       <div class="p-pic">
+         <%= image_tag "/images/ims/no-image.jpg" %>
+       </div>
+      </div>
+      <div class="span8">
+        <div class="p-title">
+          <h3>
+            男士专用运动鞋男士专用运动鞋
+          </h3>
+        </div>
+        <div class="p-price1 clearfix">
+          <div>微信价：<span class="p-wx-price">￥180.00</span></div>
+          <div><span class="p-dp-price">吊牌价：￥380.00</span></div>
+        </div>
+        <div class="buttons">
+          <%= link_to edit_ims_store_product_path("id") do %>
+            <button class="btn btn-middle btn-danger">编 辑</button>
+          <% end %>
+          <%= link_to "javascript:void(0);" do %>
+            <button class="btn btn-middle btn-danger button-select">选 择</button>
+          <% end %>
+        </div>
+       </div>
+     </div>
+    </div>
+    <!-- list end -->
+
+  <% end %>
+
+</div>

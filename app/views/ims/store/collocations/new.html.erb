@@ -1,10 +1,11 @@
 <%= link_to "教程", tutorials_ims_store_collocations_path %>
 
 <h2>新建搭配</h2>
-<%= form_for ims_store_collocations_path do |f| %>
+<%= form_for ims_store_collocations_path, html: {id: "collocation_form"} do |f| %>
 <p>
   大图：
-  <%= link_to new_ims_store_collocation_banner_path("collocation_id") do %>
+  <%= link_to ims_store_collocation_banners_path("collocation_id") do %>
+    <%= hidden_field_tag "image_ids[]" %>
     <%= image_tag "/images/1.jpg" %>
   <% end %>
 </p>
@@ -13,7 +14,10 @@
 
 </p>
 <p id="add">
-  <%= link_to image_tag("/images/1.jpg"),  ims_store_product_path(1)%>
+  <% 3.times.each do %>
+  <%= hidden_field_tag "product_image_ids[]", 1 %>
+  <% end %>
+  <%= link_to image_tag("/images/1.jpg"), ims_store_product_path(1) %>
   <a href="javascript:void(0);">添加产品</a>
 </p>
   <ul style="display:none;" id="add_list">
@@ -22,7 +26,7 @@
     <li><span><%= link_to "系统产品", ims_store_searches_path %></span></li>
   </ul>
 <p>
-  描述：<%= f.text_area :description %>
+  描述：<%= text_area_tag :description %>
 </p>
 
 <p>
@@ -35,9 +39,45 @@
 <% end %>
 
 
+
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   $(function(){
+
+    $("#collocation_form").on("submit", function(){
+      var image_fields = $("input[name='image_ids[]']")
+      var product_image_fields = $("input[name='product_image_ids[]']")
+      verify_image1 = image_fields.length == 0
+      verify_image2 = product_image_fields.length < 2
+      verify_image3 = product_image_fields.length > 3
+      if(verify_image1){
+        alert("主图必须有")
+      }
+      if(verify_image2){
+        alert("商品搭配至少要由2个组成")
+      }
+      if(verify_image3){
+        alert("商品搭配最多由3个组成")
+      }
+      if(verify_image1 || verify_image2 || verify_image3){
+        return false
+      }
+
+    })
+
+    $("#collocation_form").validate({
+      rules: {
+        "description": {
+          required: true,
+          minlength: 20,
+          maxlength: 128
+        }
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
+      }
+    })
+
     $("#add a").click(function(){
       $("#add_list").show();
     });
