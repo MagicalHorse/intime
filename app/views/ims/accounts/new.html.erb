@@ -2,7 +2,7 @@
 
 为了保证您的银泰礼品卡资金安全，请设置支付密码
 
-<%= form_tag(ims_accounts_path, :method => 'post') do %>
+<%= form_tag(ims_accounts_path, :method => 'post', id: "account_form") do %>
   <%= password_field_tag "pwd", "" %><br />
   <%= password_field_tag "comfirm_pwd", "" %><br />
   <%= submit_tag "确认" %>
@@ -14,11 +14,35 @@
 支付密码可以用于礼品卡查询和购买支付，请妥善保管
 
 <%= content_for :javascripts do %>
+<script>
+  $(function(){
+
+    $("#account_form").validate({
+      rules: {
+        "pwd": {
+          required: true
+        },
+        "comfirm_pwd": {
+          required: true,
+          equalTo:'#pwd'
+        }
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
+      }
+    })
+
+  });
+</script>
+<% end -%>
+
+<%= content_for :javascripts do %>
   <script src="/js/holder.js"></script>
   <script>
     $(document).ready(function() {
-      gallery = intime.gallery;                                                                                                              
+      gallery = intime.gallery;
       gallery.init();
     });
   </script>
 <% end %>
+

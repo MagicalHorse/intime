@@ -1,7 +1,37 @@
-选择：<br />
-100<br />
-200<br />
-500<br />
-1000<br />
+<%= form_tag ims_card_orders_path, id: "new_card_order" do %>
+  购卡金额:
+  <% [100, 200, 500, 1000].each do |money| %>
+    <%= radio_button_tag "money", money %><%= money %>
+  <% end %>
+  <br/>
+  张数: <%= text_field_tag "count" %><br/>
+  我已阅读并同意《银泰礼品卡服务协议》: <%= check_box_tag "is_accept" %>
+  <%= submit_tag "确认购卡" %>
 
-张数：<input />
+<% end %>
+
+<%= content_for :javascripts do %>
+<script>
+  $(function(){
+
+    $("#new_card_order").validate({
+      rules: {
+        "money": {
+          required: true
+        },
+        "count": {
+          required: true,
+          number: true
+        },
+        "is_accept": {
+          required: true
+        }
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
+      }
+    })
+
+  });
+</script>
+<% end -%>

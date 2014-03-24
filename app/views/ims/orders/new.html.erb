@@ -3,7 +3,7 @@
   D&G女士休闲鞋-0123423123
   微信价: ￥239.00
   品牌价: ￥478.00
-  尺码: <%= select_tag "size_id", options_for_select(["尺码1", "尺码2"]) %>
+  尺码: <%= select_tag "size_id", options_for_select(["", "尺码1", "尺码2"]) %>
   <%= hidden_field_tag "name" %>
   <%= hidden_field_tag "zip_code" %>
   <%= hidden_field_tag "address" %>
@@ -19,30 +19,43 @@
 <script>
   $(function(){
 
+    var validator = $("#new_order").validate({
+      rules: {
+        "size_id": {
+          required: true
+        }
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
+      }
+    })
+
     $("#save_order").on("click", function(){
       var this_ele = $(this)
       var form = this_ele.parents("form")
-      form.ajaxSubmit({
-        dataType: "json",
-        success: function(data){
-          if(data["status"] == true){
-            order_id = data["id"]
-            if(confirm("是否支付成功？")){
-              document.location.href = "/ims/orders/"+order_id
+      if($("#new_order").valid()){
+        form.ajaxSubmit({
+          dataType: "json",
+          success: function(data){
+            if(data["status"] == true){
+              order_id = data["id"]
+              if(confirm("是否支付成功？")){
+                document.location.href = "/ims/orders/"+order_id
+              }else{
+                document.location.href = "/ims/orders/"+order_id+"/payments"
+              }
             }else{
-              document.location.href = "/ims/orders/"+order_id+"/payments"
+              alert("提交订单失败")
+              // $.each(data["error_messages"], function(index, data){
+              //   $(".errore-box .alert").append("<div>"+data+"</div>")
+              // })
             }
-          }else{
-            alert("提交订单失败")
-            // $.each(data["error_messages"], function(index, data){
-            //   $(".errore-box .alert").append("<div>"+data+"</div>")
-            // })
+          },
+          error: function(data){
+            alert("提交订单发生错误")
           }
-        },
-        error: function(data){
-          alert("提交订单发生错误")
-        }
-      })
+        })
+      }
     })
 
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
