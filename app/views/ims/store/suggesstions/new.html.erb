@@ -1,4 +1,4 @@
-<%= form_tag ims_store_suggesstions_path do %>
+<%= form_tag ims_store_suggesstions_path, id: "new_suggesstion" do %>
   <%= text_area_tag "content" %>
   <%= link_to "提交", "javascript:void(0);", id: "save_suggesstion" %>
 <% end %>
@@ -7,16 +7,34 @@
 <% content_for :javascripts do %>
   <script>
     $(function(){
+
+      $("#content").trigger("focus")
+
       $("#save_suggesstion").on("click", function(){
-        content = $("#content").val()
-        $.post("/ims/store/suggesstions", {content: content}, function(data){
-          if(data["status"] == true){
-            alert("意见反馈成功")
-          }else{
-            alert("意见反馈失败")
-          }
-        }, "json")
+        if($("#new_suggesstion").valid()){
+          content = $("#content").val()
+          $.post("/ims/store/suggesstions", {content: content}, function(data){
+            if(data["status"] == true){
+              alert("意见反馈成功")
+            }else{
+              alert("意见反馈失败")
+            }
+          }, "json")
+        }
       })
+
+      $("#new_suggesstion").validate({
+        rules: {
+          "content": {
+            required: true,
+            maxlength: 1024
+          }
+        },
+        errorPlacement:function(error, element){
+          element.after(error)
+        }
+      })
+
     })
   </script>
 <% end %>

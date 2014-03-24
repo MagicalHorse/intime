@@ -1,6 +1,6 @@
 <%= link_to "教程", tutorials_ims_store_products_path %>
 
-<%= form_tag url, method: method, multipart: true do %>
+<%= form_tag url, method: method, multipart: true, id: "product_form" do %>
   选择图片： <%= file_field_tag "image", style: "display: none;", id: "input" %>
   <div id="result">
     <%= image_tag "/images/1.jpg", id: "img" %>
@@ -19,6 +19,43 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+
+    $("#product_form").validate({
+      ignore: "",
+      rules: {
+        "image": {
+          required: true
+        },
+        "brand_id": {
+          required: true
+        },
+        "coding_id": {
+          required: true
+        },
+        "item": {
+          required: true
+        },
+        "brand_price": {
+          required: true
+        },
+        "weixin_price": {
+          required: true
+        },
+        "category_id": {
+          required: true
+        },
+        "size_id": {
+          require_from_group: 1
+        }
+      },
+      errorPlacement:function(error, element){
+        if(element.attr("id") == "input"){
+          $("#result").after(error)
+        }else{
+          element.after(error)
+        }
+      }
+    })
 
     var result = document.getElementById("result");
     var input = document.getElementById("input");

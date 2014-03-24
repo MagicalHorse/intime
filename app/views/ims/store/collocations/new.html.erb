@@ -1,10 +1,10 @@
 <%= link_to "教程", tutorials_ims_store_collocations_path %>
 
 <h2>新建搭配</h2>
-<%= form_for ims_store_collocations_path do |f| %>
+<%= form_for ims_store_collocations_path, html: {id: "collocation_form"} do |f| %>
 <p>
   大图：
-  <%= link_to new_ims_store_collocation_banner_path("collocation_id") do %>
+  <%= link_to ims_store_collocation_banners_path("collocation_id") do %>
     <%= image_tag "/images/1.jpg" %>
   <% end %>
 </p>
@@ -35,9 +35,23 @@
 <% end %>
 
 
+
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   $(function(){
+
+    $("#collocation_form").validate({
+      rules: {
+        "description": {
+          minlength: 20,
+          maxlength: 128
+        }
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
+      }
+    })
+
     $("#add a").click(function(){
       $("#add_list").show();
     });

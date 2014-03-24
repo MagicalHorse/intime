@@ -13,4 +13,8 @@
 //= require jquery.min.js
 //= require bootstrap.min.js
 //= require jquery.form.js
+//= require jquery.validate.js
+//= require jquery.metadata.js
+//= require jquery.validate.messages_zh.js
+//= require jquery.validate.my.js
 //= require_self

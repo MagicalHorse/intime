@@ -21,6 +21,18 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+
+    $("#search").validate({
+      rules: {
+        "keywords": {
+          required: true,
+        }
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
+      }
+    })
+
     $(".keywords").on("click", function(){
       keywords = $(this).attr("value")
       $("#keywords").val(keywords)
