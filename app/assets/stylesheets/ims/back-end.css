@@ -16,7 +16,7 @@
 .mini-imgbox ul li:focus,
 .mini-imgbox ul li:hover,
 .mini-imgbox ul li:active{ border:2px solid #f86b9f;}
-.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background:url(../images/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
 .mini-imgbox ul li img{ width: 100px;}
 .mini-imgbox ul li.add-link a{ display: block;}
 
@@ -27,7 +27,7 @@
 .upload-img ul li:focus,
 .upload-img ul li:hover,
 .upload-img ul li:active{ border:2px solid #f86b9f;}
-.upload-img ul li i{ position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px; background:url(../images/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.upload-img ul li i{ position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
 .upload-img ul li img{ width: 180px;}
 .upload-img ul li.add-link{ border:2px dashed #eeeeee; background-color: #f6f8fa;}
 .upload-img ul li.add-link a{ display: block; }
