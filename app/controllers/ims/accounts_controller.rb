@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::AccountsController < Ims::BaseController
   before_filter :validate_sms!, only: [:new, :create, :create_password, :reset_password, :change_password]
   
@@ -9,7 +10,7 @@ class Ims::AccountsController < Ims::BaseController
     @account = nil
   end
 
-  # 绑定之：验证手机号页面
+  # 绑定系列：验证手机号页面
   def verify_phone
     session[:phone] = params[:phone]
     generate_sms
@@ -23,9 +24,10 @@ class Ims::AccountsController < Ims::BaseController
     generate_sms
     # API_NEED: 发送手机验证码（用于绑卡）
     API::Sms.send(request, {to: session[:phone], text: "#{session[:sms_code]}"})
+    render nothing: true
   end
 
-  # 增加密码，进行保存
+  # 手机验证通过，增加密码
   def new
     # 通过当前手机号，得知手机已经开户，把手机号绑定当前用户
     if false
@@ -41,7 +43,8 @@ class Ims::AccountsController < Ims::BaseController
     API::Giftcard.create(request, {phone: session[:phone], pwd: params[:pwd]})
     if true
       # 如果保存成功，则跳往个人主页
-      session[:sms_code] = nil
+      p "如果保存成功，则跳往个人主页"
+      session[:sms_code], session[:phone] = nil, nil
       redirect_to mine_ims_accounts_path
     else
       # 如果不成功，跳回密码页面

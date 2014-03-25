@@ -2,12 +2,39 @@
 <%= @phone %>
 
 <%= form_tag(new_ims_account_path, :method => 'get') do %>
-  请填写验证码：
-  <%= text_field_tag "sms_code", "" %><br />
+请填写验证码：
+<%= text_field_tag "sms_code", "" %><br />
 
-  <div>接收短信大约需要<span id="num">60</span>秒</div>
-  <div>重新获取验证码</div>
+<div id="count_down">接收短信大约需要<span id="num">6</span>秒</div>
+<div id="resend" style="display:none">重新获取验证码</div>
 
-  <%= submit_tag "下一步" %>
+<%= submit_tag "下一步" %>
 
+<% end %>
+
+<%= content_for :javascripts do %>
+<script>
+  function count_down(){
+    $("#num").text( parseInt($("#num").text()) - 1 );
+    if(parseInt($("#num").text()) == 0){
+      clearInterval(interval_count_down);
+      $("#num").text(60);
+      $("#count_down").hide();
+      $("#resend").show();
+    }
+  }
+
+  $(document).ready(function() {
+    interval_count_down = setInterval("count_down()", 1000);
+
+    $("#resend").click(function(){
+      $.post("/ims/accounts/resend_sms", {},function(){
+        $("#count_down").show();
+        $("#resend").hide();
+        interval_count_down = setInterval("count_down()", 1000);
+      }, "text");
+    })
+
+  });
+</script>
 <% end %>

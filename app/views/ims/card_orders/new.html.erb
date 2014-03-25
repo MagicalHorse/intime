@@ -1,10 +1,9 @@
-<%= form_tag ims_card_orders_path, id: "new_card_order" do %>
+<%= form_tag ims_card_orders_path, id: "new_card_order", remote: true, method: 'post' do %>
   购卡金额:
   <% [100, 200, 500, 1000].each do |money| %>
     <%= radio_button_tag "money", money %><%= money %>
   <% end %>
   <br/>
-  张数: <%= text_field_tag "count" %><br/>
   我已阅读并同意《银泰礼品卡服务协议》: <%= check_box_tag "is_accept" %>
   <%= submit_tag "确认购卡" %>
 
@@ -18,10 +17,6 @@
       rules: {
         "money": {
           required: true
-        },
-        "count": {
-          required: true,
-          number: true
         },
         "is_accept": {
           required: true

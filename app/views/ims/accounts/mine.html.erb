@@ -3,7 +3,7 @@
 <% if @account %>
 我的余额<br />
 <% else %>
-我要绑卡<br />
+<%= link_to "我要绑卡", phone_page_ims_accounts_path %><br />
 <% end %>
 
-我要购卡<br />
+<%= link_to "我要购卡", new_ims_card_order_path %><br />
