@@ -4,7 +4,7 @@
     <%= radio_button_tag "money", money %><%= money %>
   <% end %>
   <br/>
-  我已阅读并同意《银泰礼品卡服务协议》: <%= check_box_tag "is_accept" %>
+  <%= check_box_tag "is_accept" %><%= label_tag "is_accept", "我已阅读并同意《银泰礼品卡服务协议》" %>
   <%= submit_tag "确认购卡" %>
 
 <% end %>
