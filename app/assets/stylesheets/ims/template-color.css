@@ -49,10 +49,8 @@
 .goods-box .goods-text a:hover,
 .goods-box .goods-text a:focus{ color: #F16498;}
 
-
 .module-searchinput{ background:#f86b9f;}
 .module-tab .nav-tabs > li > a{ color: #f86b9f;}
 .module-tab .nav-tabs > .active > a,
 .module-tab .nav-tabs > .active > a:hover,
 .module-tab .nav-tabs > .active > a:focus{ border-bottom: 1px solid #f86b9f; color: #f86b9f;}
-

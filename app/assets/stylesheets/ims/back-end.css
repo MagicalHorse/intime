@@ -62,7 +62,6 @@
 .goods-price{ position: absolute; bottom: 0; left: 0; width: 100%; color: white; line-height: 40px; font-size: 24px; text-indent: 10px; background-color: rgba(202, 200, 201, 0.80);}
 .goods-text .btn {font-size: 21px;}
 
-
 /*-------------------------------Css Goods Search---------------------------------*/
 .wrap-goodssearch{margin: 0;}
 .module-searchinput{ padding: 10px 20px;}
@@ -77,7 +76,6 @@
 .module-tab .nav-tabs > .active > a:focus{border: 0;}
 .search-condition{padding: 30px 0 30px 30px;}
 .search-condition > a{ display: inline-block; margin: 0 30px 30px 0; padding: 16px 30px; color: #abadb3; border:2px  solid #f86b9f; background-color: white; font-size: 24px; border-radius: 4px; }
-
 
 .p-detail {
   margin: 10px 20px 10px;
