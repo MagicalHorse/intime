@@ -21,7 +21,7 @@ module ApplicationHelper
     return simple_format(text)
   end
 
-  
+
 
   def static_url(path)
     "#{root_url}#{path}" if path
@@ -103,4 +103,14 @@ module ApplicationHelper
     result = API::Card.detail(request)['data']
     current_user.point + result['amount'].to_i
   end
+
+  def link_to_icon(icon_string, caption, url_or_object, options={})
+    link_to(url_or_object, options) do
+      html = <<-HTML
+      <i class="#{icon_string}"></i> #{caption}
+      HTML
+      html.html_safe
+    end
+  end
+
 end

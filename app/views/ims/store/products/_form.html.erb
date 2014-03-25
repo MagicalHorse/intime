@@ -1,19 +1,67 @@
-<%= link_to "教程", tutorials_ims_store_products_path %>
-
-<%= form_tag url, method: method, multipart: true, id: "product_form" do %>
-  选择图片： <%= file_field_tag "image", style: "display: none;", id: "input" %>
-  <div id="result">
-    <%= image_tag "/images/1.jpg", id: "img" %>
+<div class="module module-bg-white2">
+  <div class="module-title2">
+    <div class="row-fluid">
+      <div class="span6"><h3>上传图片</h3></div>
+      <div class="span6">
+          <div class="text-right">
+            <%= link_to_icon "fa fa-angle-right", "上传教程", tutorials_ims_store_products_path, class: "title-link" %>
+          </div>
+      </div>
+    </div>
   </div>
-  品牌: <%= select_tag "brand_id", options_for_select(["品牌1", "品牌2"]) %>
-  销售编码: <%= select_tag "coding_id", options_for_select(["编码1", "编码2"]) %>
-  货号: <%= text_field_tag "item" %>
-  吊牌价（元）: <%= text_field_tag "brand_price" %>
-  微信价（元）: <%= text_field_tag "weixin_price" %>
-  分类: <%= select_tag "category_id", options_for_select(["分类1", "分类2"]) %>
-  尺码: <%= select_tag "size_id", options_for_select(["尺码1", "尺码2"]), multiple: "multiple" %>
-  <%= submit_tag "提交" %>
-<% end %>
+  <div class="module-pull module-uploadimg">
+     <div class="row-fluid">
+         <div class="span8">
+            <div id="result" class="show-imgbox-no"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
+              <%= image_tag "/images/ims/upload-image.jpg", alt: "img-name", id: "img" %>
+              <!-- 400px * 400px 没有上传图片时显示默认图片no-image.jpg-->
+            </div>
+         </div>
+         <div class="span4">
+           <%= link_to_icon "fa fa-hand-o-left", "点击跟换图片", "javascript:void(0);", class: "title-link", id: "upload_img_link" %>
+         </div>
+     </div>
+  </div>
+</div>
+
+<div class="module module-bg-white2">
+    <div class="form-box">
+      <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-horizontal" do %>
+        选择图片： <%= file_field_tag "image", style: "display: none;", id: "input" %>
+        <div class="inline-horizontal">
+          <span class="help-inline"><abbr>*</abbr>品牌：</span>
+          <%= select_tag "brand_id", options_for_select(["品牌1", "品牌2"]) %>
+        </div>
+        <div class="inline-horizontal">
+          <span class="help-inline"><abbr>*</abbr>销售编码：</span>
+          <%= select_tag "coding_id", options_for_select(["编码1", "编码2"]) %>
+        </div>
+        <div class="inline-horizontal">
+          <span class="help-inline"><abbr>*</abbr>货号：</span>
+          <%= text_field_tag "item", params["item"], class: "form-textframe" %>
+        </div>
+        <div class="inline-horizontal">
+          <span class="help-inline"><abbr>*</abbr>吊牌价：</span>
+          <%= text_field_tag "brand_price", params["brand_price"], class: "form-textframe" %>
+        </div>
+        <div class="inline-horizontal">
+          <span class="help-inline"><abbr>*</abbr>微信价：</span>
+          <%= text_field_tag "weixin_price", params["weixin_price"], class: "form-textframe" %>
+        </div>
+        <div class="inline-horizontal">
+          <span class="help-inline"><abbr>*</abbr>分类：</span>
+          <%= select_tag "category_id", options_for_select(["分类1", "分类2"]) %>
+        </div>
+        <div class="inline-horizontal">
+          <span class="help-inline"><abbr>*</abbr>尺码：</span>
+          <%= select_tag "size_id", options_for_select(["尺码1", "尺码2"]), multiple: "multiple" %>
+        </div>
+        <div class="block-box">
+          <%= submit_tag "提交", class: "btn btn-danger btn-large btn-block" %>
+        </div>
+      <% end %>
+    </div>
+</div>
 
 
 <%= content_for :javascripts do -%>
@@ -67,7 +115,7 @@
       input.addEventListener('change',readFile,false);
     }
 
-    $(document).on("click", "#result img", function(){
+    $(document).on("click", "#result img, #upload_img_link", function(){
       $("#input").trigger("click")
     })
 
