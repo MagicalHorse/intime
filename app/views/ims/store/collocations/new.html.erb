@@ -1,3 +1,4 @@
+<% if false %>
 <%= link_to "教程", tutorials_ims_store_collocations_path %>
 
 <h2>新建搭配</h2>
@@ -36,6 +37,7 @@
 <p>
   <%= f.submit "提交" %>
 </p>
+<% end %>
 <% end %>
 
 
@@ -84,3 +86,90 @@
   });
 </script>
 <% end -%>
+
+
+<%= form_for ims_store_collocations_path, html: {id: "collocation_form"} do |f| %>
+<div class="module module-bg-white">
+    <div class="module-title2">
+        <div class="row-fluid">
+            <div class="span6"><h3><i class="fa fa-heart"></i>搭配组合照</h3></div>
+            <div class="span6">
+                <div class="text-right">
+                  <%= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_collocations_path %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="module-pull">
+       <div class="row-fluid">
+           <div class="span2">&nbsp;</div>
+           <div class="span8">
+               <div class="show-imgbox-no"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
+                   <img src="/images/ims/no-image.jpg" alt="img-name"><!-- 400px * 400px 没有上传图片时显示默认图片no-image.jpg-->
+               </div>
+           </div>
+           <div class="span2">&nbsp;</div>
+       </div>
+    </div>
+    <div class="mini-imgbox">
+        <ul class="inline">
+            <li><i></i><img src="/images/ims/suit-11.jpg"></li><!-- 100px * 100px -->
+            <li><i></i><img src="/images/ims/suit-11.jpg"></li>
+            <li><i></i><img src="/images/ims/suit-11.jpg"></li>
+            <li><i></i><img src="/images/ims/suit-11.jpg"></li>
+            <li class="add-link"><a href="#"><img src="/images/ims/add-img.png"></a></li>
+        </ul>
+        <%= hidden_field_tag "image_ids[]" %>
+    </div>
+</div>
+
+
+<div class="module module-bg-white">
+    <div class="module-title2">
+        <div class="row-fluid">
+            <div class="span12"><h3><i class="fa fa-heart"></i>搭配商品上传</h3></div>
+        </div>
+    </div>
+    <div class="upload-img">
+        <ul class="inline">
+            <li><i></i><img src="/images/ims/suit-11.jpg"></li><!-- 100px * 100px -->
+            <li><i></i><img src="/images/ims/suit-11.jpg"></li>
+            <li class="add-link"><a href="#"><img src="/images/ims/add-img.png"></a></li>
+        </ul>
+        <% 3.times.each do %>
+          <%= hidden_field_tag "product_image_ids[]", 1 %>
+        <% end %>
+    </div>
+</div>
+
+<div class="module module-bg-white">
+    <div class="module-title2">
+        <div class="row-fluid">
+            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>搭配描述</h3></div>
+            <div class="span8">
+                <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多128，最少20个字符</small></div>
+            </div>
+        </div>
+    </div>
+    <div class="goods-describe">
+      <%= text_area_tag :description, "", placeholder: "牛仔裤什么的" %>
+    </div>
+</div>
+
+<div class="module module-bg-white">
+    <div class="module-title2">
+        <div class="row-fluid">
+            <div class="span12"><h3><i class="fa fa-user"></i>定制对象</h3></div>
+        </div>
+    </div>
+    <div class="module-formbox">
+      <%= f.text_field :customer, class: "input-small" %>
+      <span class="help-inline help-inlinetext">顾客姓名或昵称</span>
+    </div>
+</div>
+
+<div class="bottom-btnbox">
+    <button class="btn btn-large btn-danger"><i class="fa fa-eye"></i>预 览</button>
+    <button class="btn btn-large btn-danger"><i class="fa fa-upload"></i>提交发布</button>
+</div>
+<% end %>

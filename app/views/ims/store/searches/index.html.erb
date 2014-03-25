@@ -1,3 +1,4 @@
+<% if nil %>
 <%= form_tag ims_store_searches_path, method: "GET", id: "search" do %>
   <%= text_field_tag "keywords", params[:keywords], placeholder: "搜索商品名称、品牌、货号等" %>
   <%= submit_tag "搜索" %>
@@ -16,22 +17,157 @@
   <% end %>
 
 <% end %>
+<% end %>
+
+
+
+<div class="module module-searchinput">
+    <div class="row-fluid">
+        <div class="span12">
+            <%= form_tag ims_store_searches_path, method: "GET", id: "search", class: "form-inline" do %>
+              <%= text_field_tag "keywords", params[:keywords], placeholder: "搜索宝贝", class: "input-small bg-img" %>
+              <button class="btn" type="submit">搜 索</button>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<% if params[:keywords].blank? %>
+<div class="module-tab">
+  <div class="tabbable"> <!-- Only required for left/right tabs -->
+      <ul class="nav nav-tabs">
+          <li class=""><a data-toggle="tab" href="#tab1">价格</a></li>
+          <li class=""><a data-toggle="tab" href="#tab2">折扣</a></li>
+          <li class=""><a data-toggle="tab" href="#tab3">品牌</a></li>
+          <li class="active"><a data-toggle="tab" href="#tab4">关键字</a></li>
+      </ul>
+      <div class="tab-content">
+          <div id="tab1" class="tab-pane">
+              <div class="search-condition">
+                  <a href="#">100元以内</a>
+                  <a href="#">100元</a>
+                  <a href="#">100元~200元</a>
+                  <a href="#">200元~300元</a>
+                  <a href="#">400元~500元</a>
+              </div>
+          </div>
+          <div id="tab2" class="tab-pane">
+               <div class="search-condition">
+                  <a href="#">50%</a>
+                  <a href="#">30%</a>
+                  <a href="#">40%</a>
+              </div>
+          </div>
+          <div id="tab3" class="tab-pane">
+              <div class="search-condition">
+                  <a href="#">裂帛</a>
+                  <a href="#">阿依莲</a>
+                  <a href="#">淑女屋</a>
+                  <a href="#">太平鸟</a>
+              </div>
+          </div>
+          <div id="tab4" class="tab-pane active">
+               <div class="search-condition">
+                  <a href="#">衣服</a>
+                  <a href="#">鞋子</a>
+                  <a href="#">连衣裙</a>
+                  <a href="#">牛仔裤</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<% else %>
+
+  <% 3.times.each do %>
+    <div class="module module-search-ele">
+      <div class="module-title">
+          <div class="row-fluid">
+              <div class="span12"><h3>3月10号</h3></div>
+          </div>
+      </div>
+      <div class="search-result-content">
+          <div class="row-fluid">
+              <div class="span4">
+                  <div class="goods-box">
+                      <a href="#"><img src="/images/ims/no-image.jpg"><div class="goods-price">￥300.00</div></a>
+                      <div class="goods-text">
+                          <a href="#">nike男士专用运动鞋</a>
+                          <button class="btn btn-danger btn-large btn-block">选择搭配</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="span4">
+                  <div class="goods-box">
+                      <a href="#"><img src="/images/ims/no-image.jpg"><div class="goods-price">￥300.00</div></a>
+                      <div class="goods-text">
+                          <a href="#">nike男士专用运动鞋</a>
+                          <button class="btn btn-danger btn-large btn-block">选择搭配</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="span4">
+                  <div class="goods-box">
+                      <a href="#"><img src="/images/ims/no-image.jpg"><div class="goods-price">￥300.00</div></a>
+                      <div class="goods-text">
+                          <a href="#">nike男士专用运动鞋</a>
+                          <button class="btn btn-danger btn-large btn-block">选择搭配</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="row-fluid">
+              <div class="span4">
+                  <div class="goods-box">
+                      <a href="#"><img src="/images/ims/no-image.jpg"><div class="goods-price">￥300.00</div></a>
+                      <div class="goods-text">
+                          <a href="#">nike男士专用运动鞋</a>
+                          <button class="btn btn-danger btn-large btn-block">选择搭配</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="span4">
+                  <div class="goods-box">
+                      <a href="#"><img src="/images/ims/no-image.jpg"><div class="goods-price">￥300.00</div></a>
+                      <div class="goods-text">
+                          <a href="#">nike男士专用运动鞋</a>
+                          <button class="btn btn-danger btn-large btn-block">选择搭配</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="span4">
+                  <div class="goods-box">
+                      <a href="#"><img src="/images/ims/no-image.jpg"><div class="goods-price">￥300.00</div></a>
+                      <div class="goods-text">
+                          <a href="#">nike男士专用运动鞋</a>
+                          <button class="btn btn-danger btn-large btn-block">选择搭配</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <% end %>
+
+<% end %>
+
 
 
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
 
-    $("#search").validate({
-      rules: {
-        "keywords": {
-          required: true,
-        }
-      },
-      errorPlacement:function(error, element){
-        element.after(error)
-      }
-    })
+    // $("#search").validate({
+    //   rules: {
+    //     "keywords": {
+    //       required: true,
+    //     }
+    //   },
+    //   errorPlacement:function(error, element){
+    //     element.after(error)
+    //   }
+    // })
 
     $(".keywords").on("click", function(){
       keywords = $(this).attr("value")
