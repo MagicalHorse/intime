@@ -1,22 +1,23 @@
-WeixinJSBridge.invoke('getBrandWCPayRequest',{
+WeixinJSBridge.invoke('getBrandWCPayRequest', {
 "appId" : "<%= Settings.wx.appid %>", //公众号名称，由商户传入
 "timeStamp" : "<%= Time.now.to_i %>", //时间戳 这里随意使用了一个值
-"nonceStr" : "<%= @nonceStr_val %>", //随机串
+"nonceStr" : "<%= @noncestr_val %>", //随机串
 "package" : "<%= @package_val %>",//扩展字段，由商户传入
 "signType" : "SHA1", //微信签名方式:sha1
 "paySign" : "<%= @paySign_val %>" //微信签名
 },function(res){
   // // 返回 res.err_msg,取值
+  alert(res.err_msg)
+
+  setInterval(function(){
+    $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
+      if(data.result){
+        window.location.href = "<%= ims_card_order_path(1) %>"
+      }
+    }, "json");
+  },1000) 
   if(res.err_msg == "get_brand_wcpay_request:ok"){
     // // get_brand_wcpay_request:ok 发送成功
-
-    setInterval(function(){
-      $.get("<%= check_status_ims_card_order_path(1) %>", {},function(data){
-        if(data.result){
-          window.location.href = "<%= ims_card_order_path(1) %>"
-        }
-      }, "json");
-    },1000) 
 
   }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
     // // get_brand_wcpay_request:cancel 用户取消
