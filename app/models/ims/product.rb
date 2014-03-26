@@ -1,6 +1,6 @@
-class Ims::Product < Api::Base
- 
- class << self  
+class Ims::Product < API::Base
+
+ class << self
    def list(req, parmas={})
      post(req, params.merge(path: 'ims/assistant/products'))
    end
@@ -25,7 +25,7 @@ class Ims::Product < Api::Base
    	 post(req, params.merge(path: 'ims/assistant/brands'))
    end
 
-   
- end  
+
+ end
 
 end

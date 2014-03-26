@@ -1,5 +1,5 @@
-class Ims::Combo < Api::Base
-   
+class Ims::Combo < API::Base
+
  class << self
    def list(req, parmas={})
      post(req, params.merge(path: 'ims/assistant/combos'))
@@ -12,6 +12,6 @@ class Ims::Combo < Api::Base
    def show(req, params = {})
    	 post(req, params.merge(path: 'ims/combo/detail'))
    end
- end  
+ end
 
 end
