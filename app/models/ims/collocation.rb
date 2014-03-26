@@ -1,0 +1,3 @@
+class Ims::Collocation
+
+end
