@@ -88,7 +88,7 @@
 /*----------------------------------------------------------------*/
 
 .p-detail {
-  margin: 10px 20px 10px;
+  margin: 25px 20px 10px;
 }
 .p-title {
   color: #5E5E5E;
@@ -98,20 +98,15 @@
 .p-price {
   margin-top: 5px;
 }
-.wx-price {
-  float: left;
+.wx-price .txt3 {
+  color: #b7bac0;
 }
-.wx-price h4 {
-  color: #DBDDDE;
-  font-weight: lighter;
-}
-.wx-price h4 span {
+.wx-price .txt3 span {
   color: #F16498;
 }
-.wx-price h5 {
-  color: #DBDDDE;
+.wx-price .txt5 {
+  color: #b7bac0;
   text-decoration:line-through;
-  font-weight: normal;
 }
 .p-dapei {
   float: right;
