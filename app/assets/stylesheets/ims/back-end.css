@@ -145,19 +145,13 @@
  }
  .p-price1 span {
   color: #DBDDDE;
-  /*font-size: 17px;*/
   padding-right: 30px;
  }
-/*  .p-price1 span:first-child {
-  font-size: 24px;
- }*/
+
  .p-price1 span:first-child em {
   color: #f86b9f;
  }
   .p-price1 span:last-child{text-decoration: line-through;}
-/*  .p-price1 span:last-child em {
-  font-size: 18px;
- }*/
  .p-price1 span em{font-style: normal;}
  .p-wx-price {
    color: #F16498;
@@ -184,14 +178,15 @@
      text-align: center;
    }
    .combos-product p {
+    margin-top: 20px;
     text-align: left;
     padding-left: 7px;
     color: #cacdd1;
     font-weight: normal;
    }
-   .combos-product a {
+ /*  .combos-product a {
      width: 70%;
-   }
+   }*/
    .combos-share-btns {
      background-color: #f2f1f1;
      border-top: 1px solid #dddddd;
