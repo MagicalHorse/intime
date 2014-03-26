@@ -1,16 +1,25 @@
-我们已发送验证码短信到这个号码<br />
-<%= @phone %>
-
-<%= form_tag(new_ims_account_path, :method => 'get') do %>
-请填写验证码：
-<%= text_field_tag "sms_code", "" %><br />
-
-<div id="count_down">接收短信大约需要<span id="num">6</span>秒</div>
-<div id="resend" style="display:none">重新获取验证码</div>
-
-<%= submit_tag "下一步" %>
-
-<% end %>
+<div class="module module-white">
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="verify-code">
+        <div class='verify-code-txt'>
+          <h2>我们已发送验证码短信到这个号码</h2>
+          <h2><%= @phone %></h2>
+        </div>
+        <%= form_tag(new_ims_account_path, class: "verify-form form-horizontal", :method => 'get') do %>
+        <div>
+          <%= text_field_tag "sms_code", "", class: "input-verify-code", placeholder: "请填写验证码" %>
+          <div class='btn btn-large btn-danger' id="count_down">接收短信大约需要<span id="num">6</span>秒</div>
+          <div class='btn btn-large btn-danger' id="resend" style="display:none">重新获取验证码</div>
+        </div>
+        <div>
+          <button class="btn btn-large btn-danger sub-btn">下一步</button>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>       
+</div>
 
 <%= content_for :javascripts do %>
 <script>
