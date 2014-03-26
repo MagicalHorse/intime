@@ -3,7 +3,7 @@ class Ims::Store::CollocationsController < Ims::Store::BaseController
   #新建搭配
   def new
     # @collocation = Ims::Collocation.find(params[:id]) || Ims::Collocation.create
-    @collocation = Ims::Collocation.new
+    # @collocation = Ims::Collocation.new
   end
 
   def create
