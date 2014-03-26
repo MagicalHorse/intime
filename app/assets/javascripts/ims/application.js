@@ -18,4 +18,5 @@
 //= require jquery.metadata.js
 //= require jquery.validate.messages_zh.js
 //= require jquery.validate.my.js
+//= require jquery.swipeshow.js
 //= require_self

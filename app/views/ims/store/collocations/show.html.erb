@@ -1,7 +1,20 @@
 <div class="module module-bg-white clearfix">
   <div class="row-fluid">
     <div class="span12">
-      <img src="/images/ims/product-detail.jpg">
+      <div id="myCarousel" class="carousel slide" style="overflow: hidden;">
+              <ol class="carousel-indicators">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+              </ol>
+              <!-- Carousel items -->
+              <div class="carousel-inner slides">
+                <div class="active item slide"><img src="/images/ims/product-detail.jpg"></div>
+                <div class="item slide"><img src="/images/ims/img640.jpg"></div>
+                <div class="item slide"><img src="/images/ims/product-detail.jpg"></div>
+              </div>
+            </div>
+      
         <div class="p-title"><h4>欧美范套装 简简单单的色彩 上面没有一丝累赘设计，干净利落非常精神</h4></div>
         <div class="p-price1 clearfix">
           <div>微信价：<span class="p-wx-price">￥180.00</span></div>
@@ -47,3 +60,16 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $(function(){
+    $("#myCarousel").swipeshow({
+      autostart: true,    /* Set to `false` to keep it steady */
+      interval: 3000,     /* Time between switching slides (ms) */
+      initial: 0,         /* First slide's index */
+      speed: 1500,         /* Animation speed (ms) */
+      friction: 1,      /* Bounce-back behavior; use `0` to disable */
+      mouse: true,        /* enable mouse dragging controls */
+      keys: true
+    });
+  })
+</script>
