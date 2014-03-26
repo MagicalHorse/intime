@@ -35,6 +35,7 @@
 
 
 /*-------------------------------Css Back-end-------------------------------------*/
+
 .back-wrap-inner{background: #faf9f9;}
 .module-title2 h3{ color: #676767;}
 .module-title2 h3 i{ color: #f86b9f;}
@@ -54,3 +55,8 @@
 .module-tab .nav-tabs > .active > a,
 .module-tab .nav-tabs > .active > a:hover,
 .module-tab .nav-tabs > .active > a:focus{ border-bottom: 1px solid #f86b9f; color: #f86b9f;}
+
+
+
+/*-------------------------------Css Back-end-------------------------------------*/
+.module-table-box table tr td{color: #b7bbc2;}

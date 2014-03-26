@@ -1,3 +1,13 @@
+
+
+  setInterval(function(){
+    $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
+      if(data.result){
+        window.location.href = "<%= ims_card_order_path(1) %>"
+      }
+    }, "json");
+  },1000) 
+
 WeixinJSBridge.invoke('getBrandWCPayRequest', {
 "appId" : "<%= Settings.wx.appid %>", //公众号名称，由商户传入
 "timeStamp" : "<%= Time.now.to_i %>", //时间戳 这里随意使用了一个值

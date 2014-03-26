@@ -1,5 +1,6 @@
 # encoding: utf-8
 class Ims::CardOrdersController < Ims::BaseController
+  layout "ims/user"
 
   def index
     # API_NEED: 获取礼品卡订单的列表

@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Ims::AccountsController < Ims::BaseController
   before_filter :validate_sms!, only: [:new, :create, :create_password, :reset_password, :change_password]
-  
+  layout "ims/user"
   # 我的资金账号
   def mine
     # API_NEED: 获取当前的用户资金账号：
