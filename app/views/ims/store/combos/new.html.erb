@@ -1,11 +1,11 @@
 <% if false %>
-<%= link_to "教程", tutorials_ims_store_collocations_path %>
+<%= link_to "教程", tutorials_ims_store_combos_path %>
 
 <h2>新建搭配</h2>
-<%= form_for ims_store_collocations_path, html: {id: "collocation_form"} do |f| %>
+<%= form_for ims_store_combos_path, html: {id: "combo_form"} do |f| %>
 <p>
   大图：
-  <%= link_to ims_store_collocation_banners_path("collocation_id") do %>
+  <%= link_to ims_store_combo_banners_path("combo_id") do %>
     <%= hidden_field_tag "image_ids[]" %>
     <%= image_tag "/images/1.jpg" %>
   <% end %>
@@ -46,7 +46,7 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
 
-    $("#collocation_form").on("submit", function(){
+    $("#combo_form").on("submit", function(){
       var image_fields = $("input[name='image_ids[]']")
       var product_image_fields = $("input[name='product_image_ids[]']")
       verify_image1 = image_fields.length == 0
@@ -67,7 +67,7 @@
 
     })
 
-    $("#collocation_form").validate({
+    $("#combo_form").validate({
       rules: {
         "description": {
           required: true,
@@ -95,14 +95,14 @@
 <% end -%>
 
 
-<%= form_tag("/ims/store/collocations", id: 'collocation_form') do |f| %>
+<%= form_tag("/ims/store/combos", id: 'combo_form') do |f| %>
 <div class="module module-bg-white">
     <div class="module-title2">
         <div class="row-fluid">
             <div class="span6"><h3><i class="fa fa-heart"></i>搭配组合照</h3></div>
             <div class="span6">
                 <div class="text-right">
-                  <%= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_collocations_path %>
+                  <%= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_combos_path %>
                 </div>
             </div>
         </div>
