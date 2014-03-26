@@ -1,5 +1,5 @@
 class Ims::User
- ATTRIBUTES = [:email, :level, :nickie, :id, :provider, :isbindcard, :mobile, :avatar_url, :coupon_count, :point, :like_count, :fans_count, :favor_count, :access_token, :refresh_token, :onlinecoupontotal, :offlinecoupontotal]
+ ATTRIBUTES = [:id, :email, :level, :nickname, :mobile, :isbindcard, :logo, :level, :operate_right, :token]
   attr_accessor *ATTRIBUTES
 
   def initialize(attributes = {})
