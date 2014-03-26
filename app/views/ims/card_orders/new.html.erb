@@ -1,13 +1,48 @@
-<%= form_tag ims_card_orders_path, id: "new_card_order", remote: true, method: 'post' do %>
-  购卡金额:
-  <% [100, 200, 500, 1000].each do |money| %>
-    <%= radio_button_tag "money", money %><%= money %>
-  <% end %>
-  <br/>
-  <%= check_box_tag "is_accept" %><%= label_tag "is_accept", "我已阅读并同意《银泰礼品卡服务协议》" %>
-  <%= submit_tag "确认购卡" %>
+<div class="module module-white">
 
-<% end %>
+  <div class="module-form form-padding">
+    <%= form_tag ims_card_orders_path, id: "new_card_order", class: "form-block-label", remote: true, method: 'post' do %>
+    <div class="form-label">
+      <span class="txt1">请选择购卡金额</span>
+      <label class="radio" class="radio" for="money_100">
+        <input id="money_100" name="money" type="radio" value="100" class="valid">100元（售价100.00元）
+      </label> 
+      <label class="radio" for="money_200">
+        <input id="money_200" name="money" type="radio" value="200" class="valid">200元（售价196.00元）
+      </label>  
+      <label class="radio" for="money_500">
+        <input id="money_500" name="money" type="radio" value="500" class="valid">500元（售价485.00元）
+      </label>   
+      <label class="radio" for="money_1000">
+        <input id="money_1000" name="money" type="radio" value="1000" class="valid">1000元（售价960.00元）
+      </label> 
+      <label class="checkbox" for="is_accept">
+        <input id="is_accept" name="is_accept" type="checkbox" value="1" class="valid">我已阅读并同意《银泰礼品卡服务协议》
+      </label>
+    </div> 
+    <div class="module-btn text-center">
+      <%= submit_tag "确认购买", class: "btn btn-large btn-danger btn-block" %>
+    </div>
+
+    <% end %>
+    <div class="module module-notice">
+      <h4><i class="fa fa-exclamation-circle"></i> 温馨提示</h4>
+      <ol>
+        <li>礼品卡已经购买，暂不支持退货、退款。</li>
+        <li>购买成功后，您可以选择转送朋友或自己充值。</li>
+        <li>充值成功后，礼品卡支持线下任何一家银泰实体门店支付。</li>
+      </ol>
+    </div>
+
+  </div>
+
+</div> 
+
+
+
+
+
+
 
 <%= content_for :javascripts do %>
 <script>

@@ -1,9 +1,32 @@
-银泰礼品卡<br />
-
 <% if @account %>
-我的余额<br />
+<div class="module module-white module-card-img">
+  <img src="/images/ims/card1.jpg">
+  <div class="text-right">
+    <a class="txt3" href="#"><i class="fa fa-hand-o-up"></i> 点击支付</a>
+  </div>
+</div> 
+<div class="module module-form module-remaining">
+  <h1 class="text-center">礼品卡余额：<span>998.00元</span></h1>
+  <%= link_to "我要购卡", new_ims_card_order_path, class: "btn btn-large btn-block btn-danger" %>
+</div> 
+<div class="module-user-change">
+  <ul class="txt1">
+    <li><a class="clearfix" href="#"><i class="fa fa-unlock"></i> <span>修改密码</span><i class="fa fa-angle-right"></i></a></li>
+    <li><a class="clearfix" href="#"><i class="fa fa-unlock-alt"></i> <span>找回密码</span><i class="fa fa-angle-right"></i></a></li>
+    <li><a class="clearfix" href="#"><i class="fa fa-book"></i> <span>交易记录</span><i class="fa fa-angle-right"></i></a></li>
+  </ul>
+</div>
 <% else %>
-<%= link_to "我要绑卡", phone_page_ims_accounts_path %><br />
+<div class="module module-white module-card-img">
+  <img src="/images/ims/card1.jpg">
+</div> 
+<div class="module module-form module-remaining">
+  <%= link_to "我要购卡", new_ims_card_order_path, class: "btn btn-large btn-block btn-danger" %>
+  <h1 class="text-center">您还未绑定银泰礼品卡？<%= link_to "我要绑卡", phone_page_ims_accounts_path %><br /></h1>
+</div> 
+<div class="module-user-change">
+  <ul class="txt1">
+    <li><a class="clearfix" href="#"><i class="fa fa-book"></i> <span>交易记录</span><i class="fa fa-angle-right"></i></a></li>
+  </ul>
+</div>
 <% end %>
-
-<%= link_to "我要购卡", new_ims_card_order_path %><br />
