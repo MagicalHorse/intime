@@ -21,7 +21,7 @@ class Ims::AuthsController < ActionController::Base
       :outsitetype      => 4,
       :outsitetoken     => Ims::Weixin.access_token
     }) 
-    session[:user_token] = user_hash[:data][:refresh_token]
+    session[:user_token] = user_hash[:data][:token]
     session[:current_data] = user_hash[:data]
   end
 end
