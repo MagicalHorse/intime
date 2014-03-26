@@ -1,4 +1,6 @@
 class Ims::AuthsController < ActionController::Base
+
+  # 在微信端验证后，客户端的响应页面
   def show
     if params[:code]
       resp = RestClient.get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{Settings.wx.appid}&secret=#{Settings.wx.appsecret}&code=#{params[:code]}&grant_type=authorization_code")
@@ -21,6 +23,5 @@ class Ims::AuthsController < ActionController::Base
     }) 
     session[:user_token] = user_hash[:data][:refresh_token]
     session[:current_data] = user_hash[:data]
-    binding.pry
   end
 end
