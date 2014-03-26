@@ -7,8 +7,9 @@ class Ims::Store::CollocationsController < Ims::Store::BaseController
   end
 
   def create
-    @collocation = Ims::Collocation.find(params[:id])
-  	@collocation.update_attribtes(params[:collocation])
+    # @collocation = Ims::Collocation.find(params[:id])
+  	# @collocation.update_attribtes(params[:collocation])
+    redirect_to "/ims/store/collocations/1"
   end
 
   #查看搭配
@@ -17,6 +18,13 @@ class Ims::Store::CollocationsController < Ims::Store::BaseController
   end
 
   def tutorials
+  end
+
+  def edit
+  end
+
+  def update
+    redirect_to :action => :show    
   end
 
 
