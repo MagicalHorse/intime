@@ -56,7 +56,14 @@
 .module-tab .nav-tabs > .active > a:hover,
 .module-tab .nav-tabs > .active > a:focus{ border-bottom: 1px solid #f86b9f; color: #f86b9f;}
 
+/*------------------------弹出选择---------------------------*/
+.popup-menu{background: #ebebeb;}
+.popup-menu > a:hover,
+.popup-menu > a:focus,
+.popup-menu > a:active{color: #F16498;}
 
 
 /*-------------------------------Css Back-end-------------------------------------*/
 .module-table-box table tr td{color: #b7bbc2;}
+/*-----------------------------------------*/
+.module-remaining h1 span{ color: #f16498;}
