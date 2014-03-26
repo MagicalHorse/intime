@@ -1,4 +1,4 @@
-<% if @account %>
+<% if @is_binded %>
 <div class="module module-white module-card-img">
   <img src="/images/ims/card1.jpg">
   <div class="text-right">
@@ -6,7 +6,7 @@
   </div>
 </div> 
 <div class="module module-form module-remaining">
-  <h1 class="text-center">礼品卡余额：<span>998.00元</span></h1>
+  <h1 class="text-center">礼品卡余额：<span><%= @amount %>元</span></h1>
   <%= link_to "我要购卡", new_ims_card_order_path, class: "btn btn-large btn-block btn-danger" %>
 </div> 
 <div class="module-user-change">

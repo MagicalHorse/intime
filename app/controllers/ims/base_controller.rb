@@ -17,7 +17,7 @@ class Ims::BaseController < ApplicationController
   end
   
   def wx_auth!
-    raise Ims::Unauthorized unless session[:wx_openid]
+    raise Ims::Unauthorized unless session[:wx_openid] and session[:user_token]
   end
 
   private

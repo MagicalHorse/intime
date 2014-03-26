@@ -1,5 +1,9 @@
 class API::Giftcard < API::Base
 
+  def self.my(req, params = {})
+    post(req, params.merge(path: 'ims/giftcard/my'))
+  end
+
   def self.create(req, params = {})
     post(req, params.merge(path: 'ims/giftcard/create'))
   end

@@ -16,6 +16,7 @@
               <%= image_tag "/images/ims/upload-image.jpg", alt: "img-name", id: "img" %>
               <!-- 400px * 400px 没有上传图片时显示默认图片no-image.jpg-->
             </div>
+            <span id="img_error_notice"></span>
          </div>
          <div class="span4">
            <%= link_to_icon "fa fa-hand-o-left", "点击跟换图片", "javascript:void(0);", class: "title-link", id: "upload_img_link" %>
@@ -68,6 +69,12 @@
 <script type="text/javascript">
   $(function(){
 
+    $("#input").on("change", function(){
+      if($(this).val().length != ""){
+        $("#img_error_notice").html('')
+      }
+    })
+
     $("#product_form").validate({
       ignore: "",
       rules: {
@@ -98,7 +105,7 @@
       },
       errorPlacement:function(error, element){
         if(element.attr("id") == "input"){
-          $("#result").after(error)
+          $("#img_error_notice").html(error)
         }else{
           element.after(error)
         }
