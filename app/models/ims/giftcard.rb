@@ -20,4 +20,8 @@ class Ims::Giftcard < Ims::Base
     post(req, params.merge(path: 'giftcard/resetpwd'))
   end
 
+  def self.list(req, params = {})
+    post(req, params.merge(path: 'giftcard/list'))
+  end
+
 end
