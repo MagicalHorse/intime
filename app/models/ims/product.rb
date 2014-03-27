@@ -1,7 +1,7 @@
 class Ims::Product < Ims::Base
- 
- class << self  
-   def list(req, parmas={})
+
+ class << self
+   def list(req, params={})
      post(req, params.merge(path: 'ims/assistant/products'))
    end
 

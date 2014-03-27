@@ -381,6 +381,11 @@ IntimeService::Application.routes.draw do
           get :my, :list
         end
       end
+      resources :dicts, only: [] do
+        collection do
+          get :product_sizes
+        end
+      end
 
       resources :orders, only: [:index, :show]
     end
