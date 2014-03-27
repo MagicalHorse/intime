@@ -2,7 +2,6 @@
 /*..........设置支付密码.........*/
 .form-padding { padding: 30px;}
 .module-form input[type="text"]{ height: 60px; line-height: 60px; font-size: 22px;}/**/
-.module-form .btn-block{ font-size: 24px; line-height: 50px;}/**/
 .module-set-password input{font-family: "microsoft yahei";}
 .module-set-password input,
 .module-set-password .h4-txt{ margin-top: 0; color: #b7bbc2}
@@ -25,7 +24,6 @@
 .module-user-change ul li a i:first-child{ float: left; color: #f86b9f;}
 .module-user-change ul li a span{float: left; color: #abadb3;}
 .module-user-change ul li a i:last-child{float: right; color: #f86b9f;}
-.module-remaining .btn-block{ font-size: 30px;}
 
 
 /*..........购买礼品卡.........*/
@@ -45,7 +43,8 @@
 .module-table-box table tr td{ font-size: 30px; line-height: 50px;}
 .module-table-box table,
 .module-table-box table tr td{ border-color: #abadb3;}
-.module-btn .btn{ padding: 20px 74px; margin-right: 20px; font-size: 30px;}/**/
+.module-btn .btn{ margin-right: 20px;}
+.module-btn .btn:last-child{ margin-right: 0;}
 .module-notice {margin: 40px 0 60px;}
 .module-notice h4{color: #abadb3;}
 .module-notice ol{list-style-position: inside; margin: 0;}
@@ -53,11 +52,15 @@
 .module-notice ol li{margin-bottom: 15px; font-size: 22px; line-height: 30px; color: #abadb3;}
 
 /*------------验证码------------------*/
-.verify-code { text-align: center; margin-top: 40px;}
+
+.verify-form1 .btn{padding: 18px;}
+.verify-form1  input{ width: 30%;}
+
+
+.verify-code { text-align: center; padding: 80px 40px}
+.verify-input-box{margin-bottom: 80px;}
 .verify-code-txt h2:last-child  span {color: #f16498; }
-.verify-code div {margin: 40px 0;}
 .verify-form .input-verify-code {width: 30%; height: 34px; margin-right: 5px;}
-.verify-form button {font-size: 24px;}
 .verify-form .sub-btn {width: 70%;font-size: 30px;}
 
 
@@ -74,11 +77,10 @@
 .module-table-box{margin-bottom: 40px;}
 .module-table-box table tr td{ font-size: 16px; line-height: 26px;}
 .module-notice {margin: 20px 0 40px;}
-.module-btn .btn{padding: 8px 30px; margin-right: 10px; font-size: 16px; border-radius: 2px;}
+.module-btn .btn{ margin-right: 10px;}
 .module-notice ol li{margin-bottom: 5px; font-size: 13px; line-height: 20px; color: #abadb3;}
 .module-form input[type="text"]{ height: 40px; line-height: 40px; font-size: 15px;}
 .module-form .control-group{ margin-bottom: 10px;}
-.module-form .btn-block{ font-size: 16px; line-height: 20px; border-radius: 2px;}
 
 .form-padding { padding: 10px;}
 .ol-list{ margin-bottom: 30px;}
@@ -94,16 +96,14 @@
 .module-remaining{ padding: 10px 10px 20px;}
 .module-remaining h1{ margin: 0 0 10px; font-size: 18px;}
 .module-remaining .no-bingding{ font-size: 16px; line-height: 24px; margin: 10px 0;}
-.module-remaining .btn-block{ font-size: 16px;}
 .module-user-change ul li a{font-size: 16px; line-height: 24px;padding: 14px 20px 14px 45px; background-size: 18px auto;}
 .module-user-change ul li .popup-menu1{background-position: 20px 14px;}
 .module-user-change ul li .popup-menu2{background-position: 20px -52px;}
 .module-user-change ul li .popup-menu3{background-position: 20px -116px;}
-}
-
-/*-------验证码--------*/
-.verify-form button { font-size: 14px;}
+/*------------验证码------------------*/
+.verify-form1 .btn{padding: 2px 8px;}
 .verify-form .sub-btn {width: 70%;font-size: 16px;}
+}
 
 @media screen and (max-width: 480px) {
 }
