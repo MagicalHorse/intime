@@ -1,7 +1,7 @@
 class Ims::Combo < Ims::Base
-   
+
  class << self
-   def list(req, parmas={})
+   def list(req, params={})
      post(req, params.merge(path: 'ims/assistant/combos'))
    end
 
