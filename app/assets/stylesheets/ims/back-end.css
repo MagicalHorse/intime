@@ -49,7 +49,7 @@
 
 /*-------------------------------Css Bootm btn---------------------------------*/
 .bottom-btnbox{ padding: 20px 0; background-color: #f2f1f1; text-align: center; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
-.bottom-btnbox .btn{ margin-right: 20px; width: 270px;}
+.bottom-btnbox .btn{ margin-right: 20px; width: 44%;}
 .bottom-btnbox .btn:last-child{ margin-right: 0;}
 .bottom-btnbox form{margin: 0;}
 
