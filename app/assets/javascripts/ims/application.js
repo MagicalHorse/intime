@@ -12,6 +12,7 @@
 //
 //= require jquery.min.js
 //= require jquery_ujs
+//= require jquery.ui.widget
 //= require bootstrap.min.js
 //= require jquery.form.js
 //= require jquery.validate.js
@@ -19,4 +20,5 @@
 //= require jquery.validate.messages_zh.js
 //= require jquery.validate.my.js
 //= require jquery.swipeshow.js
+//= require jquery.fileupload.js
 //= require_self
