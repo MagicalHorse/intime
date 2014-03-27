@@ -66,9 +66,9 @@ ActiveRecord::Schema.define(:version => 20140327012107) do
     t.integer  "remote_id"
     t.integer  "combo_id"
     t.string   "img_url"
-    t.string   "combo_type"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "product_type"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "combos", :force => true do |t|

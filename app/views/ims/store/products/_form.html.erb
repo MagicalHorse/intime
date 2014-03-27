@@ -61,6 +61,9 @@
           <span class="help-inline"><abbr>*</abbr>规格：</span>
           <%= text_field_tag "size_str", params["size_str"], class: "form-textframe" %>
         </div>
+        <% if @combo_id.present? %>
+          <%= hidden_field_tag :combo_id, @combo_id %>
+        <% end %>
         <div class="block-box">
           <%= submit_tag "提交", class: "btn btn-danger btn-large btn-block" %>
         </div>
