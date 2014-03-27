@@ -1,11 +1,11 @@
-<%= form_tag("/ims/store/collocations/1", id: 'collocation_form', method: 'put') do |f| %>
+<%= form_for [:ims, :store, @combo] do |f| %>
 <div class="module module-bg-white">
     <div class="module-title2">
         <div class="row-fluid">
             <div class="span6"><h3><i class="fa fa-heart"></i>搭配组合照</h3></div>
             <div class="span6">
                 <div class="text-right">
-                  <%= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_collocations_path %>
+                  <%= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_combos_path %>
                 </div>
             </div>
         </div>
@@ -23,13 +23,9 @@
     </div>
     <div class="mini-imgbox">
         <ul class="inline">
-            <li><i></i><img src="/images/ims/suit-11.jpg"></li><!-- 100px * 100px -->
-            <li><i></i><img src="/images/ims/suit-11.jpg"></li>
-            <li><i></i><img src="/images/ims/suit-11.jpg"></li>
-            <li><i></i><img src="/images/ims/suit-11.jpg"></li>
             <li class="add-link"><a href="#"><img src="/images/ims/add-img.png"></a></li>
+            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" onchange="sub(this)"></div>
         </ul>
-        <%= hidden_field_tag "image_ids[]" %>
     </div>
 </div>
 
@@ -42,13 +38,8 @@
     </div>
     <div class="upload-img">
         <ul class="inline">
-            <li><i></i><img src="/images/ims/suit-11.jpg"></li><!-- 100px * 100px -->
-            <li><i></i><img src="/images/ims/suit-11.jpg"></li>
-            <li class="add-link"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></li>
+            <li class="add-link"><a href="#"><img src="/images/ims/add-img.png"></a></li>
         </ul>
-        <% 3.times.each do %>
-          <%= hidden_field_tag "product_image_ids[]", 1 %>
-        <% end %>
     </div>
 </div>
 
@@ -62,7 +53,7 @@
         </div>
     </div>
     <div class="goods-describe">
-      <%= text_area_tag :description, "", placeholder: "牛仔裤什么的" %>
+      <%= f.text_area :desc %>
     </div>
 </div>
 
@@ -73,21 +64,14 @@
         </div>
     </div>
     <div class="module-formbox">
-      <%= text_field_tag :customer, '', class: "input-small" %>
+      <%= f.text_field :private_to %>
       <span class="help-inline help-inlinetext">顾客姓名或昵称</span>
     </div>
 </div>
 
 <div class="bottom-btnbox">
     <button class="btn btn-large btn-danger"><i class="fa fa-eye"></i>预 览</button>
-    <button class="btn btn-large btn-danger" type="submit"><i class="fa fa-upload"></i>提交发布</button>
-</div>
-
-<div id="popup_menu" class="popup-menu" style="display: none;">
-    <%= link_to "新拍商品", new_ims_store_product_path, class: "txt1" %>
-    <%= link_to "已拍商品", ims_store_products_path, class: "txt1" %>
-    <%= link_to "从系统选择", ims_store_searches_path, class: "txt1" %>
-    <button class="btn btn-large btn-danger btn-block txt1" id="cancel">取消</button>
+    <button class="btn btn-large btn-danger"><i class="fa fa-upload"></i>提交发布</button>
 </div>
 <% end %>
 
@@ -96,15 +80,7 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
 
-    $("#add_product").on("click", function(){
-      $("#popup_menu").show()
-    })
-
-    $("#popup_menu #cancel").on("click", function(){
-      $("#popup_menu").hide()
-    })
-
-    $("#collocation_form").on("submit", function(){
+    $("#combo_form").on("submit", function(){
       var image_fields = $("input[name='image_ids[]']")
       var product_image_fields = $("input[name='product_image_ids[]']")
       verify_image1 = image_fields.length == 0
@@ -125,7 +101,7 @@
 
     })
 
-    $("#collocation_form").validate({
+    $("#combo_form").validate({
       rules: {
         "description": {
           required: true,
@@ -141,6 +117,13 @@
     $("#add a").click(function(){
       $("#add_list").show();
     });
+
+
+    $(".add-link a").click(function(){
+       document.getElementById("upfile").click();
+    });
+
+    
   });
 </script>
 <% end -%>

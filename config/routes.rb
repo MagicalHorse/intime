@@ -366,11 +366,10 @@ IntimeService::Application.routes.draw do
         end
       end
       resources :searches, only: :index
-      resources :collocations do
+      resources :combos do
         collection do
           get :tutorials
         end
-        resources :banners, only: [:index, :create, :destroy]
       end
       resources :stores, only: [:index, :show, :edit, :update] do
         collection do

@@ -21,7 +21,20 @@ class Ims::AuthsController < ActionController::Base
       :outsitetype      => 4,
       :outsitetoken     => Ims::Weixin.access_token
     }) 
-    session[:user_token] = user_hash[:data][:refresh_token]
-    session[:current_data] = user_hash[:data]
+    session[:user_token] = user_hash[:data][:token]
+    user = Ims::User.new({
+      :id => user_hash[:data][:id],
+      :email => user_hash[:data][:email],
+      :level => user_hash[:data][:level],
+      :nickname => user_hash[:data][:nickname],
+      :mobile => user_hash[:data][:mobile],
+      :isbindcard => user_hash[:data][:isbindcard],
+      :logo => user_hash[:data][:logo],
+      :level => user_hash[:data][:level],
+      :operate_right => user_hash[:data][:operate_right],
+      :token => user_hash[:data][:token]
+      })
+    
+    session[:current_wx_user] = user
   end
 end

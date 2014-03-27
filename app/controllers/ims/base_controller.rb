@@ -15,6 +15,10 @@ class Ims::BaseController < ApplicationController
   def current_user_id
     session[:inner_user_id]
   end
+
+  def current_user
+    @current_wx_user ||= session[:current_wx_user]
+  end
   
   def wx_auth!
     raise Ims::Unauthorized unless session[:wx_openid] and session[:user_token]

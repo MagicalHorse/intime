@@ -1,4 +1,8 @@
-class Ims::Collocation < Ims::Base
+class Ims::Combo < Ims::Base
+
+	 def list
+	 	 
+	 end
 
   def add_product(product)
 

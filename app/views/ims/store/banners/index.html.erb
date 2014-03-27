@@ -9,7 +9,7 @@
 <% end %>
 </div>
 
-<%= form_tag ims_store_collocation_banners_path("collocation_id"), multipart: true, target: "ajaxiframe" do %>
+<%= form_tag ims_store_combo_banners_path("combo_id"), multipart: true, target: "ajaxiframe" do %>
   <%= file_field_tag "image", id: "add_banner" %>
   <%#= link_to "上传", 'javascript:void(0);', class: "save_logo" %>
 <% end %>
@@ -48,8 +48,8 @@
       if(confirm("确认删除吗?")){
         this_ele = $(this)
         banner_id = this_ele.attr("value")
-        collocation_id = 1111
-        $.post("/ims/store/collocations/"+collocation_id+"/banners/"+banner_id, {_method: "delete"}, function(data){
+        combo_id = 1111
+        $.post("/ims/store/combos/"+combo_id+"/banners/"+banner_id, {_method: "delete"}, function(data){
           this_ele.parents("span").remove()
         }, "json")
       }
