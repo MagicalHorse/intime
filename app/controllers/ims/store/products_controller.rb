@@ -1,7 +1,7 @@
 class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index
-
+    @products = Ims::Product.list(request)["data"]["items"]
   end
 
   def show
@@ -12,8 +12,13 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     product_relation_data
   end
 
+  def edit
+    product_relation_data
+  end
+
   def create
     product = Ims::Product.create(request, {
+      image: params["image"],
       brand_id: params["brand_id"],
       sales_code: params["coding_id"],
       sku_code: params["item"],
