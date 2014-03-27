@@ -367,8 +367,12 @@ IntimeService::Application.routes.draw do
       end
       resources :searches, only: :index
       resources :combos do
+        member do 
+          put 'add_img'
+        end
         collection do
           get :tutorials
+          get 'remove_img'
         end
       end
       resources :stores, only: [:index, :show, :edit, :update] do
