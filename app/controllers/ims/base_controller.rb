@@ -44,9 +44,7 @@ class Ims::BaseController < ApplicationController
       :logo => user_hash[:data][:logo],
       :level => user_hash[:data][:level],
       :operate_right => user_hash[:data][:operate_right],
-      :token => user_hash[:data][:token],
-      :verified_phone => "",
-      :card_no => ""
+      :token => user_hash[:data][:token]
       })
 
     session[:current_wx_user] = user
