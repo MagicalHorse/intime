@@ -9,7 +9,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def new
-
+    @brands = Ims::Brand.list(request)
+    binding.pry
   end
 
   def create
