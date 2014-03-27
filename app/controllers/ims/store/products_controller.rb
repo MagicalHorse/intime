@@ -1,6 +1,7 @@
 class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index
+    @combo = ::Combo.find(params[:combo_id]) if params[:combo_id]
     @products = Ims::Product.list(request)["data"]["items"]
   end
 
@@ -38,6 +39,13 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def tutorials
+  end
+
+  def add_to_combo
+    @combo_id = params[:combo_id]
+    product = Ims::Product.show(request, {:id => params[:id]})
+    @combo.combo_products.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2"})
+    redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
   end
 
 
