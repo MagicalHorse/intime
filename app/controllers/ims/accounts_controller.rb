@@ -6,10 +6,10 @@ class Ims::AccountsController < Ims::BaseController
   def mine
     # API_NEED: 获取当前的用户资金账号：
     data = Ims::Giftcard.create(request)
-    # 1、是否绑卡
-    # 2、已经绑卡，需要返回卡余额、卡号
     @is_binded = data[:is_binded] #|| true
     @amount = data[:amount] #|| 100
+    @phone = data[:phone] #|| 18801122329
+    set_bind_info
   end
 
   # 绑定系列：验证手机号页面
@@ -17,7 +17,7 @@ class Ims::AccountsController < Ims::BaseController
     session[:phone] = params[:phone]
     generate_sms
     # API_NEED: 发送手机验证码（用于绑卡）
-    Ims::Sms.send(request, {phone: session[:phone], text: "#{session[:sms_code]}"})
+    Ims::Sms.send(request, {phone: session[:phone], text: "您正在绑卡银泰礼品卡，需要验证手机号，验证码为：#{session[:sms_code]}"})
     @phone = "#{session[:phone][0, 3]}****#{session[:phone][7, 4]}"
   end
 
@@ -25,13 +25,13 @@ class Ims::AccountsController < Ims::BaseController
   def resend_sms
     generate_sms
     # API_NEED: 发送手机验证码（用于绑卡）
-    Ims::Sms.send(request, {phone: session[:phone], text: "#{session[:sms_code]}"})
+    Ims::Sms.send(request, {phone: session[:phone], text: "您正在绑卡银泰礼品卡，需要验证手机号，验证码为：#{session[:sms_code]}"})
     render nothing: true
   end
 
   # 手机验证通过，增加密码
   def new
-    # 通过当前手机号，得知手机已经开户，把手机号绑定当前用户
+    # API_NEED: 通过当前手机号，得知手机已经开户，把手机号绑定当前用户
     if false
       session[:phone] = nil
       redirect_to mine_ims_accounts_path
@@ -56,13 +56,13 @@ class Ims::AccountsController < Ims::BaseController
   # 重置密码
   def reset_password
     # API_NEED: 重置资金账户密码
-    Ims::Giftcard.resetpwd(request, {oldpwd: params[:oldpwd], newpwd: params[:newpwd]})
+    Ims::Giftcard.resetpwd(request, {pwd_new: params[:newpwd]})
   end
 
   # 修改密码
   def change_password
     # API_NEED: 修改资金账户密码
-    Ims::Giftcard.changepwd(request, {newpwd: params[:newpwd]})
+    Ims::Giftcard.changepwd(request, {pwd_new: params[:newpwd], pwd_old: params[:oldpwd]})
   end
 
   # 用于扫描的页面

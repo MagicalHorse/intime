@@ -10,6 +10,8 @@ class Ims::CardsController < Ims::BaseController
     # API_NEED: 充值礼品卡接口
     # 1、入参：卡号、当前用户id
     # 2、返回：卡号、金额、是否成功
+    @data = Ims::Giftcard.create(request, type: [2 ,3, 5])
+    
 
     if "has no account"
       # "绑卡页面"
