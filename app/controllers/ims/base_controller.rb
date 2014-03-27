@@ -21,10 +21,33 @@ class Ims::BaseController < ApplicationController
   end
   
   def wx_auth!
-    raise Ims::Unauthorized unless session[:wx_openid] and session[:user_token]
+    get_token_from_api unless session[:user_token]
   end
 
   private
+
+  def get_token_from_api(request)
+    user_hash = API::LoginRequest.post(request, {
+      :outsiteuid       => Setting.wx.open_id,
+      :outsitetype      => 4,
+      :outsitetoken     => Ims::Weixin.access_token
+    }) 
+    session[:user_token] = user_hash[:data][:token]
+    user = Ims::User.new({
+      :id => user_hash[:data][:id],
+      :email => user_hash[:data][:email],
+      :level => user_hash[:data][:level],
+      :nickname => user_hash[:data][:nickname],
+      :mobile => user_hash[:data][:mobile],
+      :isbindcard => user_hash[:data][:isbindcard],
+      :logo => user_hash[:data][:logo],
+      :level => user_hash[:data][:level],
+      :operate_right => user_hash[:data][:operate_right],
+      :token => user_hash[:data][:token]
+      })
+    
+    session[:current_wx_user] = user
+  end
 
   # 生成验证短信验证码
   def generate_sms
