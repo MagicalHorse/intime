@@ -1,6 +1,5 @@
-class Ims::Store < API::Base
-
- class << self
+class Ims::Store < Ims::Base
+ class << self  
    def create(req, params={})
    	 post(req, params.merge(path: 'ims/store/create'))
    end

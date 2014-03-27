@@ -1,31 +1,29 @@
-class Ims::Product < API::Base
+class Ims::Product < Ims::Base
 
  class << self
-   def list(req, parmas={})
+   def list(req, params={})
      post(req, params.merge(path: 'ims/assistant/products'))
    end
 
    def create(req, params={})
-   	 post(req, params.merge(path: 'ims/product/create'))
+     post(req, params.merge(path: 'ims/product/create'))
    end
 
    def show(req, params = {})
-   	 post(req, params.merge(path: 'ims/combo/detail'))
+     post(req, params.merge(path: 'ims/combo/detail'))
    end
 
    def search(req, params = {})
-   	 post(req, params.merge(path: 'ims/product/search'))
+     post(req, params.merge(path: 'ims/product/search'))
    end
 
    def salescodes(req, params = {})
-   	 post(req, params.merge(path: 'ims/assistant/salescodes'))
+     post(req, params.merge(path: 'ims/assistant/salescodes'))
    end
 
    def user_brands(req, params = {})
-   	 post(req, params.merge(path: 'ims/assistant/brands'))
+     post(req, params.merge(path: 'ims/assistant/brands'))
    end
-
-
  end
 
 end

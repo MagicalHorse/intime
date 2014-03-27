@@ -366,11 +366,14 @@ IntimeService::Application.routes.draw do
         end
       end
       resources :searches, only: :index
-      resources :collocations do
+      resources :combos do
+        member do 
+          put 'add_img'
+        end
         collection do
           get :tutorials
+          get 'remove_img'
         end
-        resources :banners, only: [:index, :create, :destroy]
       end
       resources :stores, only: [:index, :show, :edit, :update] do
         collection do
@@ -380,6 +383,11 @@ IntimeService::Application.routes.draw do
       resources :incomes, only: [:index, :new, :create] do
         collection do
           get :my, :list
+        end
+      end
+      resources :dicts, only: [] do
+        collection do
+          get :product_sizes
         end
       end
 
