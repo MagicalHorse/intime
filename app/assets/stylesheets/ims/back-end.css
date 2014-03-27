@@ -2,7 +2,7 @@
 .back-wrap-inner{margin-bottom: 100px; padding: 0; margin-top: 0; border-top:0;}
 .module-bg-white{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
 .module-bg-white2{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee;}
-.module-color-white{background: white;}
+.module-color-white{background: white; border-bottom: 1px solid #eeeeee;}
 .module-title2 h3{ margin: 0; font-size: 26px; font-weight: normal;S}
 .module-title2 h3 i{ margin-right: 8px;}
 .title-link{ font: 21px/40px "microsoft yahei";}
@@ -77,7 +77,8 @@
 .search-condition{padding: 30px 0 30px 30px;}
 .search-condition > a{ display: inline-block; margin: 0 30px 30px 0; padding: 16px 30px; color: #abadb3; border:2px  solid #f86b9f; background-color: white; font-size: 24px; border-radius: 4px; }
 
-/*------------------------弹出选择---------------------------*/
+/*------------------------popup---------------------------*/
+.popup-menu-box{width: 640px; position: fixed; bottom: 0;}
 .popup-menu{padding: 40px;}
 .popup-menu > a{ padding: 20px 0; margin-bottom: 20px; display: block; text-align: center; border:1px solid #e3e4e8; background: white; color: #676767;}
 .popup-menu > .btn{ padding: 20px 0; }
@@ -91,6 +92,7 @@
 }
 .p-title {
   color: #5E5E5E;
+  padding: 0 20px 20px;
 }
 
 .p-price {
@@ -142,7 +144,7 @@
  }
  .p-price1 {
   width: 100%;
-  margin: 10px 0 30px;
+  margin: 10px 0 0;
  }
  .p-price1 span {
   color: #DBDDDE;
@@ -152,7 +154,6 @@
  .p-price1 span:first-child em {
   color: #f86b9f;
  }
-  .p-price1 span:last-child{text-decoration: line-through;}
  .p-price1 span em{font-style: normal;}
  .p-wx-price {
    color: #F16498;
@@ -164,7 +165,7 @@
 
  /*combos show*/
  .module-common {
-     padding: 5px 10px;
+     padding: 20px;
      background-color: #faf9f9;
    }
    .combos-product {
@@ -179,18 +180,6 @@
     padding-left: 7px;
     color: #cacdd1;
     font-weight: normal;
-   }
-
-   .combos-share-btns {
-     background-color: #f2f1f1;
-     border-top: 1px solid #dddddd;
-     margin-top: 10px;
-     padding: 10px 0;
-     text-align: center;
-   }
-   .combos-share-btns a {
-     margin: 0 20px;
-     width: 27%;
    }
    .module-share {
      background-color: #faf9f9;

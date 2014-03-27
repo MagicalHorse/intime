@@ -9,16 +9,16 @@
               </ol>
               <!-- Carousel items -->
               <div class="carousel-inner slides">
-                <div class="active item slide"><img src="/images/ims/product-detail.jpg"></div>
-                <div class="item slide"><img src="/images/ims/img640.jpg"></div>
-                <div class="item slide"><img src="/images/ims/product-detail.jpg"></div>
+                <% @remote_combo[:data][:image].each_with_index do |src, i| %>
+                  <div class="item slide <%= 'active' if i == 0 %>"><img src="<%= src %>"></div>
+                <% end %>
+                
               </div>
             </div>
       
-        <div class="p-title"><h4>欧美范套装 简简单单的色彩 上面没有一丝累赘设计，干净利落非常精神</h4></div>
+        <div class="p-title"><h4><%= @remote_combo[:data][:desc] %></h4></div>
         <div class="p-price1 clearfix">
-          <div>微信价：<span class="p-wx-price">￥180.00</span></div>
-          <div><span class="p-dp-price">吊牌价：￥380.00</span></div>
+          <span class="txt3">微信价：<em class="txt4">￥<%= @remote_combo[:data][:price] %>  </em></span>
         </div>
     </div>
   </div>
@@ -27,39 +27,36 @@
 <div class="module module-common">
   <div class="row-fluid">
     <div class="span4">
+      
       <div class="combos-product">
         <img src="/images/ims/no-image.jpg">
         <p><span class="txt3">￥368.00</span></p>
-        <a class="btn btn-danger btn-block" href="">点击购买</a>
+        <a class="btn btn-danger btn-mini btn-block" href="">点击购买</a>
       </div>
     </div>
     <div class="span4">
       <div class="combos-product">
         <img src="/images/ims/suit-09.jpg">
         <p><span class="txt3">￥368.00</span></p>
-        <a class="btn btn-danger btn-block" href="">点击购买</a>
+        <a class="btn btn-danger btn-mini btn-block" href="">点击购买</a>
       </div>
     </div>
     <div class="span4">
       <div class="combos-product">
         <img src="/images/ims/suit-11.jpg">
         <p><span class="txt3">￥368.00</span></p>
-        <a class="btn btn-danger btn-block" href="">点击购买</a>
+        <a class="btn btn-danger btn-mini btn-block" href="">点击购买</a>
       </div>
     </div>
   </div>
   </div>
 
-<div class="module module-share">
-  <div class="row-fluid">
-    <div class="span12">
-      <div class="combos-share-btns">
-        <a class="btn btn-large btn-danger" href=""><i class="fa fa-share-square"></i>分享给好友</a>
-        <a class="btn btn-large btn-danger" href="/ims/store/combos/1/edit"><i class="fa fa-edit"></i>编辑</a>
-      </div>
-    </div>
+  <div class="bottom-btnbox">
+    <form class="form-inline">
+        <button class="btn btn-large btn-danger"><i class="fa fa-eye"></i>预 览</button>
+        <button class="btn btn-large btn-danger"><i class="fa fa-upload"></i>提交发布</button>
+    </form>
   </div>
-</div>
 <script type="text/javascript">
   $(function(){
     $("#myCarousel").swipeshow({

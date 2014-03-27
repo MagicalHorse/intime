@@ -30,7 +30,7 @@
             <% @combo.combo_pics.each do |pic| %>
             <li><i id="<%= pic.id -%>"></i><img src='<%= pic.url -%>'></li>
             <% end %>
-            <li class="add-link"><a href="#"><img src="/images/ims/add-img.png"></a></li>
+            <li class="add-link"><a href="#" id="add_img"><img src="/images/ims/add-img.png"></a></li>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img"></div>
         </ul>
     </div>
@@ -45,7 +45,7 @@
     </div>
     <div class="upload-img">
         <ul class="inline">
-            <li class="add-link"><a href="#"><img src="/images/ims/add-img.png"></a></li>
+            <li class="add-link"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></li>
         </ul>
     </div>
 </div>
@@ -76,12 +76,22 @@
     </div>
 </div>
 
+<%= f.hidden :remote_id, @remote_id %>
 <div class="bottom-btnbox">
     <button class="btn btn-large btn-danger"><i class="fa fa-eye"></i>预 览</button>
-    <button class="btn btn-large btn-danger"><i class="fa fa-upload"></i>提交发布</button>
+    <button class="btn btn-large btn-danger" type="submit"><i class="fa fa-upload"></i>提交发布</button>
 </div>
 <% end %>
 
+<div class="popup-menu-box">
+  <div class="popup-menu" style="display:none;" id="pop-menu">
+    <%= link_to "新拍商品", new_ims_store_product_path, class: 'txt1' %>
+    <%= link_to "已拍商品", ims_store_products_path, class: 'txt1' %>
+    <%= link_to "从系统选择", ims_store_products_path, class: 'txt1' %>
+    <button class="btn btn-large btn-danger btn-block txt1" id="btn-cancel">取消</button>
+  </div>
+
+</div>
 
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
@@ -126,7 +136,7 @@
     });
 
 
-    $(".add-link a").click(function(){
+    $("#add_img").click(function(){
        document.getElementById("upfile").click();
     });
 
@@ -169,6 +179,14 @@
        });
       
      });   
+
+     $("#add_product").click(function(){
+       $("#pop-menu").show();
+     });
+
+     $("#btn-cancel").click(function(){
+       $("#pop-menu").hide();
+     });
 
 
     
