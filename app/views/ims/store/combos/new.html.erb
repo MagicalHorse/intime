@@ -14,17 +14,24 @@
        <div class="row-fluid">
            <div class="span2">&nbsp;</div>
            <div class="span8">
-               <div class="show-imgbox-no"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
+               <div class="<%= @combo.combo_pics.present? ? 'show-imgbox-yes' : 'show-imgbox-no' %>" id="default_img"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
+                 <% if @combo.combo_pics.present? %>
+                   <img src="<%= @combo.combo_pics.last.url %>">
+                 <% else %>
                    <img src="/images/ims/no-image.jpg" alt="img-name"><!-- 400px * 400px 没有上传图片时显示默认图片no-image.jpg-->
+                 <% end %>
                </div>
            </div>
            <div class="span2">&nbsp;</div>
        </div>
     </div>
     <div class="mini-imgbox">
-        <ul class="inline">
+        <ul class="inline" id="img_box">
+            <% @combo.combo_pics.each do |pic| %>
+            <li><i id="<%= pic.id -%>"></i><img src='<%= pic.url -%>'></li>
+            <% end %>
             <li class="add-link"><a href="#"><img src="/images/ims/add-img.png"></a></li>
-            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" onchange="sub(this)"></div>
+            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img"></div>
         </ul>
     </div>
 </div>
@@ -122,6 +129,47 @@
     $(".add-link a").click(function(){
        document.getElementById("upfile").click();
     });
+
+    $('#upfile').fileupload({
+        url: "/ims/store/combos/<%= @combo.id %>/add_img",
+        type: 'get',
+        dataType: 'json',
+
+        fileuploadfail: function(e, data){
+          alert(e);
+        },
+        fileuploadchunkfail: function(e, data){
+          alert(e);
+        },
+        done: function(e, data){
+          if(data.result['status'] == 1){
+            $("#img_box").prepend("<li><i id='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
+            $("#default_img").addClass("show-imgbox-yes");
+            $("#default_img").removeClass("show-imgbox-no");
+            $("#default_img").html("<img src='"+data.result['img']+"'>");
+          }else{
+            alert("网络错误，请稍后重试");
+          }
+
+        }
+       });
+
+      $("#img_box li").click(function(){
+        src = $(this).find("img")[0].src;        
+        $("#default_img").html("<img src='"+src+"'>");
+      });
+
+     $(document).on("click", "#img_box li i", function(){
+       mid = $(this).attr("id");
+       $.ajax({
+        url: "/ims/store/combos/remove_img?img_id="+mid,
+        success: function(response){
+            $("#"+mid).parent().remove();
+        }
+       });
+      
+     });   
+
 
     
   });

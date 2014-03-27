@@ -6,10 +6,9 @@ class Ims::AccountsController < Ims::BaseController
   def mine
     # API_NEED: 获取当前的用户资金账号：
     data = Ims::Giftcard.create(request)
-    @is_binded = data[:is_binded] #|| true
+    current_user.isbindcard = data[:is_binded] #|| true
+    current_user.card_no = data[:phone] #|| 18801122329
     @amount = data[:amount] #|| 100
-    @phone = data[:phone] #|| 18801122329
-    set_bind_info
   end
 
   # 绑定系列：验证手机号页面

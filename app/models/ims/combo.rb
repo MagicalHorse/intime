@@ -12,6 +12,10 @@ class Ims::Combo < Ims::Base
    def show(req, params = {})
    	 post(req, params.merge(path: 'ims/combo/detail'))
    end
+
+   def upload_img(req, params ={})
+   	 post(req, params.merge(path: 'ims/resource/upload'))
+   end
  end
 
 end
