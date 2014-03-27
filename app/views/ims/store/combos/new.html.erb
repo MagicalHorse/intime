@@ -28,7 +28,7 @@
     <div class="mini-imgbox">
         <ul class="inline" id="img_box">
             <% @combo.combo_pics.each do |pic| %>
-            <li><i id="<%= pic.id -%>"></i><img src='<%= pic.url -%>'></li>
+            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><img src='<%= pic.url -%>'></li>
             <% end %>
             <li class="add-link"><a href="#" id="add_img"><img src="/images/ims/add-img.png"></a></li>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img"></div>
@@ -44,9 +44,9 @@
         </div>
     </div>
     <div class="upload-img">
-        <ul class="inline">
+        <ul class="inline" id="p_box">
           <% @combo.combo_products.each do |product| %>
-            <li><i id=""></i><img src="<%= product.img_url %>"></li>
+            <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><img src="<%= product.img_url %>"></li>
           <% end %>
           <li class="add-link"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></li>
         </ul>
@@ -158,7 +158,7 @@
         },
         done: function(e, data){
           if(data.result['status'] == 1){
-            $("#img_box").prepend("<li><i id='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
+            $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
             $("#default_img").addClass("show-imgbox-yes");
             $("#default_img").removeClass("show-imgbox-no");
             $("#default_img").html("<img src='"+data.result['img']+"'>");
@@ -175,11 +175,11 @@
       });
 
      $(document).on("click", "#img_box li i", function(){
-       mid = $(this).attr("id");
+       mid = $(this).attr("data");
        $.ajax({
         url: "/ims/store/combos/remove_img?img_id="+mid,
         success: function(response){
-            $("#"+mid).parent().remove();
+            $("#img_"+mid).parent().remove();
         }
        });
       
@@ -192,6 +192,17 @@
      $("#btn-cancel").click(function(){
        $("#pop-menu").hide();
      });
+
+     $(document).on("click", "#p_box li i", function(){
+       mid = $(this).attr("data");
+       $.ajax({
+        url: "/ims/store/combos/remove_product?product_id="+mid,
+        success: function(response){
+            $("#p_"+mid).parent().remove();
+        }
+       });
+      
+     });   
 
 
     

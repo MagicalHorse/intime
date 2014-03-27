@@ -80,5 +80,12 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     render :json => {"status" => 1}.to_json
   end
 
+  def remove_product
+    @product = ::ComboProduct.find(params[:product_id])
+    @product.destroy
+
+    render :json => {"status" => 1}.to_json
+  end
+
 
 end

@@ -373,6 +373,7 @@ IntimeService::Application.routes.draw do
         collection do
           get :tutorials
           get 'remove_img'
+          get 'remove_product'
         end
       end
       resources :stores, only: [:index, :show, :edit, :update] do
