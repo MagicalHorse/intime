@@ -1,23 +1,23 @@
-class Ims::Giftcard < API::Base
+class Ims::Giftcard < Ims::Base
 
   def self.my(req, params = {})
-    post(req, params.merge(path: 'ims/giftcard/my'))
+    post(req, params.merge(path: 'giftcard/my'))
   end
 
   def self.create(req, params = {})
-    post(req, params.merge(path: 'ims/giftcard/create'))
+    post(req, params.merge(path: 'giftcard/create'))
   end
 
   def self.purchase(req, params = {})
-    post(req, params.merge(path: 'ims/giftcard/purchase'))
+    post(req, params.merge(path: 'giftcard/purchase'))
   end
 
   def self.changepwd(req, params = {})
-    post(req, params.merge(path: 'ims/giftcard/changepwd'))
+    post(req, params.merge(path: 'giftcard/changepwd'))
   end
 
   def self.resetpwd(req, params = {})
-    post(req, params.merge(path: 'ims/giftcard/resetpwd'))
+    post(req, params.merge(path: 'giftcard/resetpwd'))
   end
 
 end

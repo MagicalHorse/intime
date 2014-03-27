@@ -1,7 +1,7 @@
-class Ims::Sms < API::Base
+class Ims::Sms < Ims::Base
 
   def self.send(req, params = {})
-    post(req, params.merge(path: 'ims/sms/send'))
+    post(req, params.merge(path: 'sms/send'))
   end
 
 end
