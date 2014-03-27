@@ -31,7 +31,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       size_ids: params["size_ids"]
     })
     if product["isSuccessful"]
-      @combo.combo_products.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2"})
+      @combo.combo_products.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2", :price => product[:data][:price] })
       redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
     else
       redirect_to new_ims_store_product_path
@@ -44,7 +44,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def add_to_combo
     @combo_id = params[:combo_id]
     product = Ims::Product.show(request, {:id => params[:id]})
-    @combo.combo_products.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2"})
+    @combo.combo_products.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2", :price => product[:data][:price] })
     redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
   end
 

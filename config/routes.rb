@@ -372,6 +372,8 @@ IntimeService::Application.routes.draw do
       resources :combos do
         member do 
           put 'add_img'
+          put 'update_desc'
+          get 'preview'
         end
         collection do
           get :tutorials
