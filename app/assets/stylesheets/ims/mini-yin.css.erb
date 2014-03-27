@@ -8,6 +8,8 @@ a:focus{ color: #f94688; text-decoration: none; outline: none;}
 .top-link:hover,
 .top-link:active,
 .top-link:focus{ color: #ffffff;}
+
+.min-height{min-height: 500px;}
 /*-------------------------------Css Header-----------------------------------*/
 .header-box{position: relative;}
 .face-img { border:0; border-radius: 4px; width: 90%;}
@@ -75,16 +77,16 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .form-box .form-textframe{ width: 59%; line-height: 50px; height: 50px; box-shadow: 0 0 0 rgba(0, 0, 0, 0) inset;}
 .form-box form select{ width: 61%;line-height: 50px; height: 50px;}
 .block-box{margin-top: 70px;}
-.form-box .btn-block{font-size: 30px; line-height: 64px;}
 
 /*-------------------------------Button Reset-----------------------------------*/
 .btn {
-  font-family: arial,"microsoft yahei";
-  text-shadow: 0 0px 0px rgba(255, 255, 255, 0.75);
-  border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-  -webkit-box-shadow: inset 0 0px 0 rgba(255, 255, 255, 0), 0 0px 0 rgba(0, 0, 0, 0);
-     -moz-box-shadow: inset 0 0px 0 rgba(255, 255, 255, 0), 0 0px 0 rgba(0, 0, 0, 0);
-          box-shadow: inset 0 0px 0 rgba(255, 255, 255, 0), 0 0px 0 rgba(0, 0, 0, 0);
+    font-weight: 500;
+    font-family: arial,"microsoft yahei";
+    text-shadow: 0 0px 0px rgba(255, 255, 255, 0.75);
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    -webkit-box-shadow: inset 0 0px 0 rgba(255, 255, 255, 0), 0 0px 0 rgba(0, 0, 0, 0);
+       -moz-box-shadow: inset 0 0px 0 rgba(255, 255, 255, 0), 0 0px 0 rgba(0, 0, 0, 0);
+            box-shadow: inset 0 0px 0 rgba(255, 255, 255, 0), 0 0px 0 rgba(0, 0, 0, 0);
 }
 
 .btn.active,
@@ -116,11 +118,77 @@ footer{ position: fixed; bottom:0; width: 640px;}
   color: #ffffff;
   background-color: #ef4785;
   *background-color: #ef4785;
+  border-color: #ef4785;
 }
 
 .btn-danger:active,
 .btn-danger.active {
-  background-color: #942a25 \9;
+  background-color: #ef4785;
+  border-color: #ef4785;
+}
+
+.btn-large {
+  padding: 26px 60px;
+  font-size: 30px;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+
+.btn-small {
+  padding: 18px 50px;
+  font-size: 24px;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+
+.btn-mini {
+  padding: 10px 40px;
+  font-size: 20px;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+}
+.btn-block {
+  display: block;
+  width: 100%;
+  padding-right: 0;
+  padding-left: 0;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+
+
+@media screen and (max-width: 580px) {
+.btn {font-weight: 600;}
+.btn-large {
+  padding: 10px 24px;
+  font-size: 16px;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+.btn-large i{ margin-right: 4px; font-size: 16px; vertical-align: middle;}
+
+.btn-small {
+  padding: 6px 14px;
+  font-size: 12px;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
+.btn-small i{ margin-right: 2px; font-size: 15px; vertical-align: middle;}
+
+.btn-mini {
+  padding: 0 12px;
+  font-size: 11px;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
+}
 }
 
 /*---------------------------------------Css Font--------------------------------------------*/
@@ -159,7 +227,7 @@ h6 small {font-size: 10px; line-height: 16px;}
   h1 {font-size: 16px; line-height: 24px;}
   h2 {font-size: 15px; line-height: 22px;}
   h3 {font-size: 14px; line-height: 20px;}
-  h4 {font-size: 12px; line-height: 18px;}
+  h4 {font-size: 13px; line-height: 18px;}/**/
   h5,
   h6{font-size: 12px; line-height: 18px;}
 
@@ -175,8 +243,10 @@ h6 small {font-size: 10px; line-height: 16px;}
   .txt1 {font-size: 16px; line-height: 24px;}
   .txt2 {font-size: 15px; line-height: 22px;}
   .txt3 {font-size: 14px; line-height: 20px;}
-  .txt4 {font-size: 12px; line-height: 124px;}
+  .txt4 {font-size: 13px; line-height: 24px;}/**/
   .txt5 {font-size: 12px; line-height: 18px;}
+
+  .btn{border-radius: 2px;}
 }
 
 

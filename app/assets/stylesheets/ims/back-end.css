@@ -28,7 +28,7 @@
 .upload-img ul li:focus,
 .upload-img ul li:hover,
 .upload-img ul li:active{ border:2px solid #f86b9f;}
-.upload-img ul li i{ position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.upload-img ul li i{cursor: pointer;  position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
 .upload-img ul li img{ width: 180px;}
 .upload-img ul li.add-link{ border:2px dashed #eeeeee; background-color: #f6f8fa;}
 .upload-img ul li.add-link a{ display: block; }
@@ -49,9 +49,8 @@
 
 /*-------------------------------Css Bootm btn---------------------------------*/
 .bottom-btnbox{ padding: 20px 0; background-color: #f2f1f1; text-align: center; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
-.bottom-btnbox .btn{ font-size: 24px; margin-right: 20px; width: 208px;}
+.bottom-btnbox .btn{ margin-right: 20px; width: 270px;}
 .bottom-btnbox .btn:last-child{ margin-right: 0;}
-.bottom-btnbox .btn i{ margin-right: 10px;}
 .bottom-btnbox form{margin: 0;}
 
 /*-------------------------------Css Search result---------------------------------*/
@@ -92,11 +91,13 @@
 }
 .p-title {
   color: #5E5E5E;
-  padding: 0 20px 20px;
 }
-.p-title h4{}
+
 .p-price {
   margin-top: 5px;
+}
+.wx-price {
+  float: left;
 }
 .wx-price .txt3 {
   color: #b7bac0;
@@ -141,7 +142,7 @@
  }
  .p-price1 {
   width: 100%;
-  margin-top: 10px;
+  margin: 10px 0 30px;
  }
  .p-price1 span {
   color: #DBDDDE;
@@ -156,12 +157,7 @@
  .p-wx-price {
    color: #F16498;
  }
- .buttons {
-   margin-top: 20px;
- }
- .buttons button {
-   width: 80px;
- }
+
  .button-select {
    margin-left: 25px;
  }
@@ -174,7 +170,7 @@
    .combos-product {
      background-color: #fff;
      border: 1px solid #ccc;
-     padding: 3px;
+     padding: 10px;
      text-align: center;
    }
    .combos-product p {
@@ -184,9 +180,7 @@
     color: #cacdd1;
     font-weight: normal;
    }
- /*  .combos-product a {
-     width: 70%;
-   }*/
+
    .combos-share-btns {
      background-color: #f2f1f1;
      border-top: 1px solid #dddddd;

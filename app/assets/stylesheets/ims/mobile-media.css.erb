@@ -15,8 +15,7 @@
 .upload-img {margin-top: 25px;}
 .upload-img ul li{ margin-right: 5px;}
 .upload-img ul li img{ width: 120px;}
-.upload-img ul li i{ position: absolute;left: -6%; top: -8%;display: inline-block; width: 18px; height: 18px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 18px auto;}
-.form-box .btn-block{font-size: 20px; line-height: 30px;}
+.upload-img ul li i{ left: -6%; top: -8%; width: 18px; height: 18px; background:url(../images/delate.png) center center no-repeat transparent; background-size: 18px auto;}
 .form-box form .help-inline{ width: 32%; font-size: 16px; line-height: 30px;}
 .form-box .form-textframe{ line-height: 30px; height: 30px;}
 .form-box form select{ line-height: 30px; height: 30px;}
@@ -28,6 +27,12 @@
 .goods-price{line-height: 24px; font-size: 13px;}
 .goods-text .btn {padding: 4px 0; font-size: 12px; border-radius: 2px;}
 
+.p-title h3{ margin: 0;}
+.p-title h4{ margin-bottom: 5px;}
+.p-price1 span {padding-right: 10px;}
+.p-price1{margin: 0 0 5px;}
+.button-select {margin-left: 10px;}
+
 /*------------------Css Goods Search---------------------*/
 .wrap-goodssearch{margin: 0;}
 .module-searchinput{ padding: 6px 15px;}
@@ -37,12 +42,15 @@
 .module-searchinput .btn{ padding: 3px 12px; font-size: 14px;}
 .search-condition{padding: 10px 0 10px 10px;}
 .search-condition > a{ margin: 0 10px 10px 0; padding: 4px 10px; border-width: 1px; font-size: 14px; border-radius: 2px; }
+
+/*------------------验证码---------------------*/
+.verify-code { text-align: center; padding: 40px 20px}
+.verify-input-box{margin-bottom: 30px;}
 }
 
 
 @media screen and (max-width: 480px) {
-.btn{padding: 0 12px;}
-.btn-large{padding: 6px 12px;}
+
 .top-link{padding: 4px;width: 20px; height: 20px; line-height: 20px;font-size: 18px;}
 .top-link i{ line-height: 20px; }
  .nav-fixed{width: 100%;}
@@ -73,15 +81,15 @@
 .nav2.nav-current{background-position: center -82px;}
 .nav3.nav-current{background-position: center -262px;}
 .footer-inner .nav4.nav-current{background-position: center -430px;}
-.footer-inner .btn-group.open .btn.dropdown-toggle.nav2{ background-image: url(/images/ims/nav-img.png); background-position: center -65px;}
-.footer-inner .btn-group.open .btn.dropdown-toggle.nav3{ background-image: url(/images/ims/nav-img.png); background-position: center -209px;}
-.footer-inner .btn-group.open .btn.dropdown-toggle.nav4{ background-image: url(/images/ims/nav-img.png); background-position: center -432px;}
-.footer-inner .dropdown-menu > li > a{ font-size: 16px; background-image: url(/images/ims/more.png); background-size: 20px auto;}
+.footer-inner .btn-group.open .btn.dropdown-toggle.nav2{ background-image: url(../images/nav-img.png); background-position: center -65px;}
+.footer-inner .btn-group.open .btn.dropdown-toggle.nav3{ background-image: url(../images/nav-img.png); background-position: center -209px;}
+.footer-inner .btn-group.open .btn.dropdown-toggle.nav4{ background-image: url(../images/nav-img.png); background-position: center -432px;}
+.footer-inner .dropdown-menu > li > a{ font-size: 16px; background-image: url(../images/more.png); background-size: 20px auto;}
 .bottom-caret .caret{left: 60%;}
 
 /*---------------------------------Css Back-end-------------------------------------*/
-.back-wrap-inner{margin: 5px; padding: 0;}
-.module-bg-white{ padding:0px 5px 20px; background:white;}
+.back-wrap-inner{margin: 0; padding: 0;}
+.module-bg-white{ padding:10px 5px 20px; background:white;}
 .module-bg-white2{ padding:10px 10px 10px;}
 .module-title2 h3{ font-size: 15px;}
 .title-link{ font: 12px/40px "microsoft yahei";}
@@ -94,24 +102,20 @@
 .upload-img {margin-top: 14px;}
 .upload-img ul li{ margin-right: 2px;}
 .upload-img ul li img{ width: 80px;}
-.upload-img ul li i{ position: absolute;left: -6%; top: -10%;display: inline-block; width: 20px; height: 20px; background-size: 20px auto;}
-.module-title2 small{ font: 12px/40px "microsoft yahei";}
+.upload-img ul li i{ top: -10%; width: 20px; height: 20px; background-size: 20px auto;}
+.module-title2 small{ font: 12px/20px "microsoft yahei";}
 .goods-describe { margin-top: 0;}
 .goods-describe textarea{font: 14px/20px "microsoft yahei";}
 .module-formbox{margin-top:0px; }
 .module-formbox input,
-.module-formbox .help-inlinetext {color: #c3c6cb; font-size: 12px; height: 20px; line-height: 20px;}
-.bottom-btnbox .btn{ font-size: 15px; margin-right: 10px; width: 126px;}
+.module-formbox .help-inlinetext {color: #c3c6cb; font-size: 12px; height: 30px; line-height: 20px;}
+.bottom-btnbox .btn{ margin-right: 10px; width: 136px;}
 .form-box form .help-inline{ width: 32%; font-size: 16px; line-height: 30px;}
 .form-box .form-textframe{ width: 59%;line-height: 30px; height: 30px;}
 .form-box form select{ width: 64%;line-height: 30px; height: 30px;}
 .block-box{margin-top: 20px;}
-.form-box .btn-block{font-size: 20px; line-height: 30px;}
 
-.p-price1 span {padding-right: 10px;}
-.p-title h4{ margin-bottom: 5px;}
-.p-title { padding: 0 20px 10px;}
-.p-price1{margin-top: 0;}
+
 .carousel{margin-bottom: 10px;}
 .combos-product{padding: 5px;}
 .combos-product p{margin: 5px 0;}
@@ -119,7 +123,11 @@
 .module-search-ele{padding: 0;}
 .goods-text .btn {padding: 0;}
 
-
+/*------------------------弹出选择---------------------------*/
+.popup-menu{padding: 20px;}
+.popup-menu > a{margin-bottom: 10px;}
+.popup-menu > a,
+.popup-menu > .btn{ padding: 10px 0; }
 
 }
 
