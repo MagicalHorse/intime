@@ -60,7 +60,7 @@
         </div>
     </div>
     <div class="goods-describe">
-      <%= f.text_area :desc %>
+      <%= f.text_area :desc, :rows => 2 %>
     </div>
 </div>
 
@@ -71,12 +71,14 @@
         </div>
     </div>
     <div class="module-formbox">
-      <%= f.text_field :private_to %>
+      <%= f.text_field :private_to, class: 'input-small' %>
       <span class="help-inline help-inlinetext">顾客姓名或昵称</span>
     </div>
 </div>
 
-<%= f.hidden :remote_id, @remote_id %>
+<% if @remote_id.present? %>
+  <%= f.hidden_field :remote_id, @remote_id %>
+<% end %>
 <div class="bottom-btnbox">
     <button class="btn btn-large btn-danger"><i class="fa fa-eye"></i>预 览</button>
     <button class="btn btn-large btn-danger" type="submit"><i class="fa fa-upload"></i>提交发布</button>
