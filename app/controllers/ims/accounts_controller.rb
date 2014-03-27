@@ -5,7 +5,7 @@ class Ims::AccountsController < Ims::BaseController
   # 我的资金账号
   def mine
     # API_NEED: 获取当前的用户资金账号：
-    data = API::Giftcard.create(request)
+    data = Ims::Giftcard.create(request)
     # 1、是否绑卡
     # 2、已经绑卡，需要返回卡余额、卡号
     @is_binded = data[:is_binded] #|| true
@@ -17,7 +17,7 @@ class Ims::AccountsController < Ims::BaseController
     session[:phone] = params[:phone]
     generate_sms
     # API_NEED: 发送手机验证码（用于绑卡）
-    API::Sms.send(request, {phone: session[:phone], text: "#{session[:sms_code]}"})
+    Ims::Sms.send(request, {phone: session[:phone], text: "#{session[:sms_code]}"})
     @phone = "#{session[:phone][0, 3]}****#{session[:phone][7, 4]}"
   end
 
@@ -25,7 +25,7 @@ class Ims::AccountsController < Ims::BaseController
   def resend_sms
     generate_sms
     # API_NEED: 发送手机验证码（用于绑卡）
-    API::Sms.send(request, {phone: session[:phone], text: "#{session[:sms_code]}"})
+    Ims::Sms.send(request, {phone: session[:phone], text: "#{session[:sms_code]}"})
     render nothing: true
   end
 
@@ -42,7 +42,7 @@ class Ims::AccountsController < Ims::BaseController
   def create
     # API_NEED: 创建资金账户
     # 此接口需要支持能同时充值一张充值卡、如果此用户是买卡后进行的绑卡，需要将当时所购卡，进行充值
-    API::Giftcard.create(request, {phone: session[:phone], pwd: params[:pwd]})
+    Ims::Giftcard.create(request, {phone: session[:phone], pwd: params[:pwd]})
     if true
       p "如果保存成功，则跳往个人主页"
       session[:sms_code], session[:phone] = nil, nil
@@ -56,13 +56,13 @@ class Ims::AccountsController < Ims::BaseController
   # 重置密码
   def reset_password
     # API_NEED: 重置资金账户密码
-    API::Giftcard.resetpwd(request, {oldpwd: params[:oldpwd], newpwd: params[:newpwd]})
+    Ims::Giftcard.resetpwd(request, {oldpwd: params[:oldpwd], newpwd: params[:newpwd]})
   end
 
   # 修改密码
   def change_password
     # API_NEED: 修改资金账户密码
-    API::Giftcard.changepwd(request, {newpwd: params[:newpwd]})
+    Ims::Giftcard.changepwd(request, {newpwd: params[:newpwd]})
   end
 
   # 用于扫描的页面

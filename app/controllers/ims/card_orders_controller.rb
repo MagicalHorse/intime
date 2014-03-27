@@ -9,7 +9,7 @@ class Ims::CardOrdersController < Ims::BaseController
   # 付款礼品卡
   def create
     # API_NEED: 创建购买礼品卡的订单
-    API::Giftcard.purchase(request, {price: params[:price]})
+    Ims::Giftcard.purchase(request, {price: params[:price]})
 
     @out_trade_no = 'AF135GBGQS' #订单号
     @transport_fee = 23.00 #运费

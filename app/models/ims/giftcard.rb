@@ -1,4 +1,4 @@
-class API::Giftcard < API::Base
+class Ims::Giftcard < API::Base
 
   def self.my(req, params = {})
     post(req, params.merge(path: 'ims/giftcard/my'))

@@ -7,8 +7,4 @@ class Ims::Weixin
       ActiveSupport::JSON.decode(resp)['access_token']
     }
   end
-
-  def self.sign_value(sessionid = Time.now.to_i)
-    Digest::MD5.hexdigest("#{API_KEY}client_version#{CLIENT_VERSION}uid#{sessionid}#{API_KEY}")
-  end
 end
