@@ -45,7 +45,10 @@
     </div>
     <div class="upload-img">
         <ul class="inline">
-            <li class="add-link"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></li>
+          <% @combo.combo_products.each do |product| %>
+            <li><i id=""></i><img src="<%= product.img_url %>"></li>
+          <% end %>
+          <li class="add-link"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></li>
         </ul>
     </div>
 </div>
@@ -87,9 +90,9 @@
 
 <div class="popup-menu-box">
   <div class="popup-menu" style="display:none;" id="pop-menu">
-    <%= link_to "新拍商品", new_ims_store_product_path, class: 'txt1' %>
-    <%= link_to "已拍商品", ims_store_products_path, class: 'txt1' %>
-    <%= link_to "从系统选择", ims_store_products_path, class: 'txt1' %>
+    <%= link_to "新拍商品", new_ims_store_product_path(:combo_id => @combo.id), class: 'txt1' %>
+    <%= link_to "已拍商品", ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
+    <%= link_to "从系统选择", ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
     <button class="btn btn-large btn-danger btn-block txt1" id="btn-cancel">取消</button>
   </div>
 

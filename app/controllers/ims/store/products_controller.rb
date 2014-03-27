@@ -9,6 +9,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def new
+    @combo_id = params[:combo_id]
     product_relation_data
   end
 
@@ -17,6 +18,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def create
+    @combo = ::Combo.find(params[:combo_id])
     product = Ims::Product.create(request, {
       image: params["image"],
       brand_id: params["brand_id"],
@@ -28,7 +30,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       size_ids: params["size_ids"]
     })
     if product["isSuccessful"]
-      redirect_to ims_store_products_path
+      @combo.combo_products.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2"})
+      redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
     else
       redirect_to new_ims_store_product_path
     end
