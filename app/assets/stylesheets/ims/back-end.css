@@ -180,18 +180,6 @@
     color: #cacdd1;
     font-weight: normal;
    }
-
-   .combos-share-btns {
-     background-color: #f2f1f1;
-     border-top: 1px solid #dddddd;
-     margin-top: 10px;
-     padding: 10px 0;
-     text-align: center;
-   }
-   .combos-share-btns a {
-     margin: 0 20px;
-     width: 27%;
-   }
    .module-share {
      background-color: #faf9f9;
    }
