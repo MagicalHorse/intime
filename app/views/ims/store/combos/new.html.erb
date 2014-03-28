@@ -80,7 +80,7 @@
 </div>
 
 <% if @remote_id.present? %>
-  <%= f.hidden_field :remote_id, @remote_id %>
+  <%= hidden_field_tag :remote_id, @remote_id %>
 <% end %>
 <div class="bottom-btnbox">
     <button class="btn btn-large btn-danger preview" type="button"><i class="fa fa-eye"></i>预 览</button>
