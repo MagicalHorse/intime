@@ -1,5 +1,5 @@
 class Ims::CardsController < Ims::BaseController
-  before_filter :validate_sms!, only: [:give_page, :refuse]
+  before_filter :validate_sms!, only: [:give_page, :refuse, :recharge]
   layout "ims/user"
 
   # 充值历史
@@ -24,6 +24,7 @@ class Ims::CardsController < Ims::BaseController
 
   # 获赠礼品卡
   def gift_page
+    @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @result = {}
   end
@@ -38,6 +39,7 @@ class Ims::CardsController < Ims::BaseController
   def refuse
     # API_NEED: 拒收并退回礼品卡
     Ims::Giftcard.refuse(request, charge_no: params[:charge_no])
+    redirect_to "#{gift_page_ims_cards_path}?charge_no=#{params[:charge_no]}"
   end
 
 end

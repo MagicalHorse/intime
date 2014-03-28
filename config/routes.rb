@@ -327,12 +327,11 @@ IntimeService::Application.routes.draw do
     end
     resources :cards, only: [:index] do
       collection do
-        post    :recharge
+        get     :recharge
+        get     :gift_page
         get     :give_page
         post    :give
-        get     :gift_page
-        post    :accept
-        post    :refuse
+        get     :refuse
       end
     end
     resources :card_orders, only: [:new, :create, :show, :index] do
