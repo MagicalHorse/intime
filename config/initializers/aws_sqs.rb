@@ -50,4 +50,4 @@ module ISAwsSqs
   end
 end
    
-ISAwsSqs.start
+#ISAwsSqs.start
