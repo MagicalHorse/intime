@@ -354,6 +354,9 @@ IntimeService::Application.routes.draw do
 
 
     namespace :store do
+      root :to => "home#index"
+      post "login" => "home#login"
+      get 'check_code' => 'home#check_code'
       resources :sales_codes, only: :create
       resources :sells, only: :index
       resources :suggesstions, only: [:new, :create]
