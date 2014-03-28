@@ -6,20 +6,20 @@ class Ims::AccountsController < Ims::BaseController
   def mine
     # API_NEED: 获取当前的用户资金账号：
     data = Ims::Giftcard.my(request)[:data]
-    current_user.isbindcard = data[:is_binded] && false
+    current_user.isbindcard = data[:is_binded]
     current_user.card_no = data[:phone]
     @amount = data[:amount]
   end
 
   # 填待验证手机号页面
   def phone_page
+    redirect_to verify_phone_ims_accounts_path if current_user.isbindcard
   end
 
   # 验证手机号页面
   def verify_phone
-    current_user.identify_phone = params[:phone] if params[:phone].present?
+    @phone = current_user.identify_phone
     generate_sms
-    @identify_phone = "#{current_user.identify_phone[0, 3]}****#{current_user.identify_phone[7, 4]}"
   end
 
   # 验证短信页面
@@ -28,7 +28,7 @@ class Ims::AccountsController < Ims::BaseController
       current_user.verified_phone = current_user.identify_phone
       redirect_to current_user.back_url
     else
-      render "verify_phone"
+      render :verify_phone
     end
   end
 

@@ -11,7 +11,7 @@
 		 				<div class="span5">
         <%= image_tag("/images/ims/face-img.jpg", class: 'img-polaroid face-img') %>
 		 				</div>
-		 				<div class="span7"><h2 class="shop-name">FACE&amp;小铺</h2></div>
+		 				<div class="span7"><h2 class="shop-name"><%= @store[:data][:name] %></h2></div>
 		 			</div>
 		 		</div>
 		 		<div class="span5">
@@ -29,13 +29,15 @@
                 <h3>商品套装推荐</h3>
             </div>
             <div class="module-content module-content-card">
-                <div class="img-box"><a href="/ims/store/combos/show">
+                <div class="img-box"><a href="/ims/store/combos/<%= @store[:data][:Id] -%>">
                 	<%= image_tag("/images/ims/card.jpg") %>
                 </a></div>
-                <p><a href="/ims/store/combos/show">银泰礼品卡在线销售，史无前例的O2O行为，把握机会，不容错过！</a></p>
+                <p><a href="/ims/store/combos/<%= @store[:data][:Id] -%>"><%= @store[:data]["Desc"] %></a></p>
                 <div class="clearfix"><a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a></div>
             </div>
         </div>
+
+        
         <div class="module module-ele">
             <div class="module-title">
                 <h3>精品搭配推荐</h3>
