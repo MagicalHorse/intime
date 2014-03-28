@@ -24,9 +24,9 @@ default_url_options:
   
 default_image_url:
   product:
-    small: http://irss.ytrss.com/fileupload/img/product/default/default_120x0.gif
-    middle: http://irss.ytrss.com/fileupload/img/product/default/default_320x0.gif
-  user: http://irss.ytrss.com/fileupload/img/user-logo-default.gif
+    small: http://irss.oss.aliyuncs.com/fileupload/img/product/default/default_120x0.gif
+    middle: http://irss.oss.aliyuncs.com/fileupload/img/product/default/default_320x0.gif
+  user: http://irss.oss.aliyuncs.com/fileupload/img/user-logo-default.gif
 
 
 payment_code:
