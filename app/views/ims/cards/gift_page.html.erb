@@ -1,42 +1,58 @@
-何青山给你送来一张礼品卡
+<% if @charge_no.to_i == 111 %>
+<!--  如果已经处理了  -->
 
-<a href="#" id="button_accept">礼品卡大图</a>
-点击礼品卡接收
+  <% if 1 %>
+  <!--  如果已经转赠  -->
 
+
+  <% elsif 2 %>
+  <!--  如果已经收取  -->
+
+
+  <% elsif 3 %>
+  <!--  如果已经拒绝  -->
+
+
+  <% end %>
 xxx，在这春光明媚的春天，愿你天天开心，永远幸福！
 
-<%= button_tag "赠送好友", id: "button_give" %>
+<a href="<%= mine_ims_accounts_path %>" >进入礼品卡首页</a>
+<a href="<%= new_ims_card_order_path %>" >我要购卡 </a>
 
-<%= button_tag "拒绝接收", id: "button_refuse" %>
+<% else %>
 
-<%= content_for :javascripts do %>
-<script>
-  $(function(){
+  何青山给你送来一张礼品卡
 
-    $("#button_give").click(function(){
-      $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
-        if(data.result){
-          window.location.href = "<%= ims_card_order_path(1) %>"
+  <a href="#" id="button_accept">礼品卡大图</a>
+  点击礼品卡接收
+
+  xxx，在这春光明媚的春天，愿你天天开心，永远幸福！
+
+  <%= button_tag "赠送好友", id: "button_give" %>
+
+  <%= button_tag "拒绝接收", id: "button_refuse" %>
+
+  <%= content_for :javascripts do %>
+  <script>
+    $(function(){
+
+      $("#button_give").click(function(){
+        window.location.href = "<%= give_page_ims_cards_path %>?charge_no=<%= @charge_no %>";
+      })
+
+      $("#button_refuse").click(function(){
+        var r = confirm("您确定要拒收吗？");
+        if (r == true){
+          window.location.href = "<%= refuse_ims_cards_path %>?charge_no=<%= @charge_no %>";
         }
-      }, "json");
-    })
+      })
 
-    $("#button_refuse").click(function(){
-      $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
-        if(data.result){
-          window.location.href = "<%= ims_card_order_path(1) %>"
-        }
-      }, "json");
-    })
+      $("#button_accept").click(function(){
+        window.location.href = "<%= recharge_ims_cards_path %>?charge_no=<%= @charge_no %>&type=giftcard";
+      })
 
-    $("#button_accept").click(function(){
-      $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
-        if(data.result){
-          window.location.href = "<%= ims_card_order_path(1) %>"
-        }
-      }, "json");
-    })
+    });
+  </script>
+  <% end %>
 
-  });
-</script>
 <% end %>
