@@ -31,19 +31,16 @@
         选择图片： <%= file_field_tag "image", style: "display: none;", id: "input" %>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>品牌：</span>
-          <%= select_tag "brand_id", options_for_select(["品牌1", "品牌2"]) %>
+          <%= select_tag "brand_id", options_for_select(@brands.collect{|obj| [obj["name"], obj["id"]]}) %>
         </div>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>销售编码：</span>
-          <%= select_tag "coding_id", options_for_select(["编码1", "编码2"]) %>
+          <%= select_tag "coding_id", options_for_select(@codings) %>
+          <%= link_to "添加", "#new_coding_form", "data-toggle" => "modal" %>
         </div>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>货号：</span>
           <%= text_field_tag "item", params["item"], class: "form-textframe" %>
-        </div>
-        <div class="inline-horizontal">
-          <span class="help-inline"><abbr>*</abbr>吊牌价：</span>
-          <%= text_field_tag "brand_price", params["brand_price"], class: "form-textframe" %>
         </div>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>微信价：</span>
@@ -51,17 +48,39 @@
         </div>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>分类：</span>
-          <%= select_tag "category_id", options_for_select(["分类1", "分类2"]) %>
+          <%= select_tag "category_id", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}), prompt: "请选择" %>
         </div>
-        <div class="inline-horizontal">
+        <div class="inline-horizontal" id="size_ids_wrapper" style="display: none;">
           <span class="help-inline"><abbr>*</abbr>尺码：</span>
-          <%= select_tag "size_id", options_for_select(["尺码1", "尺码2"]), multiple: "multiple" %>
+          <%= select_tag "size_ids[]", options_for_select([]), multiple: "multiple", id: "size_ids" %>
         </div>
+        <div class="inline-horizontal" id="size_str_wrapper" style="display: none;">
+          <span class="help-inline"><abbr>*</abbr>规格：</span>
+          <%= text_field_tag "size_str", params["size_str"], class: "form-textframe" %>
+        </div>
+        <% if @combo_id.present? %>
+          <%= hidden_field_tag :combo_id, @combo_id %>
+        <% end %>
         <div class="block-box">
           <%= submit_tag "提交", class: "btn btn-danger btn-large btn-block" %>
         </div>
       <% end %>
     </div>
+</div>
+
+
+<div id="new_coding_form" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">销售编码 添加：</h3>
+</div>
+<div class="modal-body">
+  销售编码: <%= text_field_tag "coding", nil %>
+</div>
+<div class="modal-footer">
+  <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+  <button class="btn btn-primary" id="coding_button">保存</button>
+</div>
 </div>
 
 
@@ -72,6 +91,27 @@
     $("#input").on("change", function(){
       if($(this).val().length != ""){
         $("#img_error_notice").html('')
+      }
+    })
+
+
+    $("#coding_button").on("click", function(){
+      coding = $("#coding").val()
+      if(coding.length > 0){
+        $.post("/ims/store/sales_codes", {coding: coding}, function(data){
+          if(data["status"] == true){
+            $("#new_coding_form").modal("hide")
+            $("#coding_id").html("")
+            $.each(data["data"], function(index, value){
+              $("#coding_id").append("<option value='"+value+"'>"+value+"</option>")
+            })
+            $("#coding_id option:last").attr("selected", true)
+          }else{
+            alert("销售编码添加失败")
+          }
+        }, "json")
+      }else{
+        alert("销售编码不能为空")
       }
     })
 
@@ -90,17 +130,14 @@
         "item": {
           required: true
         },
-        "brand_price": {
-          required: true
-        },
         "weixin_price": {
           required: true
         },
         "category_id": {
           required: true
         },
-        "size_id": {
-          require_from_group: 1
+        "size_ids[]": {
+          required: true
         }
       },
       errorPlacement:function(error, element){
@@ -128,13 +165,25 @@
 
     $("#category_id").on("change", function(){
       category_id = $(this).val()
-      $.get("", {category_id: category_id}, function(data){
-        data = [["1", "尺码1"]]
-        $("#size_id").html("")
-        $.each(data, function(index, value){
-          $("#size_id").append("<option value='"+value[0]+"'>"+value[1]+"</option>")
-        })
-      })
+      if(category_id.length == 0){
+        $("#size_ids_wrapper").hide()
+        $("#size_str_wrapper").hide()
+      }else{
+
+        $.get("/ims/store/dicts/product_sizes", {category_id: category_id}, function(data){
+          if(data.length > 0){
+            $("#size_ids_wrapper").show()
+            $("#size_str_wrapper").hide()
+            $("#size_ids").html("")
+            $.each(data, function(index, value){
+              $("#size_ids").append("<option value='"+value.id+"'>"+value.name+"</option>")
+            })
+          }else{
+            $("#size_ids_wrapper").hide()
+            $("#size_str_wrapper").show()
+          }
+        }, "json")
+      }
     })
 
     function readFile(){

@@ -2,7 +2,7 @@
 .back-wrap-inner{margin-bottom: 100px; padding: 0; margin-top: 0; border-top:0;}
 .module-bg-white{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
 .module-bg-white2{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee;}
-.module-color-white{background: white;}
+.module-color-white{background: white; border-bottom: 1px solid #eeeeee;}
 .module-title2 h3{ margin: 0; font-size: 26px; font-weight: normal;S}
 .module-title2 h3 i{ margin-right: 8px;}
 .title-link{ font: 21px/40px "microsoft yahei";}
@@ -28,7 +28,7 @@
 .upload-img ul li:focus,
 .upload-img ul li:hover,
 .upload-img ul li:active{ border:2px solid #f86b9f;}
-.upload-img ul li i{ position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.upload-img ul li i{cursor: pointer;  position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
 .upload-img ul li img{ width: 180px;}
 .upload-img ul li.add-link{ border:2px dashed #eeeeee; background-color: #f6f8fa;}
 .upload-img ul li.add-link a{ display: block; }
@@ -49,15 +49,14 @@
 
 /*-------------------------------Css Bootm btn---------------------------------*/
 .bottom-btnbox{ padding: 20px 0; background-color: #f2f1f1; text-align: center; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
-.bottom-btnbox .btn{ font-size: 24px; margin-right: 20px; width: 208px;}
+.bottom-btnbox .btn{ margin-right: 20px; width: 44%;}
 .bottom-btnbox .btn:last-child{ margin-right: 0;}
-.bottom-btnbox .btn i{ margin-right: 10px;}
 .bottom-btnbox form{margin: 0;}
 
 /*-------------------------------Css Search result---------------------------------*/
 .module-search-ele{padding: 10px 10px 0;}
 .goods-box{margin-bottom: 10px; position: relative; border:1px solid #eeeeee; background: white;}
-.goods-box > a{position: relative; display:block;}
+.goods-box .imgs{position: relative; display:block;}
 .goods-box .goods-text { padding: 10px;}
 .goods-box .goods-text a{ display: inline-block; margin-bottom: 10px; font-size: 21px; line-height: 30px;}
 .goods-price{ position: absolute; bottom: 0; left: 0; width: 100%; color: white; line-height: 40px; font-size: 24px; text-indent: 10px; background-color: rgba(202, 200, 201, 0.80);}
@@ -78,7 +77,8 @@
 .search-condition{padding: 30px 0 30px 30px;}
 .search-condition > a{ display: inline-block; margin: 0 30px 30px 0; padding: 16px 30px; color: #abadb3; border:2px  solid #f86b9f; background-color: white; font-size: 24px; border-radius: 4px; }
 
-/*------------------------弹出选择---------------------------*/
+/*------------------------popup---------------------------*/
+.popup-menu-box{width: 640px; position: fixed; bottom: 0;}
 .popup-menu{padding: 40px;}
 .popup-menu > a{ padding: 20px 0; margin-bottom: 20px; display: block; text-align: center; border:1px solid #e3e4e8; background: white; color: #676767;}
 .popup-menu > .btn{ padding: 20px 0; }
@@ -94,9 +94,12 @@
   color: #5E5E5E;
   padding: 0 20px 20px;
 }
-.p-title h4{}
+
 .p-price {
   margin-top: 5px;
+}
+.wx-price {
+  float: left;
 }
 .wx-price .txt3 {
   color: #b7bac0;
@@ -141,67 +144,42 @@
  }
  .p-price1 {
   width: 100%;
-  margin-top: 10px;
+  margin: 10px 0 0;
  }
  .p-price1 span {
   color: #DBDDDE;
-  /*font-size: 17px;*/
   padding-right: 30px;
  }
-/*  .p-price1 span:first-child {
-  font-size: 24px;
- }*/
+
  .p-price1 span:first-child em {
   color: #f86b9f;
  }
-  .p-price1 span:last-child{text-decoration: line-through;}
-/*  .p-price1 span:last-child em {
-  font-size: 18px;
- }*/
  .p-price1 span em{font-style: normal;}
  .p-wx-price {
    color: #F16498;
  }
- .buttons {
-   margin-top: 20px;
- }
- .buttons button {
-   width: 80px;
- }
+
  .button-select {
    margin-left: 25px;
  }
 
  /*combos show*/
  .module-common {
-     padding: 5px 10px;
+     padding: 20px;
      background-color: #faf9f9;
    }
    .combos-product {
      background-color: #fff;
      border: 1px solid #ccc;
-     padding: 3px;
+     padding: 10px;
      text-align: center;
    }
    .combos-product p {
+    margin-top: 20px;
     text-align: left;
     padding-left: 7px;
     color: #cacdd1;
     font-weight: normal;
-   }
-   .combos-product a {
-     width: 70%;
-   }
-   .combos-share-btns {
-     background-color: #f2f1f1;
-     border-top: 1px solid #dddddd;
-     margin-top: 10px;
-     padding: 10px 0;
-     text-align: center;
-   }
-   .combos-share-btns a {
-     margin: 0 20px;
-     width: 27%;
    }
    .module-share {
      background-color: #faf9f9;

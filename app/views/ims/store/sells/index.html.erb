@@ -1,21 +1,23 @@
 礼品卡
 
+<% @gift_cards.each do |card| %>
 <%= image_tag "/image/1.jpg" %><br/>
 
-银泰礼品卡在线销售，史无前例的O2O行为，错过将后悔一生。希望您能把握此次机会
+<%= card["desc"] %>
 
-<%= link_to "上架", "javascript:void(0);", class: "card" %>
+<%= link_to card["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card" %>
+<% end %>
 
 
 
 商品搭配
 
-<% 2.times.each do %>
+<% @combos.each do |combo| %>
   <%= image_tag "/images/1.jpg" %>
-  <%= link_to '专为xxx定制的套装组合', new_ims_store_combo_path("combo_id") %>
+  <%= link_to combo["desc"], new_ims_store_combo_path(combo["id"]) %>
   <!-- 这里要改为编辑 -->
-  组合价: ￥109.00
-  <%= link_to "上架", "javascript:void(0);", class: "combo", value: "combo_id" %>
+  组合价: ￥<%= combo["price"] %>
+  <%= link_to combo["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "combo", value: combo["id"] %>
 <% end %>
 
 <%= link_to '添加搭配商品', new_ims_store_combo_path %>

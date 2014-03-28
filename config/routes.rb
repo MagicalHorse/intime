@@ -360,22 +360,29 @@ IntimeService::Application.routes.draw do
 
 
     namespace :store do
+      resources :sales_codes, only: :create
       resources :sells, only: :index
       resources :suggesstions, only: [:new, :create]
       resources :themes, only: [:index, :update]
       resources :products do
+        member do 
+          get 'add_to_combo'
+        end
         collection do
           get :tutorials
         end
       end
       resources :searches, only: :index
       resources :combos do
-        member do 
+        member do
           put 'add_img'
+          put 'update_desc'
+          get 'preview'
         end
         collection do
           get :tutorials
           get 'remove_img'
+          get 'remove_product'
         end
       end
       resources :stores, only: [:index, :show, :edit, :update] do
@@ -386,6 +393,11 @@ IntimeService::Application.routes.draw do
       resources :incomes, only: [:index, :new, :create] do
         collection do
           get :my, :list
+        end
+      end
+      resources :dicts, only: [] do
+        collection do
+          get :product_sizes
         end
       end
 

@@ -1,5 +1,9 @@
 class Ims::Giftcard < Ims::Base
 
+  def self.all(req, params = {})
+    post(req, params.merge(path: "ims/assistant/gift_cards"))
+  end
+
   def self.my(req, params = {})
     post(req, params.merge(path: 'giftcard/my'))
   end
