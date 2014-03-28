@@ -35,19 +35,19 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   def edit
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
     @remote_id = @remote_combo[:data][:id]
-    
+
     if params[:combo_id].present?
       @combo = ::Combo.find(params[:combo_id])
     else
       @combo = ::Combo.create({:desc => @remote_combo[:data][:desc], :private_to => @remote_combo[:data][:private_to],
        :combo_type => @remote_combo[:data][:combo_type]})
 
-      @remote_combo[:data][:productids].each do |product|
-        @combo.combo_products.create({:remote_id => product[:id], :image => product[:image]})
+      @remote_combo[:data][:products].each do |product|
+        ComboProduct.create({:remote_id => product[:id], :img_url => product[:image], :price => product[:price], :combo_id => @combo.id})
       end
 
-      @remote_combo[:data][:image_ids].each do |pic|
-        @combo.combo_pics.create({:remote_id => pic[:id], :url => pic[:url]})
+      @remote_combo[:data][:image].each do |pic|
+        ComboPic.create({:url => pic, :combo_id => @combo.id})
       end 
     end
 
@@ -76,7 +76,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     @image = Ims::Combo.upload_img(request, {:image => params[:img]})
 
     if @image[:isSuccessful]
-      img = @combo.combo_pics.create({remote_id: @image[:data][:id], url: @image[:data][:url]})
+      img = ComboPic.create({remote_id: @image[:data][:id], url: @image[:data][:url], :combo_id => @combo.id})
       json = {"status" => 1, "img" => @image[:data][:url], "id" => img.id}.to_json
     else
       json = {"status" => 0}.to_json
