@@ -22,18 +22,6 @@ class Ims::CardGiftontroller < Ims::BaseController
     # 发送短信的ajax
   end
 
-  # 接受
-  def accept
-    # API_NEED: 接受礼品卡
-    params[:card_id]
-  end
-
-  # 不接受，归还原有用户
-  def return
-    # API_NEED: 拒收并退回礼品卡
-    params[:card_id]
-  end
-
   # 再次赠送
   def present
     # API_NEED: 再次赠送礼品卡
