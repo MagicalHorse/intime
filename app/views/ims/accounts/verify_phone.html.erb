@@ -4,9 +4,9 @@
       <div class="verify-code">
         <div class='verify-code-txt'>
           <h2>我们已发送验证码短信到这个号码</h2>
-          <h2><%= @phone %></h2>
+          <h2><%= @identify_phone %></h2>
         </div>
-        <%= form_tag(new_ims_account_path, class: "verify-form form-horizontal", :method => 'get') do %>
+        <%= form_tag(verfiy_sms_code_ims_accounts_path, class: "verify-form form-horizontal", :method => 'get') do %>
         <div>
           <%= text_field_tag "sms_code", "", class: "input-verify-code", placeholder: "请填写验证码" %>
           <div class='btn btn-large btn-danger' id="count_down">接收短信大约需要<span id="num">6</span>秒</div>

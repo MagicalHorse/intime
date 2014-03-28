@@ -1,6 +1,14 @@
 class Ims::User
- ATTRIBUTES = [:id, :email, :level, :nickname, :mobile, :isbindcard, :logo, :level, :operate_right, :token, :verified_phone, :card_no]
+ ATTRIBUTES = [:id, :email, :level, :nickname, :mobile, :isbindcard, :logo, :level, :operate_right, :token, :card_no, :verified_phone, :identify_phone, :sms_code, :back_url, :will_chargeno]
   attr_accessor *ATTRIBUTES
+
+  # card_no         当前用户储值卡号
+  # verified_phone  已经验证的手机号
+  # identify_phone  准备验证的手机号
+  # sms_code        收到的短信编码
+  # back_url        验证前原本要去的链接
+  # will_chargeno   准备充值的充值卡
+  # identity_no     身份证
 
   def initialize(attributes = {})
     assign_attributes(attributes)
