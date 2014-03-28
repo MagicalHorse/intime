@@ -10,21 +10,18 @@ class Ims::Product < Ims::Base
       post(req, params.merge(path: 'ims/product/create'))
     end
 
-    def show(req, params = {})
-      post(req, params.merge(path: 'ims/combo/detail'))
+    def update(req, params={})
+      post(req, params.merge(path: 'ims/product/update'))
+    end
+
+    def find(req, params = {})
+      post(req, params.merge(path: 'ims/product/detail'))
     end
 
     def search(req, params = {})
       post(req, params.merge(path: 'ims/product/search'))
     end
 
-    def salescodes(req, params = {})
-      post(req, params.merge(path: 'ims/assistant/salescodes'))
-    end
-
-    def user_brands(req, params = {})
-      post(req, params.merge(path: 'ims/assistant/brands'))
-    end
   end
 
   Price = [

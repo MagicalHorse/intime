@@ -1,5 +1,5 @@
 <% if nil %>
-<%= form_tag ims_store_searches_path, method: "GET", id: "search" do %>
+<%= form_tag search_ims_store_products_path, method: "GET", id: "search" do %>
   <%= text_field_tag "keywords", params[:keywords], placeholder: "搜索商品名称、品牌、货号等" %>
   <%= submit_tag "搜索" %>
 <% end %>
@@ -24,12 +24,13 @@
 <div class="module module-searchinput">
     <div class="row-fluid">
         <div class="span12">
-            <%= form_tag ims_store_searches_path, method: "GET", id: "search", class: "form-inline" do %>
+            <%= form_tag search_ims_store_products_path, method: "GET", id: "search", class: "form-inline" do %>
               <%= text_field_tag "keywords", params[:keywords], placeholder: "搜索宝贝", class: "input-small bg-img" %>
               <%= hidden_field_tag "type" %>
               <%= hidden_field_tag "from" %>
               <%= hidden_field_tag "to" %>
               <%= hidden_field_tag "brand_id" %>
+              <%= hidden_field_tag "combo_id", @combo.id %>
               <button class="btn" type="submit">搜 索</button>
             <% end %>
         </div>
@@ -92,7 +93,7 @@
                       </div>
                       <div class="goods-text">
                           <a href="#"><%= obj["desc"] %></a>
-                          <button class="btn btn-danger btn-mini btn-block">选择搭配</button>
+                          <button class="btn btn-danger btn-mini btn-block"><a href="<%= add_to_combo_ims_store_product_path(:id => obj["id"], :combo_id => @combo.id) %>">选择搭配</a></button>
                       </div>
                   </div>
               </div>
