@@ -86,7 +86,10 @@
             <% objs.compact.each do |obj| %>
               <div class="span4">
                   <div class="goods-box">
-                      <div class="imgs"><img src="/images/ims/no-image.jpg"><div class="goods-price">￥<%= obj["price"] %></div></div>
+                      <div class="imgs">
+                        <img src="/images/ims/no-image.jpg">
+                        <div class="goods-price">￥<%= obj["price"] %></div>
+                      </div>
                       <div class="goods-text">
                           <a href="#"><%= obj["desc"] %></a>
                           <button class="btn btn-danger btn-mini btn-block">选择搭配</button>
