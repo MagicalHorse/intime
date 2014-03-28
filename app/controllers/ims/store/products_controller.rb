@@ -72,6 +72,12 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
   end
 
+  def search
+    @searches = Ims::Product.search(request, type: params["type"], from: params["form"], to: params["to"], id: params["brand_id"], keywords: params["keywords"])["data"]["items"]
+    @products = @searches.group_by{|obj| obj["create_date"].to_date}.values
+    @brands = Ims::ProductBrand.list(request)["data"]["items"]
+  end
+
 
   protected
 
