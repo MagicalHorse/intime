@@ -13,7 +13,11 @@
      <div class="row-fluid">
          <div class="span8">
             <div id="result" class="show-imgbox-no"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
-              <%= image_tag "/images/ims/upload-image.jpg", alt: "img-name", id: "img" %>
+              <% if @product[:image].blank? %>
+                <%= image_tag "/images/ims/upload-image.jpg", alt: "img-name", id: "img" %>
+              <% else %>
+                <%= image_tag @product[:image], alt: "img-name", id: "img" %>
+              <% end %>
               <!-- 400px * 400px 没有上传图片时显示默认图片no-image.jpg-->
             </div>
             <span id="img_error_notice"></span>
@@ -28,35 +32,40 @@
 <div class="module module-bg-white2">
     <div class="form-box">
       <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-horizontal" do %>
-        选择图片： <%= file_field_tag "image", style: "display: none;", id: "input" %>
+        选择图片： <%= file_field_tag "image", style: "display: none;", id: "input", value: @product[:image] %>
+        <%= hidden_field_tag "id", @product[:id] %>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>品牌：</span>
-          <%= select_tag "brand_id", options_for_select(@brands.collect{|obj| [obj["name"], obj["id"]]}) %>
+          <%= select_tag "brand_id", options_for_select(@brands.collect{|obj| [obj["name"], obj["id"]]}, @product[:brand_id]) %>
         </div>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>销售编码：</span>
-          <%= select_tag "coding_id", options_for_select(@codings) %>
+          <%= select_tag "coding_id", options_for_select(@codings, @product[:sales_code]) %>
           <%= link_to "添加", "#new_coding_form", "data-toggle" => "modal" %>
         </div>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>货号：</span>
-          <%= text_field_tag "item", params["item"], class: "form-textframe" %>
+          <%= text_field_tag "item", @product[:sku_code], class: "form-textframe" %>
         </div>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>微信价：</span>
-          <%= text_field_tag "weixin_price", params["weixin_price"], class: "form-textframe" %>
+          <%= text_field_tag "weixin_price", @product[:price], class: "form-textframe" %>
         </div>
         <div class="inline-horizontal">
           <span class="help-inline"><abbr>*</abbr>分类：</span>
-          <%= select_tag "category_id", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}), prompt: "请选择" %>
+          <%= select_tag "category_id", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}, @product[:category_id]), prompt: "请选择" %>
         </div>
-        <div class="inline-horizontal" id="size_ids_wrapper" style="display: none;">
+        <div class="inline-horizontal" id="size_ids_wrapper" style="<%= @product[:size].present? ? 'display: inline;' : 'display: none;' %>">
           <span class="help-inline"><abbr>*</abbr>尺码：</span>
-          <%= select_tag "size_ids[]", options_for_select([]), multiple: "multiple", id: "size_ids" %>
+          <% if @product[:size].present? %>
+            <%= select_tag "size_ids[]", options_for_select(@sizes.collect{|obj| [obj[:name], obj[:id]]}, @product[:size].collect{|obj| obj[:size_id]}), multiple: "multiple", id: "size_ids" %>
+          <% else %>
+            <%= select_tag "size_ids[]", options_for_select([]), multiple: "multiple", id: "size_ids" %>
+          <% end %>
         </div>
-        <div class="inline-horizontal" id="size_str_wrapper" style="display: none;">
+        <div class="inline-horizontal" id="size_str_wrapper" style="<%= @product[:size_str].present? ? 'display: line;' : 'display: none;' %>">
           <span class="help-inline"><abbr>*</abbr>规格：</span>
-          <%= text_field_tag "size_str", params["size_str"], class: "form-textframe" %>
+          <%= text_field_tag "size_str", @product[:size_str], class: "form-textframe" %>
         </div>
         <% if @combo_id.present? %>
           <%= hidden_field_tag :combo_id, @combo_id %>
@@ -70,17 +79,17 @@
 
 
 <div id="new_coding_form" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-header">
-<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-  <h3 id="myModalLabel">销售编码 添加：</h3>
-</div>
-<div class="modal-body">
-  销售编码: <%= text_field_tag "coding", nil %>
-</div>
-<div class="modal-footer">
-  <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-  <button class="btn btn-primary" id="coding_button">保存</button>
-</div>
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">销售编码 添加：</h3>
+  </div>
+  <div class="modal-body">
+    销售编码: <%= text_field_tag "coding", nil %>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    <button class="btn btn-primary" id="coding_button">保存</button>
+  </div>
 </div>
 
 
@@ -118,9 +127,11 @@
     $("#product_form").validate({
       ignore: "",
       rules: {
+        <% if params[:action] == "new" %>
         "image": {
           required: true
         },
+        <% end %>
         "brand_id": {
           required: true
         },
