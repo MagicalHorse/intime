@@ -68,3 +68,15 @@
 /*-----------------------------------------*/
 .module-remaining h1 span{ color: #f16498;}
 .verify-code-txt h2:last-child  span {color: #f16498; }
+
+
+/*------------------------------Product Details----------------------------------*/
+
+.detail-imgbox{border:2px solid #d9dde3;}
+.price-detail .txt3,
+.price-detail .txt5{color: #c3c6cb;}
+.price-detail .txt3 em{color: #F86B9F;}
+.size-detail dd li a:focus,
+.size-detail dd li a:active,
+.size-detail dd li.active a,
+.size-detail dd li a:hover{ border-color: #F86B9F;}
