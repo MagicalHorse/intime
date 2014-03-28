@@ -29,8 +29,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       image: params["image"],
       brand_id: params["brand_id"],
       sales_code: params["coding_id"],
-      sku_code: params["item"],
-      price: params["weixin_price"],
+      sku_code: params["sku_code"],
+      price: params["price"],
       category_id: params["category_id"],
       size_str: params["size_str"],
       size_ids: params["size_ids"]
@@ -49,8 +49,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       image: params["image"],
       brand_id: params["brand_id"],
       sales_code: params["coding_id"],
-      sku_code: params["item"],
-      price: params["weixin_price"],
+      sku_code: params["sku_code"],
+      price: params["price"],
       category_id: params["category_id"],
       size_str: params["size_str"],
       size_ids: params["size_ids"]
