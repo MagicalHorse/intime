@@ -1,24 +1,14 @@
 <div class="module module-white">
   <div class="row-fluid">
     <div class="span12">
-      <div class="module-form module-set-password form-padding">
-        <%= form_tag(ims_accounts_path, :method => 'post', id: "account_form", class: "form-horizontal") do %>
-          <%= hidden_field_tag "sms_code", params[:sms_code]%>
-          <div class="control-group">
-            <h1 class="text-center">为了保证您的银泰礼品卡资金安全，请设置支付密码</h1>
-          </div>
-          <div class="control-group">
-            <%= password_field_tag "pwd", "", class: "input-block-level", placeholder: "支付密码为6位数字" %>
-          </div>
-          <div class="control-group">
-            <%= password_field_tag "comfirm_pwd", "", class: "input-block-level", placeholder: "确认支付密码" %>
-          </div>
-          <div class="control-group">
-            <h4 class="h4-txt"><i class="fa fa-exclamation-circle"></i> 支付密码可以用于礼品卡查询和购买支付，请妥善保管</h4>
-          </div>
-          <div class="control-group">
-            <button class="btn btn-large btn-block btn-danger">确认</button>
-          </div>
+      <div class="module-set-password form-padding">
+        <%= form_tag(ims_accounts_path, :method => 'post', id: "account_form", class: "form-defined") do %>
+        <%= hidden_field_tag "sms_code", params[:sms_code]%>
+        <h1 class="text-center">为了保证您的银泰礼品卡资金安全，请设置支付密码</h1>
+        <%= password_field_tag "pwd", "", class: "input-block-level large-block", placeholder: "支付密码为6位数字" %>
+        <%= password_field_tag "comfirm_pwd", "", class: "input-block-level large-block", placeholder: "确认支付密码" %>
+        <h4 class="h4-txt"><i class="fa fa-exclamation-circle"></i> 支付密码可以用于礼品卡查询和购买支付，请妥善保管</h4>
+        <button class="btn btn-danger btn-large btn-block set-button">确认</button>
         <% end %>
       </div>
     </div>

@@ -43,9 +43,9 @@ class Ims::AccountsController < Ims::BaseController
     # API_NEED: 通过当前手机号，得知手机已经开户，把手机号绑定当前用户
     result = Ims::Giftcard.bind(request, phone: params[:phone])
     if result[:isSuccessful]
-      if current_user.will_chargeno.present?
+      if current_user.will_charge_no.present?
         # 成功绑定老账号，且需要充值一张卡
-        redirect_to recharge_ims_card_path(current_user.will_chargeno)
+        redirect_to recharge_ims_card_path(current_user.will_charge_no)
       else
         # 成功绑定老账号，则跳转至登录页面
         redirect_to mine_ims_accounts_path
@@ -55,9 +55,10 @@ class Ims::AccountsController < Ims::BaseController
 
   # 绑定用户
   def create
+    binding.pry
     # API_NEED: 创建资金账户
     # 此接口需要支持能同时充值一张充值卡、如果此用户是买卡后进行的绑卡，需要将当时所购卡，进行充值
-    result = Ims::Giftcard.create(request, {phone: current_user.verified_phone, pwd: params[:pwd], charge_no: current_user.will_chargeno, identity_no: current_user.identity_no })
+    result = Ims::Giftcard.create(request, {phone: current_user.verified_phone, pwd: params[:pwd], charge_no: current_user.will_charge_no, identity_no: current_user.identity_no })
     if result[:isSuccessful]
       redirect_to mine_ims_accounts_path
     else
