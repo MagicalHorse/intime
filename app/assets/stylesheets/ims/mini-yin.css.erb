@@ -2,7 +2,7 @@ body{ font-family: arial,"microsoft yahei"; background: #faf9f9;}
 a:active,
 a:hover,
 a:focus{ color: #f94688; text-decoration: none; outline: none;}
-
+button a{ color: white;}
 /*-------------------------------Button Reset-----------------------------------*/
 .btn {
     font-weight: 500;
@@ -91,13 +91,13 @@ a:focus{ color: #f94688; text-decoration: none; outline: none;}
 @media screen and (max-width: 580px) {
 .btn {font-weight: 600;}
 .btn-large {
-  padding: 10px 24px;
+  padding: 12px 24px;
   font-size: 16px;
   -webkit-border-radius: 2px;
      -moz-border-radius: 2px;
           border-radius: 2px;
 }
-.btn-large i{ margin-right: 4px; font-size: 16px; vertical-align: middle;}
+.btn-large i{font-size: 16px; vertical-align: middle;}
 
 .btn-small {
   padding: 6px 14px;
@@ -106,7 +106,7 @@ a:focus{ color: #f94688; text-decoration: none; outline: none;}
      -moz-border-radius: 2px;
           border-radius: 2px;
 }
-.btn-small i{ margin-right: 2px; font-size: 15px; vertical-align: middle;}
+.btn-small i{font-size: 15px; vertical-align: middle;}
 
 .btn-mini {
   padding: 0 12px;
@@ -116,6 +116,264 @@ a:focus{ color: #f94688; text-decoration: none; outline: none;}
           border-radius: 2px;
 }
 }
+
+
+
+/*-------------------------Css Form--------------------------*/
+.form-defined,
+.controls-defined,
+.form-defined input{
+box-sizing:border-box;
+-moz-box-sizing:border-box; /* Firefox */
+-webkit-box-sizing:border-box; /* Safari */
+width:100%;
+}
+
+.form-defined .controls-defined:before,
+.form-defined .controls-defined:after {
+    content: " ";
+    display: table;
+}
+.form-defined .controls-defined:after {
+    clear: both;
+}
+[class*="col-"]{
+  display: block;
+  float: left;
+  padding-right: 10px;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+}
+
+.controls-defined > [class*="col-"]:last-child {
+  padding-right: 0;
+}
+.col-1{width:8.3333%;}
+.col-2{width:16.6666%;}
+.col-3{width:25%;}
+.col-4{width:33.3333%;}
+.col-5{width:41.6666%;}
+.col-6{width:50%;}
+.col-7{width:58.3333%;}
+.col-8{width:66.6666%;}
+.col-9{width:75%;}
+.col-10{width:83.3333%;}
+.col-11{width:91.6666%;}
+.col-12{width:100%;}
+
+[class*="col-"] input{
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 10px;
+  height: 34px;
+  line-height: 34px;
+  vertical-align: middle;
+}
+.form-defined .input-block-level{
+  margin-bottom: 10px;
+  height: 34px;
+  line-height: 34px;
+}
+[class*="col-"] input[type="checkbox"],
+[class*="col-"] input[type="radio"]{
+  width: auto;
+  margin: 0 6px 0 0;
+  height: 34px;
+  line-height: 34px; 
+}
+label[class*="col-"]{
+  padding-left:0;
+  min-height: auto;
+  line-height: 34px;
+}
+
+/*------------------------------Defined Large------------------------------*/
+.defined-large [class*="col-"] > span,
+.defined-large [class*="col-"] input,
+.defined-large label[class*="col-"],
+.form-defined .large-block{
+  font-size: 30px;
+}
+.defined-large [class*="col-"] > span,
+.defined-large [class*="col-"] input,
+.form-defined .large-block{
+  height: 74px;
+  line-height: 74px;
+  padding: 12px 20px;
+}
+.form-defined .large-block{
+  height: 74px;
+  line-height: 74px;
+  margin-bottom: 20px;
+}
+.defined-large [class*="col-"] input[type="checkbox"],
+.defined-large [class*="col-"] input[type="radio"]{
+  height: 74px;
+  line-height: 74px; 
+}
+.defined-large label[class*="col-"]{
+  line-height: 74px;
+}
+
+/*------------------------------Defined Small------------------------------*/
+.defined-small [class*="col-"] > span,
+.defined-small [class*="col-"] input,
+.defined-small label[class*="col-"],
+.form-defined .small-block{
+  font-size: 24px;
+}
+.defined-small [class*="col-"] > span,
+.defined-small [class*="col-"] input,
+.form-defined .small-block{
+  height: 62px;
+  line-height: 62px;
+  padding: 8px 10px;
+}
+.form-defined .small-block{
+  height: 62px;
+  line-height: 62px;
+}
+.defined-small [class*="col-"] input[type="checkbox"],
+.defined-small [class*="col-"] input[type="radio"]{
+  height: 62px;
+  line-height: 62px; 
+}
+.defined-small label[class*="col-"]{
+  line-height: 62px;
+}
+
+
+/*------------------------------Defined Mini------------------------------*/
+.defined-mini [class*="col-"] > span,
+.defined-mini [class*="col-"] input,
+.defined-mini label[class*="col-"],
+.form-defined .mini-block{
+  font-size: 20px;
+}
+.defined-mini [class*="col-"] > span,
+.defined-mini [class*="col-"] input,
+.form-defined .mini-block{
+  height: 42px;
+  line-height: 42px;
+  padding: 8px 10px;
+}
+.form-defined .mini-block{
+  height: 42px;
+  line-height: 42px;
+}
+.defined-mini [class*="col-"] input[type="checkbox"],
+.defined-mini [class*="col-"] input[type="radio"]{
+  height: 42px;
+  line-height: 42px; 
+}
+.defined-mini label[class*="col-"]{
+  line-height: 42px;
+}
+
+@media screen and (max-width: 580px){
+  [class*="col-"] input{border-radius: 2px;}
+  .col-1{width:100%;}
+  div[class*="col-"]{padding-right: 5px;}
+  div[class*="col-1"]{padding-right: 0;}
+
+/*-----------------------------Defined Large---------------------------------*/
+.defined-large [class*="col-"] > span,
+.defined-large [class*="col-"] input,
+.defined-large label[class*="col-"],
+.form-defined .large-block{
+  font-size: 16px;
+}
+.defined-large [class*="col-"] .btn-large{
+  padding: 10px 12px;
+}
+.defined-large [class*="col-"] > span,
+.defined-large [class*="col-"] input,
+.form-defined .large-block{
+  height: 42px;
+  line-height: 42px;
+  padding: 4px 6px;
+}
+.form-defined .large-block{
+  margin-bottom: 10px;
+}
+.defined-large [class*="col-"] input[type="checkbox"],
+.defined-large [class*="col-"] input[type="radio"]{
+  margin: 0 8px 0 0;
+  height: 42px;
+  line-height: 42px; 
+}
+.defined-large label[class*="col-"]{
+  line-height: 42px;
+}
+/*------------------------------Defined Small------------------------------*/
+[class*="col-"] input[type="checkbox"],
+[class*="col-"] input[type="radio"]{
+  margin: 0;
+}
+.defined-small [class*="col-"] > span,
+.defined-small [class*="col-"] input,
+.defined-small label[class*="col-"],
+.form-defined .small-block{
+  font-size: 12px;
+}
+
+.defined-small [class*="col-"] .btn-small{
+  padding: 6px 8px;
+}
+
+.defined-small [class*="col-"] > span,
+.defined-small [class*="col-"] input,
+.form-defined .small-block{
+  height: 34px;
+  line-height: 34px;
+  padding: 4px 10px;
+}
+
+.defined-small [class*="col-"] input[type="checkbox"],
+.defined-small [class*="col-"] input[type="radio"]{
+  height: 34px;
+  line-height: 34px; 
+}
+.defined-small label[class*="col-"]{
+  line-height: 34px;
+}
+
+/*------------------------------Defined Mini------------------------------*/
+[class*="col-"] input[type="checkbox"],
+[class*="col-"] input[type="radio"]{
+  margin: 0;
+}
+.defined-mini [class*="col-"] > span,
+.defined-mini [class*="col-"] input,
+.defined-mini label[class*="col-"],
+.form-defined .mini-block{
+  font-size: 11px;
+}
+
+.defined-mini [class*="col-"] .btn-mini{
+  padding: 0 6px;
+}
+
+.defined-mini [class*="col-"] > span,
+.defined-mini [class*="col-"] input,
+.form-defined .mini-block{
+  height: 24px;
+  line-height: 24px;
+  padding: 2px 10px;
+}
+
+.defined-mini [class*="col-"] input[type="checkbox"],
+.defined-mini [class*="col-"] input[type="radio"]{
+  height: 24px;
+  line-height: 24px; 
+}
+.defined-mini label[class*="col-"]{
+  line-height: 24px;
+}
+}
+
+/*-------------------------../Css Form--------------------------*/
 
 /*---------------------------------------Css Font--------------------------------------------*/
 
