@@ -362,6 +362,9 @@ IntimeService::Application.routes.draw do
       resources :suggesstions, only: [:new, :create]
       resources :themes, only: [:index, :update]
       resources :products do
+        member do 
+          get 'add_to_combo'
+        end
         collection do
           get :tutorials
         end
@@ -370,10 +373,13 @@ IntimeService::Application.routes.draw do
       resources :combos do
         member do
           put 'add_img'
+          put 'update_desc'
+          get 'preview'
         end
         collection do
           get :tutorials
           get 'remove_img'
+          get 'remove_product'
         end
       end
       resources :stores, only: [:index, :show, :edit, :update] do

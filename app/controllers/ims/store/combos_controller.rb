@@ -19,6 +19,18 @@ class Ims::Store::CombosController < Ims::Store::BaseController
 
   def tutorials
   end
+ 
+  def update_desc
+    @combo = ::Combo.find(params[:id])
+    @combo.update_attributes({:desc => params[:desc], :private_to => params[:private_to]})
+
+    render :json => {:status => "ok"}.to_json
+  end
+
+  #预览
+  def preview
+    @combo = ::Combo.find(params[:id])
+  end
 
   def edit
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
@@ -47,9 +59,9 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     @combo.update_attributes(params[:combo])
 
     if params[:remote_id].present?
-      @remote_combo = Ims::Combo.update(request, combo.api_attrs.merge({:id => params[:remote_id]}))
+      @remote_combo = Ims::Combo.update(request, @combo.api_attrs.merge({:id => params[:remote_id]}))
     else
-      @remote_combo = Ims::Combo.create(request, combo.api_attrs)
+      @remote_combo = Ims::Combo.create(request, @combo.api_attrs)
     end
 
     if @remote_combo[:isSuccessful]
@@ -76,6 +88,13 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   def remove_img
     @img = ::ComboPic.find(params[:img_id])
     @img.destroy
+
+    render :json => {"status" => 1}.to_json
+  end
+
+  def remove_product
+    @product = ::ComboProduct.find(params[:product_id])
+    @product.destroy
 
     render :json => {"status" => 1}.to_json
   end
