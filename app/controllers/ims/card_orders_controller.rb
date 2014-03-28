@@ -4,7 +4,7 @@ class Ims::CardOrdersController < Ims::BaseController
 
   def index
     # API_NEED: 获取礼品卡订单的列表
-    @data = Ims::Giftcard.create(request, type: [2 ,3, 5])
+    @data = Ims::Giftcard.create(request, type: 1)
   end
 
   # 付款礼品卡

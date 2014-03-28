@@ -3,6 +3,7 @@ class Ims::CardGiftontroller < Ims::BaseController
 
   def index
     # API_NEED: 查看赠送给当前用户的礼品卡列表
+    @data = Ims::Giftcard.create(request, type: 1)
   end
 
   def show
