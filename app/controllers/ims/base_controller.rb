@@ -62,7 +62,7 @@ class Ims::BaseController < ApplicationController
   def validate_sms!
     current_user.back_url = request.path
     unless current_user.verified_phone.present?
-      redirect_to phone_page_ims_accounts_path
+      redirect_to verify_phone_ims_accounts_path
     end
   end
 
