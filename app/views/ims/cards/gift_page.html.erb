@@ -1,9 +1,42 @@
 何青山给你送来一张礼品卡
 
-<a href="#">礼品卡大图</a>
+<a href="#" id="button_accept">礼品卡大图</a>
 点击礼品卡接收
 
 xxx，在这春光明媚的春天，愿你天天开心，永远幸福！
 
-<%= button_tag "赠送好友" %>
-<%= button_tag "拒绝接收" %>
+<%= button_tag "赠送好友", id: "button_give" %>
+
+<%= button_tag "拒绝接收", id: "button_refuse" %>
+
+<%= content_for :javascripts do %>
+<script>
+  $(function(){
+
+    $("#button_give").click(function(){
+      $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
+        if(data.result){
+          window.location.href = "<%= ims_card_order_path(1) %>"
+        }
+      }, "json");
+    })
+
+    $("#button_refuse").click(function(){
+      $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
+        if(data.result){
+          window.location.href = "<%= ims_card_order_path(1) %>"
+        }
+      }, "json");
+    })
+
+    $("#button_accept").click(function(){
+      $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
+        if(data.result){
+          window.location.href = "<%= ims_card_order_path(1) %>"
+        }
+      }, "json");
+    })
+
+  });
+</script>
+<% end %>
