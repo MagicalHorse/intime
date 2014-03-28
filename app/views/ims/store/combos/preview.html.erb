@@ -9,16 +9,16 @@
               </ol>
               <!-- Carousel items -->
               <div class="carousel-inner slides">
-                <% @remote_combo[:data][:image].each_with_index do |src, i| %>
-                  <div class="item slide <%= 'active' if i == 0 %>"><img src="<%= src %>"></div>
+                <% @combo.combo_pics.each_with_index do |img, i| %>
+                  <div class="item slide <%= 'active' if i == 0 %>"><img src="<%= img.url %>"></div>
                 <% end %>
                 
               </div>
             </div>
       
-        <div class="p-title"><h4><%= @remote_combo[:data][:desc] %></h4></div>
+        <div class="p-title"><h4><%= @combo.desc %></h4></div>
         <div class="p-price1 clearfix">
-          <span class="txt3">微信价：<em class="txt4">￥<%= @remote_combo[:data][:price] %>  </em></span>
+          <span class="txt3">微信价：<em class="txt4">￥<%= @combo.price %>  </em></span>
         </div>
     </div>
   </div>
@@ -27,11 +27,11 @@
 <div class="module module-common">
   <div class="row-fluid">
     
-      <% @remote_combo[:data][:products].each do |product| %>
+      <% @combo.combo_products.each do |product| %>
       <div class="span4">
         <div class="combos-product">
-          <img src="<%= product[:image] %>">
-          <p><span class="txt3">￥<%= product[:price] %></span></p>
+          <img src="<%= product.img_url %>">
+          <p><span class="txt3">￥<%= product.price %></span></p>
           <a class="btn btn-danger btn-mini btn-block" href="">点击购买</a>
         </div>  
       </div>
@@ -42,8 +42,8 @@
 
   <div class="bottom-btnbox">
     <form class="form-inline">
-        <button class="btn btn-mini btn-danger"><i class="fa fa-eye"></i>分享给好友</button>
-        <button class="btn btn-mini btn-danger"><a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>"><i class="fa fa-edit"></i>编 辑</a></button>
+        <button class="btn btn-large btn-danger" type="button"><a href="<%= new_ims_store_combo_path(combo_id: @combo.id) %>"><i class="fa fa-eye"></i>返回</a></button>
+        <button class="btn btn-large btn-danger"><i class="fa fa-upload"></i>提交发布</button>
     </form>
   </div>
 <script type="text/javascript">

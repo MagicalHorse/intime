@@ -19,23 +19,35 @@ class Ims::Store::CombosController < Ims::Store::BaseController
 
   def tutorials
   end
+ 
+  def update_desc
+    @combo = ::Combo.find(params[:id])
+    @combo.update_attributes({:desc => params[:desc], :private_to => params[:private_to]})
+
+    render :json => {:status => "ok"}.to_json
+  end
+
+  #预览
+  def preview
+    @combo = ::Combo.find(params[:id])
+  end
 
   def edit
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
     @remote_id = @remote_combo[:data][:id]
-    
+
     if params[:combo_id].present?
       @combo = ::Combo.find(params[:combo_id])
     else
       @combo = ::Combo.create({:desc => @remote_combo[:data][:desc], :private_to => @remote_combo[:data][:private_to],
        :combo_type => @remote_combo[:data][:combo_type]})
 
-      @remote_combo[:data][:productids].each do |product|
-        @combo.combo_products.create({:remote_id => product[:id], :image => product[:image]})
+      @remote_combo[:data][:products].each do |product|
+        @combo.combo_products.create({:remote_id => product[:id], :img_url => product[:image], :price => product[:price]})
       end
 
-      @remote_combo[:data][:image_ids].each do |pic|
-        @combo.combo_pics.create({:remote_id => pic[:id], :url => pic[:url]})
+      @remote_combo[:data][:image].each do |pic|
+        @combo.combo_pics.create({:url => pic})
       end 
     end
 
@@ -47,9 +59,9 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     @combo.update_attributes(params[:combo])
 
     if params[:remote_id].present?
-      @remote_combo = Ims::Combo.update(request, combo.api_attrs.merge({:id => params[:remote_id]}))
+      @remote_combo = Ims::Combo.update(request, @combo.api_attrs.merge({:id => params[:remote_id]}))
     else
-      @remote_combo = Ims::Combo.create(request, combo.api_attrs)
+      @remote_combo = Ims::Combo.create(request, @combo.api_attrs)
     end
 
     if @remote_combo[:isSuccessful]

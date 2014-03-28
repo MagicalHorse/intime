@@ -1,39 +1,55 @@
 # encoding: utf-8
 class Ims::AccountsController < Ims::BaseController
-  before_filter :validate_sms!, only: [:new, :create, :create_password, :reset_password, :change_password]
+  before_filter :validate_sms!, only: [:new, :create, :reset_password]
   layout "ims/user"
   # 我的资金账号
   def mine
     # API_NEED: 获取当前的用户资金账号：
-    data = Ims::Giftcard.create(request)
-    current_user.isbindcard = data[:is_binded] #|| true
-    current_user.card_no = data[:phone] #|| 18801122329
-    @amount = data[:amount] #|| 100
+    data = Ims::Giftcard.my(request)[:data]
+    current_user.isbindcard = data[:is_binded] && false
+    current_user.card_no = data[:phone]
+    @amount = data[:amount]
   end
 
-  # 绑定系列：验证手机号页面
+  # 填待验证手机号页面
+  def phone_page
+  end
+
+  # 验证手机号页面
   def verify_phone
-    session[:phone] = params[:phone]
+    current_user.identify_phone = params[:phone] if params[:phone].present?
     generate_sms
-    # API_NEED: 发送手机验证码（用于绑卡）
-    Ims::Sms.send(request, {phone: session[:phone], text: "您正在绑卡银泰礼品卡，需要验证手机号，验证码为：#{session[:sms_code]}"})
-    @phone = "#{session[:phone][0, 3]}****#{session[:phone][7, 4]}"
+    @identify_phone = "#{current_user.identify_phone[0, 3]}****#{current_user.identify_phone[7, 4]}"
+  end
+
+  # 验证短信页面
+  def verfiy_sms_code
+    if params[:sms_code].present? && current_user.sms_code.to_i == params[:sms_code].to_i
+      current_user.verified_phone = current_user.identify_phone
+      redirect_to current_user.back_url
+    else
+      render "verify_phone"
+    end
   end
 
   # 重发短信
   def resend_sms
     generate_sms
-    # API_NEED: 发送手机验证码（用于绑卡）
-    Ims::Sms.send(request, {phone: session[:phone], text: "您正在绑卡银泰礼品卡，需要验证手机号，验证码为：#{session[:sms_code]}"})
     render nothing: true
   end
 
-  # 手机验证通过，增加密码
+  # 手机验证通过，填写支付密码页面
   def new
     # API_NEED: 通过当前手机号，得知手机已经开户，把手机号绑定当前用户
-    if false
-      session[:phone] = nil
-      redirect_to mine_ims_accounts_path
+    result = Ims::Giftcard.bind(request, phone: params[:phone])
+    if result[:isSuccessful]
+      if current_user.will_chargeno.present?
+        # 成功绑定老账号，且需要充值一张卡
+        redirect_to recharge_ims_card_path(current_user.will_chargeno)
+      else
+        # 成功绑定老账号，则跳转至登录页面
+        redirect_to mine_ims_accounts_path
+      end
     end
   end
 
@@ -41,10 +57,8 @@ class Ims::AccountsController < Ims::BaseController
   def create
     # API_NEED: 创建资金账户
     # 此接口需要支持能同时充值一张充值卡、如果此用户是买卡后进行的绑卡，需要将当时所购卡，进行充值
-    Ims::Giftcard.create(request, {phone: session[:phone], pwd: params[:pwd]})
-    if true
-      p "如果保存成功，则跳往个人主页"
-      session[:sms_code], session[:phone] = nil, nil
+    result = Ims::Giftcard.create(request, {phone: current_user.verified_phone, pwd: params[:pwd], charge_no: current_user.will_chargeno, identity_no: current_user.identity_no })
+    if result[:isSuccessful]
       redirect_to mine_ims_accounts_path
     else
       # 如果不成功，跳回密码页面

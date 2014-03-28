@@ -319,7 +319,10 @@ IntimeService::Application.routes.draw do
         get   :set_phone
         get   :phone_page
         get   :verify_phone
+        get   :verfiy_sms_code
         post  :resend_sms
+        get   :reset_password
+        get   :change_password
       end
     end
     resources :cards, only: [:index] do
@@ -329,7 +332,7 @@ IntimeService::Application.routes.draw do
         post    :give
       end
     end
-    resources :card_gifts, only: [] do
+    resources :card_gifts, only: [:index] do
       member do
         post    :accept
         post    :return
@@ -337,7 +340,7 @@ IntimeService::Application.routes.draw do
         post    :give
       end
     end
-    resources :card_orders, only: [:new, :create, :show] do
+    resources :card_orders, only: [:new, :create, :show, :index] do
       member do
         get :check_status
       end
@@ -357,18 +360,24 @@ IntimeService::Application.routes.draw do
 
 
     namespace :store do
+      resources :sales_codes, only: :create
       resources :sells, only: :index
       resources :suggesstions, only: [:new, :create]
       resources :themes, only: [:index, :update]
       resources :products do
+        member do
+          get 'add_to_combo'
+        end
         collection do
           get :tutorials
+          get :search
         end
       end
-      resources :searches, only: :index
       resources :combos do
-        member do 
+        member do
           put 'add_img'
+          put 'update_desc'
+          get 'preview'
         end
         collection do
           get :tutorials

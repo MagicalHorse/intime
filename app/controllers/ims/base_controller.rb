@@ -52,15 +52,17 @@ class Ims::BaseController < ApplicationController
 
   # 生成验证短信验证码
   def generate_sms
-    session[:sms_code] = (0..9).to_a.sample(6)
-    session[:sms_code] = 111111
+    current_user.sms_code = (0..9).to_a.sample(6)
+    current_user.sms_code = 111111
+    # API_NEED: 发送手机验证码（用于绑卡）
+    Ims::Sms.send(request, {phone: current_user.identify_phone, text: "验证码为：#{current_user.sms_code}"})
   end
 
-  # 验证短信内容，创建一次访问许可
+  # 验证手机，对访问进行放行，否则进入手机验证页面
   def validate_sms!
-    if session[:sms_code].to_i != params[:sms_code].to_i
-      redirect_to mine_ims_accounts_path
-      p "验证失败，跳出"
+    current_user.back_url = request.path
+    unless current_user.verified_phone.present?
+      redirect_to phone_page_ims_accounts_path
     end
   end
 
