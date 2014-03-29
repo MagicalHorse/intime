@@ -138,7 +138,7 @@
 .size-detail dd ul{margin-bottom: 0;}
 .size-detail dd li {float: left;}
 .size-detail dd li a{display: inline-block; padding: 14px 14px; border:2px solid #dee1e7; border-radius: 5px;font-size:28px;  color: #c3c6cb;}
-.detail-block{ background:url(../images/right.png) 99% center no-repeat transparent;}
+.detail-block{ background:url(/images/ims/right.png) 99% center no-repeat transparent;}
 .detail-contact-bd{ background-image: none;}
 .detail-block > p{margin: 0 6% 0 0; line-height: 50px; font-size: 21px;}
 .detail-contact-bd > p{margin:0;}

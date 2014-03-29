@@ -1,13 +1,17 @@
+<% if nil %>
+
 请在1小时内完成支付，过时订单将会自动取消！
 
-订单号：11402284226
+订单号：<%= @order["orderno"] %>
 
-订单状态：<span id="order_status">待付款</span>
+订单状态：<span id="order_status"><%= @order["status"] %></span>
 
-<%= link_to "立即支付", "javascript:void(0);", value: "order_id" %>
+<%= link_to "立即支付", "javascript:void(0);", value: @order["orderno"] %>
 
-<%= link_to do %>
-<%= image_tag "/images/1.jpg" %>
+<% @order["products"].each do |product| %>
+  <%= link_to ims_store_product_path(product["productid"]) do %>
+  <%= image_tag "/images/1.jpg" %>
+  <% end %>
 <% end %>
 
 
@@ -20,6 +24,17 @@
 手机号码：18700001111
 
 <br/>
+
+支付方式： <%= @order["paymentname"] %>
+订单备注： <%= @order["memo"] %>
+赠送积点： <%= @order["totalpoints"] %>
+总价： <%= @order["totalamount"] %>
+快递费： <%= @order["totalfee"] %>
+需付款： <%= @order["totalamount"] %>
+
+
+<br/>
+
 <% 2.times.each do %>
 退货时间：2014年3月21日
 
@@ -46,6 +61,94 @@
   <%= link_to '申请退货', new_ims_order_returns_reason_path("order_id") %>
 <% end %>
 
+
+<% else %>
+
+
+  <div class="wrap-content">
+    <div class="order-notice"><h3 class="text-center"><i class="fa fa-exclamation-circle"></i> 请在1小时内完成支付，过时订单将会自动取消！</h3></div>
+
+
+
+    <div class="module common-white">
+      <% @order["products"].each do |product| %>
+        <div class="indent-head">
+          <div class="row-fluid">
+             <div class="span3">
+                 <div class="detail-imgbox">
+                   <%= link_to ims_store_product_path(product["productid"]) do %>
+                   <%= image_tag "/images/ims/img800.jpg" %>
+                   <% end %>
+                 </div>
+             </div>
+             <div class="span9">
+                 <div class="price-detail">
+                     <h3><%= link_to product[" productname"], ims_store_product_path(product["productid"]) %></h3>
+                     <p class="txt3">打包价：<em>￥<%= product["price"] %></em></p>
+                 </div>
+             </div>
+          </div>
+        </div>
+
+      <% end %>
+
+          <div class="row-fluid">
+            <div class="span12">
+              <div class="detail-block detail-contact-bd">
+                <p class="txt4 clearfix">
+                <span class="pull-left"><b>订单号：<%= @order["orderno"] %></b></span>
+                <span class="pull-right"><b>订单状态：</b>
+                <i>
+                <span id="order_status"><%= @order["status"] %></span>
+                </i>
+                </span>
+                </p>
+                <p class="txt4 clearfix"><span class="pull-left"><b>下单时间：<%= @order["createdate"] %></b></span></p>
+                <p class="txt4 txt-bd clearfix"><span><b>赠送积点：<%= @order["totalpoints"] %>点</b></span></p>
+                <p class="txt4 clearfix"><span class="pull-left"><b>快递费：￥<%= @order["totalfee"] %></b></span><span class="pull-right"><b>需付款：</b><i>￥<%= @order["totalamount"] %></i></span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="module common-white">
+           <div class="row-fluid">
+               <div class="span12">
+                   <div class="detail-block detail-contact-bd">
+                       <p class="txt4 txt-bd clearfix"><span class="pull-left"><i class="fa fa-user"></i><b>收货人：谭女士</b></span><span class="pull-right"><i class="fa fa-phone"></i><b>手机号码：18700001111</b></span></p>
+                       <p class="txt4"><span><i class="fa fa-map-marker"></i><b>回龙观良庄家园测试地址测试地址</b></span></p>
+                   </div>
+               </div>
+           </div>
+        </div>
+        <div class="module common-white">
+           <div class="row-fluid">
+               <div class="span12">
+                   <div class="detail-block detail-contact-bd">
+                       <p class="txt4 txt-bd clearfix"><span class="pull-left"><i class="fa fa-money"></i><b>支付方式：</b><i><%= @order["paymentname"] %></i></span><span class="pull-right"><i class="fa fa-phone"></i><b>专柜号码：15928696607</b></span></p>
+                       <p class="txt4 txt-bd"><span><i class="fa fa-map-marker"></i><b>专柜地址：回龙观良庄家园测试地址测试地址</b></span></p>
+                       <p class="txt4"><span><i class="fa fa-asterisk"></i><b>订单备注：<%= @order["memo"] %></b></span></p>
+                   </div>
+               </div>
+           </div>
+        </div>
+        <div class="bottom-button indent-btn">
+          <div class="form-defined">
+            <div class="controls-defined defined-large">
+              <div class="col-6">
+                <%= link_to "立即支付", "javascript:void(0);", value: @order["orderno"], class: "btn btn-danger btn-large btn-block" %>
+              </div>
+              <div class="col-6">
+                <% if true %>
+                  <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: "order_id", class: "btn btn-grey btn-large btn-block" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+
+<% end %>
+
 <% content_for :javascripts do %>
   <script>
     $(function(){
@@ -57,6 +160,7 @@
           $.post("/ims/orders/"+order_id+"/change_state", {_method: "put"}, function(data){
             if(data["status"] == true){
               $("#order_status").text("已取消")
+              alert("取消订单成功")
               this_ele.remove()
             }else{
               alert("取消订单失败")
