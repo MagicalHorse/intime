@@ -2,14 +2,14 @@
     <div class="row-fluid">
       <div clss="span12">
         <div class="login-form">
-          <%= form_tag ims_store_login_path, id: 'login-form' do  %>  
+          <%= form_tag ims_store_login_path, id: 'login-form' do  %>
             <div class="span12"><img src="/images/ims/login.png"></div>
             <div>
               <p><input name="invite_code"  value="<%= @invite_code %>" type="text" placeholder="请填写邀请码"></p>
               <p class="tips"><span>凭店铺邀请码登录店铺</span></p>
-            </div>  
+            </div>
             <div>
-               <button class="btn btn-large btn-danger">我要开店</button> 
+               <button class="btn btn-large btn-danger">我要开店</button>
             </div>
           <% end %>
         </div>

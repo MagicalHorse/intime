@@ -1,3 +1,4 @@
+<div class="wrap-inner back-wrap-inner">
 <%= form_for [:ims, :store, @combo] do |f| %>
 <div class="module module-bg-white">
     <div class="module-title2">
@@ -94,10 +95,10 @@
       <%= link_to "新拍商品", new_ims_store_product_path(:combo_id => @combo.id), class: 'txt1' %>
       <%= link_to "已拍商品", ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
       <%= link_to "从系统选择", search_ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
-    <% elsif @combo.combo_products.first.product_type == "2" %>  
+    <% elsif @combo.combo_products.first.product_type == "2" %>
       <%= link_to "新拍商品", new_ims_store_product_path(:combo_id => @combo.id), class: 'txt1' %>
-      <%= link_to "已拍商品", ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>      
-    <% else %>  
+      <%= link_to "已拍商品", ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
+    <% else %>
       <%= link_to "从系统选择", search_ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
     <% end %>
 
@@ -105,6 +106,7 @@
     <button class="btn btn-large btn-danger btn-block txt1" id="btn-cancel">取消</button>
   </div>
 
+</div>
 </div>
 
 <%= content_for :javascripts do -%>
@@ -179,7 +181,7 @@
        });
 
       $("#img_box li").click(function(){
-        src = $(this).find("img")[0].src;        
+        src = $(this).find("img")[0].src;
         $("#default_img").html("<img src='"+src+"'>");
       });
 
@@ -191,8 +193,8 @@
             $("#img_"+mid).parent().remove();
         }
        });
-      
-     });   
+
+     });
 
      $("#add_product").click(function(){
        $("#pop-menu").show();
@@ -210,7 +212,7 @@
             $("#p_"+mid).parent().remove();
         }
        });
-     });   
+     });
 
      $(".preview").click(function(){
          desc = $("#combo_desc").val();
@@ -227,7 +229,7 @@
        })
 
 
-    
+
   });
 </script>
 <% end -%>

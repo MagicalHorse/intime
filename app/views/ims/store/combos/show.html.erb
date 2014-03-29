@@ -1,3 +1,4 @@
+<div class="wrap-inner back-wrap-inner">
 <div class="module module-bg-white clearfix">
   <div class="row-fluid">
     <div class="span12">
@@ -12,10 +13,10 @@
                 <% @remote_combo[:data][:image].each_with_index do |src, i| %>
                   <div class="item slide <%= 'active' if i == 0 %>"><img src="<%= src %>"></div>
                 <% end %>
-                
+
               </div>
             </div>
-      
+
         <div class="p-title"><h4><%= @remote_combo[:data][:desc] %></h4></div>
         <div class="p-price1 clearfix">
           <span class="txt3">微信价：<em class="txt4">￥<%= @remote_combo[:data][:price] %>  </em></span>
@@ -26,17 +27,17 @@
 
 <div class="module module-common">
   <div class="row-fluid">
-    
+
       <% @remote_combo[:data][:products].each do |product| %>
       <div class="span4">
         <div class="combos-product">
           <img src="<%= product[:image] %>">
           <p><span class="txt3">￥<%= product[:price] %></span></p>
           <a class="btn btn-danger btn-mini btn-block" href="">点击购买</a>
-        </div>  
+        </div>
       </div>
       <% end %>
-      
+
   </div>
   </div>
 
@@ -46,6 +47,7 @@
         <button class="btn btn-mini btn-danger"><a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>"><i class="fa fa-edit"></i>编 辑</a></button>
     </form>
   </div>
+</div>
 <script type="text/javascript">
   $(function(){
     $("#myCarousel").swipeshow({
