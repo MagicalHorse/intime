@@ -22,7 +22,7 @@
   D&G女士休闲鞋-0123423123
   微信价: ￥239.00
   品牌价: ￥478.00
-  尺码: <%= select_tag "size_id", options_for_select(["", "尺码1", "尺码2"]) %>
+  尺码: <%= hidden_field_tag "size_id" %>
   <%= hidden_field_tag "name" %>
   <%= hidden_field_tag "zip_code" %>
   <%= hidden_field_tag "address" %>
@@ -45,8 +45,8 @@
              </div>
              <div class="span9">
                  <div class="price-detail">
-                     <h3>D%G女士休闲鞋-012345678</h3>
-                     <p class="txt3">微信价：<em>￥300.00</em></p>
+                     <h3><%= @product["name"] %></h3>
+                     <p class="txt3">微信价：<em>￥<%= @product["price"] %></em></p>
                      <p class="txt5">吊牌价：￥300.00</p>
                  </div>
              </div>
@@ -58,15 +58,16 @@
              <div class="span12">
                  <div class="size-detail">
                      <dl class="dl-horizontal">
-                         <dt>尺码</dt>
-                         <dd>
-                             <ul class="inline clearfix">
-                                 <li class="active"><a href="#">39</a></li>
-                                 <li><a href="#">40</a></li>
-                                 <li><a href="#">41</a></li>
-                                 <li><a href="#">42</a></li>
-                             </ul>
-                         </dd>
+                          <dt>尺码</dt>
+                          <dd>
+                            <ul class="inline clearfix" id="sizes">
+                              <% @sizes.each do |size| %>
+                              <li value='<%= size['id'] %>'>
+                                <a href="javascript:void(0);"><%= size['name'] %></a>
+                              </li>
+                              <% end %>
+                            </ul>
+                          </dd>
                      </dl>
                  </div>
              </div>
@@ -102,6 +103,16 @@
 <% content_for :javascripts do %>
 <script>
   $(function(){
+
+    $("#sizes li").on("click", function(){
+      this_ele = $(this)
+      size_id = this_ele.attr("value")
+      $("#sizes li").each(function() {
+        $(this).removeClass("active")
+      });
+      $("#size_id").attr("value", size_id)
+      this_ele.addClass("active")
+    })
 
     var validator = $("#new_order_form").validate({
       ignore: "",
