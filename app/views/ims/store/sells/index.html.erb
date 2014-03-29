@@ -5,7 +5,7 @@
 
 <%= card["desc"] %>
 
-<%= link_to card["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card" %>
+<%= link_to card["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: card["id"], item_type: 1 %>
 <% end %>
 
 
@@ -17,7 +17,7 @@
   <%= link_to combo["desc"], new_ims_store_combo_path(combo["id"]) %>
   <!-- 这里要改为编辑 -->
   组合价: ￥<%= combo["price"] %>
-  <%= link_to combo["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "combo", value: combo["id"] %>
+  <%= link_to combo["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: combo["id"], item_type: 2 %>
 <% end %>
 
 <%= link_to '添加搭配商品', new_ims_store_combo_path %>
@@ -26,54 +26,22 @@
 <script>
   $(function(){
 
-    $(document).on("click", ".combo", function(){
+    $(document).on("click", ".card_or_combo", function(){
       this_ele = $(this)
       store_id = "store_id"
-      combo_id = this_ele.attr("value")
+      item_id = this_ele.attr("item_id")
+      item_type = this_ele.attr("item_type")
       text = this_ele.text()
-      if(text == "上架"){
-        $.post("", {store_id: store_id, combo_id: combo_id}, function(data){
-          if(true){
-            this_ele.text("下架")
-          }else{
-            alert(text+"失败")
-          }
-        })
-      }else if(text == "下架"){
-        $.post("", {_method: "delete", combo_id: combo_id}, function(data){
-          if(true){
-            this_ele.text("上架")
-          }else{
-            alert(text+"失败")
-          }
-
-        })
-      }
+      is_online = text == "上架" ? true : false
+      $.post("/ims/store/sells/id/update_is_online", {_method: "put", store_id: store_id, item_id: item_id, item_type: item_type, is_online: is_online}, function(data){
+        if(data["status"]){
+          this_ele.text(is_online ? "下架" : "下架")
+        }else{
+          alert(text+"失败")
+        }
+      })
     })
 
-    $(document).on("click", ".card", function(){
-      this_ele = $(this)
-      store_id = "store_id"
-      text = this_ele.text()
-      if(text == "上架"){
-        $.post("", {store_id: store_id}, function(data){
-          if(true){
-            this_ele.text("下架")
-          }else{
-            alert(text+"失败")
-          }
-        })
-      }else if(text == "下架"){
-        $.post("", {_method: "delete"}, function(data){
-          if(true){
-            this_ele.text("上架")
-          }else{
-            alert(text+"失败")
-          }
-
-        })
-      }
-    })
   })
 </script>
 <% end %>
