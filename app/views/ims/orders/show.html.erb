@@ -1,13 +1,15 @@
 请在1小时内完成支付，过时订单将会自动取消！
 
-订单号：11402284226
+订单号：<%= @order["orderno"] %>
 
-订单状态：<span id="order_status">待付款</span>
+订单状态：<span id="order_status"><%= @order["status"] %></span>
 
 <%= link_to "立即支付", "javascript:void(0);", value: "order_id" %>
 
-<%= link_to do %>
-<%= image_tag "/images/1.jpg" %>
+<% @order["products"].each do |product| %>
+  <%= link_to ims_store_product_path(product["productid"]) do %>
+  <%= image_tag "/images/1.jpg" %>
+  <% end %>
 <% end %>
 
 
@@ -20,6 +22,17 @@
 手机号码：18700001111
 
 <br/>
+
+支付方式： <%= @order["paymentname"] %>
+订单备注： <%= @order["memo"] %>
+赠送积点： <%= @order["totalpoints"] %>
+总价： <%= @order["totalamount"] %>
+快递费： <%= @order["totalfee"] %>
+需付款： <%= @order["totalamount"] %>
+
+
+<br/>
+
 <% 2.times.each do %>
 退货时间：2014年3月21日
 
