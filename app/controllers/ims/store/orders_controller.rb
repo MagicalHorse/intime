@@ -5,7 +5,7 @@ class Ims::Store::OrdersController < Ims::Store::BaseController
   end
 
   def show
-    
+
   end
 
 end
