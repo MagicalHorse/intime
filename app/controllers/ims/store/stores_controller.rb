@@ -17,7 +17,6 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def my
     @store = Ims::Store.my(request)
-    binding.pry
   end
 
   
