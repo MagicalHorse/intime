@@ -1,10 +1,8 @@
 module Stage
   class Tag < Stage::Base
-    self.collection_name = :tag
-
     class << self
       def list
-        result = get(:list)
+        result = ::Tag.list_all
         gen_data(result)
       end
 
