@@ -2,7 +2,7 @@ body{ font-family: arial,"microsoft yahei"; background: #faf9f9;}
 a:active,
 a:hover,
 a:focus{ color: #f94688; text-decoration: none; outline: none;}
-.txt-red{color: #F16498;}
+
 button a,
 button a:active,
 button a:hover,
@@ -11,7 +11,7 @@ button a:focus{ color: white;}
 @media screen and (max-width: 580px) {
   .common-white{padding: 10px 15px; margin-bottom: 8px;}
 }
-
+.txt-red{color: #F16498;}
 /*-------------------------------Button Reset-----------------------------------*/
 .btn {
     font-weight: 500;
@@ -151,7 +151,8 @@ button a:focus{ color: white;}
 /*-------------------------Css Form--------------------------*/
 .form-defined,
 .controls-defined,
-.form-defined input{
+.form-defined input,
+[class*="col-"] > span{
 box-sizing:border-box;
 -moz-box-sizing:border-box; /* Firefox */
 -webkit-box-sizing:border-box; /* Safari */
@@ -200,6 +201,11 @@ width:100%;
   vertical-align: middle;
   font-family: "microsoft yahei";
 }
+[class*="col-"] > span{
+ display: inline-block;
+ height: auto;
+ color: #676767;
+}
 .form-defined .input-block-level{
   margin-bottom: 10px;
   height: 34px;
@@ -215,7 +221,7 @@ width:100%;
 label[class*="col-"]{
   padding-left:0;
   min-height: auto;
-  line-height:normal;
+  color: #676767;
 }
 
 /*------------------------------Defined Large------------------------------*/
@@ -246,7 +252,7 @@ label[class*="col-"]{
   padding: 26px 30px;
 }
 .defined-large label[class*="col-"]{
-  line-height:normal;
+  line-height:74px;
 }
 
 /*------------------------------Defined Small------------------------------*/
@@ -276,7 +282,7 @@ label[class*="col-"]{
   padding: 18px 12px;
 }
 .defined-small label[class*="col-"]{
-  line-height:normal;
+  line-height:60px;
 }
 
 
@@ -307,7 +313,7 @@ label[class*="col-"]{
   padding: 10px 20px;
 }
 .defined-mini label[class*="col-"]{
-  line-height:normal;
+  line-height:42px;
 }
 
 @media screen and (max-width: 580px){
@@ -343,7 +349,7 @@ label[class*="col-"]{
   line-height:normal;
 }
 .defined-large label[class*="col-"]{
-  line-height:normal;
+  line-height:42px;
 }
 /*------------------------------Defined Small------------------------------*/
 [class*="col-"] input[type="checkbox"],
@@ -375,7 +381,7 @@ label[class*="col-"]{
   line-height:normal;
 }
 .defined-small label[class*="col-"]{
-  line-height:normal;
+  line-height:34px;
 }
 
 /*------------------------------Defined Mini------------------------------*/
@@ -408,7 +414,7 @@ label[class*="col-"]{
   line-height:normal;
 }
 .defined-mini label[class*="col-"]{
-  line-height:normal;
+  line-height:24px;
 }
 }
 
@@ -421,7 +427,15 @@ h2,
 h3,
 h4,
 h5,
-h6 { font-weight: normal; color: #676767;}
+h6 ,
+.txt1,
+.txt2,
+.txt3,
+.txt4,
+.txt5,
+.txt6,
+.txt7,
+.txt8 { font-weight: normal; color: #676767;}
 
 h1 {font-size: 30px; line-height: 40px;}
 h2 {font-size: 26px; line-height: 36px;}
