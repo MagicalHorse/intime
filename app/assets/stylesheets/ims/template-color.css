@@ -80,3 +80,8 @@
 .size-detail dd li a:active,
 .size-detail dd li.active a,
 .size-detail dd li a:hover{ border-color: #F86B9F;}
+.detail-block > p{color: #abadb3}
+.detail-block > .txt-bd{ border-bottom: 1px dashed #dddddd;}
+.detail-block > p > span > b{color: #676767;}
+.detail-block > p > span a{color: #abadb3;}
+.detail-block > p i{ color: #F86B9F;}
