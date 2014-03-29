@@ -4,7 +4,7 @@
 
 订单状态：<span id="order_status"><%= @order["status"] %></span>
 
-<%= link_to "立即支付", "javascript:void(0);", value: "order_id" %>
+<%= link_to "立即支付", "javascript:void(0);", value: @order["orderno"] %>
 
 <% @order["products"].each do |product| %>
   <%= link_to ims_store_product_path(product["productid"]) do %>
