@@ -1,4 +1,8 @@
 class Ims::OrdersController < Ims::BaseController
+  def index
+    @orders = Ims::Order.my(request)["data"]["items"]
+  end
+
   def new
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')

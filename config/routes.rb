@@ -340,7 +340,7 @@ IntimeService::Application.routes.draw do
       end
     end
     resources :recharge_histroy, only: [:index]
-    resources :orders, only: [:new, :create, :show] do
+    resources :orders, only: [:index, :new, :create, :show] do
       member do
         put :change_state
         get :payments

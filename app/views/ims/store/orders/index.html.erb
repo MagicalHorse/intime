@@ -1,12 +1,4 @@
-<% @orders.each do |order| %>
-<p>订单号：<%= link_to order['order_no'], ims_store_order_path("order_id") %></p>
-<p>金额： <%= order['amount'] %></p>
-<p>下单时间：<%= order['create_date'] %></p>
-<p><%= link_to "订单详情", ims_store_order_path(1) %></p>
-<p>订单状态：<%= order["status"] %></p>
-<% order["products"].each do |product| %>
-  <%= image_tag product["image"] %>
-  <%= link_to product["name"], ims_store_product_path(product["id"]) %>
-  微信价 ￥<%= product["price"] %>
-<% end %>
-<% end %>
+<p>用户：何青山</p>
+<p>订单号：ss8899233</p>
+<p>金额： 500</p>
+<p><%= link_to "查看详情", ims_store_order_path(1) %></p>
