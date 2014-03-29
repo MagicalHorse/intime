@@ -151,10 +151,3 @@
 .detail-block > p i{ margin-right: 4px; font-weight: normal; font-style: normal;}
 .wx-payment{margin-top: 24px; padding: 0 40px;}
 
-/*-----------------------------------Indent Detail-------------------------------------*/
-.indent-head{ padding-bottom: 30px; margin-bottom: 20px; border-bottom: 1px dashed #dddddd;}
-.bottom-button{padding: 15px 30px}
-.bottom-button .controls-defined > .col-6{padding-right: 15px;}
-.bottom-button .controls-defined > .col-6:last-child{padding-left: 15px; padding-right: 0}
-.bottom-button{ background: #f2f1f1; border-top:1px solid #e2e2e2;}
-.indent-btn{margin-top: 100px;}
