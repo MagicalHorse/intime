@@ -1,3 +1,4 @@
+<% if false %>
 <p>提现总金额： 1000</p>
 <p><%= link_to "提现记录", ims_store_incomes_path %></p>
 <hr>
@@ -7,3 +8,58 @@
 <hr>
 <p>可提现金额 500</p>
 <p><%= link_to "提现申请", new_ims_store_income_path %></p>
+<% end %>
+
+<div class="wrap-inner back-wrap-inner">
+    <div class="row-fluid">
+      <div clss="span12">
+        <div class="income">
+          <div class="common-white">
+             <h4>截至2014年3月29号为止， 您已提现的总金额为</h4>
+             <h3><span>￥1023.00<span></h3>
+          </div>
+
+          <div class="common-white">
+            <a href="" class="income-menu1">
+              <i class="fa fa-bars"></i>
+              <span>提现记录</span> 
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </div>
+
+          <div class="common-white">
+            <a href="" class="income-menu2">
+              <i class="fa fa-bars"></i>
+              <span>不可提现记录</span> 
+              <i class="fa fa-angle-right"><span>￥200.0</span></i>
+            </a>
+          </div>
+          <div class="tips">
+            <span><i class="fa fa-exclamation-circle"></i>成交7日并且没有发生退货才可提取！</span>
+          </div>
+
+          <div class="common-white">
+            <a href="" class="income-menu3">
+              <i class="fa fa-bars"></i>
+              <span>提现申请中的金额</span> 
+              <i class="fa fa-angle-right"><span>￥200.0</span></i>
+            </a>
+          </div>
+
+          <div class="common-white">
+            <a href="" class="income-menu4">
+              <i class="fa fa-bars"></i>
+              <span>可提现金额：￥200.0</span> 
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </div>
+
+          <div class="module-gray">
+            <button class="btn btn-large btn-danger">申请提现</button>
+            <div><a href=""><span>提现指导</span><i class="fa fa-angle-right"></i></a></div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
