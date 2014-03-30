@@ -21,7 +21,7 @@ module API
       end
 
       def unfavor(req, params = {})
-        post(req, params.merge(path: 'product/unfavor'))
+        post(req, params.merge(path: 'product/favor/destroy'))
       end
 
       def download_coupon(req, params = {})
