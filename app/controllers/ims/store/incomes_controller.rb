@@ -5,7 +5,6 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
   end
 
   def my
-    binding.pry
     @income = Ims::Income.my(request)
   end
 
