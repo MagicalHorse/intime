@@ -14,17 +14,23 @@
       </div>
     </div>  
     <div class="module module-white card-form-box">
-      <form class="form-defined">
+    	<%= form_tag give_ims_cards_path, remote: true, class: "form-defined" do  %>
+    	<%= hidden_field_tag :charge_no, params[:charge_no]  %>
         <div class="controls-defined defined-small">
           <label class="col-12 text-left"><i class="fa fa-pencil-square-o"></i>好友留言</label>
-          <div class="col-12"><textarea rows="3" placeholder="说点什么"></textarea></div>
+          <div class="col-12">
+          	<%= text_area_tag :comment, "", rows: 3 %>
+          </div>
         </div>
         <div class="controls-defined defined-small">
           <label class="col-4 text-right"><i class="fa fa-phone"></i>好友联系方式</label>
-          <div class="col-8"><input type="text" placeholder="请输入11位手机号码"></div>
+          <div class="col-8">
+          	
+          	<%= text_field_tag :phone, "", placeholder: "请输入11位手机号码" %>
+          </div>
         </div>
         <button type="button" class="btn btn-danger btn-large btn-block">确认赠送</button>
-      </form>
+      <% end %>
       <p class="card-notice txt3">
         <i class="fa fa-exclamation-circle"></i>温馨提示
         确认赠送后，好友确认接收后，将会给好友手机号发送验证码确认接收，请确保手机号码输入无误.
