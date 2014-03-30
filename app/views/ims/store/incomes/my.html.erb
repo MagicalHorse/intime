@@ -16,7 +16,7 @@
         <div class="income">
           <div class="common-white">
              <h4>截至2014年3月29号为止， 您已提现的总金额为</h4>
-             <h3><span>￥1023.00<span></h3>
+             <h3><span>￥<%= @income[:data][:received_amount] %><span></h3>
           </div>
 
           <div class="common-white">
@@ -31,7 +31,7 @@
             <a href="" class="income-menu2">
               <i class="fa fa-bars"></i>
               <span>不可提现记录</span> 
-              <i class="fa fa-angle-right"><span>￥200.0</span></i>
+              <i class="fa fa-angle-right"><span>￥<%= @income[:data][:frozen_amount] %></span></i>
             </a>
           </div>
           <div class="tips">
@@ -42,14 +42,14 @@
             <a href="" class="income-menu3">
               <i class="fa fa-bars"></i>
               <span>提现申请中的金额</span> 
-              <i class="fa fa-angle-right"><span>￥200.0</span></i>
+              <i class="fa fa-angle-right"><span>￥<%= @income[:data][:request_amount] %></span></i>
             </a>
           </div>
 
           <div class="common-white">
             <a href="" class="income-menu4">
               <i class="fa fa-bars"></i>
-              <span>可提现金额：￥200.0</span> 
+              <span>可提现金额：￥<%= @income[:data][:avail_amount] %></span> 
               <i class="fa fa-angle-right"></i>
             </a>
           </div>
