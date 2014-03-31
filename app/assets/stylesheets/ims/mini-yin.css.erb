@@ -1,7 +1,8 @@
 body{ font-family: arial,"microsoft yahei"; background: #faf9f9;}
+a{color: #2e5be2;}
 a:active,
 a:hover,
-a:focus{ color: #f94688; text-decoration: none; outline: none;}
+a:focus{ color: #2a55d6; text-decoration: none; outline: none;}
 
 button a,
 button a:active,
@@ -11,7 +12,28 @@ button a:focus{ color: white;}
 @media screen and (max-width: 580px) {
   .common-white{padding: 10px 15px; margin-bottom: 8px;}
 }
-.txt-red{color: #F16498;}
+.module-white{background: white;}
+body .wrap form input{ box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset !important;}
+/*-------------------------------Css Table-----------------------------------*/
+.module-table-box{margin-bottom: 80px;}
+.module-table-box table { border-radius: 0;}
+.module-table-box table td .disabled a{ cursor: default; color: #B7BBC2 !important;}
+.module-table-box .table-bordered thead:last-child tr:last-child > th:first-child,
+.module-table-box .table-bordered tbody:last-child tr:last-child > td:first-child,
+.module-table-box .table-bordered tbody:last-child tr:last-child > th:first-child,
+.module-table-box .table-bordered tfoot:last-child tr:last-child > td:first-child,
+.module-table-box .table-bordered tfoot:last-child tr:last-child > th:first-child,
+.module-table-box .table-bordered thead:first-child tr:first-child > th:first-child,
+.module-table-box .table-bordered tbody:first-child tr:first-child > td:first-child,
+.module-table-box .table-bordered tbody:first-child tr:first-child > th:first-child{border-radius: 0;}
+
+
+
+.module-table-box table tr td{ font-size: 30px; line-height: 50px;}
+.module-table-box table,
+.module-table-box table tr td{ border-color: #dddddd;}
+
+
 /*-------------------------------Button Reset-----------------------------------*/
 .btn {
     font-weight: 500;
@@ -152,11 +174,13 @@ button a:focus{ color: white;}
 .form-defined,
 .controls-defined,
 .form-defined input,
+.form-defined textarea,
 [class*="col-"] > span{
 box-sizing:border-box;
 -moz-box-sizing:border-box; /* Firefox */
 -webkit-box-sizing:border-box; /* Safari */
 width:100%;
+font-family: "microsoft yahei";
 }
 
 .form-defined .controls-defined:before,
@@ -351,6 +375,7 @@ label[class*="col-"]{
 .defined-large label[class*="col-"]{
   line-height:42px;
 }
+
 /*------------------------------Defined Small------------------------------*/
 [class*="col-"] input[type="checkbox"],
 [class*="col-"] input[type="radio"]{
@@ -416,6 +441,9 @@ label[class*="col-"]{
 .defined-mini label[class*="col-"]{
   line-height:24px;
 }
+.form-defined label[class*="col-12"]{
+  line-height: normal;
+}
 }
 
 /*-------------------------../Css Form--------------------------*/
@@ -461,6 +489,8 @@ h6 small {font-size: 10px; line-height: 16px;}
 .txt7 {font-size: 12px; line-height: 18px;}
 .txt8 {font-size: 28px; line-height: 38px;}
 
+.txt-red{color: #F16498;}
+.txt-grey{color: #abadb3;}
 @media screen and (max-width: 580px) {
   h1 {font-size: 16px; line-height: 24px;}
   h2 {font-size: 15px; line-height: 22px;}
@@ -568,6 +598,12 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .form-box .form-textframe{ width: 59%; line-height: 50px; height: 50px; box-shadow: 0 0 0 rgba(0, 0, 0, 0) inset;}
 .form-box form select{ width: 61%;line-height: 50px; height: 50px;}
 .block-box{margin-top: 70px;}
+
+/*smail*/
+.module-user-card h1{ margin: 20px 0 40px; padding-left:74px; background: url(/images/ims/smail.png) left center no-repeat; line-height: 64px; }
+@media screen and (max-width: 580px) {
+.module-user-card h1{ margin: 20px 0 30px; padding-left:40px; background-size: 30px auto; line-height: 30px; }
+}
 
 /*---------------------------------------------Bottom Button------------------------------------------------*/
 .bottom-button{padding: 10px 15px; background: #f4eaed;}
