@@ -1,6 +1,5 @@
 <div class="module module-white">
   <div class="verify-code">
-    <% if @phone.present? %>
     <div class='verify-code-txt'>
       <h2>我们已发送验证码短信到这个号码</h2>
       <h2><%= @phone[0, 3] %><span>****</span><%= @phone[7, 4] %></h2>

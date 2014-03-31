@@ -14,14 +14,14 @@ class Ims::AccountsController < Ims::BaseController
     # current_user.verified_phone = data[:phone]
     
     # 绑定用户-测试数据
-    # current_user.isbindcard = true
-    # current_user.card_no = 123123123
-    # current_user.verified_phone = 123123123
+    current_user.isbindcard = true
+    current_user.card_no = 123123123
+    current_user.verified_phone = 123123123
 
     # 未绑定用户-测试数据
-    current_user.isbindcard = false
-    current_user.verified_phone = nil
-    current_user.identify_phone = nil
+    # current_user.isbindcard = false
+    # current_user.verified_phone = nil
+    # current_user.identify_phone = nil
 
     @amount = data[:amount]
   end

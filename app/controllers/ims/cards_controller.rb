@@ -26,8 +26,25 @@ class Ims::CardsController < Ims::BaseController
   def gift_page
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
+
+    # 1、礼品卡编号、评论内容、礼品卡赠送的手机号、赠送礼品卡的人名
+    # 2、礼品卡状态：已转赠、已经收取、已经拒收、未操作
+    # 3、礼品卡价值
+
     current_user.other_phone = "1234"
-    @result = {}
+    @card = {}
+  end
+
+  # 赠送页面
+  def give_page
+    @charge_no = params[:charge_no]
+    # API_NEED: 根据礼品卡号，获取礼品卡相关信息
+
+    # 1、评论内容、礼品卡赠送的手机号、赠送礼品卡的人名
+    # 2、礼品卡状态：已转赠、已经收取、已经拒收、未操作
+    # 3、礼品卡价值
+
+    @card = {}
   end
 
   # 赠送给别人
