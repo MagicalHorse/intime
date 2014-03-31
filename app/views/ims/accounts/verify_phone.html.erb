@@ -4,7 +4,7 @@
       <h2>我们已发送验证码短信到这个号码</h2>
       <h2><%= @phone[0, 3] %><span>****</span><%= @phone[7, 4] %></h2>
     </div>
-    <%= form_tag(verfiy_sms_code_ims_accounts_path, class: "form-defined", :method => 'get') do %>
+    <%= form_tag(@path, class: "form-defined", :method => 'get') do %>
     <div class="controls-defined defined-small">
       <div class="col-6">
         <%= text_field_tag "sms_code", "", class: "input-verify-code", placeholder: "请填写验证码" %>

@@ -24,5 +24,9 @@ module Ims
         end
       }
     end
+
+    def post(req, params = {})
+      { isSuccessful: false, message: 'network problem!', statusCode: '500' , data: {}}
+    end
   end
 end

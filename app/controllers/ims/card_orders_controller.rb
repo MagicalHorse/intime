@@ -28,7 +28,7 @@ class Ims::CardOrdersController < Ims::BaseController
   def show
     # API_NEED: 获取某张礼品卡订单的详情
     @price = 500
-    @code = 'AF135GBGQS'
+    @charge_no = 'AF135GBGQS'
   end
 
 end

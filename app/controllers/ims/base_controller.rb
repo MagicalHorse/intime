@@ -51,11 +51,11 @@ class Ims::BaseController < ApplicationController
   end
 
   # 生成验证短信验证码
-  def generate_sms
+  def generate_sms phone
     current_user.sms_code = (0..9).to_a.sample(6)
-    current_user.sms_code = 111111
+    current_user.sms_code = 222222
     # API_NEED: 发送手机验证码（用于绑卡）
-    Ims::Sms.send(request, {phone: current_user.identify_phone, text: "验证码为：#{current_user.sms_code}"})
+    Ims::Sms.send(request, {phone: phone, text: "验证码为：#{current_user.sms_code}"})
   end
 
   # 验证手机，对访问进行放行，否则进入手机验证页面
@@ -63,6 +63,16 @@ class Ims::BaseController < ApplicationController
     current_user.back_url = request.path
     unless current_user.verified_phone.present?
       redirect_to verify_phone_ims_accounts_path
+    end
+  end
+
+  # 验证非本账号的手机号
+  def validate_other_sms!
+    current_user.back_url = request.path
+    if current_user.other_phone
+      return if current_user.verified_phone == current_user.other_phone
+      return if (current_user.verified_other_phones || "").index current_user.other_phone
+      redirect_to verify_other_phone_ims_accounts_path
     end
   end
 
