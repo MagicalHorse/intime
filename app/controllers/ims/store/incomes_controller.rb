@@ -5,6 +5,7 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
   end
 
   def my
+    @income = Ims::Income.my(request)
   end
 
   def new
