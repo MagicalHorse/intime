@@ -1,0 +1,1 @@
+$client = Elasticsearch::Client.new host: Settings.elasticsearch_url

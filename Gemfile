@@ -44,6 +44,9 @@ gem 'jquery-ui-rails'
 gem 'mysql2'
 
 gem 'tire'
+gem 'elasticsearch'
+gem 'elasticsearch-ruby'
+gem 'jbuilder'
 gem "bootstrap-sass", ">= 2.3.0.0"
 
 # monitor
