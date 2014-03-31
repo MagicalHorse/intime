@@ -1,58 +1,73 @@
 <% if @charge_no.to_i == 111 %>
 <!--  如果已经处理了  -->
-
-  <% if 1 %>
-  <!--  如果已经转赠  -->
-
-
-  <% elsif 2 %>
-  <!--  如果已经收取  -->
-
-
-  <% elsif 3 %>
-  <!--  如果已经拒绝  -->
-
-
-  <% end %>
-xxx，在这春光明媚的春天，愿你天天开心，永远幸福！
-
-<a href="<%= mine_ims_accounts_path %>" >进入礼品卡首页</a>
-<a href="<%= new_ims_card_order_path %>" >我要购卡 </a>
+<div class="module module-white">
+  <div class="module-card module-card-posi">
+    <% if 1 %>
+    <!--  如果已经转赠  -->
+    <h1 class="text-center">好友的礼品卡你已转送给你的其他好友！</h1>
+    <% elsif 2 %>
+    <!--  如果已经收取  -->
+    <h1 class="text-center">恭喜您，成功领取王某人的礼品卡</h1>
+    <% elsif 3 %>
+    <!--  如果已经拒绝  -->
+    <h1 class="text-center">你已回绝了好友赠送的礼品卡！</h1>
+    <% end %>
+    <p class="txt1 text-center txt-money">礼品卡金额：<em class="txt-red"><%= @card[:price] %>元</em></p>
+  </div>
+</div>  
+<div class="bottom-button">
+  <div class="form-defined">
+    <div class="controls-defined defined-large">
+      <div class="col-6">
+        <a href="<%= mine_ims_accounts_path %>" class="btn btn-danger btn-large btn-block">进入礼品卡首页</a>
+      </div>
+      <div class="col-6">
+        <a href="<%= new_ims_card_order_path %>" class="btn btn-grey btn-large btn-block">我要购卡 </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <% else %>
 
-  何青山给你送来一张礼品卡
+<div class="module module-white">
+  <div class="module-card" id="button_accept">
+    <h1 class="text-center"><%= @card[:user] %>给你送来一张礼品卡</h1>
+    <p class="txt3 card-text">
+      <%= @card[:comment] %>
+    </p>
+  </div>
+</div>  
+<div class="bottom-button">
+  <div class="form-defined">
+    <div class="controls-defined defined-large">
+      <div class="col-6"><button class="btn btn-danger btn-large btn-block" id="button_give">赠送好友</button></div>
+      <div class="col-6"><button class="btn btn-grey btn-large btn-block" id="button_refuse">拒绝接收</button></div>
+    </div>
+  </div>
+</div>
 
-  <a href="#" id="button_accept">礼品卡大图</a>
-  点击礼品卡接收
+<%= content_for :javascripts do %>
+<script>
+  $(function(){
 
-  xxx，在这春光明媚的春天，愿你天天开心，永远幸福！
+    $("#button_give").click(function(){
+      window.location.href = "<%= give_page_ims_cards_path %>?charge_no=<%= @charge_no %>";
+    })
 
-  <%= button_tag "赠送好友", id: "button_give" %>
+    $("#button_refuse").click(function(){
+      var r = confirm("您确定要拒收吗？");
+      if (r == true){
+        window.location.href = "<%= refuse_ims_cards_path %>?charge_no=<%= @charge_no %>";
+      }
+    })
 
-  <%= button_tag "拒绝接收", id: "button_refuse" %>
+    $("#button_accept").click(function(){
+      window.location.href = "<%= recharge_ims_cards_path %>?charge_no=<%= @charge_no %>&type=giftcard";
+    })
 
-  <%= content_for :javascripts do %>
-  <script>
-    $(function(){
-
-      $("#button_give").click(function(){
-        window.location.href = "<%= give_page_ims_cards_path %>?charge_no=<%= @charge_no %>";
-      })
-
-      $("#button_refuse").click(function(){
-        var r = confirm("您确定要拒收吗？");
-        if (r == true){
-          window.location.href = "<%= refuse_ims_cards_path %>?charge_no=<%= @charge_no %>";
-        }
-      })
-
-      $("#button_accept").click(function(){
-        window.location.href = "<%= recharge_ims_cards_path %>?charge_no=<%= @charge_no %>&type=giftcard";
-      })
-
-    });
-  </script>
-  <% end %>
+  });
+</script>
+<% end %>
 
 <% end %>

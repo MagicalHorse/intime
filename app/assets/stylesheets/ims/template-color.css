@@ -1,4 +1,6 @@
-
+.txt-red{color: #F16498;}
+.txt-grey{color: #abadb3;}
+.txt-green{color: #81b449;}
 /*-------------------------------Css Front-------------------------------------*/
 .face-img {background:#e3e4e8;}
 .shop-name{color: #7d022f;}
@@ -65,6 +67,7 @@
 
 /*-------------------------------Css Back-end-------------------------------------*/
 .module-table-box table tr td{color: #b7bbc2;}
+.module-table-box table tr td .tel-nun a{ color: #abadb3;}
 /*-----------------------------------------*/
 .module-remaining h1 span{ color: #f16498;}
 .verify-code-txt h2:last-child  span {color: #f16498; }
@@ -89,3 +92,11 @@
 /*----------------------------------My Order-------------------------------------*/
 .module-state { border-bottom: 1px dashed #dddddd;}
 .order-notice h3{color: #F86B9F;}
+/*---------------------------------Tranding Success--------------------------------------------*/
+
+.module-tranding .nav-tabs{border:3px solid #f16498;}
+.module-tranding .nav-tabs li a{color: #f16498;}
+.module-tranding .nav-tabs li a:hover{ background: white;}
+.module-tranding .nav-tabs li.active a,
+.module-tranding .nav-tabs li.active a:hover{ background: #f16498; color: white;}
+@media screen and (max-width: 580px) {.module-tranding .nav-tabs{border-width:2px;}}
