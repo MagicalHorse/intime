@@ -133,7 +133,7 @@ class Product < ActiveRecord::Base
 
     # result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: 10000000, body: query
 
-    result = $client.search index: "intimep", type: DOCUMENT_TYPE, size: per_page, from: (page-1)*per_page, body: query
+    result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1)*per_page, body: query
     mash = Hashie::Mash.new result
     mash.hits.hits.collect(&:_source)
   end
