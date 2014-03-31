@@ -10,50 +10,43 @@
           <div class="tab-pane active" id="home">
             <div class="module-table-box module-record">
               <table class="table table-bordered">
-                <tbody><tr>
-                  <td>
-                    <p>礼品卡卡号：<span class="tel-nun">1234567952356</span></p>
-                    <p class="txt-red">充值金额：990.00元</p>
-                    <p>状态：已接收</p>
-                    <p>接收时间：2014-02-27&nbsp;&nbsp;&nbsp;12:22:10</p>
-                    <p>来源：<span class="tel-nun">18812345678</span></p>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>礼品卡卡号：<span class="tel-nun">1234567952356</span></p>
-                    <p class="txt-red">充值金额：990.00元</p>
-                    <p>状态：已接收</p>
-                    <p>接收时间：2014-02-27&nbsp;&nbsp;&nbsp;12:22:10</p>
-                    <p>来源：<span class="tel-nun">18812345678</span></p>
-                  </td>
-                </tr>
+                <tbody>
+                  <% if @my[:data].present?  %>
+                   <% @my[:data][:items].each do |item| %>
+                   <tr>
+                    <td>
+                      <p>礼品卡编号：<span class="tel-nun"><%= item[:card_no] %></span></p>
+                      <p>金额：<%= item[:amount] %>元</p>
+                      <p class="txt-green">状态：<%= item[:status_i] %></p>
+                      <p>接收时间：<%= item[:receive_date] %></p>
+                      <p class="btn-line">
+                        <button type="button" class="btn btn-danger btn-mini">充值自用</button>
+                        <button type="button" class="btn btn-danger btn-mini">赠送好友</button>
+                      </p>
+                    </td>
+                  </tr>
+                 <% end %>
+                 <% end %>
               </tbody></table>
             </div>
           </div>
           <div class="tab-pane" id="profile">
             <div class="module-table-box module-record">
               <table class="table table-bordered">
-                <tbody><tr>
+                <tbody>
+                  <% if @my[:data].present?  %>
+                   <% @my[:data][:items].each do |item| %>
+                  <tr>
                   <td>
-                    <p>礼品卡编号：<span class="tel-nun">1234567952356</span></p>
-                    <p>金额：990.00元</p>
-                    <p class="txt-green">状态：已购买待处理</p>
-                    <p>接收时间：2014-02-27&nbsp;&nbsp;&nbsp;12:22:10</p>
-                    <p class="btn-line">
-                      <button type="button" class="btn btn-danger btn-mini">充值自用</button>
-                      <button type="button" class="btn btn-danger btn-mini">赠送好友</button>
-                    </p>
+                    <p>礼品卡卡号：<span class="tel-nun"><%= item[:card_no] %></span></p>
+                    <p class="txt-red">充值金额：<%= item[:amount] %>元</p>
+                    <p>状态：<%= item[:status_i] %></p>
+                    <p>接收时间：<%= item[:receive_date] %></p>
+                    <p>来源：<span class="tel-nun"><%= item[:verify_phone] %></span></p>
                   </td>
-                </tr>
-                <tr>
-                  <td>
-                    <p>礼品卡编号：<span class="tel-nun">1234567952356</span></p>
-                    <p>金额：990.00元</p>
-                    <p class="txt-green">状态：已购买待处理</p>
-                    <p>接收时间：2014-02-27&nbsp;&nbsp;&nbsp;12:22:10</p>
-                  </td>
-                </tr>
+                 </tr>
+                 <% end %>
+                 <% end %>
               </tbody></table>
             </div>
           </div>
@@ -61,3 +54,13 @@
       </div>
     </div>
   </div>
+<% content_for :javascripts do  %>
+  <script type="text/javascript">
+     $(function(){
+        $('#myTab a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+        })
+      })
+  </script>
+<% end %>  

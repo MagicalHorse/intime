@@ -44,8 +44,8 @@ class Ims::CardsController < Ims::BaseController
   end
 
   def list
-    @list = Ims::Giftcard.list(request, type: 1)
-    binding.pry
+    @my = Ims::Giftcard.list(request, type: 1)
+    @recieved = Ims::Giftcard.list(request, type: 2)
   end
 
 end
