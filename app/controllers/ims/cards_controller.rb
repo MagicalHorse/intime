@@ -1,5 +1,5 @@
 class Ims::CardsController < Ims::BaseController
-  # before_filter :validate_sms!, only: [:give_page, :refuse, :recharge]
+  before_filter :validate_other_sms!, only: [:give_page, :refuse, :recharge]
   layout "ims/user"
 
   # 充值历史
@@ -17,7 +17,7 @@ class Ims::CardsController < Ims::BaseController
     else
       # 如果未绑定，则跳至绑卡页面
       current_user.will_charge_no = params[:charge_no]
-      current_user.will_charge_type = params[:charge_type]
+      current_user.charge_type = params[:charge_type]
       redirect_to new_ims_account_path
     end
   end
@@ -26,6 +26,7 @@ class Ims::CardsController < Ims::BaseController
   def gift_page
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
+    current_user.other_phone = "1234"
     @result = {}
   end
 

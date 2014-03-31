@@ -320,6 +320,8 @@ IntimeService::Application.routes.draw do
         get   :phone_page
         get   :verify_phone
         get   :verfiy_sms_code
+        get   :verify_other_phone
+        get   :verfiy_other_sms_code
         post  :resend_sms
         get   :reset_password
         get   :change_password
