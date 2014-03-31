@@ -60,4 +60,9 @@ class Ims::CardsController < Ims::BaseController
     redirect_to "#{gift_page_ims_cards_path}?charge_no=#{params[:charge_no]}"
   end
 
+  def list
+    @my = Ims::Giftcard.list(request, type: 1)
+    @recieved = Ims::Giftcard.list(request, type: 2)
+  end
+
 end
