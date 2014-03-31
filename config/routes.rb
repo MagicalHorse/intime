@@ -342,7 +342,7 @@ IntimeService::Application.routes.draw do
       end
     end
     resources :recharge_histroy, only: [:index]
-    resources :orders, only: [:new, :create, :show] do
+    resources :orders, only: [:index, :new, :create, :show] do
       member do
         put :change_state
         get :payments
@@ -360,7 +360,11 @@ IntimeService::Application.routes.draw do
       post "login" => "home#login"
       get 'check_code' => 'home#check_code'
       resources :sales_codes, only: :create
-      resources :sells, only: :index
+      resources :sells, only: :index do
+        member do
+          put :update_is_online
+        end
+      end
       resources :suggesstions, only: [:new, :create]
       resources :themes, only: [:index, :update]
       resources :products do

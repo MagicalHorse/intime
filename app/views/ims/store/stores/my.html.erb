@@ -1,3 +1,4 @@
+<div class="wrap-inner back-wrap-inner">
 <header id="TOP">
  <div class="header-box">
  	<div class="head-img">
@@ -37,42 +38,21 @@
             </div>
         </div>
 
-        
+
         <div class="module module-ele">
             <div class="module-title">
                 <h3>精品搭配推荐</h3>
             </div>
-            <div class="module-content module-content-img">
-                <div class="suit-box clearfix">
-                    <div class="row-fluid">
-                    	<div class="span8">
-                    		<div class="suit-left">
-		                    	<a class="img-box img-posi" href="/ims/store/combos/show"><img src="/images/ims/suit-03.jpg" alt=""><img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
-		                    </div>
-                    	</div>
-	                    <div class="span4">
-	                    	<div class="suit-right">
-	                            <a class="img-box" href="#"><img src="/images/ims/suit-06.jpg" alt=""></a>
-	                            <a class="img-box" href="#"><img src="/images/ims/suit-09.jpg" alt=""></a>
-	                            <a class="img-box" href="#"><img src="/images/ims/suit-11.jpg" alt=""></a>
-	                    	</div>
-	                    </div>
-                    </div>
-                </div>
-                
-                
-                <p><a href="/ims/store/combos/show">短袖衬衫十分贴合的颈部和肩部裁剪，自胸线以下扩张的轮廓线，对腰部线条不做任何强调，会令人显得更为苗条。</a></p>
-                <div class="clearfix"><p class="pull-left price-box"><span>打包价：<em>¥368.00</em></span><span>吊牌价：¥368.00</span></p><a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a></div>
-            </div>
-        </div>
-
-        <div class="module module-ele">
+            <% @store[:data][:combos].each do |combo| %>
             <div class="module-content module-content-img">
                 <div class="suit-box clearfix">
                     <div class="row-fluid">
                         <div class="span8">
                             <div class="suit-left">
-                                <a class="img-box img-posi" href="/ims/store/combos/show"><img src="/images/ims/suit-03.jpg" alt=""><img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
+                                <a class="img-box img-posi" href="<%= ims_store_combo_path(:id => combo[:Id]) %>">
+                                    <img src="/images/ims/suit-03.jpg" alt="">
+                                    <img class="mark-img" src="/images/ims/jingpin.png" alt="">
+                                </a>
                             </div>
                         </div>
                         <div class="span4">
@@ -84,10 +64,12 @@
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <p><a href="/ims/store/combos/show">短袖衬衫十分贴合的颈部和肩部裁剪，自胸线以下扩张的轮廓线，对腰部线条不做任何强调，会令人显得更为苗条。</a></p>
                 <div class="clearfix"><p class="pull-left price-box"><span>打包价：<em>¥368.00</em></span><span>吊牌价：¥368.00</span></p><a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a></div>
             </div>
-        </div>
+            <% end %>
+         </div>
 	</div>
+</div>

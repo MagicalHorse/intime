@@ -1,4 +1,4 @@
-<%= form_tag ims_order_returns_reasons_path("order_id"), id: "returns_reason_form" do %>
+<%= form_tag ims_order_returns_reasons_path(params["order_id"]), id: "returns_reason_form" do %>
   退货原因： <%= select_tag "reason_id", options_for_select(["颜色不好看", "尺码不对", "其他"]) %>
   <%= text_field_tag "reason", nil, placeholder: "其他理由", style: "display: #{false ? 'inline' : 'none'}" %>
   退货说明： <%= text_field_tag "remark", nil, placeholder: "退货备注" %>

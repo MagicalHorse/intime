@@ -13,15 +13,114 @@
 
 
   <%= link_to "微信安全支付", "javascript:void(0);", id: "save_order" %>
+<% end if nil %>
+
+
+
+<%= form_tag ims_orders_path, id: "new_order_form", style: "display: none;" do %>
+  <%= image_tag "/images/1.jpg" %>
+  D&G女士休闲鞋-0123423123
+  微信价: ￥239.00
+  品牌价: ￥478.00
+  尺码: <%= hidden_field_tag "size_id" %>
+  <%= hidden_field_tag "name" %>
+  <%= hidden_field_tag "zip_code" %>
+  <%= hidden_field_tag "address" %>
+  <%= hidden_field_tag "contact" %>
+  <%= hidden_field_tag "open_id", session[:wx_openid] %>
+  <%= link_to "请点击选择地址", "javascript:void(0);" %>
+
+
+
 <% end %>
+
+
+<div class="wrap-inner back-wrap-inner">
+  <div class="module common-white">
+         <div class="row-fluid">
+             <div class="span3">
+                 <div class="detail-imgbox">
+                     <img src="/images/ims/img800.jpg">
+                 </div>
+             </div>
+             <div class="span9">
+                 <div class="price-detail">
+                     <h3><%= @product["name"] %></h3>
+                     <p class="txt3">微信价：<em>￥<%= @product["price"] %></em></p>
+                     <p class="txt5">吊牌价：￥300.00</p>
+                 </div>
+             </div>
+         </div>
+      </div>
+
+      <div class="module common-white">
+         <div class="row-fluid">
+             <div class="span12">
+                 <div class="size-detail">
+                     <dl class="dl-horizontal">
+                          <dt>尺码</dt>
+                          <dd>
+                            <ul class="inline clearfix" id="sizes">
+                              <% @sizes.each do |size| %>
+                              <li value='<%= size['id'] %>'>
+                                <a href="javascript:void(0);"><%= size['name'] %></a>
+                              </li>
+                              <% end %>
+                            </ul>
+                          </dd>
+                     </dl>
+                 </div>
+             </div>
+         </div>
+      </div>
+      <div class="module common-white">
+         <div class="row-fluid">
+             <div class="span12">
+                 <div class="detail-block detail-contact">
+                     <p class="txt8"><span><i class="fa fa-user"></i>联系人</span><span><i class="fa fa-phone"></i>18700001111</span></p>
+                     <p class="txt8"><span><i class="fa fa-map-marker"></i>回龙观良庄家园测试地址测试地址</span></p>
+                 </div>
+             </div>
+         </div>
+      </div>
+      <div class="module common-white">
+         <div class="row-fluid">
+             <div class="span12">
+                 <div class="detail-block detail-contact-bd">
+                     <p class="txt8 txt-bd clearfix"><span class="pull-left"><i class="fa fa-truck"></i>运费：免运费</span><span class="pull-right"><b>实付：</b><i>￥399.00</i></span></p>
+                     <p class="txt8 txt0"><i class="fa fa-exclamation-circle"></i>提交订单后，请在1小时内完成支付，过时订单将会自动取消</p>
+                 </div>
+             </div>
+         </div>
+      </div>
+      <p class="wx-payment">
+      <button type="button" class="btn btn-danger btn-large btn-block" id="save_order">
+        <i class="fa fa-share-square-o"></i>微信安全支付
+      </button>
+      </p>
+</div>
 
 <% content_for :javascripts do %>
 <script>
   $(function(){
 
-    var validator = $("#new_order").validate({
+    $("#sizes li").on("click", function(){
+      this_ele = $(this)
+      size_id = this_ele.attr("value")
+      $("#sizes li").each(function() {
+        $(this).removeClass("active")
+      });
+      $("#size_id").attr("value", size_id)
+      this_ele.addClass("active")
+    })
+
+    var validator = $("#new_order_form").validate({
+      ignore: "",
       rules: {
         "size_id": {
+          required: true
+        },
+        "name": {
           required: true
         }
       },
@@ -32,8 +131,8 @@
 
     $("#save_order").on("click", function(){
       var this_ele = $(this)
-      var form = this_ele.parents("form")
-      if($("#new_order").valid()){
+      var form = $("#new_order_form")
+      if($("#new_order_form").valid()){
         form.ajaxSubmit({
           dataType: "json",
           success: function(data){

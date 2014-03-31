@@ -1,7 +1,9 @@
 body{ font-family: arial,"microsoft yahei"; background: #faf9f9;}
+a{color: #2e5be2;}
 a:active,
 a:hover,
-a:focus{ color: #f94688; text-decoration: none; outline: none;}
+a:focus{ color: #2a55d6; text-decoration: none; outline: none;}
+
 button a,
 button a:active,
 button a:hover,
@@ -10,6 +12,28 @@ button a:focus{ color: white;}
 @media screen and (max-width: 580px) {
   .common-white{padding: 10px 15px; margin-bottom: 8px;}
 }
+.module-white{background: white;}
+body .wrap form input{ box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset !important;}
+/*-------------------------------Css Table-----------------------------------*/
+.module-table-box{margin-bottom: 80px;}
+.module-table-box table { border-radius: 0;}
+.module-table-box table td .disabled a{ cursor: default; color: #B7BBC2 !important;}
+.module-table-box .table-bordered thead:last-child tr:last-child > th:first-child,
+.module-table-box .table-bordered tbody:last-child tr:last-child > td:first-child,
+.module-table-box .table-bordered tbody:last-child tr:last-child > th:first-child,
+.module-table-box .table-bordered tfoot:last-child tr:last-child > td:first-child,
+.module-table-box .table-bordered tfoot:last-child tr:last-child > th:first-child,
+.module-table-box .table-bordered thead:first-child tr:first-child > th:first-child,
+.module-table-box .table-bordered tbody:first-child tr:first-child > td:first-child,
+.module-table-box .table-bordered tbody:first-child tr:first-child > th:first-child{border-radius: 0;}
+
+
+
+.module-table-box table tr td{ font-size: 30px; line-height: 50px;}
+.module-table-box table,
+.module-table-box table tr td{ border-color: #dddddd;}
+
+
 /*-------------------------------Button Reset-----------------------------------*/
 .btn {
     font-weight: 500;
@@ -59,6 +83,26 @@ button a:focus{ color: white;}
   border-color: #ef4785;
 }
 
+.btn-grey{background: #d8d9db;border-color: #d8d9db; color: #676767;}
+.btn-grey:hover,
+.btn-grey:focus,
+.btn-grey:active,
+.btn-grey.active,
+.btn-grey.disabled,
+.btn-grey[disabled] {
+  color: #676767;
+  background-color: #d1d2d4;
+  *background-color: #d1d2d4;
+  border-color: #d1d2d4;
+}
+
+
+.btn-grey:active,
+.btn-grey.active {
+  background-color: #c3c6cb;
+  border-color: #c3c6cb;
+}
+
 .btn-large {
   padding: 26px 60px;
   font-size: 30px;
@@ -91,9 +135,9 @@ button a:focus{ color: white;}
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-
 .btn-large i{ margin-right: 4px;}
 .btn-small i{ margin-right: 2px;}
+
 
 @media screen and (max-width: 580px) {
 .btn {font-weight: 600;}
@@ -129,11 +173,14 @@ button a:focus{ color: white;}
 /*-------------------------Css Form--------------------------*/
 .form-defined,
 .controls-defined,
-.form-defined input{
+.form-defined input,
+.form-defined textarea,
+[class*="col-"] > span{
 box-sizing:border-box;
 -moz-box-sizing:border-box; /* Firefox */
 -webkit-box-sizing:border-box; /* Safari */
 width:100%;
+font-family: "microsoft yahei";
 }
 
 .form-defined .controls-defined:before,
@@ -178,6 +225,11 @@ width:100%;
   vertical-align: middle;
   font-family: "microsoft yahei";
 }
+[class*="col-"] > span{
+ display: inline-block;
+ height: auto;
+ color: #676767;
+}
 .form-defined .input-block-level{
   margin-bottom: 10px;
   height: 34px;
@@ -193,7 +245,7 @@ width:100%;
 label[class*="col-"]{
   padding-left:0;
   min-height: auto;
-  line-height:normal;
+  color: #676767;
 }
 
 /*------------------------------Defined Large------------------------------*/
@@ -224,7 +276,7 @@ label[class*="col-"]{
   padding: 26px 30px;
 }
 .defined-large label[class*="col-"]{
-  line-height:normal;
+  line-height:74px;
 }
 
 /*------------------------------Defined Small------------------------------*/
@@ -254,7 +306,7 @@ label[class*="col-"]{
   padding: 18px 12px;
 }
 .defined-small label[class*="col-"]{
-  line-height:normal;
+  line-height:60px;
 }
 
 
@@ -285,7 +337,7 @@ label[class*="col-"]{
   padding: 10px 20px;
 }
 .defined-mini label[class*="col-"]{
-  line-height:normal;
+  line-height:42px;
 }
 
 @media screen and (max-width: 580px){
@@ -321,8 +373,9 @@ label[class*="col-"]{
   line-height:normal; 
 }
 .defined-large label[class*="col-"]{
-  line-height:normal;
+  line-height:42px;
 }
+
 /*------------------------------Defined Small------------------------------*/
 [class*="col-"] input[type="checkbox"],
 [class*="col-"] input[type="radio"]{
@@ -353,7 +406,7 @@ label[class*="col-"]{
   line-height:normal; 
 }
 .defined-small label[class*="col-"]{
-  line-height:normal;
+  line-height:34px;
 }
 
 /*------------------------------Defined Mini------------------------------*/
@@ -386,7 +439,10 @@ label[class*="col-"]{
   line-height:normal; 
 }
 .defined-mini label[class*="col-"]{
-  line-height:normal;
+  line-height:24px;
+}
+.form-defined label[class*="col-12"]{
+  line-height: normal;
 }
 }
 
@@ -399,7 +455,15 @@ h2,
 h3,
 h4,
 h5,
-h6 { font-weight: normal; color: #676767;}
+h6 ,
+.txt1,
+.txt2,
+.txt3,
+.txt4,
+.txt5,
+.txt6,
+.txt7,
+.txt8 { font-weight: normal; color: #676767;}
 
 h1 {font-size: 30px; line-height: 40px;}
 h2 {font-size: 26px; line-height: 36px;}
@@ -423,7 +487,10 @@ h6 small {font-size: 10px; line-height: 16px;}
 .txt5 {font-size: 18px; line-height: 24px;}
 .txt6 {font-size: 14px; line-height: 20px;}
 .txt7 {font-size: 12px; line-height: 18px;}
+.txt8 {font-size: 28px; line-height: 38px;}
 
+.txt-red{color: #F16498;}
+.txt-grey{color: #abadb3;}
 @media screen and (max-width: 580px) {
   h1 {font-size: 16px; line-height: 24px;}
   h2 {font-size: 15px; line-height: 22px;}
@@ -446,9 +513,13 @@ h6 small {font-size: 10px; line-height: 16px;}
   .txt3 {font-size: 14px; line-height: 20px;}
   .txt4 {font-size: 13px; line-height: 24px;}/**/
   .txt5 {font-size: 12px; line-height: 18px;}
+  .txt8 {font-size: 15px; line-height: 30px;}
 
   .btn{border-radius: 2px;}
 }
+
+
+
 
 
 .wrap{max-width: 640px; margin:0 auto;}
@@ -459,6 +530,7 @@ h6 small {font-size: 10px; line-height: 16px;}
 .top-link:focus{ color: #ffffff;}
 
 .min-height{min-height: 500px;}
+.module-white{background: white;}
 /*-------------------------------Css Header-----------------------------------*/
 .header-box{position: relative;}
 .face-img { border:0; border-radius: 4px; width: 90%;}
@@ -527,7 +599,16 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .form-box form select{ width: 61%;line-height: 50px; height: 50px;}
 .block-box{margin-top: 70px;}
 
+/*smail*/
+.module-user-card h1{ margin: 20px 0 40px; padding-left:74px; background: url(/images/ims/smail.png) left center no-repeat; line-height: 64px; }
+@media screen and (max-width: 580px) {
+.module-user-card h1{ margin: 20px 0 30px; padding-left:40px; background-size: 30px auto; line-height: 30px; }
+}
 
+/*---------------------------------------------Bottom Button------------------------------------------------*/
+.bottom-button{padding: 10px 15px; background: #f4eaed;}
+.bottom-button .controls-defined > .col-6{padding-right: 5px;}
+.bottom-button .controls-defined > .col-6:last-child{padding-left: 5px; padding-right: 0}
 
 
 
