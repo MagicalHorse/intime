@@ -5,9 +5,7 @@ class Front::ProductsController < Front::BaseController
   def show
     @product = Stage::Product.fetch(params[:id])
 
-    if signed_in?
-      @product_info = API::Product.availoperation(request, productid: params[:id])['data']
-    end
+    @product_info = API::Product.availoperation(request, productid: params[:id])['data']
   end
 
   def index

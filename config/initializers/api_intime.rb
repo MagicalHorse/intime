@@ -1,4 +1,5 @@
 RestClient.log = 'log/restclient.log'
+PAGE_ALL_SIZE = 1000
 if Rails.env.production?
   API_HOST ="http://iapi.intime.com.cn/api"
   IMS_HOST = "http://iapi.intime.com.cn/ims"
