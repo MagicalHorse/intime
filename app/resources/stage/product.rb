@@ -1,19 +1,18 @@
 require 'cacheable'
 module Stage
   class Product < Stage::Base
-    self.collection_name = :product
     extend Cacheable
     class << self
       def fetch(id)
-        new(get(id)['data'])
+        new(::Product.get_by_id({:id=>id})['data'])
       end
 
       def list(options = {})
-        get(:list, options)
+        ::Product.list_by_page( options)
       end
 
       def search(options = {})
-        get(:search, options)
+        ::Product.search_by_key(options)
       end
 
       def item_list(options = {})

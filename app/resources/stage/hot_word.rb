@@ -1,10 +1,8 @@
 module Stage
   class HotWord < Stage::Base
-    self.collection_name = :hotword
-
     class << self
       def list
-        result = get(:list)
+        result = ::Hotword.list_all
         gen_data(result)
       end
 
