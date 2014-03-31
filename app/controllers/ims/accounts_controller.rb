@@ -1,22 +1,23 @@
 # encoding: utf-8
 class Ims::AccountsController < Ims::BaseController
-  before_filter :validate_sms!, only: [:new, :create, :reset_password]
-  before_filter :isbindcard!, only: [:phone_page, :verify_phone]
+  before_filter :validate_verified_phone!, only: [:new, :create]
+  before_filter :validate_sms!, only: [:reset_password_page, :reset_password]
+  before_filter :isbindcard!, only: [:phone_page, :verify_identify_phone]
   layout "ims/user"
   # 我的资金账号
   def mine
     # API_NEED: 获取当前的用户资金账号：
     data = Ims::Giftcard.my(request)[:data]
-    
-    # 真实数据
-    # current_user.isbindcard = data[:is_binded]
-    # current_user.card_no = data[:phone]
-    # current_user.verified_phone = data[:phone]
+    current_user.isbindcard = data[:is_binded]
+    current_user.card_no = data[:phone]
+    current_user.verified_phone = data[:phone]
+    current_user.other_phone = data[:phone]
     
     # 绑定用户-测试数据
     current_user.isbindcard = true
     current_user.card_no = 123123123
     current_user.verified_phone = 123123123
+    current_user.other_phone = 123123123
 
     # 未绑定用户-测试数据
     # current_user.isbindcard = false
@@ -31,9 +32,9 @@ class Ims::AccountsController < Ims::BaseController
   end
 
   # 验证手机号，进行绑定账号
-  def verify_phone
+  def verify_identify_phone
     current_user.identify_phone = params[:phone] if params[:phone].present?
-    @phone = current_user.identify_phone
+    @phone = current_user.identify_phone.to_s
     if @phone.blank?
       redirect_to phone_page_ims_accounts_path, notice: "请填写手机号"
     else 
@@ -46,33 +47,34 @@ class Ims::AccountsController < Ims::BaseController
     end 
     generate_sms @phone
     @path = verfiy_sms_code_ims_accounts_path
+    render :verify_phone
   end
 
   # 验证短信页面
-  def verfiy_sms_code
+  def verfiy_identify_sms_code
     if params[:sms_code].present? && current_user.sms_code.to_i == params[:sms_code].to_i
       current_user.verified_phone = current_user.identify_phone
       redirect_to current_user.back_url
     else
-      redirect_to verify_phone_ims_accounts_path
+      redirect_to verify_identify_phone_ims_accounts_path
     end
   end
 
   # 验证指定手机号页面
-  def verify_other_phone
-    @phone = current_user.other_phone
+  def verify_phone
+    @phone = current_user.other_phone.to_s
     generate_sms @phone
-    @path = verfiy_other_sms_code_ims_accounts_path
+    @path = verfiy_sms_code_ims_accounts_path
     render :verify_phone
   end
 
   # 验证指定手机短信页面
-  def verfiy_other_sms_code
+  def verfiy_sms_code
     if params[:sms_code].present? && current_user.sms_code.to_i == params[:sms_code].to_i
       current_user.verified_other_phones = "#{current_user.verified_other_phones},#{current_user.other_phone}"
       redirect_to current_user.back_url
     else
-      redirect_to verify_other_phone_ims_accounts_path
+      redirect_to verify_phone_ims_accounts_path
     end
   end
 
@@ -113,13 +115,23 @@ class Ims::AccountsController < Ims::BaseController
   # 重置密码
   def reset_password
     # API_NEED: 重置资金账户密码
-    Ims::Giftcard.resetpwd(request, {pwd_new: params[:newpwd]})
+    result = Ims::Giftcard.resetpwd(request, {pwd_new: params[:newpwd]})
+    if true#result[:isSuccessful]
+      redirect_to mine_ims_accounts_path
+    else
+      redirect_to reset_password_page_ims_accounts_path
+    end
   end
 
   # 修改密码
   def change_password
     # API_NEED: 修改资金账户密码
-    Ims::Giftcard.changepwd(request, {pwd_new: params[:newpwd], pwd_old: params[:oldpwd]})
+    result = Ims::Giftcard.changepwd(request, {pwd_new: params[:newpwd], pwd_old: params[:oldpwd]})
+    if result[:isSuccessful]
+      redirect_to mine_ims_accounts_path
+    else
+      redirect_to change_password_page_ims_accounts_path
+    end
   end
 
   # 用于扫描的页面
