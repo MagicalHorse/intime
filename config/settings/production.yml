@@ -21,7 +21,7 @@ alipay:
 default_url_options:
   host: 'i.intime.com.cn'
 
-  
+
 default_image_url:
   product:
     small: http://irss.ytrss.com/fileupload/img/product/default/default_120x0.gif
@@ -32,7 +32,7 @@ default_image_url:
 payment_code:
   alipay: 25
   wxpay:  29
-  
+
 alipay_notify_url: http://iapi.intime.com.cn/api/payment/notify
 alipay_pc_notify_url: http://iapi.intime.com.cn/api/payment/notify2
 
@@ -43,3 +43,5 @@ domain: 'intime.com.cn'
 elasticache:
   host: 'intimeo2o.wm1vwt.cfg.apse1.cache.amazonaws.com'
   pot:  '11211'
+
+elasticsearch_url: "http://ec2-46-137-197-113.ap-southeast-1.compute.amazonaws.com:9200"

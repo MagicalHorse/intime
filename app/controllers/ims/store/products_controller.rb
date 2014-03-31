@@ -2,7 +2,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id]
-    @products = Ims::Product.list(request)["data"]["items"]
+    @products = ::Product.es_search
   end
 
   def show
@@ -73,17 +73,18 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def search
-    @combo = ::Combo.find(params[:combo_id]) if params[:combo_id]
-    @searches = Ims::Product.search(request, type: params["type"], from: params["form"], to: params["to"], id: params["brand_id"], keywords: params["keywords"])["data"]["items"]
-    @products = @searches.group_by{|obj| obj["create_date"].to_date}.values
-    @brands = Ims::ProductBrand.list(request)["data"]["items"]
+    @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
+    @searches = ::Product.es_search(from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"])
+    @products = @searches.group_by{|obj| obj["createdDate"].to_date}.values
+    @brands = Brand.es_search
   end
 
 
   protected
 
   def product_relation_data
-    @brands = Ims::ProductBrand.list(request)["data"]["items"]
+    # @brands = Ims::ProductBrand.list(request)["data"]["items"]
+    @brands = Brand.es_search
     @categories = Ims::ProductCategory.list(request)["data"]["items"]
     @codings = Ims::ProductCoding.list(request)["data"]["items"]
     # @sizes = @categories.first["sizes"]
