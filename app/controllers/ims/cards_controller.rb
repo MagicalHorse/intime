@@ -2,11 +2,6 @@ class Ims::CardsController < Ims::BaseController
   before_filter :validate_other_sms!, only: [:give_page, :refuse, :recharge]
   layout "ims/user"
 
-  # 充值历史
-  def index
-
-  end
-
   # 给自己充值
   def recharge
     if current_user.isbindcard
@@ -58,11 +53,6 @@ class Ims::CardsController < Ims::BaseController
     # API_NEED: 拒收并退回礼品卡
     Ims::Giftcard.refuse(request, charge_no: params[:charge_no])
     redirect_to "#{gift_page_ims_cards_path}?charge_no=#{params[:charge_no]}"
-  end
-
-  def list
-    @my = Ims::Giftcard.list(request, type: 1)
-    @recieved = Ims::Giftcard.list(request, type: 2)
   end
 
 end
