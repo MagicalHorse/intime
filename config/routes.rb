@@ -334,7 +334,6 @@ IntimeService::Application.routes.draw do
         get     :give_page
         post    :give
         get     :refuse
-        get     :list
       end
     end
     resources :card_orders, only: [:new, :create, :show, :index] do
