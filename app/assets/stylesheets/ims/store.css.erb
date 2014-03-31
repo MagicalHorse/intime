@@ -1,33 +1,18 @@
 /*----------------------------Common Css------------------------------*/
 .login-form { padding: 10px 30px;}
-.login-form div {
-    text-align: center;
-    margin: 15px;
-  }
-  .login-form div:last-child {
-    margin-top: 40px; 
-  }
+.login-form .login-face{ margin: 64px 0 30px;}
+.login-form input{color: #B7BBC2;}
+.login-form .img-circle{ border:4px solid #f4f3f3; width: 144px; height: 144px;}
 
-  .login-form p {
-    margin: 2px;
-  }
+  .login-form p { margin-bottom: 70px;}
 
-  .login-form input {
-     margin-bottom: 0;
-     height: 50px;
-     width: 100%;
-     color: #abadb3;
-     font-size: 18px;
+  .login-form .tips i{
+  margin: 0 4px;
+  color: #5d9cec;
   }
-
-  .login-form .tips {
-    text-align: left;
-    color: #abadb3;
-    font-size: 20px;
-    margin-top: 0;
-  }
-  .login-form .btn {
-    width: 100%;
+  .login-form .tooltip-inner { padding: 10px; max-width: 380px; text-align: left;}
+  .login-form .tooltip-content {
+   color: white;
   }
 /*-----------------------------------Order Detail-------------------------------------*/
 
@@ -133,7 +118,7 @@
     }
     .income .module-gray div a {
        color: #f86b9f;
-       font-size: 20px;
+       font-size: 24px;
     }
     .income .module-gray div span {
        padding-right: 10px;  
@@ -144,6 +129,11 @@
 
 
 @media screen and (max-width: 580px) {
+  .login-form { padding: 10px 15px;}
+  .login-form .login-face{ margin: 32px 0 15px;}
+  .login-form .img-circle{width: 72px; height: 72px;}
+  .login-form .tooltip-inner {max-width: 200px;}
+  .login-form p { margin-bottom: 35px;}
   /*------------------------------Product Buy----------------------------------*/
 .price-detail .txt3,
 .price-detail .txt5{margin: 5px 0;}
@@ -186,7 +176,7 @@
         font-size: 14px;
       }
       .income .module-gray div {
-        padding: 15px 0px;
+        padding: 10px 0px;
         float: right;
       }
 

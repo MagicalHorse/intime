@@ -1,10 +1,8 @@
 module Stage
   class Brand < Stage::Base
-    self.collection_name = :brand
-
     class << self
       def group_brands
-        result = get(:groupall)
+        result = ::Brand.list_by_group
         gen_data(result)
       end
 

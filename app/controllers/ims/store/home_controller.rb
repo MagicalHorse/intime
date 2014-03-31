@@ -9,6 +9,7 @@ class Ims::Store::HomeController < Ims::Store::BaseController
     if status[:isSuccessful]
       redirect_to my_ims_store_stores_path
     else
+      @error = true
       render :action => :index
     end
   end

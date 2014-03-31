@@ -1,13 +1,11 @@
 module Stage
   class Promotion < Stage::Base
-    self.collection_name = :promotion
-
     class << self
       def list(options = {})
         default_options = { page: 1, pagesize: 10, sort: 1, client_version: '2.3' }
         options = default_options.merge(options.delete_if {|k, v| v.blank?})
 
-        raw_data = get(:list, options)['data']
+        raw_data = ::Promotion.list_by_page(options)['data']
 
         promotions = raw_data['promotions'].inject([]) do |_r, _p|
           _r << self.new(_p)
@@ -21,12 +19,9 @@ module Stage
       end
 
       def fetch(id)
-        new(get(id)['data'])
+        new(::Promotion.get_by_id({:id=>id})['data'])
       end
 
-      def availoperation(id, token)
-        get(:availoperations, promotionid: id, token: token)
-      end
 
     end
 

@@ -1,10 +1,8 @@
 module Stage
   class Store < Stage::Base
-    self.collection_name = :store
-
     class << self
       def list
-        result = get(:list)
+        result = ::Store.list_all()
         gen_data(result)
       end
 
@@ -17,7 +15,7 @@ module Stage
       end
 
       def fetch(id)
-        new(get(:detail, id: id)['data'])
+        new(::Store.get_by_id({:id=>id})['data'])
       end
     end
 

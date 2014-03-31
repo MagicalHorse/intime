@@ -1,7 +1,6 @@
 module Stage
   class Base < ActiveResource::Base
-    self.site     = Settings.api.stage
-    self.format   = :json
-    self.timeout  = 20
+    self.site="http://mockup"
+    self.element_name="mockup"
   end
 end

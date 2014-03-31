@@ -2,17 +2,39 @@
     <div class="row-fluid">
       <div clss="span12">
         <div class="login-form">
-          <%= form_tag ims_store_login_path, id: 'login-form' do  %>
-            <div class="span12"><img src="/images/ims/login.png"></div>
-            <div>
-              <p><input name="invite_code"  value="<%= @invite_code %>" type="text" placeholder="请填写邀请码"></p>
-              <p class="tips"><span>凭店铺邀请码登录店铺</span></p>
+          <%= form_tag ims_store_login_path, id: 'login-form', class: 'form-defined' do  %>
+            <div class="login-face text-center"><img src="/images/ims/no-image.jpg" class="img-circle"></div>
+            <div class="control-group <%= 'error' if @error %>">
+              <input class="input-block-level large-block name="invite_code"  value="<%= @invite_code %>" type="text" placeholder="请填写邀请码"">
+              <% if @error.present? %>
+              <span class="help-inline txt4">邀请码码输入有误</span>
+              <% end %>
+              <p class="tips txt3 txt-grey">凭店铺邀请码<span class="atip" onclick="javascript:return false;"  data-toggle="tooltip"  data-html="true" data-placement="top" title="" data-original-title="<div class='tooltip-content txt4'>目前店铺邀请码由系统分配提供，暂不向外开放。具体开放时间，请关注公众账号通知。</div>"><i class="fa fa-question-circle"></i></span>登录店铺</p>
             </div>
             <div>
-               <button class="btn btn-large btn-danger">我要开店</button>
+               <button type="submit" class="btn btn-danger btn-large btn-block">我要开店</button>
             </div>
           <% end %>
         </div>
       </div>
     </div>
 </div>
+<script>
+  $(function(){
+    $('.atip').click(function(e){
+      e?e.stopPropagation():event.cancelBubble = true;
+    });
+
+    var options={
+      animation:true,
+      trigger:'click' //触发tooltip的事件
+    }
+    $('.atip').tooltip(options);
+
+    $(document).click(function(){
+      $('.atip').tooltip('hide');//指定显示某一个tooltip//还可取值hide toggle  
+    })
+    
+
+  });
+</script>

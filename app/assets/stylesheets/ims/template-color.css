@@ -100,3 +100,12 @@
 .module-tranding .nav-tabs li.active a,
 .module-tranding .nav-tabs li.active a:hover{ background: #f16498; color: white;}
 @media screen and (max-width: 580px) {.module-tranding .nav-tabs{border-width:2px;}}
+/*---------------------------------Tab--------------------------------------------*/
+
+.module-tab0 .nav-tabs{border:3px solid #f16498;}
+.module-tab0 .nav-tabs li a{color: #f16498;}
+.module-tab0 .nav-tabs li a:hover{ background: white;}
+.module-tab0 .nav-tabs li.active a,
+.module-tab0 .nav-tabs li.active a:hover{ background: #f16498; color: white;}
+
+@media screen and (max-width: 580px) {.module-tab0 .nav-tabs{border-width:2px;}}
