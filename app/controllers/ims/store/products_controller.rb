@@ -1,8 +1,12 @@
 class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index
-    @combo = ::Combo.find(params[:combo_id]) if params[:combo_id]
+    @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
     @products = ::Product.es_search
+    respond_to do |format|
+      format.html{}
+      format.json{render "list"}
+    end
   end
 
   def show
