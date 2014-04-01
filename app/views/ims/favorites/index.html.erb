@@ -1,0 +1,57 @@
+<div class="module module-white min-height">
+  <div class="module-tab0 module-tab2">
+    <ul class="nav nav-tabs" id="myTab">
+      <li class="active"><a href="#home">店铺收藏</a></li>
+      <li class=""><a href="#profile">搭配收藏</a></li>
+    </ul>
+    <div class="tab-content">
+
+      <div class="tab-pane active" id="home">
+        <div class="module-table-box module-record">
+          <% @stores.each do |store| %>
+          <div class="module common-white">
+            <div class="txt-block detail-contact">
+              <div class="row-fluid">
+                <div class="span3"><img class="img-rounded" src="<%= store["image"] %>"></div>
+                <div class="span9">
+                  <p class="txt2 txt-red"><%= store["name"] %></p>
+                  <p class="txt2">电话：<%= store["phone"] %></p>
+                  </div
+                </div>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="profile">
+        <div class="module-table-box module-record">
+          <% @combos.each do |combo| %>
+          <div class="module common-white">
+            <div class="txt-block detail-contact">
+              <div class="row-fluid">
+                <div class="span3"><img class="img-rounded" src="<%= combo["image"] %>"></div>
+                <div class="span9">
+                  <p class="txt2 txt-red">HQS-happy</p>
+                  <p class="txt2">电话：18612345678</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%= content_for :javascripts do %>
+<script>
+  $('#myTab a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  })
+</script>
+<% end %>

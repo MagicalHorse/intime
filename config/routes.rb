@@ -343,6 +343,12 @@ IntimeService::Application.routes.draw do
         get :check_status
       end
     end
+    resources :favorites, only: [:index] do
+      collection do
+        post :create
+        post :destroy
+      end
+    end
     resources :recharge_histroy, only: [:index]
     resources :orders, only: [:index, :new, :create, :show] do
       member do
