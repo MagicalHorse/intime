@@ -1,12 +1,43 @@
----------------- 充值成功
-恭喜您，银泰礼品卡充值成功！<br />
- 
-充值金额：500.00元<br />
- 
-电子编码：AF135GBGQS<br />
-返回首页<br />
+<% if params[:charge_type] == "giftcard" %>
 
+<div class="module module-white">
+  <div class="module-card module-card-posi">
+    <h1 class="text-center">恭喜您，成功领取<%= @card[:sender] %>的礼品卡</h1>
+    <p class="txt1 text-center txt-money">礼品卡金额：<em class="txt-red"><%= @card[:amount] %>元</em></p>
+  </div>
+</div>  
+<div class="bottom-button">
+  <div class="form-defined">
+    <div class="controls-defined defined-large">
+      <div class="col-6"><button class="btn btn-danger btn-large btn-block">进入礼品卡首页</button></div>
+      <div class="col-6"><button class="btn btn-grey btn-large btn-block">我要购卡</button></div>
+    </div>
+  </div>
+</div>
 
----------------- 礼品卡获取成功
+<% else %>
 
-恭喜你获取了xxx的礼品卡！！！
+<div class="module module-white min-height">
+  <div class="module-deal module-table-box">
+    <div class="module module-white module-user-card">
+      <h1>恭喜您，银泰礼品卡充值成功！</h1>
+    </div>
+    <table class="table table-bordered">
+      <tbody><tr>
+        <td>充值金额</td>
+        <td>￥<%= @card[:amount] %></td>
+      </tr>
+      <tr>
+        <td>电子编码</td>
+        <td><%= @charge_no %></td>
+      </tr>
+      <tr>
+        <td>充值手机</td>
+        <td><span class="disabled"><%= @card[:phone] %></span></td>
+      </tr>
+    </tbody></table>
+    <a class="btn btn-large btn-danger btn-block" href="<%= mine_ims_accounts_path %>">进入礼品卡首页</a>
+  </div>
+</div>
+
+<% end %>

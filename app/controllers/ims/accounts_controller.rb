@@ -38,10 +38,10 @@ class Ims::AccountsController < Ims::BaseController
     if @phone.blank?
       redirect_to phone_page_ims_accounts_path, notice: "请填写手机号"
     else 
-      # TODO ： 这里的接口要换一下，只用来判断是否已经注册
-      is_bind = Ims::Giftcard.bind(request, phone: @phone)[:isSuccessful]
+      # API_NEED ： 判断手机号是否已经绑定
+      is_binded = Ims::Giftcard.isbind(request, phone: @phone)[:is_binded]
       # 如果当前手机号是否是未注册用户，则判断是否有待充值的卡，否则跳转到填写手机号页面，通知他新用户不能绑定
-      if false #!is_bind and current_user.will_charge_no.blank?
+      if !is_binded and current_user.will_charge_no.blank?
         redirect_to phone_page_ims_accounts_path, notice: "目前只允许老用户进行绑定"
       end
     end 
@@ -132,12 +132,6 @@ class Ims::AccountsController < Ims::BaseController
     else
       redirect_to change_password_page_ims_accounts_path
     end
-  end
-
-  # 用于扫描的页面
-  def scan_page
-    # API_NEED: 扫卡后的回调接口？用于关闭当前页面
-    @code
   end
 
   private
