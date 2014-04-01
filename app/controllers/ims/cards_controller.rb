@@ -1,5 +1,5 @@
 class Ims::CardsController < Ims::BaseController
-  before_filter :validate_other_sms!, only: [:give_page, :refuse, :recharge]
+  before_filter :validate_sms!, only: [:give_page, :refuse, :recharge]
   layout "ims/user"
 
   # 给自己充值

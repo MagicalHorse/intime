@@ -28,7 +28,13 @@ class Ims::CardOrdersController < Ims::BaseController
   end
 
   def show
-    # API_NEED: 获取某张礼品卡订单的详情
+    # API_NEED: 根据礼品卡号，获取礼品卡相关信息
+
+    # 1、礼品卡编号、评论内容、礼品卡赠送的手机号、赠送礼品卡的人名
+    # 2、礼品卡状态：已转赠、已经收取、已经拒收、未操作
+    # 3、礼品卡价值
+    
+    @card = {}
     @price = 500
     @charge_no = 'AF135GBGQS'
   end

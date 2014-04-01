@@ -318,12 +318,14 @@ IntimeService::Application.routes.draw do
         get   :mine
         get   :set_phone
         get   :phone_page
+        get   :verify_identify_phone
+        get   :verfiy_identify_sms_code
         get   :verify_phone
         get   :verfiy_sms_code
-        get   :verify_other_phone
-        get   :verfiy_other_sms_code
         post  :resend_sms
+        get   :reset_password_page
         get   :reset_password
+        get   :change_password_page
         get   :change_password
       end
     end

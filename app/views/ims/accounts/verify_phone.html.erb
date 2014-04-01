@@ -35,7 +35,7 @@
     interval_count_down = setInterval("count_down()", 1000);
 
     $("#resend").click(function(){
-      $.post("/ims/accounts/resend_sms", {},function(){
+      $.post("/ims/accounts/resend_sms", {"phone": "<%= @phone %>" },function(){
         $("#count_down").show();
         $("#resend").hide();
         interval_count_down = setInterval("count_down()", 1000);
