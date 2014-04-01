@@ -16,7 +16,12 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
   end
 
   def list
-    render :index
+    @list = Ims::Income.list(request)
   end
+
+  def frozen
+    @list = Ims::Income.frozen(request)
+  end
+
 
 end
