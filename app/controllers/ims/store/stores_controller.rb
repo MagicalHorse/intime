@@ -19,5 +19,10 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     @store = Ims::Store.my(request)
   end
 
+  def records
+    @giftcards = Ims::Store.giftcard_records(request) 
+    @orders = Ims::Store.order_records(request)
+  end
+
   
 end
