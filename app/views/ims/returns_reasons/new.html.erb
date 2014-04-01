@@ -1,14 +1,24 @@
-<%= form_tag ims_order_returns_reasons_path(params["order_id"]), id: "returns_reason_form" do %>
-  退货原因： <%= select_tag "reason_id", options_for_select(["颜色不好看", "尺码不对", "其他"]) %>
-  <%= text_field_tag "reason", nil, placeholder: "其他理由", style: "display: #{false ? 'inline' : 'none'}" %>
-  退货说明： <%= text_field_tag "remark", nil, placeholder: "退货备注" %>
-
-
-  注意事项：
-  提交提现申请后，我们将尽快对您的申请进行审核。请您耐心等待！祝您购物愉快！
-  <%= submit_tag "提交申请" %>
-
-<% end %>
+<div class="wrap-content">
+  <div class="module module-white">
+    <div class="module-formblock min-height">
+      <%= form_tag ims_order_returns_reasons_path(params["order_id"]), id: "returns_reason_form", class: "form-defined" do %>
+        <div class="controls-defined defined-large">
+          <p class="txt1"><abbr class="txt-red">*</abbr>退货原因</p>
+          <%= select_tag "reason_id", options_for_select(["颜色不好看", "尺码不对", "其他"]), class: "large-block" %>
+          <%= text_field_tag "reason", nil, placeholder: "其他理由", style: "display: #{false ? 'inline' : 'none'}", class: "input-block-level large-block" %>
+        </div>
+        <div class="controls-defined defined-large">
+          <p class="txt1">退货说明（可选）</p>
+          <%= text_field_tag "remark", nil, placeholder: "退货申请备注", class: "input-block-level large-block" %>
+        </div>
+        <p class="txt4 password-nitice"><i class="fa fa-exclamation-circle txt-red"></i> 提交提现申请后，我们将尽快对您的申请进行审核。请您耐心等待！祝您购物愉快！</p>
+        <p class="block-button">
+          <button type="submit" class="btn btn-danger btn-large btn-block">提交申请</button>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <% content_for :javascripts do %>
 <script>
