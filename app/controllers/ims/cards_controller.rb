@@ -5,10 +5,13 @@ class Ims::CardsController < Ims::BaseController
   # 给自己充值
   def recharge
     if current_user.isbindcard
+      @charge_no = params[:charge_no]
       # API_NEED: 充值礼品卡接口
-      @data = Ims::Giftcard.recharge(request, charge_no: params[:charge_no])
+      @result = Ims::Giftcard.recharge(request, charge_no: @charge_no)
       # 置空欲充值卡号
       current_user.will_charge_no = nil
+      # API_NEED: 根据礼品卡号，获取礼品卡相关信息
+      @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"]
     else
       # 如果未绑定，则跳至绑卡页面
       current_user.will_charge_no = params[:charge_no]
@@ -21,25 +24,15 @@ class Ims::CardsController < Ims::BaseController
   def gift_page
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
-
-    # 1、礼品卡编号、评论内容、礼品卡赠送的手机号、赠送礼品卡的人名
-    # 2、礼品卡状态：已转赠、已经收取、已经拒收、未操作
-    # 3、礼品卡价值
-
-    current_user.other_phone = "1234"
-    @card = {}
+    @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"]
+    current_user.other_phone = @card[:phone]
   end
 
   # 赠送页面
   def give_page
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
-
-    # 1、评论内容、礼品卡赠送的手机号、赠送礼品卡的人名
-    # 2、礼品卡状态：已转赠、已经收取、已经拒收、未操作
-    # 3、礼品卡价值
-
-    @card = {}
+    @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"]
   end
 
   # 赠送给别人
