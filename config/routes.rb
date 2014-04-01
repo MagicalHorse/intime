@@ -399,6 +399,7 @@ IntimeService::Application.routes.draw do
       resources :stores, only: [:index, :show, :edit, :update] do
         collection do
           get 'my', 'records'
+          post 'change_logo'
         end
       end
       resources :incomes, only: [:index, :new, :create] do

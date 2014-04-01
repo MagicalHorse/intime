@@ -1,36 +1,25 @@
 <div class="wrap-inner back-wrap-inner">
-<div class="module module-bg-white clearfix">
-  <% @products.each do |product| %>
-    <!-- list start -->
-    <div class="p-list p-list-first clearfix">
-      <div class="row-fluid">
-      <div class="span4">
-       <div class="p-pic">
-         <%= image_tag "/images/ims/no-image.jpg" %>
-       </div>
-      </div>
-      <div class="span8">
-        <div class="p-title">
-          <h3>
-            男士专用运动鞋男士专用运动鞋
-          </h3>
-        </div>
-        <div class="p-price1 clearfix">
-          <span class="txt4">微信价：<em>￥<%= product["price"] %></em></span>
-          <span class="txt6"><em>吊牌价：￥380.00</em></span>
-        </div>
-        <div class="buttons">
-          <%= link_to edit_ims_store_product_path(product["id"]) do %>
-            <button class="btn btn-mini btn-danger">编 辑</button>
-          <% end %>
-            <button class="btn btn-mini btn-danger button-select"><a href="<%= add_to_combo_ims_store_product_path(:id => product["id"], :combo_id => @combo.try(:id)) %>">选 择</a></button>
-        </div>
-       </div>
-     </div>
-    </div>
-    <!-- list end -->
-
-  <% end %>
-
+  <%= render "list", products: @products, combo: @combo %>
 </div>
-</div>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      $(window).scroll(function(){
+        var htmlHeight=document.body.scrollHeight
+        var clientHeight=document.body.clientHeight
+        var scrollTop=document.body.scrollTop
+        var combo_id = "<%= @combo.try(:id) %>"
+
+        if(scrollTop+clientHeight==htmlHeight){
+          $.get("/ims/store/products", {combo_id: combo_id}, function(data){
+            if(data["status"] == true){
+              $(".paginate-content:last").after(data["html"])
+            }
+          }, "json")
+        }
+
+      })
+    })
+  </script>
+<% end %>
