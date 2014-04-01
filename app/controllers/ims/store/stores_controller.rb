@@ -24,5 +24,17 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     @orders = Ims::Store.order_records(request)
   end
 
+  def change_logo
+    @image = Ims::Combo.upload_img(request, {:image => params[:img]})
+
+    if @image[:isSuccessful]
+      json = {"status" => 1, "img" => @image[:data][:url]}.to_json
+    else
+      json = {"status" => 0}.to_json
+    end
+
+    render :json => json
+  end
+
   
 end
