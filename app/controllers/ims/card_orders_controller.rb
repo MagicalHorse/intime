@@ -3,7 +3,6 @@ class Ims::CardOrdersController < Ims::BaseController
   layout "ims/user"
 
   def new
-    binding.pry
     @cards = Ims::Giftcard.items(request)["data"]["items"]
   end
 

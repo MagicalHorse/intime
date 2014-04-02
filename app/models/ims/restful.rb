@@ -11,7 +11,6 @@ module Ims
       sign_value    = Digest::MD5.hexdigest("#{IMS_KEY}client_version#{CLIENT_VERSION}uid#{sessionid}#{IMS_KEY}")
       options.merge!(sign: sign_value, client_version: CLIENT_VERSION, channel: 'html5', uid: sessionid, token: token)
       Rails.logger.debug "-----> request #{IMS_HOST}/#{path}"
-      binding.pry
       RestClient.post("#{IMS_HOST}/#{path}", options, accept: :json) { |response, request, result, &block|
         case response.code
         when 200

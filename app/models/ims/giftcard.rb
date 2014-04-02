@@ -1,8 +1,8 @@
 # encoding: utf-8
 class Ims::Giftcard < Ims::Base
 
-  # 子礼品卡Id
-  SN_ID = 'gawagew'
+  # 默认礼品卡Id
+  DEFAULT_ID = '1'
 
   # 普通用户-已绑定卡的礼品卡概述
   def self.my(req, params = {})
