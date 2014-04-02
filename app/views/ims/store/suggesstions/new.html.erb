@@ -1,7 +1,20 @@
-<%= form_tag ims_store_suggesstions_path, id: "new_suggesstion" do %>
-  <%= text_area_tag "content" %>
-  <%= link_to "提交", "javascript:void(0);", id: "save_suggesstion" %>
-<% end %>
+<div class="wrap-content">
+    <div class="module common-white min-height card-form-box">
+      <%= form_tag ims_store_suggesstions_path, id: "new_suggesstion", class: "form-defined" do %>
+        <div class="controls-defined defined-small">
+          <label class="col-12 text-left">建议</label>
+          <div class="col-12">
+            <%= text_area_tag "content", '', placeholder: "说点什么", rows: 3, class: "active-write" %>
+          </div>
+        </div>
+        <button class="btn btn-danger btn-large btn-block" type="button" id="save_suggesstion">确认</button>
+      <% end %>
+    </div>
+
+  </div>
+
+
+
 
 
 <% content_for :javascripts do %>
