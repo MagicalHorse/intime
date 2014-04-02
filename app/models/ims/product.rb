@@ -3,23 +3,23 @@ class Ims::Product < Ims::Base
 
   class << self
     def list(req, params={})
-      post(req, params.merge(path: 'ims/assistant/products'))
+      post(req, params.merge(path: 'assistant/products'))
     end
 
     def create(req, params={})
-      post(req, params.merge(path: 'ims/product/create'))
+      post(req, params.merge(path: 'product/create'))
     end
 
     def update(req, params={})
-      post(req, params.merge(path: 'ims/product/update'))
+      post(req, params.merge(path: 'product/update'))
     end
 
     def find(req, params = {})
-      post(req, params.merge(path: 'ims/product/detail'))
+      post(req, params.merge(path: 'product/detail'))
     end
 
     def search(req, params = {})
-      post(req, params.merge(path: 'ims/product/search'))
+      post(req, params.merge(path: 'product/search'))
     end
 
   end
