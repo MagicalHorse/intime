@@ -22,8 +22,8 @@ class Product < ActiveRecord::Base
     to_price = options[:to_price]
     brand_id = options[:brand_id]
     keywords = options[:keywords].try(:downcase)
-    per_page = options[:per_page] || 20
-    page = options[:page] || 1
+    per_page = [options[:per_page], 5].find{|obj| obj.present?}.to_i
+    page = [options[:page], 1].find{|obj| obj.present?}.to_i
 
 
 
@@ -134,10 +134,10 @@ class Product < ActiveRecord::Base
     end
 
     # result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: 10000000, body: query
-
     result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1)*per_page, body: query
     mash = Hashie::Mash.new result
-    mash.hits.hits.collect(&:_source)
+    count = mash["hits"]["total"]
+    {count: count, page: page, per_page: per_page, data: mash.hits.hits.collect(&:_source)}
   end
 
 

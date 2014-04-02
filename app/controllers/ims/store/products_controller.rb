@@ -2,7 +2,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
-    @products = ::Product.es_search
+    @search = ::Product.es_search(per_page: params[:per_page], page: params[:page])
+    @products = @search[:data]
     respond_to do |format|
       format.html{}
       format.json{render "list"}
@@ -78,8 +79,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def search
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
-    @searches = ::Product.es_search(from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"])
-    @products = @searches.group_by{|obj| obj["createdDate"].to_date}.values
+    @search = ::Product.es_search(from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"])
+    @products = @search[:data].group_by{|obj| obj["createdDate"].to_date}.values
     @brands = Brand.es_search
   end
 
