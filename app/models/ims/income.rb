@@ -14,7 +14,7 @@ class Ims::Income < Ims::Base
    end
 
    def banks(req, params = {})
-   	 post(req, params.merge(path: 'associate/avail_banks'))
+   	 post(req, params.merge(path: 'assistant/avail_banks'))
    end
 
    def apply(req, params = {})
