@@ -2,7 +2,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
-    @products = ::Product.es_search
+    @search = ::Product.es_search(per_page: params[:per_page], page: params[:page])
+    @products = @search[:data]
     respond_to do |format|
       format.html{}
       format.json{render "list"}

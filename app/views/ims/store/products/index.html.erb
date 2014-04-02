@@ -2,6 +2,10 @@
   <%= render "list", products: @products, combo: @combo %>
 </div>
 
+<%= hidden_field_tag "count", @search[:count] %>
+<%= hidden_field_tag "page", @search[:page] %>
+<%= hidden_field_tag "per_page", @search[:per_page] %>
+
 <% content_for :javascripts do %>
   <script>
     $(function(){
@@ -10,13 +14,22 @@
         var clientHeight=document.body.clientHeight
         var scrollTop=document.body.scrollTop
         var combo_id = "<%= @combo.try(:id) %>"
+        var count = parseInt($("#count").attr("value"))
+        var page = parseInt($("#page").attr("value"))
+        var per_page = parseInt($("#per_page").attr("value"))
 
-        if(scrollTop+clientHeight==htmlHeight){
-          $.get("/ims/store/products", {combo_id: combo_id}, function(data){
-            if(data["status"] == true){
-              $(".paginate-content:last").after(data["html"])
-            }
-          }, "json")
+
+        if(scrollTop+clientHeight == htmlHeight){
+          if(page * per_page < count){
+            $.get("/ims/store/products", {combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
+              if(data["status"] == true){
+                $(".paginate-content:last").after(data["html"])
+                $("#count").attr("value", data["count"])
+                $("#page").attr("value", data["page"])
+                $("#per_page").attr("value", data["per_page"])
+              }
+            }, "json")
+          }
         }
 
       })
