@@ -3,17 +3,25 @@ class Ims::CardOrdersController < Ims::BaseController
   layout "ims/user"
 
   def new
-    @cards = Ims::Giftcard.items(request)["data"]["items"]
+    @cards = Ims::Giftcard.items(request, {id: Ims::Giftcard::DEFAULT_ID})["data"]["items"]
   end
 
   # 自己购买
   def my_list
     @my = Ims::Giftcard.list(request, type: 1)
+    respond_to do |format|
+      format.html{}
+      format.json{render "my_list"}
+    end
   end
 
   # 好友赠送
-  def reviced_list
-    @recieved = Ims::Giftcard.list(request, type: 2)
+  def received_list
+    @received = Ims::Giftcard.list(request, type: 2)
+    respond_to do |format|
+      format.html{}
+      format.json{render "received_list"}
+    end
   end
 
   # 付款礼品卡

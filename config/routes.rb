@@ -342,7 +342,7 @@ IntimeService::Application.routes.draw do
     resources :card_orders, only: [:new, :create, :show] do
       collection do
         get :my_list
-        get :reviced_list
+        get :received_list
         get :check_status
       end
     end
@@ -410,7 +410,7 @@ IntimeService::Application.routes.draw do
       end
       resources :incomes, only: [:index, :new, :create] do
         collection do
-          get :my, :list, :frozen
+          get :my, :list, :frozen, :tips
         end
       end
       resources :dicts, only: [] do

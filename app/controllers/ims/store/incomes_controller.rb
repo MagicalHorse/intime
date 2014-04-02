@@ -9,6 +9,7 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
   end
 
   def new
+    @banks = Ims::Income.banks(request)
   end
 
   def create
@@ -26,6 +27,10 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
 
   def frozen
     @list = Ims::Income.frozen(request)
+  end
+
+  def tips
+    
   end
 
 

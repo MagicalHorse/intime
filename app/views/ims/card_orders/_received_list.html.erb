@@ -1,0 +1,15 @@
+<tbody class="paginate-content">
+  <% if received_list[:data].present?  %>
+  <% received_list[:data][:items].each do |item| %>
+  <tr>
+    <td>
+      <p>礼品卡卡号：<span class="tel-nun"><%= item[:card_no] %></span></p>
+      <p class="txt-red">充值金额：<%= item[:amount] %>元</p>
+      <p>状态：<%= item[:status_i] %></p>
+      <p>接收时间：<%= item[:receive_date] %></p>
+      <p>来源：<span class="tel-nun"><%= item[:verify_phone] %></span></p>
+    </td>
+  </tr>
+  <% end %>
+  <% end %>
+</tbody>
