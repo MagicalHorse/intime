@@ -9,7 +9,7 @@
       <div class="tab-pane active" id="home">
         <div class="module-table-box module-record">
           <% @stores.each do |store| %>
-          <div class="module common-white">
+          <div class="module common-white" onclick="window.location.href = '<%= ims_store_store_path(store["id"]) %>'">
             <div class="txt-block detail-contact">
               <div class="row-fluid">
                 <div class="span3"><img class="img-rounded" src="<%= store["image"] %>"></div>
@@ -28,7 +28,7 @@
       <div class="tab-pane" id="profile">
         <div class="module-table-box module-record">
           <% @combos.each do |combo| %>
-          <div class="module common-white">
+          <div class="module common-white" onclick="window.location.href = '<%= ims_store_combo_path(combo["id"]) %>'">
             <div class="txt-block detail-contact">
               <div class="row-fluid">
                 <div class="span3"><img class="img-rounded" src="<%= combo["image"] %>"></div>
