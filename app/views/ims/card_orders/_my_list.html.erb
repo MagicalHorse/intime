@@ -1,0 +1,18 @@
+<tbody class="paginate-content">
+<% if my_list[:data].present?  %>
+  <% my_list[:data][:items].each do |item| %>
+  <tr>
+    <td>
+      <p>礼品卡编号：<span class="tel-nun"><%= item[:card_no] %></span></p>
+      <p>金额：<%= item[:amount] %>元</p>
+      <p class="txt-green">状态：<%= item[:status_i] %></p>
+      <p>接收时间：<%= item[:receive_date] %></p>
+      <p class="btn-line">
+        <%= link_to "充值自用", "#{recharge_ims_cards_path}?charge_no=#{item[:card_no]}&type=buy", class: "btn btn-danger btn-mini"  %>
+        <%= link_to "赠送好友", "#{give_page_ims_cards_path}?charge_no=#{item[:card_no]}", class: "btn btn-danger btn-mini"  %>
+      </p>
+    </td>
+  </tr>
+  <% end %>
+  <% end %>
+</tbody>

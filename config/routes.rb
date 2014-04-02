@@ -342,7 +342,7 @@ IntimeService::Application.routes.draw do
     resources :card_orders, only: [:new, :create, :show] do
       collection do
         get :my_list
-        get :reviced_list
+        get :received_list
         get :check_status
       end
     end
