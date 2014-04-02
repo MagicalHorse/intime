@@ -1,0 +1,16 @@
+<div class="module-table-box module-record">
+  <% stores_list.each do |store| %>
+  <div class="module common-white" onclick="window.location.href = '<%= ims_store_store_path(store["id"]) %>'">
+    <div class="txt-block detail-contact">
+      <div class="row-fluid">
+        <div class="span3"><img class="img-rounded" src="<%= store["image"] %>"></div>
+        <div class="span9 collection-p">
+          <p class="txt2 txt-red"><%= store["name"] %></p>
+          <p class="txt2 tel-nun">电话：<%= store["phone"] %></p>
+          </div
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

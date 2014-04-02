@@ -1,8 +1,11 @@
 class Ims::FavoritesController < Ims::BaseController
-  def index
-    # API_NEED: 收藏列表
-    @stores = Ims::UserApi.favor_store(request)["data"]["items"] || []
-    @combos = Ims::UserApi.favor_combo(request)["data"]["items"] || []
+
+  def stores_list
+    @stores = Ims::UserApi.favor_store(request, {page: (params[:page] || 1)} )["data"]["items"]
+  end
+
+  def combos_list
+    @combos = Ims::UserApi.favor_combo(request, {page: (params[:page] || 1)} )["data"]["items"]
   end
   
   def create

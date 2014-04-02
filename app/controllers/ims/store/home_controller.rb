@@ -1,4 +1,5 @@
 class Ims::Store::HomeController < Ims::Store::BaseController
+  skip_filter :authenticate
 
   def index
   end

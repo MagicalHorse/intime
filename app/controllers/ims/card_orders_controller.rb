@@ -6,10 +6,13 @@ class Ims::CardOrdersController < Ims::BaseController
     @cards = Ims::Giftcard.items(request)["data"]["items"]
   end
 
-  # 我的礼品卡
-  def index
-    # API_NEED: 获取礼品卡订单的列表
+  # 自己购买
+  def my_list
     @my = Ims::Giftcard.list(request, type: 1)
+  end
+
+  # 好友赠送
+  def reviced_list
     @recieved = Ims::Giftcard.list(request, type: 2)
   end
 

@@ -26,7 +26,6 @@ class Product < ActiveRecord::Base
     page = [options[:page], 1].find{|obj| obj.present?}.to_i
 
 
-
     query = Jbuilder.encode do |json|
 
       json.filter do

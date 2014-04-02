@@ -339,13 +339,17 @@ IntimeService::Application.routes.draw do
         get     :agreement
       end
     end
-    resources :card_orders, only: [:new, :create, :show, :index] do
+    resources :card_orders, only: [:new, :create, :show] do
       collection do
+        get :my_list
+        get :reviced_list
         get :check_status
       end
     end
-    resources :favorites, only: [:index] do
+    resources :favorites, only: [] do
       collection do
+        get  :stores_list
+        get  :combos_list
         post :create
         post :destroy
       end

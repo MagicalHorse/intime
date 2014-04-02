@@ -2,19 +2,19 @@
 class Ims::UserApi < Ims::Base
 
   def self.favor(req, params = {})
-    post(req, params.merge(path: "ims/user/favor"))
+    post(req, params.merge(path: "user/favor"))
   end
 
   def self.unfavor(req, params = {})
-    post(req, params.merge(path: "ims/user/unfavor"))
+    post(req, params.merge(path: "user/unfavor"))
   end
 
   def self.favor_store(req, params = {})
-    post(req, params.merge(path: "ims/user/favor_store"))
+    post(req, params.merge(path: "user/favor_store"))
   end
 
   def self.favor_combo(req, params = {})
-    post(req, params.merge(path: "ims/user/favor_combo"))
+    post(req, params.merge(path: "user/favor_combo"))
   end
 
 end

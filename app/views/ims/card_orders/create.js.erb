@@ -1,3 +1,4 @@
+// TODO 上线前，将下列setInterval代码删除
 setInterval(function(){
   $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= @out_trade_no %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
     var result = r.result
