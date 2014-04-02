@@ -32,7 +32,7 @@
 
 <div class="module module-bg-white2">
     <div class="form-box">
-      <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-horizontal" do %>
+      <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-defined" do %>
         选择图片： <%= file_field_tag "image", style: "display: none;", id: "input", value: @product.try(:[], :image) %>
         <%= hidden_field_tag "id", @product.try(:[], :id) %>
         <div class="inline-horizontal">
@@ -74,6 +74,87 @@
         <div class="block-box">
           <%= submit_tag "提交", class: "btn btn-danger btn-large btn-block" %>
         </div>
+      <% end if nil%>
+
+      <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-defined" do %>
+        选择图片： <%= file_field_tag "image", style: "display: none;", id: "input", value: @product.try(:[], :image) %>
+        <%= hidden_field_tag "id", @product.try(:[], :id) %>
+        <% if @combo_id.present? %>
+          <%= hidden_field_tag :combo_id, @combo_id %>
+        <% end %>
+          <div class="controls-defined defined-large">
+              <label class="col-4 text-right"><abbr class="txt-red">*</abbr>品牌：</label>
+              <div class="col-8">
+                  <%= select_tag "brand_id", options_for_select(@brands.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :brand_id)) %>
+              </div>
+          </div>
+          <div class="controls-defined defined-large">
+              <label class="col-4 text-right"><abbr class="txt-red">*</abbr>销售编码：</label>
+              <div class="col-6">
+                  <%= select_tag "coding_id", options_for_select(@codings, @product.try(:[], :sales_code)) %>
+            
+              </div>
+              <div class="col-2">
+              <span>
+              <%= link_to "添加", "#new_coding_form", "data-toggle" => "modal", class: "txt8 newly" %>
+
+              </span>
+              </div>
+          </div>
+          <div class="controls-defined defined-large">
+              <label class="col-4 text-right"><abbr class="txt-red">*</abbr>货号：</label>
+              <div class="col-8">
+                <%= text_field_tag "sku_code", @product.try(:[], :sku_code) %>
+               
+              </div>
+          </div>
+
+          <div class="controls-defined defined-large">
+              <label class="col-4 text-right"><abbr class="txt-red">*</abbr>微信价：</label>
+              <div class="col-8">
+              <%= text_field_tag "price", @product.try(:[], :price) %>
+              </div>
+          </div>
+          <div class="controls-defined defined-large">
+              <label class="col-4 text-right"><abbr class="txt-red">*</abbr>分类：</label>
+              <div class="col-8">
+              <%= select_tag "category_id", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :category_id)), prompt: "请选择" %>
+              
+              </div>
+          </div>
+
+          <% if @product.try(:[], :size).present? %>
+            <%= select_tag "size_ids[]", options_for_select(@sizes.collect{|obj| [obj[:name], obj[:id]]}, @product[:size].collect{|obj| obj[:size_id]}), multiple: "multiple", id: "size_ids" %>
+          <% else %>
+            <%= select_tag "size_ids[]", options_for_select([]), multiple: "multiple", id: "size_ids" %>
+          <% end if nil %>
+
+          <div class="controls-defined defined-large">
+              <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
+              <div class="col-8">
+              <span class="goods-size">
+                      <a class="active" href="#">S</a>
+                      <a href="#">M</a>
+                      <a href="#">L</a>
+                      <a href="#">XL</a>
+                      <a href="#">XXL</a>
+                      <a href="#">XXXL</a>
+                  </span>
+              </div>
+          </div>
+
+          <div class="controls-defined defined-large">
+              <label class="col-4 text-right"><abbr class="txt-red">*</abbr>规格：</label>
+              <div class="col-8">
+              <%= text_field_tag "size_str", @product.try(:[], :size_str), class: "form-textframe" %>
+              
+              </div>
+          </div>
+
+
+          <div class="block-box">
+              <button type="submit" class="btn btn-danger btn-large btn-block">提交</button>
+          </div>
       <% end %>
     </div>
 </div>
