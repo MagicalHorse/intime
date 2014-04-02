@@ -9,7 +9,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def update
-  	 redirect_to ims_store_store_path(1) 
+    
   end
 
   def show
@@ -30,6 +30,24 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
     if @image[:isSuccessful]
       json = {"status" => 1, "img" => @image[:data][:url]}.to_json
+    else
+      json = {"status" => 0}.to_json
+    end
+
+    render :json => json
+  end
+
+  def change_info
+    if params[:name] == "store_name"
+      @store = Ims::Store.update(request, {id: params[:id], name: params[:value]}) 
+    end
+
+    if params[:name] == "store_phone"
+      @store = Ims::Store.update(request, {id: params[:id], mobile: params[:value]}) 
+    end
+
+    if @store[:isSuccessful]
+      json = {"status" => 1}.to_json
     else
       json = {"status" => 0}.to_json
     end
