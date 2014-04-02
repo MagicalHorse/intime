@@ -47,10 +47,10 @@
 .module-uploadimg .title-link{ color: #dadada;}
 
 
-.goods-box .goods-text a{color: #abadb3;}
-.goods-box .goods-text a:active,
-.goods-box .goods-text a:hover,
-.goods-box .goods-text a:focus{ color: #F16498;}
+.goods-box .goods-text > a{color: #abadb3;}
+.goods-box .goods-text > a:active,
+.goods-box .goods-text > a:hover,
+.goods-box .goods-text > a:focus{ color: #F16498;}
 
 .module-searchinput{ background:#f86b9f;}
 .module-tab .nav-tabs > li > a{ color: #f86b9f;}

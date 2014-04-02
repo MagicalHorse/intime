@@ -52,7 +52,7 @@
 .goods-box{margin-bottom: 10px; position: relative; border:1px solid #eeeeee; background: white;}
 .goods-box .imgs{position: relative; display:block;}
 .goods-box .goods-text { padding: 10px;}
-.goods-box .goods-text a{ display: inline-block; margin-bottom: 10px; font-size: 21px; line-height: 30px;}
+.goods-box .goods-text > a{ display: inline-block; margin-bottom: 10px; font-size: 21px; line-height: 30px;}
 .goods-price{ position: absolute; bottom: 0; left: 0; width: 100%; color: white; line-height: 40px; font-size: 24px; text-indent: 10px; background-color: rgba(202, 200, 201, 0.80);}
 .goods-text .btn {font-size: 21px;}
 
