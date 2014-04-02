@@ -1,18 +1,17 @@
-
-
-  setInterval(function(){
-    $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
-      if(data.result){
-        window.location.href = "<%= ims_card_order_path(1) %>"
-      }
-    }, "json");
-  },1000) 
+setInterval(function(){
+  $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= @out_trade_no %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
+    var result = r.result
+    if(result.data){
+      window.location.href = "/ims/card_orders/" + result.data.charge_no;
+    }
+  }, "json");
+},1000)
 
 WeixinJSBridge.invoke('getBrandWCPayRequest', {
 "appId" : "<%= Settings.wx.appid %>", //公众号名称，由商户传入
-"timeStamp" : "<%= Time.now.to_i %>", //时间戳 这里随意使用了一个值
+"timeStamp" : "<%= @time_val.to_i %>", //时间戳 这里随意使用了一个值
 "nonceStr" : "<%= @noncestr_val %>", //随机串
-"package" : "<%= @package_val %>",//扩展字段，由商户传入
+"package" : "<%= @package_val.to_param %>",//扩展字段，由商户传入
 "signType" : "SHA1", //微信签名方式:sha1
 "paySign" : "<%= @paySign_val %>" //微信签名
 },function(res){
@@ -20,12 +19,14 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
   alert(res.err_msg)
 
   setInterval(function(){
-    $.get("<%= check_status_ims_card_order_path(1) %>", {}, function(data){
-      if(data.result){
-        window.location.href = "<%= ims_card_order_path(1) %>"
+    $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= @out_trade_no %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
+      var result = r.result
+      if(result.data){
+        window.location.href = "/ims/card_orders/" + result.data.charge_no;
       }
     }, "json");
-  },1000) 
+  },1000)
+
   if(res.err_msg == "get_brand_wcpay_request:ok"){
     // // get_brand_wcpay_request:ok 发送成功
 
@@ -36,7 +37,6 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
     // // get_brand_wcpay_request:fail 发送失败
 
   }
-
 
 // WeixinJSBridge.log(res.err_msg);
 // alert(res.err_code+res.err_desc);

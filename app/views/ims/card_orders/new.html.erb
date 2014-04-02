@@ -4,24 +4,17 @@
     <%= form_tag ims_card_orders_path, id: "new_card_order", class: "form-block-label", remote: true, method: 'post' do %>
     <div class="form-label">
       <span class="txt1">请选择购卡金额</span>
-      <label class="radio" class="radio" for="money_100">
-        <input id="money_100" name="money" type="radio" value="100" class="valid">100元（售价100.00元）
+      <% @cards.each do |card| %>
+      <label class="radio" class="radio" for="money_<%= card["unit_price"] %>">
+        <input id="money_<%= card["unit_price"] %>" name="money" type="radio" value="<%= "#{card["id"]},#{card["price"]}" %>" class="valid"><%= card["unit_price"] %>元（售价<%= card["price"] %>元）
       </label> 
-      <label class="radio" for="money_200">
-        <input id="money_200" name="money" type="radio" value="200" class="valid">200元（售价196.00元）
-      </label>  
-      <label class="radio" for="money_500">
-        <input id="money_500" name="money" type="radio" value="500" class="valid">500元（售价485.00元）
-      </label>   
-      <label class="radio" for="money_1000">
-        <input id="money_1000" name="money" type="radio" value="1000" class="valid">1000元（售价960.00元）
-      </label> 
+      <% end %>
       <label class="checkbox" for="is_accept">
         <input id="is_accept" name="is_accept" type="checkbox" value="1" class="valid">我已阅读并同意<%= link_to "《银泰礼品卡服务协议》", agreement_ims_cards_path %>
       </label>
     </div> 
     <div class="module-btn text-center">
-      <%= submit_tag "确认购买", class: "btn btn-large btn-danger btn-block" %>
+      <%= submit_tag "确认购买", class: "btn btn-large btn-danger btn-block", id: "submit" %>
     </div>
 
     <% end %>
@@ -39,29 +32,21 @@
 </div> 
 
 
-
-
-
-
-
 <%= content_for :javascripts do %>
 <script>
   $(function(){
 
-    $("#new_card_order").validate({
-      rules: {
-        "money": {
-          required: true
-        },
-        "is_accept": {
-          required: true
-        }
-      },
-      errorPlacement:function(error, element){
-        element.after(error)
-      }
-    })
-
+    $(document).ready(function() {
+     $("#submit").click(function(){
+       if( $("input[name='money']:checked").val() == undefined ){
+         alert("请选择礼品卡");
+         return false;
+       }else if( $("#is_accept").prop("checked") == false ){
+         alert("您必须同意礼品卡服务协议");
+         return false;
+       }
+     })
+   })
   });
 </script>
-<% end -%>
+<% end %>
