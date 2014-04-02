@@ -12,6 +12,10 @@ class Ims::Store < Ims::Base
    	 post(req, params.merge(path: 'ims/store/my'))
    end
 
+   def update(req, params = {})
+      post(req, params.merge(path: 'ims/assistant/update'))
+   end
+
 
    #导购收益礼品卡
    def giftcard_records(req, params = {})

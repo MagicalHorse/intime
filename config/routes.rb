@@ -401,6 +401,7 @@ IntimeService::Application.routes.draw do
         collection do
           get 'my', 'records'
           post 'change_logo'
+          post 'change_info'
         end
       end
       resources :incomes, only: [:index, :new, :create] do
