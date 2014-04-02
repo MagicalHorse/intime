@@ -410,7 +410,7 @@ IntimeService::Application.routes.draw do
       end
       resources :incomes, only: [:index, :new, :create] do
         collection do
-          get :my, :list, :frozen
+          get :my, :list, :frozen, :tips
         end
       end
       resources :dicts, only: [] do
