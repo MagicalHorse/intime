@@ -75,7 +75,7 @@
 .popup-menu-box{width: 640px; position: fixed; bottom: 0;}
 .popup-menu{padding: 40px;}
 .popup-menu > a{ padding: 20px 0; margin-bottom: 20px; display: block; text-align: center; border:1px solid #e3e4e8; background: white; color: #676767;}
-.popup-menu > .btn{ padding: 20px 0; }
+.popup-menu > .btn{ padding: 20px 0; color: white; }
 
 
 
