@@ -87,7 +87,7 @@
 /*----------------------------------------------------------------*/
 
 .p-detail { margin: 25px 20px 10px;}
-.p-title { color: #5E5E5E; padding: 0 20px 20px;}
+.p-title { color: #5E5E5E; padding: 0 30px 30px;}
 
 .p-price { margin-top: 5px;}
 .wx-price { float: left;}
@@ -105,7 +105,8 @@
 .p-info { margin-left: 25px;}
 .p-dp-price { text-decoration:line-through; font-size: 15px; margin-left: 50px;}
 .p-price1 {width: 100%;margin: 10px 0 24px;}
-.p-price1 span {color: #DBDDDE;padding-right: 30px;}
+.p-price1 span {color: #abadb3;padding-right: 30px;}
+.p-price1 .txt-red {color: #F16498;padding-right: 30px;}
 .p-price1 span:first-child em {color: #f86b9f;}
 .p-price1 span em{font-style: normal;}
 .p-wx-price {color: #F16498;}
@@ -113,11 +114,15 @@
 .button-select {margin-left: 25px;}
 
 /*combos show*/
+.module-show{ padding: 0 30px 30px;}
 .module-common {padding: 20px; background-color: #faf9f9;}
-.combos-product {background-color: #fff; border: 1px solid #ccc; padding: 10px; text-align: center;}
+.combos-product {background-color: #fff; border: 1px solid #eeeeee; padding: 10px; text-align: center;}
 .combos-product p {margin-top: 20px; text-align: left; padding-left: 7px;color: #cacdd1; font-weight: normal;}
 .module-share {background-color: #faf9f9;}
-
+.private-custom{ margin: 30px; background: url("../images/ims/fang.png")  no-repeat scroll center top / auto auto transparent;}
+.private-bg{ background: url("../images/ims/fang.png")  no-repeat scroll center bottom / auto auto transparent;}
+.private-text h2{ margin: 0;}
+.private-text{padding: 30px;}
 /*------------------------------Product Details----------------------------------*/
 
 .detail-imgbox{ border-radius: 5px; background:#eeeeee;}
