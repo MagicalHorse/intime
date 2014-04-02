@@ -36,7 +36,7 @@ class Ims::Giftcard < Ims::Base
   def self.transfer_detail(req, params = {})
     post(req, params.merge(path: 'giftcard/transfer_detail'))
     # TODO 上线前，删除下列测试代码
-    {"data"=>{phone: 18801122327, sender: "王鑫龙", comment: "喜欢吗，送给你", amount: 500, status: 0}, "isSuccessful"=>true, "statusCode"=>200, "message"=>"ok"}
+    {"data"=>{phone: 18801122329, sender: "王鑫龙", comment: "喜欢吗，送给你", amount: 500, status: 0}, "isSuccessful"=>true, "statusCode"=>200, "message"=>"ok"}
   end
 
   def self.recharge(req, params = {})
