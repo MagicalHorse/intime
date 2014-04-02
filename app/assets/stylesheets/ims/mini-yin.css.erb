@@ -535,9 +535,16 @@ h6 small {font-size: 10px; line-height: 16px;}
 
   .btn{border-radius: 2px;}
 }
-
-
-
+/*-------------------------------Css Bootm btn---------------------------------*/
+.bottom-btnbox{ position: fixed; bottom: 0; width: 640px; padding: 20px 0; background-color: #f2f1f1; text-align: center; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
+.bottom-btnbox .btn{ margin-right: 20px; width: 42%;}
+.bottom-btnbox .btn-block{ width: 90%;}
+.bottom-btnbox .btn:last-child{ margin-right: 0;}
+.bottom-btnbox form{margin: 0;}
+@media screen and (max-width: 580px) {
+.bottom-btnbox{width: 100%;padding: 10px 0;}
+.bottom-btnbox .btn{ margin-right: 10px; font-size: 14px; padding: 8px 12px;}
+}
 
 
 .wrap{max-width: 640px; margin:0 auto;}
@@ -618,11 +625,26 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .block-box{margin-top: 70px;}
 
 /*smail*/
-.module-user-card h1{ margin: 20px 0 40px; padding-left:74px; background: url(/images/ims/smail.png) left center no-repeat; line-height: 64px; }
+.module-user-card h1{ margin: 10px 0 20px;}
 /*---------------------------------------------Bottom Button------------------------------------------------*/
-.bottom-button{padding: 10px 15px; background: #f4eaed;}
+.bottom-button{
+  position: fixed;
+  bottom: 0;
+  width: 640px;
+  padding: 10px 15px;
+  background: #f4eaed;
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+}
 .bottom-button .controls-defined > .col-6{padding-right: 5px;}
 .bottom-button .controls-defined > .col-6:last-child{padding-left: 5px; padding-right: 0}
+
+/*---------------------------------smail-sad--------------------------------------------*/
+.smail-icon{ margin-right: 8px; display: inline-block; height: 64px; width: 64px; background: url(../images/smail.png) left center no-repeat transparent; vertical-align: middle;}
+.sad-icon{ margin-right: 8px; display: inline-block; height: 64px; width: 64px; background: url(../images/sad.png) left center no-repeat transparent; vertical-align: middle;}
+
+
 
 /*---------------------------------Tab--------------------------------------------*/
 .module-tab0{padding: 30px;}
@@ -644,13 +666,17 @@ footer{ position: fixed; bottom:0; width: 640px;}
 
 .txt-block{ background:url(/images/ims/right.png) 99% center no-repeat transparent;}
 .txt-block p{line-height: normal;}
+.collection-p p{margin: 5px 0 0; text-indent: 10px;}
 
 .tel-nun a {color: #ABADB3;}
 .module-tab0 .tel-nun a{color:#676767}
 
 @media screen and (max-width: 580px) {
-.module-user-card h1{ margin: 20px 0 30px; padding-left:40px; background-size: 30px auto; line-height: 30px; }
+.module-user-card h1{ background-size: 30px auto; line-height: 30px; }
 .txt-block{ background-size: 12px auto;}
+.bottom-button{ width: 100%;}
+.smail-icon{ margin-right: 4px; display: inline-block; height: 32px; width: 32px;background-size: 32px auto;}
+.sad-icon{ margin-right: 4px; display: inline-block; height: 32px; width: 32px;background-size: 32px auto;}
 }
 
 

@@ -21,4 +21,5 @@
 //= require jquery.validate.my.js
 //= require jquery.swipeshow.js
 //= require jquery.fileupload.js
+//= require ims/bootstrap-editable.js
 //= require_self

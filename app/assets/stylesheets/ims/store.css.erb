@@ -65,10 +65,8 @@
 .module-applications ol{ margin: 0; list-style-position: inside;}
 .module-applications ol li{ line-height: normal;}
 .module-applications .pay-h1{margin-bottom: 60px;}
-.module-applications .pay-h1 i{ margin-right: 4px; display: inline-block; height: 64px; width: 64px; background: url(/images/ims/smail.png) left center no-repeat transparent; vertical-align: middle;}
 /*---------------------------------Pay Fails--------------------------------------------*/
 .module-pay{ padding: 30px;}
-.module-pay .pay-h1 i{ margin-right: 4px; display: inline-block; height: 64px; width: 64px; background: url(/images/ims/sad.png) left center no-repeat transparent; vertical-align: middle;}
 .pay-link a{ text-decoration: underline;}
 .pay-link { margin-bottom: 100px;}
 /*---------------------------------Successful Deal--------------------------------------------*/
@@ -151,14 +149,26 @@
     }
 
  /*----------income list----------*/   
- .income-list .common-white div {
-    line-height: 37px;
-    height: 37px;
-    color: #636363;
-  }
-  .income-list .common-white div:last-child {
-    color: #f86b9f;         
-  }
+.income-list .common-white div {
+  line-height: 37px;
+  height: 37px;
+  color: #636363;
+}
+.income-list .common-white div:last-child {
+  color: #f86b9f;         
+}
+/*-----------recieve-list----------------------*/
+.recieve-list .common-white {
+  height: 93px;
+}
+.recieve-list .span3 {
+  height: 93px;
+  line-height: 93px;
+  color: #f86b9f;
+}
+.recieve-list .span3 span {
+  text-align: right;
+}
 
 
 @media screen and (max-width: 580px) {
@@ -198,11 +208,9 @@
 .block-button .btn{ margin-top: 35px;}
 .module-applications{padding: 15px;}
 .module-applications .pay-h1{margin-bottom: 30px;}
-.module-applications .pay-h1 i{ margin-right: 4px; display: inline-block; height: 32px; width: 32px;background-size: 32px auto;}
 /*---------------------------------Pay Fails--------------------------------------------*/
 .module-pay{ padding: 15px;}
 .module-pay .pay-h1{margin-bottom: 0;}
-.module-pay .pay-h1 i{ margin-right: 4px; display: inline-block; height: 32px; width: 32px;background-size: 32px auto;}
 .pay-link { margin-bottom: 50px;}
 
 /*---------------------------------Successful Deal--------------------------------------------*/
@@ -226,9 +234,6 @@
 
 .withdrawal-notice{ padding: 15px;}
 .withdrawal-notice .btn-block{ margin-top: 24px;}
-.module-withdrawal .form-defined .small-block{
-  font-size: 14px;
-}
 
 /*-------income----*/
 .income .common-white {
@@ -263,6 +268,15 @@
 .income-list .common-white div {
   line-height: 22px;
   height: 22px;
+}
+/*-----------recieve-list----------------------*/
+.recieve-list .common-white {
+  height: 73px;
+}
+.recieve-list .span3 {
+  height: 73px;
+  line-height: 73px;
+  color: #f86b9f;
 }
 
 }

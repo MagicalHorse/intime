@@ -1,3 +1,4 @@
+<% if false %>
 <%= form_for(:store, url: "/ims/store/stores/update", method: 'put', html: {id: "store_form"})  do |f| %>
  <p><%= f.text_field :name, placeholder: "名称" %></p>
  <p><%= f.file_field :pic, :onchange=>"preImg(this.id,'imgPre');" %>
@@ -6,41 +7,71 @@
  <p><%= f.text_field :phone, placeholder: "电话" %></p>
  <p><%= f.submit "修改" %></p>
 <% end %>
+<% end %>
+
+<div class="wrap-content">
+  <div class="module module-white min-height">
+    <div class="module common-white">
+      <div class="txt-block detail-contact shop-information">
+          <div class="row-fluid">
+          <div class="span8"><span class="txt2 shop-title">修改店铺LOGO</span></div>
+          <div class="span3 text-right">
+            <a href="#" id="logo"><img src="/images/ims/img800.jpg" class="img-rounded"></a>
+            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*"></div>
+          </div>
+          </div>
+      </div>
+    </div>
+    <div class="module common-white">
+      <div class="shop-information2 txt2">
+        <p class="clearfix"><span class="pull-left">店铺名称</span><span class="pull-right txt-grey"><a href="#" data-type="text" id="store_name">HQS-Happy</a></span></p>
+        <p class="clearfix"><span class="pull-left">电话</span><span class="pull-right txt-grey tel-nun"><a href="#" data-type="text" id="store_phone">15928696607</a></span></p>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <% content_for :javascripts do -%>
   <script type="text/javascript">
+   $(function(){
 
-    $("#store_form").validate({
-      rules: {
-        "store[name]": {
-          required: true,
-          maxlength: 20
-        },
-        "store[phone]": {
-          required: true
-        },
-        "store[pic]": {
-          required: true
-        }
+    $("#store_name").editable({
+      url: "",
+      title: "请输入店铺名称",
+      placement: 'left'
+    });
+
+    $("#store_phone").editable({
+      url: "",
+      title: "请输入店铺电话"
+    });
+
+   
+    $(".shop-information").click(function(){
+       document.getElementById("upfile").click();
+    });
+
+    $('#upfile').fileupload({
+      url: "<%= change_logo_ims_store_stores_path %>",
+      type: 'post',
+      dataType: 'json',
+
+      fileuploadfail: function(e, data){
+        alert(e);
       },
-      errorPlacement:function(error, element){
-        element.after(error)
+      fileuploadchunkfail: function(e, data){
+        alert(e);
+      },
+      done: function(e, data){
+        if(data.result['status'] == 1){
+          $("#logo").html("<img src="+data.result['img']+" class='img-rounded'/>")
+        }else{
+          alert("网络错误，请稍后重试");
+        }
+
       }
+     });
     })
-
-    function preImg(sourceId, targetId) {
-      if (typeof FileReader === 'undefined') {
-        alert('Your browser does not support FileReader...')
-        return
-      }
-      var reader = new FileReader()
-
-      reader.onload = function(e) {
-        var img = document.getElementById(targetId)
-        img.src = this.result
-      }
-      reader.readAsDataURL(document.getElementById(sourceId).files[0])
-    }
   </script>
 <% end -%>
