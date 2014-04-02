@@ -5,7 +5,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def edit
-  	
+  	@store = Ims::Store.show(request, {id: params[:id]}) 
   end
 
   def update
@@ -13,6 +13,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def show
+
   end
 
   def my

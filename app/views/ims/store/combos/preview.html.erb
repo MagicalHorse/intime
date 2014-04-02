@@ -33,7 +33,7 @@
         <div class="combos-product">
           <img src="<%= product.img_url %>">
           <p><span class="txt3">￥<%= product.price %></span></p>
-          <a class="btn btn-danger btn-mini btn-block" href="">点击购买</a>
+          <a class="btn btn-danger btn-mini btn-block" href="<%= new_ims_order_path(:product_id => product.remote_id) %>">点击购买</a>
         </div>
       </div>
       <% end %>
