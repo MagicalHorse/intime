@@ -22,7 +22,7 @@ class Ims::AccountsController < Ims::BaseController
     if @phone.blank?
       redirect_to phone_page_ims_accounts_path, notice: "请填写手机号"
       return
-    else 
+    else
       # API_NEED ： 判断手机号是否已经绑定
       is_binded = Ims::Giftcard.isbind(request, phone: @phone)[:is_binded]
       # 如果当前手机号是否是未注册用户，则判断是否有待充值的卡，否则跳转到填写手机号页面，通知他新用户不能绑定

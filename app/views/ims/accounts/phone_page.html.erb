@@ -18,9 +18,15 @@
   </div>
 </div>
 
+
+
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   $(function(){
+
+    <% if flash[:notice].present? %>
+      alert("<%= flash[:notice] %>")
+    <% end %>
 
     $("#phone_form").validate({
       rules: {

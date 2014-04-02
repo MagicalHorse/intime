@@ -37,6 +37,7 @@ class Ims::Giftcard < Ims::Base
 
   def self.latest_giftcard(req, params = {})
     post(req, params.merge(path: 'giftcard/latest_giftcard'))
+    # TODO 上线前，删除下列测试代码
     {"isSuccessful"=>true, "statusCode"=>200, "message"=>"ok", "data"=>{amount: 650, charge_no: "xxddyy", create_date: Time.now.to_s}}
   end
 
