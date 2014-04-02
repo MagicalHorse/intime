@@ -1,0 +1,38 @@
+<div class="module module-white min-height">
+  <div class="module-tab0 module-tab2">
+    <ul class="nav nav-tabs" id="myTab">
+      <li class="active"><%= link_to "店铺收藏", stores_list_ims_favorites_path %></li>
+      <li class=""><%= link_to "搭配收藏", combos_list_ims_favorites_path %></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="home">
+        <%= render "stores_list", stores_list: @stores %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= hidden_field_tag "page", 1 %>
+
+<% content_for :javascripts do %>
+<script>
+  $(function(){
+    $(window).scroll(function(){
+      var htmlHeight=document.body.scrollHeight
+      var clientHeight=document.body.clientHeight
+      var scrollTop=document.body.scrollTop
+      var page = parseInt($("#page").attr("value"))
+
+      if(scrollTop+clientHeight == htmlHeight){
+        $.get("/ims/favorites/stores_list", {page: page + 1}, function(data){
+          if(data["status"] == true){
+            $(".paginate-content:last").after(data["html"])
+            $("#page").attr("value", data["page"])
+          }
+        }, "json")
+      }
+
+    })
+  })
+</script>
+<% end %>

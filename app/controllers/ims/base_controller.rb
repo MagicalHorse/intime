@@ -32,7 +32,7 @@ class Ims::BaseController < ApplicationController
       :outsiteuid       => Settings.wx.open_id,
       :outsitetype      => 4,
       :outsitetoken     => Ims::Weixin.access_token
-    })
+      })
     session[:user_token] = user_hash[:data][:token]
     user = Ims::User.new({
       :id => user_hash[:data][:id],
@@ -71,20 +71,22 @@ class Ims::BaseController < ApplicationController
   def user_account_info
     # API_NEED: 获取当前的用户资金账号：
     data = Ims::Giftcard.my(request)[:data]
-    current_user.isbindcard = data[:is_binded]
-    current_user.card_no = data[:phone]
-    current_user.verified_phone = data[:phone]
-    current_user.amount = data[:amount]
-    
-    # 绑定用户-测试数据
-    # current_user.isbindcard = true
-    # current_user.card_no = 123123123
-    # current_user.verified_phone = 123123123
-    # current_user.other_phone = 123123123
 
-    # 未绑定用户-测试数据
-    current_user.isbindcard = false
+    if data.present?
+      current_user.isbindcard = data[:is_binded]
+      current_user.card_no = data[:phone]
+      current_user.verified_phone = data[:phone]
+      current_user.amount = data[:amount]
 
+      # 绑定用户-测试数据
+      # current_user.isbindcard = true
+      # current_user.card_no = 123123123
+      # current_user.verified_phone = 123123123
+      # current_user.other_phone = 123123123
+
+      # 未绑定用户-测试数据
+      current_user.isbindcard = false
+    end
   end
 
 end
