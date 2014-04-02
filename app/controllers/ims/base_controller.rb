@@ -60,11 +60,31 @@ class Ims::BaseController < ApplicationController
 
   # 验证手机号短信
   def validate_sms!
-    current_user.back_url = request.path
+    current_user.back_url = request.fullpath
     if current_user.other_phone
       return if (current_user.verified_other_phones || "").index current_user.other_phone.to_s
       redirect_to verify_phone_ims_accounts_path
     end
+  end
+
+  # 用户储值卡账户信息
+  def user_account_info
+    # API_NEED: 获取当前的用户资金账号：
+    data = Ims::Giftcard.my(request)[:data]
+    current_user.isbindcard = data[:is_binded]
+    current_user.card_no = data[:phone]
+    current_user.verified_phone = data[:phone]
+    current_user.amount = data[:amount]
+    
+    # 绑定用户-测试数据
+    # current_user.isbindcard = true
+    # current_user.card_no = 123123123
+    # current_user.verified_phone = 123123123
+    # current_user.other_phone = 123123123
+
+    # 未绑定用户-测试数据
+    current_user.isbindcard = false
+
   end
 
 end

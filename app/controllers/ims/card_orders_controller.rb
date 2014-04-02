@@ -11,7 +11,7 @@ class Ims::CardOrdersController < Ims::BaseController
 
   # 付款礼品卡
   def create
-    @out_trade_no = 'AF135GBGQS' #订单号
+    @out_trade_no = 'AF135GBGQS' #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
     @transport_fee = 0 #运费
     @product_fee = params[:price] #售价
     @total_fee = params[:price] #合计

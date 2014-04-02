@@ -9,8 +9,12 @@
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
-      <div class="col-6"><button class="btn btn-danger btn-large btn-block">进入礼品卡首页</button></div>
-      <div class="col-6"><button class="btn btn-grey btn-large btn-block">我要购卡</button></div>
+      <div class="col-6">
+        <a href="<%= mine_ims_accounts_path %>" class="btn btn-danger btn-large btn-block">进入礼品卡首页</a>
+      </div>
+      <div class="col-6">
+        <a href="<%= new_ims_card_order_path %>" class="btn btn-grey btn-large btn-block">我要购卡 </a>
+      </div>
     </div>
   </div>
 </div>
