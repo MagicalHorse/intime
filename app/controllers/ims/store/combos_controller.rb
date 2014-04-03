@@ -75,7 +75,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
 
   def add_img
     @combo = ::Combo.find(params[:id])
-    @image = Ims::Combo.upload_img(request, {:image => params[:img]})
+    @image = Ims::Combo.upload_img(request, {:image => params[:img], :image_type => 15})
 
     if @image[:isSuccessful]
       img = ComboPic.create({remote_id: @image[:data][:id], url: @image[:data][:url], :combo_id => @combo.id})
