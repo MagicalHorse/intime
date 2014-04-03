@@ -23,7 +23,7 @@
           </div>  
           <div class="module common-white module-grey">
               <div class="controls-defined defined-small">
-                <div class="col-12"><span class="txt-red">可提现金额 ￥200.00  元</span></div>
+                <div class="col-12"><span class="txt-red">可提现金额 ￥<%= @income[:data][:avail_amount] %>  元</span></div>
               </div>
           </div> 
           <div class="module common-white">
@@ -31,11 +31,9 @@
               <label class="col-4"><abbr class="txt-red">*</abbr>开户银行:</label>
               <div class="col-8">
                 <select name="bank">
-                  <option value="中国建设银行">中国建设银行</option>
-                  <option value="中国工商银行">中国工商银行</option>
-                  <option value="中国农业银行">中国农业银行</option>
-                  <option value="中国银行">中国银行</option>
-                  <option value="招商银行">招商银行</option>
+                  <% @banks[:data][:items].each do |item| %>
+                   <option value="<%=item["code"]%>"><%= item["name"] %></option>
+                  <% end %>
                 </select>
               </div>
             </div>
@@ -80,13 +78,13 @@
         "amount": {
           required: true
         },
-        "bank_id": {
+        "bank_no": {
           required: true
         },
-        "card_id": {
+        "bank": {
           required: true
         },
-        "name": {
+        "user_name": {
           required: true
         }
       },
