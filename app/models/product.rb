@@ -16,6 +16,7 @@ class Product < ActiveRecord::Base
   document_type DOCUMENT_TYPE
 
   def self.es_search(options={})
+    id = options[:id]
     from_discount = options[:from_discount]
     to_discount = options[:to_discount]
     from_price = options[:from_price]
@@ -96,6 +97,14 @@ class Product < ActiveRecord::Base
             end
           end
 
+          if id.present?
+            json.child! do
+              json.term do
+                json.id id
+              end
+            end
+          end
+
           json.child! do
             json.term do
               json.status 1
@@ -108,7 +117,6 @@ class Product < ActiveRecord::Base
         end
 
       end
-
 
       if keywords.present?
         json.query do
