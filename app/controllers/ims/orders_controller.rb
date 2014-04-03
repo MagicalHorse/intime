@@ -8,7 +8,8 @@ class Ims::OrdersController < Ims::BaseController
     # @product = {id: 1, image: "/images/1.jpg", price: 100.1, brand_id: 2, brand_name: "mockup品牌1",
     #   sales_code: "mockupsalescode1", sku_code: "sku_code", category_id: 1,
     #   category_name: "mockup分类1", size_str: '1111', size: [{size_id: 1, size_name: "mockup尺码1"}, {size_id: 2, size_name: "mockup尺码2"}]}
-    @sizes = Ims::ProductSize.list(request, category_id: @product[:category_id])
+    categories = Tag.es_search(category_id: @product[:category_id])[:data]
+    @sizes = categories.first.try(:sizes)
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     sign = {
