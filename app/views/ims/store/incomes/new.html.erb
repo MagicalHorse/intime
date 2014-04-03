@@ -1,14 +1,3 @@
-<% if false %>
-<%= form_tag ims_store_incomes_path, id: "income_form" do |f| %>
-<p>提现金额：<%= text_field_tag :amount %></p>
-<p>银行：<%= text_field_tag :bank_id %></p>
-<p>卡号：<%= text_field_tag :card_id %></p>
-<p>用户姓名：<%= text_field_tag :name %></p>
-<p><%= submit_tag "提交" %></p>
-<% end %>
-<% end %>
-
-
 <div class="wrap-content">
     <div class="module module-white">
       <div class="module-withdrawal">
@@ -23,7 +12,7 @@
           </div>  
           <div class="module common-white module-grey">
               <div class="controls-defined defined-small">
-                <div class="col-12"><span class="txt-red">可提现金额 ￥<%= @income[:data][:avail_amount] %>  元</span></div>
+                <div class="col-12"><span class="txt-red">可提现金额 ￥<span id="amount"><%= @income[:data][:avail_amount] %></span>  元</span></div>
               </div>
           </div> 
           <div class="module common-white">
@@ -64,11 +53,6 @@
     </div>
   </div>
 
-
-
-
-
-
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
@@ -76,7 +60,8 @@
     $("#income_form").validate({
       rules: {
         "amount": {
-          required: true
+          required: true,
+          dontMorethan: 'amount'
         },
         "bank_no": {
           required: true
@@ -87,6 +72,11 @@
         "user_name": {
           required: true
         }
+      },
+      messages:{
+        "amount": {required: '必须填写提取金额', dontMorethan: "提现额度不够"},
+        "bank_no": {required: '必须填写银行卡号'},
+        "user_name": {required: '必须填写开户姓名'}
       },
       errorPlacement:function(error, element){
         element.after(error)
