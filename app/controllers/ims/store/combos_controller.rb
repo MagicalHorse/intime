@@ -67,6 +67,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     end
 
     if @remote_combo[:isSuccessful]
+      @combo.destroy
       redirect_to ims_store_combo_path(id: @remote_combo[:data][:id])
     else
       render :action => :new
