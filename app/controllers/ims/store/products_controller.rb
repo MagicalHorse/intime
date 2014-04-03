@@ -44,7 +44,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2", :price => product[:data][:price], :combo_id => @combo.id})
       redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
     else
-      redirect_to new_ims_store_product_path
+      redirect_to new_ims_store_product_path(:combo_id => @combo.id)
     end
   end
 
@@ -72,8 +72,9 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def add_to_combo
     @combo = ::Combo.find(params[:combo_id])
-    # product = Ims::Product.find(request, {:id => params[:id]})
-    # ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2", :price => product[:data][:price], :combo_id => @combo.id})
+    product = Ims::Product.find(request, {:id => params[:id]})
+    binding.pry
+    ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2", :price => product[:data][:price], :combo_id => @combo.id})
     redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
   end
 
