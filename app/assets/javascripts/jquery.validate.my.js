@@ -1,10 +1,10 @@
 
 
 jQuery.validator.addMethod(
-  "dontEqualTo",
+  "dontMorethan",
   function(value, element, param) {
-    return this.optional(element) || value != $(param).val()
-  }, "不能和上面的值相等"
+    return this.optional(element) || value > $(param).val()
+  }, "不能大于上面的值"
 )
 
 jQuery.validator.addMethod(
