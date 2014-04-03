@@ -2,8 +2,10 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
-    @search = ::Product.es_search(per_page: params[:per_page], page: params[:page])
-    @products = @search[:data]
+    # @search = ::Product.es_search(per_page: params[:per_page], page: params[:page])
+    # @products = @search[:data]
+    @search = Ims::Product.list(request, page: params[:page], pagesize: params[:per_page])
+    @products = @search["data"]["items"]
     respond_to do |format|
       format.html{}
       format.json{render "list"}
@@ -73,7 +75,6 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def add_to_combo
     @combo = ::Combo.find(params[:combo_id])
     product = Ims::Product.find(request, {:id => params[:id]})
-    binding.pry
     ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2", :price => product[:data][:price], :combo_id => @combo.id})
     redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
   end
