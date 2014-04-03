@@ -23,7 +23,7 @@
             <button class="btn btn-mini btn-danger">编 辑</button>
           <% end %>
             <button class="btn btn-mini btn-danger button-select">
-            <a href="<%= add_to_combo_ims_store_product_path(:id => product["id"], :combo_id => combo.try(:id)) %>">选 择</a>
+            <a href="<%= add_to_combo_ims_store_product_path(:id => product["id"], :combo_id => combo.try(:id), :product_type => "2") %>">选 择</a>
             </button>
         </div>
        </div>

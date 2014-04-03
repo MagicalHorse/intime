@@ -148,6 +148,23 @@ class Product < ActiveRecord::Base
   end
 
 
+  def self.fetch_product(id)
+    data = self.es_search(id: id)[:data].first
+    r = data[:resource].first
+    image = self.img_url(r)
+
+    return {:data => {:id => data[:id], :price => data[:price], :image => image}}
+  end
+
+  def self.img_url(r)
+    if r.is_a?(::Hash) && (name = r[:name] || r['name']).present?
+      PIC_DOMAIN + name.to_s + '_320x0.jpg'
+    else
+      Settings.default_image_url.product.middle
+    end  
+  end
+
+
   def self.list_by_page(options={})
     #parse input params
     pageindex = options[:page]
