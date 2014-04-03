@@ -316,6 +316,7 @@ IntimeService::Application.routes.draw do
     resources :accounts, only: [:new, :create] do
       collection do
         get   :mine
+        get   :barcode
         get   :set_phone
         get   :phone_page
         get   :verify_identify_phone

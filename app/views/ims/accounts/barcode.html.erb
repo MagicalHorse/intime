@@ -1,0 +1,9 @@
+<div id="bcTarget"></div>
+
+<%= content_for :javascripts do %>
+<script>
+  $(function(){
+    $("#bcTarget").barcode("<%= current_user.card_no %>", "ean13");   
+  });
+</script>
+<% end %>

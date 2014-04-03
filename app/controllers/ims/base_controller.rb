@@ -86,6 +86,7 @@ class Ims::BaseController < ApplicationController
 
       # 未绑定用户-测试数据
       current_user.isbindcard = false
+      current_user.verified_phone = nil
     end
   end
 
