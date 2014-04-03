@@ -116,7 +116,7 @@
           <div class="controls-defined defined-small">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>分类：</label>
               <div class="col-8">
-              <%#= select_tag "category_id", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :category_id)), prompt: "请选择" %>
+              <%= select_tag "category_id", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :category_id)), prompt: "请选择" %>
               </div>
           </div>
 
@@ -126,16 +126,36 @@
             <%= select_tag "size_ids[]", options_for_select([]), multiple: "multiple", id: "size_ids" %>
           <% end if nil %>
 
+
           <div class="controls-defined defined-small" id="size_ids_wrapper" style="<%= @product.try(:[], :size).present? ? 'display: inline;' : 'display: none;' %>">
             <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
             <div class="col-8">
               <span class="goods-size">
+                <% if @product.try(:[], :size).present? %>
+                  <%= select_tag "size_ids[]", options_for_select(@sizes.collect{|obj| [obj[:name], obj[:id]]}, @product[:size].collect{|obj| obj[:size_id]}), multiple: "multiple", id: "size_ids" %>
+                <% else %>
+                  <%= select_tag "size_ids[]", options_for_select([]), multiple: "multiple", id: "size_ids" %>
+                <% end if nil %>
+
+                <% if nil %>
                 <a class="active" href="#">S</a>
                 <a href="#">M</a>
                 <a href="#">L</a>
                 <a href="#">XL</a>
                 <a href="#">XXL</a>
                 <a href="#">XXXL</a>
+                <% end %>
+
+                <% if @product.try(:[], :size).present? %>
+                  <% @sizes.each do |size| %>
+                    <% if @product[:size].collect{|obj| obj[:size_id]}.include?(size.id) %>
+                      <%= hidden_field_tag "size_ids[]", size.id %>
+                      <%= link_to size.name, "javascript:void(0);", value: size.id, class: "active" %>
+                    <% else %>
+                      <%= link_to size.name, "javascript:void(0);", value: size.id %>
+                    <% end %>
+                  <% end %>
+                <% end %>
               </span>
             </div>
           </div>
@@ -269,9 +289,11 @@
           if(data.length > 0){
             $("#size_ids_wrapper").show()
             $("#size_str_wrapper").hide()
-            $("#size_ids").html("")
+            $("#size_ids_wrapper .goods-size").html("")
             $.each(data, function(index, value){
-              $("#size_ids").append("<option value='"+value.id+"'>"+value.name+"</option>")
+              link = '<a href="javascript:void(0);" value="'+value.id+'">'+value.name+'</a>'
+              $("#size_ids_wrapper .goods-size").append(link)
+              // $("#size_ids").append("<option value='"+value.id+"'>"+value.name+"</option>")
             })
           }else{
             $("#size_ids_wrapper").hide()
@@ -280,6 +302,22 @@
         }, "json")
       }
     })
+
+    $(document).on("click", "#size_ids_wrapper .goods-size a", function(){
+      class_name = $(this).attr("class") || ""
+      size_id = $(this).attr("value")
+      if(class_name.indexOf('active') >= 0){
+        $(this).removeClass("active")
+        $("input[name='size_ids[]'][value='"+size_id+"']").remove()
+      }else{
+        $(this).addClass("active")
+        $(this).after('<input type="hidden" value="'+size_id+'" name="size_ids[]">')
+      }
+    })
+
+    <% if params[:action] == "new" %>
+      $("#category_id").trigger("change")
+    <% end %>
 
     function readFile(){
       var file = this.files[0];

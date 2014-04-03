@@ -12,13 +12,44 @@ class Tag < ActiveRecord::Base
 
   def self.es_search(options={})
 
-    query = nil
-    per_page = options[:per_page] || 20
-    page = options[:page] || 1
+    per_page = [options[:per_page], 20].find{|obj| obj.present?}.to_i
+    page = [options[:page], 1].find{|obj| obj.present?}.to_i
+    category_id = options[:category_id]
+
+    query = Jbuilder.encode do |json|
+
+      json.filter do
+
+        json.and do
+
+          if category_id.present?
+            json.child! do
+              json.term do
+                json.id category_id
+              end
+            end
+          end
+
+          json.child! do
+            json.term do
+              json.status 1
+            end
+          end
+
+        end
+
+      end
+
+
+      json.sort do
+        json.sortOrder "asc"
+      end
+    end
 
     result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1)*per_page, body: query
     mash = Hashie::Mash.new result
-    mash.hits.hits.collect(&:_source)
+    count = mash["hits"]["total"]
+    {count: count, page: page, per_page: per_page, data: mash.hits.hits.collect(&:_source)}
   end
 
   def self.list_all()
