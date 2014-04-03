@@ -153,7 +153,7 @@ class Product < ActiveRecord::Base
     r = data[:resource].first
     image = self.img_url(r)
 
-    return {:data => {:id => data[:id], :price => data[:price], :image => image}}
+    return {:data => {:id => data[:id], :price => data[:price], :image => image, :brand_name => data[:brand][:name], :category_name => data[:tag][:name]}}
   end
 
   def self.img_url(r)
