@@ -43,7 +43,7 @@
 .module-formbox .help-inlinetext { font-size: 21px; height: 34px; line-height: 34px;}
 .module-uploadimg{position: relative;}
 .module-uploadimg .title-link{position: absolute; bottom: 2%; white-space: nowrap;}
-
+.goods-describe input{width: 70%;}
 
 
 
