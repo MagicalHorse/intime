@@ -92,12 +92,10 @@
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>销售编码：</label>
               <div class="col-6">
                   <%= select_tag "coding_id", options_for_select(@codings, @product.try(:[], :sales_code)) %>
-            
               </div>
               <div class="col-2">
               <span>
               <%= link_to "添加", "#new_coding_form", "data-toggle" => "modal", class: "txt8 newly" %>
-
               </span>
               </div>
           </div>
@@ -105,7 +103,7 @@
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>货号：</label>
               <div class="col-8">
                 <%= text_field_tag "sku_code", @product.try(:[], :sku_code) %>
-               
+
               </div>
           </div>
 
@@ -118,8 +116,7 @@
           <div class="controls-defined defined-large">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>分类：</label>
               <div class="col-8">
-              <%= select_tag "category_id", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :category_id)), prompt: "请选择" %>
-              
+              <%#= select_tag "category_id", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :category_id)), prompt: "请选择" %>
               </div>
           </div>
 
@@ -129,25 +126,24 @@
             <%= select_tag "size_ids[]", options_for_select([]), multiple: "multiple", id: "size_ids" %>
           <% end if nil %>
 
-          <div class="controls-defined defined-large">
-              <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
-              <div class="col-8">
+          <div class="controls-defined defined-large" id="size_ids_wrapper" style="<%= @product.try(:[], :size).present? ? 'display: inline;' : 'display: none;' %>">
+            <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
+            <div class="col-8">
               <span class="goods-size">
-                      <a class="active" href="#">S</a>
-                      <a href="#">M</a>
-                      <a href="#">L</a>
-                      <a href="#">XL</a>
-                      <a href="#">XXL</a>
-                      <a href="#">XXXL</a>
-                  </span>
-              </div>
+                <a class="active" href="#">S</a>
+                <a href="#">M</a>
+                <a href="#">L</a>
+                <a href="#">XL</a>
+                <a href="#">XXL</a>
+                <a href="#">XXXL</a>
+              </span>
+            </div>
           </div>
 
-          <div class="controls-defined defined-large">
+          <div class="controls-defined defined-large" id="size_str_wrapper" style="<%= @product.try(:[], :size_str).present? ? 'display: line;' : 'display: none;' %>">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>规格：</label>
               <div class="col-8">
               <%= text_field_tag "size_str", @product.try(:[], :size_str), class: "form-textframe" %>
-              
               </div>
           </div>
 
@@ -160,13 +156,18 @@
 </div>
 
 
-<div id="new_coding_form" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="new_coding_form" class="modal hide fade form-horizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">销售编码 添加：</h3>
   </div>
   <div class="modal-body">
-    销售编码: <%= text_field_tag "coding", nil %>
+  <div class="control-group">
+    <label class="control-label">销售编码:</label>
+    <div class="controls">
+    <%= text_field_tag "coding", nil %>
+    </div>
+  </div>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
