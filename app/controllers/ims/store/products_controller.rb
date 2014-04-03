@@ -92,11 +92,9 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   protected
 
   def product_relation_data
-    # @brands = Ims::ProductBrand.list(request)["data"]["items"]
     @brands = Brand.es_search
-    @categories = Ims::ProductCategory.list(request)["data"]["items"]
+    # @categories = Ims::ProductCategory.list(request)["data"]["items"]
     @codings = Ims::ProductCoding.list(request)["data"]["items"]
-    # @sizes = @categories.first["sizes"]
   end
 
 end
