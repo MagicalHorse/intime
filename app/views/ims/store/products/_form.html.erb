@@ -156,13 +156,18 @@
 </div>
 
 
-<div id="new_coding_form" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="new_coding_form" class="modal hide fade form-horizontal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">销售编码 添加：</h3>
   </div>
   <div class="modal-body">
-    销售编码: <%= text_field_tag "coding", nil %>
+  <div class="control-group">
+    <label class="control-label">销售编码:</label>
+    <div class="controls">
+    <%= text_field_tag "coding", nil %>
+    </div>
+  </div>
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
