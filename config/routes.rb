@@ -421,7 +421,15 @@ IntimeService::Application.routes.draw do
 
       resources :orders, only: [:index, :show]
     end
-
+    
+    # weixin self defined menu
+    resource :weixin,only:[] do
+      member do
+        get 'menu',to: :verify
+        post 'menu', to: :message
+        get :access_token
+      end
+    end
   end
 
   get 'payment/callback', to: 'front/orders#pay_callback'
