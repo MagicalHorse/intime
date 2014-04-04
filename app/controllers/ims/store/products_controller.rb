@@ -23,9 +23,9 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def edit
     @product = Ims::Product.find(request, {id: params[:id]})
-    @product = {id: 1, image: "/images/1.jpg", price: 100.1, brand_id: 2, brand_name: "mockup品牌1",
-      sales_code: "mockupsalescode1", sku_code: "sku_code", category_id: 1,
-      category_name: "mockup分类1", size_str: '1111', size: [{size_id: 21, size_name: "mockup尺码1"}, {size_id: 22, size_name: "mockup尺码2"}]}
+    # @product = {id: 1, image: "/images/1.jpg", price: 100.1, brand_id: 2, brand_name: "mockup品牌1",
+    #   sales_code: "mockupsalescode1", sku_code: "sku_code", category_id: 1,
+    #   category_name: "mockup分类1", size_str: '1111', size: [{size_id: 21, size_name: "mockup尺码1"}, {size_id: 22, size_name: "mockup尺码2"}]}
     @sizes = Tag.es_search(category_id: @product[:category_id])[:data].try(:first).try(:sizes)
     product_relation_data
   end
@@ -43,8 +43,10 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       size_ids: params["size_ids"]
     })
     if product["isSuccessful"]
-      ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2", :price => product[:data][:price], :combo_id => @combo.id})
-      redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id))
+      ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
+       :price => product[:data][:price], :combo_id => @combo.id,
+       :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
+      redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
     else
       redirect_to new_ims_store_product_path(:combo_id => @combo.try(:id))
     end
@@ -74,8 +76,17 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def add_to_combo
     @combo = ::Combo.find(params[:combo_id])
+<<<<<<< HEAD
     product = Ims::Product.find(request, {:id => params[:id]})
     ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2", :price => product[:data][:price], :combo_id => @combo.id})
+=======
+
+    product = params[:product_type] == "2" ? Ims::Product.find(request, {:id => params[:id]}) : ::Product.fetch_product(params[:id])
+    ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image],
+      :product_type => params[:product_type], :price => product[:data][:price], :combo_id => @combo.id,
+      :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
+
+>>>>>>> 43db3c8793cdb0827e7fbc7b27c09fade2d08029
     redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
   end
 

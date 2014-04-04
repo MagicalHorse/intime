@@ -394,6 +394,7 @@ IntimeService::Application.routes.draw do
           put 'add_img'
           put 'update_desc'
           get 'preview'
+          get 'update_desc'
         end
         collection do
           get :tutorials

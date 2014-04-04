@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140327012107) do
+ActiveRecord::Schema.define(:version => 20140403140157) do
 
   create_table "auth_keys", :force => true do |t|
     t.string   "private"
@@ -67,9 +67,11 @@ ActiveRecord::Schema.define(:version => 20140327012107) do
     t.integer  "combo_id"
     t.string   "img_url"
     t.string   "product_type"
-    t.decimal  "price",        :precision => 10, :scale => 1
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
+    t.decimal  "price",         :precision => 10, :scale => 1
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.string   "brand_name"
+    t.string   "category_name"
   end
 
   create_table "combos", :force => true do |t|

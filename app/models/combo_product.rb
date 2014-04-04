@@ -1,5 +1,5 @@
 class ComboProduct < ActiveRecord::Base
-  attr_accessible :remote_id, :combo_id, :img_url, :product_type, :price
+  attr_accessible :remote_id, :combo_id, :img_url, :product_type, :price, :brand_name, :category_name
 
   belongs_to :combo
 
