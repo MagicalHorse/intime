@@ -14,8 +14,8 @@
                                         <a href="#"><i class="hd btn-tel"></i><span>联系店主</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="hd btn-star"></i><span>收藏店铺</span></a>
-                                         <!-- <a href="#"><i class="hd btn-star-active"></i><span>已收藏</span></a> -->
+                                        <a href="javascript:void(0)" id="favor_store"><i class="hd btn-star"></i><span>收藏店铺</span></a>
+                                        <a href="javascript:void(0)" id="unfavor_store"><i class="hd btn-star-active"></i><span>已经收藏</span></a>
                                     </li>
                                     <li>
                                         <a href="#"><i class="hd btn-share"></i><span>分享给好友</span></a>
@@ -41,7 +41,7 @@
                 <p><a href="#"><%= card["Desc"] %></a></p>
                 <div class="clearfix">
                     <p class="pull-left price-box">
-                        <span><button type="button" class="btn btn-danger btn-small">点击购买</button></span>
+                        <span><a type="button" class="btn btn-danger btn-small" href="<%= new_ims_card_order_path %>?store_id=<%= @store[:data][:id] %>">点击购买</a></span>
                     </p>
                     <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
                 </div>
@@ -93,3 +93,35 @@
 
         
 	</div>
+
+<%= content_for :javascripts do %>
+<script>
+  $(function(){
+    <% if true %>
+    $("#unfavor_store").hide();
+    <% else %>
+    $("#favor_store").hide();
+    <% end %>
+
+    $("#favor_store").click(function(){
+        $.post("/ims/favorites/favor", {
+            id: "<%= @store[:data][:id] %>",
+            type: "1"
+        },function(){});
+        $("#favor_store").hide();
+        $("#unfavor_store").show();
+    })
+
+    $("#unfavor_store").click(function(){
+        $.post("/ims/favorites/unfavor", {
+            id: "<%= @store[:data][:id] %>",
+            type: "1"
+        },function(){});
+        $("#unfavor_store").hide();
+        $("#favor_store").show();
+    })
+
+
+  });
+</script>
+<% end %>
