@@ -6,6 +6,7 @@
 .shop-name{color: #7d022f;}
 .module-title h3{ color: #676767; background-color: #ece9ea;}
 .module-content p a{color:#676767;}
+.module-content p a.btn{color:#ffffff; line-height: 20px;}
 .share-link{ background-color: #f86b9f;}
 .share-link i{ color: #ffffff;}
 .price-box em{ color: #f86b9f;}
