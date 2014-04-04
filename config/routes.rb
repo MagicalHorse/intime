@@ -354,8 +354,8 @@ IntimeService::Application.routes.draw do
       collection do
         get  :stores_list
         get  :combos_list
-        post :create
-        post :destroy
+        post :favor
+        post :unfavor
       end
     end
     resources :recharge_histroy, only: [:index]

@@ -8,15 +8,17 @@ class Ims::FavoritesController < Ims::BaseController
     @combos = Ims::UserApi.favor_combo(request, {page: (params[:page] || 1)} )["data"]["items"]
   end
   
-  def create
+  def favor
     # API_NEED: 添加到列表
     # 添加收藏的ajax
     Ims::UserApi.favor(request, type: params[:type], id: params[:id])
+    render nothing: true
   end
   
-  def destroy
+  def unfavor
     # API_NEED: 删除收藏
     # 删除收藏的ajax
     Ims::UserApi.unfavor(request, type: params[:type], id: params[:id])
+    render nothing: true
   end
 end

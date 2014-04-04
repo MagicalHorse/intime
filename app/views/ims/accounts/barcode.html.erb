@@ -19,7 +19,7 @@
 <%= content_for :javascripts do %>
 <script>
   $(function(){
-    $("#bcTarget").barcode("<%= current_user.card_no %>", "code11", {barWidth:2, barHeight:30});   
+    $("#bcTarget").barcode("<%= current_user.card_no %>", "code128", {barWidth:2, barHeight:80});   
   });
 </script>
 <% end %>
