@@ -5,7 +5,7 @@
     <td>
       <p>礼品卡卡号：<span class="tel-nun"><%= item[:card_no] %></span></p>
       <p class="txt-red">充值金额：<%= item[:amount] %>元</p>
-      <p>状态：<%= item[:status_i] %></p>
+      <p>状态：<%= card_orders_status item[:status_i] %></p>
       <p>接收时间：<%= item[:receive_date] %></p>
       <p>来源：<span class="tel-nun"><%= item[:verify_phone] %></span></p>
     </td>

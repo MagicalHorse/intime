@@ -1,0 +1,1 @@
+{"status": true, "page": <%= @search_combo[:data][:pageindex] %>, "per_page": <%= @search_combo[:data][:pagesize] %>, "count": <%= @search_combo[:data][:totalcount] %>, "html": <%=raw render("combo_list.html.erb", combos: @combos).to_json %> }

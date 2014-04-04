@@ -1,0 +1,15 @@
+<% gift_cards.each do |card| %>
+<div class="module common-white gift_card_paginate-content">
+  <div class="txt-block detail-contact">
+      <div class="row-fluid">
+        <div class="span3"><%= image_tag "/images/1.jpg" %></div>
+        <div class="span9 collection-p">
+          <p class="txt2 txt-red"><%= card["desc"] %></p>
+          <p class="txt2 tel-nun">
+          <%= link_to card["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: card["id"], item_type: 1 %>
+          </p>
+        </div>
+      </div>
+  </div>
+</div>
+<% end %>

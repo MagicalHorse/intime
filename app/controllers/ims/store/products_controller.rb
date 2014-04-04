@@ -42,6 +42,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       size_str: params["size_str"],
       size_ids: params["size_ids"]
     })
+
+    binding.pry
     if product["isSuccessful"]
       ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
        :price => product[:data][:price], :combo_id => @combo.id,
@@ -76,17 +78,12 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def add_to_combo
     @combo = ::Combo.find(params[:combo_id])
-<<<<<<< HEAD
-    product = Ims::Product.find(request, {:id => params[:id]})
-    ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2", :price => product[:data][:price], :combo_id => @combo.id})
-=======
 
     product = params[:product_type] == "2" ? Ims::Product.find(request, {:id => params[:id]}) : ::Product.fetch_product(params[:id])
     ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image],
       :product_type => params[:product_type], :price => product[:data][:price], :combo_id => @combo.id,
       :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
 
->>>>>>> 43db3c8793cdb0827e7fbc7b27c09fade2d08029
     redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
   end
 

@@ -2,46 +2,19 @@
   <div class="module module-white min-height">
     <div class="module-tab0 module-tab2">
       <ul id="myTab" class="nav nav-tabs">
-        <li class="active"><a href="#home">礼品卡</a></li>
-        <li class=""><a href="#profile">商品搭配</a></li>
+        <li class="active"><a href="#gift_cards">礼品卡</a></li>
+        <li class=""><a href="#combos">商品搭配</a></li>
       </ul>
 
       <div class="tab-content">
-        <div id="home" class="tab-pane active">
+        <div id="gift_cards" class="tab-pane active">
           <div class="module-table-box module-record">
-          <% @gift_cards.each do |card| %>
-          <div class="module common-white">
-            <div class="txt-block detail-contact">
-                <div class="row-fluid">
-                  <div class="span3"><%= image_tag "/image/1.jpg" %></div>
-                  <div class="span9 collection-p">
-                    <p class="txt2 txt-red"><%= card["desc"] %></p>
-                    <p class="txt2 tel-nun">
-                    <%= link_to card["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: card["id"], item_type: 1 %>
-                    </p>
-                  </div>
-                </div>
-            </div>
-          </div>
-          <% end %>
+            <%= render "gift_card_list", gift_cards: @gift_cards %>
           </div>
         </div>
-        <div id="profile" class="tab-pane">
+        <div id="combos" class="tab-pane">
           <div class="module-table-box module-record">
-          <% @combos.each do |combo| %>
-            <div class="module common-white">
-              <div class="txt-block detail-contact">
-                  <div class="row-fluid">
-                    <div class="span3"><%= image_tag "/images/1.jpg" %></div>
-                    <div class="span9 collection-p">
-                      <p class="txt2"><%= link_to combo["desc"], new_ims_store_combo_path(combo["id"]) %></p>
-                      <p class="txt2 txt-red"><span class="txt-grey">组合价：</span>￥<%= combo["price"] %></p>
-                      <%= link_to combo["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: combo["id"], item_type: 2 %>
-                    </div>
-                  </div>
-              </div>
-            </div>
-          <% end %>
+          <%= render "combo_list", combos: @combos %>
           <%= link_to '添加搭配商品', new_ims_store_combo_path %>
           </div>
         </div>
@@ -50,15 +23,66 @@
   </div>
 </div>
 
+<%= hidden_field_tag "gift_card_count", @search_gift_card[:data][:totalcount] %>
+<%= hidden_field_tag "gift_card_page", @search_gift_card[:data][:pageindex] %>
+<%= hidden_field_tag "gift_card_per_page", @search_gift_card[:data][:pagesize] %>
+
+<%= hidden_field_tag "combo_count", @search_combo[:data][:totalcount] %>
+<%= hidden_field_tag "combo_page", @search_combo[:data][:pageindex] %>
+<%= hidden_field_tag "combo_per_page", @search_combo[:data][:pagesize] %>
 
 
 <% content_for :javascripts do %>
 <script>
   $(function(){
 
+    $(window).scroll(function(){
+      var htmlHeight=document.body.scrollHeight
+      var clientHeight=document.body.clientHeight
+      var scrollTop=document.body.scrollTop
+
+      if(scrollTop+clientHeight == htmlHeight){
+
+        if($("#gift_cards").attr("class").indexOf("active") >= 0){
+          var count = parseInt($("#gift_card_count").attr("value"))
+          var page = parseInt($("#gift_card_page").attr("value"))
+          var per_page = parseInt($("#gift_card_per_page").attr("value"))
+          if(page * per_page < count){
+            $.get("/ims/store/sells", {gift_card_page: page + 1, gift_card_per_page: per_page}, function(data){
+              if(data["status"] == true){
+                $(".gift_card_paginate-content:last").after(data["html"])
+                $("#gift_card_count").attr("value", data["count"])
+                $("#gift_card_page").attr("value", data["page"])
+                $("#gift_card_per_page").attr("value", data["per_page"])
+              }
+            }, "json")
+          }
+        }else if($("#combos").attr("class").indexOf("active") >= 0){
+          var count = parseInt($("#combo_count").attr("value"))
+          var page = parseInt($("#combo_page").attr("value"))
+          var per_page = parseInt($("#combo_per_page").attr("value"))
+          if(page * per_page < count){
+            $.get("/ims/store/sells", {combo_page: page + 1, combo_per_page: per_page}, function(data){
+              if(data["status"] == true){
+                $(".combo_paginate-content:last").after(data["html"])
+                $("#combo_count").attr("value", data["count"])
+                $("#combo_page").attr("value", data["page"])
+                $("#combo_per_page").attr("value", data["per_page"])
+              }
+            }, "json")
+          }
+        }
+
+      }
+
+
+
+
+    })
+
     $('#myTab a').click(function (e) {
-    e.preventDefault();
-    $(this).tab('show');
+      e.preventDefault()
+      $(this).tab('show')
     })
 
     $(document).on("click", ".card_or_combo", function(){
