@@ -78,8 +78,7 @@
           </div>
 
 
-          <% if @product.try(:[], :size).present? && @product[:size_type] == 1 %>
-          <div class="controls-defined defined-small" id="size_ids_wrapper" style="<%= @product.try(:[], :size).present? ? 'display: inline;' : 'display: none;' %>">
+          <div class="controls-defined defined-small" id="size_ids_wrapper" style="<%= @product.try(:[], :size).present? && @product[:size_type] == 1 ? 'display: inline;' : 'display: none;' %>">
             <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
             <div class="col-8">
               <span class="goods-size">
@@ -91,16 +90,15 @@
                     <% else %>
                       <%= link_to size.size_name, "javascript:void(0);", value: size.size_id %>
                     <% end %>
-                  <% end %>
+                  <% end if @sizes.present? && @sizes.is_a?(Array) %>
               </span>
             </div>
           </div>
-          <% end %>
 
-          <div class="controls-defined defined-small" id="size_str_wrapper" style="<%= @product[:size_type] == 3 ? 'display: line;' : 'display: none;' %>">
+          <div class="controls-defined defined-small" id="size_str_wrapper" style="<%= @product.try(:[], :size_type) == 2 ? 'display: line;' : 'display: none;' %>">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>规格：</label>
               <div class="col-8">
-              <%= text_field_tag "size_str", @product[:size].try(:first).try(:[], :size_name), class: "form-textframe" %>
+              <%= text_field_tag "size_str", @product.try(:[], :size).try(:first).try(:[], :size_name) : nil, class: "form-textframe" %>
               </div>
           </div>
 
