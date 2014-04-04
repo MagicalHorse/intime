@@ -10,7 +10,7 @@
               </ol>
               <!-- Carousel items -->
               <div class="carousel-inner slides">
-                <% @remote_combo[:data][:image].each_with_index do |src, i| %>
+                <% @remote_combo[:data][:images].each_with_index do |src, i| %>
                   <div class="item slide <%= 'active' if i == 0 %>"><img src="<%= src %>"></div>
                 <% end %>
               </div>

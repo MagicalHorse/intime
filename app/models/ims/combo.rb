@@ -6,7 +6,7 @@ class Ims::Combo < Ims::Base
    end
 
    def create(req, params={})
-   	 post(req, params.merge(path: 'combo/create'))
+   	 post(req, params.merge(path: 'combo/create', content_type: :json))
    end
 
    def show(req, params = {})

@@ -66,10 +66,10 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     else
       @remote_combo = Ims::Combo.create(request, @combo.api_attrs)
     end
-
+    binding.pry
     if @remote_combo[:isSuccessful]
       @combo.destroy
-      redirect_to ims_store_combo_path(id: @remote_combo[:data][:id])
+      redirect_to ims_store_combo_path(id: @remote_combo[:data][:combo_id])
     else
       render :action => :new
     end  
