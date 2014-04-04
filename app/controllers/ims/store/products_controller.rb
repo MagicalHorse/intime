@@ -22,10 +22,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def edit
-    @product = Ims::Product.find(request, {id: params[:id]})
-    # @product = {id: 1, image: "/images/1.jpg", price: 100.1, brand_id: 2, brand_name: "mockup品牌1",
-    #   sales_code: "mockupsalescode1", sku_code: "sku_code", category_id: 1,
-    #   category_name: "mockup分类1", size_str: '1111', size: [{size_id: 21, size_name: "mockup尺码1"}, {size_id: 22, size_name: "mockup尺码2"}]}
+    @product = Ims::Product.find(request, {id: params[:id]})["data"]
     @sizes = Tag.es_search(category_id: @product[:category_id])[:data].try(:first).try(:sizes)
     product_relation_data
   end
