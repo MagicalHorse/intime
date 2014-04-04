@@ -2,31 +2,17 @@
   <div class="module module-white min-height">
     <div class="module-tab0 module-tab2">
       <ul id="myTab" class="nav nav-tabs">
-        <li class="active"><a href="#home">礼品卡</a></li>
-        <li class=""><a href="#profile">商品搭配</a></li>
+        <li class="active"><a href="#gift_cards">礼品卡</a></li>
+        <li class=""><a href="#combos">商品搭配</a></li>
       </ul>
 
       <div class="tab-content">
-        <div id="home" class="tab-pane active">
+        <div id="gift_cards" class="tab-pane active">
           <div class="module-table-box module-record">
-          <% @gift_cards.each do |card| %>
-          <div class="module common-white">
-            <div class="txt-block detail-contact">
-                <div class="row-fluid">
-                  <div class="span3"><%= image_tag "/image/1.jpg" %></div>
-                  <div class="span9 collection-p">
-                    <p class="txt2 txt-red"><%= card["desc"] %></p>
-                    <p class="txt2 tel-nun">
-                    <%= link_to card["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: card["id"], item_type: 1 %>
-                    </p>
-                  </div>
-                </div>
-            </div>
-          </div>
-          <% end %>
+            <%= render "gift_card_list", gift_cards: @gift_cards %>
           </div>
         </div>
-        <div id="profile" class="tab-pane">
+        <div id="combos" class="tab-pane">
           <div class="module-table-box module-record">
           <% @combos.each do |combo| %>
             <div class="module common-white">
@@ -50,15 +36,53 @@
   </div>
 </div>
 
+<%= hidden_field_tag "gift_card_count", @search_gift_card[:data][:totalcount] %>
+<%= hidden_field_tag "gift_card_page", @search_gift_card[:data][:pageindex] %>
+<%= hidden_field_tag "gift_card_per_page", @search_gift_card[:data][:pagesize] %>
 
 
 <% content_for :javascripts do %>
 <script>
   $(function(){
 
+    $(window).scroll(function(){
+      var htmlHeight=document.body.scrollHeight
+      var clientHeight=document.body.clientHeight
+      var scrollTop=document.body.scrollTop
+
+      console.info(htmlHeight)
+      console.info(clientHeight)
+      console.info(scrollTop)
+      console.info($("#gift_cards").attr("class").indexOf("active"))
+
+      if(scrollTop+clientHeight == htmlHeight){
+        var count = parseInt($("#gift_card_count").attr("value"))
+        var page = parseInt($("#gift_card_page").attr("value"))
+        var per_page = parseInt($("#gift_card_per_page").attr("value"))
+
+        if($("#gift_cards").attr("class").indexOf("active") >= 0){
+          if(page * per_page < count){
+            $.get("/ims/store/sells", {page: page + 1, per_page: per_page}, function(data){
+              if(data["status"] == true){
+                $(".gift_card_paginate-content:last").after(data["html"])
+                $("#gift_card_count").attr("value", data["count"])
+                $("#gift_card_page").attr("value", data["page"])
+                $("#gift_card_per_page").attr("value", data["per_page"])
+              }
+            }, "json")
+          }
+        }
+
+      }
+
+
+
+
+    })
+
     $('#myTab a').click(function (e) {
-    e.preventDefault();
-    $(this).tab('show');
+      e.preventDefault()
+      $(this).tab('show')
     })
 
     $(document).on("click", ".card_or_combo", function(){

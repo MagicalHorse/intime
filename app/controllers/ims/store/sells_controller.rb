@@ -1,8 +1,14 @@
 class Ims::Store::SellsController < Ims::Store::BaseController
 
   def index
-    @gift_cards = Ims::Giftcard.all(request, pagesize: 5)["data"]["items"]
-    @combos = Ims::Combo.list(request)["data"]["items"]
+    @search_gift_card = Ims::Giftcard.all(request, page: params[:page], pagesize: params[:per_page])
+    @gift_cards = @search_gift_card["data"]["items"]
+    @search_combo = Ims::Combo.list(request)
+    @combos = @search_combo["data"]["items"]
+    respond_to do |format|
+      format.html{}
+      format.json{render "gift_card_list"}
+    end
   end
 
   def update_is_online
