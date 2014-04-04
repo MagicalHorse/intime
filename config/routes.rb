@@ -423,7 +423,7 @@ IntimeService::Application.routes.draw do
 
       resources :orders, only: [:index, :show]
     end
-    
+
     # weixin self defined menu
     resource :weixin,only:[] do
       member do

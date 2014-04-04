@@ -4,7 +4,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
     # @search = ::Product.es_search(per_page: params[:per_page], page: params[:page])
     # @products = @search[:data]
-    @search = Ims::Product.list(request, page: params[:page], pagesize: params[:per_page])
+    @search = Ims::Product.list(request, page: params[:page], pagesize: params[:per_page] || 5)
     @products = @search["data"]["items"]
     respond_to do |format|
       format.html{}
