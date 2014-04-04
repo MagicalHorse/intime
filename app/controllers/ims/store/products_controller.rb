@@ -4,7 +4,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
     # @search = ::Product.es_search(per_page: params[:per_page], page: params[:page])
     # @products = @search[:data]
-    @search = Ims::Product.list(request, page: params[:page], pagesize: params[:per_page])
+    @search = Ims::Product.list(request, page: params[:page], pagesize: params[:per_page] || 5)
     @products = @search["data"]["items"]
     respond_to do |format|
       format.html{}
@@ -43,12 +43,11 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       size_ids: params["size_ids"]
     })
 
-    binding.pry
     if product["isSuccessful"]
       ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
-       :price => product[:data][:price], :combo_id => @combo.id,
+       :price => product[:data][:price], :combo_id => @combo.try(:id),
        :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
-      redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
+      redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id))
     else
       redirect_to new_ims_store_product_path(:combo_id => @combo.try(:id))
     end
