@@ -77,50 +77,28 @@
               </div>
           </div>
 
-          <% if @product.try(:[], :size).present? %>
-            <%= select_tag "size_ids[]", options_for_select(@sizes.collect{|obj| [obj[:name], obj[:id]]}, @product[:size].collect{|obj| obj[:size_id]}), multiple: "multiple", id: "size_ids" %>
-          <% else %>
-            <%= select_tag "size_ids[]", options_for_select([]), multiple: "multiple", id: "size_ids" %>
-          <% end if nil %>
 
-
-          <div class="controls-defined defined-small" id="size_ids_wrapper" style="<%= @product.try(:[], :size).present? ? 'display: inline;' : 'display: none;' %>">
+          <div class="controls-defined defined-small" id="size_ids_wrapper" style="<%= @product.try(:[], :size).present? && @product[:size_type] == 1 ? 'display: inline;' : 'display: none;' %>">
             <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
             <div class="col-8">
               <span class="goods-size">
-                <% if @product.try(:[], :size).present? %>
-                  <%= select_tag "size_ids[]", options_for_select(@sizes.collect{|obj| [obj[:name], obj[:id]]}, @product[:size].collect{|obj| obj[:size_id]}), multiple: "multiple", id: "size_ids" %>
-                <% else %>
-                  <%= select_tag "size_ids[]", options_for_select([]), multiple: "multiple", id: "size_ids" %>
-                <% end if nil %>
 
-                <% if nil %>
-                <a class="active" href="#">S</a>
-                <a href="#">M</a>
-                <a href="#">L</a>
-                <a href="#">XL</a>
-                <a href="#">XXL</a>
-                <a href="#">XXXL</a>
-                <% end %>
-
-                <% if @product.try(:[], :size).present? %>
                   <% @sizes.each do |size| %>
-                    <% if @product[:size].collect{|obj| obj[:size_id]}.include?(size.id) %>
-                      <%= hidden_field_tag "size_ids[]", size.id %>
-                      <%= link_to size.name, "javascript:void(0);", value: size.id, class: "active" %>
+                    <% if @product[:size].collect{|obj| obj[:size_id]}.include?(size.size_id) %>
+                      <%= hidden_field_tag "size_ids[]", size.size_id %>
+                      <%= link_to size.size_name, "javascript:void(0);", value: size.size_id, class: "active" %>
                     <% else %>
-                      <%= link_to size.name, "javascript:void(0);", value: size.id %>
+                      <%= link_to size.size_name, "javascript:void(0);", value: size.size_id %>
                     <% end %>
-                  <% end %>
-                <% end %>
+                  <% end if @sizes.present? && @sizes.is_a?(Array) %>
               </span>
             </div>
           </div>
 
-          <div class="controls-defined defined-small" id="size_str_wrapper" style="<%= @product.try(:[], :size_str).present? ? 'display: line;' : 'display: none;' %>">
+          <div class="controls-defined defined-small" id="size_str_wrapper" style="<%= @product.try(:[], :size_type) == 2 ? 'display: line;' : 'display: none;' %>">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>规格：</label>
               <div class="col-8">
-              <%= text_field_tag "size_str", @product.try(:[], :size_str), class: "form-textframe" %>
+              <%= text_field_tag "size_str", @product.try(:[], :size).try(:first).try(:[], :size_name), class: "form-textframe" %>
               </div>
           </div>
 

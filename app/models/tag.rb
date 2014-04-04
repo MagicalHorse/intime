@@ -12,7 +12,7 @@ class Tag < ActiveRecord::Base
 
   def self.es_search(options={})
 
-    per_page = [options[:per_page], 20].find{|obj| obj.present?}.to_i
+    per_page = [options[:per_page], 10000].find{|obj| obj.present?}.to_i
     page = [options[:page], 1].find{|obj| obj.present?}.to_i
     category_id = options[:category_id]
 
