@@ -17,4 +17,8 @@ class Ims::UserApi < Ims::Base
     post(req, params.merge(path: "user/favor_combo"))
   end
 
+  def self.latest_giftcard(req, params = {})
+    post(req, params.merge(path: 'user/latest_giftcard'))
+  end
+
 end

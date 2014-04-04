@@ -317,13 +317,14 @@ IntimeService::Application.routes.draw do
       collection do
         get   :mine
         get   :barcode
-        get   :set_phone
         get   :phone_page
         get   :verify_identify_phone
         get   :verfiy_identify_sms_code
         get   :verify_phone
         get   :verfiy_sms_code
         post  :resend_sms
+        get   :set_identity_no_page
+        get   :set_identity_no
         get   :reset_password_page
         get   :reset_password
         get   :change_password_page

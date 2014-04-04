@@ -2,6 +2,7 @@
 class Ims::AccountsController < Ims::BaseController
   before_filter :user_account_info, only: [:mine, :barcode]
   before_filter :validate_verified_phone!, only: [:new, :create]
+  before_filter :validate_identity_no!, only: [:new, :create]
   before_filter :validate_sms!, only: [:reset_password_page, :reset_password]
   before_filter :isbindcard!, only: [:phone_page, :verify_identify_phone]
   layout "ims/user"
@@ -26,11 +27,11 @@ class Ims::AccountsController < Ims::BaseController
       redirect_to phone_page_ims_accounts_path, notice: "请填写手机号"
       return
     else
+      current_user.identify_phone = params[:phone] if params[:phone].present?
       unless @phone[/^\d{11}$/]
         redirect_to phone_page_ims_accounts_path, notice: "请输入正确的手机号"
         return
       end
-      current_user.identify_phone = params[:phone] if params[:phone].present?
       # API_NEED ： 判断手机号是否已经绑定
       is_binded = Ims::Giftcard.isbind(request, phone: @phone)["data"]["is_binded"]
       # 如果当前手机号是否是未注册用户，则判断是否有待充值的卡，否则跳转到填写手机号页面，通知他新用户不能绑定
@@ -48,9 +49,23 @@ class Ims::AccountsController < Ims::BaseController
   def verfiy_identify_sms_code
     if params[:sms_code].present? && current_user.sms_code.to_i == params[:sms_code].to_i
       current_user.verified_phone = current_user.identify_phone
-      redirect_to new_ims_account_path
+      redirect_to set_identity_no_page_ims_accounts_path
     else
       redirect_to verify_identify_phone_ims_accounts_path, notice: "验证码错误"
+    end
+  end
+
+  # 设置身份证页面
+  def set_identity_no_page
+  end
+
+  # 设置身份证
+  def set_identity_no
+    if params[:identity_no].present?
+      current_user.identity_no = params[:identity_no]
+      redirect_to new_ims_account_path
+    else
+      redirect_to verify_identify_phone_ims_accounts_path, notice: "身份证错误"
     end
   end
 
@@ -154,6 +169,11 @@ class Ims::AccountsController < Ims::BaseController
   # 如果没有认证的手机号，则跳回认证手机号页面
   def validate_verified_phone!
     redirect_to verify_identify_phone_ims_accounts_path if current_user.verified_phone.blank? 
+  end
+
+  # 如果没有身份证号，则跳回填写身份证号页面
+  def validate_identity_no!
+    redirect_to set_identity_no_page_ims_accounts_path if current_user.identity_no.blank? 
   end
 
 end
