@@ -147,7 +147,7 @@ class Ims::AccountsController < Ims::BaseController
     notice = "密码必须为6位数字" unless params[:newpwd][/^\d{6}$/]
     notice = "两次密码输入的不一致" if params[:comfirm_pwd] != params[:newpwd]
     if notice
-      redirect_to reset_password_page_ims_accounts_path, notice: notice
+      redirect_to change_password_page_ims_accounts_path, notice: notice
       return
     end
     # API_NEED: 修改资金账户密码

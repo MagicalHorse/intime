@@ -8,7 +8,7 @@ class Ims::CardOrdersController < Ims::BaseController
 
   # 自己购买
   def my_list
-    @my = Ims::Giftcard.list(request, type: 1)
+    @my = Ims::Giftcard.list(request, {type: 1, page: (params[:page] || 1)})
     respond_to do |format|
       format.html{}
       format.json{render "my_list"}
@@ -17,7 +17,7 @@ class Ims::CardOrdersController < Ims::BaseController
 
   # 好友赠送
   def received_list
-    @received = Ims::Giftcard.list(request, type: 2)
+    @received = Ims::Giftcard.list(request, {type: 2, page: (params[:page] || 1)})
     respond_to do |format|
       format.html{}
       format.json{render "received_list"}

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::CardsController < Ims::BaseController
   before_filter :user_account_info, only: [:gift_page]
   before_filter :validate_sms!, only: [:give_page, :refuse, :recharge]
@@ -33,14 +34,18 @@ class Ims::CardsController < Ims::BaseController
   def give_page
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
-    @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"]
+    @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
   end
 
   # 赠送给别人
   def give
     @charge_no = params[:charge_no]
-    # API_NEED: 赠送礼品卡接口
-    @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone])
+    @notice = "请输入内容" if params[:comment].blank?
+    @notice = "请输入对方正确的手机号" unless params[:phone][/^\d{11}$/]
+    unless @notice
+      # API_NEED: 赠送礼品卡接口
+      @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone])
+    end
   end
 
   # 不接受，归还原有用户
