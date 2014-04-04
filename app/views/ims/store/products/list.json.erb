@@ -1,1 +1,1 @@
-{"status": true, "page": <%= @search[:page] %>, "per_page": <%= @search[:per_page] %>, "count": <%= @search[:count] %>, "html": <%=raw render("list.html.erb", products: @products, combo: @combo).to_json %> }
+{"status": true, "page": <%= @search["data"]["pageindex"] %>, "per_page": <%= @search["data"]["pagesize"] %>, "count": <%= @search["data"]["totalcount"] %>, "html": <%=raw render("list.html.erb", products: @products, combo: @combo).to_json %> }
