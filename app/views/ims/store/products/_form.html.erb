@@ -98,7 +98,7 @@
           <div class="controls-defined defined-small" id="size_str_wrapper" style="<%= @product.try(:[], :size_type) == 2 ? 'display: line;' : 'display: none;' %>">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>规格：</label>
               <div class="col-8">
-              <%= text_field_tag "size_str", @product.try(:[], :size).try(:first).try(:[], :size_name) : nil, class: "form-textframe" %>
+              <%= text_field_tag "size_str", @product.try(:[], :size).try(:first).try(:[], :size_name), class: "form-textframe" %>
               </div>
           </div>
 
