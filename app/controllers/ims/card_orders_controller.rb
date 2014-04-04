@@ -60,9 +60,10 @@ class Ims::CardOrdersController < Ims::BaseController
   end
 
   def show
+    binding.pry
     @charge_no = params[:id]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
-    @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"]
+    @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
   end
 
 end
