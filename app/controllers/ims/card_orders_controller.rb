@@ -54,14 +54,12 @@ class Ims::CardOrdersController < Ims::BaseController
 
   # 查询是否充值成功
   def check_status
-    binding.pry
     # API_NEED: 根据订单id查询是否充值成功
     result = Ims::UserApi.latest_giftcard(request, {"giftcardid" => params["giftcardid"], "timestamp" => params["timestamp"]})
     render json: {result: result}
   end
 
   def show
-    binding.pry
     @charge_no = params[:id]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
