@@ -1,6 +1,6 @@
 // TODO 上线前，将下列setInterval代码删除
 setInterval(function(){
-  $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= @out_trade_no %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
+  $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= @card_id %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
     var result = r.result
     if(result.data){
       window.location.href = "/ims/card_orders/" + result.data.charge_no;
@@ -20,7 +20,7 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
   alert(res.err_msg)
 
   setInterval(function(){
-    $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= @out_trade_no %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
+    $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= @card_id %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
       var result = r.result
       if(result.data){
         window.location.href = "/ims/card_orders/" + result.data.charge_no;

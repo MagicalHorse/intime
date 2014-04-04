@@ -1,0 +1,19 @@
+<div class="module module-white min-height">
+  <div class="module-form module-set-password form-padding">
+    <%= form_tag(set_identity_no_ims_accounts_path, :method => 'get', class: "form-horizontal") do %>
+    <div class="control-group">
+      <h1>请输入您的身份证号码</h1>
+    </div>
+    <div class="control-group">
+      <%= text_field_tag "phone", "", class: "input-block-level", placeholder: "请输入您的身份证号码" %>
+    </div>
+    <ol class="ol-list txt3">
+      <li>身份证号码将作为您购买的凭证。如遇资金丢失，可凭身份证号码找回。</li>
+      <li>请确保身份证号码的正确性。</li>
+    </ol>
+    <div class="control-group">
+      <button type="submit" class="btn btn-large btn-block btn-danger">下一步</button>
+    </div>
+    <% end %>
+  </div>
+</div>

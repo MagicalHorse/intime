@@ -26,9 +26,9 @@ class Ims::CardOrdersController < Ims::BaseController
 
   # 付款礼品卡
   def create
-    card_id, price = params[:money].split(",")
+    @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
-    @out_trade_no = "#{card_id}-#{current_user.id}" 
+    @out_trade_no = "#{@card_id}-#{current_user.id}" 
     @out_trade_no = "#{@out_trade_no}-#{params[:store_id]}" if params[:store_id].present?
     @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
     # TODO 上线前，修改为正式地址
@@ -54,8 +54,9 @@ class Ims::CardOrdersController < Ims::BaseController
 
   # 查询是否充值成功
   def check_status
+    binding.pry
     # API_NEED: 根据订单id查询是否充值成功
-    result = Ims::Giftcard.latest_giftcard(request, {"giftcardid" => params["giftcardid"], "timestamp" => params["timestamp"]})
+    result = Ims::UserApi.latest_giftcard(request, {"giftcardid" => params["giftcardid"], "timestamp" => params["timestamp"]})
     render json: {result: result}
   end
 
