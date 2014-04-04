@@ -1,9 +1,8 @@
 class Ims::Store::DictsController < Ims::Store::BaseController
 
   def product_sizes
-    # @categories = Ims::ProductCategory.list(request)["data"]["items"]
-    # @sizes = @categories.find{|obj| obj['id'].to_s == params["category_id"]}["sizes"]
-    @sizes = Ims::ProductSize.list(request, category_id: params["category_id"])
+    categories = Tag.es_search(category_id: params["category_id"], per_page: 100000)[:data]
+    @sizes = categories.first.try(:sizes)
     render json: @sizes.to_json
   end
 end

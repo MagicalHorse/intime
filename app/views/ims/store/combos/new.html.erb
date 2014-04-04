@@ -1,13 +1,11 @@
 <div class="wrap-inner back-wrap-inner">
-<%= form_for [:ims, :store, @combo] do |f| %>
+<%= form_for [:ims, :store, @combo], html: {class: 'form-defined goods-describe'} do |f| %>
 <div class="module module-bg-white">
     <div class="module-title2">
         <div class="row-fluid">
             <div class="span6"><h3><i class="fa fa-heart"></i>搭配组合照</h3></div>
             <div class="span6">
-                <div class="text-right">
-                  <%= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_combos_path %>
-                </div>
+              <%= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_combos_path, class: "title-link" %>
             </div>
         </div>
     </div>
@@ -75,8 +73,13 @@
         </div>
     </div>
     <div class="module-formbox">
-      <%= f.text_field :private_to, class: 'input-small' %>
-      <span class="help-inline help-inlinetext">顾客姓名或昵称</span>
+      <%= f.text_field :private_to, class: 'input-block-level small-block', placeholder: "顾客姓名或昵称"  %>
+      <textarea placeholder="GUESS时尚女包,D&G衬衫,ONLY牛仔裤|"></textarea>
+      <div class="controls-defined defined-small module-choose">
+          <label class="col-4"><input type="radio" name="module">模板一</label>
+          <label class="col-4"><input type="radio" name="module">模板二</label>
+          <label class="col-4"><input type="radio" name="module">模板三</label>
+      </div>
     </div>
 </div>
 
@@ -112,6 +115,16 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   $(function(){
+    <% if @combo.desc.blank?  %>
+    $("#combo_desc").val("<%= @combo.product_desc %>")
+    <% end %>
+
+    $("#combo_desc").blur(function(){
+      $.ajax({
+        url: "/ims/store/combos/<%= @combo.id %>/update_desc",
+        data: {"desc": $("#combo_desc").val()}
+      })
+    })
 
     $("#combo_form").on("submit", function(){
       var image_fields = $("input[name='image_ids[]']")

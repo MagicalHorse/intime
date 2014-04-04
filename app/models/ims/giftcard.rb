@@ -4,6 +4,11 @@ class Ims::Giftcard < Ims::Base
   # 默认礼品卡Id
   DEFAULT_ID = '1'
 
+  # 导购获取可选择礼品卡列表
+  def self.all(req, params = {})
+    post(req, params.merge(path: "assistant/gift_cards"))
+  end
+
   # 普通用户-已绑定卡的礼品卡概述
   def self.my(req, params = {})
     post(req, params.merge(path: 'giftcard/my'))

@@ -43,7 +43,8 @@ class Ims::Store::CombosController < Ims::Store::BaseController
        :combo_type => @remote_combo[:data][:combo_type]})
 
       @remote_combo[:data][:products].each do |product|
-        ComboProduct.create({:remote_id => product[:id], :img_url => product[:image], :price => product[:price], :combo_id => @combo.id})
+        ComboProduct.create({:remote_id => product[:id], :img_url => product[:image], :price => product[:price],
+         :combo_id => @combo.id, :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
       end
 
       @remote_combo[:data][:image].each do |pic|
@@ -67,6 +68,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     end
 
     if @remote_combo[:isSuccessful]
+      @combo.destroy
       redirect_to ims_store_combo_path(id: @remote_combo[:data][:id])
     else
       render :action => :new
@@ -75,7 +77,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
 
   def add_img
     @combo = ::Combo.find(params[:id])
-    @image = Ims::Combo.upload_img(request, {:image => params[:img]})
+    @image = Ims::Combo.upload_img(request, {:image => params[:img], :image_type => 15})
 
     if @image[:isSuccessful]
       img = ComboPic.create({remote_id: @image[:data][:id], url: @image[:data][:url], :combo_id => @combo.id})
@@ -99,6 +101,13 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     @product.destroy
 
     render :json => {"status" => 1}.to_json
+  end
+
+  def update_desc
+    @combo = ::Combo.find(params[:id])
+    @combo.update_attribute(:desc, params[:desc])
+
+    render :json => {status: "200"}.to_json
   end
 
 

@@ -16,6 +16,7 @@ class Product < ActiveRecord::Base
   document_type DOCUMENT_TYPE
 
   def self.es_search(options={})
+    id = options[:id]
     from_discount = options[:from_discount]
     to_discount = options[:to_discount]
     from_price = options[:from_price]
@@ -96,6 +97,14 @@ class Product < ActiveRecord::Base
             end
           end
 
+          if id.present?
+            json.child! do
+              json.term do
+                json.id id
+              end
+            end
+          end
+
           json.child! do
             json.term do
               json.status 1
@@ -108,7 +117,6 @@ class Product < ActiveRecord::Base
         end
 
       end
-
 
       if keywords.present?
         json.query do
@@ -137,6 +145,23 @@ class Product < ActiveRecord::Base
     mash = Hashie::Mash.new result
     count = mash["hits"]["total"]
     {count: count, page: page, per_page: per_page, data: mash.hits.hits.collect(&:_source)}
+  end
+
+
+  def self.fetch_product(id)
+    data = self.es_search(id: id)[:data].first
+    r = data[:resource].first
+    image = self.img_url(r)
+
+    return {:data => {:id => data[:id], :price => data[:price], :image => image, :brand_name => data[:brand][:name], :category_name => data[:tag][:name]}}
+  end
+
+  def self.img_url(r)
+    if r.is_a?(::Hash) && (name = r[:name] || r['name']).present?
+      PIC_DOMAIN + name.to_s + '_320x0.jpg'
+    else
+      Settings.default_image_url.product.middle
+    end  
   end
 
 

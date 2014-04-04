@@ -227,6 +227,15 @@ font-family: "microsoft yahei";
   line-height:normal;
   vertical-align: middle;
   font-family: "microsoft yahei";
+  border-color: #e3e4e8;
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0) inset, 0 0 2px rgba(0, 0, 0, 0);
+}
+textarea,
+.form-defined .input-block-level,
+[class*="col-"] input,
+[class*="col-"] select{
+  border-color: #e3e4e8;
+  box-shadow: 0 0 0 rgba(255, 255, 255, 0) inset, 0 0 2px rgba(0, 0, 0, 0);
 }
 [class*="col-"] > span{
  display: inline-block;
@@ -620,9 +629,9 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .inline-horizontal{margin-bottom: 10px;}
 .form-box form .newly{ color:#2E5BE2; text-decoration: underline;}
 .block-box{margin-top: 70px;}
-.goods-size a{ display: inline-block; margin:0 5px 5px 0; padding: 4px 10px; border-radius: 2px; border:2px solid #eeeeee; color: #c3c6cb; font-family: arial;}
+.goods-size a{ display: inline-block; float: left; margin:0 5px 5px 0; padding: 4px 10px; border-radius: 2px; border:2px solid #eeeeee; color: #c3c6cb; font-family: arial;}
 .goods-size a.active{border:2px solid #f16498; color: #676767;}
-.defined-large [class*="col-"] > span.goods-size { height: auto;}
+.defined-small [class*="col-"] > span.goods-size { height: auto;}
 
 
 /*--------------------------------Advice write---------------------------------*/
@@ -645,7 +654,7 @@ footer{ position: fixed; bottom:0; width: 640px;}
 
 /*---------------------------------smail-sad--------------------------------------------*/
 .smail-icon{ margin-right: 8px; display: inline-block; height: 64px; width: 64px; background: url(/images/ims/smail.png) left center no-repeat transparent; vertical-align: middle;}
-.sad-icon{ margin-right: 8px; display: inline-block; height: 64px; width: 64px; background: url(/images/ims/smail.png) left center no-repeat transparent; vertical-align: middle;}
+.sad-icon{ margin-right: 8px; display: inline-block; height: 64px; width: 64px; background: url(/images/ims/sad.png) left center no-repeat transparent; vertical-align: middle;}
 
 
 
@@ -679,7 +688,15 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .module-argreement h2{ font-weight: bold; color: #555555;}
 .module-argreement ul{ margin: 10px 0 0; list-style: none;}
 .module-argreement li{ margin: 0 0 5px; line-height: 30px;}
-
+/*----------------------------------------Shop Browerse-------------------------------------------*/
+.hd{ margin: 0; display: inline-block; background: url(/images/ims/shop-browerse-icon.png) no-repeat  center top / auto auto transparent; width: 26px; height: 26px;}
+.btn-tel{background-position: center top;}
+.btn-star{background-position: center -126px;}
+.btn-share{background-position: center -378px;}
+.browerse-icon {position: relative; top: 24px;}
+.browerse-icon li {text-align: center;}
+.browerse-icon li a { color: #676767; font-size: 21px;}
+.browerse-icon li a span{display: block; line-height: 14px;}
 @media screen and (max-width: 580px) {
 .module-user-card h1{ background-size: 30px auto; line-height: 30px; }
 .txt-block{ background-size: 12px auto;}
@@ -689,6 +706,11 @@ footer{ position: fixed; bottom:0; width: 640px;}
 /*------------------------------------agreement---------------------------------------*/
 .module-argreement h2{font-size: 14px;}
 .module-argreement li{line-height: 20px;}
+/*----------------------------------------Shop Browerse-------------------------------------------*/
+.browerse-icon li a { color: #676767; font-size: 14px;}
+.hd{background-size: 16px auto; width: 16px; height: 16px;}
+.btn-star{background-position: center -72px;}
+.btn-share{background-position: center -216px;}
 }
 
 
