@@ -47,8 +47,8 @@
       <h4><%= @remote_combo[:data][:desc] %></h4>
       <div class="p-price1 clearfix">
         <span class="txt3 pull-left">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
-        <span class="txt4 pull-right"><a href="#"><i class="fa fa-star-o"></i> 收藏</a></span>
-        <!-- <span class="txt4 pull-right txt-red"><i class="fa fa-star"></i> 已收藏</span> -->
+        <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
+        <span class="txt4 pull-right txt-red" id="unfavor_combo"><i class="fa fa-star"></i> 已收藏</span>
       </div>
     </div>
 
@@ -66,12 +66,9 @@
   </div>
 
 
-
-
-
-
 <script type="text/javascript">
   $(function(){
+
     $("#myCarousel").swipeshow({
       autostart: true,    /* Set to `false` to keep it steady */
       interval: 3000,     /* Time between switching slides (ms) */
@@ -81,5 +78,31 @@
       mouse: true,        /* enable mouse dragging controls */
       keys: true
     });
+
+    // TODO 等待收藏的状态返回
+    <% if true %>
+    $("#unfavor_combo").hide();
+    <% else %>
+    $("#favor_combo").hide();
+    <% end %>
+
+    $("#favor_combo").click(function(){
+        $.post("/ims/favorites/favor", {
+            id: "<%= @remote_combo[:data][:id] %>",
+            type: "2"
+        },function(){});
+        $("#favor_combo").hide();
+        $("#unfavor_combo").show();
+    })
+
+    $("#unfavor_combo").click(function(){
+        $.post("/ims/favorites/unfavor", {
+            id: "<%= @remote_combo[:data][:id] %>",
+            type: "2"
+        },function(){});
+        $("#unfavor_combo").hide();
+        $("#favor_combo").show();
+    })
+
   })
 </script>
