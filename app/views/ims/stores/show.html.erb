@@ -97,8 +97,7 @@
 <%= content_for :javascripts do %>
 <script>
   $(function(){
-    // TODO 等待收藏的状态返回
-    <% if true %>
+    <% if @store[:data][:is_favored] %>
     $("#unfavor_store").hide();
     <% else %>
     $("#favor_store").hide();

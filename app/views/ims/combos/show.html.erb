@@ -79,8 +79,7 @@
       keys: true
     });
 
-    // TODO 等待收藏的状态返回
-    <% if true %>
+    <% if @remote_combo[:data][:is_favored] %>
     $("#unfavor_combo").hide();
     <% else %>
     $("#favor_combo").hide();
