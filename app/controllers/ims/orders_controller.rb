@@ -9,7 +9,7 @@ class Ims::OrdersController < Ims::BaseController
     #   sales_code: "mockupsalescode1", sku_code: "sku_code", category_id: 1,
     #   category_name: "mockup分类1", size_str: '1111', size: [{size_id: 1, size_name: "mockup尺码1"}, {size_id: 2, size_name: "mockup尺码2"}]}
     categories = Tag.es_search(category_id: @product[:category_id])[:data]
-    @sizes = categories.first.try(:sizes)
+    @sizes = @product[:category_id].present? ? categories.first.try(:sizes) : []
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     sign = {

@@ -1,30 +1,65 @@
-礼品卡
+<div class="wrap-content">
+  <div class="module module-white min-height">
+    <div class="module-tab0 module-tab2">
+      <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#home">礼品卡</a></li>
+        <li class=""><a href="#profile">商品搭配</a></li>
+      </ul>
 
-<% @gift_cards.each do |card| %>
-<%= image_tag "/image/1.jpg" %><br/>
+      <div class="tab-content">
+        <div id="home" class="tab-pane active">
+          <div class="module-table-box module-record">
+          <% @gift_cards.each do |card| %>
+          <div class="module common-white">
+            <div class="txt-block detail-contact">
+                <div class="row-fluid">
+                  <div class="span3"><%= image_tag "/image/1.jpg" %></div>
+                  <div class="span9 collection-p">
+                    <p class="txt2 txt-red"><%= card["desc"] %></p>
+                    <p class="txt2 tel-nun">
+                    <%= link_to card["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: card["id"], item_type: 1 %>
+                    </p>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <% end %>
+          </div>
+        </div>
+        <div id="profile" class="tab-pane">
+          <div class="module-table-box module-record">
+          <% @combos.each do |combo| %>
+            <div class="module common-white">
+              <div class="txt-block detail-contact">
+                  <div class="row-fluid">
+                    <div class="span3"><%= image_tag "/images/1.jpg" %></div>
+                    <div class="span9 collection-p">
+                      <p class="txt2"><%= link_to combo["desc"], new_ims_store_combo_path(combo["id"]) %></p>
+                      <p class="txt2 txt-red"><span class="txt-grey">组合价：</span>￥<%= combo["price"] %></p>
+                      <%= link_to combo["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: combo["id"], item_type: 2 %>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          <% end %>
+          <%= link_to '添加搭配商品', new_ims_store_combo_path %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= card["desc"] %>
 
-<%= link_to card["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: card["id"], item_type: 1 %>
-<% end %>
-
-
-
-商品搭配
-
-<% @combos.each do |combo| %>
-  <%= image_tag "/images/1.jpg" %>
-  <%= link_to combo["desc"], new_ims_store_combo_path(combo["id"]) %>
-  <!-- 这里要改为编辑 -->
-  组合价: ￥<%= combo["price"] %>
-  <%= link_to combo["is_online"] ? "下架" : "上架", "javascript:void(0);", class: "card_or_combo", item_id: combo["id"], item_type: 2 %>
-<% end %>
-
-<%= link_to '添加搭配商品', new_ims_store_combo_path %>
 
 <% content_for :javascripts do %>
 <script>
   $(function(){
+
+    $('#myTab a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+    })
 
     $(document).on("click", ".card_or_combo", function(){
       this_ele = $(this)

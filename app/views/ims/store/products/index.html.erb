@@ -2,9 +2,9 @@
   <%= render "list", products: @products, combo: @combo %>
 </div>
 
-<%= hidden_field_tag "count", @search[:count] %>
-<%= hidden_field_tag "page", @search[:page] %>
-<%= hidden_field_tag "per_page", @search[:per_page] %>
+<%= hidden_field_tag "count", @search[:data][:totalcount] %>
+<%= hidden_field_tag "page", @search[:data][:pageindex] %>
+<%= hidden_field_tag "per_page", @search[:data][:pagesize] %>
 
 <% content_for :javascripts do %>
   <script>

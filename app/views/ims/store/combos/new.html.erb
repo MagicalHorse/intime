@@ -115,6 +115,16 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   $(function(){
+    <% if @combo.desc.blank?  %>
+    $("#combo_desc").val("<%= @combo.product_desc %>")
+    <% end %>
+
+    $("#combo_desc").blur(function(){
+      $.ajax({
+        url: "/ims/store/combos/<%= @combo.id %>/update_desc",
+        data: {"desc": $("#combo_desc").val()}
+      })
+    })
 
     $("#combo_form").on("submit", function(){
       var image_fields = $("input[name='image_ids[]']")
