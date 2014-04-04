@@ -3,6 +3,5 @@ class Ims::StoresController < Ims::BaseController
   
   def show
     @store = Ims::Store.show(request, id: params[:id])
-    binding.pry
   end
 end
