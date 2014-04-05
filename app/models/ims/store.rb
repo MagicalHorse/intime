@@ -27,6 +27,14 @@ class Ims::Store < Ims::Base
    	 post(req, params.merge(path: 'assistant/orders'))
    end
 
+   def giftcards(req, params = {})
+      post(req, params.merge(path: 'assistant/gift_cards'))
+   end
+
+   def combos(req, params = {})
+      post(req, params.merge(path: 'assistant/combos'))
+   end
+
  end
 
 end

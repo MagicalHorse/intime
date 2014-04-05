@@ -1,0 +1,63 @@
+<div class="wrap-content">
+    <div class="module module-white min-height">
+  		<div class="module-tab0 module-tab2 module-product">
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active"><a href="#home">礼品卡</a></li>
+          <li class=""><a href="#profile">商品搭配</a></li>
+        </ul>
+         
+        <div class="tab-content">
+          <div class="tab-pane active" id="home">
+            <% if @giftcards[:data]["items"].present? %>
+              <% @giftcards[:data]["items"].each do |card| %>
+              <div class="module common-white product-card">
+                <div class="img-box"><a href="#"><img alt="" src="<%= card["image"] %>"></a></div>
+                <h4 class="txt-grey"><%= card["desc"] %></h4>
+                <div class="clearfix text-center">
+                  <% if card["is_online"] %>
+                   <a class="btn btn-danger btn-large btn-block">下 架</a>
+                  <% else %> 
+                    <a class="btn btn-danger btn-large btn-block">上 架</a>
+                  <% end %>
+                </div>
+              </div>
+              <% end %>
+            <% end %>  
+          </div>
+          <div class="tab-pane" id="profile">
+            <% if @combos[:data]["items"].present? %>
+              <% @combos[:data]["items"].each do |combo| %>
+            <div class="module-table-box module-record">
+              <div class="module common-white">
+                <div class="txt-block detail-contact">
+                    <div class="row-fluid">
+                      <div class="span3"><img class="img-rounded" src="<%= combo["image"] %>"></div>
+                      <div class="span9 collection-p">
+                        <p class="txt2"><%= combo["desc"] %></p>
+                        <p class="txt2 txt-red">组合价：￥<%= combo["price"] %></p>
+                        <div class="shelves">
+                          <% if card["is_online"] %>
+                           <a type="button" class="btn btn-danger btn-small">下 架</a>
+                          <% else %>
+                           <a type="button" class="btn btn-danger btn-small">上 架</a>
+                          <% end %> 
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+            <% end %>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+    $('#myTab a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+    })
+</script>

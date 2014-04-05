@@ -18,6 +18,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def my
     @store = Ims::Store.my(request)
+    render :layout =>  'ims'
   end
 
   def records
@@ -53,6 +54,12 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     end
 
     render :json => json
+  end
+
+
+  def manage
+    @giftcards = Ims::Store.giftcards(request) 
+    @combos = Ims::Store.combos(request) 
   end
 
   
