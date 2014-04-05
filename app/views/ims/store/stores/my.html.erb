@@ -10,7 +10,7 @@
 		 		<div class="span7">
 		 			<div class="row-fluid">
 		 				<div class="span5">
-        <%= image_tag("/images/ims/face-img.jpg", class: 'img-polaroid face-img') %>
+        <%= image_tag(@store[:data][:logo], class: 'img-polaroid face-img') %>
 		 				</div>
 		 				<div class="span7"><h2 class="shop-name"><%= @store[:data][:name] %></h2></div>
 		 			</div>
@@ -29,13 +29,20 @@
             <div class="module-title">
                 <h3>商品套装推荐</h3>
             </div>
+            <% if @store[:data][:gift_card].present? %>
+             <% @store[:data][:gift_card].each do |card| %>
             <div class="module-content module-content-card">
-                <div class="img-box"><a href="/ims/store/combos/<%= @store[:data][:Id] -%>">
-                	<%= image_tag("/images/ims/card.jpg") %>
-                </a></div>
-                <p><a href="/ims/store/combos/<%= @store[:data][:Id] -%>"><%= @store[:data]["Desc"] %></a></p>
-                <div class="clearfix"><a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a></div>
+                <div class="img-box"><a href="#"><img src="<%= card["Image"] %>" alt=""></a></div>
+                <p><a href="#"><%= card["Desc"] %></a></p>
+                <div class="clearfix">
+                    <p class="pull-left price-box">
+                        <span><button type="button" class="btn btn-danger btn-small">点击购买</button></span>
+                    </p>
+                    <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
+                </div>
             </div>
+            <% end %>
+            <% end %>
         </div>
 
 
@@ -43,33 +50,43 @@
             <div class="module-title">
                 <h3>精品搭配推荐</h3>
             </div>
-            <% @store[:data][:combos].each do |combo| %>
+         </div>
+
+         <% if @store[:data][:combos].present? %>
+        <% @store[:data][:combos].each do |combo| %>
+        <div class="module module-ele"> 
             <div class="module-content module-content-img">
                 <div class="suit-box clearfix">
                     <div class="row-fluid">
                         <div class="span8">
                             <div class="suit-left">
-                                <a class="img-box img-posi" href="<%= ims_store_combo_path(:id => combo[:Id]) %>">
-                                    <img src="<%= combo[:image] %>" alt="">
-                                    <img class="mark-img" src="/images/ims/jingpin.png" alt="">
-                                </a>
+                                <a class="img-box img-posi" href="<%= ims_combo_path(id: combo["Id"]) %>">
+                                    <img src="<%= combo['Image'] %>" alt="">
+                                    <img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
                             </div>
                         </div>
                         <div class="span4">
                             <div class="suit-right">
-                                <a class="img-box" href="#"><img src="/images/ims/suit-06.jpg" alt=""></a>
-                                <a class="img-box" href="#"><img src="/images/ims/suit-09.jpg" alt=""></a>
-                                <a class="img-box" href="#"><img src="/images/ims/suit-11.jpg" alt=""></a>
+                                <% if combo["ProductImages"].size > 1 %>
+                                 <% combo["ProductImages"].each do |pic| %>
+                                <a class="img-box" href="#"><img src="<%= pic %>" alt=""></a>
+                                <% end %>
+                                <% end %>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-                <p><a href="/ims/store/combos/show"><%= combo[:desc] %></a></p>
-                <div class="clearfix"><p class="pull-left price-box"><span>打包价：<em>¥<%= combo[:price] %></em></span></p><a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a></div>
+                <p><a href="#"><%= combo["Desc"] %></a></p>
+                <div class="clearfix">
+                    <p class="pull-left price-box">
+                        <span>打包价：<em>¥<%= combo["Price"] %></em></span>
+                        <span><button type="button" class="btn btn-danger btn-small">点击购买</button></span>
+                    </p>
+                    <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
+                </div>
             </div>
-            <% end %>
-         </div>
-	</div>
+        </div>
+        <% end %>
+        <% end %>
+
 </div>
