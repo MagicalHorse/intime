@@ -57,9 +57,14 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
 
+ #店铺管理
   def manage
     @giftcards = Ims::Store.giftcards(request) 
     @combos = Ims::Store.combos(request) 
+  end
+
+  def theme
+    
   end
 
   

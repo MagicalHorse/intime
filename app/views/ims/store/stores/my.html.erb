@@ -27,7 +27,7 @@
 <div class="wrap-inner">
 		<div class="module module-ele">
             <div class="module-title">
-                <h3>商品套装推荐</h3>
+                <h3>礼品卡推荐</h3>
             </div>
             <% if @store[:data][:gift_card].present? %>
              <% @store[:data][:gift_card].each do |card| %>
@@ -87,6 +87,8 @@
             </div>
         </div>
         <% end %>
+        <% else %>
+        <%= render 'ims/shared/empty' %>
         <% end %>
 
 </div>
@@ -109,7 +111,7 @@
 
             <ul class="dropdown-menu pull-right bottom-caret">
               <li class="nav-down1 active"><a href="/ims/store/stores/<%= @store[:data][:id] %>/edit">编辑资料</a></li>
-              <li class="nav-down2"><a href="#">更换主题</a></li>
+              <li class="nav-down2"><a href="/ims/store/stores/theme">更换主题</a></li>
               <li class="nav-down3"><a href="/ims/store/suggesstions/new">意见反馈</a></li>
               <li class="nav-caret"><b class="caret"></b></li>
             </ul>
