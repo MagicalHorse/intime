@@ -1,11 +1,10 @@
 <% if @remote_combo[:isSuccessful] %>
- $("#ex2").modal();
+ $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>搭配创建成功</div><a class='btn btn-danger btn-small btn-block btn-modal' href='/ims/combos/<%=@remote_combo[:data][:combo_id]%>' >OK</a></div>");
 <% else %> 
- $("#ex2").html("
-<div class='text-center'>
-      <div class='txt4 txt-red'>温馨提示</div>
-      <div class='txt4'>网络错误，请稍后重试！</div>
-      <a class='btn btn-danger btn-small btn-block btn-modal'>OK</a>
-  </div>
- 	")
+ $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>网络错误，请稍后重试！</div><a class='btn btn-danger btn-small btn-block btn-modal'>OK</a></div>")
 <% end %>
+
+$("#ex2").modal({
+	 clickClose: false,
+  showClose: false
+});
