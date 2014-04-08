@@ -60,12 +60,13 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     @combo.update_attributes(params[:combo])
 
     if params[:remote_id].present?
-      # 等接口
       @remote_combo = Ims::Combo.update(request, @combo.api_attrs.merge({:id => params[:remote_id]}))
       @remote_combo = {:isSuccessful => true, data: {id: 1}}
     else
       @remote_combo = Ims::Combo.create(request, @combo.api_attrs)
     end
+
+    binding.pry
 
   end
 
