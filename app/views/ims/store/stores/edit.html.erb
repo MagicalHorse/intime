@@ -21,7 +21,7 @@
           <div class="row-fluid">
           <div class="span8"><span class="txt2 shop-title">修改店铺LOGO</span></div>
           <div class="span3 text-right">
-            <a href="#" id="logo"><img src="/images/ims/img800.jpg" class="img-rounded"></a>
+            <a href="#" id="logo"><img src="<%= @store[:data][:logo] %>" class="img-rounded"></a>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*"></div>
           </div>
           </div>
@@ -36,7 +36,7 @@
         </p>
         <p class="clearfix"><span class="pull-left">电话</span>
           <span class="pull-right txt-grey tel-nun">
-            <a href="#" data-type="text" id="store_phone">15928696607</a></span></p>
+            <a href="#" data-type="text" id="store_phone"><%= @store[:data][:mobile] %></a></span></p>
       </div>
     </div>
   </div>

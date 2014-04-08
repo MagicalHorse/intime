@@ -1,4 +1,30 @@
-<% if @card[:status].to_i != 0 %>
+<% if flash[:notice] == "give_show_page" %>
+
+<div class="module module-white">
+  <div class="module-card module-card-posi">
+    <h1 class="text-center">银泰礼品卡<br>送亲人，送好友，您的最佳选择</h1>
+    <p class="txt4 text-center posi-txt">银泰礼品卡在线销售，史无前例的O2O行为，错过将后悔一生，希望你能把握此次机会。</p>
+    <img src="/images/ims/card-self.png">
+  </div>
+</div>  
+<div class="bottom-button">
+  <div class="form-defined">
+    <div class="controls-defined defined-large">
+      <div class="col-6"><a class="btn btn-danger btn-large btn-block" href="#ex3" rel="modal:open">分享给好友</a></div>
+      <div class="col-6"><a class="btn btn-grey btn-large btn-block" href="<%= new_ims_card_order_path %>">立即购买</a></div>
+    </div>
+  </div>
+</div>
+
+<div id="ex3" class="modal-grey modal" style="position: fixed; top: 50%; left: 50%; margin-top: -210px; margin-left: -669.5px; z-index: 2; display: none;">
+  <div class="text-center">
+    <div class=""><img src="/images/ims/right-top.png"></div>
+  </div>
+</div>
+
+
+
+<% elsif @card[:status].to_i != 0 %>
 
 <!--  如果已经处理了  -->
 <div class="module module-white">

@@ -1,19 +1,31 @@
 class Ims::Store < Ims::Base
  class << self  
    def create(req, params={})
-   	 post(req, params.merge(path: 'store/create'))
+   	post(req, params.merge(path: 'store/create'))
    end
 
    def show(req, params = {})
-   	 post(req, params.merge(path: 'store/detail'))
+   	post(req, params.merge(path: 'store/detail'))
    end
 
    def my(req, params = {})
-   	 post(req, params.merge(path: 'store/my'))
+   	post(req, params.merge(path: 'store/my'))
    end
 
    def update(req, params = {})
       post(req, params.merge(path: 'assistant/update'))
+   end
+
+   def update_name(req, params = {})
+      post(req, params.merge(path: 'assistant/update_name'))
+   end
+
+   def update_mobile(req, params = {})
+      post(req, params.merge(path: 'assistant/update_mobile'))
+   end
+
+   def update_logo(req, params = {})
+      post(req, params.merge(api_path: true, path: 'customer/portrait/create'))
    end
 
 

@@ -22,9 +22,9 @@ class Ims::AccountsController < Ims::BaseController
 
   # 验证手机号，进行绑定账号
   def verify_identify_phone
-    @phone = current_user.identify_phone.to_s
+    @phone = current_user.identify_phone || params[:phone]
     if @phone.blank?
-      redirect_to phone_page_ims_accounts_path, notice: "请填写手机号"
+      redirect_to phone_page_ims_accounts_path, notice: "请输入手机号"
       return
     else
       current_user.identify_phone = params[:phone] if params[:phone].present?
@@ -32,6 +32,7 @@ class Ims::AccountsController < Ims::BaseController
         redirect_to phone_page_ims_accounts_path, notice: "请输入正确的手机号"
         return
       end
+      binding.pry
       # API_NEED ： 判断手机号是否已经绑定
       is_binded = Ims::Giftcard.isbind(request, phone: @phone)["data"]["is_binded"]
       # 如果当前手机号是否是未注册用户，则判断是否有待充值的卡，否则跳转到填写手机号页面，通知他新用户不能绑定
@@ -61,11 +62,11 @@ class Ims::AccountsController < Ims::BaseController
 
   # 设置身份证
   def set_identity_no
-    if params[:identity_no].present?
+    if params[:identity_no].present? and params[:identity_no][/(^\d{15}$)|(^\d{17}([0-9]|X)$)/]
       current_user.identity_no = params[:identity_no]
       redirect_to new_ims_account_path
     else
-      redirect_to verify_identify_phone_ims_accounts_path, notice: "身份证错误"
+      redirect_to set_identity_no_page_ims_accounts_path, notice: "身份证填写错误"
     end
   end
 

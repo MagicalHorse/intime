@@ -40,11 +40,16 @@ class Ims::CardsController < Ims::BaseController
   # 赠送给别人
   def give
     @charge_no = params[:charge_no]
-    @notice = "请输入内容" if params[:comment].blank?
     @notice = "请输入对方正确的手机号" unless params[:phone][/^\d{11}$/]
-    unless @notice
+    @notice = "请输入内容" if params[:comment].blank?
+    if @notice
+      redirect_to "#{give_page_ims_cards_path}?charge_no=#{@charge_no}", notice: @notice
+    else
       # API_NEED: 赠送礼品卡接口
       @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone])
+      # TODO 上线时，修改下面两行代码
+      # redirect_to "#{gift_page_ims_cards_path}?charge_no=#{@charge_no}", category: "give_show"
+      redirect_to "#{gift_page_ims_cards_path}?charge_no=114040224411", notice: "give_show_page"
     end
   end
 
