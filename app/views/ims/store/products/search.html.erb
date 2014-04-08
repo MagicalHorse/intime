@@ -1,25 +1,3 @@
-<% if nil %>
-<%= form_tag search_ims_store_products_path, method: "GET", id: "search" do %>
-  <%= text_field_tag "keywords", params[:keywords], placeholder: "搜索商品名称、品牌、货号等" %>
-  <%= submit_tag "搜索" %>
-<% end %>
-
-<% if params[:keywords].blank? %>
-
-<%= link_to "100元以内", "javascript:void(0);", class: "keywords", value: "100元以内" %>
-<%= link_to "100~200元", "javascript:void(0);", class: "keywords", value: "100~200元" %>
-<%= link_to "200元~300元", "javascript:void(0);", class: "keywords", value: "200元~300元" %>
-
-<% else %>
-
-  <% 3.times.each do %>
-    <%= image_tag "/images/1.jpg" %>
-  <% end %>
-
-<% end %>
-<% end %>
-
-
 <div class="wrap-inner back-wrap-inner">
 <div class="module module-searchinput">
     <div class="row-fluid">
@@ -38,7 +16,8 @@
     </div>
 </div>
 
-<% if params[:keywords].blank? && params[:type].blank? %>
+
+<% if !params.slice(:from_price, :to_price, :from_discount, :to_discount, :brand_id, :combo_id, :keywords).values.any?{|value| value.present?} %>
 <div class="module-tab">
   <div class="tabbable"> <!-- Only required for left/right tabs -->
       <ul class="nav nav-tabs">
