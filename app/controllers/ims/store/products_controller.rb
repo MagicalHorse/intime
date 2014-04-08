@@ -13,7 +13,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def show
-
+    @product = ::Product.es_search(id: params[:id])[:data].try(:first)
   end
 
   def new

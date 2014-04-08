@@ -2,7 +2,7 @@
 <div class="module module-white">
   <div class="row-fluid">
   <div class="span12">
-    <img alt="" src="/images/ims/product-detail.jpg">
+    <%= image_tag Product.img_url(@product.resource.first) %>
   </div>
   </div>
   <div class="row-fluid">
@@ -11,8 +11,7 @@
         <div class="row-fluid">
           <div class="span6">
             <div class="wx-price">
-              <div class="txt3">微信价：<span>￥380.00</span></div>
-              <div class="txt5">吊牌价：￥180.00</div>
+              <div class="txt3">微信价：<span>￥<%= @product.price %></span></div>
             </div>
           </div>
           <div class="span6">

@@ -34,7 +34,7 @@
     <div class="form-box">
 
       <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-defined" do %>
-        选择图片： <%= file_field_tag "image", style: "display: none;", id: "input", value: @product.try(:[], :image) %>
+        <%= file_field_tag "image", style: "display: none;", id: "input", value: @product.try(:[], :image) %>
         <%= hidden_field_tag "id", @product.try(:[], :id) %>
         <% if @combo_id.present? %>
           <%= hidden_field_tag :combo_id, @combo_id %>
