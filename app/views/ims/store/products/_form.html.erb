@@ -82,13 +82,12 @@
             <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
             <div class="col-8">
               <span class="goods-size">
-
                   <% @sizes.each do |size| %>
-                    <% if @product[:size].collect{|obj| obj[:size_id]}.include?(size.size_id) %>
-                      <%= hidden_field_tag "size_ids[]", size.size_id %>
-                      <%= link_to size.size_name, "javascript:void(0);", value: size.size_id, class: "active" %>
+                    <% if @product[:size].collect{|obj| obj[:size_id]}.include?(size.id) %>
+                      <%= hidden_field_tag "size_ids[]", size.id %>
+                      <%= link_to size.name, "javascript:void(0);", value: size.id, class: "active" %>
                     <% else %>
-                      <%= link_to size.size_name, "javascript:void(0);", value: size.size_id %>
+                      <%= link_to size.name, "javascript:void(0);", value: size.id %>
                     <% end %>
                   <% end if @sizes.present? && @sizes.is_a?(Array) %>
               </span>
