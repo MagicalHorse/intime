@@ -17,7 +17,7 @@
 </div>
 
 
-<% if !params.slice(:from_price, :to_price, :from_discount, :to_discount, :brand_id, :combo_id, :keywords).values.any?{|value| value.present?} %>
+<% if !params.slice(:from_price, :to_price, :from_discount, :to_discount, :brand_id, :keywords).values.any?{|value| value.present?} %>
 <div class="module-tab">
   <div class="tabbable"> <!-- Only required for left/right tabs -->
       <ul class="nav nav-tabs">
