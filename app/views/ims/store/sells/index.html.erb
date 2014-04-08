@@ -107,7 +107,7 @@
         if(data["status"] == true){
           this_ele.text(is_online ? "下 架" : "上 架")
         }else{
-          alert(text+"失败")
+          alert(text+"失败" + data["message"])
         }
       })
     })
