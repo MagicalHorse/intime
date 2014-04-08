@@ -1,6 +1,16 @@
 <% if @notice.present? %>
-alert("<%= @notice %>");
+$("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'><%= flash[:notice] %></div><a class='btn btn-danger btn-small btn-block btn-modal' rel='modal:close'>OK</a></div>");
+$("#ex2").modal({
+  clickClose: true,
+  showClose: false
+});
 <% else %>
-alert("赠送成功，请通知好友查收");
-window.location.href = "<%= gift_page_ims_cards_path %>?charge_no=<%= @charge_no %>";
+$("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>赠送成功，请通知好友查收</div><a class='btn btn-danger btn-small btn-block btn-modal' rel='modal:close'>OK</a></div>");
+$("#ex2").modal({
+  clickClose: true,
+  showClose: false
+});
+setTimeout(function(){
+  window.location.href = "<%= gift_page_ims_cards_path %>?charge_no=<%= @charge_no %>";
+},2000);
 <% end %>
