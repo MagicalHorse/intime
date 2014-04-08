@@ -10,7 +10,7 @@
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
-      <div class="col-6"><a class="btn btn-danger btn-large btn-block" href="#ex3" rel="modal:open">分享给好友</a></div>
+      <div class="col-6"><a class="btn btn-danger btn-large btn-block" id="ex3_open">分享给好友</a></div>
       <div class="col-6"><a class="btn btn-grey btn-large btn-block" href="<%= new_ims_card_order_path %>">立即购买</a></div>
     </div>
   </div>
@@ -22,7 +22,19 @@
   </div>
 </div>
 
+<%= content_for :javascripts do %>
+<script>
+  $(function(){
+    $("#ex3_open").click(function(){
+      $("#ex3").modal({
+        clickClose: true,
+        showClose: false
+      });
+    })
 
+  });
+</script>
+<% end %>
 
 <% elsif @card[:status].to_i != 0 %>
 

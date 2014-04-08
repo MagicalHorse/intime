@@ -39,7 +39,7 @@ class Ims::CardOrdersController < Ims::BaseController
       body: "商品描述",
       partner: Settings.wx.partner_id,
       out_trade_no: @out_trade_no,
-      total_fee: price,
+      total_fee: price * 100,
       fee_type: 1,
       notify_url: @notify_url,
       spbill_create_ip: request.remote_ip,
