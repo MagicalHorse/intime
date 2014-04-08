@@ -1,5 +1,5 @@
 <div class="wrap-inner back-wrap-inner">
-<%= form_for [:ims, :store, @combo], remote: true, html: {class: 'form-defined goods-describe'} do |f| %>
+<%= form_for [:ims, :store, @combo], remote: true, html: {class: 'form-defined goods-describe', id: 'combo_form'} do |f| %>
 <div class="module module-bg-white">
     <div class="module-title2">
         <div class="row-fluid">
@@ -29,7 +29,7 @@
             <% @combo.combo_pics.each do |pic| %>
             <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><img src='<%= pic.url -%>'></li>
             <% end %>
-            <li class="add-link"><a href="#" id="add_img"><img src="/images/ims/add-img.png"></a></li>
+            <li class="add-link"><a href="javascript:void(0);" id="add_img"><img src="/images/ims/add-img.png"></a></li>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*"></div>
         </ul>
     </div>
@@ -74,12 +74,6 @@
     </div>
     <div class="module-formbox">
       <%= f.text_field :private_to, class: 'input-block-level small-block', placeholder: "顾客姓名或昵称"  %>
-      <textarea placeholder="GUESS时尚女包,D&G衬衫,ONLY牛仔裤|"></textarea>
-      <div class="controls-defined defined-small module-choose">
-          <label class="col-4"><input type="radio" name="module">模板一</label>
-          <label class="col-4"><input type="radio" name="module">模板二</label>
-          <label class="col-4"><input type="radio" name="module">模板三</label>
-      </div>
     </div>
 </div>
 
@@ -130,18 +124,22 @@
     })
 
     $("#combo_form").on("submit", function(){
-      var image_fields = $("input[name='image_ids[]']")
-      var product_image_fields = $("input[name='product_image_ids[]']")
-      verify_image1 = image_fields.length == 0
-      verify_image2 = product_image_fields.length < 2
-      verify_image3 = product_image_fields.length > 3
+      var image_fields = $("#img_box li")
+      var product_image_fields = $("#p_box li")
+      verify_image1 = image_fields.length < 3
+      verify_image2 = image_fields.length > 6
+      verify_product1 = product_image_fields.length < 3
+      verify_product2 = product_image_fields.length > 4
       if(verify_image1){
-        alert("主图必须有")
+        alert("主图必须至少有2张")
       }
       if(verify_image2){
+        alert("主图最多有5张")
+      }
+      if(verify_product1){
         alert("商品搭配至少要由2个组成")
       }
-      if(verify_image3){
+      if(verify_product2){
         alert("商品搭配最多由3个组成")
       }
       if(verify_image1 || verify_image2 || verify_image3){
@@ -150,18 +148,6 @@
 
     })
 
-    $("#combo_form").validate({
-      rules: {
-        "description": {
-          required: true,
-          minlength: 20,
-          maxlength: 128
-        }
-      },
-      errorPlacement:function(error, element){
-        element.after(error)
-      }
-    })
 
     $("#add a").click(function(){
       $("#add_list").show();
@@ -169,7 +155,12 @@
 
 
     $("#add_img").click(function(){
-       document.getElementById("upfile").click();
+       var img_size = $("#img_box li").length;
+       if(img_size < 6){
+         document.getElementById("upfile").click();
+       }else{
+        alert("上传主图不能超过5个");
+       }  
     });
 
     $('#upfile').fileupload({
@@ -197,8 +188,10 @@
        });
 
       $("#img_box li").click(function(){
-        src = $(this).find("img")[0].src;
-        $("#default_img").html("<img src='"+src+"'>");
+        if(!$(this).hasClass("add-link")){
+          src = $(this).find("img")[0].src;
+          $("#default_img").html("<img src='"+src+"'>");
+        }
       });
 
      $(document).on("click", "#img_box li i", function(){
@@ -213,7 +206,12 @@
      });
 
      $("#add_product").click(function(){
-       $("#pop-menu").show();
+       var p_size = $("#p_box li").length;
+       if(p_size < 4){
+         $("#pop-menu").show();
+       }else{
+        alert('最多只能搭配3个商品');
+       }  
      });
 
      $("#btn-cancel").click(function(){
