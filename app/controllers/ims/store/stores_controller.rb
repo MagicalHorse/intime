@@ -9,7 +9,8 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def update
-
+    @store = Ims::Store.update_name(request, {id: params[:id], name: params[:name]})
+    @store = Ims::Store.update_mobile(request, {id: params[:id], mobile: params[:mobile]}) if @store[:isSuccessful]
   end
 
   def show
