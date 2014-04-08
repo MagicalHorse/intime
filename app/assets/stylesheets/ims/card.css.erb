@@ -25,7 +25,7 @@
 .module-user-change ul li a i:first-child{ float: left; color: #f86b9f;}
 .module-user-change ul li a span{float: left; color: #abadb3;}
 .module-user-change ul li a i:last-child{float: right; color: #f86b9f;}
-
+.btn-already{ padding-bottom: 20px;}
 
 /*..........购买礼品卡.........*/
 .form-label label{font-size: 26px; line-height: 30px;}
@@ -37,7 +37,7 @@
 
 /*..........购卡成功.........*/
 .module-user-card{ padding: 20px;}
-.module-user-card h1{ margin: 20px 0; padding-left:74px; background: url(/images/ims/smail.png) left center no-repeat; line-height: 64px; }
+/*.module-user-card h1{ margin: 20px 0; padding-left:74px; background: url(../images/smail.png) left center no-repeat; line-height: 64px; }*/
 .module-table-box{margin-bottom: 80px;}
 .module-table-box table tr td{ font-size: 30px; line-height: 50px;}
 .module-table-box table,
@@ -45,10 +45,10 @@
 .module-btn .btn{ margin-right: 20px;}
 .module-btn .btn:last-child{ margin-right: 0;}
 .module-notice {margin: 40px 0 60px;}
-.module-notice h4{color: #abadb3;}
+.module-notice h4{color: #ffffff;}
 .module-notice ol{list-style-position: inside; margin: 0;}
 .ol-list{ margin-bottom: 80px;}
-.module-notice ol li{margin-bottom: 15px; font-size: 22px; line-height: 30px; color: #abadb3;}
+.module-notice ol li{margin-bottom: 15px; font-size: 22px; line-height: 30px; color: #ffffff;}
 
 /*------------验证码------------------*/
 
@@ -58,12 +58,13 @@
 .verify-code-txt{text-align: center; }
 
 /*-------------------------------------Card-----------------------------------------*/
-.module-card{ padding: 60px 40px 0; height:930px; background: url(/images/ims/card2.jpg) center top no-repeat #fbd8e5;}
-.module-card h1{ font-size: 32px; color: #F16498;}
-.card-text{color: #676767;}
-.module-card-posi{ position: relative; padding: 60px 40px 0; height:930px; background: url(/images/ims/card0.jpg) center -20px no-repeat #fbd8e5;}
-.module-card-scan{ position: relative; padding: 60px 40px 0; height:930px; background: url(/images/ims/card-tbg.jpg) center -20px no-repeat #fbd8e5;}
-.posi-txt{ padding: 0 70px; color: #636363; position: absolute; bottom:50px; left: 0; right: 0;}
+.module-card{ padding: 60px 40px 0; height:930px; background: url(../images/ims/card2.jpg) center top no-repeat #f16498;}
+.module-card h1{ font-size: 32px; color: #ffffff; margin-top: 0;}
+.card-text{color: #ffffff;}
+.module-card-posi{ position: relative; padding: 60px 40px 0; height:930px; background: url(../images/ims/card2.jpg) center -20px no-repeat #f16498;}
+.module-card-scan{ position: relative; padding: 60px 40px 20px; height:auto; background: url(../images/ims/card2.jpg) center -20px no-repeat #f16498;}
+.posi-txt{ padding: 0 70px; color: #ffffff; position: absolute; bottom:50px; left: 0; right: 0;}
+.txt-money { color: #ffffff;}
 .txt-money em{ font-style: normal;}
 .card-form-box{padding: 30px; margin-bottom: 40px; border-bottom:1px solid #eeeeee;}
 .card-form-box input,
@@ -71,9 +72,13 @@
 .card-form-box .fa{ color: #F16498; margin-right: 4px;}
 .card-form-box .card-notice .fa{ color: #b7bbc2;}
 .card-form-box .defined-small{ margin-bottom: 20px;}
-.card-wrap{ margin-top: 60px;}
+.card-wrap{ margin: 60px 0 20px;}
 .btn-scan{margin-top: 100px;}
 .module-card-scan .module-notice{padding-bottom: 100px;}
+.btn-already .btn-defult{ color: #F16498;}
+.barcord-box{ position: relative; text-align: center;}
+.barcord-box .bar-code{ position: absolute; bottom: 80px; left: 0; right: 0;}
+.barcord-box .bar-code a{ color: #555555;}
 /*---------------------------------Tranding Success--------------------------------------------*/
 .module-tranding{padding: 30px;}
 .module-record td p{margin-bottom: 0;}
@@ -105,7 +110,7 @@
 .module-table-box table tr td{ font-size: 16px; line-height: 26px;}
 .module-notice {margin: 20px 0 40px;}
 .module-btn .btn{ margin-right: 10px;}
-.module-notice ol li{margin-bottom: 5px; font-size: 13px; line-height: 20px; color: #abadb3;}
+.module-notice ol li{margin-bottom: 5px; font-size: 13px; line-height: 20px;}
 .module-form input[type="text"]{ height: 40px; line-height: 40px; font-size: 15px;}
 .module-form .control-group{ margin-bottom: 10px;}
 
@@ -131,7 +136,7 @@
 .verify-form1 .btn{padding: 2px 8px;}
 .verify-form .sub-btn {width: 70%;font-size: 16px;}
 /*-------------------------------------Card-----------------------------------------*/
-.module-card{ padding: 20px 20px 0; height:800px;  background-size: 100% auto;}
+.module-card{ padding: 10px 20px 20px; height:800px;  background-size: 100% auto;}
 .module-card h1{ font-size: 18px;}
 .card-form-box{padding:15px;}
 .card-form-box .defined-small{ margin-bottom: 10px;}
@@ -140,7 +145,9 @@
 .module-user-card h1{ background-size: 32px auto;}
 .module-card-scan{height: auto;}
 .card-wrap{ margin-top: 30px;}
-.btn-scan{margin-top: 50px;}
+.module-card-scan .card-wrap{ margin-top: 10px;}
+.btn-scan{margin-top:0;}
+.barcord-box .bar-code{ bottom: 34px;}
 /*---------------------------------Tranding Success--------------------------------------------*/
 .module-tranding{padding: 15px;}
 .module-tranding .nav-tabs{ border-radius: 2px;}
@@ -154,9 +161,10 @@
 
 
 @media screen and (max-width: 480px) {
-	.module-card{ height: 420px;}
+	.module-card{ height: 500px;}
+	.module-card-info{height: 400px;}
 	.module-card-scan{height: auto;}
-	.posi-txt{padding: 0 15px;  bottom:10px; line-height: 20px;}
+	.posi-txt{padding: 0 15px;  bottom:100px; line-height: 20px;}
 }
 
 @media screen and (max-width: 320px) {
