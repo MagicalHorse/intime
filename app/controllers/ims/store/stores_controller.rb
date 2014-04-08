@@ -27,10 +27,9 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def change_logo
-    @image = Ims::Combo.upload_img(request, {:image => params[:img], :image_type => 4})
-
+    @image = Ims::Store.update_logo(request, {:image => params[:img], :type => 1})
     if @image[:isSuccessful]
-      json = {"status" => 1, "img" => @image[:data][:url]}.to_json
+      json = {"status" => 1, "img" => @image[:data][:logo_full]}.to_json
     else
       json = {"status" => 0}.to_json
     end
@@ -40,11 +39,11 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def change_info
     if params[:name] == "store_name"
-      @store = Ims::Store.update(request, {id: params[:id], name: params[:value]}) 
+      @store = Ims::Store.update_name(request, {id: params[:id], name: params[:value]}) 
     end
 
     if params[:name] == "store_phone"
-      @store = Ims::Store.update(request, {id: params[:id], mobile: params[:value]}) 
+      @store = Ims::Store.update_mobile(request, {id: params[:id], mobile: params[:value]}) 
     end
 
     if @store[:isSuccessful]

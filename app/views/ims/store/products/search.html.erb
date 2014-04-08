@@ -1,37 +1,14 @@
-<% if nil %>
-<%= form_tag search_ims_store_products_path, method: "GET", id: "search" do %>
-  <%= text_field_tag "keywords", params[:keywords], placeholder: "搜索商品名称、品牌、货号等" %>
-  <%= submit_tag "搜索" %>
-<% end %>
-
-<% if params[:keywords].blank? %>
-
-<%= link_to "100元以内", "javascript:void(0);", class: "keywords", value: "100元以内" %>
-<%= link_to "100~200元", "javascript:void(0);", class: "keywords", value: "100~200元" %>
-<%= link_to "200元~300元", "javascript:void(0);", class: "keywords", value: "200元~300元" %>
-
-<% else %>
-
-  <% 3.times.each do %>
-    <%= image_tag "/images/1.jpg" %>
-  <% end %>
-
-<% end %>
-<% end %>
-
-
 <div class="wrap-inner back-wrap-inner">
 <div class="module module-searchinput">
     <div class="row-fluid">
         <div class="span12">
             <%= form_tag search_ims_store_products_path, method: "GET", id: "search", class: "form-inline" do %>
-              <%= text_field_tag "keywords", params[:keywords], placeholder: "搜索宝贝", class: "input-small bg-img" %>
-              <%= hidden_field_tag "type" %>
-              <%= hidden_field_tag "from_price" %>
-              <%= hidden_field_tag "to_price" %>
-              <%= hidden_field_tag "from_discount" %>
-              <%= hidden_field_tag "to_discount" %>
-              <%= hidden_field_tag "brand_id" %>
+              <%= text_field_tag "keywords", @search[:keywords], placeholder: "搜索宝贝", class: "input-small bg-img" %>
+              <%= hidden_field_tag "from_price", @search[:from_price] %>
+              <%= hidden_field_tag "to_price", @search[:to_price] %>
+              <%= hidden_field_tag "from_discount", @search[:from_discount] %>
+              <%= hidden_field_tag "to_discount", @search[:to_discount] %>
+              <%= hidden_field_tag "brand_id", @search[:brand_id] %>
               <%= hidden_field_tag "combo_id", @combo.try(:id) %>
               <button class="btn" type="submit">搜 索</button>
             <% end %>
@@ -39,7 +16,8 @@
     </div>
 </div>
 
-<% if params[:keywords].blank? && params[:type].blank? %>
+
+<% if !params.slice(:from_price, :to_price, :from_discount, :to_discount, :brand_id, :combo_id, :keywords).values.any?{|value| value.present?} %>
 <div class="module-tab">
   <div class="tabbable"> <!-- Only required for left/right tabs -->
       <ul class="nav nav-tabs">
@@ -84,6 +62,12 @@
 <%= hidden_field_tag "count", @search[:count] %>
 <%= hidden_field_tag "page", @search[:page] %>
 <%= hidden_field_tag "per_page", @search[:per_page] %>
+<%= hidden_field_tag "from_price", @search[:from_price] %>
+<%= hidden_field_tag "to_price", @search[:to_price] %>
+<%= hidden_field_tag "from_discount", @search[:from_discount] %>
+<%= hidden_field_tag "to_discount", @search[:to_discount] %>
+<%= hidden_field_tag "brand_id", @search[:brand_id] %>
+<%= hidden_field_tag "keywords", @search[:keywords] %>
 
 
 <%= content_for :javascripts do -%>
@@ -150,6 +134,12 @@
               $("#count").attr("value", data["count"])
               $("#page").attr("value", data["page"])
               $("#per_page").attr("value", data["per_page"])
+              $("#from_price").attr("value", data["from_price"])
+              $("#to_price").attr("value", data["to_price"])
+              $("#from_discount").attr("value", data["from_discount"])
+              $("#to_discount").attr("value", data["to_discount"])
+              $("#brand_id").attr("value", data["brand_id"])
+              $("#keywords").attr("value", data["keywords"])
             }
           }, "json")
         }
