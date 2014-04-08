@@ -15,6 +15,6 @@ class Combo < ActiveRecord::Base
   end
 
   def product_desc
-    combo_products.sum {|x| "#{x.brand_name}#{x.category_name}"}
+    combo_products.map {|x| "#{x.brand_name}#{x.category_name}"}.join(",")
   end
 end
