@@ -126,7 +126,7 @@
     $("#combo_form").on("submit", function(){
       var image_fields = $("#img_box li")
       var product_image_fields = $("#p_box li")
-      verify_image1 = image_fields.length <= 3
+      verify_image1 = image_fields.length < 3
       verify_image2 = image_fields.length > 6
       verify_product1 = product_image_fields.length < 3
       verify_product2 = product_image_fields.length > 4
