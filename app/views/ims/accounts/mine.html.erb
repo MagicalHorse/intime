@@ -2,10 +2,7 @@
 <div class="module-card module-card-scan">
   <h1 class="text-center">礼品卡余额：<%= current_user.amount %>元</h1>
   <div class="text-center card-wrap">
-    <img src="/images/ims/card-self.png">
-  <div class="text-right">
-    <a class="txt3" href="<%= barcode_ims_accounts_path %>"><i class="fa fa-hand-o-up"></i> 点击支付</a>
-  </div>
+    <a href="<%= barcode_ims_accounts_path %>"><img src="/images/ims/tap-and-pay.png"></a>
   </div>
   <div class="btn-already">
     <%= link_to "我要购卡", new_ims_card_order_path, class: "btn btn-defult btn-large btn-block" %>
