@@ -65,9 +65,6 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     else
       @remote_combo = Ims::Combo.create(request, @combo.api_attrs)
     end
-
-    binding.pry
-
   end
 
   def add_img

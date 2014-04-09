@@ -5,7 +5,7 @@
   <title>我的礼品卡</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
   <%= stylesheet_link_tag "ims/application", :media => "all" %>
   <%= stylesheet_link_tag "ims/card", :media => "all" %>
   <%= javascript_include_tag 'ims/application' %>
@@ -20,7 +20,44 @@
     </div>
   </div>
   <!-- TODO 上线后，删除下行代码 -->
-<%= session %>
+  <%#= session %>
+
+  <div id="shareToAllModel" class="modal hide fade modal-grey modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="text-center">
+      <div class=""><img src="/images/ims/right-top.png"></div>
+    </div>
+  </div>
+
+  <div id="shareToUserModel" class="modal hide fade modal-grey modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="text-center">
+      <div class=""><img src="/images/ims/right-top.png"></div>
+    </div>
+  </div>
+
+  <div id="shareToMomentModel" class="modal hide fade modal-grey modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="text-center">
+      <div class=""><img src="/images/ims/right-top.png"></div>
+    </div>
+  </div>
+
   <%= yield :javascripts -%>
+  <script>
+    $(function(){
+      // 全局分享按钮
+      $("#share_to_all_model").click(function(){
+        $("#shareToAllModel").modal();
+      })
+
+      // 分享给好友按钮
+      $("#share_to_user_model").click(function(){
+        $("#shareToUserModel").modal();
+      })
+
+      // 分享到朋友圈按钮
+      $("#share_to_moment_model").click(function(){
+        $("#shareToMomentModel").modal();
+      })
+    });
+  </script>
 </body>
 </html>

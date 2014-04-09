@@ -27,18 +27,14 @@
           </div>
 
           <div class="common-white">
-            <a href="" class="income-menu3">
               <i class="fa fa-money"></i>
-              <span>提现申请中的金额</span> 
-              <i ><span>￥<%= @income[:data][:request_amount] %></span></i>
-            </a>
+              <span class="txt-grey">提现申请中的金额</span> 
+              <i class="pull-right txt-grey"><span>￥<%= @income[:data][:request_amount] %></span></i>
           </div>
 
           <div class="common-white">
-            <a href="" class="income-menu4">
               <i class="fa fa-money"></i>
-              <span>可提现金额：￥<%= @income[:data][:avail_amount] %></span> 
-            </a>
+              <span class="txt-red">可提现金额：￥<%= @income[:data][:avail_amount] %></span> 
           </div>
 
           <div class="module-gray">
