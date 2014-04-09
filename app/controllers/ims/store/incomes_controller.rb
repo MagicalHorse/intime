@@ -14,7 +14,7 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
   end
 
   def create
-    @income = Ims::Income.apply(request, {bank: params[:bank], card_no: params[:card_no], amount: params[:amount], user_name: params[:user_name]})
+    @income = Ims::Income.apply(request, {bank_code: params[:bank_code], bank_no: params[:bank_no], amount: params[:amount], user_name: params[:user_name]})
   end
 
   def list

@@ -36,7 +36,7 @@
                 <p><a href="#"><%= card["Desc"] %></a></p>
                 <div class="clearfix">
                     <p class="pull-left price-box">
-                        <span><button type="button" class="btn btn-danger btn-small">分享给好友</button></span>
+                        <span><a href="<%= new_ims_card_order_path(:store_id => @store[:data][:id]) %>" class="btn btn-danger btn-small">购买</a></span>
                     </p>
                     <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
                 </div>
@@ -60,7 +60,7 @@
                     <div class="row-fluid">
                         <div class="span8">
                             <div class="suit-left">
-                                <a class="img-box img-posi" href="<%= ims_combo_path(id: combo["Id"]) %>">
+                                <a class="img-box img-posi" href="<%= ims_combo_path(id: combo["Id"], :store_id => @store[:data][:id]) %>">
                                     <img src="<%= combo['Image'] %>" alt="">
                                     <img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
                             </div>
@@ -80,7 +80,7 @@
                 <div class="clearfix">
                     <p class="pull-left price-box">
                         <span>打包价：<em>¥<%= combo["Price"] %></em></span>
-                        <span><button type="button" class="btn btn-danger btn-small">分享给好友</button></span>
+                        <span><a href="<%= new_ims_order_path(:combo_id => combo["Id"], :store_id => @store[:data][:id]) %>" class="btn btn-danger btn-small">购买</a></span>
                     </p>
                     <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
                 </div>
