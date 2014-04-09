@@ -6,7 +6,7 @@
               <div class="controls-defined defined-small">
                 <label class="col-4"><abbr class="txt-red">*</abbr>金额 (元):</label>
                 <div class="col-8">
-                <%= text_field_tag :amount, "", placeholder: "请输入提现金额", required: true %>
+                <%= text_field_tag :amount, "", placeholder: "请输入提现金额", type: 'number' %>
                 </div>
               </div>
           </div>  
@@ -31,13 +31,13 @@
               <div class="controls-defined defined-small">
                 <label class="col-4"><abbr class="txt-red">*</abbr>开户姓名:</label>
                 <div class="col-8">
-                <%= text_field_tag :user_name, "", required: true %></div>
+                <%= text_field_tag :user_name, "" %></div>
               </div>
           </div>
           <div class="module common-white">
               <div class="controls-defined defined-small">
                 <label class="col-4"><abbr class="txt-red">*</abbr>卡号:</label>
-                <div class="col-8"><%= text_field_tag :bank_no, "", required: true %></div>
+                <div class="col-8"><%= text_field_tag :bank_no, "" %></div>
               </div>
           </div>
           <div class="module withdrawal-notice">
@@ -59,30 +59,6 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
-
-    var msg="";
-    var elements = document.getElementsByTagName("INPUT");
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].oninvalid = function(e) {
-            e.target.setCustomValidity("");
-
-            switch(e.target.id){
-                case "amount" :
-                msg="必须输入提现金额";
-                case "user_name" :
-                msg="必须填写开户名";
-                case "card_no":
-                msg="必须填写卡号";
-            }
-
-            if (!e.target.validity.valid) {
-                e.target.setCustomValidity(msg);
-            }
-        };
-        elements[i].oninput = function(e) {
-            e.target.setCustomValidity("");
-        };
-    }
 
     $("#income_form").validate({
       rules: {
@@ -106,9 +82,24 @@
         "bank_no": {required: '必须填写银行卡号'},
         "user_name": {required: '必须填写开户姓名'}
       },
-      errorPlacement:function(error, element){
-        element.after(error)
-      }
+       showErrors: function (errorMap, errorList) {
+
+            $.each(this.successList, function (index, value) {
+                $('#'+value.id+'').tooltip('destroy');
+            });
+
+            $.each(errorList, function (index, value) {
+
+                $('#'+value.element.id+'').attr('title',value.message).tooltip({
+                    placement: 'bottom',
+                    trigger: 'manual',
+                    delay: { show: 500, hide: 5000 }
+                }).tooltip('show');
+
+            });
+
+        }
+
     })
 
   })
