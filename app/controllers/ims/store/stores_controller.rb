@@ -1,15 +1,16 @@
 class Ims::Store::StoresController < Ims::Store::BaseController
-  
+
   def index
-  	 
+
   end
 
   def edit
-  	@store = Ims::Store.show(request, {id: params[:id]}) 
+  	@store = Ims::Store.show(request, {id: params[:id]})
   end
 
   def update
-    
+    @store = Ims::Store.update_name(request, {id: params[:id], name: params[:name]})
+    @store = Ims::Store.update_mobile(request, {id: params[:id], mobile: params[:mobile]}) if @store[:isSuccessful]
   end
 
   def show
@@ -22,7 +23,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def records
-    @giftcards = Ims::Store.giftcard_records(request) 
+    @giftcards = Ims::Store.giftcard_records(request)
     @orders = Ims::Store.order_records(request)
   end
 
@@ -39,11 +40,11 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def change_info
     if params[:name] == "store_name"
-      @store = Ims::Store.update_name(request, {id: params[:id], name: params[:value]}) 
+      @store = Ims::Store.update_name(request, {id: params[:id], name: params[:value]})
     end
 
     if params[:name] == "store_phone"
-      @store = Ims::Store.update_mobile(request, {id: params[:id], mobile: params[:value]}) 
+      @store = Ims::Store.update_mobile(request, {id: params[:id], mobile: params[:value]})
     end
 
     if @store[:isSuccessful]
@@ -58,13 +59,13 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
  #店铺管理
   def manage
-    @giftcards = Ims::Store.giftcards(request) 
-    @combos = Ims::Store.combos(request) 
+    @giftcards = Ims::Store.giftcards(request)
+    @combos = Ims::Store.combos(request)
   end
 
   def theme
-    
+
   end
 
-  
+
 end

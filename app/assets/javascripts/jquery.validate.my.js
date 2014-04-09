@@ -3,7 +3,7 @@
 jQuery.validator.addMethod(
   "dontMorethan",
   function(value, element, param) {
-    return this.optional(element) || value > $(param).val()
+    return this.optional(element) || value > params
   }, "不能大于上面的值"
 )
 

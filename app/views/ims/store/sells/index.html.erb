@@ -1,6 +1,6 @@
 <div class="wrap-content">
   <div class="module module-white min-height">
-    <div class="module-tab0 module-tab2">
+    <div class="module-tab0 module-tab2 module-product">
       <ul id="myTab" class="nav nav-tabs">
         <li class="active"><a href="#gift_cards">礼品卡</a></li>
         <li class=""><a href="#combos">商品搭配</a></li>
@@ -13,9 +13,21 @@
           </div>
         </div>
         <div id="combos" class="tab-pane">
+
+          <div class="bottom-button">
+            <div class="form-defined">
+              <div class="controls-defined defined-large">
+                <div class="col-12">
+                  <button class="btn btn-danger btn-large btn-block">
+                    <%= link_to '添加搭配商品', new_ims_store_combo_path %>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div class="module-table-box module-record">
-          <%= render "combo_list", combos: @combos %>
-          <%= link_to '添加搭配商品', new_ims_store_combo_path %>
+            <%= render "combo_list", combos: @combos %>
           </div>
         </div>
       </div>
@@ -87,16 +99,16 @@
 
     $(document).on("click", ".card_or_combo", function(){
       this_ele = $(this)
-      store_id = "store_id"
       item_id = this_ele.attr("item_id")
       item_type = this_ele.attr("item_type")
       text = this_ele.text()
-      is_online = text == "上架" ? true : false
-      $.post("/ims/store/sells/id/update_is_online", {_method: "put", store_id: store_id, item_id: item_id, item_type: item_type, is_online: is_online}, function(data){
-        if(data["status"]){
-          this_ele.text(is_online ? "下架" : "下架")
+      is_online = text.indexOf("上") >= 0 ? true : false
+      click_text = is_online ? "上架" : "下架"
+      $.post("/ims/store/sells/id/update_is_online", {_method: "put", item_id: item_id, item_type: item_type, is_online: is_online}, function(data){
+        if(data["status"] == true){
+          this_ele.text(is_online ? "下 架" : "上 架")
         }else{
-          alert(text+"失败")
+          alert(click_text+"失败" + data["message"])
         }
       })
     })
