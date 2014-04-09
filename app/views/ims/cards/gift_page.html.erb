@@ -10,28 +10,10 @@
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
-      <div class="col-12"><a class="btn btn-danger btn-large btn-block" id="ex3_open">分享给好友</a></div>
+      <div class="col-12"><a class="btn btn-danger btn-large btn-block" id="share_to_user_model">分享给好友</a></div>
     </div>
   </div>
 </div>
-
-
-<div id="myModal" class="modal hide fade modal-grey" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="position: fixed; top: 50%; left: 50%; margin-top: -210px; margin-left: -669.5px; z-index: 2; display: none;">
-  <div class="text-center">
-    <div class=""><img src="/images/ims/right-top.png"></div>
-  </div>
-</div>
-
-<%= content_for :javascripts do %>
-<script>
-  $(function(){
-    $("#ex3_open").click(function(){
-      $("#myModal").modal();
-    })
-
-  });
-</script>
-<% end %>
 
 <% elsif @card[:status].to_i != 0 %>
 
