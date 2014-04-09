@@ -7,9 +7,9 @@
 .module-title2 h3 i{ margin-right: 8px;}
 .title-link{ font: 21px/40px "microsoft yahei";}
 .title-link i{ margin-left: 10px; font-size: 28px;}
-.module-pull{margin-top: 50px;}
+.module-pull{margin-top: 20px;}
 .show-imgbox-no{border:2px dashed #eeeeee;}
-.show-imgbox-yes{border:2px solid #eeeeee;text-align: center;}
+.show-imgbox-yes{border:2px solid #eeeeee;}
 
 .mini-imgbox {margin-top: 50px;}
 .mini-imgbox ul{margin: 0; list-style: none; width: 100%；}
@@ -22,7 +22,7 @@
 .mini-imgbox ul li.add-link a{ display: block;}
 
 
-.upload-img {margin-top: 50px;}
+.upload-img {margin-top: 30px;} 
 .upload-img ul{margin: 0; list-style: none; width: 100%；}
 .upload-img ul li{ position: relative; margin:0 5px 5px 0; padding: 4px; border:2px solid #eeeeee; border-radius: 5px;}
 .upload-img ul li:focus,
@@ -35,7 +35,7 @@
 .module-title2 small{ font: 18px/40px "microsoft yahei"; color: #b7bbc2;}
 
 .goods-describe { margin-top: 20px;}
-.goods-describe textarea{ width: 100%; padding: 5px;  min-height: 60px; font: 22px/34px "microsoft yahei"; color: #676767; box-shadow: none;  box-sizing:border-box; -moz-box-sizing:border-box; /* Firefox */-webkit-box-sizing:border-box; /* Safari */}
+.goods-describe textarea{ width: 100%; padding: 5px;  min-height: 60px; font: 22px/34px "microsoft yahei"; box-shadow: none;  box-sizing:border-box; -moz-box-sizing:border-box; /* Firefox */-webkit-box-sizing:border-box; /* Safari */}
 .module-formbox{margin-top:10px; }
 .module-formbox form{margin-bottom:0; }
 .module-formbox input{ margin-right: 10px;}
