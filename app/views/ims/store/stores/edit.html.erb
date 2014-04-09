@@ -1,19 +1,3 @@
-<% if false %>
-<%= form_for(:store, url: "/ims/store/stores/update", method: 'put', html: {id: "store_form"})  do |f| %>
- <p><%= f.text_field :name, placeholder: "名称" %></p>
- <p><%= f.file_field :pic, :onchange=>"preImg(this.id,'imgPre');" %>
-   <img id="imgPre" src="" style="display: block;" />
- </p>
- <p><%= f.text_field :phone, placeholder: "电话" %></p>
- <p><%= f.submit "修改" %></p>
-<% end %>
-<% end %>
-
-<style type="text/css">
- .editableform input {
-   height: 40px;
- } 
-</style>
 <div class="wrap-content">
   <div class="module module-white min-height">
     <div class="module common-white">
@@ -27,52 +11,63 @@
           </div>
       </div>
     </div>
-    <div class="module common-white">
+    <%= form_tag("/ims/store/stores/#{@store[:data][:id]}", method: :put, id: "store_form", class: 'form-defined', remote: true)  do |f| %>
+    <div class="module common-white module-password">
       <div class="shop-information2 txt2">
         <p class="clearfix"><span class="pull-left">店铺名称</span>
           <span class="pull-right txt-grey">
-            <a href="#" data-type="text" id="store_name"><%= @store[:data][:name] %></a>
+            <%= text_field_tag :name, @store[:data][:name], class: 'large-block', require: true %>
           </span>
         </p>
         <p class="clearfix"><span class="pull-left">电话</span>
           <span class="pull-right txt-grey tel-nun">
-            <a href="#" data-type="text" id="store_phone"><%= @store[:data][:mobile] %></a></span></p>
+            <%= text_field_tag :mobile, @store[:data][:mobile], class: 'large-block', require: true %>
+          </span>
+        </p>
       </div>
     </div>
+    <div class="bottom-button">
+        <div class="form-defined">
+          <div class="controls-defined defined-large">
+            <div class="col-12"><button class="btn btn-danger btn-large btn-block" type="submit">修改</button></div>
+          </div>
+        </div>
+    </div>
+    <% end %>
   </div>
 </div>
 
+<div id="ex2" style="display:none;">
+</div>
 
-<% content_for :javascripts do -%>
+<%= content_for :javascripts do -%>
   <script type="text/javascript">
    $(function(){
-    $("#store_name").editable({
-      url: "<%= change_info_ims_store_stores_path(:id => @store[:data][:id]) %>",
-      title: "请输入店铺名称",
-      placement: 'left',
-      mode: 'inline',
-      showbuttons: false,
-      onblur: 'submit',
-      send: 'always',
-      success: function(response, newValue) {
-        if(response.status == 0){alert("网络错误，请稍后重试");}
-      }
-    });
+    
+    var msg="";
+    var elements = document.getElementsByTagName("INPUT");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function(e) {
+            e.target.setCustomValidity("");
 
-    $("#store_phone").editable({
-      url: "<%= change_info_ims_store_stores_path(:id => @store[:data][:id]) %>",
-      title: "请输入店铺电话",
-      placement: 'left',
-      mode: 'inline',
-      showbuttons: false,
-      onblur: 'submit',
-      send: 'always',
-      success: function(response, newValue) {
-        if(response.status == 0){alert("网络错误，请稍后重试");}
-      }
-    });
+            switch(e.target.id){
+                case "name" :
+                msg="必须填写店铺名称";
+                case "mobile" :
+                msg="必须填写电话";
+            }
 
-   
+            if (!e.target.validity.valid) {
+                e.target.setCustomValidity(msg);
+            }
+        };
+        elements[i].oninput = function(e) {
+            e.target.setCustomValidity("");
+        };
+    }
+
+    
+
     $(".shop-information").click(function(){
        document.getElementById("upfile").click();
     });
