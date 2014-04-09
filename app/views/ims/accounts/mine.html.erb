@@ -1,14 +1,16 @@
 <% if current_user.isbindcard %>
-<div class="module module-white module-card-img">
-  <img src="/images/ims/card1.jpg">
+<div class="module-card module-card-scan">
+  <h1 class="text-center">礼品卡余额：<%= current_user.amount %>元</h1>
+  <div class="text-center card-wrap">
+    <img src="/images/ims/card-self.png">
   <div class="text-right">
     <a class="txt3" href="<%= barcode_ims_accounts_path %>"><i class="fa fa-hand-o-up"></i> 点击支付</a>
   </div>
-</div> 
-<div class="module module-form module-remaining">
-  <h1 class="text-center">礼品卡余额：<span><%= current_user.amount %>元</span></h1>
-  <%= link_to "我要购卡", new_ims_card_order_path, class: "btn btn-large btn-block btn-danger" %>
-</div> 
+  </div>
+  <div class="btn-already">
+    <%= link_to "我要购卡", new_ims_card_order_path, class: "btn btn-defult btn-large btn-block" %>
+  </div>
+</div>
 <div class="module-user-change">
   <ul class="txt1">
     <li><%= link_to raw('<span>修改密码</span><i class="fa fa-angle-right"></i>'), change_password_page_ims_accounts_path, class: "clearfix popup-menu1" %></li>
@@ -17,16 +19,20 @@
   </ul>
 </div>
 <% else %>
-<div class="module module-white module-card-img">
-  <img src="/images/ims/card1.jpg">
-</div> 
-<div class="module module-form module-remaining">
-  <%= link_to "我要购卡", new_ims_card_order_path, class: "btn btn-large btn-block btn-danger" %>
-  <h1 class="text-center no-bingding">您还未绑定银泰礼品卡？<%= link_to "我要绑卡", phone_page_ims_accounts_path %><br /></h1>
-</div> 
+<div class="module-card module-card-scan">
+  <div class="text-center card-wrap">
+    <img src="/images/ims/card-self.png">
+  </div>
+  <div class="btn-already">
+    <%= link_to "我要购卡", new_ims_card_order_path, class: "btn btn-defult btn-large btn-block" %>
+  </div>
+  <h1 class="text-center no-bingding">您还未绑定银泰礼品卡？<%= link_to "我要绑卡", phone_page_ims_accounts_path %></h1>
+</div>
 <div class="module-user-change">
   <ul class="txt1">
     <li><%= link_to raw('<span>交易记录</span><i class="fa fa-angle-right"></i>'), my_list_ims_card_orders_path, class: "clearfix popup-menu3" %></li>
   </ul>
 </div>
 <% end %>
+
+

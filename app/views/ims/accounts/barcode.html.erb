@@ -1,11 +1,12 @@
 <div class="module module-white">
   <div class="module-card module-card-scan">
     <h1 class="text-center">礼品卡余额：<%= current_user.amount %>元</h1>
-    <img src="../images/ims/card-self.png">
-    <div class="text-center card-wrap" id="bcTarget">
+    <div class="text-center card-wrap barcord-box">
+      <img src="/images/ims/card-saoma.png">
+      <div class="text-center card-wrap tel-nun bar-code" id="bcTarget"></div>
     </div>
     <div class="btn-scan">
-      <a type="button" class="btn btn-danger btn-large btn-block" href="<%= mine_ims_accounts_path %>">支付完成</a>
+      <a type="button" class="btn btn-default btn-large btn-block" href="<%= mine_ims_accounts_path %>">支付完成</a>
     </div>
     <div class="module module-notice">
       <h4><i class="fa fa-exclamation-circle"></i> 温馨提示</h4>
@@ -20,7 +21,7 @@
 <%= content_for :javascripts do %>
 <script>
   $(function(){
-    $("#bcTarget").barcode("<%= current_user.card_no %>", "code128", {barWidth:2, barHeight:80});   
+    $("#bcTarget").barcode("<%= current_user.card_no %>", "code128", {barWidth:2, barHeight:70});   
   });
 </script>
 <% end %>
