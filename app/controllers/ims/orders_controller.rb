@@ -4,12 +4,11 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def new
-    @product = Ims::Product.find(request, id: params["id"])
-    # @product = {id: 1, image: "/images/1.jpg", price: 100.1, brand_id: 2, brand_name: "mockup品牌1",
-    #   sales_code: "mockupsalescode1", sku_code: "sku_code", category_id: 1,
-    #   category_name: "mockup分类1", size_str: '1111', size: [{size_id: 1, size_name: "mockup尺码1"}, {size_id: 2, size_name: "mockup尺码2"}]}
-    categories = Tag.es_search(category_id: @product[:category_id])[:data]
-    @sizes = @product[:category_id].present? ? categories.first.try(:sizes) : []
+    @product = API::Order.new(request, productid: params["product_id"])[:data]
+    @salecolors = @product[:salecolors]
+    @sizes = @salecolors.first[:sizes]
+    @products = params[:product_id].present? ? [@product] : [@product]
+    @order = API::Order::computeamount(request, productid: params["product_id"], quantity: 1)[:data]
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     sign = {
@@ -18,7 +17,7 @@ class Ims::OrdersController < Ims::BaseController
       timeStamp: @timeStamp_val,
       nonceStr: @nonceStr_val,
       accessToken: Ims::Weixin.access_token
-    }.to_param
+    }.to_param.downcase
     @addrSign_val = Digest::SHA1.hexdigest(sign)
   end
 
@@ -28,7 +27,13 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def create
-    render json: {status: true, id: 1}.to_json
+    @order = API::Order::create(request, order: params[:order].to_json)
+    if @order[:isSuccessful]
+      render json: {status: true, data: @order[:data]}.to_json
+    else
+      render json: {status: false, message: @order[:message]}.to_json
+    end
+
   end
 
   def payments

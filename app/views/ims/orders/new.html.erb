@@ -1,35 +1,33 @@
-<%= form_tag ims_orders_path, id: "new_order" do %>
-  <%= image_tag "/images/1.jpg" %>
-  D&G女士休闲鞋-0123423123
-  微信价: ￥239.00
-  品牌价: ￥478.00
-  尺码: <%= select_tag "size_id", options_for_select(["", "尺码1", "尺码2"]) %>
-  <%= hidden_field_tag "name" %>
-  <%= hidden_field_tag "zip_code" %>
-  <%= hidden_field_tag "address" %>
-  <%= hidden_field_tag "contact" %>
+<%= form_tag ims_orders_path, id: "new_order_form" do %>
+
+  <% @products.each do |product| %>
+    <%= hidden_field_tag "order[products][][productid]", product[:id] %>
+    <%= hidden_field_tag "order[products][][desc]", product[:description] %>
+    <%= hidden_field_tag "order[products][][quantity]", 1 %>
+    <%= hidden_field_tag "order[products][][properties][sizevalueid]", @sizes.length == 1 ? @sizes.first[:sizeid] : nil, id: "sizevalueid" %>
+    <%= hidden_field_tag "order[products][][properties][colorvalueid]", @salecolors.length == 1 ? @salecolors.first[:colorid] : nil, id: "colorvalueid" %>
+
+    <%= hidden_field_tag "order[products][][properties][sizevaluename]", @sizes.length == 1 ? @sizes.first[:sizename] : nil, id: "sizevaluename" %>
+    <%= hidden_field_tag "order[products][][properties][colorvaluename]", @salecolors.length == 1 ? @salecolors.first[:colorname] : nil, id: "colorvaluename" %>
+  <% end %>
+
+  <%= hidden_field_tag "order[payment[paymentcode]]", 29 %>
+  <%= hidden_field_tag "order[payment[paymentname]]", "微信支付" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", "nil", id: "name" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", "nil", id: "contact" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", "nil", id: "zipcode" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", "nil", id: "address" %>
+  <%= hidden_field_tag "order[needinvoice]", false %>
+
+
+
+  <%= hidden_field_tag "order[invoicetitle]", nil %>
+  <%= hidden_field_tag "order[invoicedetail]", nil %>
+  <%= hidden_field_tag "order[memo]", nil %>
+  <%= hidden_field_tag "order[storeid]", params[:store_id] %>
   <%= hidden_field_tag "open_id", session[:wx_openid] %>
   <%= link_to "请点击选择地址", "javascript:void(0);" %>
-
-
-  <%= link_to "微信安全支付", "javascript:void(0);", id: "save_order" %>
-<% end if nil %>
-
-
-
-<%= form_tag ims_orders_path, id: "new_order_form", style: "display: none;" do %>
-  <%= image_tag "/images/1.jpg" %>
-  D&G女士休闲鞋-0123423123
-  微信价: ￥239.00
-  品牌价: ￥478.00
-  尺码: <%= hidden_field_tag "size_id" %>
-  <%= hidden_field_tag "name" %>
-  <%= hidden_field_tag "zip_code" %>
-  <%= hidden_field_tag "address" %>
-  <%= hidden_field_tag "contact" %>
-  <%= hidden_field_tag "open_id", session[:wx_openid] %>
-  <%= link_to "请点击选择地址", "javascript:void(0);" %>
-
+  <%= submit_tag "提交表单" %>
 
 
 <% end %>
@@ -40,14 +38,36 @@
          <div class="row-fluid">
              <div class="span3">
                  <div class="detail-imgbox">
-                     <img src="/images/ims/img800.jpg">
+                    <%= image_tag Product.img_url(@product[:salecolors].first[:resource]) %>
                  </div>
              </div>
              <div class="span9">
                  <div class="price-detail">
-                     <h3><%= @product["name"] %></h3>
-                     <p class="txt3">微信价：<em>￥<%= @product["price"] %></em></p>
-                     <p class="txt5">吊牌价：￥300.00</p>
+                    <h3><%= @product["name"] %></h3>
+                    <p class="txt3">微信价：<em>￥<%= @order["extendprice"] %></em></p>
+                 </div>
+             </div>
+         </div>
+      </div>
+
+      <div class="module common-white">
+         <div class="row-fluid">
+             <div class="span12">
+                 <div class="size-detail">
+                     <dl class="dl-horizontal">
+                          <dt>颜色</dt>
+                          <dd>
+                            <ul class="inline clearfix" id="salecolors">
+                              <% @salecolors.each do |salecolor| %>
+                                <li class="<%= 'active' if @salecolors.length == 1 %>">
+                                  <a href="javascript:void(0);" valueid='<%= salecolor['colorid'] %>' valuename='<%= salecolor['colorname'] %>'>
+                                    <%= salecolor['colorname'] %>
+                                  </a>
+                                </li>
+                              <% end %>
+                            </ul>
+                          </dd>
+                     </dl>
                  </div>
              </div>
          </div>
@@ -62,9 +82,11 @@
                           <dd>
                             <ul class="inline clearfix" id="sizes">
                               <% @sizes.each do |size| %>
-                              <li value='<%= size['id'] %>'>
-                                <a href="javascript:void(0);"><%= size['name'] %></a>
-                              </li>
+                                <li class="<%= 'active' if @sizes.length == 1 %>">
+                                  <a href="javascript:void(0);" valueid='<%= size['sizeid'] %>' valuename='<%= size['sizename'] %>'>
+                                    <%= size['sizename'] %>
+                                  </a>
+                                </li>
                               <% end %>
                             </ul>
                           </dd>
@@ -73,12 +95,24 @@
              </div>
          </div>
       </div>
+
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
                  <div class="detail-block detail-contact">
-                     <p class="txt8"><span><i class="fa fa-user"></i>联系人</span><span><i class="fa fa-phone"></i>18700001111</span></p>
-                     <p class="txt8"><span><i class="fa fa-map-marker"></i>回龙观良庄家园测试地址测试地址</span></p>
+                     <p class="txt8">
+                       <span>
+                         <i class="fa fa-user"></i><span id="weixin_name">联系人</span>
+                       </span>
+                       <span>
+                       <i class="fa fa-phone"></i><span id="weixin_contact">18700001111</span>
+                       </span>
+                     </p>
+                     <p class="txt8">
+                       <span>
+                       <i class="fa fa-map-marker"></i><span id="weixin_address">回龙观良庄家园测试地址测试地址</span>
+                       </span>
+                     </p>
                  </div>
              </div>
          </div>
@@ -87,8 +121,15 @@
          <div class="row-fluid">
              <div class="span12">
                  <div class="detail-block detail-contact-bd">
-                     <p class="txt8 txt-bd clearfix"><span class="pull-left"><i class="fa fa-truck"></i>运费：免运费</span><span class="pull-right"><b>实付：</b><i>￥399.00</i></span></p>
-                     <p class="txt8 txt0"><i class="fa fa-exclamation-circle"></i>提交订单后，请在1小时内完成支付，过时订单将会自动取消</p>
+                     <p class="txt8 txt-bd clearfix">
+                       <span class="pull-left">
+                         <i class="fa fa-truck"></i>运费：<%= (totalfee = @order[:totalfee]).zero? ? "免运费" : totalfee %>
+                       </span>
+                       <span class="pull-right"><b>实付：</b><i>￥<%= @order[:totalamount] %></i></span>
+                     </p>
+                     <p class="txt8 txt0">
+                       <i class="fa fa-exclamation-circle"></i>提交订单后，请在1小时内完成支付，过时订单将会自动取消
+                     </p>
                  </div>
              </div>
          </div>
@@ -104,29 +145,106 @@
 <script>
   $(function(){
 
-    $("#sizes li").on("click", function(){
-      this_ele = $(this)
-      size_id = this_ele.attr("value")
-      $("#sizes li").each(function() {
-        $(this).removeClass("active")
-      });
-      $("#size_id").attr("value", size_id)
-      this_ele.addClass("active")
+    $(document).on("click", "#salecolors li a", function(){
+      this_li = $(this).parents("li")
+      class_name = this_li.attr("class") || ""
+      salecolor_id = $(this).attr("valueid")
+      salecolor_name = $(this).attr("valuename")
+      $("#salecolors li").removeClass("active")
+
+      if(class_name.indexOf('active') >= 0){
+        $("#colorvalueid").attr("value", '')
+        $("#colorvaluename").attr("value", '')
+        this_li.removeClass("active")
+      }else{
+        $("#colorvalueid").attr("value", salecolor_id)
+        $("#colorvaluename").attr("value", salecolor_name)
+        this_li.addClass("active")
+      }
     })
+
+    $(document).on("click", "#sizes li a", function(){
+      this_li = $(this).parents("li")
+      class_name = this_li.attr("class") || ""
+      size_id = $(this).attr("valueid")
+      size_name = $(this).attr("valuename")
+      $("#sizes li").removeClass("active")
+
+      if(class_name.indexOf('active') >= 0){
+        $("#sizevalueid").attr("value", '')
+        $("#sizevaluename").attr("value", '')
+        this_li.removeClass("active")
+      }else{
+        $("#sizevalueid").attr("value", size_id)
+        $("#sizevaluename").attr("value", size_name)
+        this_li.addClass("active")
+      }
+    })
+
 
     var validator = $("#new_order_form").validate({
       ignore: "",
       rules: {
-        "size_id": {
+        "order[products][][productid]": {
           required: true
         },
-        "name": {
+        "order[products][][desc]":{
+          required: true
+        },
+        "order[products][][quantity]": {
+          required: true
+        },
+        "order[products][][properties][sizevalueid]": {
+          required: true
+        },
+        "order[products][][properties][colorvalueid]": {
+          required: true
+        },
+        "order[payment[paymentcode]]": {
+          required: true
+        },
+        "order[payment[paymentname]]": {
+          required: true
+        },
+        "order[shippingaddress[shippingcontactperson]]": {
+          required: true
+        },
+        "order[shippingaddress[shippingcontactphone]]": {
+          required: true
+        },
+        "order[shippingaddress[shippingzipcode]]": {
+          required: true
+        },
+        "order[shippingaddress[shippingaddress]]": {
+          required: true
+        },
+        "order[needinvoice]": {
           required: true
         }
       },
+      messages: {
+        "order[products][][properties][sizevalueid]": {
+          required: "请选择尺寸"
+        },
+        "order[products][][properties][colorvalueid]": {
+          required: "请选择颜色"
+        },
+      },
+      showErrors: function(errorMap, errorList) {
+        var msg = "";
+        $.each(errorList, function(i,v){
+          msg += (v.message+"\r\n");
+        });
+        if(msg!="") alert(msg);
+      },
       errorPlacement:function(error, element){
-        element.after(error)
+        if(element.attr("id") == "colorvalueid" || element.attr("id") == "colorvaluename"){
+          $("#salecolors").append(error)
+        }else{
+          element.after(error)
+        }
       }
+
     })
 
     $("#save_order").on("click", function(){
@@ -137,7 +255,7 @@
           dataType: "json",
           success: function(data){
             if(data["status"] == true){
-              order_id = data["id"]
+              order_id = data["data"]["orderno"]
               if(confirm("是否支付成功？")){
                 document.location.href = "/ims/orders/"+order_id
               }else{
@@ -157,6 +275,8 @@
       }
     })
 
+    // 获取送货地址、送货人等
+
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
       WeixinJSBridge.invoke('editAddress',{
         appId: "<%= Settings.wx.appid %>",
@@ -173,13 +293,17 @@
         status = res.err_msg
         if(status["edit_address"] == "ok"){
           name = res.userName
-          zip_code = res.addressPostalCode
+          zipcode = res.addressPostalCode
           address = [res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.addressDetailInfo].join(" ")
           contact = res.telNumber
           $("#name").attr("value", name)
-          $("#zip_code").attr("value", zip_code)
+          $("#weixin_name").text(name)
+          $("#zipcode").attr("value", zipcode)
+          $("#weixin_zipcode").text(zipcode)
           $("#address").attr("value", address)
+          $("#weixin_address").text(address)
           $("#contact").attr("value", contact)
+          $("#weixin_contact").text(contact)
         }else{
           alert("获取地址失败")
         }
