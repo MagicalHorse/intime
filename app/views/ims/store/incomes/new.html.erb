@@ -19,7 +19,7 @@
             <div class="controls-defined defined-small">
               <label class="col-4"><abbr class="txt-red">*</abbr>开户银行:</label>
               <div class="col-8">
-                <select name="bank">
+                <select name="bank_code">
                   <% @banks[:data][:items].each do |item| %>
                    <option value="<%=item["code"]%>"><%= item["name"] %></option>
                   <% end %>

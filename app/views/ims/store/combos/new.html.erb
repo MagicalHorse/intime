@@ -106,7 +106,7 @@
 </div>
 </div>
 
-<div id="ex2" style="display:none;">
+<div id="ex2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 
 <%= content_for :javascripts do -%>
@@ -176,10 +176,12 @@
         },
         done: function(e, data){
           if(data.result['status'] == 1){
-            $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
-            $("#default_img").addClass("show-imgbox-yes");
-            $("#default_img").removeClass("show-imgbox-no");
-            $("#default_img").html("<img src='"+data.result['img']+"'>");
+            setTimeout(function(){
+              $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
+              $("#default_img").addClass("show-imgbox-yes");
+              $("#default_img").removeClass("show-imgbox-no");
+              $("#default_img").html("<img src='"+data.result['img']+"'>");     
+            }, 1000);
           }else{
             alert("网络错误，请稍后重试");
           }
