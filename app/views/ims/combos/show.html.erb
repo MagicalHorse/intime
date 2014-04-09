@@ -22,7 +22,7 @@
                   <div class="combos-product">
                     <img src="<%= product[:image] %>">
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
-                    <a class="btn btn-danger btn-mini btn-block" href="<%= new_ims_order_path(:product_id => product[:id]) %>">点击购买</a>
+                    <a class="btn btn-danger btn-mini btn-block" href="<%= new_ims_order_path(:product_id => product[:id], :store_id => @store_id) %>">点击购买</a>
                   </div>
                 </div>
                 <% end %>
@@ -58,7 +58,7 @@
       <% if current_user.store_id == @remote_combo[:data][:id] %>
       <a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>">编 辑</a>
       <% else %>
-      <a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>">立刻购买</a>
+      <a href="<%= new_ims_order_path(:combo_id => @remote_combo[:data][:id]), :store_id => @store_id %>">立刻购买</a>
       <% end %>
     </button>
   </div>
