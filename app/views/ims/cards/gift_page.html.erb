@@ -15,7 +15,8 @@
   </div>
 </div>
 
-<div id="ex3" class="modal-grey modal" style="position: fixed; top: 50%; left: 50%; margin-top: -210px; margin-left: -669.5px; z-index: 2; display: none;">
+
+<div id="myModal" class="modal hide fade modal-grey" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="position: fixed; top: 50%; left: 50%; margin-top: -210px; margin-left: -669.5px; z-index: 2; display: none;">
   <div class="text-center">
     <div class=""><img src="/images/ims/right-top.png"></div>
   </div>
@@ -25,10 +26,7 @@
 <script>
   $(function(){
     $("#ex3_open").click(function(){
-      $("#ex3").modal({
-        clickClose: true,
-        showClose: false
-      });
+      $("#myModal").modal();
     })
 
   });
