@@ -4,7 +4,7 @@
     <div class="module-title2">
         <div class="row-fluid">
             <div class="span6"><h3><i class="fa fa-heart"></i>搭配组合照</h3></div>
-            <div class="span6">
+            <div class="span6 text-right">
               <%= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_combos_path, class: "title-link" %>
             </div>
         </div>
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="goods-describe">
-      <%= f.text_area :desc, :rows => 2 %>
+      <%= f.text_area :desc, :rows => 5 %>
     </div>
 </div>
 
@@ -106,7 +106,7 @@
 </div>
 </div>
 
-<div id="ex2" style="display:none;">
+<div id="ex2" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 
 <%= content_for :javascripts do -%>
@@ -176,10 +176,12 @@
         },
         done: function(e, data){
           if(data.result['status'] == 1){
-            $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
-            $("#default_img").addClass("show-imgbox-yes");
-            $("#default_img").removeClass("show-imgbox-no");
-            $("#default_img").html("<img src='"+data.result['img']+"'>");
+            setTimeout(function(){
+              $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
+              $("#default_img").addClass("show-imgbox-yes");
+              $("#default_img").removeClass("show-imgbox-no");
+              $("#default_img").html("<img src='"+data.result['img']+"'>");     
+            }, 500);
           }else{
             alert("网络错误，请稍后重试");
           }

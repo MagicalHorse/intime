@@ -10,31 +10,10 @@
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
-      <div class="col-6"><a class="btn btn-danger btn-large btn-block" id="ex3_open">分享给好友</a></div>
-      <div class="col-6"><a class="btn btn-grey btn-large btn-block" href="<%= new_ims_card_order_path %>">立即购买</a></div>
+      <div class="col-12"><a class="btn btn-danger btn-large btn-block" id="share_to_user_model">分享给好友</a></div>
     </div>
   </div>
 </div>
-
-<div id="ex3" class="modal-grey modal" style="position: fixed; top: 50%; left: 50%; margin-top: -210px; margin-left: -669.5px; z-index: 2; display: none;">
-  <div class="text-center">
-    <div class=""><img src="/images/ims/right-top.png"></div>
-  </div>
-</div>
-
-<%= content_for :javascripts do %>
-<script>
-  $(function(){
-    $("#ex3_open").click(function(){
-      $("#ex3").modal({
-        clickClose: true,
-        showClose: false
-      });
-    })
-
-  });
-</script>
-<% end %>
 
 <% elsif @card[:status].to_i != 0 %>
 
@@ -52,6 +31,7 @@
     <h1 class="text-center">你已回绝了好友赠送的礼品卡！</h1>
     <% end %>
     <p class="txt1 text-center txt-money">礼品卡金额：<em class="txt-red"><%= @card[:amount] %>元</em></p>
+    <img src="/images/ims/card-self.png">
   </div>
 </div>  
 <div class="bottom-button">
@@ -75,6 +55,7 @@
     <p class="txt3 card-text">
       <%= @card[:comment] %>
     </p>
+    <img src="/images/ims/card-hand.png">
   </div>
 </div>  
 <div class="bottom-button">

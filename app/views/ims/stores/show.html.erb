@@ -11,7 +11,7 @@
                                 <h2 class="shop-name"><%= @store[:data][:name] %>&nbsp;</h2>
                                 <ul class="inline browerse-icon">
                                     <li>
-                                        <a href="#"><i class="hd btn-tel"></i><span>联系店主</span></a>
+                                        <a href="tel:<%= @store[:data][:mobile] %>"><i class="hd btn-tel"></i><span>联系店主</span></a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)" id="favor_store"><i class="hd btn-star"></i><span>收藏店铺</span></a>
@@ -82,7 +82,7 @@
                 <div class="clearfix">
                     <p class="pull-left price-box">
                         <span>打包价：<em>¥<%= combo["Price"] %></em></span>
-                        <span><button type="button" class="btn btn-danger btn-small">点击购买</button></span>
+                        <span><a href="<%= new_ims_order_path(:combo_id => combo["Id"], :store_id => @store[:data][:id]) %>" class="btn btn-danger btn-small">点击购买</a></span>
                     </p>
                     <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
                 </div>

@@ -1,8 +1,8 @@
 <div class="wrap-inner back-wrap-inner">
-<div class="module module-bg-white clearfix">
-  <div class="row-fluid">
-    <div class="span12">
-      <div id="myCarousel" class="carousel slide" style="overflow: hidden;">
+    <div class="module module-color-white clearfix">
+      <div class="row-fluid">
+        <div class="span12">
+            <div id="myCarousel" class="carousel slide" style="overflow: hidden;">
               <ol class="carousel-indicators">
                 <li class="active"></li>
                 <li></li>
@@ -13,41 +13,54 @@
                 <% @combo.combo_pics.each_with_index do |img, i| %>
                   <div class="item slide <%= 'active' if i == 0 %>"><img src="<%= img.url %>"></div>
                 <% end %>
-
               </div>
             </div>
-
-        <div class="p-title"><h4><%= @combo.desc %></h4></div>
-        <div class="p-price1 clearfix">
-          <span class="txt3">微信价：<em class="txt4">￥<%= @combo.price %>  </em></span>
+            <div class="module module-white module-show">
+              <div class="row-fluid">
+                <% @combo.combo_products.each do |product| %>
+                <div class="span4">
+                  <div class="combos-product">
+                    <img src="<%= product.img_url %>">
+                    <p><span class="txt3">￥<%= product.price %></span></p>
+                    <a class="btn btn-danger btn-mini btn-block" href="<%= new_ims_order_path(:product_id => product.remote_id) %>">点击购买</a>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+            </div>
         </div>
-    </div>
-  </div>
-</div>
-
-<div class="module module-common">
-  <div class="row-fluid">
-
-      <% @combo.combo_products.each do |product| %>
-      <div class="span4">
-        <div class="combos-product">
-          <img src="<%= product.img_url %>">
-          <p><span class="txt3">￥<%= product.price %></span></p>
-          <a class="btn btn-danger btn-mini btn-block" href="<%= new_ims_order_path(:product_id => product.remote_id) %>">点击购买</a>
+      </div>       
+    </div>  
+    <% if params[:private_to].present? %>
+    <div class="private-custom">
+      <div class="private-bg">
+        <div class="private-text">
+            <p class="txt4 txt-red">Robin:</p>
+          <p class="txt4">
+            您好！此搭配是我专门为你定制的！希望你会喜欢!
+          </p>
         </div>
       </div>
-      <% end %>
+    </div>
+    <% end %>
+    <div class="p-title">
+      <h4><%= @combo.desc %></h4>
+      <div class="p-price1 clearfix">
+        <span class="txt3 pull-left">打包价：<em>￥<%= @combo.price %></em></span>
+        <!-- <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
+        <span class="txt4 pull-right txt-red" id="unfavor_combo"><i class="fa fa-star"></i> 已收藏</span> -->
+      </div>
+    </div>
 
-  </div>
+    <div class="bottom-btnbox">
+      <button class="btn btn-large btn-danger btnblock" type="button"><a href="<%= new_ims_store_combo_path(combo_id: @combo.id) %>">返回</a></button>
+    </div>
   </div>
 
-  <div class="bottom-btnbox">
-    <button class="btn btn-large btn-danger btnblock" type="button"><a href="<%= new_ims_store_combo_path(combo_id: @combo.id) %>">返回</a></button>
-    <!-- <button class="btn btn-large btn-danger"><i class="fa fa-upload"></i>提交发布</button> -->
-  </div>
-</div>
+
 <script type="text/javascript">
   $(function(){
+
     $("#myCarousel").swipeshow({
       autostart: true,    /* Set to `false` to keep it steady */
       interval: 3000,     /* Time between switching slides (ms) */
@@ -57,5 +70,7 @@
       mouse: true,        /* enable mouse dragging controls */
       keys: true
     });
+    
   })
 </script>
+
