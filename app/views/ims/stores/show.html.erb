@@ -11,7 +11,7 @@
                                 <h2 class="shop-name"><%= @store[:data][:name] %>&nbsp;</h2>
                                 <ul class="inline browerse-icon">
                                     <li>
-                                        <a href="#"><i class="hd btn-tel"></i><span>联系店主</span></a>
+                                        <a href="tel:<%= @store[:data][:mobile] %>"><i class="hd btn-tel"></i><span>联系店主</span></a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)" id="favor_store"><i class="hd btn-star"></i><span>收藏店铺</span></a>

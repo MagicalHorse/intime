@@ -376,6 +376,7 @@ IntimeService::Application.routes.draw do
       root :to => "home#index"
       post "login" => "home#login"
       get 'check_code' => 'home#check_code'
+      get 'my' => 'stores#my'
       resources :sales_codes, only: :create
       resources :sells, only: :index do
         member do
