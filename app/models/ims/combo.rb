@@ -16,6 +16,10 @@ class Ims::Combo < Ims::Base
    def upload_img(req, params ={})
    	post(req, params.merge(path: 'resource/upload'))
    end
+
+   def online_num(req, params = {})
+      post(req, params.merge(path: 'associate/combos_online_count'))
+   end
  end
 
 end
