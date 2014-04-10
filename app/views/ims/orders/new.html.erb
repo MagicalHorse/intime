@@ -112,7 +112,16 @@
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
-                 <div class="detail-block detail-contact">
+
+                 <div id="contact_select" class="detail-block detail-contact">
+                     <p class="txt8">
+                       <span>
+                       <i class="fa fa-map-marker"></i>选择地址
+                       </span>
+                     </p>
+                 </div>
+
+                 <div id="contact" class="detail-block detail-contact" style="display: none;">
                      <p class="txt8">
                        <span>
                          <i class="fa fa-user"></i><span id="weixin_name">联系人</span>
@@ -326,6 +335,9 @@
           $("#weixin_address").text(address)
           $("#contact").attr("value", contact)
           $("#weixin_contact").text(contact)
+
+          $("#contact_select").hide()
+          $("#contact").show()
         }else{
           alert("获取地址失败")
         }
