@@ -2,12 +2,18 @@
   <div class="module module-white min-height">
     <div class="module-tab0 module-tab2 module-product">
       <ul id="myTab" class="nav nav-tabs">
-        <li class="active"><a href="#combos">商品搭配</a></li>
-        <li class=""><a href="#gift_cards">礼品卡</a></li>
+        <li class="active"><a href="#gift_cards">礼品卡</a></li>
+        <li class=""><a href="#combos">商品搭配</a></li>
       </ul>
 
       <div class="tab-content">
-        <div id="combos" class="tab-pane active">
+        <div id="gift_cards" class="tab-pane active">
+          <div class="module-table-box module-record">
+            <%= render "gift_card_list", gift_cards: @gift_cards %>
+          </div>
+        </div>
+
+        <div id="combos" class="tab-pane">
           <div class="bottom-button">
             <div class="form-defined">
               <div class="controls-defined defined-large">
@@ -22,12 +28,6 @@
 
           <div class="module-table-box module-record">
             <%= render "combo_list", combos: @combos %>
-          </div>
-        </div>
-
-        <div id="gift_cards" class="tab-pane">
-          <div class="module-table-box module-record">
-            <%= render "gift_card_list", gift_cards: @gift_cards %>
           </div>
         </div>
       </div>
@@ -86,17 +86,17 @@
         }
 
       }
-
-
-
-
     })
+
+    <% if @combo.present? %>
+    $('#myTab a[href="#combos"]').tab('show');
+    <% end %>
 
     $('#myTab a').click(function (e) {
       e.preventDefault()
       $(this).tab('show')
     })
-
+   
     $(document).on("click", ".card_or_combo", function(){
       this_ele = $(this)
       item_id = this_ele.attr("item_id")
