@@ -28,13 +28,13 @@ class Ims::CardOrdersController < Ims::BaseController
   def create
     @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
-    @out_trade_no = "#{@card_id}-#{current_user.id}" 
+    @out_trade_no = "#{@card_id}-#{current_user.id}"
     @out_trade_no = "#{@out_trade_no}-#{params[:store_id]}" if params[:store_id].present?
     @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
     # TODO 上线前，修改为正式地址
     @notify_url = 'http://111.207.166.195/ims/payment/notify_giftcard'
     @time_val = Time.now
-    
+
     package = {
       bank_type: "WX",
       body: "商品描述",
@@ -51,16 +51,15 @@ class Ims::CardOrdersController < Ims::BaseController
     @package_val = "#{package.to_param}&sign=#{sign_value}"
 
     pay_sign = {
-      appid: Settings.wx.appid, 
+      appid: Settings.wx.appid,
       appkey: Settings.wx.appkey,
-      noncestr: @noncestr_val, 
+      noncestr: @noncestr_val,
       package: @package_val,
       timestamp: @time_val.to_i
     }
     string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
     @paySign_val = Digest::SHA1.hexdigest(string1)
 
-    binding.pry
 
   end
 
