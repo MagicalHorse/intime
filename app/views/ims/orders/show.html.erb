@@ -138,7 +138,7 @@
            </div>
         </div>
 
-        <% if @order[:rmas].is_a?(Array) %>
+        <% if @order[:rmas].is_a?(Array) && @order[:rmas].length > 0 %>
         <div class="module module-grey return-information">
           <h1>退货信息</h1>
           <% @order[:rmas].each do |rmas| %>
@@ -169,7 +169,7 @@
               </div>
 
               <div class="col-12" style="<%= @current_rmas.present? ? "display: inline;" : "display: none;" %>">
-                <%= link_to '取消申请退货', "javascript:void(0);", id: "cancel_rmas", class: "btn btn-grey btn-large btn-block", value: @current_rmas["rmano"] %>
+                <%= link_to '取消申请退货', "javascript:void(0);", id: "cancel_rmas", class: "btn btn-grey btn-large btn-block", value: @current_rmas.try(:[], :rmano) %>
               </div>
 
             </div>
