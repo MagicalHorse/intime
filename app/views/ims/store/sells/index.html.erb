@@ -48,6 +48,9 @@
 <script>
   $(function(){
 
+    var max_combo_num = <%= current_user.max_comboitems %>;
+    var online_num = <%= @online_num %>;
+
     $(window).scroll(function(){
       var htmlHeight=document.body.scrollHeight
       var clientHeight=document.body.clientHeight
@@ -102,19 +105,29 @@
     })
 
     $(document).on("click", ".card_or_combo", function(){
+
       this_ele = $(this)
       item_id = this_ele.attr("item_id")
       item_type = this_ele.attr("item_type")
       text = this_ele.text()
       is_online = text.indexOf("上") >= 0 ? true : false
       click_text = is_online ? "上架" : "下架"
+      if(is_online && online_num >= max_combo_num){
+        error_modal("上架数量已到上限");
+      }else{
       $.post("/ims/store/sells/id/update_is_online", {_method: "put", item_id: item_id, item_type: item_type, is_online: is_online}, function(data){
         if(data["status"] == true){
           this_ele.text(is_online ? "下 架" : "上 架")
+          if(is_online){
+            online_num -= 1
+          }else{
+            online_num += 1
+          }
         }else{
           alert(click_text+"失败" + data["message"])
         }
       })
+     }
     })
 
   })
