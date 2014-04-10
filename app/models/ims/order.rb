@@ -6,7 +6,7 @@ class Ims::Order < Ims::Base
    end
 
    def detail(req, params = {})
-     post(req, params.merge(path: 'order/detail'))
+     post(req, params.merge(path: 'order/detail', api_path: true))
    end
  end
 

@@ -22,8 +22,7 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def show
-    # @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]["items"]
-    @order = {"products" => []}
+    @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
   end
 
   def create

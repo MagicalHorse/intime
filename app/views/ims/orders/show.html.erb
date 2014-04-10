@@ -77,13 +77,13 @@
              <div class="span3">
                  <div class="detail-imgbox">
                    <%= link_to ims_store_product_path(product["productid"]) do %>
-                   <%= image_tag "/images/ims/img800.jpg" %>
+                   <%= image_tag Product.img_url(product["resource"]) %>
                    <% end %>
                  </div>
              </div>
              <div class="span9">
                  <div class="price-detail">
-                     <h3><%= link_to product[" productname"], ims_store_product_path(product["productid"]) %></h3>
+                     <h3><%= link_to product["productname"], ims_store_product_path(product["productid"]) %></h3>
                      <p class="txt3">打包价：<em>￥<%= product["price"] %></em></p>
                  </div>
              </div>
@@ -103,7 +103,7 @@
                 </i>
                 </span>
                 </p>
-                <p class="txt4 clearfix"><span class="pull-left"><b>下单时间：<%= @order["createdate"] %></b></span></p>
+                <p class="txt4 clearfix"><span class="pull-left"><b>下单时间：<%= l @order["createdate"].to_time %></b></span></p>
                 <p class="txt4 txt-bd clearfix"><span><b>赠送积点：<%= @order["totalpoints"] %>点</b></span></p>
                 <p class="txt4 clearfix"><span class="pull-left"><b>快递费：￥<%= @order["totalfee"] %></b></span><span class="pull-right"><b>需付款：</b><i>￥<%= @order["totalamount"] %></i></span></p>
               </div>
@@ -114,8 +114,15 @@
            <div class="row-fluid">
                <div class="span12">
                    <div class="detail-block detail-contact-bd">
-                       <p class="txt4 txt-bd clearfix"><span class="pull-left"><i class="fa fa-user"></i><b>收货人：谭女士</b></span><span class="pull-right"><i class="fa fa-phone"></i><b>手机号码：18700001111</b></span></p>
-                       <p class="txt4"><span><i class="fa fa-map-marker"></i><b>回龙观良庄家园测试地址测试地址</b></span></p>
+                       <p class="txt4 txt-bd clearfix">
+                       <span class="pull-left">
+                       <i class="fa fa-user"></i><b>收货人：<%= @order["shippingcontactperson"] %></b>
+                       </span>
+                       <span class="pull-right">
+                       <i class="fa fa-phone"></i><b>手机号码：<%= @order["shippingcontactphone"] %></b>
+                       </span>
+                       </p>
+                       <p class="txt4"><span><i class="fa fa-map-marker"></i><b><%= @order["shippingaddress"] %></b></span></p>
                    </div>
                </div>
            </div>
@@ -124,8 +131,7 @@
            <div class="row-fluid">
                <div class="span12">
                    <div class="detail-block detail-contact-bd">
-                       <p class="txt4 txt-bd clearfix"><span class="pull-left"><i class="fa fa-money"></i><b>支付方式：</b><i><%= @order["paymentname"] %></i></span><span class="pull-right"><i class="fa fa-phone"></i><b>专柜号码：15928696607</b></span></p>
-                       <p class="txt4 txt-bd"><span><i class="fa fa-map-marker"></i><b>专柜地址：回龙观良庄家园测试地址测试地址</b></span></p>
+                       <p class="txt4 txt-bd clearfix"><span class="pull-left"><i class="fa fa-money"></i><b>支付方式：</b><i><%= @order["paymentname"] %></i></span></p>
                        <p class="txt4"><span><i class="fa fa-asterisk"></i><b>订单备注：<%= @order["memo"] %></b></span></p>
                    </div>
                </div>
