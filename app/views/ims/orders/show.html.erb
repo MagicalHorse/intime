@@ -140,14 +140,21 @@
         <div class="bottom-button indent-btn">
           <div class="form-defined">
             <div class="controls-defined defined-large">
+              <% if @order[:statust].zero? %>
               <div class="col-6">
-                <%= link_to "立即支付", "javascript:void(0);", value: @order["orderno"], class: "btn btn-danger btn-large btn-block" %>
+                <%= link_to "立即支付", "javascript:void(0);", value: @order["orderno"], class: "btn btn-danger btn-large btn-block", id: "payment" %>
               </div>
+              <% end %>
+              <% if @order[:canvoid] %>
               <div class="col-6">
-                <% if true %>
-                  <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: "order_id", class: "btn btn-grey btn-large btn-block" %>
-                <% end %>
+                  <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: @order["orderno"], class: "btn btn-grey btn-large btn-block" %>
               </div>
+              <% end %>
+              <% if @order[:canrma] %>
+              <div class="col-12">
+                  <%= link_to '申请退货', "javascript:void(0);", id: "canrma", value: @order["orderno"], class: "btn btn-grey btn-large btn-block" %>
+              </div>
+              <% end %>
             </div>
           </div>
       </div>
@@ -168,6 +175,7 @@
               $("#order_status").text("已取消")
               alert("取消订单成功")
               this_ele.remove()
+              $("#payment").remove()
             }else{
               alert("取消订单失败")
             }

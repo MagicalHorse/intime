@@ -4,7 +4,7 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def new
-    @product = API::Order.new(request, productid: params["product_id"])[:data]
+    @product = params["product_id"].present? ? API::Order.new(request, productid: params["product_id"])[:data] : Ims::Order.new(request, id: params[:combo_id])[:data]
     @salecolors = @product[:salecolors]
     @sizes = @salecolors.first[:sizes]
     @products = params[:product_id].present? ? [@product] : [@product]
@@ -39,7 +39,8 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def change_state
-    render json: {status: true, id: 1}.to_json
+    order = API::Order.destroy(request, orderno: params[:id])
+    render json: {status: order[:isSuccessful]}.to_json
   end
 
   def cancel
