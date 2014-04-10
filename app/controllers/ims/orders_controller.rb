@@ -20,10 +20,10 @@ class Ims::OrdersController < Ims::BaseController
     sign = {
       appid: Settings.wx.appid,
       url: "http://open.weixin.qq.com/",
-      timeStamp: @timeStamp_val,
-      nonceStr: @nonceStr_val,
-      accessToken: Ims::Weixin.access_token
-    }.to_param.downcase
+      timestamp: @timeStamp_val,
+      noncestr: @nonceStr_val,
+      accesstoken: Ims::Weixin.access_token
+    }.to_param
     @addrSign_val = Digest::SHA1.hexdigest(sign)
   end
 
