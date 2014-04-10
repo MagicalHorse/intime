@@ -34,7 +34,7 @@ class Ims::CardOrdersController < Ims::BaseController
     # TODO 上线前，修改为正式地址
     @notify_url = 'http://111.207.166.195/ims/payment/notify_giftcard'
     @time_val = Time.now
-    
+
     package = {
       bank_type: "WX",
       body: "商品描述",
@@ -52,16 +52,13 @@ class Ims::CardOrdersController < Ims::BaseController
 
     pay_sign = {
       appid: Settings.wx.appid, 
-      appkey: Settings.wx.appkey,
+      appkey: Settings.wx.paysignkey,
       noncestr: @noncestr_val, 
       package: @package_val,
       timestamp: @time_val.to_i
     }
     string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
     @paySign_val = Digest::SHA1.hexdigest(string1)
-
-    binding.pry
-
   end
 
   # 查询是否充值成功
