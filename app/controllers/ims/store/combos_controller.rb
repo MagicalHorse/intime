@@ -16,7 +16,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
 
   def tutorials
   end
- 
+
   def update_desc
     @combo = ::Combo.find(params[:id])
     @combo.update_attributes({:desc => params[:desc], :private_to => params[:private_to]})
@@ -46,7 +46,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
 
       @remote_combo[:data][:image].each do |pic|
         ComboPic.create({:url => pic, :combo_id => @combo.id})
-      end 
+      end
     end
 
     render :action => :new

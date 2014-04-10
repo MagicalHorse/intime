@@ -4,11 +4,17 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def new
-    @product = params["product_id"].present? ? API::Order.new(request, productid: params["product_id"])[:data] : Ims::Order.new(request, id: params[:combo_id])[:data]
-    @salecolors = @product[:salecolors]
-    @sizes = @salecolors.first[:sizes]
-    @products = params[:product_id].present? ? [@product] : [@product]
-    @order = API::Order::computeamount(request, productid: params["product_id"], quantity: 1)[:data]
+    if params[:product_id].present?
+      @product = API::Order.new(request, productid: params[:product_id])[:data]
+      @salecolors = @product[:salecolors]
+      @sizes = @salecolors.first[:sizes]
+      @products = [@product]
+      @order = API::Order::computeamount(request, productid: params["product_id"], quantity: 1)[:data]
+    elsif params[:combo_id].present?
+      @products = Ims::Order.new(request, id: params[:combo_id])[:data][:items]
+      @order = Ims::Order::computeamount(request, combo_id: params["combo_id"], quantity: 1)[:data]
+    end
+
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     sign = {

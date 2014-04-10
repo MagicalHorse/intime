@@ -190,9 +190,9 @@
           $.post("/ims/orders/"+order_id+"/change_state", {_method: "put"}, function(data){
             if(data["status"] == true){
               $("#order_status").text("已取消")
-              alert("取消订单成功")
               this_ele.parent().hide()
               $("#payment").parent().hide()
+              alert("取消订单成功")
             }else{
               alert("取消订单失败")
             }
