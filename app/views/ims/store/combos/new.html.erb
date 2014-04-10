@@ -137,16 +137,16 @@
       verify_product1 = product_image_fields.length < 3
       verify_product2 = product_image_fields.length > 4
       if(verify_image1){
-        alert("主图必须至少有2张")
+        error_modal("主图必须至少有2张");
       }
       if(verify_image2){
-        alert("主图最多有5张")
+        error_modal("主图最多有5张");
       }
       if(verify_product1){
-        alert("商品搭配至少要由2个组成")
+        error_modal("商品搭配至少要由2个组成"); 
       }
       if(verify_product2){
-        alert("商品搭配最多由3个组成")
+        error_modal("商品搭配最多由3个组成");  
       }
       if(verify_image1 || verify_image2 || verify_image3){
         return false
@@ -165,7 +165,7 @@
        if(img_size < 6){
          document.getElementById("upfile").click();
        }else{
-        alert("上传主图不能超过5个");
+        error_modal("上传主图不能超过5个"); 
        }
     });
 
@@ -189,7 +189,7 @@
               $("#default_img").html("<img src='"+data.result['img']+"'>");
             }, 500);
           }else{
-            alert("网络错误，请稍后重试");
+            error_modal("网络错误，请稍后重试");
           }
 
         }
@@ -218,7 +218,7 @@
        if(p_size < 4){
          $("#pop-menu").show();
        }else{
-        alert('最多只能搭配3个商品');
+        error_modal('最多只能搭配3个商品');
        }
      });
 

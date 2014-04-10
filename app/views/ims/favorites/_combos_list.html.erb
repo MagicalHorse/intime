@@ -1,6 +1,6 @@
 <div class="module-table-box module-record paginate-content">
   <% combos_list.each do |combo| %>
-  <div class="module common-white" onclick="window.location.href = '<%= ims_store_combo_path(combo["id"]) %>'">
+  <div class="module common-white" onclick="window.location.href = '<%= ims_combo_path(combo["id"]) %>'">
     <div class="txt-block detail-contact">
       <div class="row-fluid">
         <div class="span3"><img class="img-rounded" src="<%= combo["image"] %>"></div>
