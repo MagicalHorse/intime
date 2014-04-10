@@ -32,24 +32,36 @@ class Ims::CardOrdersController < Ims::BaseController
     @out_trade_no = "#{@out_trade_no}-#{params[:store_id]}" if params[:store_id].present?
     @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
     # TODO 上线前，修改为正式地址
-    @notify_url = 'http://joey.ngrok.com/ims/payment/notify_giftcard'
+    @notify_url = 'http://111.207.166.195/ims/payment/notify_giftcard'
     @time_val = Time.now
-    @package_val = {
-      bank: "WX",
+    
+    package = {
+      bank_type: "WX",
       body: "商品描述",
-      partner: Settings.wx.partner_id,
-      out_trade_no: @out_trade_no,
-      total_fee: price * 100,
-      fee_type: 1,
+      fee_type: "1",
+      input_charset: 'GBK',
       notify_url: @notify_url,
+      out_trade_no: @out_trade_no,
+      partner: Settings.wx.parterid,
       spbill_create_ip: request.remote_ip,
-      time_start: @time_val.strftime('%Y%m%d%H%m%S'),
-      time_expire: 1.hours.from_now.strftime('%Y%m%d%H%m%S'),
-      transport_fee: 0,
-      product_fee: price,
-      input_charset: 'UTF-8' 
+      total_fee: price.to_f * 100
     }
-    @paySign_val = Digest::SHA1.hexdigest({appid: Settings.wx.appid, timestamp: @time_val.to_i, noncestr: @noncestr_val, package: @package_val.to_param, appkey: Settings.wx.appsecret}.to_param)
+    string1 = ""; package.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    sign_value = Digest::MD5.hexdigest("#{string1}&key=#{Settings.wx.parterkey}").upcase
+    @package_val = "#{package.to_param}&sign=#{sign_value}"
+
+    pay_sign = {
+      appid: Settings.wx.appid, 
+      appkey: Settings.wx.appkey,
+      noncestr: @noncestr_val, 
+      package: @package_val,
+      timestamp: @time_val.to_i
+    }
+    string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    @paySign_val = Digest::SHA1.hexdigest(string1)
+
+    binding.pry
+
   end
 
   # 查询是否充值成功

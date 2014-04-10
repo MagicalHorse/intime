@@ -350,6 +350,7 @@ IntimeService::Application.routes.draw do
         get :check_status
       end
     end
+    match "card_orders_pay" => "card_orders#new"
     resources :favorites, only: [] do
       collection do
         get  :stores_list
