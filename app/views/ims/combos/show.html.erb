@@ -19,6 +19,7 @@
               <div class="row-fluid">
                 <% @remote_combo[:data][:products].each do |product| %>
                 <% image = product[:image].present? ? product[:image] : ::Product.fetch_product(product[:id])[:data][:image]  %>
+
                 <div class="span4">
                   <div class="combos-product">
                     <img src="<%= image %>">

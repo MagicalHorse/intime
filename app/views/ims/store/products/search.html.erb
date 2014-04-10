@@ -55,6 +55,8 @@
 <% else %>
 
   <%= render "search_list", products: @products, combo: @combo %>
+  <div id="loading" class="text-center">
+  </div>
 
 <% end %>
 </div>
@@ -128,6 +130,7 @@
 
       if(scrollTop+clientHeight == htmlHeight){
         if(page * per_page < count){
+          $("#loading").html("<img src='/images/ims/loading.gif'/>");
           $.get("/ims/store/products/search", {from_price: from_price, to_price: to_price, from_discount: from_discount, to_discount: to_discount, brand_id: brand_id, keywords: keywords, combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
             if(data["status"] == true){
               $(".paginate-content:last").after(data["html"])
@@ -140,6 +143,7 @@
               $("#to_discount").attr("value", data["to_discount"])
               $("#brand_id").attr("value", data["brand_id"])
               $("#keywords").attr("value", data["keywords"])
+              $("#loading").html("");
             }
           }, "json")
         }
