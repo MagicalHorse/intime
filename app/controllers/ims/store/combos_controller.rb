@@ -40,11 +40,17 @@ class Ims::Store::CombosController < Ims::Store::BaseController
        :combo_type => @remote_combo[:data][:combo_type]})
 
       @remote_combo[:data][:products].each do |product|
-        ComboProduct.create({:remote_id => product[:id], :img_url => product[:image], :price => product[:price],
-         :combo_id => @combo.id, :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
+        if product[:product_type].blank? || product[:product_type] == 1
+         p = ::Product.fetch_product(product[:id]) 
+         ComboProduct.create({:img_url => p[:data][:image], :price => product[:price],
+          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 1})
+        else
+          ComboProduct.create({:img_url => product[:image], :price => product[:price],
+          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 2})
+        end
       end
 
-      @remote_combo[:data][:image].each do |pic|
+      @remote_combo[:data][:images].each do |pic|
         ComboPic.create({:url => pic, :combo_id => @combo.id})
       end 
     end
@@ -58,7 +64,6 @@ class Ims::Store::CombosController < Ims::Store::BaseController
 
     if params[:remote_id].present?
       @remote_combo = Ims::Combo.update(request, @combo.api_attrs.merge({:id => params[:remote_id]}))
-      @remote_combo = {:isSuccessful => true, data: {id: 1}}
     else
       @remote_combo = Ims::Combo.create(request, @combo.api_attrs)
     end
