@@ -4,7 +4,7 @@
         <div class="row-fluid">
           <div class="span3"><%= image_tag combo["image"] %></div>
           <div class="span9 collection-p">
-            <p class="txt2"><%= link_to combo["desc"], ims_store_combo_path(combo["id"]) %></p>
+            <p class="txt2"><%= link_to combo["desc"], ims_combo_path(combo["id"]) %></p>
             <p class="txt2 txt-red">组合价：￥<%= combo["price"] %></p>
             <div class="shelves">
               <%= link_to combo["is_online"] ? "下 架" : "上 架", "javascript:void(0);", class: "btn btn-danger btn-small card_or_combo", item_id: combo["id"], item_type: 2 %>
