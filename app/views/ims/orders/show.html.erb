@@ -137,24 +137,41 @@
                </div>
            </div>
         </div>
+
+        <% if @order[:rmas].is_a?(Array) && @order[:rmas].length > 0 %>
+        <div class="module module-grey return-information">
+          <h1>退货信息</h1>
+          <% @order[:rmas].each do |rmas| %>
+          <div class="txt4 return-text">
+            <p>退货时间：<%= l rmas[:createdate].to_time %></p>
+            <p>退货编号：<%= rmas[:rmano] %></p>
+            <p>退货原因：<%= rmas[:reason] %></p>
+            <p>退货方式：<%= rmas[:rmatype] %></p>
+            <p>退货状态：<span class="rmas_status"><%= rmas[:status] %></span></p>
+            <p class="txt-red">退货地址：<%= rmas[:mailaddress] %></p>
+          </div>
+          <% end %>
+        </div>
+        <% end %>
+
+
         <div class="bottom-button indent-btn">
           <div class="form-defined">
             <div class="controls-defined defined-large">
-              <% if @order[:statust].zero? %>
-              <div class="col-6">
+              <div class="col-6" style="<%= @order[:statust].zero? ? "display: inline;" : "display: none;" %>">
                 <%= link_to "立即支付", "javascript:void(0);", value: @order["orderno"], class: "btn btn-danger btn-large btn-block", id: "payment" %>
               </div>
-              <% end %>
-              <% if @order[:canvoid] %>
-              <div class="col-6">
-                  <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: @order["orderno"], class: "btn btn-grey btn-large btn-block" %>
+              <div class="col-6" style="<%= @order[:canvoid] ? "display: inline;" : "display: none;" %>">
+                <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: @order["orderno"], class: "btn btn-grey btn-large btn-block" %>
               </div>
-              <% end %>
-              <% if @order[:canrma] %>
-              <div class="col-12">
-                  <%= link_to '申请退货', "javascript:void(0);", id: "canrma", value: @order["orderno"], class: "btn btn-grey btn-large btn-block" %>
+              <div class="col-12" style="<%= @order[:canrma] ? "display: inline;" : "display: none;" %>">
+                <%= link_to '申请退货', new_ims_order_returns_reason_path(@order["orderno"]), class: "btn btn-grey btn-large btn-block", id: "rmas" %>
               </div>
-              <% end %>
+
+              <div class="col-12" style="<%= @current_rmas.present? ? "display: inline;" : "display: none;" %>">
+                <%= link_to '取消申请退货', "javascript:void(0);", id: "cancel_rmas", class: "btn btn-grey btn-large btn-block", value: @current_rmas.try(:[], :rmano) %>
+              </div>
+
             </div>
           </div>
       </div>
@@ -173,11 +190,30 @@
           $.post("/ims/orders/"+order_id+"/change_state", {_method: "put"}, function(data){
             if(data["status"] == true){
               $("#order_status").text("已取消")
+              this_ele.parent().hide()
+              $("#payment").parent().hide()
               alert("取消订单成功")
-              this_ele.remove()
-              $("#payment").remove()
             }else{
               alert("取消订单失败")
+            }
+          }, "json")
+        }
+      })
+
+
+      $("#cancel_rmas").on("click", function(){
+        if(confirm("是否要取消退货申请?")){
+          this_ele = $(this)
+          rmano_id = this_ele.attr("value")
+          order_id = "<%= params[:id] %>"
+          $.post("/ims/orders/"+order_id+"/returns_reasons/"+rmano_id+"/cancel", {_method: "put"}, function(data){
+            if(data["status"] == true){
+              $(".rmas_status").text("退货取消")
+              alert("取消退货成功")
+              this_ele.parent().hide()
+              $("#rmas").parent().show()
+            }else{
+              alert("取消退货申请失败")
             }
           }, "json")
         }

@@ -53,7 +53,7 @@ module API
       def can_payment?(statust)
         STATUSES[:unpaid].to_s == statust.to_s
       end
-      
+
       # retrieve wx pay redirect url
       def wxpay_url(req, params ={})
         post(req,params.merge(path:'order/wxhtmlpay'))

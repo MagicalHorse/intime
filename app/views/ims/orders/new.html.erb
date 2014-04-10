@@ -1,14 +1,18 @@
 <%= form_tag ims_orders_path, id: "new_order_form", style: "display: none;" do %>
 
-  <% @products.each do |product| %>
-    <%= hidden_field_tag "order[products][][productid]", product[:id] %>
-    <%= hidden_field_tag "order[products][][desc]", product[:description] %>
-    <%= hidden_field_tag "order[products][][quantity]", 1 %>
-    <%= hidden_field_tag "order[products][][properties][sizevalueid]", @sizes.length == 1 ? @sizes.first[:sizeid] : nil, id: "sizevalueid" %>
-    <%= hidden_field_tag "order[products][][properties][colorvalueid]", @salecolors.length == 1 ? @salecolors.first[:colorid] : nil, id: "colorvalueid" %>
+  <% @products.each_with_index do |product, index| %>
+    <% salecolors = product[:salecolors] %>
+    <% sizes = salecolors.first.try(:[], :sizes) || [] %>
+    <% if salecolors.present? %>
+      <%= hidden_field_tag "order[products][][productid]", product[:id] %>
+      <%= hidden_field_tag "order[products][][quantity]", 1 %>
+      <%= hidden_field_tag "order[products][][properties][sizevalueid]", sizes.length == 1 ? sizes.first[:sizeid] : nil, id: "sizevalueid#{index}" %>
+      <%= hidden_field_tag "order[products][][properties][colorvalueid]", salecolors.length == 1 ? salecolors.first[:colorid] : nil, id: "colorvalueid#{index}" %>
 
-    <%= hidden_field_tag "order[products][][properties][sizevaluename]", @sizes.length == 1 ? @sizes.first[:sizename] : nil, id: "sizevaluename" %>
-    <%= hidden_field_tag "order[products][][properties][colorvaluename]", @salecolors.length == 1 ? @salecolors.first[:colorname] : nil, id: "colorvaluename" %>
+      <%= hidden_field_tag "order[products][][desc]", product[:name] %>
+      <%= hidden_field_tag "order[products][][properties][sizevaluename]", sizes.length == 1 ? sizes.first[:sizename] : nil, id: "sizevaluename#{index}" %>
+      <%= hidden_field_tag "order[products][][properties][colorvaluename]", salecolors.length == 1 ? salecolors.first[:colorname] : nil, id: "colorvaluename#{index}" %>
+    <% end %>
   <% end %>
 
   <%= hidden_field_tag "order[payment[paymentcode]]", 29 %>
@@ -34,72 +38,90 @@
 
 
 <div class="wrap-inner back-wrap-inner">
+
+  <% @products.each_with_index do |product, index| %>
+  <% salecolors = product[:salecolors] %>
+  <% sizes = salecolors.first.try(:[], :sizes) || [] %>
   <div class="module common-white">
-         <div class="row-fluid">
-             <div class="span3">
-                 <div class="detail-imgbox">
-                    <%= image_tag Product.img_url(@product[:salecolors].first[:resource]) %>
-                 </div>
-             </div>
-             <div class="span9">
-                 <div class="price-detail">
-                    <h3><%= @product["name"] %></h3>
-                    <p class="txt3">微信价：<em>￥<%= @order["extendprice"] %></em></p>
-                 </div>
+     <div class="row-fluid">
+         <div class="span3">
+             <div class="detail-imgbox">
+                <%= image_tag Product.img_url(salecolors.first.try(:[], :resource)) %>
              </div>
          </div>
-      </div>
+         <div class="span9">
+             <div class="price-detail">
+                <h3><%= product["name"] %></h3>
+                <p class="txt3">微信价：<em>￥<%= @order["extendprice"] %></em></p>
+             </div>
+         </div>
+     </div>
+  </div>
 
+  <% if salecolors.length > 0 %>
+  <div class="module common-white">
+     <div class="row-fluid">
+         <div class="span12">
+             <div class="size-detail">
+                 <dl class="dl-horizontal">
+                      <dt>颜色</dt>
+                      <dd>
+                        <ul class="inline clearfix salecolors" index="<%= index %>">
+                          <% salecolors.each do |salecolor| %>
+                            <li class="<%= 'active' if salecolors.length == 1 %>">
+                              <a href="javascript:void(0);" valueid='<%= salecolor['colorid'] %>' valuename='<%= salecolor['colorname'] %>'>
+                                <%= salecolor['colorname'] %>
+                              </a>
+                            </li>
+                          <% end %>
+                        </ul>
+                      </dd>
+                 </dl>
+             </div>
+         </div>
+     </div>
+  </div>
+  <% end %>
+
+  <% if sizes.length > 0 %>
+  <div class="module common-white">
+     <div class="row-fluid">
+         <div class="span12">
+             <div class="size-detail">
+                 <dl class="dl-horizontal">
+                      <dt>尺码</dt>
+                      <dd>
+                        <ul class="inline clearfix sizes" index="<%= index %>">
+                          <% sizes.each do |size| %>
+                            <li class="<%= 'active' if sizes.length == 1 %>">
+                              <a href="javascript:void(0);" valueid='<%= size['sizeid'] %>' valuename='<%= size['sizename'] %>'>
+                                <%= size['sizename'] %>
+                              </a>
+                            </li>
+                          <% end %>
+                        </ul>
+                      </dd>
+                 </dl>
+             </div>
+         </div>
+     </div>
+  </div>
+  <% end %>
+
+  <% end %>
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
-                 <div class="size-detail">
-                     <dl class="dl-horizontal">
-                          <dt>颜色</dt>
-                          <dd>
-                            <ul class="inline clearfix" id="salecolors">
-                              <% @salecolors.each do |salecolor| %>
-                                <li class="<%= 'active' if @salecolors.length == 1 %>">
-                                  <a href="javascript:void(0);" valueid='<%= salecolor['colorid'] %>' valuename='<%= salecolor['colorname'] %>'>
-                                    <%= salecolor['colorname'] %>
-                                  </a>
-                                </li>
-                              <% end %>
-                            </ul>
-                          </dd>
-                     </dl>
-                 </div>
-             </div>
-         </div>
-      </div>
 
-      <div class="module common-white">
-         <div class="row-fluid">
-             <div class="span12">
-                 <div class="size-detail">
-                     <dl class="dl-horizontal">
-                          <dt>尺码</dt>
-                          <dd>
-                            <ul class="inline clearfix" id="sizes">
-                              <% @sizes.each do |size| %>
-                                <li class="<%= 'active' if @sizes.length == 1 %>">
-                                  <a href="javascript:void(0);" valueid='<%= size['sizeid'] %>' valuename='<%= size['sizename'] %>'>
-                                    <%= size['sizename'] %>
-                                  </a>
-                                </li>
-                              <% end %>
-                            </ul>
-                          </dd>
-                     </dl>
+                 <div id="contact_select" class="detail-block detail-contact">
+                     <p class="txt8">
+                       <span>
+                       <i class="fa fa-map-marker"></i>选择地址
+                       </span>
+                     </p>
                  </div>
-             </div>
-         </div>
-      </div>
 
-      <div class="module common-white">
-         <div class="row-fluid">
-             <div class="span12">
-                 <div class="detail-block detail-contact">
+                 <div id="contact" class="detail-block detail-contact" style="display: none;">
                      <p class="txt8">
                        <span>
                          <i class="fa fa-user"></i><span id="weixin_name">联系人</span>
@@ -137,49 +159,59 @@
              </div>
          </div>
       </div>
-      <p class="wx-payment">
-      <button type="button" class="btn btn-danger btn-large btn-block" id="save_order">
-        <i class="fa fa-share-square-o"></i>微信安全支付
-      </button>
-      </p>
+      <% if @products.any?{|p| p[:salecolors].present?} %>
+        <p class="wx-payment">
+        <button type="button" class="btn btn-danger btn-large btn-block" id="save_order">
+          <i class="fa fa-share-square-o"></i>微信安全支付
+        </button>
+        </p>
+      <% else %>
+        <div style="display: inline;" class="col-12">
+          <a value="114041090567" id="cancel_order" class="btn btn-grey btn-large btn-block" href="javascript:void(0);">已售罄</a>
+        </div>
+      <% end %>
 </div>
 
 <% content_for :javascripts do %>
 <script>
   $(function(){
 
-    $(document).on("click", "#salecolors li a", function(){
+    $(document).on("click", ".salecolors li a", function(){
       this_li = $(this).parents("li")
       class_name = this_li.attr("class") || ""
       salecolor_id = $(this).attr("valueid")
       salecolor_name = $(this).attr("valuename")
-      $("#salecolors li").removeClass("active")
+      this_salecolors = $(this).parents(".salecolors")
+      index = this_salecolors.attr("index")
+      this_salecolors.find("li").removeClass("active")
 
       if(class_name.indexOf('active') >= 0){
-        $("#colorvalueid").attr("value", '')
-        $("#colorvaluename").attr("value", '')
+        $("#colorvalueid"+index).attr("value", '')
+        $("#colorvaluename"+index).attr("value", '')
         this_li.removeClass("active")
       }else{
-        $("#colorvalueid").attr("value", salecolor_id)
-        $("#colorvaluename").attr("value", salecolor_name)
+        $("#colorvalueid"+index).attr("value", salecolor_id)
+        $("#colorvaluename"+index).attr("value", salecolor_name)
         this_li.addClass("active")
       }
     })
 
-    $(document).on("click", "#sizes li a", function(){
+    $(document).on("click", ".sizes li a", function(){
       this_li = $(this).parents("li")
       class_name = this_li.attr("class") || ""
       size_id = $(this).attr("valueid")
       size_name = $(this).attr("valuename")
-      $("#sizes li").removeClass("active")
+      this_sizes = $(this).parents(".sizes")
+      index = this_sizes.attr("index")
+      this_sizes.find("li").removeClass("active")
 
       if(class_name.indexOf('active') >= 0){
-        $("#sizevalueid").attr("value", '')
-        $("#sizevaluename").attr("value", '')
+        $("#sizevalueid"+index).attr("value", '')
+        $("#sizevaluename"+index).attr("value", '')
         this_li.removeClass("active")
       }else{
-        $("#sizevalueid").attr("value", size_id)
-        $("#sizevaluename").attr("value", size_name)
+        $("#sizevalueid"+index).attr("value", size_id)
+        $("#sizevaluename"+index).attr("value", size_name)
         this_li.addClass("active")
       }
     })
@@ -191,9 +223,9 @@
         "order[products][][productid]": {
           required: true
         },
-        "order[products][][desc]":{
-          required: true
-        },
+        // "order[products][][desc]":{
+        //   required: true
+        // },
         "order[products][][quantity]": {
           required: true
         },
@@ -241,11 +273,7 @@
         if(msg!="") alert(msg);
       },
       errorPlacement:function(error, element){
-        if(element.attr("id") == "colorvalueid" || element.attr("id") == "colorvaluename"){
-          $("#salecolors").append(error)
-        }else{
-          element.after(error)
-        }
+        element.after(error)
       }
 
     })
@@ -307,6 +335,9 @@
           $("#weixin_address").text(address)
           $("#contact").attr("value", contact)
           $("#weixin_contact").text(contact)
+
+          $("#contact_select").hide()
+          $("#contact").show()
         }else{
           alert("获取地址失败")
         }

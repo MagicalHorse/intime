@@ -24,3 +24,8 @@
 //= require ims/bootstrap-editable.js
 //= require ims/jquery-barcode.js
 //= require_self
+
+function error_modal(txt){
+		$("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>错误提示</div><div class='txt4'>"+txt+"</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' data-dismiss='modal' aria-hidden='true' >OK</a></div>")
+	 $("#ex2").modal();
+}

@@ -366,6 +366,9 @@ IntimeService::Application.routes.draw do
         get :payments
       end
       resources :returns_reasons, only: [:new, :create] do
+        member do
+          put :cancel
+        end
         collection do
           get "result"
         end
