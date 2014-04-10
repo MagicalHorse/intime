@@ -23,6 +23,7 @@ class Ims::OrdersController < Ims::BaseController
 
   def show
     @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
+    @current_rmas = @order[:rmas].find{|rmas| rmas[:canvoid]}
   end
 
   def create
@@ -32,7 +33,6 @@ class Ims::OrdersController < Ims::BaseController
     else
       render json: {status: false, message: @order[:message]}.to_json
     end
-
   end
 
   def payments
