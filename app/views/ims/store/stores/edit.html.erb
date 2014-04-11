@@ -5,7 +5,7 @@
           <div class="row-fluid">
           <div class="span8"><span class="txt2 shop-title">修改店铺LOGO</span></div>
           <div class="span3 text-right">
-            <a href="#" id="logo"><img src="<%= @store[:data][:logo] %>" class="img-rounded"></a>
+            <a class="shop-logo" href="#" id="logo"><img src="<%= @store[:data][:logo] %>"></a>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*"></div>
           </div>
           </div>
@@ -97,5 +97,12 @@
       }
      });
     })
+
+    /*--------------------img----------------------------*/
+    $(".shop-logo").each(function(){
+        $(this).css("height", $(this).width())
+        $(this).css("line-height", $(this).height()+"px")
+    });
+
   </script>
 <% end -%>

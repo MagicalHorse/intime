@@ -5,7 +5,7 @@
     <a href="<%= barcode_ims_accounts_path %>"><img src="/images/ims/tap-and-pay.png"></a>
   </div>
   <div class="btn-already">
-    <%= link_to "我要购卡", new_ims_card_order_path, class: "btn btn-defult btn-large btn-block" %>
+    <%= link_to "我要购卡", "#{ims_card_orders_pay_path}?showwxpaytitle=1", class: "btn btn-defult btn-large btn-block" %>
   </div>
 </div>
 <div class="module-user-change">
@@ -21,7 +21,7 @@
     <img src="/images/ims/card-self.png">
   </div>
   <div class="btn-already">
-    <%= link_to "我要购卡", "#{ims_card_orders_pay_path}?showwxpaytitle=1 ", class: "btn btn-defult btn-large btn-block" %>
+    <%= link_to "我要购卡", "#{ims_card_orders_pay_path}?showwxpaytitle=1", class: "btn btn-defult btn-large btn-block" %>
   </div>
 </div>
 <div class="module-user-change">

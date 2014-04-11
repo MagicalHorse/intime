@@ -95,8 +95,7 @@ class Ims::AccountsController < Ims::BaseController
     # API_NEED: 创建资金账户
     # 此接口需要支持能同时充值一张充值卡、如果此用户是买卡后进行的绑卡，需要将当时所购卡，进行充值
     result = Ims::Giftcard.create(request, {phone: current_user.verified_phone, pwd: params[:pwd], charge_no: current_user.will_charge_no, identity_no: current_user.identity_no })
-    # TODO 上线前，将下面的注释打开
-    if true# result[:isSuccessful]
+    if result[:isSuccessful]
       current_user.isbindcard = true
       redirect_to current_user.back_url || mine_ims_accounts_path
     else
