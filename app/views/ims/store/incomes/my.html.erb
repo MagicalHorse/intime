@@ -7,7 +7,7 @@
              <h3><span>￥<%= @income[:data][:received_amount] %><span></h3>
           </div>
 
-          <div class="common-white">
+          <div class="common-white" id="income_list">
             <a href="/ims/store/incomes/list" class="income-menu1">
               <i class="fa fa-bars"></i>
               <span>提现记录</span> 
@@ -15,7 +15,7 @@
             </a>
           </div>
 
-          <div class="common-white">
+          <div class="common-white" id="frozen_list">
             <a href="/ims/store/incomes/frozen" class="income-menu2">
               <i class="fa fa-bars"></i>
               <span>不可提现记录</span> 
@@ -37,12 +37,22 @@
               <span class="txt-red">可提现金额：￥<%= @income[:data][:avail_amount] %></span> 
           </div>
 
-          <div class="module-gray">
-            <button class="btn btn-large btn-danger"><a href="/ims/store/incomes/new">申请提现</a></button>
+          <div class="bottom-btnbox">
+            <button class="btn btn-small btn-danger"><a href="/ims/store/incomes/new">申请提现</a></button>
             <!-- <div><a href="<%= tips_ims_store_incomes_path %>"><span>提现指导</span><i class="fa fa-angle-right"></i></a></div> -->
           </div>
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+   $("#income_list").click(function(){
+     window.location.href = "/ims/store/incomes/list";
+   });
+   
+   $("#frozen_list").click(function(){
+     window.location.href = "/ims/store/incomes/frozen";
+   });
+  </script>
 
 
