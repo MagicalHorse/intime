@@ -44,11 +44,50 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def payments
+    @orderno = params[:id]
+    price = 0.1
+    @card_id, price = params[:money].split(",")
+    #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
+    @out_trade_no = @orderno
+    @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
+    # TODO 上线前，修改为正式地址
+    @notify_url = 'http://111.207.166.195/ims/payment/notify'
+    @time_val = Time.now
+
+    package = {
+      bank_type: "WX",
+      body: "订单#{@orderno}",
+      fee_type: "1",
+      input_charset: 'GBK',
+      notify_url: @notify_url,
+      out_trade_no: @out_trade_no,
+      partner: Settings.wx.parterid,
+      spbill_create_ip: request.remote_ip,
+      total_fee: (price.to_f * 100).to_i
+    }
+    string1 = ""; package.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    sign_value = Digest::MD5.hexdigest("#{string1}&key=#{Settings.wx.parterkey}").upcase
+    @package_val = "#{package.to_param}&sign=#{sign_value}"
+
+    pay_sign = {
+      appid: Settings.wx.appid,
+      appkey: Settings.wx.paysignkey,
+      noncestr: @noncestr_val,
+      package: @package_val,
+      timestamp: @time_val.to_i
+    }
+    string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    @paySign_val = Digest::SHA1.hexdigest(string1)
+
+    render "payments.js.erb"
   end
 
   def change_state
     order = API::Order.destroy(request, orderno: params[:id])
     render json: {status: order[:isSuccessful]}.to_json
+  end
+
+  def check_status
   end
 
   def cancel
