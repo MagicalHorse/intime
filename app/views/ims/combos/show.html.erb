@@ -2,27 +2,36 @@
     <div class="module module-color-white clearfix">
       <div class="row-fluid">
         <div class="span12">
-            <div id="myCarousel" class="carousel slide" style="overflow: hidden;">
+            <!-- <div id="myCarousel" class="carousel slide" style="overflow: hidden;">
               <ol class="carousel-indicators">
                 <li class="active"></li>
                 <li></li>
                 <li></li>
               </ol>
-              <!-- Carousel items -->
               <div class="carousel-inner slides">
                 <% @remote_combo[:data][:images].each_with_index do |src, i| %>
                   <div class="item slide <%= 'active' if i == 0 %>"><img src="<%= src %>"></div>
                 <% end %>
               </div>
+            </div> -->
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <% @remote_combo[:data][:images].each_with_index do |src, i| %>
+                 <div class="swiper-slide"> 
+                   <img src="<%= src %>">
+                 </div>
+                 <% end %>
+              </div>
             </div>
+
+
             <div class="module module-white module-show">
               <div class="row-fluid">
                 <% @remote_combo[:data][:products].each do |product| %>
-                <% image = product[:image].present? ? product[:image] : ::Product.fetch_product(product[:id])[:data][:image]  %>
 
                 <div class="span4">
                   <div class="combos-product">
-                    <img src="<%= image %>">
+                    <img src="<%= product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>">
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
                     <a class="btn btn-danger btn-mini btn-block" href="<%= new_ims_order_path(:product_id => product[:id], :store_id => @store_id) %>">点击购买</a>
                   </div>
@@ -71,15 +80,16 @@
 <script type="text/javascript">
   $(function(){
 
-    $("#myCarousel").swipeshow({
-      autostart: true,    /* Set to `false` to keep it steady */
-      interval: 3000,     /* Time between switching slides (ms) */
-      initial: 0,         /* First slide's index */
-      speed: 1500,         /* Animation speed (ms) */
-      friction: 1,      /* Bounce-back behavior; use `0` to disable */
-      mouse: true,        /* enable mouse dragging controls */
-      keys: true
-    });
+    var mySwiper = $('.swiper-container').swiper({
+    mode:'horizontal',
+    autoplay: 3000,
+    speed: 1000,
+    calculateHeight: true,
+    watchActiveIndex: true,
+    loop: true,
+    centeredSlides: true,
+    offsetPxBefore: 100
+  });
 
     <% if @remote_combo[:data][:is_favored] %>
     $("#unfavor_combo").hide();
