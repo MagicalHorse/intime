@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Ims::CardsController < Ims::BaseController
   before_filter :user_account_info, only: [:gift_page]
-  before_filter :validate_sms!, only: [:give_page, :refuse, :recharge]
+  before_filter :validate_sms!, only: [:give, :refuse, :recharge]
   layout "ims/user"
 
   # 给自己充值
@@ -35,6 +35,7 @@ class Ims::CardsController < Ims::BaseController
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
+    current_user.other_phone = @card[:phone]
   end
 
   # 赠送给别人

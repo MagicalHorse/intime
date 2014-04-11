@@ -3,9 +3,9 @@
 .form-padding { padding: 30px;}
 .module-form input[type="text"]{ height: 60px; line-height: 60px; font-size: 22px;}/**/
 .module-set-password input{font-family: "microsoft yahei";}
-.module-set-password .h4-txt{ margin-top: 0; color: #b7bbc2}
+.module-set-password .h4-txt{ margin: 0 10px 10px; color: #b7bbc2}
 .set-button{margin-top: 80px;}
-.module-set-password .form-defined h1{margin-bottom: 20px;}
+.module-set-password .form-defined h1{margin: 0 20px  20px;}
 /*..........绑卡.........*/
 .ol-list li{ color: #c3c6cb; list-style-position: inherit; line-height: 36px;}
 
@@ -60,23 +60,24 @@
 .verify-code-txt{text-align: center; }
 
 /*-------------------------------------Card-----------------------------------------*/
-.module-card{ padding: 60px 40px 0; height:930px; background: url(/images/ims/card2.jpg) center top no-repeat #f16498;}
+.module-card{ padding: 60px 40px 0; margin-bottom: 100px; background: url(../images/card2.jpg) center top no-repeat #f16498;}
 .module-card h1{ font-size: 32px; color: #ffffff; margin-top: 0;}
 .card-text{color: #ffffff;}
-.module-card-posi{ position: relative; padding: 60px 40px 0; height:930px; background: url(/images/ims/card2.jpg) center -20px no-repeat #f16498;}
-.module-card-scan{ position: relative; padding: 60px 40px 20px; height:auto; background: url(/images/ims/card2.jpg) center -20px no-repeat #f16498;}
+.module-card-posi{ position: relative; padding: 60px 40px 0; min-height:820px; background: url(../images/ims/card2.jpg) center -20px no-repeat #f16498;}
+.module-card-scan{ position: relative; padding: 60px 40px 20px; margin-bottom: 0; height:auto; background: url(../images/ims/card2.jpg) center -20px no-repeat #f16498;}
 .posi-txt{ padding: 0 70px; color: #ffffff; position: absolute; bottom:50px; left: 0; right: 0;}
 .txt-money { color: #ffffff;}
 .txt-money em{ font-style: normal;}
 .card-form-box{padding: 30px; margin-bottom: 40px; border-bottom:1px solid #eeeeee;}
 .card-form-box input,
 .card-form-box textarea {color: #b7bbc2;font-family: "microsoft yahei";}
+.card-notice{margin: 10px;}
 .card-form-box .fa{ color: #F16498; margin-right: 4px;}
 .card-form-box .card-notice .fa{ color: #b7bbc2;}
 .card-form-box .defined-small{ margin-bottom: 20px;}
 .card-wrap{ margin: 60px 0 20px;}
 .btn-scan{margin-top: 100px;}
-.module-card-scan .module-notice{padding-bottom: 100px;}
+/*.module-card-scan .module-notice{padding-bottom: 100px;}*/
 .btn-already .btn-defult{ color: #F16498;}
 .barcord-box{ position: relative; text-align: center;}
 .barcord-box .bar-code{ position: absolute; bottom: 80px; left: 0; right: 0;}
@@ -113,6 +114,7 @@
 .module-notice {margin: 20px 10px 40px;}
 .module-btn .btn{ margin-right: 10px;}
 .module-notice ol li{margin-bottom: 5px; font-size: 13px; line-height: 20px;}
+.module-card-scan .module-notice ol li{ font-size: 13px; line-height: 20px; margin-bottom: 0;}
 .module-form input[type="text"]{ height: 40px; line-height: normal; font-size: 15px;}
 .module-form .control-group{ margin-bottom: 10px;}
 
@@ -138,12 +140,15 @@
 .verify-form1 .btn{padding: 2px 8px;}
 .verify-form .sub-btn {width: 70%;font-size: 16px;}
 /*-------------------------------------Card-----------------------------------------*/
-.module-card{ padding: 10px 20px 20px; height:800px;  background-size: 100% auto;}
+.module-card{ padding: 10px 20px 20px;/* height:550px; */ background-size: 100% auto;}
 .module-card h1{ font-size: 18px;}
 .card-form-box{padding:15px 5px;}
 .card-form-box .defined-small{ margin-bottom: 10px;}
 .card-form-box .car-notice,
 .card-form-box form{ margin-bottom: 10px;}
+.card-form-box  .defined-small [class*="col-"] input,
+.card-form-box textarea,
+.card-form-box .defined-small label[class*="col-"] { font-size: 14px;}
 .module-user-card h1{ background-size: 32px auto;}
 .module-card-scan{height: auto;}
 .card-wrap{ margin-top: 30px;}
@@ -161,10 +166,12 @@
 
 
 @media screen and (max-width: 480px) {
-	.module-card{ height: 500px;}
-	.module-card-info{height: 400px;}
-	.module-card-scan{height: auto;}
-	.posi-txt{padding: 0 15px;  bottom:100px; line-height: 20px;}
+	.module-card{margin-bottom: 50px;}
+	.module-card-scan{margin-bottom: 0;}
+	.module-card-posi{min-height: 430px;}
+	.module-card-info{height: 340px;}
+	.module-card-scan{min-height: 320px;}
+	.posi-txt{padding: 0 15px;  bottom:10px; line-height: 20px;}
 }
 
 @media screen and (max-width: 320px) {
