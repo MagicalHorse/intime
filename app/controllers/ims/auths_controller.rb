@@ -31,9 +31,10 @@ class Ims::AuthsController < ActionController::Base
       :mobile => user_hash[:data][:mobile],
       :isbindcard => user_hash[:data][:isbindcard],
       :logo => user_hash[:data][:logo],
-      :level => user_hash[:data][:level],
       :operate_right => user_hash[:data][:operate_right],
-      :token => user_hash[:data][:token]
+      :token => user_hash[:data][:token],
+      :store_id => user_hash[:data][:associate_id],
+      :max_comboitems => user_hash[:data][:max_comboitems]
       })
     
     session[:current_wx_user] = user
