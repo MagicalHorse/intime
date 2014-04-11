@@ -33,11 +33,11 @@
             <% if @store[:data][:gift_card].present? %>
              <% @store[:data][:gift_card].each do |card| %>
             <div class="module-content module-content-card">
-                <div class="img-box"><a href="<%= ims_card_orders_pay_path(store_id: @store[:data][:id], showwxpaytitle: 1) %> %>&showwxpaytitle=1"><img src="<%= card["Image"] %>" alt=""></a></div>
+                <div class="img-box"><a href="<%= ims_cards_path(store_id: @store[:data][:id]) %>"><img src="<%= card["Image"] %>" alt=""></a></div>
                 <p><a href="#"><%= card["Desc"] %></a></p>
                 <div class="clearfix">
                     <p class="pull-left price-box">
-                        <span><a href="<%= new_ims_card_order_path(store_id: @store[:data][:id], showwxpaytitle: 1) %>" class="btn btn-danger btn-small">购买</a></span>
+                        <span><a href="<%= ims_card_orders_pay_path(store_id: @store[:data][:id], showwxpaytitle: 1) %>" class="btn btn-danger btn-small">购买</a></span>
                     </p>
                 </div>
             </div>
