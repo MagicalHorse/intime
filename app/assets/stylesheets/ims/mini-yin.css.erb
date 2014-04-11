@@ -143,7 +143,7 @@ body .wrap form input{ box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset !important;}
 @media screen and (max-width: 580px) {
 .btn {font-weight: 600;}
 .btn-large {
-  padding: 12px 24px;
+  padding: 8px 24px;
   font-size: 16px;
   -webkit-border-radius: 2px;
      -moz-border-radius: 2px;
@@ -152,7 +152,7 @@ body .wrap form input{ box-shadow: 0 1px 1px rgba(0, 0, 0, 0) inset !important;}
 .btn-large i{font-size: 16px; vertical-align: middle;}
 
 .btn-small {
-  padding: 6px 14px;
+  padding: 2px 14px;
   font-size: 12px;
   -webkit-border-radius: 2px;
      -moz-border-radius: 2px;
@@ -622,17 +622,19 @@ h6 small {font-size: 10px; line-height: 16px;}
 @media screen and (max-width: 580px) {
 .bottom-btnbox{width: 100%;padding: 10px 0;}
 .bottom-btnbox .btn{ margin-right: 10px; font-size: 14px; padding: 8px 12px;}
+.wrap-content{margin-bottom: 70px;}
+/*.wrap-mar{margin-bottom: 0;}*/
 }
 
 
-.wrap{max-width: 640px; margin:0 auto 140px;}
+.wrap{max-width: 640px; margin:0 auto;}
 .top-link{ display: inline-block; padding: 8px; position: fixed; bottom: 80px; right: 10px; z-index: 10; width: 30px; height: 30px; text-align: center; line-height: 30px;font-size: 34px; color: #ffffff;background-color: #F16498; border-radius: 50%;}
 .top-link i{ line-height: 30px; }
 .top-link:hover,
 .top-link:active,
 .top-link:focus{ color: #ffffff;}
 
-.min-height{min-height: 500px;}
+/*.min-height{min-height: 500px;}*/
 .module-white{background: white;}
 /*-------------------------------Css Header-----------------------------------*/
 .header-box{position: relative;}
@@ -781,7 +783,6 @@ footer{ position: fixed; bottom:0; width: 640px;}
 
 /*-----------------------------------Countdown--------------------------------------*/
 .countdown{display: inline-block; font-size: 21px;}
-.price-box .countdown span{ padding: 0 4px;}
 .countdown em{ font-style: normal; font-family: arial; line-height: normal; padding: 0 4px; margin: 0 2px;}
 
 /*---------------------------------img-box--------------------------------------*/
@@ -820,6 +821,7 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .modal-grey{ padding-top: 70px; width: 100% !important;}
 /*-----------------------------------Countdown--------------------------------------*/
 .price-box .countdown{ padding: 0; font-size: 12px;}
+.price-box .countdown span{ padding: 0;}
 .countdown span{ padding: 0;}
 .countdown em{ font-style: normal; line-height: normal; padding: 0 2px; margin: 0 2px;}
 .countdown-browser .countdown span{ line-height: 22px;}
