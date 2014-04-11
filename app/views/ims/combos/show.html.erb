@@ -87,7 +87,7 @@
     <div class="bottom-btnbox">
     <button class="btn btn-small btn-danger" id="share_to_user_model">分享给好友</button>
     <button class="btn btn-small btn-danger">
-      <% if current_user.store_id == @remote_combo[:data][:id] %>
+      <% if current_user.id == @remote_combo[:data][:owner_id] %>
       <a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>">编 辑</a>
       <% else %>
       <a href="<%= ims_orders_new_path(:combo_id => @remote_combo[:data][:id], :store_id => @store_id)%>">打包购买</a>
