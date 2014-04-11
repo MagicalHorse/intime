@@ -12,6 +12,7 @@
 
 <div class="wrap-content">
 
+<% if @orders.present? %>
   <% @orders.each do |order| %>
   <div class="module common-white">
     <div class="module-state">
@@ -51,6 +52,9 @@
       </div>
     </div>
   </div>
+  <% end %>
+  <% else %>
+  <%= render 'ims/shared/empty' %>
   <% end %>
 
 </div>
