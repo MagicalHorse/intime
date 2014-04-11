@@ -1,4 +1,5 @@
 class Ims::Store::StoresController < Ims::Store::BaseController
+  skip_filter :authenticate, only: [:my]
 
   def index
 
@@ -18,8 +19,12 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def my
-    @store = Ims::Store.my(request)
-    render :layout =>  'ims'
+    if current_user.store_id == params[:id].to_i
+      @store = Ims::Store.my(request)
+      render :layout =>  'ims'
+    else
+      redirect_to ims_store_path(:id => params[:id])
+    end  
   end
 
   def records
