@@ -313,7 +313,7 @@
         appId: "<%= Settings.wx.appid %>",
         scope: "jsapi_address",
         signType: "sha1",
-        addrSign: "<%= @addrSign_val %>",
+        addrSign: "<%= raw @addrSign_val %>",
         timeStamp: "<%= @timeStamp_val %>",
         nonceStr: "<%= @nonceStr_val %>"
       },function(res){
@@ -321,8 +321,7 @@
           if(typeof res[name] !== 'function'){document.writeln(name+"+:+"+res[name]);}
         }
       //若 res 中所带的返回值不为空，则表示用户选择该返回值作为收货地址。否则若返回空，则表示用户取消了这一次编辑收货地址。
-        status = res.err_msg
-        if(status["edit_address"] == "ok"){
+        if(res.err_msg == "edit_address:ok"){
           name = res.userName
           zipcode = res.addressPostalCode
           address = [res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.addressDetailInfo].join(" ")

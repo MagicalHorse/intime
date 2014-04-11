@@ -26,7 +26,7 @@ class Ims::BaseController < ApplicationController
     if request.host != "test.ngrok.com"
       get_token_from_api(request) unless session[:user_token]
     else
-      raise Ims::Unauthorized unless session[:user_token]
+      raise Ims::Unauthorized if session[:user_token].blank? || session[:user_access_token].blank?
     end
   end
 
@@ -37,7 +37,7 @@ class Ims::BaseController < ApplicationController
       :outsiteuid       => Settings.wx.open_id,
       :outsitetype      => 4,
       :outsitetoken     => Ims::Weixin.access_token
-    }) 
+    })
     session[:user_token] = user_hash[:data][:token]
     user = Ims::User.new({
       :id => user_hash[:data][:id],
@@ -51,7 +51,7 @@ class Ims::BaseController < ApplicationController
       :operate_right => user_hash[:data][:operate_right],
       :token => user_hash[:data][:token]
       })
-    
+
     session[:current_wx_user] = user
   end
 

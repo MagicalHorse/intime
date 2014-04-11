@@ -7,4 +7,5 @@ class Ims::Weixin
       ActiveSupport::JSON.decode(resp)['access_token']
     }
   end
+
 end
