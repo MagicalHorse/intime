@@ -160,7 +160,7 @@
 .modal-buy form{ margin: 0;}
 .modal-buy .modal-body{ position: relative; padding: 0; border-radius: 6px 6px 0 0;}
 .modal-buy .modal-header{border-bottom: 0;}
-.modal-buy .modal-header .close{ position: absolute; right: 20px; top: 20px; margin:0; font-size: 50px; color: #c3c6cb;opacity: 1; filter: alpha(opacity=100);}
+.modal-buy .modal-header .close{ position: absolute;height: 29px; right: 20px; top: 20px; margin:0; font-size: 50px; color: #c3c6cb;opacity: 1; filter: alpha(opacity=100);}
 .modal-buy .modal-body .common-white{ border-top: 0; margin-bottom: 0; padding-top: 0;}
 .modal-buy .modal-footer{ text-align: center;}
 .modal-buy .module-grey{ padding: 30px;}
