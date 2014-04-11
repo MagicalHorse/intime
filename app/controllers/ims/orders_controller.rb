@@ -17,7 +17,7 @@ class Ims::OrdersController < Ims::BaseController
 
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
-    access_token  = session[:user_access_token]
+    access_token  = cookies[:user_access_token]
     sign = {
       accesstoken: access_token,
       appid: Settings.wx.appid,
