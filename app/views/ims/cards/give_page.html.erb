@@ -9,7 +9,7 @@
     <%= form_tag give_ims_cards_path, class: "form-defined" do  %>
     <%= hidden_field_tag :charge_no, params[:charge_no]  %>
     <div class="controls-defined defined-small">
-      <label class="col-12 text-left"><i class="fa fa-pencil-square-o"></i>好友留言</label>
+      <label class="col-12 text-left"><i class="fa fa-pencil-square-o"></i>对好友留言</label>
       <div class="col-12">
         <%= text_area_tag :comment, "", rows: 3 %>
       </div>
@@ -24,7 +24,7 @@
     <% end %>
     <p class="card-notice txt3">
       <i class="fa fa-exclamation-circle"></i>温馨提示
-      确认赠送后，好友确认接收后，将会给好友手机号发送验证码确认接收，请确保手机号码输入无误.
+      好友确认接收时，将会收到系统发送的短信验证码，请确保手机号码输入无误。
     </p>
   </div>
 </div>
