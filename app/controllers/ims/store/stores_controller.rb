@@ -1,5 +1,5 @@
 class Ims::Store::StoresController < Ims::Store::BaseController
-  skip_filter :authenticate, only: [:my]
+  skip_filter :authenticate, only: [:my, :check]
 
   def index
 
@@ -16,6 +16,14 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def show
 
+  end
+
+  def check
+    if current_user.store_id.present?
+      redirect_to my_ims_store_store_path(id: current_user.store_id)
+    else
+      redirect_to ims_store_root_path
+    end
   end
 
   def my

@@ -6,7 +6,11 @@
     </ul>
     <div class="tab-content">
       <div class="tab-pane active" id="profile">
-        <%= render "combos_list", combos_list: @combos %>
+        <% if @combos.present? %>
+          <%= render "combos_list", combos_list: @combos %>
+        <% else %>  
+          <%= render "ims/shared/empty" %>
+        <% end %>
       </div>
     </div>
   </div>
