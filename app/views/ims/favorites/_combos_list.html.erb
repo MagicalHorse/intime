@@ -3,13 +3,21 @@
   <div class="module common-white" onclick="window.location.href = '<%= ims_combo_path(combo["id"]) %>'">
     <div class="txt-block detail-contact">
       <div class="row-fluid">
-        <div class="span3"><img class="img-rounded" src="<%= combo["image"] %>"></div>
-        <div class="span9 collection-p">
-          <p class="txt2"><%= combo["name"] %></p>
-          <p class="txt2 txt-red"><span class="txt-grey">打包价：</span>￥<%= combo["price"] %></p>
+        <div class="span3"><span class="img-span"><img class="img-rounded" src="<%= combo["image"] %>"></span></div>
+        <div class="span9">
+          <div class="collection-p collection-pbox">
+            <p class="txt2"><%= combo["name"] %></p>
+            <p class="txt2 txt-red"><span class="txt-grey">打包价：</span>￥<%= combo["price"] %></p>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <% end %>
 </div>
+<script type="text/javascript">
+  $(".img-span").each(function(){
+        $(this).css("height", $(this).width())
+        $(this).css("line-height", $(this).height()+"px")
+    });
+</script>
