@@ -28,8 +28,8 @@ class Ims::CardOrdersController < Ims::BaseController
   def create
     @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
-    @out_trade_no = "#{}-#{@card_id}-#{current_user.id}"
-    @out_trade_no = "#{@out_trade_no}#{rand(99).to_s.rjust(2,"0")}-#{params[:store_id]}" if params[:store_id].present?
+    @out_trade_no = "#{Time.now.to_i}#{rand(99).to_s.rjust(2,"0")}-#{@card_id}-#{current_user.id}"
+    @out_trade_no = "#{@out_trade_no}-#{params[:store_id]}" if params[:store_id].present?
     @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
     # TODO 上线前，修改为正式地址
     @notify_url = 'http://111.207.166.195/ims/payment/notify_giftcard'
@@ -37,7 +37,7 @@ class Ims::CardOrdersController < Ims::BaseController
 
     package = {
       bank_type: "WX",
-      body: "商品描述",
+      body: "礼品卡",
       fee_type: "1",
       input_charset: 'GBK',
       notify_url: @notify_url,
