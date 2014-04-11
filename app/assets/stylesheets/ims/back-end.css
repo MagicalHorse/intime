@@ -8,7 +8,7 @@
 .title-link{ font: 21px/40px "microsoft yahei";}
 .title-link i{ margin-left: 10px; font-size: 28px;}
 .module-pull{margin-top: 20px;}
-.show-imgbox-no{border:2px dashed #eeeeee; text-align: center; overflow: hidden;}
+.show-imgbox-no{border:2px dashed #eeeeee; text-align: center; overflow: hidden; font-size: 1px;}
 .show-imgbox-no img{height: auto;}
 .show-imgbox-yes{border:2px solid #eeeeee;}
 
@@ -55,7 +55,8 @@
 /*-------------------------------Css Search result---------------------------------*/
 .module-search-ele{padding: 10px 10px 0;}
 .goods-box{margin-bottom: 10px; position: relative; border:1px solid #eeeeee; background: white;}
-.goods-box .imgs{position: relative; display:block;}
+.goods-box .imgs{position: relative; display:block; text-align: center; overflow: hidden; font-size: 1px;}
+.goods-box .imgs img{ height: auto;}
 .goods-box .goods-text { padding: 10px;}
 .goods-box .goods-text > a{ overflow: hidden; height: 60px; display: inline-block; margin-bottom: 10px; font-size: 21px; line-height: 30px;}
 .goods-price{ position: absolute; bottom: 0; left: 0; width: 100%; color: white; line-height: 40px; font-size: 24px; text-indent: 10px; background-color: rgba(202, 200, 201, 0.80);}
@@ -108,7 +109,7 @@
 
 .p-list-first { padding-top: 0;}
 .p-list-last { border-bottom: none;}
-.p-pic {border: 1px solid #ccc; padding: 5px;}
+.p-pic {border: 1px solid #eeeeee; padding: 5px; font-size: 1px; overflow: hidden; text-align: center;}
 .p-info { margin-left: 25px;}
 .p-dp-price { text-decoration:line-through; font-size: 15px; margin-left: 50px;}
 .p-price1 {width: 100%;margin: 10px 0 24px;}

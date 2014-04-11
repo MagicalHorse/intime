@@ -2,7 +2,7 @@
   <div class="module common-white combo_paginate-content">
     <div class="txt-block detail-contact">
         <div class="row-fluid">
-          <div class="span3"><%= image_tag combo["image"] %></div>
+          <div class="span3"><span class="img-span"><%= image_tag combo["image"] %></span></div>
           <div class="span9 collection-p">
             <p class="txt2"><%= link_to combo["desc"], ims_combo_path(combo["id"]) %></p>
             <p class="txt2 txt-red">组合价：￥<%= combo["price"] %></p>
@@ -15,3 +15,9 @@
     </div>
   </div>
 <% end %>
+<script>
+    $(".img-span").each(function(){
+        $(this).css("height", $(this).width())
+        $(this).css("line-height", $(this).height()+"px")
+    });
+</script>
