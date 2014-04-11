@@ -338,7 +338,7 @@ IntimeService::Application.routes.draw do
         get     :recharge
         get     :gift_page
         get     :give_page
-        post    :give
+        get     :give
         get     :refuse
         get     :agreement
       end

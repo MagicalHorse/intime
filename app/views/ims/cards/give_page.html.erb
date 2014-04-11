@@ -6,7 +6,7 @@
     </div>
   </div>  
   <div class="module module-white card-form-box">
-    <%= form_tag give_ims_cards_path, class: "form-defined" do  %>
+    <%= form_tag give_ims_cards_path, class: "form-defined", method: "get" do  %>
     <%= hidden_field_tag :charge_no, params[:charge_no]  %>
     <div class="controls-defined defined-small">
       <label class="col-12 text-left"><i class="fa fa-pencil-square-o"></i>对好友留言</label>
