@@ -1,3 +1,4 @@
+<%= render 'ims/shared/countdown' %>
 <div class="wrap-inner back-wrap-inner">
     <div class="module module-color-white clearfix">
       <div class="row-fluid">
@@ -57,9 +58,29 @@
     <div class="p-title">
       <h4><%= @remote_combo[:data][:desc] %></h4>
       <div class="p-price1 clearfix">
-        <span class="txt3 pull-left">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
-        <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
-        <span class="txt4 pull-right txt-red" id="unfavor_combo"><i class="fa fa-star"></i> 已收藏</span>
+        <p class="pull-left price-box">
+              <span>打包价：<em>￥<%= @remote_combo[:data][:price] %></span>
+          </p>
+        <p class="pull-left price-box">
+          <% if @remote_combo[:data]["expire_in"].present? %>
+              <span class="pull-left countdown">
+                  <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
+              </span>
+              <script type="text/javascript">
+                          tms[tms.length] = "<%=@remote_combo[:data]['expire_in'] %>"; 
+                          day[day.length] = "d<%=@remote_combo[:data][:id]%>"; 
+                          hour[hour.length] = "h<%=@remote_combo[:data][:id]%>"; 
+                          minute[minute.length] = "m<%=@remote_combo[:data][:id]%>"; 
+                          second[second.length] = "s<%=@remote_combo[:data][:id]%>"; 
+                        </script>
+          <% else %>    
+            <span class="pull-left countdown">
+               长期有效
+            </span>
+          <% end %>    
+              <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
+              <span class="txt4 pull-right txt-red" id="unfavor_combo"><i class="fa fa-star"></i> 已收藏</span>
+          </p>  
       </div>
     </div>
 

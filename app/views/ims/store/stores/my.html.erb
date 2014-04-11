@@ -1,3 +1,4 @@
+<%= render 'ims/shared/countdown' %>
 <div class="wrap-inner back-wrap-inner">
 <header id="TOP">
  <div class="header-box">
@@ -81,9 +82,23 @@
                 <div class="clearfix">
                     <p class="pull-left price-box">
                         <span>打包价：<em>¥<%= combo["Price"] %></em></span>
-                        <span><a href="<%= ims_orders_new_path(:combo_id => combo["Id"], :store_id => @store[:data][:id]) %>" class="btn btn-danger btn-small">购买</a></span>
                     </p>
-                    <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
+                    <% if combo["ExpiredIn"].present? %>
+                        <span class="pull-right countdown">
+                            <em id="d<%=combo['Id']%>">00</em><span>天</span><em id="h<%=combo['Id']%>">00</em>:<em id="m<%=combo['Id']%>">00</em>:<em id="s<%=combo['Id']%>">00</em><span>后下架</span>
+                        </span>
+                        <script type="text/javascript">
+                          tms[tms.length] = "<%=combo['ExpiredIn'] %>"; 
+                          day[day.length] = "d<%=combo['Id']%>"; 
+                          hour[hour.length] = "h<%=combo['Id']%>"; 
+                          minute[minute.length] = "m<%=combo['Id']%>"; 
+                          second[second.length] = "s<%=combo['Id']%>"; 
+                        </script>
+                        <% else %>
+                        <span class="pull-right countdown">
+                            <span>长期有效</span>
+                        </span>
+                        <% end %>
                 </div>
             </div>
         </div>
@@ -121,3 +136,16 @@
       </div>
     </div>
   </footer>
+<script type="text/javascript">
+  $(function(){
+    $(window).bind("scroll",function(){
+    var that = $(this);
+    if (that.scrollTop() > 218){
+      $('#head-menu').addClass('nav-fixed');
+    } else{
+      $('#head-menu').removeClass('nav-fixed');
+    }
+  });
+
+  })
+</script>  

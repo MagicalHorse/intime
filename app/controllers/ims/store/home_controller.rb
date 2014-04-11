@@ -1,5 +1,6 @@
 class Ims::Store::HomeController < Ims::Store::BaseController
   skip_filter :authenticate
+  before_filter :go_store
 
   def index
   end
@@ -20,6 +21,13 @@ class Ims::Store::HomeController < Ims::Store::BaseController
 
   def check_code
 
+  end
+
+  private
+  def go_store
+    if current_user.store_id.present?
+      redirect_to my_ims_store_store_path(:id => current_user.store_id)
+    end
   end
 
 end
