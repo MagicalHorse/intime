@@ -7,7 +7,10 @@
         <h1 class="text-center">为了保证您的银泰礼品卡资金安全，请设置支付密码</h1>
         <%= password_field_tag "pwd", "", class: "input-block-level large-block", placeholder: "支付密码为6位数字" %>
         <%= password_field_tag "comfirm_pwd", "", class: "input-block-level large-block", placeholder: "确认支付密码" %>
-        <h4 class="h4-txt"><i class="fa fa-exclamation-circle"></i> 支付密码可以用于礼品卡查询和购买支付，请妥善保管</h4>
+        <ol class="ol-list txt3">
+          <li>支付密码用于线下消费，请务必妥善保管</li>
+          <li>为了保证账户安全，建议定期至礼品卡首页修改支付密码</li>
+        </ol>
         <button class="btn btn-danger btn-large btn-block set-button">确认</button>
         <% end %>
       </div>

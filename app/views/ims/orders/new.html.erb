@@ -113,7 +113,7 @@
          <div class="row-fluid">
              <div class="span12">
 
-                 <div id="contact_select" class="detail-block detail-contact">
+                 <div id="contact_select_wrapper" class="detail-block detail-contact">
                      <p class="txt8">
                        <span>
                        <i class="fa fa-map-marker"></i>正在选择地址
@@ -121,7 +121,7 @@
                      </p>
                  </div>
 
-                 <div id="contact" class="detail-block detail-contact" style="display: none;">
+                 <div id="contact_wrapper" class="detail-block detail-contact" style="display: none;">
                      <p class="txt8">
                        <span>
                          <i class="fa fa-user"></i><span id="weixin_name">联系人</span>
@@ -313,16 +313,12 @@
         appId: "<%= Settings.wx.appid %>",
         scope: "jsapi_address",
         signType: "sha1",
-        addrSign: "<%= @addrSign_val %>",
+        addrSign: "<%= raw @addrSign_val %>",
         timeStamp: "<%= @timeStamp_val %>",
         nonceStr: "<%= @nonceStr_val %>"
       },function(res){
-        for(var name in res){
-          if(typeof res[name] !== 'function'){document.writeln(name+"+:+"+res[name]);}
-        }
       //若 res 中所带的返回值不为空，则表示用户选择该返回值作为收货地址。否则若返回空，则表示用户取消了这一次编辑收货地址。
-        status = res.err_msg
-        if(status["edit_address"] == "ok"){
+        if(res.err_msg == "edit_address:ok"){
           name = res.userName
           zipcode = res.addressPostalCode
           address = [res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.addressDetailInfo].join(" ")
@@ -336,8 +332,8 @@
           $("#contact").attr("value", contact)
           $("#weixin_contact").text(contact)
 
-          $("#contact_select").hide()
-          $("#contact").show()
+          $("#contact_select_wrapper").hide()
+          $("#contact_wrapper").show()
         }else{
           alert("获取地址失败")
         }

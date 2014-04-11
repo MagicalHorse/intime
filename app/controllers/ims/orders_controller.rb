@@ -17,12 +17,13 @@ class Ims::OrdersController < Ims::BaseController
 
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
+    access_token  = cookie[:user_access_token]
     sign = {
-      accesstoken: Ims::Weixin.access_token,
+      accesstoken: access_token,
       appid: Settings.wx.appid,
       noncestr: @nonceStr_val,
       timestamp: @timeStamp_val,
-      url: "http://open.weixin.qq.com/"
+      url: request.original_url
     }
     string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
     @addrSign_val = Digest::SHA1.hexdigest(string1)

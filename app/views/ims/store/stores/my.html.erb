@@ -54,7 +54,7 @@
 
          <% if @store[:data][:combos].present? %>
         <% @store[:data][:combos].each do |combo| %>
-        <div class="module module-ele"> 
+        <div class="module module-ele">
             <div class="module-content module-content-img">
                 <div class="suit-box clearfix">
                     <div class="row-fluid">
@@ -81,7 +81,7 @@
                 <div class="clearfix">
                     <p class="pull-left price-box">
                         <span>打包价：<em>¥<%= combo["Price"] %></em></span>
-                        <span><a href="<%= new_ims_order_path(:combo_id => combo["Id"], :store_id => @store[:data][:id]) %>" class="btn btn-danger btn-small">购买</a></span>
+                        <span><a href="<%= ims_orders_new_path(:combo_id => combo["Id"], :store_id => @store[:data][:id]) %>" class="btn btn-danger btn-small">购买</a></span>
                     </p>
                     <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
                 </div>
