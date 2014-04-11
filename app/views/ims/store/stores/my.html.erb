@@ -26,11 +26,16 @@
 </header>
 
 <div class="wrap-inner">
+  <% if @store[:data][:gift_card].blank? && @store[:data][:combos].blank? %>
+   <%= render 'ims/shared/empty' %>
+  <% else %>
+
+  <% if @store[:data][:gift_card].present? %>
 		<div class="module module-ele">
             <div class="module-title">
                 <h3>礼品卡推荐</h3>
             </div>
-            <% if @store[:data][:gift_card].present? %>
+            
              <% @store[:data][:gift_card].each do |card| %>
             <div class="module-content module-content-card">
                 <div class="img-box"><a href="<%= ims_cards_path(store_id: @store[:data][:id]) %>"><img src="<%= card["Image"] %>" alt=""></a></div>
@@ -42,17 +47,16 @@
                 </div>
             </div>
             <% end %>
-            <% end %>
         </div>
+       <% end %> 
 
-
+<% if @store[:data][:combos].present? %>
         <div class="module module-ele">
             <div class="module-title">
                 <h3>精品搭配推荐</h3>
             </div>
          </div>
-
-         <% if @store[:data][:combos].present? %>
+         
         <% @store[:data][:combos].each do |combo| %>
         <div class="module module-ele">
             <div class="module-content module-content-img">
@@ -81,8 +85,7 @@
                 <div class="clearfix">
                     <p class="pull-left price-box">
                         <span>打包价：<em>¥<%= combo["Price"] %></em></span>
-                    </p>
-                    <% if combo["ExpiredIn"].present? %>
+                        <% if combo["ExpiredIn"].present? %>
                         <span class="pull-right countdown">
                             <em id="d<%=combo['Id']%>">00</em><span>天</span><em id="h<%=combo['Id']%>">00</em>:<em id="m<%=combo['Id']%>">00</em>:<em id="s<%=combo['Id']%>">00</em><span>后下架</span>
                         </span>
@@ -98,14 +101,13 @@
                             <span>长期有效</span>
                         </span>
                         <% end %>
+                    </p>
                 </div>
             </div>
         </div>
         <% end %>
-        <% else %>
-        <%= render 'ims/shared/empty' %>
         <% end %>
-
+  <% end %>      
 </div>
 
 <footer>
@@ -135,16 +137,3 @@
       </div>
     </div>
   </footer>
-<script type="text/javascript">
-  $(function(){
-    $(window).bind("scroll",function(){
-    var that = $(this);
-    if (that.scrollTop() > 218){
-      $('#head-menu').addClass('nav-fixed');
-    } else{
-      $('#head-menu').removeClass('nav-fixed');
-    }
-  });
-
-  })
-</script>  

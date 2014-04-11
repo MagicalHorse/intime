@@ -22,7 +22,7 @@
                   <div class="combos-product">
                     <img src="<%= product.img_url %>">
                     <p><span class="txt3">￥<%= product.price %></span></p>
-                    <a class="btn btn-danger btn-mini btn-block" href="<%= ims_orders_new_path(:product_id => product.remote_id) %>">点击购买</a>
+                    <a class="btn btn-danger btn-mini btn-block" href="javascrip:void(0);">点击购买</a>
                   </div>
                 </div>
                 <% end %>
@@ -31,13 +31,13 @@
         </div>
       </div>
     </div>
-    <% if params[:private_to].present? %>
+    <% if @combo.private_to.present? %>
     <div class="private-custom">
       <div class="private-bg">
         <div class="private-text">
-            <p class="txt4 txt-red">Robin:</p>
+            <p class="txt4 txt-red"><%= @combo.private_to %>亲:</p>
           <p class="txt4">
-            您好！此搭配是我专门为你定制的！希望你会喜欢!
+            希望你喜欢哦！
           </p>
         </div>
       </div>
