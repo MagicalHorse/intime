@@ -34,7 +34,10 @@
     <div class="form-box">
 
       <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-defined" do %>
-        <%= file_field_tag "image", style: "display: none;", id: "input", value: @product.try(:[], :image) %>
+
+        <div style="height: 0px;width: 0px; overflow:hidden;">
+          <%= file_field_tag "image", id: "input", accept: "image/*" %>
+        </div>
         <%= hidden_field_tag "id", @product.try(:[], :id) %>
         <% if @combo_id.present? %>
           <%= hidden_field_tag :combo_id, @combo_id %>
