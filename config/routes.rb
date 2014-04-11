@@ -364,7 +364,11 @@ IntimeService::Application.routes.draw do
     resources :orders, only: [:index, :new, :create, :show] do
       member do
         put :change_state
-        get :payments
+        post :payments
+      end
+
+      collection do
+        get :check_status
       end
       resources :returns_reasons, only: [:new, :create] do
         member do
@@ -417,7 +421,7 @@ IntimeService::Application.routes.draw do
           post 'change_logo'
           post 'change_info'
         end
-        member do 
+        member do
           get 'my'
         end
       end
