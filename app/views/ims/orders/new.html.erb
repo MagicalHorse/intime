@@ -41,7 +41,7 @@
   <% @products.each_with_index do |product, index| %>
   <% salecolors = product[:salecolors] %>
   <% sizes = salecolors.first.try(:[], :sizes) || [] %>
-  <div class="module common-white">
+  <div class="module common-white <%= 'common-opacity' if salecolors.blank? %> ">
      <div class="row-fluid">
          <div class="span3">
              <div class="detail-imgbox">
@@ -62,9 +62,9 @@
           </div>
           <div class="span2">
             <div class="text-right">
-              <a class="ellipsis" href="#myModal2" data-toggle="modal">•••</a>
+              <a class="ellipsis" href="#myModal<%=index%>" data-toggle="modal">•••</a>
             </div>
-              <div id="myModal2" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;">
+              <div id="myModal<%=index%>" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;">
                 <form>
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -88,7 +88,7 @@
                     </div>
                     <div class="module-grey">
                     <% if salecolors.present?  %>
-                      <div class="modal-color">
+                      <div class="modal-color salecolors">
                         <p class="txt8">颜色</p>
                         <div class="product-detail">
                            <ul class="inline clearfix" index="<%= index %>">
@@ -105,7 +105,7 @@
                     <% end %>
 
                     <% if sizes.present? %>
-                      <div class="modal-size">
+                      <div class="modal-size sizes">
                         <p class="txt8">尺码</p>
                         <div class="product-detail">
                            <ul class="inline clearfix" index="<%= index %>">
@@ -238,7 +238,6 @@
       this_sizes = $(this).parents(".sizes")
       index = this_sizes.attr("index")
       this_sizes.find("li").removeClass("active")
-
       if(class_name.indexOf('active') >= 0){
         $("#sizevalueid"+index).attr("value", '')
         $("#sizevaluename"+index).attr("value", '')
