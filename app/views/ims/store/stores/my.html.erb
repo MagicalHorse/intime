@@ -17,7 +17,7 @@
 		 			</div>
 		 		</div>
 		 		<div class="span5">
-		 			<button class="btn btn-small btn-danger btn-share0 pull-right"><i class="fa fa-share-square-o"></i> 分享给好友</button>
+		 			<button class="btn btn-small btn-danger btn-share0 pull-right" id="share_to_user_model"><i class="fa fa-share-square-o"></i> 分享给好友</button>
 		 		</div>
 		 	</div>
  		</div>
@@ -39,7 +39,6 @@
                     <p class="pull-left price-box">
                         <span><a href="<%= new_ims_card_order_path(:store_id => @store[:data][:id]) %>" class="btn btn-danger btn-small">购买</a></span>
                     </p>
-                    <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
                 </div>
             </div>
             <% end %>
