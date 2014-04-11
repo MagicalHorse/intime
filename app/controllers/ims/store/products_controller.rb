@@ -44,7 +44,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
        :price => product[:data][:price], :combo_id => @combo.try(:id),
        :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
-      redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id))
+      redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
     else
       redirect_to new_ims_store_product_path(:combo_id => @combo.try(:id))
     end
@@ -80,7 +80,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       :product_type => params[:product_type], :price => product[:data][:price], :combo_id => @combo.id,
       :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
 
-    redirect_to new_ims_store_combo_path(:combo_id => @combo.id)
+    redirect_to new_ims_store_combo_path(:combo_id => @combo.id, t: Time.now.to_i)
   end
 
   def search
