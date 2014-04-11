@@ -18,9 +18,11 @@
             <div class="module module-white module-show">
               <div class="row-fluid">
                 <% @remote_combo[:data][:products].each do |product| %>
+                <% image = product[:image].present? ? product[:image] : ::Product.fetch_product(product[:id])[:data][:image]  %>
+
                 <div class="span4">
                   <div class="combos-product">
-                    <img src="<%= product[:image] %>">
+                    <img src="<%= image %>">
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
                     <a class="btn btn-danger btn-mini btn-block" href="<%= new_ims_order_path(:product_id => product[:id], :store_id => @store_id) %>">点击购买</a>
                   </div>
@@ -58,7 +60,7 @@
       <% if current_user.store_id == @remote_combo[:data][:id] %>
       <a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>">编 辑</a>
       <% else %>
-      <a href="<%= new_ims_order_path(:combo_id => @remote_combo[:data][:id]), :store_id => @store_id %>">立刻购买</a>
+      <a href="<%= new_ims_order_path(:combo_id => @remote_combo[:data][:id], :store_id => @store_id)%>">立刻购买</a>
       <% end %>
     </button>
   </div>

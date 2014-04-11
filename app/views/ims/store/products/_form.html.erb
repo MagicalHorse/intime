@@ -70,13 +70,13 @@
               <%= text_field_tag "price", @product.try(:[], :price) %>
               </div>
           </div>
+
           <div class="controls-defined defined-small">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>分类：</label>
               <div class="col-8">
               <%= select_tag "category_id", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :category_id)), prompt: "请选择" %>
               </div>
           </div>
-
 
           <div class="controls-defined defined-small" id="size_ids_wrapper" style="<%= @product.try(:[], :size_type) == 1 ? 'display: inline;' : 'display: none;' %>">
             <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
@@ -211,6 +211,7 @@
           element.after(error)
         }
       }
+
     })
 
     var result = document.getElementById("result");

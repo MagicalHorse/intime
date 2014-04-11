@@ -11,7 +11,7 @@
                                 <h2 class="shop-name"><%= @store[:data][:name] %>&nbsp;</h2>
                                 <ul class="inline browerse-icon">
                                     <li>
-                                        <a href="#"><i class="hd btn-tel"></i><span>联系店主</span></a>
+                                        <a href="tel:<%= @store[:data][:mobile] %>"><i class="hd btn-tel"></i><span>联系店主</span></a>
                                     </li>
                                     <li>
                                         <a href="javascript:void(0)" id="favor_store"><i class="hd btn-star"></i><span>收藏店铺</span></a>
@@ -63,14 +63,15 @@
                     	<div class="span8">
                     		<div class="suit-left">
 		                    	<a class="img-box img-posi" href="<%= ims_combo_path(id: combo["Id"]) %>">
-                                    <img src="<%= combo['Image'] %>" alt="">
+                                    <img src="<%= combo['Image'].present? ? combo['Image'] : Settings.default_image_url.product.middle %>" alt="">
                                     <img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
 		                    </div>
                     	</div>
 	                    <div class="span4">
 	                    	<div class="suit-right">
-                                <% if combo["ProductImages"].size > 1 %>
+                                <% if combo["ProductImages"].size > 0 %>
                                  <% combo["ProductImages"].each do |pic| %>
+                                 <% pic = Settings.default_image_url.product.small if pic.blank? %>
 	                            <a class="img-box" href="#"><img src="<%= pic %>" alt=""></a>
                                 <% end %>
                                 <% end %>

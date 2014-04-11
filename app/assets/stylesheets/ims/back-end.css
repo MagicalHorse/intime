@@ -9,7 +9,7 @@
 .title-link i{ margin-left: 10px; font-size: 28px;}
 .module-pull{margin-top: 20px;}
 .show-imgbox-no{border:2px dashed #eeeeee;}
-.show-imgbox-yes{border:2px solid #eeeeee;}
+.show-imgbox-yes{border:2px solid #eeeeee; text-align: center;}
 
 .mini-imgbox {margin-top: 50px;}
 .mini-imgbox ul{margin: 0; list-style: none; width: 100%；}

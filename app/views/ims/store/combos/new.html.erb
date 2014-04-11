@@ -89,8 +89,10 @@
 <div class="popup-menu-box">
   <div class="popup-menu" style="display:none;" id="pop-menu">
     <% if @combo.combo_products.blank? %>
-      <%= link_to "新拍商品", new_ims_store_product_path(:combo_id => @combo.id), class: 'txt1' %>
-      <%= link_to "已拍商品", ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
+      <% if current_user.operate_right >= 4 %>
+        <%= link_to "新拍商品", new_ims_store_product_path(:combo_id => @combo.id), class: 'txt1' %>
+        <%= link_to "已拍商品", ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
+      <% end %>
       <%= link_to "从系统选择", search_ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
     <% elsif @combo.combo_products.first.product_type == "2" %>
       <%= link_to "新拍商品", new_ims_store_product_path(:combo_id => @combo.id), class: 'txt1' %>
@@ -106,12 +108,16 @@
 </div>
 </div>
 
-<div id="ex2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="ex2" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
-
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   $(function(){
+    <% if @remote_combo.blank? && @online_num >= current_user.max_comboitems %>
+      $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>搭配上架数量已到上限</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' onclick='history.back();' >OK</a></div>")
+      $("#ex2").modal();
+    <% end %>
+
     <% if @combo.desc.blank?  %>
     $("#combo_desc").val("<%= @combo.product_desc %>")
     <% end %>
@@ -131,16 +137,16 @@
       verify_product1 = product_image_fields.length < 3
       verify_product2 = product_image_fields.length > 4
       if(verify_image1){
-        alert("主图必须至少有2张")
+        error_modal("主图必须至少有2张");
       }
       if(verify_image2){
-        alert("主图最多有5张")
+        error_modal("主图最多有5张");
       }
       if(verify_product1){
-        alert("商品搭配至少要由2个组成")
+        error_modal("商品搭配至少要由2个组成"); 
       }
       if(verify_product2){
-        alert("商品搭配最多由3个组成")
+        error_modal("商品搭配最多由3个组成");  
       }
       if(verify_image1 || verify_image2 || verify_image3){
         return false
@@ -159,8 +165,8 @@
        if(img_size < 6){
          document.getElementById("upfile").click();
        }else{
-        alert("上传主图不能超过5个");
-       }  
+        error_modal("上传主图不能超过5个"); 
+       }
     });
 
     $('#upfile').fileupload({
@@ -180,10 +186,10 @@
               $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
               $("#default_img").addClass("show-imgbox-yes");
               $("#default_img").removeClass("show-imgbox-no");
-              $("#default_img").html("<img src='"+data.result['img']+"'>");     
-            }, 1000);
+              $("#default_img").html("<img src='"+data.result['img']+"'>");
+            }, 500);
           }else{
-            alert("网络错误，请稍后重试");
+            error_modal("网络错误，请稍后重试");
           }
 
         }
@@ -212,8 +218,8 @@
        if(p_size < 4){
          $("#pop-menu").show();
        }else{
-        alert('最多只能搭配3个商品');
-       }  
+        error_modal('最多只能搭配3个商品');
+       }
      });
 
      $("#btn-cancel").click(function(){

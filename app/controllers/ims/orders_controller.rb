@@ -4,38 +4,50 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def new
-    @product = Ims::Product.find(request, id: params["id"])
-    # @product = {id: 1, image: "/images/1.jpg", price: 100.1, brand_id: 2, brand_name: "mockup品牌1",
-    #   sales_code: "mockupsalescode1", sku_code: "sku_code", category_id: 1,
-    #   category_name: "mockup分类1", size_str: '1111', size: [{size_id: 1, size_name: "mockup尺码1"}, {size_id: 2, size_name: "mockup尺码2"}]}
-    categories = Tag.es_search(category_id: @product[:category_id])[:data]
-    @sizes = @product[:category_id].present? ? categories.first.try(:sizes) : []
+    if params[:product_id].present?
+      @product = API::Order.new(request, productid: params[:product_id])[:data]
+      @salecolors = @product[:salecolors]
+      @sizes = @salecolors.first[:sizes]
+      @products = [@product]
+      @order = API::Order::computeamount(request, productid: params["product_id"], quantity: 1)[:data]
+    elsif params[:combo_id].present?
+      @products = Ims::Order.new(request, id: params[:combo_id])[:data][:items]
+      @order = Ims::Order::computeamount(request, combo_id: params["combo_id"], quantity: 1)[:data]
+    end
+
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     sign = {
+      accesstoken: Ims::Weixin.access_token,
       appid: Settings.wx.appid,
-      url: "http://open.weixin.qq.com/",
-      timeStamp: @timeStamp_val,
-      nonceStr: @nonceStr_val,
-      accessToken: Ims::Weixin.access_token
-    }.to_param
-    @addrSign_val = Digest::SHA1.hexdigest(sign)
+      noncestr: @nonceStr_val,
+      timestamp: @timeStamp_val,
+      url: "http://open.weixin.qq.com/"
+    }
+    string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    @addrSign_val = Digest::SHA1.hexdigest(string1)
   end
 
   def show
-    # @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]["items"]
-    @order = {"products" => []}
+    @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
+    @current_rmas = @order[:rmas].find{|rmas| rmas[:canvoid]}
   end
 
   def create
-    render json: {status: true, id: 1}.to_json
+    @order = API::Order::create(request, order: params[:order].to_json)
+    if @order[:isSuccessful]
+      render json: {status: true, data: @order[:data]}.to_json
+    else
+      render json: {status: false, message: @order[:message]}.to_json
+    end
   end
 
   def payments
   end
 
   def change_state
-    render json: {status: true, id: 1}.to_json
+    order = API::Order.destroy(request, orderno: params[:id])
+    render json: {status: order[:isSuccessful]}.to_json
   end
 
   def cancel

@@ -22,13 +22,13 @@
   <div class="module-card module-card-posi">
     <% if @card[:status].to_i == 3 %>
     <!--  如果已经转赠  -->
-    <h1 class="text-center">好友的礼品卡你已转送给你的其他好友！</h1>
+    <h1 class="text-center">您已将好友赠送的银泰礼品卡转赠给您的其他好友！</h1>
     <% elsif @card[:status].to_i == 1 %>
     <!--  如果已经收取  -->
-    <h1 class="text-center">恭喜您，成功领取<%= @card[:sender] %>的礼品卡</h1>
+    <h1 class="text-center">您已经接收好友赠送的银泰礼品卡！</h1>
     <% elsif @card[:status].to_i == 2 %>
     <!--  如果已经拒绝  -->
-    <h1 class="text-center">你已回绝了好友赠送的礼品卡！</h1>
+    <h1 class="text-center">您已拒绝好友赠送的银泰礼品卡！</h1>
     <% end %>
     <p class="txt1 text-center txt-money">礼品卡金额：<em class="txt-red"><%= @card[:amount] %>元</em></p>
     <img src="/images/ims/card-self.png">
@@ -51,7 +51,7 @@
 
 <div class="module module-white">
   <div class="module-card" id="button_accept">
-    <h1 class="text-center"><%= @card[:sender] %>给你送来一张礼品卡</h1>
+    <h1 class="text-center"><%= @card[:sender] %>给你送来一张银泰礼品卡</h1>
     <p class="txt3 card-text">
       <%= @card[:comment] %>
     </p>

@@ -8,8 +8,8 @@ class Combo < ActiveRecord::Base
   	 {
   	 	:desc => desc,
   	 	:private_to => private_to,
-  	 	:productids => combo_products.map(&:remote_id),
-  	 	:image_ids => combo_pics.map(&:remote_id),
+  	 	:productids => combo_products.map(&:remote_id).uniq.compact,
+  	 	:image_ids => combo_pics.map(&:remote_id).uniq.compact,
   	 	:product_type => combo_products.first.product_type
   	 }
   end

@@ -37,13 +37,12 @@
   </div>
 </div>
 
-<div id="ex2" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="ex2" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 </div>
 
 <%= content_for :javascripts do -%>
   <script type="text/javascript">
    $(function(){
-    
     $("#store_form").validate({
       rules: {
         "name": {
@@ -88,7 +87,9 @@
       },
       done: function(e, data){
         if(data.result['status'] == 1){
-          $("#logo").html("<img src="+data.result['img']+" class='img-rounded'/>")
+          setTimeout(function(){
+            $("#logo").html("<img src="+data.result['img']+" class='img-rounded'/>")
+          }, 500);
         }else{
           alert("网络错误，请稍后重试");
         }

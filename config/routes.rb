@@ -350,6 +350,8 @@ IntimeService::Application.routes.draw do
         get :check_status
       end
     end
+    match "card_orders_pay" => "card_orders#new"
+    match "orders_new" => "orders#new"
     resources :favorites, only: [] do
       collection do
         get  :stores_list
@@ -365,6 +367,9 @@ IntimeService::Application.routes.draw do
         get :payments
       end
       resources :returns_reasons, only: [:new, :create] do
+        member do
+          put :cancel
+        end
         collection do
           get "result"
         end
@@ -376,6 +381,7 @@ IntimeService::Application.routes.draw do
       root :to => "home#index"
       post "login" => "home#login"
       get 'check_code' => 'home#check_code'
+      get 'my' => 'stores#my'
       resources :sales_codes, only: :create
       resources :sells, only: :index do
         member do
