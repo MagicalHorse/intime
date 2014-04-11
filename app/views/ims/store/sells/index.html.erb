@@ -25,7 +25,11 @@
           </div>
 
           <div class="module-table-box module-record">
+            <% if @combos.present? %>
             <%= render "combo_list", combos: @combos %>
+            <% else %>
+            <%= render "ims/shared/empty" %>
+            <% end %>
           </div>
         </div>
       </div>
