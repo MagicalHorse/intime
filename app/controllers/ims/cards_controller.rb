@@ -4,6 +4,10 @@ class Ims::CardsController < Ims::BaseController
   before_filter :validate_sms!, only: [:give, :refuse, :recharge]
   layout "ims/user"
 
+  # 礼品卡列表页
+  def index
+  end
+
   # 给自己充值
   def recharge
     @charge_no = params[:charge_no]
@@ -48,7 +52,7 @@ class Ims::CardsController < Ims::BaseController
     else
       # API_NEED: 赠送礼品卡接口
       @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone])
-      redirect_to "#{gift_page_ims_cards_path}?charge_no=#{@charge_no}", category: "give_show"
+      redirect_to "#{gift_page_ims_cards_path}?charge_no=#{@charge_no}", notice: "give_show_page"
     end
   end
 

@@ -42,7 +42,7 @@
                 <p><a href="#"><%= card["Desc"] %></a></p>
                 <div class="clearfix">
                     <p class="pull-left price-box">
-                        <span><a type="button" class="btn btn-danger btn-small" href="<%= ims_card_orders_pay_path(store_id: @store[:data][:id]) %>">点击购买</a></span>
+                        <span><a type="button" class="btn btn-danger btn-small" href="<%= ims_cards_path(store_id: @store[:data][:id]) %>">点击购买</a></span>
                     </p>
                     <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
                 </div>
