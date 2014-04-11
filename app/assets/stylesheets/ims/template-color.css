@@ -87,7 +87,8 @@
 .detail-block > p > span > b{color: #676767;}
 .detail-block > p > span a{color: #abadb3;}
 .detail-block > p i{ color: #F86B9F;}
-
+.modal-buy .product-detail li.active a,
+.modal-buy .product-detail li a:hover{ border-color: #F86B9F;}
 /*----------------------------------My Order-------------------------------------*/
 .module-state { border-bottom: 1px dashed #dddddd;}
 .order-notice h3{color: #F86B9F;}
@@ -99,6 +100,10 @@
 .module-tranding .nav-tabs li.active a,
 .module-tranding .nav-tabs li.active a:hover{ background: #f16498; color: white;}
 
+/*-----------------------------------Countdown--------------------------------------*/
+.price-box .countdown,
+.price-box .countdown span{ color: #676767;}
+.countdown em{ background-color: #F86B9F; color: white;}
 
 @media screen and (max-width: 580px) {.module-tranding .nav-tabs{border-width:2px;}}
 /*---------------------------------Tab--------------------------------------------*/

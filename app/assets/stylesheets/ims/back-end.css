@@ -155,4 +155,26 @@
 .detail-block > p > span > b{font-weight: normal; }
 .detail-block > p i{ margin-right: 4px; font-weight: normal; font-style: normal;}
 .wx-payment{margin-top: 24px; padding: 0 40px;}
-
+.current-choose{ margin-top: 20px; border-top: 1px dashed #eeeeee; padding: 10px 0 0; font-family:"microsoft yahei"; }
+.current-choose .ellipsis{ color: #F86B9F;}
+.modal-buy form{ margin: 0;}
+.modal-buy .modal-body{ position: relative; padding: 0; border-radius: 6px 6px 0 0;}
+.modal-buy .modal-header{border-bottom: 0;}
+.modal-buy .modal-header .close{ position: absolute; right: 20px; top: 20px; margin:0; font-size: 50px; color: #c3c6cb;opacity: 1; filter: alpha(opacity=100);}
+.modal-buy .modal-body .common-white{ border-top: 0; margin-bottom: 0; padding-top: 0;}
+.modal-buy .modal-footer{ text-align: center;}
+.modal-buy .module-grey{ padding: 30px;}
+.modal-buy .module-grey p{ margin-bottom: 0; border-bottom: 1px solid #dddddd; padding-bottom: 10px; text-indent: 0; color: #abadb3;}
+.modal-buy .product-detail {margin: 0;}
+.modal-buy .product-detail ul{ margin: 30px 0 0;}
+.modal-buy .product-detail li {float: left;}
+.modal-buy .product-detail li a{display: inline-block; padding: 14px 14px; border:2px solid #dee1e7; border-radius: 5px;font-size:28px;  color: #c3c6cb;}
+.modal-buy .modal-color{margin-bottom: 30px;}
+.tb-stock span{ margin-right: 10px; float: left; font-size: 28px; color: #abadb3;}
+.tb-stock a,
+.tb-stock input{ float: left; border:2px solid #DEE1E7; font-size: 28px; color: #C3C6CB;}
+.tb-stock input{ padding: 0 10px; border-radius: 0; border-width: 2px 0; text-align: center; height: 40px;  line-height: 40px;width: 80px;}
+.tb-stock input:focus,
+.tb-stock input:active{border-color: #DEE1E7;}
+.tb-stock a{ display: inline-block; height: 40px; width: 40px; text-align: center; font-weight: bold;}
+.modal-num{ padding-top: 20px; margin-top: 20px; border-top: 1px solid #dddddd; }

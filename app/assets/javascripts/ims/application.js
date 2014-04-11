@@ -23,6 +23,7 @@
 //= require jquery.fileupload.js
 //= require ims/bootstrap-editable.js
 //= require ims/jquery-barcode.js
+//= require ims/idangerous.swiper.js
 //= require_self
 
 function error_modal(txt){

@@ -1,0 +1,22 @@
+<a class="top-link" href="javascrip:void(0);" id="goto-top">
+  <i class="fa fa-arrow-up"></i>
+</a>
+
+<script type="text/javascript">
+  $(function(){
+
+  $(window).bind("scroll",function(){
+    var that = $(this);
+    if (that.scrollTop() > 218){
+      $('#head-menu').addClass('nav-fixed');
+    } else{
+      $('#head-menu').removeClass('nav-fixed');
+    }
+  });
+
+    //置顶
+    $("#goto-top").click(function(e){
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+     });   
+    })
+</script>

@@ -24,6 +24,7 @@ class Ims::BaseController < ApplicationController
   def wx_auth!
     # TODO 上线前，去掉下列判断，只保留抛异常的部分
     if request.host != "test.ngrok.com"
+      session[:user_token] = nil
       get_token_from_api(request) unless session[:user_token]
     else
       raise Ims::Unauthorized unless session[:user_token]
@@ -47,9 +48,10 @@ class Ims::BaseController < ApplicationController
       :mobile => user_hash[:data][:mobile],
       :isbindcard => user_hash[:data][:isbindcard],
       :logo => user_hash[:data][:logo],
-      :level => user_hash[:data][:level],
       :operate_right => user_hash[:data][:operate_right],
-      :token => user_hash[:data][:token]
+      :token => user_hash[:data][:token],
+      :store_id => user_hash[:data][:associate_id],
+      :max_comboitems => user_hash[:data][:max_comboitems]
       })
     
     session[:current_wx_user] = user
