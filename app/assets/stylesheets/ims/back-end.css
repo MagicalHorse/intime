@@ -178,3 +178,10 @@
 .tb-stock input:active{border-color: #DEE1E7;}
 .tb-stock a{ display: inline-block; height: 40px; width: 40px; text-align: center; font-weight: bold;}
 .modal-num{ padding-top: 20px; margin-top: 20px; border-top: 1px solid #dddddd; }
+
+/*-----------------------------------Product Buy-------------------------------------*/
+.common-opacity{ background-color: #6d6a69;}
+.common-opacity div,
+.common-opacity h3,
+.common-opacity .txt8{ color: #333333; opacity: 0.8;}
+.common-opacity .current-choose{border-color: #63605f;}
