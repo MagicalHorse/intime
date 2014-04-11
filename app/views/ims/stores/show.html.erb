@@ -1,3 +1,4 @@
+<%= render 'ims/shared/countdown' %>
 <header id="TOP">
      <div class="header-box">
         <div class="head-img"><img src="/images/ims/shop-browse.jpg"></div>
@@ -85,9 +86,22 @@
                         <span>打包价：<em>¥<%= combo["Price"] %></em></span>
                     </p>
                     <p class="pull-left price-box">
+                        <% if combo["ExpiredIn"].present? %>
                         <span class="pull-left countdown">
-                            <em>6</em><span>天</span><em>2</em><em>1</em>:<em>2</em><em>4</em>:<em>2</em><em>4</em><span>后下架</span>
+                            <em id="d<%=combo['Id']%>">0</em><span>天</span><em id="h<%=combo['Id']%>">00</em>:<em id="m<%=combo['Id']%>">00</em>:<em id="s<%=combo['Id']%>">00</em><span>后下架</span>
                         </span>
+                        <script type="text/javascript">
+                          tms[tms.length] = "<%=combo['ExpiredIn'] %>"; 
+                          day[day.length] = "d<%=combo['Id']%>"; 
+                          hour[hour.length] = "h<%=combo['Id']%>"; 
+                          minute[minute.length] = "m<%=combo['Id']%>"; 
+                          second[second.length] = "s<%=combo['Id']%>"; 
+                        </script>
+                        <% else %>
+                        <span class="pull-left countdown">
+                            长期有效
+                        </span>
+                        <% end %>
                         <span class="pull-right"><a class="btn btn-danger btn-small">点击购买</a></span>
                     </p>
                 </div>
@@ -125,7 +139,6 @@
         $("#unfavor_store").hide();
         $("#favor_store").show();
     })
-
 
   });
 </script>

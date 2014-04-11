@@ -4,16 +4,6 @@
 
 <script type="text/javascript">
   $(function(){
-
-  $(window).bind("scroll",function(){
-    var that = $(this);
-    if (that.scrollTop() > 218){
-      $('#head-menu').addClass('nav-fixed');
-    } else{
-      $('#head-menu').removeClass('nav-fixed');
-    }
-  });
-
     //置顶
     $("#goto-top").click(function(e){
         $('html, body').animate({ scrollTop: 0 }, 'fast');
