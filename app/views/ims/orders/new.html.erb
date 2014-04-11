@@ -38,7 +38,6 @@
 
 
 <div class="wrap-inner back-wrap-inner">
-
   <% @products.each_with_index do |product, index| %>
   <% salecolors = product[:salecolors] %>
   <% sizes = salecolors.first.try(:[], :sizes) || [] %>
@@ -51,22 +50,48 @@
          </div>
          <div class="span9">
              <div class="price-detail">
-                <h3><%= product["name"] %></h3>
-                <p class="txt3">微信价：<em>￥<%= @order["extendprice"] %></em></p>
+                <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
+                <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
              </div>
          </div>
      </div>
-  </div>
-
-  <% if salecolors.length > 0 %>
-  <div class="module common-white">
-     <div class="row-fluid">
-         <div class="span12">
-             <div class="size-detail">
-                 <dl class="dl-horizontal">
-                      <dt>颜色</dt>
-                      <dd>
-                        <ul class="inline clearfix salecolors" index="<%= index %>">
+     <div class="current-choose txt8">
+        <div class="row-fluid">
+          <div class="span10">
+            <div><% if salecolors.blank? %>已售罄<% else %>请选择颜色，尺码<% end %></div>
+          </div>
+          <div class="span2">
+            <div class="text-right">
+              <a class="ellipsis" href="#myModal2" data-toggle="modal">•••</a>
+            </div>
+              <div id="myModal2" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;">
+                <form>
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="myModalLabel">&nbsp;</h3>
+                </div>
+                  <div class="modal-body">
+                    <div class="module common-white">
+                      <div class="row-fluid">
+                         <div class="span3">
+                             <div class="detail-imgbox">
+                                 <%= image_tag Product.img_url(salecolors.first.try(:[], :resource)) %>
+                             </div>
+                         </div>
+                         <div class="span9">
+                             <div class="price-detail">
+                                 <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
+                                 <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+                             </div>
+                         </div>
+                      </div>
+                    </div>
+                    <div class="module-grey">
+                    <% if salecolors.present?  %>
+                      <div class="modal-color">
+                        <p class="txt8">颜色</p>
+                        <div class="product-detail">
+                           <ul class="inline clearfix" index="<%= index %>">
                           <% salecolors.each do |salecolor| %>
                             <li class="<%= 'active' if salecolors.length == 1 %>">
                               <a href="javascript:void(0);" valueid='<%= salecolor['colorid'] %>' valuename='<%= salecolor['colorname'] %>'>
@@ -75,23 +100,15 @@
                             </li>
                           <% end %>
                         </ul>
-                      </dd>
-                 </dl>
-             </div>
-         </div>
-     </div>
-  </div>
-  <% end %>
+                        </div>
+                      </div>
+                    <% end %>
 
-  <% if sizes.length > 0 %>
-  <div class="module common-white">
-     <div class="row-fluid">
-         <div class="span12">
-             <div class="size-detail">
-                 <dl class="dl-horizontal">
-                      <dt>尺码</dt>
-                      <dd>
-                        <ul class="inline clearfix sizes" index="<%= index %>">
+                    <% if sizes.present? %>
+                      <div class="modal-size">
+                        <p class="txt8">尺码</p>
+                        <div class="product-detail">
+                           <ul class="inline clearfix" index="<%= index %>">
                           <% sizes.each do |size| %>
                             <li class="<%= 'active' if sizes.length == 1 %>">
                               <a href="javascript:void(0);" valueid='<%= size['sizeid'] %>' valuename='<%= size['sizename'] %>'>
@@ -100,14 +117,32 @@
                             </li>
                           <% end %>
                         </ul>
-                      </dd>
-                 </dl>
-             </div>
-         </div>
-     </div>
-  </div>
-  <% end %>
+                        </div>
+                      </div>
+                    <% end %>  
 
+                      <div class="modal-num">
+                        <span class="tb-stock clearfix">
+                            <span>购买数量</span>
+                            <a class="tb-reduce" hidefocus="" href="#">-</a>
+                            <input type="text" placeholder="1" class="txt8 tb-text">
+                            <a class="tb-increase" href="#">+</a>
+                        </span>
+                      </div>
+
+                    </div>
+                  </div>
+                   <div class="modal-footer">
+                    <button class="btn btn-danger btn-large btn-block">确 定</button>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  
   <% end %>
       <div class="module common-white">
          <div class="row-fluid">
