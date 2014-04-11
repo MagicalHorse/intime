@@ -83,9 +83,13 @@
                 <div class="clearfix">
                     <p class="pull-left price-box">
                         <span>打包价：<em>¥<%= combo["Price"] %></em></span>
-                        <span><a href="<%= new_ims_order_path(:combo_id => combo["Id"], :store_id => @store[:data][:id]) %>" class="btn btn-danger btn-small">点击购买</a></span>
                     </p>
-                    <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
+                    <p class="pull-left price-box">
+                        <span class="pull-left countdown">
+                            <em>6</em><span>天</span><em>2</em><em>1</em>:<em>2</em><em>4</em>:<em>2</em><em>4</em><span>后下架</span>
+                        </span>
+                        <span class="pull-right"><a class="btn btn-danger btn-small">点击购买</a></span>
+                    </p>
                 </div>
             </div>
         </div>

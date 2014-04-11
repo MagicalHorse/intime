@@ -381,7 +381,6 @@ IntimeService::Application.routes.draw do
       root :to => "home#index"
       post "login" => "home#login"
       get 'check_code' => 'home#check_code'
-      get 'my' => 'stores#my'
       resources :sales_codes, only: :create
       resources :sells, only: :index do
         member do
@@ -414,9 +413,12 @@ IntimeService::Application.routes.draw do
       end
       resources :stores, only: [:index, :show, :edit, :update] do
         collection do
-          get 'my', 'records', 'manage', 'theme'
+          get 'records', 'manage', 'theme'
           post 'change_logo'
           post 'change_info'
+        end
+        member do 
+          get 'my'
         end
       end
       resources :incomes, only: [:index, :new, :create] do
