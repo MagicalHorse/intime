@@ -35,6 +35,7 @@ class Ims::CardsController < Ims::BaseController
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
+    current_user.other_phone = @card[:phone]
   end
 
   # 赠送给别人
