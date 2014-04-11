@@ -27,7 +27,7 @@ class Ims::BaseController < ApplicationController
       session[:user_token] = nil
       get_token_from_api(request) unless session[:user_token]
     else
-      raise Ims::Unauthorized if session[:user_token].blank? || session[:user_access_token].blank?
+      raise Ims::Unauthorized if session[:user_token].blank? || cookie[:user_access_token].blank?
     end
   end
 

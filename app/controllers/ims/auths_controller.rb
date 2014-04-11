@@ -7,7 +7,7 @@ class Ims::AuthsController < ActionController::Base
       resp = RestClient.get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{Settings.wx.appid}&secret=#{Settings.wx.appsecret}&code=#{params[:code]}&grant_type=authorization_code")
       json_resp = ActiveSupport::JSON.decode(resp)
       session[:wx_openid] = json_resp['openid']
-      session[:user_access_token] = json_resp["access_token"]
+      cookie[:user_access_token] = { :value => json_resp["access_token"], :expires => 7200-100 }
       #TODO 换取user_id
       get_token_from_api(request)
       redirect_to session[:back_url]
