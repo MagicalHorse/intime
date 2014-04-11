@@ -65,10 +65,7 @@ class Ims::CardOrdersController < Ims::BaseController
   def check_status
     # API_NEED: 根据订单id查询是否充值成功
     result = Ims::UserApi.latest_giftcard(request, {"giftcardid" => params["giftcardid"], "timestamp" => params["timestamp"]})
-    # TODO 上线前，删除下列代码
-    render json: {result: {data: {charge_no: 114040224412}}}
-    # TODO 上线前，开启下列代码
-    # render json: {result: result}
+    render json: {result: result}
   end
 
   def show
