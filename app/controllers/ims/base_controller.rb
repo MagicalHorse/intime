@@ -60,10 +60,10 @@ class Ims::BaseController < ApplicationController
   # 生成验证短信验证码
   def generate_sms phone
     current_user.sms_code = (0..9).to_a.sample(6)
-    # TODO 上线后，删除下面的模拟号码
-    current_user.sms_code = 222222
+    # TODO 上线后，改为如下文字：
+    "验证码：#{current_user.sms_code}，请填写验证码并完成操作。【请务向任何人提供您收到的短信验证码】【迷你银】"
     # API_NEED: 发送手机验证码（用于绑卡）
-    Ims::Sms.send(request, {phone: phone, text: "验证码为：#{current_user.sms_code}"})
+    Ims::Sms.send(request, {phone: phone, text: "#{current_user.sms_code}"})
   end
 
   # 验证手机号短信
