@@ -1,5 +1,5 @@
 
-.back-wrap-inner{margin-bottom: 100px; padding: 0; margin-top: 0; border-top:0;}
+.back-wrap-inner{margin-bottom: 50px; padding: 0; margin-top: 0; border-top:0;}
 .module-bg-white{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
 .module-bg-white2{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee; margin: 0 10px 10px;}
 .module-color-white{background: white; border-bottom: 1px solid #eeeeee;}
@@ -54,7 +54,7 @@
 .goods-box{margin-bottom: 10px; position: relative; border:1px solid #eeeeee; background: white;}
 .goods-box .imgs{position: relative; display:block;}
 .goods-box .goods-text { padding: 10px;}
-.goods-box .goods-text > a{ display: inline-block; margin-bottom: 10px; font-size: 21px; line-height: 30px;}
+.goods-box .goods-text > a{ overflow: hidden; height: 60px; display: inline-block; margin-bottom: 10px; font-size: 21px; line-height: 30px;}
 .goods-price{ position: absolute; bottom: 0; left: 0; width: 100%; color: white; line-height: 40px; font-size: 24px; text-indent: 10px; background-color: rgba(202, 200, 201, 0.80);}
 .goods-text .btn {font-size: 21px;}
 
