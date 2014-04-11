@@ -27,9 +27,9 @@
     <div class="mini-imgbox">
         <ul class="inline" id="img_box">
             <% @combo.combo_pics.each do |pic| %>
-            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><img src='<%= pic.url -%>'></li>
+            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><span class="img-span"><img src='<%= pic.url -%>'></span></li>
             <% end %>
-            <li class="add-link"><a href="javascript:void(0);" id="add_img"><img src="/images/ims/add-img.png"></a></li>
+            <li class="add-link"><span class="img-span"><a href="javascript:void(0);" id="add_img"><img src="/images/ims/add-img.png"></a></span></li>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*"></div>
         </ul>
     </div>
@@ -45,9 +45,9 @@
     <div class="upload-img">
         <ul class="inline" id="p_box">
           <% @combo.combo_products.each do |product| %>
-            <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><img src="<%= product.img_url %>"></li>
+            <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><span class="img-span"><img src="<%= product.img_url %>"></span></li>
           <% end %>
-          <li class="add-link"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></li>
+          <li class="add-link"><span class="img-span"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></span></li>
         </ul>
     </div>
 </div>
@@ -249,7 +249,18 @@
            }
          });
        })
-
+     $(".show-imgbox-no").each(function(){
+        $(this).css("height", $(this).width())
+        $(this).css("line-height", $(this).height()+"px")
+    });
+    $(".upload-img li").each(function(){
+        $(this).css("height", $(this).width())
+        $(this).css("line-height", $(this).height()+"px")
+    });
+    $(".mini-imgbox li").each(function(){
+        $(this).css("height", $(this).width())
+        $(this).css("line-height", $(this).height()+"px")
+    });
 
 
   });
