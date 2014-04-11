@@ -1,5 +1,5 @@
 class Ims::Store::BaseController < Ims::BaseController
-  # before_filter :authenticate
+  before_filter :authenticate
   layout "store"
 
   #检查是否是店铺导购
