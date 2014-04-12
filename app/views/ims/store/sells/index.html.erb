@@ -112,6 +112,11 @@
       });
     })
 
+    $(".img-span").each(function(){
+        $(this).css("height", $(this).width());
+        $(this).css("line-height", $(this).height()+"px");
+      });
+
     $(document).on("click", ".card_or_combo", function(){
 
       this_ele = $(this)

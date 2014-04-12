@@ -76,7 +76,6 @@
       <%= f.text_field :private_to, class: 'input-block-level small-block', placeholder: "顾客姓名或昵称"  %>
     </div>
 </div>
-
 <% if @remote_id.present? %>
   <%= hidden_field_tag :remote_id, @remote_id %>
 <% end %>

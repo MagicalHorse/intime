@@ -32,21 +32,21 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   def edit
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
     @remote_id = @remote_combo[:data][:id]
-
+    
     if params[:combo_id].present?
       @combo = ::Combo.find(params[:combo_id])
     else
       @combo = ::Combo.create({:desc => @remote_combo[:data][:desc], :private_to => @remote_combo[:data][:private_to],
-       :combo_type => @remote_combo[:data][:combo_type]})
+       :combo_type => @remote_combo[:data][:combo_type], :remote_id => @remote_combo[:data][:id]})
 
       @remote_combo[:data][:products].each do |product|
         if product[:product_type].blank? || product[:product_type] == 1
          p = ::Product.fetch_product(product[:id]) 
          ComboProduct.create({:img_url => p[:data][:image], :price => product[:price],
-          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 1})
+          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 1, :remote_id => product[:id]})
         else
           ComboProduct.create({:img_url => product[:image], :price => product[:price],
-          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 2})
+          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 2, :remote_id => product[:id]})
         end
       end
 
@@ -61,9 +61,8 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   def update
     @combo = ::Combo.find(params[:id])
     @combo.update_attributes(params[:combo])
-
-    if params[:remote_id].present?
-      @remote_combo = Ims::Combo.update(request, @combo.api_attrs.merge({:id => params[:remote_id]}))
+    if @combo.remote_id.present?
+      @remote_combo = Ims::Combo.update(request, @combo.api_attrs.merge({:id => @combo.remote_id}))
     else
       @remote_combo = Ims::Combo.create(request, @combo.api_attrs)
     end

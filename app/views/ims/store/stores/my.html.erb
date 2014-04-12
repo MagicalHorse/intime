@@ -111,7 +111,7 @@
                 <p><a href="#"><%= combo["Desc"] %></a></p>
                 <div class="clearfix">
                     <p class="pull-left price-box">
-                        <span>打包价：<em>¥<%= combo["Price"] %></em></span>
+                        <span class="price txt3">打包价：<em>¥<%= combo["Price"] %></em></span>
                         <% if combo["ExpiredIn"].present? %>
                         <span class="pull-right countdown">
                             <em id="d<%=combo['Id']%>">00</em><span>天</span><em id="h<%=combo['Id']%>">00</em>:<em id="m<%=combo['Id']%>">00</em>:<em id="s<%=combo['Id']%>">00</em><span>后下架</span>
