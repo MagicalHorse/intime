@@ -4,6 +4,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   def new
     @combo = ::Combo.find_by_id(params[:combo_id]) || @combo = ::Combo.create
     @online_num = Ims::Combo.online_num(request)[:data][:total_count] rescue 0
+    @title = "新建搭配"
   end
 
   def create
@@ -27,11 +28,13 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   #预览
   def preview
     @combo = ::Combo.find(params[:id])
+    @title = "搭配预览"
   end
 
   def edit
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
     @remote_id = @remote_combo[:data][:id]
+    @title = "修改搭配"
     
     if params[:combo_id].present?
       @combo = ::Combo.find(params[:combo_id])

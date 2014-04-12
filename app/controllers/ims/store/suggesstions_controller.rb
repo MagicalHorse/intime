@@ -1,7 +1,7 @@
 class Ims::Store::SuggesstionsController < Ims::Store::BaseController
 
   def new
-
+    @title = "意见反馈"
   end
 
   def create

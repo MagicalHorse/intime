@@ -7,6 +7,7 @@ class Ims::Store::SellsController < Ims::Store::BaseController
     @combos = @search_combo["data"]["items"]
     @combo = params[:combo]
     @online_num = Ims::Combo.online_num(request)[:data][:total_count] rescue 0
+    @title = "店铺管理"
     respond_to do |format|
       format.html{}
       format.json{render params[:gift_card_page].present? ? "gift_card_list" : "combo_list" }

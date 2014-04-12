@@ -7,6 +7,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def edit
   	@store = Ims::Store.show(request, {id: params[:id]})
+    @title = "修改店铺信息"
   end
 
   def update
@@ -38,6 +39,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   def records
     @giftcards = Ims::Store.giftcard_records(request)
     @orders = Ims::Store.order_records(request)
+    @title = "成交记录"
   end
 
   def change_logo
