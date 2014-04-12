@@ -205,6 +205,8 @@
 </div>
 
 <%= hidden_field_tag "totalamount", @order[:totalamount] %>
+<%= hidden_field_tag "orderno", nil %>
+
 
 <% content_for :javascripts do %>
 <script>
@@ -315,27 +317,28 @@
       var this_ele = $(this)
       var form = $("#new_order_form")
       var totalamount = $("#totalamount").val()
-      if($("#new_order_form").valid()){
-        form.ajaxSubmit({
-          dataType: "json",
-          success: function(data){
-            if(data["status"] == true){
-              order_id = data["data"]["orderno"]
-              $.post("/ims/orders/"+order_id+"/payments", {money: totalamount})
-              // if(confirm("是否支付成功？")){
-              //   document.location.href = "/ims/orders/"+order_id
-              // }else{
-              //   document.location.href = "/ims/orders/"+order_id+"/payments"
-              // }
-            }else{
-              alert("提交订单失败")
+      var orderno = $("#orderno").val()
+      if(orderno.length == 0){
+        if($("#new_order_form").valid()){
+          form.ajaxSubmit({
+            dataType: "json",
+            success: function(data){
+              if(data["status"] == true){
+                order_id = data["data"]["orderno"]
+                $.post("/ims/orders/"+order_id+"/payments", {money: totalamount}, function(data){}, "script")
+              }else{
+                alert("提交订单失败")
+              }
+            },
+            error: function(data){
+              alert("提交订单发生错误")
             }
-          },
-          error: function(data){
-            alert("提交订单发生错误")
-          }
-        })
+          })
+        }
+      }else{
+        $.post("/ims/orders/"+order_id+"/payments", {money: totalamount}, function(data){}, "script")
       }
+
     })
 
     // 获取送货地址、送货人等
