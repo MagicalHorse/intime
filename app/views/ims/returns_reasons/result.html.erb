@@ -10,7 +10,7 @@
         <li>退货地址请参考面单提供的退货地址</li>
       </ol>
       <p class="block-button">
-      <%= link_to "返回订单详情", ims_order_path(params[:order_id]), class: "btn btn-danger btn-large btn-block" %>
+      <%= link_to "返回订单详情", ims_orders_show_path(id: params[:order_id]), class: "btn btn-danger btn-large btn-block" %>
       </p>
     </div>
   </div>

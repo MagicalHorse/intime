@@ -352,6 +352,7 @@ IntimeService::Application.routes.draw do
     end
     match "card_orders_pay" => "card_orders#new"
     match "orders_new" => "orders#new"
+    match "orders_show" => "orders#show"
     resources :favorites, only: [] do
       collection do
         get  :stores_list

@@ -6,12 +6,14 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
 "signType" : "SHA1", //微信签名方式:sha1
 "paySign" : "<%= @paySign_val %>" //微信签名
 },function(res){
-
+  orderno = "<%= @orderno %>"
+  from_page = "<%= @from_page %>"
   if(res.err_msg == "get_brand_wcpay_request:ok"){
       // get_brand_wcpay_request:ok 发送成功
+    if(from_page == "orders_new" || from_page == "orders_show"){
+      window.location.href = "/ims/orders_show?id="+orderno
+    }
 
-      alert("支付成功")
-      document.location.href = "/ims/orders/"+@orderno
     // setInterval(function(){
     //   $.get("<%= check_status_ims_orders_path %>", {"orderno" : "<%= @orderno %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
     //     var result = r.result
@@ -22,10 +24,10 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
     // },1000)
 
   }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+    $("#orderno").attr("value", orderno)
      // get_brand_wcpay_request:cancel 用户取消
 
   }else if(res.err_msg == "get_brand_wcpay_request:fail"){
-
   }else{
     alert(res.err_msg)
   }
