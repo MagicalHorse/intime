@@ -88,10 +88,10 @@
                     </div>
                     <div class="module-grey">
                     <% if salecolors.present?  %>
-                      <div class="modal-color salecolors">
+                      <div class="modal-color salecolors" index="<%= index %>">
                         <p class="txt8">颜色</p>
                         <div class="product-detail">
-                           <ul class="inline clearfix" index="<%= index %>">
+                           <ul class="inline clearfix" >
                           <% salecolors.each do |salecolor| %>
                             <li class="<%= 'active' if salecolors.length == 1 %>">
                               <a href="javascript:void(0);" valueid='<%= salecolor['colorid'] %>' valuename='<%= salecolor['colorname'] %>'>
@@ -105,10 +105,10 @@
                     <% end %>
 
                     <% if sizes.present? %>
-                      <div class="modal-size sizes">
+                      <div class="modal-size sizes" index="<%= index %>">
                         <p class="txt8">尺码</p>
                         <div class="product-detail">
-                           <ul class="inline clearfix" index="<%= index %>">
+                           <ul class="inline clearfix">
                           <% sizes.each do |size| %>
                             <li class="<%= 'active' if sizes.length == 1 %>">
                               <a href="javascript:void(0);" valueid='<%= size['sizeid'] %>' valuename='<%= size['sizename'] %>'>
