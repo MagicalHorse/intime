@@ -58,13 +58,16 @@
      <div class="current-choose txt8">
         <div class="row-fluid">
           <div class="span10">
-            <div><% if salecolors.blank? %>已售罄<% else %>请选择颜色，尺码<% end %></div>
+            <div style="display: none;" id="selected_color_size<%= index %>">已选：“黑色” “S”</div>
+            <div id="un_select_color_size<%= index %>">
+              <% if salecolors.blank? %>已售罄<% else %>请选择颜色，尺码<% end %>
+            </div>
           </div>
           <div class="span2">
             <div class="text-right">
               <a class="ellipsis" href="#myModal<%=index%>" data-toggle="modal">•••</a>
             </div>
-              <div id="myModal<%=index%>" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;">
+              <div id="myModal<%=index%>" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" index="<%= index %>">
                 <form>
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -133,7 +136,7 @@
                     </div>
                   </div>
                    <div class="modal-footer">
-                    <button class="btn btn-danger btn-large btn-block">确 定</button>
+                    <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a>
                   </div>
                 </form>
               </div>
@@ -211,6 +214,27 @@
 <% content_for :javascripts do %>
 <script>
   $(function(){
+
+    $(".save_button").on("click", function(){
+      modal_doc = $(this).parents(".modal")
+      var index = modal_doc.attr("index")
+      color_text = $("#colorvaluename"+index).val()
+      size_text = $("#sizevaluename"+index).val()
+      text = jQuery.trim([color_text, size_text].join(" "))
+      un_select_doc = $("#un_select_color_size"+index)
+      selected_doc = $("#selected_color_size"+index)
+      if(text.length > 0){
+
+        un_select_doc.hide()
+        selected_doc.show()
+        selected_doc.text("已选：" + text)
+      }else{
+        un_select_doc.show()
+        un_select_doc.text("请选择颜色，尺码 ")
+        selected_doc.hide()
+      }
+      modal_doc.modal("hide")
+    })
 
     $(document).on("click", ".salecolors li a", function(){
       this_li = $(this).parents("li")
