@@ -81,6 +81,10 @@
               </div>
           </div>
 
+          <div id="loading" class="text-center" style="display: none;">
+            <img src='/images/ims/loading.gif'/>
+          </div>
+
           <div class="controls-defined defined-small" id="size_ids_wrapper" style="<%= @product.try(:[], :size_type) == 1 ? 'display: inline;' : 'display: none;' %>">
             <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
             <div class="col-8">
@@ -97,12 +101,14 @@
             </div>
           </div>
 
+
           <div class="controls-defined defined-small" id="size_str_wrapper" style="<%= @product.try(:[], :size_type) == 2 ? 'display: line;' : 'display: none;' %>">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>规格：</label>
               <div class="col-8">
               <%= text_field_tag "size_str", @product.try(:[], :size_str), class: "form-textframe" %>
               </div>
           </div>
+
 
 
           <div class="block-box">
@@ -238,6 +244,7 @@
         $("#size_str_wrapper").hide()
       }else{
 
+        $("#loading").show()
         $.get("/ims/store/dicts/product_sizes", {category_id: category_id}, function(data){
           if(data["size_type"] == 1){
             $("#size_ids_wrapper").show()
@@ -252,6 +259,7 @@
             $("#size_ids_wrapper").hide()
             $("#size_str_wrapper").show()
           }
+          $("#loading").hide()
         }, "json")
       }
     })
