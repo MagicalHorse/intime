@@ -1,6 +1,12 @@
 class Ims::OrdersController < Ims::BaseController
   def index
-    @orders = Ims::Order.my(request)["data"]["items"]
+    @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 4)
+    @orders = @search["data"]["items"]
+
+    respond_to do |format|
+      format.html{}
+      format.json{render "list"}
+    end
   end
 
   def new
@@ -46,7 +52,7 @@ class Ims::OrdersController < Ims::BaseController
   def payments
     @orderno = params[:id]
     price = 0.01
-    @card_id, price = params[:money].split(",")
+    # @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
     @out_trade_no = @orderno
     @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
@@ -56,7 +62,7 @@ class Ims::OrdersController < Ims::BaseController
 
     package = {
       bank_type: "WX",
-      body: "订单#{@orderno}",
+      body: @orderno,
       fee_type: "1",
       input_charset: 'GBK',
       notify_url: @notify_url,
@@ -79,7 +85,6 @@ class Ims::OrdersController < Ims::BaseController
     string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
     @paySign_val = Digest::SHA1.hexdigest(string1)
 
-    render "payments.js.erb"
   end
 
   def change_state

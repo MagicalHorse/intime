@@ -1,60 +1,48 @@
-<% @orders.each do |order| %>
-<p>订单号：<%= link_to order['order_no'], ims_order_path(order["order_no"]) %></p>
-<p>金额： <%= order['amount'] %></p>
-<p>下单时间：<%= order['create_date'] %></p>
-<p>订单状态：<%= order["status"] %></p>
-<% order["products"].each do |product| %>
-  <%= image_tag product["image"] %>
-  <%= link_to product["name"], ims_store_product_path(product["id"]) %>
-  微信价 ￥<%= product["price"] %>
-<% end %>
-<% end if nil %>
-
 <div class="wrap-content">
 
-<% if @orders.present? %>
-  <% @orders.each do |order| %>
-  <div class="module common-white">
-    <div class="module-state">
-      <div class="row-fluid">
-        <div class="span6"><span class="txt3">订单状态：<em><%= order["status"] %></em></span></div>
-        <div class="span6 text-right"><span class="txt3">订单金额：<em>￥<%= order['amount'] %></em></span></div>
-      </div>
-    </div>
-
-    <% order["products"].each do |product| %>
-      <div class="indent-head">
-        <div class="row-fluid">
-           <div class="span3">
-               <div class="detail-imgbox">
-                 <%= image_tag product["image"] %>
-                   <!-- <img src="/images/ims/img800.jpg"> -->
-               </div>
-           </div>
-           <div class="span9">
-               <div class="price-detail">
-                   <h3><%= link_to product["name"], ims_store_product_path(product["id"]) %></h3>
-                   <p class="txt3 clearfix"><span class="pull-left">打包价：<em>￥<%= product["price"] %></em></span><span class="pull-right">数量：<%= product["quantity"] %></span></p>
-               </div>
-           </div>
-        </div>
-      </div>
-
-    <% end %>
-
-    <div class="row-fluid">
-      <div class="span12">
-        <div class="detail-block detail-contact-bd">
-          <p class="txt4 clearfix"><span class="pull-left"><b>订单号：<%= link_to order['order_no'], ims_order_path(order["order_no"]) %></b></span></p>
-          <p class="txt4 clearfix"><span><b>下单时间：<%= order['create_date'] %></b></span></p>
-          <p class="immediate-payment"><button type="button" class="btn btn-danger btn-mini">立即支付</button></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <% end %>
+  <% if @orders.present? %>
+  <%= render "list", orders: @orders %>
   <% else %>
   <%= render 'ims/shared/empty' %>
   <% end %>
 
+  <div id="loading" class="text-center">
+  </div>
+
 </div>
+
+<%= hidden_field_tag "count", @search[:data][:totalcount] %>
+<%= hidden_field_tag "page", @search[:data][:pageindex] %>
+<%= hidden_field_tag "per_page", @search[:data][:pagesize] %>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      $(window).scroll(function(){
+        var htmlHeight=document.body.scrollHeight
+        var clientHeight=document.body.clientHeight
+        var scrollTop=document.body.scrollTop
+        var count = parseInt($("#count").attr("value"))
+        var page = parseInt($("#page").attr("value"))
+        var per_page = parseInt($("#per_page").attr("value"))
+
+
+        if(scrollTop+clientHeight == htmlHeight){
+          if(page * per_page < count){
+            $("#loading").html("<img src='/images/ims/loading.gif'/>");
+            $.get("/ims/orders", {page: page + 1, per_page: per_page}, function(data){
+              if(data["status"] == true){
+                $(".paginate-content:last").after(data["html"])
+                $("#count").attr("value", data["count"])
+                $("#page").attr("value", data["page"])
+                $("#per_page").attr("value", data["per_page"])
+                $("#loading").html("");
+              }
+            }, "json")
+          }
+        }
+
+      })
+    })
+  </script>
+<% end %>
