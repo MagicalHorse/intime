@@ -3,7 +3,7 @@
     <h1 class="text-center">礼品卡余额：<%= current_user.amount %>元</h1>
     <div class="text-center card-wrap barcord-box">
       <img src="/images/ims/card-saoma.png">
-      <div class="text-center card-wrap tel-nun bar-code" id="bcTarget"></div>
+      <div class="text-center card-wrap tel-nun bar-code" id="bcTarget" style="left: 82px; bottom: 14px;"></div>
     </div>
     <div class="btn-scan">
       <a type="button" class="btn btn-default btn-large btn-block" href="<%= mine_ims_accounts_path %>">支付完成</a>
@@ -21,7 +21,7 @@
 <%= content_for :javascripts do %>
 <script>
   $(function(){
-    $("#bcTarget").barcode("<%= current_user.card_no %>", "code128", {barWidth:2, barHeight:70});   
+    $("#bcTarget").barcode("<%= current_user.card_no %>", "code128", {barWidth:1, barHeight:50});   
   });
 </script>
 <% end %>
