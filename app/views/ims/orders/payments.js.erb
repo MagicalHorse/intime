@@ -1,3 +1,4 @@
+
 WeixinJSBridge.invoke('getBrandWCPayRequest', {
 "appId" : "<%= Settings.wx.appid %>", //公众号名称，由商户传入
 "timeStamp" : "<%= @time_val.to_i %>", //时间戳
@@ -12,8 +13,44 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
       // get_brand_wcpay_request:ok 发送成功
     if(from_page == "orders_new"){
       window.location.href = "/ims/orders_show?id="+orderno
-    }else if(from_page == "orders_show"){
+    }else if(from_page == "orders_show" || from_page == "orders_list"){
+      $.get("/ims/orders/"+orderno, {}, function(data){
+        status = data["status"]
+        statust = data["statust"]
+        canvoid = data["canvoid"]
+        canrma = data["canrma"]
+        if(from_page == "orders_show"){
+          if(statust == 0){
+            $("#order-notice").show()
+            $("#payment").parent().show()
+          }else if(statust == 1){
+            $("#order-notice").hide()
+            $("#payment").parent().hide()
+          }
+          if(canvoid){
+            $("#cancel_order").parent().show()
+          }else{
+            $("#cancel_order").parent().hide()
+          }
+          if(canrma){
+            $("#rmas").parent().show()
+          }else{
+            $("#rmas").parent().hide()
+          }
+          $("#order_status").text(status)
+        }else if(from_page == "orders_list"){
 
+          order_doc = $("#order_"+orderno)
+          order_doc.find(".status").text(status)
+
+          if(statust == 0){
+            order_doc.find(".payment").show()
+          }else if(statust == 1){
+            order_doc.find(".payment").hide()
+          }
+        }
+
+      }, "json")
     }
 
     // setInterval(function(){

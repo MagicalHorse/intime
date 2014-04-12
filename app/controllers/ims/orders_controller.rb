@@ -38,6 +38,10 @@ class Ims::OrdersController < Ims::BaseController
   def show
     @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
     @current_rmas = @order[:rmas].find{|rmas| rmas[:canvoid]}
+    respond_to do |format|
+      format.html{}
+      format.json{render json: @order}
+    end
   end
 
   def create

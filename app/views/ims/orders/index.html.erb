@@ -18,6 +18,13 @@
 <% content_for :javascripts do %>
   <script>
     $(function(){
+
+      $(document).on("click", ".payment", function(){
+        orderno = $(this).attr("orderno")
+        totalamount = $(this).attr("amount")
+        $.post("/ims/orders/"+orderno+"/payments", {money: totalamount, from_page: "orders_list"}, function(data){}, "script")
+      })
+
       $(window).scroll(function(){
         var htmlHeight=document.body.scrollHeight
         var clientHeight=document.body.clientHeight

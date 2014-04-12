@@ -1,8 +1,8 @@
   <% @orders.each do |order| %>
-  <div class="module common-white paginate-content">
+  <div class="module common-white paginate-content" id="order_<%= order["order_no"] %>">
     <div class="module-state">
       <div class="row-fluid">
-        <div class="span6"><span class="txt3">订单状态：<em><%= order["status"] %></em></span></div>
+        <div class="span6"><span class="txt3">订单状态：<em class="status"><%= order["status"] %></em></span></div>
         <div class="span6 text-right"><span class="txt3">订单金额：<em>￥<%= order['amount'] %></em></span></div>
       </div>
     </div>
@@ -38,7 +38,7 @@
           <p class="txt4 clearfix"><span><b>下单时间：<%= l order['create_date'].to_time %></b></span></p>
           <p class="immediate-payment">
             <% if order["status_i"] == 0 %>
-            <button type="button" class="btn btn-danger btn-mini">立即支付</button>
+            <a class="btn btn-danger btn-mini payment" href="javascript:void(0);" orderno="<%= order['order_no'] %>" amount="<%= order["amount"] %>">立即支付</a>
             <% end %>
           </p>
         </div>
@@ -46,3 +46,4 @@
     </div>
   </div>
   <% end %>
+
