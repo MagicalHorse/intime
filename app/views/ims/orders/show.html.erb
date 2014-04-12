@@ -1,183 +1,120 @@
-<% if nil %>
-
-请在1小时内完成支付，过时订单将会自动取消！
-
-订单号：<%= @order["orderno"] %>
-
-订单状态：<span id="order_status"><%= @order["status"] %></span>
-
-<%= link_to "立即支付", "javascript:void(0);", value: @order["orderno"] %>
-
-<% @order["products"].each do |product| %>
-  <%= link_to ims_store_product_path(product["productid"]) do %>
-  <%= image_tag "/images/1.jpg" %>
+<div class="wrap-content">
+  <% if @order[:statust].zero? %>
+  <div class="order-notice">
+    <h3 class="text-center">
+      <i class="fa fa-exclamation-circle"></i> 请在1小时内完成支付，过时订单将会自动取消！
+    </h3>
+  </div>
   <% end %>
-<% end %>
 
 
-
-
-收货人姓名：何青山
-
-地址：北京北京市朝阳区测试地址
-
-手机号码：18700001111
-
-<br/>
-
-支付方式： <%= @order["paymentname"] %>
-订单备注： <%= @order["memo"] %>
-赠送积点： <%= @order["totalpoints"] %>
-总价： <%= @order["totalamount"] %>
-快递费： <%= @order["totalfee"] %>
-需付款： <%= @order["totalamount"] %>
-
-
-<br/>
-
-<% 2.times.each do %>
-退货时间：2014年3月21日
-
-退货编号：REQWRDAS123ASDF
-
-退货原因：颜色不喜欢
-
-退货方式：线上申请
-
-退货状态：退货审核中
-
-退货地址：浙江省杭州市上城区银泰武林店
-
-<% end %>
-
-
-
-
-<% if true %>
-  <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: "order_id" %>
-<% end %>
-
-<% if true %>
-  <%= link_to '申请退货', new_ims_order_returns_reason_path("order_id") %>
-<% end %>
-
-
-<% else %>
-
-
-  <div class="wrap-content">
-    <div class="order-notice"><h3 class="text-center"><i class="fa fa-exclamation-circle"></i> 请在1小时内完成支付，过时订单将会自动取消！</h3></div>
-
-
-
-    <div class="module common-white">
-      <% @order["products"].each do |product| %>
-        <div class="indent-head">
-          <div class="row-fluid">
-             <div class="span3">
-                 <div class="detail-imgbox">
-                   <%= link_to ims_store_product_path(product["productid"]) do %>
-                   <%= image_tag Product.img_url(product["resource"]) %>
-                   <% end %>
-                 </div>
-             </div>
-             <div class="span9">
-                 <div class="price-detail">
-                     <h3><%= link_to product["productname"], ims_store_product_path(product["productid"]) %></h3>
-                     <p class="txt3">打包价：<em>￥<%= product["price"] %></em></p>
-                 </div>
-             </div>
-          </div>
+  <div class="module common-white">
+    <% @order["products"].each do |product| %>
+      <div class="indent-head">
+        <div class="row-fluid">
+           <div class="span3">
+               <div class="detail-imgbox">
+                 <%= link_to ims_store_product_path(product["productid"]) do %>
+                 <%= image_tag Product.img_url(product["resource"]) %>
+                 <% end %>
+               </div>
+           </div>
+           <div class="span9">
+               <div class="price-detail">
+                   <h3><%= link_to product["productname"], ims_store_product_path(product["productid"]) %></h3>
+                   <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+               </div>
+           </div>
         </div>
+      </div>
 
-      <% end %>
+    <% end %>
 
-          <div class="row-fluid">
-            <div class="span12">
-              <div class="detail-block detail-contact-bd">
-                <p class="txt4 clearfix">
-                <span class="pull-left"><b>订单号：<%= @order["orderno"] %></b></span>
-                <span class="pull-right"><b>订单状态：</b>
-                <i>
-                <span id="order_status"><%= @order["status"] %></span>
-                </i>
-                </span>
-                </p>
-                <p class="txt4 clearfix"><span class="pull-left"><b>下单时间：<%= l @order["createdate"].to_time %></b></span></p>
-                <p class="txt4 txt-bd clearfix"><span><b>赠送积点：<%= @order["totalpoints"] %>点</b></span></p>
-                <p class="txt4 clearfix"><span class="pull-left"><b>快递费：￥<%= @order["totalfee"] %></b></span><span class="pull-right"><b>需付款：</b><i>￥<%= @order["totalamount"] %></i></span></p>
-              </div>
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="detail-block detail-contact-bd">
+              <p class="txt4 clearfix">
+              <span class="pull-left"><b>订单号：<%= @order["orderno"] %></b></span>
+              <span class="pull-right"><b>订单状态：</b>
+              <i>
+              <span id="order_status"><%= @order["status"] %></span>
+              </i>
+              </span>
+              </p>
+              <p class="txt4 clearfix"><span class="pull-left"><b>下单时间：<%= l @order["createdate"].to_time %></b></span></p>
+              <p class="txt4 txt-bd clearfix"><span><b>赠送积点：<%= @order["totalpoints"] %>点</b></span></p>
+              <p class="txt4 clearfix"><span class="pull-left"><b>快递费：￥<%= @order["totalfee"] %></b></span><span class="pull-right"><b>需付款：</b><i>￥<%= @order["totalamount"] %></i></span></p>
             </div>
           </div>
         </div>
-        <div class="module common-white">
-           <div class="row-fluid">
-               <div class="span12">
-                   <div class="detail-block detail-contact-bd">
-                       <p class="txt4 txt-bd clearfix">
-                       <span class="pull-left">
-                       <i class="fa fa-user"></i><b>收货人：<%= @order["shippingcontactperson"] %></b>
-                       </span>
-                       <span class="pull-right">
-                       <i class="fa fa-phone"></i><b>手机号码：<%= @order["shippingcontactphone"] %></b>
-                       </span>
-                       </p>
-                       <p class="txt4"><span><i class="fa fa-map-marker"></i><b><%= @order["shippingaddress"] %></b></span></p>
-                   </div>
-               </div>
-           </div>
-        </div>
-        <div class="module common-white">
-           <div class="row-fluid">
-               <div class="span12">
-                   <div class="detail-block detail-contact-bd">
-                       <p class="txt4 txt-bd clearfix"><span class="pull-left"><i class="fa fa-money"></i><b>支付方式：</b><i><%= @order["paymentname"] %></i></span></p>
-                       <p class="txt4"><span><i class="fa fa-asterisk"></i><b>订单备注：<%= @order["memo"] %></b></span></p>
-                   </div>
-               </div>
-           </div>
-        </div>
+      </div>
+      <div class="module common-white">
+         <div class="row-fluid">
+             <div class="span12">
+                 <div class="detail-block detail-contact-bd">
+                     <p class="txt4 txt-bd clearfix">
+                     <span class="pull-left">
+                     <i class="fa fa-user"></i><b>收货人：<%= @order["shippingcontactperson"] %></b>
+                     </span>
+                     <span class="pull-right">
+                     <i class="fa fa-phone"></i><b>手机号码：<%= @order["shippingcontactphone"] %></b>
+                     </span>
+                     </p>
+                     <p class="txt4"><span><i class="fa fa-map-marker"></i><b><%= @order["shippingaddress"] %></b></span></p>
+                 </div>
+             </div>
+         </div>
+      </div>
+      <div class="module common-white">
+         <div class="row-fluid">
+             <div class="span12">
+                 <div class="detail-block detail-contact-bd">
+                     <p class="txt4 txt-bd clearfix"><span class="pull-left"><i class="fa fa-money"></i><b>支付方式：</b><i><%= @order["paymentname"] %></i></span></p>
+                     <p class="txt4"><span><i class="fa fa-asterisk"></i><b>订单备注：<%= @order["memo"] %></b></span></p>
+                 </div>
+             </div>
+         </div>
+      </div>
 
-        <% if @order[:rmas].is_a?(Array) && @order[:rmas].length > 0 %>
-        <div class="module module-grey return-information">
-          <h1>退货信息</h1>
-          <% @order[:rmas].each do |rmas| %>
-          <div class="txt4 return-text">
-            <p>退货时间：<%= l rmas[:createdate].to_time %></p>
-            <p>退货编号：<%= rmas[:rmano] %></p>
-            <p>退货原因：<%= rmas[:reason] %></p>
-            <p>退货方式：<%= rmas[:rmatype] %></p>
-            <p>退货状态：<span class="rmas_status"><%= rmas[:status] %></span></p>
-            <p class="txt-red">退货地址：<%= rmas[:mailaddress] %></p>
-          </div>
-          <% end %>
+      <% if @order[:rmas].is_a?(Array) && @order[:rmas].length > 0 %>
+      <div class="module module-grey return-information">
+        <h1>退货信息</h1>
+        <% @order[:rmas].each do |rmas| %>
+        <div class="txt4 return-text">
+          <p>退货时间：<%= l rmas[:createdate].to_time %></p>
+          <p>退货编号：<%= rmas[:rmano] %></p>
+          <p>退货原因：<%= rmas[:reason] %></p>
+          <p>退货方式：<%= rmas[:rmatype] %></p>
+          <p>退货状态：<span class="rmas_status"><%= rmas[:status] %></span></p>
+          <p class="txt-red">退货地址：<%= rmas[:mailaddress] %></p>
         </div>
         <% end %>
-
-
-        <div class="bottom-button indent-btn">
-          <div class="form-defined">
-            <div class="controls-defined defined-large">
-              <div class="col-6" style="<%= @order[:statust].zero? ? "display: inline;" : "display: none;" %>">
-                <%= link_to "立即支付", "javascript:void(0);", value: @order["orderno"], class: "btn btn-danger btn-large btn-block", id: "payment" %>
-              </div>
-              <div class="col-6" style="<%= @order[:canvoid] ? "display: inline;" : "display: none;" %>">
-                <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: @order["orderno"], class: "btn btn-grey btn-large btn-block" %>
-              </div>
-              <div class="col-12" style="<%= @order[:canrma] ? "display: inline;" : "display: none;" %>">
-                <%= link_to '申请退货', new_ims_order_returns_reason_path(@order["orderno"]), class: "btn btn-grey btn-large btn-block", id: "rmas" %>
-              </div>
-
-              <div class="col-12" style="<%= @current_rmas.present? ? "display: inline;" : "display: none;" %>">
-                <%= link_to '取消申请退货', "javascript:void(0);", id: "cancel_rmas", class: "btn btn-grey btn-large btn-block", value: @current_rmas.try(:[], :rmano) %>
-              </div>
-
-            </div>
-          </div>
       </div>
-  </div>
+      <% end %>
 
-<% end %>
+
+      <div class="bottom-button indent-btn">
+        <div class="form-defined">
+          <div class="controls-defined defined-large">
+            <div class="col-6" style="<%= @order[:statust].zero? ? "display: inline;" : "display: none;" %>">
+              <%= link_to "立即支付", "javascript:void(0);", value: @order["orderno"], class: "btn btn-danger btn-large btn-block", id: "payment" %>
+            </div>
+            <div class="col-6" style="<%= @order[:canvoid] ? "display: inline;" : "display: none;" %>">
+              <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: @order["orderno"], class: "btn btn-grey btn-large btn-block" %>
+            </div>
+            <div class="col-12" style="<%= @order[:canrma] ? "display: inline;" : "display: none;" %>">
+              <%= link_to '申请退货', new_ims_order_returns_reason_path(@order["orderno"]), class: "btn btn-grey btn-large btn-block", id: "rmas" %>
+            </div>
+
+            <div class="col-12" style="<%= @current_rmas.present? ? "display: inline;" : "display: none;" %>">
+              <%= link_to '取消申请退货', "javascript:void(0);", id: "cancel_rmas", class: "btn btn-grey btn-large btn-block", value: @current_rmas.try(:[], :rmano) %>
+            </div>
+
+          </div>
+        </div>
+    </div>
+</div>
+
 
 <% content_for :javascripts do %>
   <script>
