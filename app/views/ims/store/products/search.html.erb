@@ -3,7 +3,7 @@
     <div class="row-fluid">
         <div class="span12">
             <%= form_tag search_ims_store_products_path, method: "GET", id: "search", class: "form-inline" do %>
-              <%= text_field_tag "keywords", @search[:keywords], placeholder: "搜索宝贝", class: "input-small bg-img" %>
+              <%= text_field_tag "keywords", @search[:keywords], placeholder: "搜索商品名称、品牌、货号等", class: "input-small bg-img" %>
               <%= hidden_field_tag "from_price", @search[:from_price] %>
               <%= hidden_field_tag "to_price", @search[:to_price] %>
               <%= hidden_field_tag "from_discount", @search[:from_discount] %>

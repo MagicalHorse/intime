@@ -121,10 +121,11 @@ class Product < ActiveRecord::Base
       if keywords.present?
         json.query do
           json.bool do
-            json.should do
 
-              json.wildcard do
-                json.name "*#{keywords}*"
+            json.should [["name", "wildcard"], ["upcCode", "term"], ["brand.name", "term"]] do |array|
+
+              json.set! array[1] do
+                json.set! array[0], keywords
               end
 
             end
