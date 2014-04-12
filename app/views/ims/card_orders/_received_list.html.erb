@@ -6,7 +6,20 @@
       <p>礼品卡卡号：<span class="tel-nun"><%= item[:card_no] %></span></p>
       <p class="txt-red">充值金额：<%= item[:amount] %>元</p>
       <p>状态：<%= card_orders_status item[:status_i] %></p>
+      <% if item[:status_i] == 1 %>
+      <p>领取时间：<%= item[:receive_date] %></p>
+      <% elsif item[:status_i] == 2 %>
+      <% elsif item[:status_i] == 3 %>
+      <p>赠送时间：<%= item[:send_date] %></p>
+      <p>赠送对象：<%= item[:verify_phone] %></p>
+      <% elsif item[:status_i] == 4 %>
+      <p>充值时间：<%= item[:charge_date] %></p>
+      <% elsif item[:status_i] == 5 %>
+      <p>赠送时间：<%= item[:charge_date] %></p>
+      <p>赠送对象：<%= item[:verify_phone] %></p>
+      <% else %>
       <p>接收时间：<%= item[:receive_date] %></p>
+      <% end %>
       <p>来源：<span class="tel-nun"><%= item[:verify_phone] %></span></p>
     </td>
   </tr>

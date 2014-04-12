@@ -19,7 +19,7 @@
                                         <a href="javascript:void(0)" id="unfavor_store"><i class="hd btn-star-active"></i><span>已经收藏</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="hd btn-share"></i><span>分享给好友</span></a>
+                                        <a href="#"><i class="hd btn-share"></i><span>分享好友</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -31,11 +31,14 @@
      </div>
     </header>
 <div class="wrap-inner">
+    <% if @store[:data][:gift_card].blank? && @store[:data][:combos].blank? %>
+      <%= render 'ims/shared/empty' %>
+    <% else %>
+    <% if @store[:data][:gift_card].present? %>
 		<div class="module">
             <div class="module-title">
-                <h3>银泰礼品卡</h3>
+                <h3>礼品卡</h3>
             </div>
-            <% if @store[:data][:gift_card].present? %>
              <% @store[:data][:gift_card].each do |card| %>
             <div class="module-content module-content-card">
                 <div class="img-box"><a href="#"><img src="<%= card["Image"] %>" alt=""></a></div>
@@ -48,14 +51,17 @@
                 </div>
             </div>
             <% end %>
-            <% end %>
         </div>
+        <% end %>
+
+
+        <% if @store[:data][:combos].present? %>
         <div class="module module-ele">
             <div class="module-title">
-                <h3>精品搭配推荐</h3>
+                <h3>精品搭配</h3>
             </div>
         </div>  
-        <% if @store[:data][:combos].present? %>
+        
         <% @store[:data][:combos].each do |combo| %>
         <div class="module module-ele"> 
             <div class="module-content module-content-img">
@@ -107,6 +113,7 @@
                 </div>
             </div>
         </div>
+        <% end %>
         <% end %>
         <% end %>
 

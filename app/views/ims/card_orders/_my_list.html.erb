@@ -10,6 +10,7 @@
       <p>充值时间：<%= item[:charge_date] %></p>
       <% elsif item[:status_i] == 5 %>
       <p>赠送时间：<%= item[:send_date] %></p>
+      <p>赠送对象：<%= item[:verify_phone] %></p>
       <% else %>
       <p>购买时间：<%= item[:purchase_date] %></p>
       <% end %>

@@ -105,7 +105,11 @@
 
     $('#myTab a').click(function (e) {
       e.preventDefault()
-      $(this).tab('show')
+      $(this).tab('show');
+      $(".img-span").each(function(){
+        $(this).css("height", $(this).width());
+        $(this).css("line-height", $(this).height()+"px");
+      });
     })
 
     $(document).on("click", ".card_or_combo", function(){
