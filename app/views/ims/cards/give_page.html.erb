@@ -9,8 +9,8 @@
     <%= form_tag give_ims_cards_path, class: "form-defined", method: "get" do  %>
     <%= hidden_field_tag :charge_no, params[:charge_no]  %>
     <div class="controls-defined defined-small">
-      <label class="col-4 text-right"><i class="fa fa-phone"></i>我的手机号码</label>
-      <div class="col-8">
+      <label class="col-5 text-left"><i class="fa fa-phone"></i>我的手机号码</label>
+      <div class="col-7">
         <%= text_field_tag :from_phone, current_user.verified_phone, placeholder: "请输入11位手机号码" %>
       </div>
     </div>
@@ -21,8 +21,8 @@
       </div>
     </div>
     <div class="controls-defined defined-small">
-      <label class="col-4 text-right"><i class="fa fa-phone"></i>好友联系方式</label>
-      <div class="col-8">
+      <label class="col-5 text-left"><i class="fa fa-phone"></i>好友联系方式</label>
+      <div class="col-7">
         <%= text_field_tag :phone, "", placeholder: "请输入11位手机号码" %>
       </div>
     </div>
