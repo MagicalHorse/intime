@@ -10,8 +10,10 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
   from_page = "<%= @from_page %>"
   if(res.err_msg == "get_brand_wcpay_request:ok"){
       // get_brand_wcpay_request:ok 发送成功
-    if(from_page == "orders_new" || from_page == "orders_show"){
+    if(from_page == "orders_new"){
       window.location.href = "/ims/orders_show?id="+orderno
+    }else if(from_page == "orders_show"){
+
     }
 
     // setInterval(function(){

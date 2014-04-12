@@ -2,7 +2,7 @@
 <div class="module module-white">
   <div class="row-fluid">
   <div class="span12">
-    <%= image_tag Product.img_url(@product.resource.first) %>
+    <%= image_tag Product.img_url(@product.try(:resource).try(:first)) %>
   </div>
   </div>
   <div class="row-fluid">
