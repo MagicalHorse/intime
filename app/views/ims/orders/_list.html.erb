@@ -30,9 +30,17 @@
     <div class="row-fluid">
       <div class="span12">
         <div class="detail-block detail-contact-bd">
-          <p class="txt4 clearfix"><span class="pull-left"><b>订单号：<%= link_to order['order_no'], ims_order_path(order["order_no"]) %></b></span></p>
+          <p class="txt4 clearfix">
+            <span class="pull-left">
+              <b>订单号：<%= link_to order['order_no'], ims_order_path(order["order_no"]) %></b>
+            </span>
+          </p>
           <p class="txt4 clearfix"><span><b>下单时间：<%= order['create_date'] %></b></span></p>
-          <p class="immediate-payment"><button type="button" class="btn btn-danger btn-mini">立即支付</button></p>
+          <p class="immediate-payment">
+            <% if order["status_i"] == 0 %>
+            <button type="button" class="btn btn-danger btn-mini">立即支付</button>
+            <% end %>
+          </p>
         </div>
       </div>
     </div>

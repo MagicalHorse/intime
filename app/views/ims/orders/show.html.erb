@@ -183,6 +183,12 @@
   <script>
     $(function(){
 
+      $("#payment").on("click", function(){
+        order_id = "<%= @order['orderno'] %>"
+        totalamount = "<%= @order['totalamount'] %>"
+        $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_show"}, function(data){}, "script")
+      })
+
       $("#cancel_order").on("click", function(){
         if(confirm("是否要取消订单?")){
           this_ele = $(this)

@@ -17,10 +17,10 @@
 
   <%= hidden_field_tag "order[payment[paymentcode]]", 29 %>
   <%= hidden_field_tag "order[payment[paymentname]]", "微信支付" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", "nil", id: "name" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", "nil", id: "contact" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", "nil", id: "zipcode" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", "nil", id: "address" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", nil, id: "name" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", nil, id: "contact" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", nil, id: "zipcode" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", nil, id: "address" %>
   <%= hidden_field_tag "order[needinvoice]", false %>
 
 
@@ -325,7 +325,7 @@
             success: function(data){
               if(data["status"] == true){
                 order_id = data["data"]["orderno"]
-                $.post("/ims/orders/"+order_id+"/payments", {money: totalamount}, function(data){}, "script")
+                $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
               }else{
                 alert("提交订单失败")
               }
