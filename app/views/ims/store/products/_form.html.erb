@@ -45,13 +45,13 @@
           <div class="controls-defined defined-small">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>品牌：</label>
               <div class="col-8">
-                  <%= select_tag "brand_id", options_for_select(@brands.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :brand_id)) %>
+                  <%= select_tag "brand_id", options_for_select(@brands.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :brand_id)), prompt: "请选择" %>
               </div>
           </div>
           <div class="controls-defined defined-small">
               <label class="col-4 text-right"><abbr class="txt-red">*</abbr>销售编码：</label>
               <div class="col-5">
-                  <%= select_tag "coding_id", options_for_select(@codings, @product.try(:[], :sales_code)) %>
+                  <%= select_tag "coding_id", options_for_select(@codings, @product.try(:[], :sales_code)), prompt: "请选择" %>
               </div>
               <div class="col-3">
               <span>
