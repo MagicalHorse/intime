@@ -45,7 +45,7 @@ class Ims::OrdersController < Ims::BaseController
 
   def payments
     @orderno = params[:id]
-    price = 0.1
+    price = 0.01
     @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
     @out_trade_no = @orderno
