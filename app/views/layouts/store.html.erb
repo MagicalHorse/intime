@@ -19,48 +19,12 @@
 
   </head>
   <body>
-    <%= render 'ims/shared/top' %>
+    <%#= render 'ims/shared/top' %>
     <div class="wrap">
       <%= yield %>
       <div id="ex2" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       </div>
     </div>
-    <div id="shareToAllModel" class="modal hide fade modal-grey modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="text-center">
-      <div class=""><img src="/images/ims/right-top.png"></div>
-    </div>
-  </div>
-
-  <div id="shareToUserModel" class="modal hide fade modal-grey modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="text-center">
-      <div class=""><img src="/images/ims/right-top.png"></div>
-    </div>
-  </div>
-
-  <div id="shareToMomentModel" class="modal hide fade modal-grey modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="text-center">
-      <div class=""><img src="/images/ims/right-top.png"></div>
-    </div>
-  </div>
-
-  <%= yield :javascripts -%>
-  <script>
-    $(function(){
-      // 全局分享按钮
-      $("#share_to_all_model").click(function(){
-        $("#shareToAllModel").modal();
-      })
-
-      // 分享给好友按钮
-      $("#share_to_user_model").click(function(){
-        $("#shareToUserModel").modal();
-      })
-
-      // 分享到朋友圈按钮
-      $("#share_to_moment_model").click(function(){
-        $("#shareToMomentModel").modal();
-      })
-    });
-  </script>
+    <%= render 'ims/shared/share_button' %>
   </body>
 </html>
