@@ -1,4 +1,29 @@
 <%= render 'ims/shared/countdown' %>
+<style type="text/css">
+  .image_box {
+    width: 131px;
+    height: 131px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+
+  .image_box img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+  }
+
+  @media screen and (max-width: 580px) {
+    .image_box {
+    width: 96px;
+    height: 96px;
+    text-align: center;
+    border: 1px solid #ccc;
+   }    
+  }
+
+</style>
 <div class="wrap-inner back-wrap-inner">
 <header id="TOP">
  <div class="header-box">
@@ -11,13 +36,15 @@
 		 		<div class="span7">
 		 			<div class="row-fluid">
 		 				<div class="span5">
-        <%= image_tag(@store[:data][:logo], class: 'img-polaroid face-img') %>
+              <div class="image_box">
+                 <%= image_tag(@store[:data][:logo], id: 'face_img') %>
+              </div>
 		 				</div>
 		 				<div class="span7"><h2 class="shop-name"><%= @store[:data][:name] %></h2></div>
 		 			</div>
 		 		</div>
 		 		<div class="span5">
-		 			<button class="btn btn-small btn-danger btn-share0 pull-right" id="share_to_user_model"><i class="fa fa-share-square-o"></i> 分享给好友</button>
+		 			<button class="btn btn-small btn-danger btn-share0 pull-right" id="share_to_user_model"><i class="fa fa-share-square-o"></i> 分享好友</button>
 		 		</div>
 		 	</div>
  		</div>
@@ -33,7 +60,7 @@
   <% if @store[:data][:gift_card].present? %>
 		<div class="module module-ele">
             <div class="module-title">
-                <h3>礼品卡推荐</h3>
+                <h3>礼品卡</h3>
             </div>
             
              <% @store[:data][:gift_card].each do |card| %>
@@ -53,7 +80,7 @@
 <% if @store[:data][:combos].present? %>
         <div class="module module-ele">
             <div class="module-title">
-                <h3>精品搭配推荐</h3>
+                <h3>精品搭配</h3>
             </div>
          </div>
          
