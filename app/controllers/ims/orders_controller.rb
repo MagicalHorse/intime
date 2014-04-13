@@ -2,7 +2,7 @@
 
 class Ims::OrdersController < Ims::BaseController
   def index
-    @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 4)
+    @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 5)
     @orders = @search["data"]["items"]
 
     respond_to do |format|

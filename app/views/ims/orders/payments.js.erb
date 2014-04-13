@@ -63,7 +63,10 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
     // },1000)
 
   }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
-    $("#orderno").attr("value", orderno)
+    if(from_page == "orders_new"){
+      $("#orderno").attr("value", orderno)
+      window.location.href = "/ims/orders_show?id="+orderno
+    }
      // get_brand_wcpay_request:cancel 用户取消
 
   }else if(res.err_msg == "get_brand_wcpay_request:fail"){
