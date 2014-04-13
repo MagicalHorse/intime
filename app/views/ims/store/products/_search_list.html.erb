@@ -31,8 +31,5 @@
   </div>
 <% end %>
 <script>
-    $(".goods-box .imgs").each(function(){
-        $(this).css("height", $(this).width())
-        $(this).css("line-height", $(this).height()+"px")
-    });
+     format_img(".goods-box .imgs");
 </script>
