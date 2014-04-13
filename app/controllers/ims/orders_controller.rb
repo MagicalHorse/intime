@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::OrdersController < Ims::BaseController
   def index
     @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 4)
