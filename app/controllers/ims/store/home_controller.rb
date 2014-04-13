@@ -4,7 +4,7 @@ class Ims::Store::HomeController < Ims::Store::BaseController
 
   def index
     if current_user.store_id.present?
-      redirect_to my_ims_store_store_path(:id => current_user.store_id)
+      #redirect_to my_ims_store_store_path(:id => current_user.store_id)
     end
   end
 
