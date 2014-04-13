@@ -165,6 +165,7 @@
                        <span>
                          <i class="fa fa-user"></i><span id="weixin_name"></span>
                        </span>
+                       &nbsp;
                        <span>
                        <i class="fa fa-phone"></i><span id="weixin_contact"></span>
                        </span>
@@ -233,8 +234,8 @@
     $(".save_button").on("click", function(){
       modal_doc = $(this).parents(".modal")
       var index = modal_doc.attr("index")
-      color_text = $("#colorvaluename"+index).val()
-      size_text = $("#sizevaluename"+index).val()
+      color_text = "\""+$("#colorvaluename"+index).val()+"\""
+      size_text = "\""+$("#sizevaluename"+index).val()+"\""
       text = jQuery.trim([color_text, size_text].join(" "))
       un_select_doc = $("#un_select_color_size"+index)
       selected_doc = $("#selected_color_size"+index)
