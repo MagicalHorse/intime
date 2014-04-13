@@ -31,6 +31,13 @@ function error_modal(txt){
 	 $("#ex2").modal();
 }
 
+function format_img(obj){
+    $(obj).each(function(){
+          $(this).css("height", $(this).width())
+          $(this).css("line-height", $(this).height()+"px")
+      });
+}
+
 
 var expired_in = 0;
 var fnTimeCountDown = function(o){

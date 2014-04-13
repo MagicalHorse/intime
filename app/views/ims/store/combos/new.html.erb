@@ -172,6 +172,9 @@
         url: "/ims/store/combos/<%= @combo.id %>/add_img",
         type: 'get',
         dataType: 'json',
+        beforeSend: function(){
+          $("#loading-box").modal();
+        },
 
         fileuploadfail: function(e, data){
           alert(e);
@@ -181,11 +184,15 @@
         },
         done: function(e, data){
           if(data.result['status'] == 1){
+            $("#loading-box").modal('hide');
             setTimeout(function(){
               $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
               $("#default_img").addClass("show-imgbox-yes");
               $("#default_img").removeClass("show-imgbox-no");
               $("#default_img").html("<img src='"+data.result['img']+"'>");
+              
+              format_img(".show-imgbox-yes");
+              format_img(".upload-img li");
             }, 500);
           }else{
             error_modal("网络错误，请稍后重试");
@@ -248,20 +255,11 @@
            }
          });
        })
-     $(".show-imgbox-no").each(function(){
-        $(this).css("height", $(this).width())
-        $(this).css("line-height", $(this).height()+"px")
-    });
-    $(".upload-img li").each(function(){
-        $(this).css("height", $(this).width())
-        $(this).css("line-height", $(this).height()+"px")
-    });
-    $(".mini-imgbox li").each(function(){
-        $(this).css("height", $(this).width())
-        $(this).css("line-height", $(this).height()+"px")
-    });
-
-
+     
+     format_img(".show-imgbox-no");
+     format_img(".upload-img li");
+     format_img(".mini-imgbox li");
+    
   });
 </script>
 <% end -%>
