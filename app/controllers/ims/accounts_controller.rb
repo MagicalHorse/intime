@@ -8,16 +8,19 @@ class Ims::AccountsController < Ims::BaseController
   layout "ims/user"
   # 我的资金账号
   def mine
+    @title = "我的礼品卡"
   end
 
   # 扫码页面
   def barcode
+    @title = "扫码支付"
   end
 
   # ============= 新用户绑卡 ============= 》》》
 
   # 填待验证手机号页面
   def phone_page
+    @title = "填写手机号"
   end
 
   # 验证手机号，进行绑定账号
@@ -57,6 +60,7 @@ class Ims::AccountsController < Ims::BaseController
 
   # 设置身份证页面
   def set_identity_no_page
+    @title = "填写身份证号"
   end
 
   # 设置身份证
@@ -71,6 +75,7 @@ class Ims::AccountsController < Ims::BaseController
 
   # 手机验证通过，填写支付密码页面
   def new
+    @title = "填写支付密码"
     # API_NEED: 通过当前手机号，得知手机已经开户，把手机号绑定当前用户
     result = Ims::Giftcard.bind(request, phone: params[:phone])
     if result[:isSuccessful]
@@ -108,6 +113,7 @@ class Ims::AccountsController < Ims::BaseController
 
   # 验证指定手机号页面
   def verify_phone
+    @title = "填写手机号"
     @phone = current_user.other_phone.to_s
     generate_sms @phone
     @path = verfiy_sms_code_ims_accounts_path
@@ -132,6 +138,7 @@ class Ims::AccountsController < Ims::BaseController
 
   # 重置密码
   def reset_password
+    @title = "重置密码"
     notice = "密码必须为6位数字" unless params[:newpwd][/^\d{6}$/]
     notice = "两次密码输入的不一致" if params[:comfirm_pwd] != params[:newpwd]
     if notice
@@ -149,6 +156,7 @@ class Ims::AccountsController < Ims::BaseController
 
   # 修改密码
   def change_password
+    @title = "修改密码"
     notice = "密码必须为6位数字" unless params[:newpwd][/^\d{6}$/]
     notice = "两次密码输入的不一致" if params[:comfirm_pwd] != params[:newpwd]
     if notice
