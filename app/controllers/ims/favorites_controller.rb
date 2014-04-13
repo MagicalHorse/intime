@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::FavoritesController < Ims::BaseController
 
   def stores_list

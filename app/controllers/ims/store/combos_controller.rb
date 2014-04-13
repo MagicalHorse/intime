@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::Store::CombosController < Ims::Store::BaseController
 
   #新建搭配

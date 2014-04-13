@@ -10,7 +10,9 @@
       <p>领取时间：<%= item[:receive_date] %></p>
       <p>来源：<span class="tel-nun"><%= item[:from_phone] %></span></p>
       <% elsif item[:status_i] == 2 %>
+      <p>来源：<span class="tel-nun"><%= item[:from_phone] %></span></p>
       <% elsif item[:status_i] == 3 %>
+      <p>来源：<span class="tel-nun"><%= item[:from_phone] %></span></p>
       <p>赠送时间：<%= item[:send_date] %></p>
       <p>赠送对象：<span class="tel-nun"><%= item[:verify_phone] %></span></p>
       <% elsif item[:status_i] == 4 %>

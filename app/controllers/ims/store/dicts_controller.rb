@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::Store::DictsController < Ims::Store::BaseController
 
   def product_sizes

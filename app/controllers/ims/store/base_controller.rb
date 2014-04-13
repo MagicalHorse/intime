@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::Store::BaseController < Ims::BaseController
   before_filter :authenticate
   layout "store"
