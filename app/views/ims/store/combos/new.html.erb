@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="goods-describe">
-      <%= f.text_area :desc, :rows => 5 %>
+      <%= f.text_area :desc, :rows => 4 %>
     </div>
 </div>
 
@@ -107,8 +107,6 @@
 </div>
 </div>
 
-<div id="ex2" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-</div>
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   $(function(){
@@ -186,14 +184,14 @@
           if(data.result['status'] == 1){
             $("#loading-box").modal('hide');
             setTimeout(function(){
-              $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><img src='"+data.result['img']+"'></li>");
+              $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><span class='img-span'><img src='"+data.result['img']+"'></span></li>");
               $("#default_img").addClass("show-imgbox-yes");
               $("#default_img").removeClass("show-imgbox-no");
               $("#default_img").html("<img src='"+data.result['img']+"'>");
               
               format_img(".show-imgbox-yes");
-              format_img(".upload-img li");
-            }, 500);
+              format_img(".mini-imgbox li");
+            }, 800);
           }else{
             error_modal("网络错误，请稍后重试");
           }
