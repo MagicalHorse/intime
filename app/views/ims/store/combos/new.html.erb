@@ -107,8 +107,6 @@
 </div>
 </div>
 
-<div id="ex2" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-</div>
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   $(function(){
@@ -193,7 +191,7 @@
               
               format_img(".show-imgbox-yes");
               format_img(".upload-img li");
-            }, 500);
+            }, 800);
           }else{
             error_modal("网络错误，请稍后重试");
           }
@@ -214,6 +212,7 @@
         url: "/ims/store/combos/remove_img?img_id="+mid,
         success: function(response){
             $("#img_"+mid).parent().remove();
+            
         }
        });
 
