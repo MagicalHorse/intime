@@ -50,7 +50,7 @@
             <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><span class="img-spa"><img src="<%= product.img_url %>"></span></li>
           <% end %>
           <% if @combo.combo_products.size < 3 %>
-          <li class="add-link"><a href="javascript:void(0);" id="add_product"><span class="img-spa"><img src="/images/ims/add-img.png"></span></a></li>
+          <li class="add-link" id="add_product"><a href="javascript:void(0);"><span class="img-spa"><img src="/images/ims/add-img.png"></span></a></li>
           <% end %>
         </ul>
     </div>
@@ -284,8 +284,8 @@ var check_form = function(){
      });
 
      $("#add_product").click(function(){
-       var p_size = $("#p_box li").length;
-       if(p_size < 4){
+       var p_size = $("#p_box li[class!='add-link']").length;
+       if(p_size < 3){
          $("#pop-menu").show();
        }else{
         error_modal('最多只能搭配3个商品');
@@ -302,6 +302,10 @@ var check_form = function(){
         url: "/ims/store/combos/remove_product?product_id="+mid,
         success: function(response){
             $("#p_"+mid).parent().remove();
+            var p_size = $("#p_box li[class!='add-link']").length;
+            if(p_size < 3){
+              $("#add_product").show();
+            }
         }
        });
      });
