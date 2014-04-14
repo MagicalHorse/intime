@@ -319,6 +319,7 @@
         "order[payment[paymentname]]": {
           required: true
         },
+        <% if nil %>
         "order[shippingaddress[shippingcontactperson]]": {
           required: true
         },
@@ -328,6 +329,7 @@
         "order[shippingaddress[shippingzipcode]]": {
           required: true
         },
+        <% end %>
         "order[shippingaddress[shippingaddress]]": {
           required: true
         },
@@ -342,6 +344,9 @@
         "order[products][][properties][colorvalueid]": {
           required: "请选择颜色"
         },
+        "order[shippingaddress[shippingaddress]]": {
+          required: "请选择地址"
+        }
       },
       showErrors: function(errorMap, errorList) {
         var msg = "";
