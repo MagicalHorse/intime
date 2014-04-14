@@ -29,7 +29,9 @@
             <% @combo.combo_pics.each do |pic| %>
             <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><span class="img-span"><img src='<%= pic.url -%>'></span></li>
             <% end %>
-            <li class="add-link"><span class="img-span"><a href="javascript:void(0);" id="add_img"><img src="/images/ims/add-img.png"></a></span></li>
+            <% if @combo.combo_pics.size < 5 %>
+            <li class="add-link" id="add_img"><span class="img-span"><a href="javascript:void(0);" ><img src="/images/ims/add-img.png"></a></span></li>
+            <% end %>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*"></div>
         </ul>
     </div>
@@ -47,7 +49,9 @@
           <% @combo.combo_products.each do |product| %>
             <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><span class="img-span"><img src="<%= product.img_url %>"></span></li>
           <% end %>
+          <% if @combo.combo_products.size < 3 %>
           <li class="add-link"><span class="img-span"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></span></li>
+          <% end %>
         </ul>
     </div>
 </div>
@@ -127,12 +131,12 @@
     })
 
     $("#combo_form").on("submit", function(){
-      var image_fields = $("#img_box li")
-      var product_image_fields = $("#p_box li")
-      verify_image1 = image_fields.length < 3
-      verify_image2 = image_fields.length > 6
-      verify_product1 = product_image_fields.length < 3
-      verify_product2 = product_image_fields.length > 4
+      var image_fields = $("#img_box li[class!='add-link']");
+      var product_image_fields = $("#p_box li");
+      verify_image1 = image_fields.length < 2;
+      verify_image2 = image_fields.length > 5;
+      verify_product1 = product_image_fields.length < 3;
+      verify_product2 = product_image_fields.length > 4;
       var desc_length = $("#combo_desc").val().length;
 
       if(verify_image1){
@@ -172,8 +176,8 @@
 
 
     $("#add_img").click(function(){
-       var img_size = $("#img_box li").length;
-       if(img_size < 6){
+       img_size = $("#img_box li[class!='add-link']").length;
+       if(img_size < 5){
          document.getElementById("upfile").click();
        }else{
         error_modal("上传主图不能超过5个"); 
@@ -202,6 +206,8 @@
               $("#default_img").addClass("show-imgbox-yes");
               $("#default_img").removeClass("show-imgbox-no");
               $("#default_img").html("<img src='"+data.result['img']+"'>");
+              img_size = $("#img_box li[class!='add-link']").length;
+              if(img_size == 5){$("#add_img").hide();}
               
               format_img(".show-imgbox-yes");
               format_img(".mini-imgbox li");
@@ -226,6 +232,9 @@
         url: "/ims/store/combos/remove_img?img_id="+mid,
         success: function(response){
             $("#img_"+mid).parent().remove();
+            img_size = $("#img_box li[class!='add-link']").length;
+            if(img_size < 5){$("#add_img").show();}
+            format_img(".mini-imgbox li");
         }
        });
 
