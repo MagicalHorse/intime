@@ -8,6 +8,7 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
 },function(res){
 
   if(res.err_msg == "get_brand_wcpay_request:ok"){
+    $("#loading-box").modal();
       // get_brand_wcpay_request:ok 发送成功
     setInterval(function(){
       $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= @card_id %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
