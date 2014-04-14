@@ -32,7 +32,7 @@
 
                 <div class="span4">
                   <div class="combos-product">
-                    <span class="img-span">
+                    <span class="img-spa">
                     <img src="<%= product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>">
                     </span>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
@@ -138,7 +138,7 @@
         $("#favor_combo").show();
     })
 
-    format_img(".img-span");
+    format_img(".img-spa");
 
   })
 </script>
