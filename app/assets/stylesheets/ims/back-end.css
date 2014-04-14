@@ -35,7 +35,7 @@
 .upload-img ul li img{ height: auto; width: auto;}
 .upload-img ul li.add-link{ border:2px dashed #eeeeee; background-color: #f6f8fa;}
 .upload-img ul li.add-link a{ display: block; }
-.upload-img .img-spa{ margin: 0; display: inline-block; width: 100%; height: 100%; overflow: hidden; text-align: center;}
+.upload-img .img-spa{ margin: 0; display: inline-block; width: 100%; height: 100%; overflow: hidden; text-align: center; border:0;}
 .module-title2 small{ font: 18px/40px "microsoft yahei"; color: #b7bbc2;}
 
 .goods-describe { margin-top: 20px;}
