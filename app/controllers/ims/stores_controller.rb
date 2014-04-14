@@ -5,5 +5,6 @@ class Ims::StoresController < Ims::BaseController
   def show
     @store = Ims::Store.show(request, id: params[:id])
     @title = "店铺展示"
+    @can_share == true
   end
 end
