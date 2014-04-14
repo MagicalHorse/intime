@@ -15,7 +15,7 @@
       </label>
     </div> 
     <div class="module-btn text-center">
-      <%= submit_tag "确认购买", class: "btn btn-large btn-danger btn-block", id: "submit" %>
+      <%= submit_tag "确认购买", class: "btn btn-large btn-danger btn-block", id: "submit_card_orders", "data-disable-with" => "购买中..." %>
     </div>
 
     <% end %>
@@ -36,14 +36,12 @@
 <%= content_for :javascripts do %>
 <script>
   $(function(){
-    $("#submit").click(function(){
+    $("#submit_card_orders").click(function(){
       if( $("input[name='money']:checked").val() == undefined ){
-        $("#myModal").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>请选择礼品卡</div><a class='btn btn-danger btn-small btn-block btn-modal' data-dismiss='modal' aria-hidden='true'>OK</a></div>");
-        $("#myModal").modal();
+        error_modal('请选择礼品卡');
         return false;
       }else if( $("#is_accept").prop("checked") == false ){
-        $("#myModal").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>您必须同意礼品卡服务协议</div><a class='btn btn-danger btn-small btn-block btn-modal' data-dismiss='modal' aria-hidden='true'>OK</a></div>");
-        $("#myModal").modal();
+        error_modal('您必须同意礼品卡服务协议');
         return false;
       }
     })
