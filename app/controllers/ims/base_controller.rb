@@ -81,6 +81,7 @@ class Ims::BaseController < ApplicationController
       current_user.isbindcard = data[:is_binded]
       current_user.card_no = data[:phone]
       current_user.verified_phone = data[:phone]
+      current_user.other_phone = data[:phone]
       current_user.amount = data[:amount]
     else
       current_user.isbindcard = false
