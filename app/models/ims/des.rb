@@ -1,18 +1,18 @@
 class Ims::Des
   require 'openssl'  
   require 'base64'  
-  ALG = 'DES-EDE3-CBC'  
+  ALG = 'DES-ECB'  
   KEY = "intimeit"     #你的密钥
   DES_KEY = "intimeit"          #任意固定的值
   
   #加密  
   def encode(str)  
     des = OpenSSL::Cipher::Cipher.new(ALG)  
-    des.pkcs5_keyivgen(KEY, DES_KEY)  
-    des.encrypt  
+    des.encrypt
+    des.key=KEY
     cipher = des.update(str)  
     cipher << des.final  
-    return Base64.encode64(cipher) #Base64编码，才能保存到数据库  
+    return Base64.encode64(cipher) #Base64编码，才能保存到数据库
   end  
   
   #解密    
