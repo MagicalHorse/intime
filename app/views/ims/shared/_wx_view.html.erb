@@ -1,7 +1,9 @@
 <script type="text/javascript">
-  <% unless @can_share %>
   document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    <% if @can_share %>
+    WeixinJSBridge.call('showOptionMenu');
+    <% else %>
     WeixinJSBridge.call('hideOptionMenu');
+    <% end %>
   });
-  <% end %>
 </script>
