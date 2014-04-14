@@ -6,6 +6,7 @@ class Ims::CardsController < Ims::BaseController
 
   # 礼品卡列表页
   def index
+    @title = "礼品卡列表页"
   end
 
   # 给自己充值
@@ -28,6 +29,7 @@ class Ims::CardsController < Ims::BaseController
 
   # 获赠礼品卡
   def gift_page
+    @title = "获赠礼品卡"
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"]
@@ -36,6 +38,7 @@ class Ims::CardsController < Ims::BaseController
 
   # 赠送页面
   def give_page
+    @title = "赠送礼品卡"
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
