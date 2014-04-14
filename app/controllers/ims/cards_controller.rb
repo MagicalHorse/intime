@@ -7,6 +7,7 @@ class Ims::CardsController < Ims::BaseController
   # 礼品卡列表页
   def index
     @title = "礼品卡列表页"
+    @can_share = true
   end
 
   # 给自己充值
