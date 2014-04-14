@@ -12,6 +12,10 @@
         <p>来源：<span class="tel-nun"><%= item[:from_phone] %></span></p>
         <% elsif item[:status_i] == 2 %>
         <p>来源：<span class="tel-nun"><%= item[:from_phone] %></span></p>
+        <p class="btn-line">
+          <%= link_to "充值自用", "#{recharge_ims_cards_path}?charge_no=#{item[:card_no]}&type=buy", class: "btn btn-danger btn-small"  %>
+          <%= link_to "赠送好友", "#{give_page_ims_cards_path}?charge_no=#{item[:card_no]}", class: "btn btn-danger btn-small"  %>
+        </p>
         <% elsif item[:status_i] == 3 %>
         <p>来源：<span class="tel-nun"><%= item[:from_phone] %></span></p>
         <p>赠送时间：<%= item[:send_date] %></p>
