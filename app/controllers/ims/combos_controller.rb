@@ -7,5 +7,6 @@ class Ims::CombosController < Ims::BaseController
     @private_to = params[:private_to]
     @store_id = params[:store_id]
     @title = "搭配展示"
+    @can_share == true
   end
 end
