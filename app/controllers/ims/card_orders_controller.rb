@@ -8,6 +8,7 @@ class Ims::CardOrdersController < Ims::BaseController
 
   # 自己购买
   def my_list
+    @title = "自己购买"
     @my = Ims::Giftcard.list(request, {type: 1, page: (params[:page] || 1), pagesize: 10})
     respond_to do |format|
       format.html{}
@@ -17,6 +18,7 @@ class Ims::CardOrdersController < Ims::BaseController
 
   # 好友赠送
   def received_list
+    @title = "好友赠送"
     @received = Ims::Giftcard.list(request, {type: 2, page: (params[:page] || 1), pagesize: 10})
     respond_to do |format|
       format.html{}
@@ -69,6 +71,7 @@ class Ims::CardOrdersController < Ims::BaseController
   end
 
   def show
+    @title = "订单详情"
     @charge_no = params[:id]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
