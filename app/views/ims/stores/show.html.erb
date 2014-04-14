@@ -19,7 +19,7 @@
                                         <a href="javascript:void(0)" id="unfavor_store"><i class="hd btn-star-active"></i><span>已经收藏</span></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="hd btn-share"></i><span>分享好友</span></a>
+                                        <a href="javascript:void(0);" id="share_to_user_model"><i class="hd btn-share"></i><span>分享好友</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -47,7 +47,6 @@
                     <p class="pull-left price-box">
                         <span><a type="button" class="btn btn-danger btn-small" href="<%= ims_cards_path(store_id: @store[:data][:id]) %>">点击购买</a></span>
                     </p>
-                    <a class="share-link" href="#"><i class="fa fa-share-square-o"></i></a>
                 </div>
             </div>
             <% end %>
