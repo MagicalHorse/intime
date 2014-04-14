@@ -1,10 +1,18 @@
+<style type="text/css">
+  .txt1 {
+    font-size: 20px;
+  }
+  .defined-small textarea {
+    font-size: 20px;
+  }
+</style>
 <div class="wrap-content">
   <%= form_tag ims_store_suggesstions_path, id: "new_suggesstion", class: "form-defined", remote: true do %>
     <div class="module common-white min-height card-form-box">
       <div class="controls-defined defined-small">
-        <label class="col-12 text-left">建议</label>
+        <div class="col-12 text-left txt1">建议</div>
         <div class="col-12">
-          <%= text_area_tag "content", '', placeholder: "说点什么", rows: 7, class: "active-write" %>
+          <%= text_area_tag "content", '', placeholder: "说点什么", rows: 5, class: "active-write" %>
         </div>
       </div>
     </div>
