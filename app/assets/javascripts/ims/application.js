@@ -96,9 +96,3 @@ var fnTimeCountDown = function(o){
     };  
     f.ui();
 };
-
-<% unless @can_share %>
-document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-WeixinJSBridge.call('hideOptionMenu');
-});
-<% end %>
