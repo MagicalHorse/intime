@@ -148,12 +148,13 @@
       error = '尺码不能为空'
       if(!$("#size_ids_wrapper").is(":hidden")){
         if($("input[name='size_ids[]']").length == 0){
-          if($("#size_ids_wrapper .error").length == 0){
             error_modal(error)
-            // $("#size_ids_wrapper .goods-size").after(error)
-          }
-          return false
+            return false
+        }else if($("#product_form").valid()){
+          $(".loading").show()
         }
+      }else if($("#product_form").valid()){
+        $(".loading").show()
       }
     })
 
