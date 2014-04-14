@@ -135,8 +135,8 @@
 .private-text{padding: 30px;}
 /*------------------------------Product Details----------------------------------*/
 
-.detail-imgbox{ border-radius: 5px; background:#eeeeee;}
-.detail-imgbox img{ border-radius: inherit;}
+.detail-imgbox{ border-radius: 5px; background:#eeeeee; overflow: hidden;text-align: center;}
+.detail-imgbox img{ border-radius: inherit; width: auto; height: auto;}
 .price-detail .txt3 em{font-style: normal;}
 .price-detail .txt5{ text-decoration: line-through;}
 .price-detail h3{margin: 16px 0 10px;}
