@@ -248,11 +248,11 @@
         }
       },
       showErrors: function(errorMap, errorList) {
-        var msg = ""
-        $.each(errorList, function(i,v){
-          msg += (v.message+"\r\n")
+        var messages = errorList.map(function(i, v) {
+          return i.message
         })
-        if(msg!=""){
+        msg = messages.join(", ")
+        if(msg != ""){
           error_modal(msg);
         }
       },
