@@ -99,7 +99,7 @@ class Ims::AccountsController < Ims::BaseController
     end
     # API_NEED: 创建资金账户
     # 此接口需要支持能同时充值一张充值卡、如果此用户是买卡后进行的绑卡，需要将当时所购卡，进行充值
-    result = Ims::Giftcard.create(request, {phone: current_user.verified_phone, pwd: params[:pwd], charge_no: current_user.will_charge_no, identity_no: current_user.identity_no })
+    result = Ims::Giftcard.create(request, {phone: current_user.verified_phone, pwd: Ims::Des.new.encode(params[:pwd]), charge_no: current_user.will_charge_no, identity_no: current_user.identity_no })
     if result[:isSuccessful]
       current_user.isbindcard = true
       redirect_to current_user.back_url || mine_ims_accounts_path
@@ -146,7 +146,7 @@ class Ims::AccountsController < Ims::BaseController
       return
     end
     # API_NEED: 重置资金账户密码
-    result = Ims::Giftcard.resetpwd(request, {pwd_new: params[:newpwd]})
+    result = Ims::Giftcard.resetpwd(request, {pwd_new: Ims::Des.new.encode(params[:newpwd]) })
     if result[:isSuccessful]
       redirect_to mine_ims_accounts_path
     else
@@ -164,7 +164,7 @@ class Ims::AccountsController < Ims::BaseController
       return
     end
     # API_NEED: 修改资金账户密码
-    result = Ims::Giftcard.changepwd(request, {pwd_new: params[:newpwd], pwd_old: params[:oldpwd]})
+    result = Ims::Giftcard.changepwd(request, {pwd_new: Ims::Des.new.encode(params[:newpwd]), pwd_old: Ims::Des.new.encode(params[:oldpwd]) })
     if result[:isSuccessful]
       redirect_to mine_ims_accounts_path
     else
