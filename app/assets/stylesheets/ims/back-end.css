@@ -12,7 +12,7 @@
 .show-imgbox-no img{height: auto;}
 .show-imgbox-yes{border:2px solid #eeeeee; overflow: hidden;text-align: center;}
 
-.mini-imgbox {margin-top: 50px;} 
+.mini-imgbox {margin-top: 50px;}
 .mini-imgbox ul{margin: 0; list-style: none; width: 100%；}
 .mini-imgbox ul li{ position: relative; margin:0 5px 5px 0; padding: 0; font-size: 1px; border:2px dashed #eeeeee; background-color: #ffffff; width: 18%; text-align: center;}
 .mini-imgbox ul li:last-child{ margin-right: 0;}
@@ -24,7 +24,7 @@
 .mini-imgbox ul li.add-link a{ display: block;}
 .mini-imgbox .img-span{ margin: 0; display: inline-block; width: 100%; height: 100%; overflow: hidden; text-align: center;}
 
-.upload-img {margin-top: 30px;} 
+.upload-img {margin-top: 30px;}
 .upload-img ul{margin: 0; list-style: none; width: 100%；}
 .upload-img ul li{ position: relative; margin:0 5px 5px 0; padding: 4px; border:2px solid #eeeeee; border-radius: 5px; background-color: #ffffff; text-align: center; width: 30%;}
 .upload-img ul li:focus,
@@ -67,7 +67,7 @@
 .module-searchinput{ padding: 10px 20px;}
 .module-searchinput form{ margin: 0;}
 .module-searchinput input{ width: 80%; height: 50px;font: 24px/50px "microsoft yahei"; text-indent: 44px;}
-.module-searchinput .btn{ background:white; color: #F86B9F; padding: 18px 24px; font-size: 22px;}
+.module-searchinput .btn{ background:white; color: #F86B9F; padding: 14px 24px; font-size: 22px;}
 .bg-img{background:url(/images/ims/search.png) 10px center no-repeat transparent;}
 .module-tab .nav-tabs { margin: 0; background: white; width: 100%;}
 .module-tab .nav-tabs > li{ width: 33.3%; text-align: center;}
