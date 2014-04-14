@@ -109,7 +109,7 @@
               <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: @order["orderno"], class: "btn btn-grey btn-large btn-block" %>
             </div>
             <div class="col-12" style="<%= @order[:canrma] ? "display: inline;" : "display: none;" %>">
-              <%= link_to '申请退货', new_ims_order_returns_reason_path(@order["orderno"]), class: "btn btn-grey btn-large btn-block", id: "rmas" %>
+              <%= link_to '申请退货', new_ims_order_returns_reason_path(@order["orderno"]), class: "btn btn-danger btn-large btn-block", id: "rmas" %>
             </div>
 
             <div class="col-12" style="<%= @current_rmas.present? ? "display: inline;" : "display: none;" %>">
