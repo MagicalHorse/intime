@@ -110,12 +110,52 @@
 
 </div>
 </div>
+<script type="text/javascript">
+var check_form = function(){
+      var image_fields = $("#img_box li[class!='add-link']");
+      var product_image_fields = $("#p_box li");
+      verify_image1 = image_fields.length < 2;
+      verify_image2 = image_fields.length > 5;
+      verify_product1 = product_image_fields.length < 3;
+      verify_product2 = product_image_fields.length > 4;
+      var desc_length = $("#combo_desc").val().length;
+      var status = true;
 
+      if(verify_image1){
+        error_modal("主图必须至少有2张");
+        status = false;
+      }
+      if(verify_image2){
+        error_modal("主图最多有5张");
+        status = false;
+      }
+      if(verify_product1){
+        error_modal("商品搭配至少要由2个组成"); 
+        status = false;
+      }
+      if(verify_product2){
+        error_modal("商品搭配最多由3个组成");  
+        status = false;
+      }
+      if(verify_image1 || verify_image2){
+        status = false;
+      }
+      if(desc_length < 20){
+        error_modal("商品描述最少20个字");   
+        status = false;
+      }
+      if(desc_length > 128){
+        error_modal("商品描述最多128个字");   
+        status = false;
+      }
+      return status;
+    }
+    </script>
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
   $(function(){
     <% if @remote_combo.blank? && @online_num >= current_user.max_comboitems %>
-      $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>搭配上架数量已到上限</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' onclick='window.location.href=\"/ims/store/sells#combos\"' >OK</a></div>")
+      $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>搭配上架数量已到上限</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' onclick='window.location.href=\"/ims/store/sells?combos=true\"' >OK</a></div>")
       $("#ex2").modal();
     <% end %>
 
@@ -130,6 +170,7 @@
       })
     })
 
+
     $("#combo_form").on("submit", function(){
       var image_fields = $("#img_box li[class!='add-link']");
       var product_image_fields = $("#p_box li");
@@ -138,36 +179,37 @@
       verify_product1 = product_image_fields.length < 3;
       verify_product2 = product_image_fields.length > 4;
       var desc_length = $("#combo_desc").val().length;
+      var status = true;
 
       if(verify_image1){
         error_modal("主图必须至少有2张");
-        return false;
+        status = false;
       }
       if(verify_image2){
         error_modal("主图最多有5张");
-        return false;
+        status = false;
       }
       if(verify_product1){
         error_modal("商品搭配至少要由2个组成"); 
-        return false;
+        status = false;
       }
       if(verify_product2){
         error_modal("商品搭配最多由3个组成");  
-        return false;
+        status = false;
       }
       if(verify_image1 || verify_image2){
-        return false
+        status = false;
       }
       if(desc_length < 20){
         error_modal("商品描述最少20个字");   
-        return false;
+        status = false;
       }
       if(desc_length > 128){
         error_modal("商品描述最多128个字");   
-        return false;
+        status = false;
       }
-
-    })
+      return status;
+    });
 
 
     $("#add a").click(function(){
@@ -209,8 +251,9 @@
               img_size = $("#img_box li[class!='add-link']").length;
               if(img_size == 5){$("#add_img").hide();}
               
-              format_img(".show-imgbox-yes");
-              format_img(".mini-imgbox li");
+               format_img(".show-imgbox-no");
+               format_img(".img-spa");
+               format_img(".show-imgbox-yes");
             }, 800);
           }else{
             error_modal("网络错误，请稍后重试");
@@ -264,22 +307,23 @@
      });
 
      $(".preview").click(function(){
-         desc = $("#combo_desc").val();
-         private_to = $("#combo_private_to").val();
-
-         $.ajax({
-           url: "<%=update_desc_ims_store_combo_path(@combo)%>",
-           method: 'put',
-           data: {"desc": desc, "private_to": private_to},
-           success: function(response){
-             self.location="/ims/store/combos/<%=@combo.id%>/preview";
-           }
-         });
+         status = check_form();
+           desc = $("#combo_desc").val();
+           private_to = $("#combo_private_to").val();
+         if(status != "false"){
+           $.ajax({
+             url: "<%=update_desc_ims_store_combo_path(@combo)%>",
+             method: 'put',
+             data: {"desc": desc, "private_to": private_to},
+             success: function(response){
+               self.location="/ims/store/combos/<%=@combo.id%>/preview";
+             }
+           });
+         }   
        })
      
      format_img(".show-imgbox-no");
-     format_img(".upload-img li");
-     format_img(".mini-imgbox li .img-spa");
+     format_img(".img-spa");
      format_img(".show-imgbox-yes");
     
   });
