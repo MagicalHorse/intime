@@ -29,6 +29,7 @@ class Ims::CardsController < Ims::BaseController
 
   # 获赠礼品卡
   def gift_page
+    @can_share = true
     @title = "获赠礼品卡"
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
