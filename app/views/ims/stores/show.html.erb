@@ -71,6 +71,7 @@
 		                    	<a class="img-box img-posi" href="<%= ims_combo_path(id: combo["Id"]) %>">
                                     <img src="<%= combo['Image'].present? ? combo['Image'] : Settings.default_image_url.product.middle %>" alt="">
                                     <img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
+                                    <p><a href="#"><%= combo["Desc"] %></a></p>
 		                    </div>
                     	</div>
 	                    <!-- <div class="span4">
@@ -85,10 +86,10 @@
 	                    </div> -->
                     </div>
                 </div>
-                <p><a href="#"><%= combo["Desc"] %></a></p>
-                <div class="clearfix">
+                
+                <div class="clearfix suit-left">
                     <p class="pull-left price-box">
-                        <span>打包价：<em>¥<%= combo["Price"] %></em></span>
+                        <span class="txt3 price">打包价：<em>¥<%= combo["Price"] %></em></span>
                     </p>
                     <p class="pull-left price-box">
                         <% if combo["ExpiredIn"].present? %>
