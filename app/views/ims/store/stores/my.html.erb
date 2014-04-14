@@ -123,9 +123,9 @@
         <div class="span3"><a class="nav3" href="/ims/store/incomes/my">我的收益</a></div>
         <div class="span3">
           <div class="btn-group dropup">
-            <a href="javascript:void(0);" class="btn btn-link dropdown-toggle nav4" data-toggle="dropdown">更多</a>
+            <a href="javascript:void(0);" class="btn btn-link dropdown-toggle nav4">更多</a>
 
-            <ul class="dropdown-menu pull-right bottom-caret">
+            <ul class="dropdown-menu pull-right bottom-caret" id="nav-menu">
               <li class="nav-down1"><a href="/ims/store/stores/<%= @store[:data][:id] %>/edit">编辑资料</a></li>
               <li class="nav-down2"><a href="/ims/store/stores/theme">更换主题</a></li>
               <li class="nav-down3"><a href="/ims/store/suggesstions/new">意见反馈</a></li>
@@ -139,4 +139,8 @@
   <script type="text/javascript">
    format_img(".shop-logo");
    format_img(".img-spa");
+
+   $(".dropdown-toggle").click(function(){
+          $("#nav-menu").toggle(); 
+   });
   </script>
