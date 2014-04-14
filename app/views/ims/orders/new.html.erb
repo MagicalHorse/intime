@@ -1,3 +1,4 @@
+<% value = (request.host == "localhost" ? 'nil' : nil) %>
 <%= form_tag ims_orders_path, id: "new_order_form", style: "display: none;" do %>
 
   <% @products.each_with_index do |product, index| %>
@@ -17,10 +18,10 @@
 
   <%= hidden_field_tag "order[payment[paymentcode]]", 29 %>
   <%= hidden_field_tag "order[payment[paymentname]]", "微信支付" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", 'nil', id: "name" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", 'nil', id: "contact" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", 'nil', id: "zipcode" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", 'nil', id: "address" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", value, id: "name" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", value, id: "contact" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", value, id: "zipcode" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", value, id: "address" %>
   <%= hidden_field_tag "order[needinvoice]", false %>
 
 
@@ -318,6 +319,7 @@
         "order[payment[paymentname]]": {
           required: true
         },
+        <% if nil %>
         "order[shippingaddress[shippingcontactperson]]": {
           required: true
         },
@@ -327,6 +329,7 @@
         "order[shippingaddress[shippingzipcode]]": {
           required: true
         },
+        <% end %>
         "order[shippingaddress[shippingaddress]]": {
           required: true
         },
@@ -341,6 +344,9 @@
         "order[products][][properties][colorvalueid]": {
           required: "请选择颜色"
         },
+        "order[shippingaddress[shippingaddress]]": {
+          required: "请选择地址"
+        }
       },
       showErrors: function(errorMap, errorList) {
         var msg = "";
