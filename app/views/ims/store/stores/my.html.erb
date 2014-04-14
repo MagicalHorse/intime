@@ -65,7 +65,7 @@
                                 <a class="img-box img-posi" href="<%= ims_combo_path(id: combo["Id"], :store_id => @store[:data][:id]) %>">
                                     <img src="<%= combo['Image'].present? ? combo['Image'] : Settings.default_image_url.product.middle %>" alt="">
                                     <img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
-                                    <p><a href="#"><%= combo["Desc"] %></a></p>
+                                    <p><a href="<%= ims_combo_path(id: combo["Id"], :store_id => @store[:data][:id]) %>"><%= combo["Desc"] %></a></p>
                             </div>
                         </div>
                         <!-- <div class="span4">
