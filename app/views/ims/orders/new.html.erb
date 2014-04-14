@@ -252,7 +252,8 @@
         un_select_doc.text("请选择颜色，尺码 ")
         selected_doc.hide()
       }
-      modal_doc.modal("hide")
+      modal_doc.find(".close").trigger("click")
+      // modal_doc.modal("hide")
     })
 
     $(document).on("click", ".salecolors li a", function(){
