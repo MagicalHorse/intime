@@ -1,5 +1,10 @@
+<style type="text/css">
+.swiper-container {
+  margin-bottom: 12px;
+}
+</style>
 <%= render 'ims/shared/countdown' %>
-<div class="wrap-inner back-wrap-inner">
+<div class="wrap-inner back-wrap-inner min-height">
     <div class="module module-color-white clearfix">
       <div class="row-fluid">
         <div class="span12">
@@ -80,8 +85,8 @@
                长期有效
             </span>
           <% end %>    
-              <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
-              <span class="txt4 pull-right txt-red" id="unfavor_combo"><i class="fa fa-star"></i> 已收藏</span>
+          <span class="txt4 pull-right txt-red" id="unfavor_combo"><a href="javascript:void(0)"><i class="fa fa-star"></i> 已收藏</a></span>
+          <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
           </p>  
       </div>
     </div>
@@ -115,9 +120,9 @@
   });
 
     <% if @remote_combo[:data][:is_favored] %>
-    $("#unfavor_combo").hide();
-    <% else %>
     $("#favor_combo").hide();
+    <% else %>
+    $("#unfavor_combo").hide();
     <% end %>
 
     $("#favor_combo").click(function(){
