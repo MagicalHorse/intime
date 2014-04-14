@@ -1,7 +1,7 @@
 <div class="module module-white">
 
   <div class="module-form form-padding">
-    <%= form_tag ims_card_orders_path, id: "new_card_order", class: "form-block-label", remote: true, method: 'post' do %>
+    <%= form_tag ims_card_orders_path, id: "card_orders_form", class: "form-block-label", remote: true, method: 'post' do %>
     <%= hidden_field_tag :store_id, params[:store_id] %>
     <div class="form-label">
       <span class="txt1">请选择购卡金额</span>
@@ -14,11 +14,10 @@
         <input id="is_accept" name="is_accept" type="checkbox" value="1" class="valid">我已阅读并同意<%= link_to "《银泰礼品卡服务协议》", agreement_ims_cards_path %>
       </label>
     </div> 
-    <div class="module-btn text-center">
-      <%= submit_tag "确认购买", class: "btn btn-large btn-danger btn-block", id: "submit_card_orders", "data-disable-with" => "购买中..." %>
-    </div>
-
     <% end %>
+    <div class="module-btn text-center">
+      <%= button_tag "确认购买", class: "btn btn-large btn-danger btn-block", id: "submit_card_orders" %>
+    </div>
     <div class="module module-notice">
       <h4 class="txt-grey"><i class="fa fa-exclamation-circle"></i> 注意事项：</h4>
       <ol>
@@ -27,7 +26,6 @@
         <li>购买后您可以选择转送好友或者自己充值。</li>
       </ol>
     </div>
-
   </div>
 
 </div> 
@@ -39,10 +37,10 @@
     $("#submit_card_orders").click(function(){
       if( $("input[name='money']:checked").val() == undefined ){
         error_modal('请选择礼品卡');
-        return false;
       }else if( $("#is_accept").prop("checked") == false ){
         error_modal('您必须同意礼品卡服务协议');
-        return false;
+      }else{
+        $("#card_orders_form").submit();
       }
     })
   });
