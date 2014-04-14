@@ -22,7 +22,7 @@ class Ims::Combo < Ims::Base
    end
 
    def online_num(req, params = {})
-      post(req, params.merge(path: 'associate/combos_online_count'))
+      post(req, params.merge(path: 'assistant/combos_online_count'))
    end
  end
 
