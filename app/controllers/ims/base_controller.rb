@@ -23,7 +23,7 @@ class Ims::BaseController < ApplicationController
 
   def wx_auth!
     # TODO 上线前，去掉下列判断，只保留抛异常的部分
-    if request.host != "test.ngrok.com"
+    if request.host != "test.ngrok.com" and request.host != "114.215.179.76"
       session[:user_token] = nil
       get_token_from_api(request) unless session[:user_token]
     else
