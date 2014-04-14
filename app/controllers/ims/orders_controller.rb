@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class Ims::OrdersController < Ims::BaseController
   def index
     @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 4)
@@ -11,17 +12,17 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def new
+
     if params[:product_id].present?
       @product = API::Order.new(request, productid: params[:product_id])[:data]
       @salecolors = @product[:salecolors]
-      @sizes = @salecolors.first[:sizes]
+      @sizes = @salecolors.try(:first).try(:[], :sizes)
       @products = [@product]
       @order = API::Order::computeamount(request, productid: params["product_id"], quantity: 1)[:data]
     elsif params[:combo_id].present?
       @products = Ims::Order.new(request, id: params[:combo_id])[:data][:items]
       @order = Ims::Order::computeamount(request, combo_id: params["combo_id"], quantity: 1)[:data]
     end
-
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     access_token  = cookies[:user_access_token]
@@ -57,7 +58,8 @@ class Ims::OrdersController < Ims::BaseController
   def payments
     @orderno = params[:id]
     @from_page = params[:from_page]
-    price = 0.01
+    # price = 0.01
+    price = params[:money]
     # @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
     @out_trade_no = @orderno

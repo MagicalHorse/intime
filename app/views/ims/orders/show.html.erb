@@ -1,9 +1,9 @@
 <div class="wrap-content">
   <% if @order[:statust].zero? %>
   <div class="order-notice" id="order-notice">
-    <h3 class="text-center">
+    <h4 class="text-center">
       <i class="fa fa-exclamation-circle"></i> 请在1小时内完成支付，过时订单将会自动取消！
-    </h3>
+    </h4>
   </div>
   <% end %>
 
@@ -69,8 +69,14 @@
          <div class="row-fluid">
              <div class="span12">
                  <div class="detail-block detail-contact-bd">
-                     <p class="txt4 txt-bd clearfix"><span class="pull-left"><i class="fa fa-money"></i><b>支付方式：</b><i><%= @order["paymentname"] %></i></span></p>
+                     <p class="txt4 txt-bd clearfix">
+                     <span class="pull-left">
+                       <i class="fa fa-money"></i><b>支付方式：</b><i><%= @order["paymentname"] %></i>
+                     </span>
+                     </p>
+                     <% if nil %>
                      <p class="txt4"><span><i class="fa fa-asterisk"></i><b>订单备注：<%= @order["memo"] %></b></span></p>
+                     <% end %>
                  </div>
              </div>
          </div>

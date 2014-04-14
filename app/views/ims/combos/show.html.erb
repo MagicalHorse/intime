@@ -32,7 +32,9 @@
 
                 <div class="span4">
                   <div class="combos-product">
+                    <span class="img-span">
                     <img src="<%= product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>">
+                    </span>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
                     <a class="btn btn-danger btn-mini btn-block" href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">点击购买</a>
                   </div>
@@ -135,6 +137,8 @@
         $("#unfavor_combo").hide();
         $("#favor_combo").show();
     })
+
+    format_img(".img-span");
 
   })
 </script>

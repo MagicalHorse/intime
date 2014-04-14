@@ -41,7 +41,7 @@
   <% @products.each_with_index do |product, index| %>
   <% salecolors = product[:salecolors] %>
   <% sizes = salecolors.first.try(:[], :sizes) || [] %>
-  <div class="module common-white <%= 'common-opacity' if salecolors.blank? %> ">
+  <div class="module common-white">
      <div class="row-fluid">
          <div class="span3">
              <div class="detail-imgbox">
@@ -64,9 +64,11 @@
             </div>
           </div>
           <div class="span2">
+            <% if salecolors.present? %>
             <div class="text-right">
               <a class="ellipsis" href="#myModal<%=index%>" data-toggle="modal">•••</a>
             </div>
+            <% end %>
               <div id="myModal<%=index%>" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" index="<%= index %>">
                 <form>
                 <div class="modal-header">

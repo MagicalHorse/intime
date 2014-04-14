@@ -36,8 +36,8 @@
 		 		<div class="span7">
 		 			<div class="row-fluid">
 		 				<div class="span5">
-              <div class="image_box">
-                 <%= image_tag(@store[:data][:logo], id: 'face_img') %>
+              <div class="shop-logo">
+                 <%=link_to image_tag(@store[:data][:logo]), edit_ims_store_store_path(id: @store[:data][:id]) %>
               </div>
 		 				</div>
 		 				<div class="span7"><h2 class="shop-name"><%= @store[:data][:name] %></h2></div>
@@ -164,3 +164,6 @@
       </div>
     </div>
   </footer>
+  <script type="text/javascript">
+   format_img(".shop-logo");
+  </script>
