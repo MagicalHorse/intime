@@ -251,8 +251,9 @@ var check_form = function(){
               img_size = $("#img_box li[class!='add-link']").length;
               if(img_size == 5){$("#add_img").hide();}
               
-              format_img(".show-imgbox-yes");
-              format_img(".mini-imgbox li");
+               format_img(".show-imgbox-no");
+               format_img(".img-spa");
+               format_img(".show-imgbox-yes");
             }, 800);
           }else{
             error_modal("网络错误，请稍后重试");
@@ -322,8 +323,7 @@ var check_form = function(){
        })
      
      format_img(".show-imgbox-no");
-     format_img(".upload-img li");
-     format_img(".mini-imgbox li .img-spa");
+     format_img(".img-spa");
      format_img(".show-imgbox-yes");
     
   });
