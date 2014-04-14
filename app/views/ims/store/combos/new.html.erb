@@ -27,10 +27,10 @@
     <div class="mini-imgbox">
         <ul class="inline" id="img_box">
             <% @combo.combo_pics.each do |pic| %>
-            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><span class="img-span"><img src='<%= pic.url -%>'></span></li>
+            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><span class="img-spa"><img src='<%= pic.url -%>'></span></li>
             <% end %>
             <% if @combo.combo_pics.size < 5 %>
-            <li class="add-link" id="add_img"><span class="img-span"><a href="javascript:void(0);" ><img src="/images/ims/add-img.png"></a></span></li>
+            <li class="add-link" id="add_img"><span class="img-spa"><a href="javascript:void(0);" ><img src="/images/ims/add-img.png"></a></span></li>
             <% end %>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*"></div>
         </ul>
@@ -47,10 +47,10 @@
     <div class="upload-img">
         <ul class="inline" id="p_box">
           <% @combo.combo_products.each do |product| %>
-            <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><span class="img-span"><img src="<%= product.img_url %>"></span></li>
+            <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><span class="img-spa"><img src="<%= product.img_url %>"></span></li>
           <% end %>
           <% if @combo.combo_products.size < 3 %>
-          <li class="add-link"><span class="img-span"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></span></li>
+          <li class="add-link"><span class="img-spa"><a href="javascript:void(0);" id="add_product"><img src="/images/ims/add-img.png"></a></span></li>
           <% end %>
         </ul>
     </div>
@@ -202,7 +202,7 @@
           if(data.result['status'] == 1){
             $("#loading-box").modal('hide');
             setTimeout(function(){
-              $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><span class='img-span'><img src='"+data.result['img']+"'></span></li>");
+              $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><span class='img-spa'><img src='"+data.result['img']+"'></span></li>");
               $("#default_img").addClass("show-imgbox-yes");
               $("#default_img").removeClass("show-imgbox-no");
               $("#default_img").html("<img src='"+data.result['img']+"'>");
