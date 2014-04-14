@@ -14,12 +14,13 @@
 
 .mini-imgbox {margin-top: 50px;}
 .mini-imgbox ul{margin: 0; list-style: none; width: 100%；}
-.mini-imgbox ul li{ position: relative; margin:0 5px 5px 0; padding: 0; font-size: 1px; border:2px dashed #eeeeee; background-color: #ffffff; width: 18%; text-align: center;}
+.mini-imgbox ul li{ position: relative; margin:0 5px 5px 0; padding: 0; font-size: 1px; background-color: #ffffff; width: 18%; text-align: center;}
 .mini-imgbox ul li:last-child{ margin-right: 0;}
-.mini-imgbox ul li:focus,
-.mini-imgbox ul li:hover,
-.mini-imgbox ul li:active{ border:2px solid #f86b9f;}
-.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.mini-imgbox ul li .img-spa{ border:2px dashed #eeeeee; font-size: 1px;  background-color: #ffffff; overflow: hidden; text-align: center;}
+.mini-imgbox ul li .img-spa:focus,
+.mini-imgbox ul li .img-spa:hover,
+.mini-imgbox ul li .img-spa:active{ border:2px solid #f86b9f;}
+.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background:url(../images/delate.png) center center no-repeat transparent; background-size: 24px auto;}
 .mini-imgbox ul li img{ width: auto; height: auto;}
 .mini-imgbox ul li.add-link a{ display: block;}
 .mini-imgbox .img-spa{ margin: 0; display: inline-block; width: 100%; height: 100%; overflow: hidden; text-align: center;}
