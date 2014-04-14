@@ -10,7 +10,7 @@
  			<div class="row-fluid">
 		 		<div class="span7">
 		 			<div class="row-fluid">
-              <div class="span5"><span class="img-span"><img class="img-polaroid face-img" src="<%= @store[:data][:logo] %>"></span></div>
+              <div class="span5"><span class="img-spa"><img class="face-img" src="<%= @store[:data][:logo] %>"></span></div>
 		 				<div class="span7"><h2 class="shop-name"><%= @store[:data][:name].present? ? @store[:data][:name] : "暂无店铺名称" %></h2></div>
 		 			</div>
 		 		</div>
@@ -138,5 +138,5 @@
   </footer>
   <script type="text/javascript">
    format_img(".shop-logo");
-   format_img(".img-span");
+   format_img(".img-spa");
   </script>
