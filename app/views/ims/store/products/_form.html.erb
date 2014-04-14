@@ -82,12 +82,8 @@
               </div>
           </div>
 
-          <div id="loading" class="text-center" style="display: none;">
-            <img src='/images/ims/loading.gif'/>
-          </div>
-
           <div class="controls-defined defined-small" id="size_ids_wrapper" style="<%= @product.try(:[], :size_type) == 1 ? 'display: inline;' : 'display: none;' %>">
-            <label class="col-4 text-right"><abbr class="txt-red">*</abbr>尺码：</label>
+            <label class="col-4 text-left"><abbr class="txt-red">*</abbr>尺码：</label>
             <div class="col-8">
               <span class="goods-size">
                   <% @sizes.each do |size| %>
@@ -140,6 +136,9 @@
 </div>
 </div>
 
+<div class="loading" style="display: none;">
+  <img src='/images/ims/loading.gif'/>
+</div>
 
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
@@ -155,6 +154,9 @@
           return false
         }else{
           $("#size_ids_wrapper .error").remove()
+          if($("#product_form").valid()){
+            $(".loading").show()
+          }
         }
       }
     })
@@ -187,7 +189,6 @@
     })
 
     $("#product_form").validate({
-      ignore: "",
       rules: {
         <% if params[:action] == "new" %>
         "image": {
@@ -211,6 +212,9 @@
           required: true
         },
         "size_ids": {
+          required: true
+        },
+        "size_str": {
           required: true
         }
       },
@@ -245,7 +249,7 @@
         $("#size_str_wrapper").hide()
       }else{
 
-        $("#loading").show()
+        $(".loading").show()
         $.get("/ims/store/dicts/product_sizes", {category_id: category_id}, function(data){
           if(data["size_type"] == 1){
             $("#size_ids_wrapper").show()
@@ -260,7 +264,7 @@
             $("#size_ids_wrapper").hide()
             $("#size_str_wrapper").show()
           }
-          $("#loading").hide()
+          $(".loading").hide()
         }, "json")
       }
     })
