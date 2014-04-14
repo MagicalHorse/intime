@@ -145,18 +145,14 @@
   $(function(){
 
     $("#product_form").on("submit", function(){
-      error = '<span class="error">不能为空</span>'
+      error = '尺码不能为空'
       if(!$("#size_ids_wrapper").is(":hidden")){
         if($("input[name='size_ids[]']").length == 0){
           if($("#size_ids_wrapper .error").length == 0){
-            $("#size_ids_wrapper .goods-size").after(error)
+            error_modal(error)
+            // $("#size_ids_wrapper .goods-size").after(error)
           }
           return false
-        }else{
-          $("#size_ids_wrapper .error").remove()
-          if($("#product_form").valid()){
-            $(".loading").show()
-          }
         }
       }
     })
@@ -189,6 +185,10 @@
     })
 
     $("#product_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
       rules: {
         <% if params[:action] == "new" %>
         "image": {
@@ -218,6 +218,44 @@
           required: true
         }
       },
+      messages: {
+        <% if params[:action] == "new" %>
+        "image": {
+          required: "图片不能为空"
+        },
+        <% end %>
+        "brand_id": {
+          required: "品牌不能为空"
+        },
+        "coding_id": {
+          required: "销售编码不能为空"
+        },
+        "sku_code": {
+          required: "货号不能为空"
+        },
+        "price": {
+          required: "微信价不能为空",
+          number: "微信价只能是数字"
+        },
+        "category_id": {
+          required: "分类不能为空"
+        },
+        "size_ids": {
+          required: "尺码不能为空"
+        },
+        "size_str": {
+          required: "规格不能为空"
+        }
+      },
+      showErrors: function(errorMap, errorList) {
+        var msg = ""
+        $.each(errorList, function(i,v){
+          msg += (v.message+"\r\n")
+        })
+        if(msg!=""){
+          error_modal(msg);
+        }
+      },
       errorPlacement:function(error, element){
         if(element.attr("id") == "input"){
           $("#img_error_notice").html(error)
@@ -225,6 +263,7 @@
           element.after(error)
         }
       }
+
 
     })
 
