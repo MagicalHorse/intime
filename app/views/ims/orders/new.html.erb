@@ -150,7 +150,7 @@
 
 
   <% end %>
-      <div class="module common-white">
+      <div class="module common-white" id="address_doc">
          <div class="row-fluid">
              <div class="span12">
 
@@ -386,13 +386,24 @@
     // 获取送货地址、送货人等
 
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+      load_address()
+    })
+
+
+
+    $("#address_doc").on("click", function(){
+      load_address()
+    })
+
+
+    var load_address = function(){
       WeixinJSBridge.invoke('editAddress',{
-        appId: "<%= Settings.wx.appid %>",
-        scope: "jsapi_address",
-        signType: "sha1",
-        addrSign: "<%= raw @addrSign_val %>",
-        timeStamp: "<%= @timeStamp_val %>",
-        nonceStr: "<%= @nonceStr_val %>"
+      appId: "<%= Settings.wx.appid %>",
+      scope: "jsapi_address",
+      signType: "sha1",
+      addrSign: "<%= raw @addrSign_val %>",
+      timeStamp: "<%= @timeStamp_val %>",
+      nonceStr: "<%= @nonceStr_val %>"
       },function(res){
       //若 res 中所带的返回值不为空，则表示用户选择该返回值作为收货地址。否则若返回空，则表示用户取消了这一次编辑收货地址。
         if(res.err_msg == "edit_address:ok"){
@@ -411,10 +422,11 @@
           $("#contact_select_wrapper").hide()
           $("#contact_wrapper").show()
         }else{
-          alert("获取地址失败")
+
         }
       })
-    })
+    }
+
   })
 </script>
 <% end %>

@@ -1,29 +1,4 @@
 <%= render 'ims/shared/countdown' %>
-<style type="text/css">
-  .image_box {
-    width: 131px;
-    height: 131px;
-    text-align: center;
-    border: 1px solid #ccc;
-  }
-
-  .image_box img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-  }
-
-  @media screen and (max-width: 580px) {
-    .image_box {
-    width: 96px;
-    height: 96px;
-    text-align: center;
-    border: 1px solid #ccc;
-   }    
-  }
-
-</style>
 <div class="wrap-inner back-wrap-inner">
 <header id="TOP">
  <div class="header-box">
@@ -35,12 +10,8 @@
  			<div class="row-fluid">
 		 		<div class="span7">
 		 			<div class="row-fluid">
-		 				<div class="span5">
-              <div class="shop-logo">
-                 <%=link_to image_tag(@store[:data][:logo]), edit_ims_store_store_path(id: @store[:data][:id]) %>
-              </div>
-		 				</div>
-		 				<div class="span7"><h2 class="shop-name"><%= @store[:data][:name] %></h2></div>
+              <div class="span5"><img class="img-polaroid face-img" src="<%= @store[:data][:logo] %>"></div>
+		 				<div class="span7"><h2 class="shop-name"><%= @store[:data][:name].present? ? @store[:data][:name] : "暂无店铺名称" %></h2></div>
 		 			</div>
 		 		</div>
 		 		<div class="span5">
@@ -89,14 +60,14 @@
             <div class="module-content module-content-img">
                 <div class="suit-box clearfix">
                     <div class="row-fluid">
-                        <div class="span8">
+                        <div class="span12">
                             <div class="suit-left">
                                 <a class="img-box img-posi" href="<%= ims_combo_path(id: combo["Id"], :store_id => @store[:data][:id]) %>">
                                     <img src="<%= combo['Image'].present? ? combo['Image'] : Settings.default_image_url.product.middle %>" alt="">
                                     <img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
                             </div>
                         </div>
-                        <div class="span4">
+                        <!-- <div class="span4">
                             <div class="suit-right">
                                 <% if combo["ProductImages"].size > 0 %>
                                  <% combo["ProductImages"].each do |pic| %>
@@ -105,7 +76,7 @@
                                 <% end %>
                                 <% end %>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <p><a href="#"><%= combo["Desc"] %></a></p>

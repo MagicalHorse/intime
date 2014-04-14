@@ -19,7 +19,12 @@
            <div class="span9">
                <div class="price-detail">
                    <h3><%= link_to product["name"], ims_store_product_path(product["id"]) %></h3>
-                   <p class="txt3 clearfix"><span class="pull-left">微信价：<em>￥<%= product["price"] %></em></span><span class="pull-right">数量：<%= product["quantity"] %></span></p>
+                   <p class="txt3 clearfix">
+                     <span class="pull-left">微信价：<em>￥<%= product["price"] %></em></span>
+                     <% if nil %>
+                     <span class="pull-right">数量：<%= product["quantity"] %></span>
+                     <% end %>
+                   </p>
                </div>
            </div>
         </div>
@@ -37,6 +42,7 @@
           </p>
           <p class="txt4 clearfix"><span><b>下单时间：<%= l order['create_date'].to_time %></b></span></p>
           <p class="immediate-payment">
+            <%= link_to "订单详情", ims_orders_show_path(id: order["order_no"]), class: "btn btn-danger btn-mini payment" %>
             <% if order["status_i"] == 0 %>
             <a class="btn btn-danger btn-mini payment" href="javascript:void(0);" orderno="<%= order['order_no'] %>" amount="<%= order["amount"] %>">立即支付</a>
             <% end %>
