@@ -22,7 +22,8 @@ class Ims::CardsController < Ims::BaseController
         # API_NEED: 根据礼品卡号，获取礼品卡相关信息
         @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"] || {}
       else
-        p @result[:message]
+        @card = {}
+        logger.info(@result[:message])
       end
     else
       # 如果未绑定，则跳至绑卡页面
