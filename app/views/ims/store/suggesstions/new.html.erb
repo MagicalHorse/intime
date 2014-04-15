@@ -42,6 +42,7 @@
         if($("#new_suggesstion").valid()){
           content = $("#content").val()
           $.post("/ims/store/suggesstions", {content: content}, function(data){
+            $("#loading-box").modal('hide');
             if(data["status"] == true){
               $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>意见反馈成功</div><a class='btn btn-danger btn-small btn-block btn-modal' data-dismiss='modal' aria-hidden='true'>OK</a></div>");
               $("#ex2").modal();
@@ -74,6 +75,10 @@
                     delay: { show: 500, hide: 5000 }
                 }).tooltip('show');
             });
+        },
+        submitHandler: function(form) {
+          $("#loading-box").modal();
+          $(form).ajaxSubmit();
         }
       })
 

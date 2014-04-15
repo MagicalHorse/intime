@@ -40,8 +40,8 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def records
-    @giftcards = Ims::Store.giftcard_records(request)
-    @orders = Ims::Store.order_records(request)
+    @giftcards = Ims::Store.giftcard_records(request, page: params[:gift_card_page] || 1, pagesize: params[:gift_card_per_page] || 3)
+    @orders = Ims::Store.order_records(request, page: params[:order_page] || 1, pagesize: params[:order_per_page] || 3)
     @title = "成交记录"
   end
 
