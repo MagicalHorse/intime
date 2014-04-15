@@ -67,6 +67,10 @@
                 delay: { show: 500, hide: 5000 }
             }).tooltip('show');
         });
+      },
+      submitHandler: function(form) {
+        $("#loading-box").modal();
+        $(form).ajaxSubmit();
       }
     });
 
@@ -78,7 +82,9 @@
       url: "<%= change_logo_ims_store_stores_path %>",
       type: 'post',
       dataType: 'json',
-
+      beforeSend: function(){
+        $("#loading-box").modal();
+      },
       fileuploadfail: function(e, data){
         alert(e);
       },
@@ -86,6 +92,7 @@
         alert(e);
       },
       done: function(e, data){
+        $("#loading-box").modal('hide');
         if(data.result['status'] == 1){
           setTimeout(function(){
             $("#logo").html("<img src="+data.result['img']+" class='img-rounded'/>")

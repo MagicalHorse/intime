@@ -7,15 +7,15 @@
     <%= form_tag(@path, class: "form-defined", :method => 'get') do %>
     <div class="controls-defined defined-small">
       <div class="col-6">
-        <%= text_field_tag "sms_code", "", class: "input-verify-code", placeholder: "请填写验证码" %>
+        <%= text_field_tag "sms_code", "", type: 'number', class: "input-verify-code", placeholder: "请填写验证码" %>
       </div>
       <div class="col-6">
         <div class='btn btn-danger btn-small btn-block' id="count_down"><span id="num">60</span>秒后重新发送</div>
         <div class='btn btn-danger btn-small btn-block' id="resend" style="display:none; margin-top: 0px;">重新获取验证码</div>
       </div>
     </div>
-    <button class="btn btn-danger btn-large btn-block next-btn">下一步</button>
     <% end %>
+    <button class="btn btn-danger btn-large btn-block next-btn" id="verify_phone_button">下一步</button>
   </div>
 </div>
 <div id="myModal" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
@@ -43,9 +43,19 @@
       }, "text");
     })
 
-    <% if flash[:notice].present? %>
-    error_modal('<%= flash[:notice] %>');
-    <% end %>
+    // 验证手机号
+    $("#verify_phone_button").click(function(){
+      var sms_code = $("#sms_code").val();
+      $.get("<%= @path %>", {
+        "sms_code": sms_code
+      },function(res){
+        if(res.notice){
+          error_modal(res.notice);
+        }else{
+          window.location.href = res.url;
+        }
+      }, "json");
+    })
 
   });
 </script>

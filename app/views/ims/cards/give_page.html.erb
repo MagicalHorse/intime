@@ -17,13 +17,13 @@
     <div class="controls-defined defined-small">
       <label class="col-12 text-left"><i class="fa fa-pencil-square-o"></i>对好友留言</label>
       <div class="col-12">
-        <%= text_area_tag :comment, "", rows: 3, placeholder: "说点什么吧..." %>
+        <%= text_area_tag :comment, params[:comment], rows: 3, placeholder: "说点什么吧..." %>
       </div>
     </div>
     <div class="controls-defined defined-small">
       <label class="col-5 text-left"><i class="fa fa-phone"></i>好友联系方式</label>
       <div class="col-7">
-        <%= text_field_tag :phone, "", placeholder: "请输入11位手机号码" %>
+        <%= text_field_tag :phone, params[:phone], placeholder: "请输入11位手机号码" %>
       </div>
     </div>
     <button type="submit" class="btn btn-danger btn-large btn-block">确认赠送</button>

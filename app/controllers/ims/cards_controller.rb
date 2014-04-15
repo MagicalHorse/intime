@@ -52,9 +52,8 @@ class Ims::CardsController < Ims::BaseController
   def give
     @charge_no = params[:charge_no]
     @notice = "请输入对方正确的手机号" unless params[:phone][/^\d{11}$/]
-    @notice = "请输入内容" if params[:comment].blank?
     if @notice
-      redirect_to "#{give_page_ims_cards_path}?charge_no=#{@charge_no}", notice: @notice
+      redirect_to "#{give_page_ims_cards_path(charge_no: @charge_no, phone: params[:phone], comment: params[:comment])}", notice: @notice
     else
       # API_NEED: 赠送礼品卡接口
       @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from_phone: params[:from_phone])

@@ -61,7 +61,7 @@
         <div class="row-fluid">
             <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>搭配描述</h3></div>
             <div class="span8">
-                <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多128，最少20个字符</small></div>
+                <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多128，最少10个字符</small></div>
             </div>
         </div>
     </div>
@@ -140,8 +140,8 @@ var check_form = function(){
       if(verify_image1 || verify_image2){
         status = false;
       }
-      if(desc_length < 20){
-        error_modal("商品描述最少20个字");   
+      if(desc_length < 10){
+        error_modal("商品描述最少10个字");   
         status = false;
       }
       if(desc_length > 128){
@@ -155,8 +155,8 @@ var check_form = function(){
 <script type="text/javascript" charset="utf-8">
   $(function(){
     <% if @remote_combo.blank? && @online_num >= current_user.max_comboitems %>
-      $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>搭配上架数量已到上限</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' onclick='window.location.href=\"/ims/store/sells?combos=true\"' >OK</a></div>")
-      $("#ex2").modal();
+      $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>搭配上架数量已到上限</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' onclick='window.location.href=\"/ims/store/sells?combo=true\"' >OK</a></div>")
+      $("#ex2").modal({backdrop: 'static'});
     <% end %>
 
     <% if @combo.desc.blank?  %>
@@ -208,6 +208,7 @@ var check_form = function(){
         error_modal("商品描述最多128个字");   
         status = false;
       }
+      if(status){$("#loading-box").modal();};
       return status;
     });
 
@@ -232,6 +233,7 @@ var check_form = function(){
         dataType: 'json',
         beforeSend: function(){
           $("#loading-box").modal();
+          $("#add_img").hide();
         },
 
         fileuploadfail: function(e, data){
@@ -249,7 +251,7 @@ var check_form = function(){
               $("#default_img").removeClass("show-imgbox-no");
               $("#default_img").html("<img src='"+data.result['img']+"'>");
               img_size = $("#img_box li[class!='add-link']").length;
-              if(img_size == 5){$("#add_img").hide();}
+              if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
               
                format_img(".show-imgbox-no");
                format_img(".img-spa");
@@ -319,6 +321,9 @@ var check_form = function(){
              url: "<%=update_desc_ims_store_combo_path(@combo)%>",
              method: 'put',
              data: {"desc": desc, "private_to": private_to},
+             beforeSend: function(){
+              $("#loading-box").modal();
+             }, 
              success: function(response){
                self.location="/ims/store/combos/<%=@combo.id%>/preview";
              }
