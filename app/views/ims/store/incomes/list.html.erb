@@ -6,8 +6,9 @@
            <div class="common-white">
               <div class="span9 txt2">
                 <div><span>订单时间：<%= item[:create_date] %> </span></div>  
-                <div><span>开户银行：<%= item[:bankname] %>  </span></div>  
-                <div><span>卡号：<%= item[:cardno] %></span></div>  
+                <div><span>开户银行：<%= item[:bank_name] %>  </span></div>  
+                <div><span>卡号：<%= item[:card_no] %></span></div>  
+                <div><span>状态：<%= item[:status] %></span></div>  
               </div>
               <div class="span3 txt2">
                <span>￥<%= item[:amount] %></span>
