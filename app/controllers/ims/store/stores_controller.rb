@@ -1,6 +1,7 @@
 # encoding: utf-8
 class Ims::Store::StoresController < Ims::Store::BaseController
   skip_filter :authenticate, only: [:my, :check]
+  before_filter :is_my_store, only: [:edit, :update, :my]
 
   def index
 
@@ -90,6 +91,11 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def theme
 
+  end
+
+  private
+  def is_my_store
+    redirect_to ims_store_path(:id => params[:id]) unless current_user.store_id.to_i == params[:id].to_i
   end
 
 
