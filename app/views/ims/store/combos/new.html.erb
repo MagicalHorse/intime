@@ -208,6 +208,7 @@ var check_form = function(){
         error_modal("商品描述最多128个字");   
         status = false;
       }
+      if(status){$("#loading-box").modal();};
       return status;
     });
 
