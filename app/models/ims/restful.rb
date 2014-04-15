@@ -12,7 +12,9 @@ module Ims
       querystring = {sign: sign_value, client_version: CLIENT_VERSION, channel: 'html5', uid: sessionid, token: token}
 
       Rails.logger.debug "-----> request #{IMS_HOST}/#{path}"
-      
+      Rails.logger.debug "-----> querystring: #{querystring}"
+      Rails.logger.debug "-----> options: #{options.to_json}"
+
       if params[:content_type].present?
         RestClient.post("#{IMS_HOST}/#{path}?#{querystring.to_param}", options.to_json, content_type: params[:content_type], accept: :json) { |response, request, result, &block|
           case response.code
