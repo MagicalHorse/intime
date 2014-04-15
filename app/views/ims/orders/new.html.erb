@@ -140,7 +140,7 @@
                     </div>
                   </div>
                    <div class="modal-footer">
-                    <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a>
+                    <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button" data-dismiss='modal' aria-hidden='true'>确 定</a>
                   </div>
                 </form>
               </div>
@@ -237,13 +237,14 @@
     $(".save_button").on("click", function(){
       modal_doc = $(this).parents(".modal")
       var index = modal_doc.attr("index")
-      color_text = "\""+$("#colorvaluename"+index).val()+"\""
-      size_text = "\""+$("#sizevaluename"+index).val()+"\""
-      text = jQuery.trim([color_text, size_text].join(" "))
-      un_select_doc = $("#un_select_color_size"+index)
-      selected_doc = $("#selected_color_size"+index)
-      if(text.length > 0){
-
+      var color = jQuery.trim($("#colorvaluename"+index).val())
+      var size = jQuery.trim($("#sizevaluename"+index).val())
+      if(color.length > 0 || size.length > 0){
+        color_text = color.length > 0 ? "\""+color+"\"" : ""
+        size_text = size.length > 0 ? "\""+size+"\"" : ""
+        text = jQuery.trim([color_text, size_text].join(" "))
+        un_select_doc = $("#un_select_color_size"+index)
+        selected_doc = $("#selected_color_size"+index)
         un_select_doc.hide()
         selected_doc.show()
         selected_doc.text("已选：" + text)
@@ -252,7 +253,7 @@
         un_select_doc.text("请选择颜色，尺码 ")
         selected_doc.hide()
       }
-      modal_doc.find(".close").trigger("click")
+      // modal_doc.find(".close").trigger("click")
       // modal_doc.modal("hide")
     })
 
