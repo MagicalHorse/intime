@@ -7,7 +7,7 @@
     <%= form_tag(@path, class: "form-defined", :method => 'get') do %>
     <div class="controls-defined defined-small">
       <div class="col-6">
-        <%= text_field_tag "sms_code", "", class: "input-verify-code", placeholder: "请填写验证码" %>
+        <%= text_field_tag "sms_code", "", type: 'number', class: "input-verify-code", placeholder: "请填写验证码" %>
       </div>
       <div class="col-6">
         <div class='btn btn-danger btn-small btn-block' id="count_down"><span id="num">60</span>秒后重新发送</div>
