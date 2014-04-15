@@ -1,0 +1,1 @@
+{"status": true, "page": <%= @search_order[:data][:pageindex] %>, "per_page": <%= @search_order[:data][:pagesize] %>, "count": <%= @search_order[:data][:totalcount] %>, "html": <%=raw render("order_list.html.erb", orders: @orders).to_json %> }
