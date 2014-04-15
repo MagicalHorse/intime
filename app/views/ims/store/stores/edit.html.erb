@@ -67,6 +67,10 @@
                 delay: { show: 500, hide: 5000 }
             }).tooltip('show');
         });
+      },
+      submitHandler: function(form) {
+        $("#loading-box").modal();
+        $(form).ajaxSubmit();
       }
     });
 
