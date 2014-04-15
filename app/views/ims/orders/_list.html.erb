@@ -40,6 +40,7 @@
               <b>订单号：<%= link_to order['order_no'], ims_orders_show_path(id: order["order_no"]) %></b>
             </span>
           </p>
+          <p class="txt4 clearfix"><span><b>收货人：<%= order['shipping_name'] %></b></span></p>
           <p class="txt4 clearfix"><span><b>下单时间：<%= l order['create_date'].to_time %></b></span></p>
           <p class="immediate-payment">
             <%= link_to "订单详情", ims_orders_show_path(id: order["order_no"]), class: "btn btn-danger btn-mini payment" %>

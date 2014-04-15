@@ -1,0 +1,1 @@
+{"status": true, "page": <%= @search_gift_card[:data][:pageindex] %>, "per_page": <%= @search_gift_card[:data][:pagesize] %>, "count": <%= @search_gift_card[:data][:totalcount] %>, "html": <%=raw render("gift_card_list.html.erb", gift_cards: @gift_cards).to_json %> }

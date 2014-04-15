@@ -20,9 +20,10 @@ class Ims::CardsController < Ims::BaseController
         # 置空欲充值卡号
         current_user.will_charge_no = nil
         # API_NEED: 根据礼品卡号，获取礼品卡相关信息
-        @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
+        @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"] || {}
       else
-        p @result[:message]
+        @card = {}
+        Rails.logger.debug(@result.to_s)
       end
     else
       # 如果未绑定，则跳至绑卡页面
@@ -38,7 +39,7 @@ class Ims::CardsController < Ims::BaseController
     @title = "获赠礼品卡"
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
-    @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"]
+    @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"] || {}
     current_user.other_phone = @card[:phone]
   end
 
@@ -48,7 +49,7 @@ class Ims::CardsController < Ims::BaseController
     @charge_no = params[:charge_no]
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
-    @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"] if @card.blank?
+    @card = (Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"] || {}) if @card.blank?
     current_user.other_phone = @card[:phone]
   end
 

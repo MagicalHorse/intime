@@ -68,6 +68,7 @@ class Ims::BaseController < ApplicationController
   def validate_sms!
     current_user.back_url = request.fullpath
     if current_user.other_phone
+      return if current_user.other_phone == current_user.verified_phone
       return if (current_user.verified_other_phones || "").index current_user.other_phone.to_s
       redirect_to verify_phone_ims_accounts_path
     end
