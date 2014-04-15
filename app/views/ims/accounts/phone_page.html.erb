@@ -17,7 +17,6 @@
     <% end %>
   </div>
 </div>
-<div id="myModal" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 <%= content_for :javascripts do %>
 <script type="text/javascript" charset="utf-8">
@@ -33,10 +32,6 @@
         element.after(error)
       }
     })
-
-    <% if flash[:notice].present? %>
-    error_modal('<%= flash[:notice] %>');
-    <% end %>
   });
 </script>
 <% end %>
