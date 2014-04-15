@@ -9,7 +9,6 @@ class Ims::AccountsController < Ims::BaseController
   # 我的资金账号
   def mine
     @title = "我的礼品卡"
-    @can_share = true
   end
 
   # 扫码页面
@@ -107,9 +106,8 @@ class Ims::AccountsController < Ims::BaseController
       current_user.isbindcard = true
       redirect_to current_user.back_url || mine_ims_accounts_path
     else
-      p result
       # 如果不成功，跳回密码页面
-      redirect_to new_ims_account_path
+      redirect_to new_ims_account_path, notice: result[:message]
     end
   end
 

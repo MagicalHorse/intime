@@ -16,10 +16,14 @@ class Ims::CardsController < Ims::BaseController
     if current_user.isbindcard
       # API_NEED: 充值礼品卡接口
       @result = Ims::Giftcard.recharge(request, charge_no: @charge_no)
-      # 置空欲充值卡号
-      current_user.will_charge_no = nil
-      # API_NEED: 根据礼品卡号，获取礼品卡相关信息
-      @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
+      if @result[:isSuccessful]
+        # 置空欲充值卡号
+        current_user.will_charge_no = nil
+        # API_NEED: 根据礼品卡号，获取礼品卡相关信息
+        @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
+      else
+        p @result[:message]
+      end
     else
       # 如果未绑定，则跳至绑卡页面
       current_user.will_charge_no = current_user.will_charge_no || @charge_no

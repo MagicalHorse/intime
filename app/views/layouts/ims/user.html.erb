@@ -19,8 +19,15 @@
       <%= yield %>
     </div>
   </div>
-
   <%= render 'ims/shared/share_button' %>
   <%= render 'ims/shared/wx_view' %>
+  <div id="myModal" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+  <script type="text/javascript" charset="utf-8">
+    $(function(){
+      <% if flash[:notice].present? %>
+      error_modal('<%= flash[:notice] %>');
+      <% end %>
+    });
+  </script>
 </body>
 </html>
