@@ -4,6 +4,7 @@ class Ims::OrdersController < Ims::BaseController
   def index
     @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 5)
     @orders = @search["data"]["items"]
+    @title = "我的订单"
 
     respond_to do |format|
       format.html{}
@@ -13,6 +14,7 @@ class Ims::OrdersController < Ims::BaseController
 
   def new
 
+    @title = "商品购买"
     if params[:product_id].present?
       @product = API::Order.new(request, productid: params[:product_id])[:data]
       @salecolors = @product[:salecolors]
@@ -40,6 +42,8 @@ class Ims::OrdersController < Ims::BaseController
 
   def show
     @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
+    binding.pry
+    @title = "订单详情"
     @current_rmas = @order[:rmas].find{|rmas| rmas[:canvoid]}
     respond_to do |format|
       format.html{}
