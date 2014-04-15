@@ -1,5 +1,5 @@
 
-.back-wrap-inner{/*margin-bottom: 50px; */padding: 0; margin-top: 0; border-top:0;}
+.back-wrap-inner{padding: 0; margin-top: 0; border-top:0;}
 .module-bg-white{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee; border-left: 0; border-right: 0;}
 .module-bg-white2{ padding:20px 20px 30px; margin-bottom: 10px; background:white; border: 1px solid #eeeeee; margin: 0 10px 10px;}
 .module-color-white{background: white; border-bottom: 1px solid #eeeeee;}
@@ -20,7 +20,7 @@
 .mini-imgbox ul li .img-spa:focus,
 .mini-imgbox ul li .img-spa:hover,
 .mini-imgbox ul li .img-spa:active{ border:2px solid #f86b9f;}
-.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background:url(../images/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
 .mini-imgbox ul li img{ width: auto; height: auto;}
 .mini-imgbox ul li.add-link a{ display: block;}
 /*.mini-imgbox .img-spa{ margin: 0; display: inline-block; width: 100%; height: 100%; overflow: hidden; text-align: center;}*/
