@@ -107,6 +107,7 @@ class Ims::AccountsController < Ims::BaseController
       current_user.isbindcard = true
       redirect_to current_user.back_url || mine_ims_accounts_path
     else
+      p result
       # 如果不成功，跳回密码页面
       redirect_to new_ims_account_path
     end
