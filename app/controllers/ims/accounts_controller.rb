@@ -9,6 +9,7 @@ class Ims::AccountsController < Ims::BaseController
   # 我的资金账号
   def mine
     @title = "我的礼品卡"
+    @can_share = true
   end
 
   # 扫码页面
@@ -44,17 +45,19 @@ class Ims::AccountsController < Ims::BaseController
       end
     end 
     generate_sms @phone
-    @path = verfiy_identify_sms_code_ims_accounts_path
+    @path = verify_identify_sms_code_ims_accounts_path
     render :verify_phone
   end
 
-  # 验证短信页面
-  def verfiy_identify_sms_code
+  # 验证短信
+  def verify_identify_sms_code
     if params[:sms_code].present? && current_user.sms_code.to_i == params[:sms_code].to_i
       current_user.verified_phone = current_user.identify_phone
-      redirect_to set_identity_no_page_ims_accounts_path
+      # redirect_to set_identity_no_page_ims_accounts_path
+      render json: {success: true, url: set_identity_no_page_ims_accounts_path}
     else
-      redirect_to verify_identify_phone_ims_accounts_path, notice: "验证码错误"
+      # redirect_to verify_identify_phone_ims_accounts_path, notice: "验证码错误"
+      render json: {success: true, notice: "验证码错误"}
     end
   end
 
@@ -116,17 +119,19 @@ class Ims::AccountsController < Ims::BaseController
     @title = "填写手机号"
     @phone = current_user.other_phone.to_s
     generate_sms @phone
-    @path = verfiy_sms_code_ims_accounts_path
+    @path = verify_sms_code_ims_accounts_path
     render :verify_phone
   end
 
-  # 验证指定手机短信页面
-  def verfiy_sms_code
+  # 验证指定手机短信
+  def verify_sms_code
     if params[:sms_code].present? && current_user.sms_code.to_i == params[:sms_code].to_i
       current_user.verified_other_phones = "#{current_user.verified_other_phones},#{current_user.other_phone}"
-      redirect_to current_user.back_url
+      # redirect_to current_user.back_url
+      render json: {success: true, url: current_user.back_url}
     else
-      redirect_to verify_phone_ims_accounts_path, notice: "验证码错误"
+      # redirect_to verify_phone_ims_accounts_path, notice: "验证码错误"
+      render json: {success: true, notice: "验证码错误"}
     end
   end
 

@@ -321,9 +321,9 @@ IntimeService::Application.routes.draw do
         get   :barcode
         get   :phone_page
         get   :verify_identify_phone
-        get   :verfiy_identify_sms_code
+        get   :verify_identify_sms_code
         get   :verify_phone
-        get   :verfiy_sms_code
+        get   :verify_sms_code
         post  :resend_sms
         get   :set_identity_no_page
         get   :set_identity_no
