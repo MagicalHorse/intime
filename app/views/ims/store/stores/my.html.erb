@@ -112,15 +112,15 @@
 <footer>
     <div class="footer-inner">
       <div class="row-fluid">
-        <div class="span3">
+        <div class="span3 add_loading">
           <a class="nav1" href="/ims/store/sells">
            <%= image_tag "/images/ims/main-index.png" %>
           </a>
         </div>
-        <div class="span3">
+        <div class="span3 add_loading">
           <a class="nav2 nav--current" href="/ims/store/stores/records">成交记录</a>
         </div>
-        <div class="span3"><a class="nav3" href="/ims/store/incomes/my">我的收益</a></div>
+        <div class="span3 add_loading"><a class="nav3" href="/ims/store/incomes/my">我的收益</a></div>
         <div class="span3">
           <div class="btn-group dropup">
             <a href="javascript:void(0);" class="btn btn-link dropdown-toggle nav4">更多</a>
@@ -141,6 +141,10 @@
    format_img(".img-spa");
 
    $(".dropdown-toggle").click(function(){
-          $("#nav-menu").toggle(); 
+      $("#nav-menu").toggle(); 
+   });
+
+   $(".add_loading").click(function(){
+     $("#loading-box").modal();
    });
   </script>
