@@ -1,4 +1,4 @@
-<div class="wrap-inner back-wrap-inner">
+<div class="wrap-inner back-wrap-inner bottom-distance">
     <div class="module module-color-white clearfix">
       <div class="row-fluid">
         <div class="span12">
@@ -71,6 +71,10 @@
       keys: true
     });
     format_img(".img-spa");
+
+    $("a").click(function(){
+      $("#loading-box").modal();
+    });
   })
 </script>
 
