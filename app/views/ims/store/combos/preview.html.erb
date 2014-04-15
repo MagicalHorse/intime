@@ -20,7 +20,7 @@
                 <% @combo.combo_products.each do |product| %>
                 <div class="span4">
                   <div class="combos-product">
-                    <img src="<%= product.img_url %>">
+                    <span class="img-spa"><img src="<%= product.img_url %>"></span>
                     <p><span class="txt3">￥<%= product.price %></span></p>
                     <a class="btn btn-danger btn-mini btn-block" href="javascrip:void(0);">点击购买</a>
                   </div>
@@ -70,7 +70,7 @@
       mouse: true,        /* enable mouse dragging controls */
       keys: true
     });
-
+    format_img(".img-spa");
   })
 </script>
 
