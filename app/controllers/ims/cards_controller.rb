@@ -23,7 +23,7 @@ class Ims::CardsController < Ims::BaseController
         @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"] || {}
       else
         @card = {}
-        Rails.logger.debug(@result[:message])
+        Rails.logger.debug(@result.to_s)
       end
     else
       # 如果未绑定，则跳至绑卡页面
