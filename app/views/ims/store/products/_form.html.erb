@@ -203,7 +203,9 @@
           required: true
         },
         "sku_code": {
-          required: true
+          required: true,
+          minlength: 2,
+          maxlength: 50
         },
         "price": {
           required: true,
@@ -232,7 +234,9 @@
           required: "销售编码不能为空"
         },
         "sku_code": {
-          required: "货号不能为空"
+          required: "货号不能为空",
+          minlength: "货号长度至少2",
+          maxlength: "货号长度最多50"
         },
         "price": {
           required: "微信价不能为空",
