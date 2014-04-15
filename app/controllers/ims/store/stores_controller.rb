@@ -30,7 +30,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def my
-    if current_user.store_id == params[:id].to_i
+    if current_user.store_id.to_i == params[:id].to_i
       @can_share = true
       @store = Ims::Store.my(request)
       render :layout =>  'ims'
