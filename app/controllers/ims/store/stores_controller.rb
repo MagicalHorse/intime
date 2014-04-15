@@ -36,13 +36,20 @@ class Ims::Store::StoresController < Ims::Store::BaseController
       render :layout =>  'ims'
     else
       redirect_to ims_store_path(:id => params[:id])
-    end  
+    end
   end
 
   def records
-    @giftcards = Ims::Store.giftcard_records(request, page: params[:gift_card_page] || 1, pagesize: params[:gift_card_per_page] || 3)
-    @orders = Ims::Store.order_records(request, page: params[:order_page] || 1, pagesize: params[:order_per_page] || 3)
+    @search_gift_card = Ims::Store.giftcard_records(request, page: params[:gift_card_page] || 1, pagesize: params[:gift_card_per_page] || 3)
+    @giftcards = @search_gift_card["data"]["items"]
+    @search_order = Ims::Store.order_records(request, page: params[:order_page] || 1, pagesize: params[:order_per_page] || 3)
+    @orders = @search_order["data"]["items"]
     @title = "成交记录"
+
+    respond_to do |format|
+      format.html{}
+      format.json{render params[:gift_card_page].present? ? "gift_card_list" : "order_list" }
+    end
   end
 
   def change_logo
