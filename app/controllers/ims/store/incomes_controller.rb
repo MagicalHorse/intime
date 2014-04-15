@@ -21,12 +21,12 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
   end
 
   def list
-    @list = Ims::Income.list(request)
-    @title = "已提现列表"
+    @list = Ims::Income.list(request, page: params[:page] || 1, pagesize: params[:per_page] || 3)
+    @title = "提现记录"
   end
 
   def frozen
-    @list = Ims::Income.frozen(request)
+    @list = Ims::Income.frozen(request, page: params[:page] || 1, pagesize: params[:per_page] || 3)
     @title = "不可提现列表"
   end
 
