@@ -1,4 +1,4 @@
-<% if flash[:notice] == "give_show_page" %>
+<% if flash[:page_type] == "give_show_page" %>
 
 <div class="module module-white">
   <div class="module-card module-card-posi">
@@ -14,6 +14,17 @@
     </div>
   </div>
 </div>
+
+<%= content_for :javascripts do %>
+<script>
+  $(function(){
+    $("#shareToUserModel").modal();
+    setTimeout(function(){
+      $("#shareToUserModel").modal('hide');
+    },  3000);
+  });
+</script>
+<% end %>
 
 <% elsif @card[:status].to_i != 0 %>
 

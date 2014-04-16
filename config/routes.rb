@@ -327,6 +327,7 @@ IntimeService::Application.routes.draw do
         post  :resend_sms
         get   :set_identity_no_page
         get   :set_identity_no
+        get   :before_reset_password_page
         get   :reset_password_page
         get   :reset_password
         get   :change_password_page

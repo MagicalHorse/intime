@@ -62,7 +62,8 @@ class Ims::CardsController < Ims::BaseController
     else
       # API_NEED: 赠送礼品卡接口
       @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from_phone: params[:from_phone])
-      redirect_to "#{gift_page_ims_cards_path}?charge_no=#{@charge_no}", notice: "give_show_page"
+      flash[:page_type] = "give_show_page"
+      redirect_to "#{gift_page_ims_cards_path}?charge_no=#{@charge_no}"
     end
   end
 
