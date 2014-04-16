@@ -21,17 +21,27 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
   end
 
   def list
-    @list = Ims::Income.list(request, page: params[:page] || 1, pagesize: params[:per_page] || 3)
+    @search = Ims::Income.list(request, page: params[:page] || 1, pagesize: params[:per_page] || 10)
+    @list = @search["data"]["items"]
     @title = "提现记录"
+    respond_to do |format|
+      format.html{}
+      format.json{render "list"}
+    end
   end
 
   def frozen
-    @list = Ims::Income.frozen(request, page: params[:page] || 1, pagesize: params[:per_page] || 3)
+    @search = Ims::Income.frozen(request, page: params[:page] || 1, pagesize: params[:per_page] || 10)
+    @list = @search["data"]["items"]
     @title = "不可提现列表"
+    respond_to do |format|
+      format.html{}
+      format.json{render "frozen"}
+    end
   end
 
   def tips
-    
+
   end
 
 
