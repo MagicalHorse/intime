@@ -42,7 +42,6 @@ class Ims::OrdersController < Ims::BaseController
 
   def show
     @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
-    binding.pry
     @title = "订单详情"
     @current_rmas = @order[:rmas].find{|rmas| rmas[:canvoid]}
     respond_to do |format|
