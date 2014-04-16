@@ -11,7 +11,7 @@
     <div class="controls-defined defined-small">
       <label class="col-5 text-left"><i class="fa fa-phone"></i>我的手机号码</label>
       <div class="col-7">
-        <%= text_field_tag :from_phone, current_user.verified_phone, placeholder: "请输入11位手机号码" %>
+        <%= text_field_tag :from_phone, current_user.verified_phone, type: "number", placeholder: "请输入11位手机号码" %>
       </div>
     </div>
     <div class="controls-defined defined-small">
@@ -23,7 +23,7 @@
     <div class="controls-defined defined-small">
       <label class="col-5 text-left"><i class="fa fa-phone"></i>好友联系方式</label>
       <div class="col-7">
-        <%= text_field_tag :phone, params[:phone], placeholder: "请输入11位手机号码" %>
+        <%= text_field_tag :phone, params[:phone], type: "number", placeholder: "请输入11位手机号码" %>
       </div>
     </div>
     <button type="submit" class="btn btn-danger btn-large btn-block">确认赠送</button>
