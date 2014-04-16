@@ -36,7 +36,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
     @remote_id = @remote_combo[:data][:id]
     @title = "修改搭配"
-    
+
     if params[:combo_id].present?
       @combo = ::Combo.find(params[:combo_id])
     else
@@ -45,7 +45,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
 
       @remote_combo[:data][:products].each do |product|
         if product[:product_type].blank? || product[:product_type] == 1
-         p = ::Product.fetch_product(product[:id]) 
+         p = ::Product.fetch_product(product[:id])
          ComboProduct.create({:img_url => p[:data][:image], :price => product[:price],
           :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 1, :remote_id => product[:id]})
         else

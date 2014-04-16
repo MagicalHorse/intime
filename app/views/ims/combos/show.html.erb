@@ -41,7 +41,11 @@
                     <img src="<%= product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>">
                     </span>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
+                    <% if product[:is_online] %>
                     <a class="btn btn-danger btn-mini btn-block" href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">点击购买</a>
+                    <% else %>
+                    <a href="javascript:void(0);" class="btn btn-grey btn-mini btn-block">已售罄</a>
+                    <% end %>
                   </div>
                 </div>
                 <% end %>
@@ -74,20 +78,20 @@
                   <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
               </span>
               <script type="text/javascript">
-                          tms[tms.length] = "<%=@remote_combo[:data]['expire_in'] %>"; 
-                          day[day.length] = "d<%=@remote_combo[:data][:id]%>"; 
-                          hour[hour.length] = "h<%=@remote_combo[:data][:id]%>"; 
-                          minute[minute.length] = "m<%=@remote_combo[:data][:id]%>"; 
-                          second[second.length] = "s<%=@remote_combo[:data][:id]%>"; 
+                          tms[tms.length] = "<%=@remote_combo[:data]['expire_in'] %>";
+                          day[day.length] = "d<%=@remote_combo[:data][:id]%>";
+                          hour[hour.length] = "h<%=@remote_combo[:data][:id]%>";
+                          minute[minute.length] = "m<%=@remote_combo[:data][:id]%>";
+                          second[second.length] = "s<%=@remote_combo[:data][:id]%>";
                         </script>
-          <% else %>    
+          <% else %>
             <span class="pull-left countdown">
                长期有效
             </span>
-          <% end %>    
+          <% end %>
           <span class="txt4 pull-right txt-red" id="unfavor_combo"><a href="javascript:void(0)"><i class="fa fa-star"></i> 已收藏</a></span>
           <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
-          </p>  
+          </p>
       </div>
     </div>
 
