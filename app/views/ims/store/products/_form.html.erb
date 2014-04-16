@@ -138,9 +138,7 @@
 </div>
 </div>
 
-<div class="loading" style="display: none;">
-  <img src='/images/ims/loading.gif'/>
-</div>
+
 
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
@@ -153,10 +151,10 @@
             error_modal(error)
             return false
         }else if($("#product_form").valid()){
-          $(".loading").show()
+          show_loading_img()
         }
       }else if($("#product_form").valid()){
-        $(".loading").show()
+        show_loading_img()
       }
     })
 
@@ -294,8 +292,7 @@
         $("#size_ids_wrapper").hide()
         $("#size_str_wrapper").hide()
       }else{
-
-        $(".loading").show()
+        show_loading_img()
         $.get("/ims/store/dicts/product_sizes", {category_id: category_id}, function(data){
           if(data["size_type"] == 1){
             $("#size_ids_wrapper").show()
@@ -310,7 +307,7 @@
             $("#size_ids_wrapper").hide()
             $("#size_str_wrapper").show()
           }
-          $(".loading").hide()
+          hide_loading_img()
         }, "json")
       }
     })

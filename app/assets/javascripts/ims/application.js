@@ -46,11 +46,11 @@ var fnTimeCountDown = function(o){
             var n = parseInt(n, 10);
             if(n > 0){
                 if(n <= 9){
-                    n = "0" + n;    
+                    n = "0" + n;
                 }
                 return String(n);
             }else{
-                return "00";    
+                return "00";
             }
         },
         dv: function(){
@@ -64,10 +64,10 @@ var fnTimeCountDown = function(o){
                 year: "0"
             };
             if(dur > 0){
-                pms.day = Math.floor(dur / (60 * 60 * 24)); 
-                pms.hour = Math.floor(dur / (60 * 60)) % 24; 
-                pms.mini = Math.floor(dur / 60) % 60; 
-                pms.sec = Math.floor(dur) % 60; 
+                pms.day = Math.floor(dur / (60 * 60 * 24));
+                pms.hour = Math.floor(dur / (60 * 60)) % 24;
+                pms.mini = Math.floor(dur / 60) % 60;
+                pms.sec = Math.floor(dur) % 60;
                 expired_in = expired_in - 1;
             }
             return pms;
@@ -93,6 +93,15 @@ var fnTimeCountDown = function(o){
             }
             setTimeout(f.ui, 1000);
         }
-    };  
+    };
     f.ui();
 };
+
+function show_loading_img(){
+  img = "<div class='loading'><img src='/images/ims/loading.gif'/></div>"
+  $("body").append(img)
+}
+
+function hide_loading_img(){
+  $(".loading").remove()
+}
