@@ -13,7 +13,7 @@
 * Released on: April 9, 2014
 */
 .swiper-container {
-margin:0 auto;
+margin:0 auto 10px;
 position:relative;
 overflow:hidden;
 -webkit-backface-visibility:hidden;
