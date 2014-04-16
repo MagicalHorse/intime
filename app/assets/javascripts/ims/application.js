@@ -26,6 +26,15 @@
 //= require ims/idangerous.swiper.js
 //= require_self
 
+function show_loading_img(){
+  img = "<div class='loading'><img src='/images/ims/loading.gif'/></div>";
+  $("body").append(img);
+};
+
+function hide_loading_img(){
+  $(".loading").remove();
+};
+
 function error_modal(txt){
 		$("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>"+txt+"</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' data-dismiss='modal' aria-hidden='true' >OK</a></div>")
 	 $("#ex2").modal();
@@ -97,11 +106,4 @@ var fnTimeCountDown = function(o){
     f.ui();
 };
 
-function show_loading_img(){
-  img = "<div class='loading'><img src='/images/ims/loading.gif'/></div>"
-  $("body").append(img)
-}
 
-function hide_loading_img(){
-  $(".loading").remove()
-}
