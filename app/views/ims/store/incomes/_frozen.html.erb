@@ -1,0 +1,8 @@
+<% list.each do |item| %>
+ <div class="common-white paginate-content">
+    <div class="txt2"><span>订单号：<%= item["order_no:"] %></span></div>
+    <div class="txt2"><span>金额：￥<%= item["amount"] %>元</span></div>
+    <div class="txt2"><span>下单：<%= l item["create_date"].to_time %></span></div>
+    <div class="txt2"><span>提成金额：￥<%= item["income_amount"] %>元</span></div>
+ </div>
+ <% end %>

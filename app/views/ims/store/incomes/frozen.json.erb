@@ -1,0 +1,1 @@
+{"status": true, "page": <%= @search["data"]["pageindex"] %>, "per_page": <%= @search["data"]["pagesize"] %>, "count": <%= @search["data"]["totalcount"] %>, "html": <%=raw render("frozen.html.erb", list: @list).to_json %> }
