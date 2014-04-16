@@ -133,5 +133,4 @@ function resizeMe(img, max_width, max_height) {
   ctx.drawImage(img, 0, 0, width, height);
 
   return canvas.toDataURL("image/jpeg",0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
-
 }
