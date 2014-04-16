@@ -13,7 +13,7 @@
             </span>
           </div>
           <div class="span9 collection-p">
-            <p class="txt2"><%= combo["desc"] %></p>
+            <p class="txt2 one-line"><%= combo["desc"] %></p>
             <p class="txt2 txt-red">打包价：￥<%= combo["price"] %></p>
             <div class="shelves">
               <%= link_to combo["is_online"] ? "下 架" : "上 架", "javascript:void(0);", class: "btn btn-danger btn-small card_or_combo", item_id: combo["id"], item_type: 2 %>

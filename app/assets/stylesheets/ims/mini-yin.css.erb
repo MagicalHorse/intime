@@ -13,8 +13,8 @@ button a:focus{ color: white;}
 
 
 a,button,input,textarea{-webkit-tap-highlight-color:rgba(255,0,0,0);}/* 1.去除android a/button/input标签被点击时产生的边框 2.去除ios a标签被点击时产生的半透明灰色背景 */
-.one-line{ height: 1.4em; overflow: hidden;}
-.two-line{ height: 2.8em; overflow: hidden;}
+.one-line{ line-height: 1.4em; height: 1.4em; overflow: hidden;}
+.two-line{ line-height: 1.4em; height: 2.8em; overflow: hidden;}
 @media screen and (max-width: 580px) {
   .common-white{padding: 10px 10px; margin-bottom: 8px;}
   .bottom-distance{margin-bottom: 80px !important;}
@@ -764,7 +764,6 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .txt-block{ background:url(/images/ims/right.png) 99% center no-repeat transparent;}
 .txt-block p{line-height: normal;}
 .collection-p p{margin: 0; line-height: 1.4em text-indent: 0;}
-.collection-pbox{margin-top: 30px;}
 .shelves {margin-top: 5px;}
 .shelves .btn{margin-left: 10px;}
 
@@ -877,7 +876,7 @@ footer{ position: fixed; bottom:0; width: 640px;}
 @media screen and (max-width: 480px) {
   .modal-grey{ padding-top: 0;}
   .browerse-icon { top: 26px;}
-  .collection-pbox{margin: 12px 14px 0 0;}
+  .collection-pbox{margin: 0 14px 0 0;}
   .collection-pbox p{ font-size: 15px;}
 }
 
