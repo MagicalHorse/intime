@@ -3,18 +3,6 @@
     <div class="module module-color-white clearfix">
       <div class="row-fluid">
         <div class="span12">
-            <!-- <div id="myCarousel" class="carousel slide" style="overflow: hidden;">
-              <ol class="carousel-indicators">
-                <li class="active"></li>
-                <li></li>
-                <li></li>
-              </ol>
-              <div class="carousel-inner slides">
-                <% @remote_combo[:data][:images].each_with_index do |src, i| %>
-                  <div class="item slide <%= 'active' if i == 0 %>"><img src="<%= src %>"></div>
-                <% end %>
-              </div>
-            </div> -->
             <div class="swiper-container">
               <div class="swiper-wrapper">
                 <% @remote_combo[:data][:images].each_with_index do |src, i| %>
