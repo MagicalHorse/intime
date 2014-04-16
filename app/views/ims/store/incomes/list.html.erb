@@ -1,24 +1,24 @@
-<div class="wrap-inner back-wrap-inner">
-    <div class="row-fluid">
-      <% if @list[:data].present? && @list[:data][:items].present? %>
-        <% @list[:data][:items].each do |item| %>
-        <div class="recieve-list">
-           <div class="common-white">
-              <div class="span9 txt2">
-                <div><span>订单时间：<%= item[:create_date] %> </span></div>  
-                <div><span>开户银行：<%= item[:bank_name] %>  </span></div>  
-                <div><span>卡号：<%= item[:card_no] %></span></div>  
-                <div><span>状态：<%= item[:status] %></span></div>  
-              </div>
-              <div class="span3 txt2">
-               <span>￥<%= item[:amount] %></span>
-              </div>
-           </div>
-        </div> 
-        <% end %>
-        <% else %>   
-        <%= render 'ims/shared/empty' %>
-        <% end %>
+<div class="wrap-content">
+    <div class="recieve-list">
+      <div class="common-white">
+          <div class="row-fluid">
+            <% if @list[:data].present? && @list[:data][:items].present? %>
+            <% @list[:data][:items].each do |item| %>
+            <div class="span9 txt2">
+              <div><span>订单时间：<%= item[:create_date] %> </span></div>  
+              <div><span>开户银行：<%= item[:bank_name] %>  </span></div>  
+              <div><span>卡号：<%= item[:card_no] %></span></div>  
+              <div><span>状态：<%= item[:status] %></span></div>  
+            </div>
+            <div class="span3 txt2">
+             <span>￥<%= item[:amount] %></span>
+            </div>
+         </div>
+      </div> 
+      <% end %>
+      <% else %>   
+      <%= render 'ims/shared/empty' %>
+      <% end %>
 
     </div>
   </div>
