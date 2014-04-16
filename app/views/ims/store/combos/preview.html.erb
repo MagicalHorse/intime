@@ -2,17 +2,13 @@
     <div class="module module-color-white clearfix">
       <div class="row-fluid">
         <div class="span12">
-            <div id="myCarousel" class="carousel slide" style="overflow: hidden;">
-              <ol class="carousel-indicators">
-                <li class="active"></li>
-                <li></li>
-                <li></li>
-              </ol>
-              <!-- Carousel items -->
-              <div class="carousel-inner slides">
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
                 <% @combo.combo_pics.each_with_index do |img, i| %>
-                  <div class="item slide <%= 'active' if i == 0 %>"><img src="<%= img.url %>"></div>
-                <% end %>
+                 <div class="swiper-slide">
+                   <img src="<%= img.url %>">
+                 </div>
+                 <% end %>
               </div>
             </div>
             <div class="module module-white module-show">
@@ -60,16 +56,17 @@
 
 <script type="text/javascript">
   $(function(){
-
-    $("#myCarousel").swipeshow({
-      autostart: true,    /* Set to `false` to keep it steady */
-      interval: 3000,     /* Time between switching slides (ms) */
-      initial: 0,         /* First slide's index */
-      speed: 1500,         /* Animation speed (ms) */
-      friction: 1,      /* Bounce-back behavior; use `0` to disable */
-      mouse: true,        /* enable mouse dragging controls */
-      keys: true
+    var mySwiper = $('.swiper-container').swiper({
+      mode:'horizontal',
+      autoplay: 3000,
+      speed: 1000,
+      calculateHeight: true,
+      watchActiveIndex: true,
+      loop: true,
+      centeredSlides: true,
+      offsetPxBefore: 100
     });
+
     format_img(".img-spa");
 
     $("a").click(function(){
