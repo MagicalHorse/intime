@@ -243,8 +243,8 @@ var check_form = function(){
           alert(e);
         },
         done: function(e, data){
+          $("#loading-box").modal('hide');
           if(data.result['status'] == 1){
-            $("#loading-box").modal('hide');
             setTimeout(function(){
               $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><span class='img-spa'><img src='"+data.result['img']+"'></span></li>");
               $("#default_img").addClass("show-imgbox-yes");
