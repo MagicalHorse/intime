@@ -3,7 +3,7 @@ class Ims::AccountsController < Ims::BaseController
   before_filter :user_account_info, only: [:mine, :barcode]
   before_filter :validate_verified_phone!, only: [:new, :create]
   before_filter :validate_identity_no!, only: [:new, :create]
-  before_filter :validate_sms!, only: [:reset_password_page, :reset_password]
+  before_filter :validate_sms!, only: [:reset_password]
   before_filter :isbindcard!, only: [:phone_page, :verify_identify_phone]
   layout "ims/user"
   # 我的资金账号
@@ -138,6 +138,13 @@ class Ims::AccountsController < Ims::BaseController
   def resend_sms
     generate_sms params[:phone]
     render nothing: true
+  end
+
+  # 验证手机号的前置页面
+  def before_reset_password_page
+    current_user.back_url = reset_password_page_ims_accounts_path
+    current_user.other_phone = current_user.verified_phone
+    redirect_to verify_phone_ims_accounts_path
   end
 
   # 重置密码

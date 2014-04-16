@@ -24,7 +24,6 @@ class Ims::BaseController < ApplicationController
   def wx_auth!
     # TODO 上线前，去掉下列判断，只保留抛异常的部分
     if request.host != "test.ngrok.com" and request.host != "114.215.179.76"
-      session[:user_token] = nil
       get_token_from_api(request) unless session[:user_token]
     else
       raise Ims::Unauthorized if session[:user_token].blank? || cookies[:user_access_token].blank?
@@ -61,7 +60,7 @@ class Ims::BaseController < ApplicationController
   def generate_sms phone
     current_user.sms_code = (0..9).to_a.sample(6).join.rjust(6,"0")
     # API_NEED: 发送手机验证码（用于绑卡）
-    Ims::Sms.send(request, {phone: phone, text: "验证码：#{current_user.sms_code}，请填写验证码并完成操作。【请务向任何人提供您收到的短信验证码】【迷你银】"})
+    Ims::Sms.send(request, {phone: phone, text: "验证码：#{current_user.sms_code}，请填写验证码并完成操作。【请勿向任何人提供您收到的短信验证码】【迷你银】"})
   end
 
   # 验证手机号短信
