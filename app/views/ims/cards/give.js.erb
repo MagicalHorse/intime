@@ -1,8 +1,0 @@
-<% if @notice.present? %>
-error_modal('<%= flash[:notice] %>');
-<% else %>
-error_modal('赠送成功，请通知好友查收');
-setTimeout(function(){
-  window.location.href = "<%= gift_page_ims_cards_path %>?charge_no=<%= @charge_no %>";
-},2000);
-<% end %>
