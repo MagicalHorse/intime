@@ -82,9 +82,10 @@
 
 /*--------------------------------------------Shop information-------------------------------------------------*/
 .shop-information .img-rounded{ max-width: 136px; max-height: 136px;}
+.shop-information{position: relative;}
 .shop-information2 p{ padding-bottom: 10px; border-bottom:1px dashed #eeeeee;}
 .shop-information2 p:last-child{ border-bottom:0; padding: 0; margin-bottom: 0;}
-.shop-title{line-height: 136px;}
+.shop-title{position: absolute; margin-top: -0.5em; top: 50%;}
 .shop-logo{display: inline-block; border-radius: 6px; border:1px solid #eeeeee; overflow: hidden;font-size: 1px; text-align: center; width: 100%;}
 /*---------------------------------Withdrawal Application--------------------------------------------*/
 .module-withdrawal .common-white{margin: 0; border-top: 0;}
@@ -242,7 +243,6 @@
 .pay-all em{ font-style: normal; font-size: 20px;}
 /*--------------------------------------------Shop information-------------------------------------------------*/
 .shop-information .img-rounded{ max-width: 54px;}
-.shop-title{line-height: 54px;}
 /*---------------------------------Withdrawal Application--------------------------------------------*/
 .module-withdrawal .defined-small [class*="col-"] > span,
 .module-withdrawal .defined-small [class*="col-"] input,
@@ -301,6 +301,9 @@
   height: 22px;
 }
 /*-----------recieve-list----------------------*/
+.recieve-list .common-white {
+  height: 100px;
+}
 .recieve-list .span3 {
   height: 100px;
   line-height: 100px;
