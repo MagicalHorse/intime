@@ -1,4 +1,3 @@
-<% if received_list[:data].present? and received_list[:data][:items].any? %>
 <table class="table table-bordered">
   <tbody class="paginate-content">
     <% received_list[:data][:items].each do |item| %>
@@ -32,6 +31,3 @@
     <% end %>
   </tbody>
 </table>
-<% else %>
-<%= render 'ims/shared/empty' %>
-<% end %>
