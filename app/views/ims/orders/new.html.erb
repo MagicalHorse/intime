@@ -64,11 +64,7 @@
               <% if salecolors.blank? %>
                 已售罄
               <% else %>
-                <% if salecolors.length == 1 %>
-                  已选："<%= salecolors.first["colorname"] %>"
-                <% else %>
                   请选择颜色，尺码
-                <% end %>
               <% end %>
             </div>
           </div>
