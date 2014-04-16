@@ -9,7 +9,7 @@
       <div class="tab-content">
         <div class="tab-pane active" id="profile">
           <div class="module-table-box module-record">
-            <% if received_list[:data].present? and received_list[:data][:items].any? %>
+            <% if @received[:data].present? and @received[:data][:items].any? %>
             <%= render "received_list", received_list: @received %>
             <% else %>
             <%= render 'ims/shared/empty' %>
