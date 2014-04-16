@@ -14,6 +14,8 @@ class Ims::CombosController < Ims::BaseController
   	imagedata = params[:img].split(',')[1]
     @combo = ::Combo.find(params[:id])
 
+    FileUtils.mkdir("#{Rails.root}/public/uploads") if !File.exist?("#{Rails.root}/public/uploads")
+
   	filename = 'uploads/'+ Time.now.to_i.to_s + '.jpg'
   	File.open('public/'+filename, 'wb') do|f|
       f.write(Base64.decode64(imagedata))
