@@ -314,7 +314,11 @@ IntimeService::Application.routes.draw do
   namespace :ims do
     resource :auth
     resources :stores, only: [:show]
-    resources :combos, only: [:show]
+    resources :combos, only: [:show] do
+      collection do 
+        post 'upload'
+      end
+    end
     resources :accounts, only: [:new, :create] do
       collection do
         get   :mine
