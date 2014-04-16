@@ -64,16 +64,6 @@
                                     <p><a href="<%= ims_combo_path(id: combo["Id"], :store_id => @store[:data][:id]) %>"><%= combo["Desc"] %></a></p>
                             </div>
                         </div>
-                        <!-- <div class="span4">
-                            <div class="suit-right">
-                                <% if combo["ProductImages"].size > 0 %>
-                                 <% combo["ProductImages"].each do |pic| %>
-                                 <% pic = Settings.default_image_url.product.small if pic.blank? %>
-                                <a class="img-box" href="#"><img src="<%= pic %>" alt=""></a>
-                                <% end %>
-                                <% end %>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
                 

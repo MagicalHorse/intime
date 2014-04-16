@@ -12,6 +12,7 @@
           <%= render "ims/shared/empty" %>
         <% end %>
       </div>
+      <div id="loading" class="text-center"></div>
     </div>
   </div>
 </div>
@@ -28,10 +29,12 @@
       var page = parseInt($("#page").attr("value"))
 
       if(scrollTop+clientHeight == htmlHeight){
+        $("#loading").html("<img src='/images/ims/loading.gif'/>");
         $.get("/ims/favorites/stores_list", {page: page + 1}, function(data){
           if(data["status"] == true){
             $(".paginate-content:last").after(data["html"])
             $("#page").attr("value", data["page"])
+            $("#loading").html("");
           }
         }, "json")
       }
