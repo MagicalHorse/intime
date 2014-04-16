@@ -107,13 +107,9 @@ function hide_loading_img(){
 }
 
 function resizeMe(img, max_width, max_height) {
-  
   var canvas = document.createElement('canvas');
-
   var width = img.width;
   var height = img.height;
-
-  console.log(img);
 
   // calculate the width and height, constraining the proportions
   if (width > height) {
@@ -135,7 +131,6 @@ function resizeMe(img, max_width, max_height) {
   canvas.height = height;
   var ctx = canvas.getContext("2d");
   ctx.drawImage(img, 0, 0, width, height);
-  
 
   return canvas.toDataURL("image/jpeg",0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
 
