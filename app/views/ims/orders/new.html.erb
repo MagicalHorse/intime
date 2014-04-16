@@ -61,7 +61,15 @@
           <div class="span10">
             <div style="display: none;" id="selected_color_size<%= index %>">已选：“黑色” “S”</div>
             <div id="un_select_color_size<%= index %>">
-              <% if salecolors.blank? %>已售罄<% else %>请选择颜色，尺码<% end %>
+              <% if salecolors.blank? %>
+                已售罄
+              <% else %>
+                <% if salecolors.length == 1 && sizes.length == 1%>
+                  已选："<%= salecolors.first["colorname"] %>" "<%= sizes.first["sizename"] %>"
+                <% else %>
+                  请选择颜色，尺码
+                <% end %>
+              <% end %>
             </div>
           </div>
           <div class="span2">
