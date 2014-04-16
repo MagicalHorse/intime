@@ -63,7 +63,7 @@ class Ims::CardsController < Ims::BaseController
       # API_NEED: 赠送礼品卡接口
       @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from_phone: params[:from_phone])
       flash[:page_type] = "give_show_page"
-      redirect_to "#{gift_page_ims_cards_path}?charge_no=#{@charge_no}"
+      redirect_to gift_page_ims_cards_path(charge_no: @charge_no, _: Time.now.to_i)
     end
   end
 
@@ -71,7 +71,7 @@ class Ims::CardsController < Ims::BaseController
   def refuse
     # API_NEED: 拒收并退回礼品卡
     Ims::Giftcard.refuse(request, charge_no: params[:charge_no])
-    redirect_to "#{gift_page_ims_cards_path}?charge_no=#{params[:charge_no]}"
+    redirect_to gift_page_ims_cards_path(charge_no: params[:charge_no], _: Time.now.to_i)
   end
 
 end
