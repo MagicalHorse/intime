@@ -23,7 +23,7 @@ class Ims::BaseController < ApplicationController
 
   def wx_auth!
     # TODO 上线前，去掉下列判断，只保留抛异常的部分
-    if request.host != "test.ngrok.com" and request.host != "114.215.179.76" || request.headers["HTTP_USER_AGENT"].include?("Firefox")
+    if request.host != "test.ngrok.com" and request.host != "114.215.179.76" || request.headers["HTTP_USER_AGENT"].include?("Firefox") || request.headers["HTTP_USER_AGENT"].include?("Chromium")
       get_token_from_api(request) unless session[:user_token]
     else
       raise Ims::Unauthorized if session[:user_token].blank? || cookies[:user_access_token].blank?
