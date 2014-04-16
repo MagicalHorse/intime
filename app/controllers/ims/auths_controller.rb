@@ -8,7 +8,6 @@ class Ims::AuthsController < ActionController::Base
       json_resp = ActiveSupport::JSON.decode(resp)
       session[:wx_openid] = json_resp['openid']
       cookies[:user_access_token] = { value: json_resp["access_token"], expires: (json_resp["expires_in"] - 100).seconds.from_now.utc }
-      #TODO 换取user_id
       get_token_from_api(request)
       redirect_to session[:back_url]
       session.delete(:back_url)
