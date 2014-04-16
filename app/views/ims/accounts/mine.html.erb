@@ -1,4 +1,4 @@
-<% if current_user.isbindcard %>
+<% if true or current_user.isbindcard %>
 <div class="module-card module-card-scan">
   <h1 class="text-center">礼品卡余额：<%= current_user.amount %>元</h1>
   <div class="text-center card-wrap">
@@ -11,7 +11,7 @@
 <div class="module-user-change">
   <ul class="txt1">
     <li><%= link_to raw('<span>修改密码</span><i class="fa fa-angle-right"></i>'), change_password_page_ims_accounts_path, class: "clearfix popup-menu1" %></li>
-    <li><%= link_to raw('<span>找回密码</span><i class="fa fa-angle-right"></i>'), reset_password_page_ims_accounts_path, class: "clearfix popup-menu2" %></li>
+    <li><%= link_to raw('<span>找回密码</span><i class="fa fa-angle-right"></i>'), before_reset_password_page_ims_accounts_path, class: "clearfix popup-menu2" %></li>
     <li><%= link_to raw('<span>交易记录</span><i class="fa fa-angle-right"></i>'), my_list_ims_card_orders_path, class: "clearfix popup-menu3" %></li>
   </ul>
 </div>
