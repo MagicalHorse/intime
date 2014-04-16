@@ -24,8 +24,7 @@
                    <h3><%= link_to product["productname"], ims_store_product_path(product["productid"]) %></h3>
                    <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
                    <p class="txt3 clearfix">
-                     <span class="pull-left">尺码：<%= product["sizevalue"] %></span>
-                     <span class="pull-right">颜色：<%= product["colorvalue"] %></span>
+                     <span class="pull-left">商品描述：<%= product["productdesc"] %></span>
                    </p>
                </div>
            </div>
