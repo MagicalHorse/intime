@@ -32,7 +32,8 @@
             <% if @combo.combo_pics.size < 5 %>
             <li class="add-link" id="add_img"><span class="img-spa"><a href="javascript:void(0);" ><img src="/images/ims/add-img.png"></a></span></li>
             <% end %>
-            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*"></div>
+            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*">
+            </div>
         </ul>
     </div>
 </div>
@@ -227,42 +228,35 @@ var check_form = function(){
        }
     });
 
-    $('#upfile').fileupload({
-        url: "/ims/store/combos/<%= @combo.id %>/add_img",
-        type: 'get',
-        dataType: 'json',
-        beforeSend: function(){
-          $("#loading-box").modal();
-          $("#add_img").hide();
-        },
 
-        fileuploadfail: function(e, data){
-          alert(e);
-        },
-        fileuploadchunkfail: function(e, data){
-          alert(e);
-        },
-        done: function(e, data){
-          $("#loading-box").modal('hide');
-          if(data.result['status'] == 1){
-            setTimeout(function(){
-              $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><span class='img-spa'><img src='"+data.result['img']+"'></span></li>");
-              $("#default_img").addClass("show-imgbox-yes");
-              $("#default_img").removeClass("show-imgbox-no");
-              $("#default_img").html("<img src='"+data.result['img']+"'>");
-              img_size = $("#img_box li[class!='add-link']").length;
-              if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
-              
-               format_img(".show-imgbox-no");
-               format_img(".img-spa");
-               format_img(".show-imgbox-yes");
-            }, 800);
-          }else{
-            error_modal("网络错误，请稍后重试");
-          }
+    $("#upfile").change(function(){
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
 
-        }
-       });
+        reader.onload = function (event) {
+          var blob = new Blob([event.target.result]); // create blob...
+          window.URL = window.URL || window.webkitURL;
+          var blobURL = window.URL.createObjectURL(blob);
+          console.log(blobURL);
+          var image = new Image();
+          image.src = blobURL;
+
+          image.onload = function() {
+            var resized = resizeMe(image, 393, 393);
+            $.ajax({
+              url: "/ims/combos/upload",
+              dataType: 'json',
+              type: 'post',
+              data: {"img": resized},
+              sucess: function(res){
+                alert(res);
+              }
+            }); 
+          }  
+        }  
+
+    });
 
       $("#img_box li").click(function(){
         if(!$(this).hasClass("add-link")){
