@@ -40,7 +40,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     if params[:combo_id].present?
       @combo = ::Combo.find(params[:combo_id])
     else
-      @combo = ::Combo.create({:desc => @remote_combo[:data][:desc], :private_to => @remote_combo[:data][:private_to],
+      @combo = ::Combo.create({:desc => @remote_combo[:data][:desc], :private_to => @remote_combo[:data][:private_desc],
        :combo_type => @remote_combo[:data][:combo_type], :remote_id => @remote_combo[:data][:id]})
 
       @remote_combo[:data][:products].each do |product|
@@ -54,8 +54,8 @@ class Ims::Store::CombosController < Ims::Store::BaseController
         end
       end
 
-      @remote_combo[:data][:images].each do |pic|
-        ComboPic.create({:url => pic, :combo_id => @combo.id})
+      @remote_combo[:data][:images].each do |img|
+        ComboPic.create({:url => img["name"], :combo_id => @combo.id, :remote_id => img["id"]})
       end
     end
 
