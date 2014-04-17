@@ -11,6 +11,17 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   def create
   end
 
+  def destroy
+    @status = Ims::Combo.delete(request, {:id => params[:id]})
+    if @status[:isSuccessful]
+      json = {"status" => 1}.to_json
+    else
+      json = {"status" => 0, "msg" => @status[:data][:msg]}.to_json
+    end
+
+    render :json => json
+  end
+
   #查看搭配
   def show
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
