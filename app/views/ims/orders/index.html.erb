@@ -1,9 +1,9 @@
 <div class="wrap-content">
 
   <% if @orders.present? %>
-  <%= render "list", orders: @orders %>
+    <%= render "list", orders: @orders %>
   <% else %>
-  <%= render 'ims/shared/empty' %>
+    <%= render 'ims/shared/empty' %>
   <% end %>
 
   <div id="loading" class="text-center">

@@ -1,11 +1,11 @@
-function show_loading_img(){
-  img = "<div class='loading'><img src='/images/ims/loading.gif'/></div>";
-  $("body").append(img);
-}
+// function show_loading_img(){
+//   img = "<div class='loading'><img src='/images/ims/loading.gif'/></div>";
+//   $("body").append(img);
+// }
 
-function hide_loading_img(){
-  $(".loading").remove();
-}
+// function hide_loading_img(){
+//   $(".loading").remove();
+// }
 
 function error_modal(txt){
     $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>错误提示</div><div class='txt4'>"+txt+"</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' data-dismiss='modal' aria-hidden='true' >OK</a></div>")

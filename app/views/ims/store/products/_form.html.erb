@@ -151,10 +151,10 @@
             error_modal(error)
             return false
         }else if($("#product_form").valid()){
-          show_loading_img()
+          $("#loading-box").modal();
         }
       }else if($("#product_form").valid()){
-        show_loading_img()
+        $("#loading-box").modal();
       }
     })
 
@@ -292,7 +292,7 @@
         $("#size_ids_wrapper").hide()
         $("#size_str_wrapper").hide()
       }else{
-        show_loading_img()
+        $("#loading-box").modal();
         $.get("/ims/store/dicts/product_sizes", {category_id: category_id}, function(data){
           if(data["size_type"] == 1){
             $("#size_ids_wrapper").show()
@@ -307,7 +307,7 @@
             $("#size_ids_wrapper").hide()
             $("#size_str_wrapper").show()
           }
-          hide_loading_img()
+          $("#loading-box").modal('hide');
         }, "json")
       }
     })
