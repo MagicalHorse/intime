@@ -19,6 +19,8 @@
 <script>
   $(function(){
     $("#shareToUserModel").modal();
+
+    history.pushState({}, "获赠礼品卡", <%= request.fullpath %>);
   });
 </script>
 <% end %>
