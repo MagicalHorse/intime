@@ -23,7 +23,7 @@ class Product < ActiveRecord::Base
     to_price = options[:to_price]
     brand_id = options[:brand_id]
     keywords = options[:keywords].try(:downcase)
-    per_page = [options[:per_page], 5].find{|obj| obj.present?}.to_i
+    per_page = [options[:per_page], 10].find{|obj| obj.present?}.to_i
     page = [options[:page], 1].find{|obj| obj.present?}.to_i
 
 
