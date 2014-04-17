@@ -586,7 +586,7 @@ h6 small {font-size: 10px; line-height: 16px;}
   width: 30px;
   height: 30px;
   text-indent: -9999px;
-  background: url(/images/ims/close.png) no-repeat 0 0;
+  background-image: url(/images/ims/close.png); background-repeat: no-repeat; background-position: 0 0;
 }
 
 .modal-spinner {
@@ -598,7 +598,7 @@ h6 small {font-size: 10px; line-height: 16px;}
   left: 50%;
   margin-right: -32px;
   margin-top: -32px;
-  background: url(spinner.gif) #111 no-repeat center center;
+  background-image: url(spinner.gif); background-color: #111; background-repeat: no-repeat; background-position: center center;
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   -o-border-radius: 8px;
@@ -746,8 +746,8 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .bottom-button .controls-defined > .col-6:last-child{padding-left: 5px; padding-right: 0}
 
 /*---------------------------------smail-sad--------------------------------------------*/
-.smail-icon{ margin-right: 8px; display: inline-block; height: 64px; width: 64px; background: url(/images/ims/smail.png) left center no-repeat transparent; vertical-align: middle;}
-.sad-icon{ margin-right: 8px; display: inline-block; height: 64px; width: 64px; background: url(/images/ims/sad.png) left center no-repeat transparent; vertical-align: middle;}
+.smail-icon{ margin-right: 8px; display: inline-block; height: 64px; width: 64px; background-image: url(/images/ims/smail.png); background-position: left center; background-repeat: no-repeat; background-color: transparent; vertical-align: middle;}
+.sad-icon{ margin-right: 8px; display: inline-block; height: 64px; width: 64px; background-image: url(/images/ims/sad.png); background-position: left center; background-repeat: no-repeat; background-color: transparent; vertical-align: middle;}
 
 
 
@@ -769,7 +769,7 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .module-tab .btn-line{margin-bottom: 10px;}
 .module-tab .btn-line .btn{margin-right: 5px;}
 
-.txt-block{ background:url(/images/ims/right.png) 99% center no-repeat transparent;}
+.txt-block{ background-image:url(/images/ims/right.png); background-position: 99% center; background-repeat: no-repeat; background-color: transparent;}
 .txt-block p{line-height: normal;}
 .collection-p p{margin: 0; line-height: 1.4em text-indent: 0;}
 .shelves {margin-top: 5px;}
@@ -784,7 +784,9 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .module-argreement ul{ margin: 10px 0 0; list-style: none;}
 .module-argreement li{ margin: 0 0 5px; line-height: 30px;}
 /*----------------------------------------Shop Browerse-------------------------------------------*/
-.hd{ margin: 0; display: inline-block; background: url(/images/ims/shop-browerse-icon.png) no-repeat  center top / auto auto transparent; width: 26px; height: 26px;}
+.hd{ margin: 0; display: inline-block; width: 26px; height: 26px;
+ background-image: url(/images/ims/shop-browerse-icon.png); background-color: transparent; background-position: center top; background-repeat: no-repeat; background-size: auto auto;
+}
 .btn-tel{background-position: center top;}
 .btn-star{background-position: center -252px;}
 .btn-star-active{background-position: center -126px;}

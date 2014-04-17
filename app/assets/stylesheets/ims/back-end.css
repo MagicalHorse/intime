@@ -20,10 +20,9 @@
 .mini-imgbox ul li .img-spa:focus,
 .mini-imgbox ul li .img-spa:hover,
 .mini-imgbox ul li .img-spa:active{ border:2px solid #f86b9f;}
-.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background-image:url(/images/ims/delate.png); background-position: center center; background-repeat: no-repeat; background-color: transparent; background-size: 24px auto;}
 .mini-imgbox ul li img{ width: auto; height: auto;}
 .mini-imgbox ul li.add-link a{ display: block;}
-/*.mini-imgbox .img-spa{ margin: 0; display: inline-block; width: 100%; height: 100%; overflow: hidden; text-align: center;}*/
 
 .upload-img {margin-top: 30px;}
 .upload-img ul{margin: 0; list-style: none; width: 100%；}
@@ -31,7 +30,7 @@
 .upload-img ul li:focus,
 .upload-img ul li:hover,
 .upload-img ul li:active{ border:2px solid #f86b9f;}
-.upload-img ul li i{ cursor: pointer; position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px; background:url(/images/ims/delate.png) center center no-repeat transparent; background-size: 24px auto;}
+.upload-img ul li i{ cursor: pointer; position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px;background-image:url(/images/ims/delate.png); background-position: center center; background-repeat: no-repeat; background-color: transparent; background-size: 24px auto;}
 .upload-img ul li img{ height: auto; width: auto;}
 .upload-img ul li.add-link{ border:2px dashed #eeeeee; background-color: #f6f8fa;}
 .upload-img ul li.add-link a{ display: block; }
@@ -68,7 +67,7 @@
 .module-searchinput form{ margin: 0;}
 .module-searchinput input{ width: 80%; height: 50px;font: 24px/50px "microsoft yahei"; text-indent: 44px;}
 .module-searchinput .btn{ background:white; color: #F86B9F; padding: 18px 24px; font-size: 22px;}
-.bg-img{background:url(/images/ims/search.png) 10px center no-repeat transparent;}
+.bg-img{background-image:url(/images/ims/search.png); background-position: 10px center; background-repeat: no-repeat; background-color: transparent;}
 .module-tab .nav-tabs { margin: 0; background: white; width: 100%;}
 .module-tab .nav-tabs > li{ width: 33.3%; text-align: center;}
 .module-tab .nav-tabs > li > a{padding: 20px 0; white-space: nowrap; border: 0; border-radius: 0; font-size: 24px;}
@@ -130,8 +129,8 @@
 .combos-product .img-spa{border:0;}
 .combos-product p {margin-top: 20px; text-align: left; padding-left: 7px;color: #cacdd1; font-weight: normal;}
 .module-share {background-color: #faf9f9;}
-.private-custom{ margin: 30px; background: url("/images/ims/fang.png")  no-repeat scroll center top / auto auto transparent;}
-.private-bg{ background: url("/images/ims/fang.png")  no-repeat scroll center bottom / auto auto transparent;}
+.private-custom{ margin: 30px; background-image: url("/images/ims/fang.png"); background-repeat: no-repeat; background-position: center top; background-size: auto auto; background-color: transparent;}
+.private-bg{ background-image: url("/images/ims/fang.png"); background-repeat: no-repeat; background-position: center bottom; background-size: auto auto; background-color: transparent;}
 .private-text h2{ margin: 0;}
 .private-text{padding: 30px;}
 /*------------------------------Product Details----------------------------------*/
@@ -148,7 +147,7 @@
 .size-detail dd ul{margin-bottom: 0;}
 .size-detail dd li {float: left;}
 .size-detail dd li a{display: inline-block; padding: 14px 14px; border:2px solid #dee1e7; border-radius: 5px;font-size:28px;  color: #c3c6cb;}
-.detail-block{ background:url(/images/ims/right.png) 99% center no-repeat transparent;}
+.detail-block{ background-image:url(/images/ims/right.png); background-position: 99% center; background-repeat: no-repeat; background-color: transparent;}
 .detail-contact-bd{ background-image: none;}
 .detail-block p{margin: 0 6% 0 0; line-height: 50px; font-size: 21px;}
 .detail-contact-bd > p{margin:0;}
