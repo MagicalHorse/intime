@@ -58,7 +58,7 @@
 .goods-box .imgs{position: relative; display:block; text-align: center; overflow: hidden; font-size: 1px;}
 .goods-box .imgs img{ height: auto;}
 .goods-box .goods-text { padding: 10px;}
-.goods-box .goods-text > a{ overflow: hidden; height: 60px; display: inline-block; margin-bottom: 10px; font-size: 21px; line-height: 30px;}
+.goods-box .goods-text > a{ overflow: hidden; display: inline-block; margin-bottom: 10px; font-size: 21px;}
 .goods-price{ position: absolute; bottom: 0; left: 0; width: 100%; color: white; line-height: 40px; font-size: 24px; text-indent: 10px; background-color: rgba(202, 200, 201, 0.80);}
 .goods-text .btn {font-size: 21px;}
 
@@ -150,15 +150,15 @@
 .size-detail dd li a{display: inline-block; padding: 14px 14px; border:2px solid #dee1e7; border-radius: 5px;font-size:28px;  color: #c3c6cb;}
 .detail-block{ background:url(/images/ims/right.png) 99% center no-repeat transparent;}
 .detail-contact-bd{ background-image: none;}
-.detail-block > p{margin: 0 6% 0 0; line-height: 50px; font-size: 21px;}
+.detail-block p{margin: 0 6% 0 0; line-height: 50px; font-size: 21px;}
 .detail-contact-bd > p{margin:0;}
 .detail-contact{cursor: pointer;}
 .detail-block > .txt0{ line-height: 50px;}
 .detail-block > .txt-bd{padding-bottom: 10px; margin-bottom: 20px;}
-.detail-block > p > span{ padding-right: 20px;}
-.detail-block > p > span:last-child{ padding-right: 0;}
-.detail-block > p > span > b{font-weight: normal; }
-.detail-block > p i{ margin-right: 4px; font-weight: normal; font-style: normal;}
+.detail-block p > span{ padding-right: 20px;}
+.detail-block p > span:last-child{ padding-right: 0;}
+.detail-block p > span > b{font-weight: normal; }
+.detail-block p i{ margin-right: 4px; font-weight: normal; font-style: normal;}
 .wx-payment{margin-top: 24px; padding: 0 40px;}
 .current-choose{ margin-top: 20px; border-top: 1px dashed #eeeeee; padding: 10px 0 0; font-family:"microsoft yahei"; }
 .current-choose .ellipsis{ color: #F86B9F;}

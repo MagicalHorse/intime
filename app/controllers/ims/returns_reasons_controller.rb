@@ -2,7 +2,7 @@
 class Ims::ReturnsReasonsController < Ims::BaseController
 
   def new
-    @reasons = API::Environment.supportrmareasons(request, pagesize: 20)[:data][:items]
+    @reasons = API::Environment.supportrmareasons(request, pagesize: 10)[:data][:items]
   end
 
   def create

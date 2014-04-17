@@ -151,10 +151,10 @@
             error_modal(error)
             return false
         }else if($("#product_form").valid()){
-          show_loading_img()
+          $("#loading-box").modal();
         }
       }else if($("#product_form").valid()){
-        show_loading_img()
+        $("#loading-box").modal();
       }
     })
 
@@ -177,11 +177,11 @@
             })
             $("#coding_id option:last").attr("selected", true)
           }else{
-            alert("销售编码添加失败")
+            error_modal("销售编码添加失败")
           }
         }, "json")
       }else{
-        alert("销售编码不能为空")
+        error_modal("销售编码不能为空")
       }
     })
 
@@ -292,7 +292,7 @@
         $("#size_ids_wrapper").hide()
         $("#size_str_wrapper").hide()
       }else{
-        show_loading_img()
+        $("#loading-box").modal();
         $.get("/ims/store/dicts/product_sizes", {category_id: category_id}, function(data){
           if(data["size_type"] == 1){
             $("#size_ids_wrapper").show()
@@ -307,7 +307,7 @@
             $("#size_ids_wrapper").hide()
             $("#size_str_wrapper").show()
           }
-          hide_loading_img()
+          $("#loading-box").modal('hide');
         }, "json")
       }
     })
@@ -315,17 +315,12 @@
     $(document).on("click", "#size_ids_wrapper .goods-size a", function(){
       class_name = $(this).attr("class") || ""
       size_id = $(this).attr("value")
-      error = '<span class="error">不能为空</span>'
       if(class_name.indexOf('active') >= 0){
         $(this).removeClass("active")
         $("input[name='size_ids[]'][value='"+size_id+"']").remove()
-        if($("input[name='size_ids[]']").length == 0){
-          $("#size_ids_wrapper .goods-size").after(error)
-        }
       }else{
         $(this).addClass("active")
         $(this).after('<input type="hidden" value="'+size_id+'" name="size_ids[]">')
-        $("#size_ids_wrapper .error").remove()
       }
     })
 
@@ -336,7 +331,7 @@
     function readFile(){
       var file = this.files[0];
       if(!/image\/\w+/.test(file.type)){
-        alert("文件必须为图片！");
+        error_modal("文件必须为图片！");
         return false;
       }
       var reader = new FileReader();

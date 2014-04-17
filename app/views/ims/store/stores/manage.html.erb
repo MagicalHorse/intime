@@ -1,4 +1,4 @@
-<div class="wrap-content">
+<div class="wrap-content bottom-distance">
     <div class="module module-white min-height">
   		<div class="module-tab0 module-tab2 module-product">
         <ul class="nav nav-tabs" id="myTab">
@@ -33,7 +33,7 @@
                     <div class="row-fluid">
                       <div class="span3"><img class="img-rounded" src="<%= combo["image"] %>"></div>
                       <div class="span9 collection-p">
-                        <p class="txt2"><%= combo["desc"] %></p>
+                        <p class="txt2 one-line"><%= combo["desc"] %></p>
                         <p class="txt2 txt-red">打包价：￥<%= combo["price"] %></p>
                         <div class="shelves">
                           <% if card["is_online"] %>
@@ -51,12 +51,12 @@
             <% end %>
             <% end %>
             <div class="bottom-button">
-                  <div class="form-defined">
-                    <div class="controls-defined defined-large">
-                      <div class="col-12"><button class="btn btn-danger btn-large btn-block"><a href="/ims/store/combos/new">添加搭配</a></button></div>
-                    </div>
-                  </div>
+              <div class="form-defined">
+                <div class="controls-defined defined-large">
+                  <div class="col-12"><button class="btn btn-danger btn-large btn-block"><a href="/ims/store/combos/new">添加搭配</a></button></div>
                 </div>
+              </div>
+            </div>
             
         </div>
       </div>

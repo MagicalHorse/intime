@@ -64,11 +64,7 @@
               <% if salecolors.blank? %>
                 已售罄
               <% else %>
-                <% if salecolors.length == 1 %>
-                  已选："<%= salecolors.first["colorname"] %>"
-                <% else %>
                   请选择颜色，尺码
-                <% end %>
               <% end %>
             </div>
           </div>
@@ -363,7 +359,7 @@
         $.each(errorList, function(i,v){
           msg += (v.message+"\r\n");
         });
-        if(msg!="") alert(msg);
+        if(msg!="") error_modal(msg);
       },
       errorPlacement:function(error, element){
         element.after(error)
@@ -385,11 +381,11 @@
                 order_id = data["data"]["orderno"]
                 $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
               }else{
-                alert("提交订单失败")
+                error_modal("提交订单失败")
               }
             },
             error: function(data){
-              alert("提交订单发生错误")
+              error_modal("提交订单发生错误")
             }
           })
         }

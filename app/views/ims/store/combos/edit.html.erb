@@ -112,13 +112,13 @@
       verify_image2 = product_image_fields.length < 2
       verify_image3 = product_image_fields.length > 3
       if(verify_image1){
-        alert("主图必须有")
+        error_modal("主图必须有")
       }
       if(verify_image2){
-        alert("商品搭配至少要由2个组成")
+        error_modal("商品搭配至少要由2个组成")
       }
       if(verify_image3){
-        alert("商品搭配最多由3个组成")
+        error_modal("商品搭配最多由3个组成")
       }
       if(verify_image1 || verify_image2 || verify_image3){
         return false

@@ -84,11 +84,12 @@
 <% if @remote_id.present? %>
   <%= hidden_field_tag :remote_id, @remote_id %>
 <% end %>
+
+<% end %>
 <div class="bottom-btnbox">
     <button class="btn btn-small btn-danger preview" type="button">预 览</button>
-    <button class="btn btn-small btn-danger" type="submit">提交发布</button>
+    <button class="btn btn-small btn-danger" type="button" id="combo_submit" >提交发布</button>
 </div>
-<% end %>
 
 <div class="popup-menu-box">
   <div class="popup-menu" style="display:none;" id="pop-menu">
@@ -131,22 +132,22 @@ var check_form = function(){
         status = false;
       }
       if(verify_product1){
-        error_modal("商品搭配至少要由2个组成"); 
+        error_modal("商品搭配至少要由2个组成");
         status = false;
       }
       if(verify_product2){
-        error_modal("商品搭配最多由3个组成");  
+        error_modal("商品搭配最多由3个组成");
         status = false;
       }
       if(verify_image1 || verify_image2){
         status = false;
       }
       if(desc_length < 10){
-        error_modal("商品描述最少10个字");   
+        error_modal("商品描述最少10个字");
         status = false;
       }
       if(desc_length > 128){
-        error_modal("商品描述最多128个字");   
+        error_modal("商品描述最多128个字");
         status = false;
       }
       return status;
@@ -172,46 +173,12 @@ var check_form = function(){
       })
     })
 
+    $("#combo_submit").click(function(){
+      $("#combo_form").submit();
+    });
 
-    $("#combo_form").on("submit", function(){
-      var image_fields = $("#img_box li[class!='add-link']");
-      var product_image_fields = $("#p_box li");
-      verify_image1 = image_fields.length < 2;
-      verify_image2 = image_fields.length > 5;
-      verify_product1 = product_image_fields.length < 3;
-      verify_product2 = product_image_fields.length > 4;
-      var desc_length = $("#combo_desc").val().length;
-      var status = true;
-
-      if(verify_image1){
-        error_modal("主图必须至少有2张");
-        status = false;
-      }
-      if(verify_image2){
-        error_modal("主图最多有5张");
-        status = false;
-      }
-      if(verify_product1){
-        error_modal("商品搭配至少要由2个组成"); 
-        status = false;
-      }
-      if(verify_product2){
-        error_modal("商品搭配最多由3个组成");  
-        status = false;
-      }
-      if(verify_image1 || verify_image2){
-        status = false;
-      }
-      if(desc_length < 20){
-        error_modal("商品描述最少20个字");   
-        status = false;
-      }
-      if(desc_length > 128){
-        error_modal("商品描述最多128个字");   
-        status = false;
-      }
-      if(status){$("#loading-box").modal();};
-      return status;
+    $("#combo_form").submit(function(){
+      check_form();
     });
 
 
@@ -225,7 +192,7 @@ var check_form = function(){
        if(img_size < 5){
          document.getElementById("upfile").click();
        }else{
-        error_modal("上传主图不能超过5个"); 
+        error_modal("上传主图不能超过5个");
        }
     });
 
@@ -271,10 +238,10 @@ var check_form = function(){
     //                error_modal("网络错误，请稍后重试");
     //              }
     //           }
-    //         }); 
-    //       }  
+    //         });
+    //       }
     //     }
-    // 
+    //
     // });
 
     $('#upfile').fileupload({
@@ -287,10 +254,10 @@ var check_form = function(){
         },
 
         fileuploadfail: function(e, data){
-          alert(e);
+          error_modal(e);
         },
         fileuploadchunkfail: function(e, data){
-          alert(e);
+          error_modal(e);
         },
         done: function(e, data){
           $("#loading-box").modal('hide');
@@ -375,18 +342,18 @@ var check_form = function(){
              data: {"desc": desc, "private_to": private_to},
              beforeSend: function(){
               $("#loading-box").modal();
-             }, 
+             },
              success: function(response){
                self.location="/ims/store/combos/<%=@combo.id%>/preview";
              }
            });
-         }   
+         }
        })
-     
+
      format_img(".show-imgbox-no");
      format_img(".img-spa");
      format_img(".show-imgbox-yes");
-    
+
   });
 </script>
 <% end -%>

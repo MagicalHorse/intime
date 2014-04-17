@@ -11,29 +11,28 @@
           </div>
       </div>
     </div>
-    <%= form_tag("/ims/store/stores/#{@store[:data][:id]}", method: :put, id: "store_form", class: 'form-defined', remote: true)  do |f| %>
-    <div class="module common-white module-password">
-      <div class="shop-information2 txt2">
-        <p class="clearfix"><span class="pull-left">店铺名称</span>
-          <span class="pull-right txt-grey">
-            <%= text_field_tag :name, @store[:data][:name], class: 'large-block' %>
-          </span>
-        </p>
-        <p class="clearfix"><span class="pull-left">电话</span>
-          <span class="pull-right txt-grey tel-nun">
-            <%= text_field_tag :mobile, @store[:data][:mobile], class: 'large-block' %>
-          </span>
-        </p>
-      </div>
+    <div class="module common-white">
+      <%= form_tag("/ims/store/stores/#{@store[:data][:id]}", method: :put, id: "store_form", class: 'form-defined shop-form-defined', remote: true)  do |f| %>
+        <div class="shop-information2 txt2">
+          <div class="controls-defined defined-small shop-bd">
+            <label class="col-4 text-left">店铺名称</label>
+            <div class="col-8"><%= text_field_tag :name, @store[:data][:name] %></div>
+          </div>
+          <div class="controls-defined defined-small">
+            <label class="col-4 text-left">电话</label>
+            <div class="col-8"><%= text_field_tag :mobile, @store[:data][:mobile] %></div>
+          </div>
+        </div>
+      <% end %>
     </div>
+
     <div class="bottom-button">
         <div class="form-defined">
           <div class="controls-defined defined-large">
-            <div class="col-12"><button class="btn btn-danger btn-large btn-block" type="submit">修改</button></div>
+            <div class="col-12"><button class="btn btn-danger btn-large btn-block" type="button" id="store_submit">修改</button></div>
           </div>
         </div>
     </div>
-    <% end %>
   </div>
 </div>
 
@@ -43,6 +42,10 @@
 <%= content_for :javascripts do -%>
   <script type="text/javascript">
    $(function(){
+    $("#store_submit").click(function(){
+      $("#store_form").submit();
+    });
+
     $("#store_form").validate({
       rules: {
         "name": {
@@ -86,10 +89,10 @@
         $("#loading-box").modal();
       },
       fileuploadfail: function(e, data){
-        alert(e);
+        error_modal(e);
       },
       fileuploadchunkfail: function(e, data){
-        alert(e);
+        error_modal(e);
       },
       done: function(e, data){
         $("#loading-box").modal('hide');
@@ -98,7 +101,7 @@
             $("#logo").html("<img src="+data.result['img']+" class='img-rounded'/>")
           }, 500);
         }else{
-          alert("网络错误，请稍后重试");
+          error_modal("网络错误，请稍后重试");
         }
 
       }

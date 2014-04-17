@@ -1,26 +1,30 @@
 <%= render 'ims/shared/countdown' %>
 <div class="wrap-inner back-wrap-inner">
 <header id="TOP">
- <div class="header-box">
- 	<div class="head-img">
- 		<%= image_tag("/images/ims/top-img-2x.jpg") %>
- 	</div>
- 	<div class="shop-head" id="head-menu">
- 		<div class="shop-head-inner">
- 			<div class="row-fluid">
-		 		<div class="span7">
-		 			<div class="row-fluid">
-              <div class="span5"><span class="img-spa"><img class="face-img" src="<%= @store[:data][:logo] %>"></span></div>
-		 				<div class="span7"><h2 class="shop-name"><%= @store[:data][:name].present? ? @store[:data][:name] : "暂无店铺名称" %></h2></div>
-		 			</div>
-		 		</div>
-		 		<div class="span5">
-		 			<button class="btn btn-small btn-danger btn-share0 pull-right" id="share_to_user_model"><i class="fa fa-share-square-o"></i> 分享好友</button>
-		 		</div>
-		 	</div>
- 		</div>
- 	</div>
- </div>
+  <div class="header-box header-box-index">
+      <div class="head-img">
+        <%= image_tag("/images/ims/top-img-2x.jpg") %>
+      </div>
+      <div class="shop-head" id="head-menu">
+          <div class="shop-head-inner">
+              <div class="row-fluid">
+                  <div class="span12">
+                      <div class="row-fluid">
+                          <div class="span3">
+                              <span class="img-spa"><img class="face-img" src="<%= @store[:data][:logo] %>"></span>
+                          </div>
+                          <div class="span9">
+                              <h2 class="shop-name index-shop-name"><%= @store[:data][:name].present? ? @store[:data][:name] : "暂无店铺名称" %></h2>
+                              <div class="index-share clearfix">
+                                  <button class="btn btn-small btn-danger btn-share0 pull-right" id="share_to_user_model"><i class="fa fa-share-square-o"></i> 分享好友</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </header>
 
 <div class="wrap-inner">

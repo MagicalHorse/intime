@@ -41,9 +41,9 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def records
-    @search_gift_card = Ims::Store.giftcard_records(request, page: params[:gift_card_page] || 1, pagesize: params[:gift_card_per_page] || 3)
+    @search_gift_card = Ims::Store.giftcard_records(request, page: params[:gift_card_page] || 1, pagesize: params[:gift_card_per_page] || 10)
     @gift_cards = @search_gift_card["data"]["items"]
-    @search_order = Ims::Store.order_records(request, page: params[:order_page] || 1, pagesize: params[:order_per_page] || 3)
+    @search_order = Ims::Store.order_records(request, page: params[:order_page] || 1, pagesize: params[:order_per_page] || 10)
     @orders = @search_order["data"]["items"]
     @title = "成交记录"
 

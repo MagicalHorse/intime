@@ -9,7 +9,11 @@
       <div class="tab-content">
         <div id="gift_cards" class="tab-pane active">
           <div class="module-table-box module-record">
-            <%= render "gift_card_list", gift_cards: @gift_cards %>
+            <% if @gift_cards.present? %>
+              <%= render "gift_card_list", gift_cards: @gift_cards %>
+            <% else %>
+              <%= render 'ims/shared/empty' %>
+            <% end %>
           </div>
         </div>
 
@@ -106,7 +110,7 @@
     $('#myTab a').click(function (e) {
       e.preventDefault()
       $(this).tab('show');
-      
+
       format_img(".img-spa");
     })
 
@@ -132,7 +136,7 @@
             online_num += 1
           }
         }else{
-          alert(click_text+"失败" + data["message"])
+          error_modal(click_text+"失败" + data["message"])
         }
       })
      }

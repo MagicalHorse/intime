@@ -32,14 +32,14 @@
             $("#banners").append("<span>"+ img_link + destroy_img_link +"</span>")
             form.resetForm()
           }else{
-            alert("上传失败")
+            error_modal("上传失败")
             // $.each(data["error_messages"], function(index, data){
             //   $(".errore-box .alert").append("<div>"+data+"</div>")
             // })
           }
         },
         error: function(data){
-          alert("上传失败")
+          error_modal("上传失败")
         }
       })
     })
