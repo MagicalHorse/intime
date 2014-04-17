@@ -183,6 +183,18 @@ class Ims::AccountsController < Ims::BaseController
     end
   end
 
+  # 修改身份证号
+  def set_id_page
+    
+  end
+
+  # 设置身份证
+  def set_id
+    render json: {success: true}
+  end
+
+
+
   private
 
   # 已经绑卡成功，不能进入某些页面
