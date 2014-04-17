@@ -41,8 +41,8 @@ $(function(){
         type: 'delete',
         success: function(res){
           if(res["status"] == 1){
-            error_modal("删除成功");
-             ele.parents("div.combo_paginate-content")[0].remove();
+            success_modal("删除成功");
+            ele.parents("div.combo_paginate-content")[0].remove();
           }else{
             error_modal(res["msg"]);
           }

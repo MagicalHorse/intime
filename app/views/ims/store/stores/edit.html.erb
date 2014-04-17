@@ -16,16 +16,16 @@
         <div class="shop-information2 txt2">
           <div class="controls-defined defined-small shop-bd">
             <label class="col-4 text-left">店铺名称</label>
-            <div class="col-8"><%= text_field_tag :name, @store[:data][:name], class: 'large-block' %></div>
+            <div class="col-8"><%= text_field_tag :name, @store[:data][:name] %></div>
           </div>
           <div class="controls-defined defined-small">
             <label class="col-4 text-left">电话</label>
-            <div class="col-8"><%= text_field_tag :mobile, @store[:data][:mobile], class: 'large-block' %></div>
+            <div class="col-8"><%= text_field_tag :mobile, @store[:data][:mobile] %></div>
           </div>
         </div>
       <% end %>
     </div>
-    
+
     <div class="bottom-button">
         <div class="form-defined">
           <div class="controls-defined defined-large">
