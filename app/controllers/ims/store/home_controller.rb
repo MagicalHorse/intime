@@ -9,6 +9,7 @@ class Ims::Store::HomeController < Ims::Store::BaseController
   def login
     @invite_code = params[:invite_code]
     @status = Ims::Store.create(request, {:invite_code => params[:invite_code]})
+    logger.info("status: #{@status}")
     if @status[:isSuccessful]
       user = Ims::User.new({
       :id => status[:data][:id],
