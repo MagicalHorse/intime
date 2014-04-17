@@ -133,7 +133,7 @@
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-    <button class="btn btn-primary" id="coding_button">保存</button>
+    <button class="btn btn-primary" id="coding_button" data-dismiss='modal' aria-hidden='true'>保存</button>
   </div>
 </div>
 </div>
@@ -170,7 +170,7 @@
       if(coding.length > 0){
         $.post("/ims/store/sales_codes", {coding: coding}, function(data){
           if(data["status"] == true){
-            $("#new_coding_form").modal("hide")
+            // $("#new_coding_form").modal("hide")
             $("#coding_id").html("")
             $.each(data["data"], function(index, value){
               $("#coding_id").append("<option value='"+value+"'>"+value+"</option>")
