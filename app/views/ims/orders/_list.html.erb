@@ -9,12 +9,12 @@
 
     <% order["products"].each do |product| %>
       <div class="indent-head">
-        <%= link_to ims_orders_show_path(id: order["order_no"]) do %>
-        <div class="txt-block">
         <div class="row-fluid">
            <div class="span3">
                <div class="detail-imgbox">
-                 <%= image_tag product["image"] %>
+                 <%= link_to ims_store_product_path(product["id"]) do %>
+                   <%= image_tag product["image"] %>
+                 <% end %>
                    <!-- <img src="/images/ims/img800.jpg"> -->
                </div>
            </div>
@@ -28,13 +28,11 @@
                      <% end %>
                    </p>
                    <p class="txt3 clearfix">
-                     <span class="pull-left">商品描述：<%= product["productdesc"] %></span>
+                     <span class="pull-left"><%= product["productdesc"] %></span>
                    </p>
                </div>
            </div>
         </div>
-        </div>
-        <% end %>
       </div>
 
     <% end %>
