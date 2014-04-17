@@ -37,7 +37,7 @@
         </div>
       </div>
     </div>
-    <% if params[:private_to].present? %>
+    <% if params[:private_to].present? && @remote_combo[:data][:private_desc].present? %>
     <div class="private-custom">
       <div class="private-bg">
         <div class="private-text">
