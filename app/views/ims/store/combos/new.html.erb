@@ -298,8 +298,16 @@ var check_form = function(){
         success: function(response){
             $("#img_"+mid).parent().remove();
             img_size = $("#img_box li[class!='add-link']").length;
-            if(img_size < 5){$("#add_img").show();}
-            format_img(".mini-imgbox li");
+            if(img_size < 5 && img_size > 0){
+              $("#add_img").show();
+              $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] img")[0].src+"'>");
+            }else{
+              $("#add_img").show();
+              $("#default_img").html("<img src='/images/ims/no-image.jpg'>");
+            }
+            format_img(".show-imgbox-no");
+            format_img(".img-spa");
+            format_img(".show-imgbox-yes");
         }
        });
 
