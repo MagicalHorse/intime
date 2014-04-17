@@ -1,6 +1,6 @@
 <% combos.each do |combo| %>
   <%= link_to ims_combo_path(combo["id"]) do %>
-  <div class="module common-white combo_paginate-content">
+  <div class="module common-white combo_paginate-content" id="combo_content_<%=combo["id"]%>">
     <div class="txt-block detail-contact">
         <div class="row-fluid">
           <div class="span3">
@@ -42,7 +42,7 @@ $(function(){
         success: function(res){
           if(res["status"] == 1){
             success_modal("删除成功");
-            ele.parents("div.combo_paginate-content")[0].remove();
+            $("#combo_content_"+combo_id).remove();
           }else{
             error_modal(res["msg"]);
           }
