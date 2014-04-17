@@ -12,17 +12,17 @@ class Ims::Store::HomeController < Ims::Store::BaseController
     logger.info("status: #{@status}")
     if @status[:isSuccessful]
       user = Ims::User.new({
-      :id => status[:data][:id],
-      :email => status[:data][:email],
-      :level => status[:data][:level],
-      :nickname => status[:data][:nickname],
-      :mobile => status[:data][:mobile],
-      :isbindcard => status[:data][:isbindcard],
-      :logo => status[:data][:logo],
-      :operate_right => status[:data][:operate_right],
-      :token => status[:data][:token],
-      :store_id => status[:data][:associate_id],
-      :max_comboitems => status[:data][:max_comboitems]
+      :id => @status[:data][:id],
+      :email => @status[:data][:email],
+      :level => @status[:data][:level],
+      :nickname => @status[:data][:nickname],
+      :mobile => @status[:data][:mobile],
+      :isbindcard => @status[:data][:isbindcard],
+      :logo => @status[:data][:logo],
+      :operate_right => @status[:data][:operate_right],
+      :token => @status[:data][:token],
+      :store_id => @status[:data][:associate_id],
+      :max_comboitems => @status[:data][:max_comboitems]
       })
       session[:current_wx_user] = user
       redirect_to my_ims_store_store_path(:id => user.store_id)
