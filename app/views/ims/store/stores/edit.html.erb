@@ -26,7 +26,7 @@
         </p>
       </div>
     </div>
-    
+
     <% end %>
     <div class="bottom-button">
         <div class="form-defined">
@@ -91,10 +91,10 @@
         $("#loading-box").modal();
       },
       fileuploadfail: function(e, data){
-        alert(e);
+        error_modal(e);
       },
       fileuploadchunkfail: function(e, data){
-        alert(e);
+        error_modal(e);
       },
       done: function(e, data){
         $("#loading-box").modal('hide');
@@ -103,7 +103,7 @@
             $("#logo").html("<img src="+data.result['img']+" class='img-rounded'/>")
           }, 500);
         }else{
-          alert("网络错误，请稍后重试");
+          error_modal("网络错误，请稍后重试");
         }
 
       }

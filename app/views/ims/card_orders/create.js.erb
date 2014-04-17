@@ -23,9 +23,9 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
      // get_brand_wcpay_request:cancel 用户取消
 
   }else if(res.err_msg == "get_brand_wcpay_request:fail"){
-    
+
   }else{
-    alert(res.err_msg)
+    error_modal(res.err_msg)
   }
 
 // WeixinJSBridge.log(res.err_msg);

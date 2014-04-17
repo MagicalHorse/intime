@@ -106,7 +106,7 @@
     $('#myTab a').click(function (e) {
       e.preventDefault()
       $(this).tab('show');
-      
+
       format_img(".img-spa");
     })
 
@@ -132,7 +132,7 @@
             online_num += 1
           }
         }else{
-          alert(click_text+"失败" + data["message"])
+          error_modal(click_text+"失败" + data["message"])
         }
       })
      }

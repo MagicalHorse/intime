@@ -144,9 +144,9 @@
               $("#order_status").text("已取消")
               this_ele.parent().hide()
               $("#payment").parent().hide()
-              alert("取消订单成功")
+              success_modal("取消订单成功")
             }else{
-              alert("取消订单失败")
+              error_modal("取消订单失败")
             }
           }, "json")
         }
@@ -161,11 +161,11 @@
           $.post("/ims/orders/"+order_id+"/returns_reasons/"+rmano_id+"/cancel", {_method: "put"}, function(data){
             if(data["status"] == true){
               $(".rmas_status").text("退货取消")
-              alert("取消退货成功")
+              success_modal("取消退货成功")
               this_ele.parent().hide()
               $("#rmas").parent().show()
             }else{
-              alert("取消退货申请失败")
+              error_modal("取消退货申请失败")
             }
           }, "json")
         }

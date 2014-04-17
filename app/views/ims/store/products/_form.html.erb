@@ -177,11 +177,11 @@
             })
             $("#coding_id option:last").attr("selected", true)
           }else{
-            alert("销售编码添加失败")
+            error_modal("销售编码添加失败")
           }
         }, "json")
       }else{
-        alert("销售编码不能为空")
+        error_modal("销售编码不能为空")
       }
     })
 
@@ -331,7 +331,7 @@
     function readFile(){
       var file = this.files[0];
       if(!/image\/\w+/.test(file.type)){
-        alert("文件必须为图片！");
+        error_modal("文件必须为图片！");
         return false;
       }
       var reader = new FileReader();

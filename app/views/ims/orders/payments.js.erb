@@ -71,7 +71,7 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
 
   }else if(res.err_msg == "get_brand_wcpay_request:fail"){
   }else{
-    alert(res.err_msg)
+    error_modal(res.err_msg)
   }
 
 // WeixinJSBridge.log(res.err_msg);

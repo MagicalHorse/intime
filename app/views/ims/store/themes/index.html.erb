@@ -11,9 +11,9 @@
         theme_id = $(this).attr("value")
         $.post("/ims/store/themes/"+theme_id, {_method: "put"}, function(data){
           if(data["status"] == true){
-            alert("修改主题成功")
+            error_modal("修改主题成功")
           }else{
-            alert("修改主题失败")
+            error_modal("修改主题失败")
           }
         }, "json")
       })
