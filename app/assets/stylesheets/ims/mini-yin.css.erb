@@ -638,12 +638,16 @@ h6 small {font-size: 10px; line-height: 16px;}
 .min-height{min-height: 500px;}
 .module-white{background: white;}
 /*-------------------------------Css Header-----------------------------------*/
-.header-box{position: relative;}
+.header-box{position: relative; margin-bottom: 16%;}
+.header-box-index{margin-bottom: 12%;}
 .face-img { border:0; border-radius: 4px; width: 100%;}
-.shop-name{ margin:10px 0 0; font-size: 30px; font-weight: normal;}
-.btn-share0{margin-top: 22%; padding: 18px 38px;}
-.shop-head{position: absolute; left: 0; bottom: -60px;width: 100%;}
-.shop-head-inner{padding: 0 20px 0 30px;}
+.index-share {padding-top: 4px;}
+.shop-name{ margin:10px 0 0; font-size: 30px; font-weight: normal; line-height: 1em}
+.browerse-shop-name{margin-bottom: 10%;}
+.btn-share0{ padding: 18px 20px;}
+.shop-head{position: absolute; left: 0; bottom: -24%;width: 100%;}
+.header-box-index .shop-head{ bottom: -22%;}
+.shop-head-inner{padding: 0 4% 0;}
 .shop-head-inner .img-spa{background: #E3E4E8; border:4px solid #E3E4E8;}
 
 
@@ -781,11 +785,11 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .btn-star{background-position: center -252px;}
 .btn-star-active{background-position: center -126px;}
 .btn-share{background-position: center -378px;}
-.browerse-icon {position: relative; top: 34px;}
-.shop-head-inner .browerse-icon li { display: inline-block; text-align: center; border-right:1px solid #dddddd; padding: 0 20px;}
-.shop-head-inner .browerse-icon li:last-child { border-right:0;}
-.browerse-icon li a { color: #676767; font-size: 21px;}
-.browerse-icon li a span{display: block; line-height: 14px;}
+.browerse-icon { width: 100%;}
+.browerse-icon .span4{margin: 0; width: 33.3%;}
+.browerse-nav-link{ display: inline-block; text-align: center; border-left:1px solid #dddddd; color: #676767; font-size: 21px; line-height: 1em; width: 100%;box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
+.nav-link-fist{border-left:0;}
+.browerse-nav-link span{display: block;}
 /*-------------------------------------------------Empty--------------------------------------------*/
 .empty-box{text-align: center;padding-top: 20%;}
 .empty-box .empyt-h1{margin-top: 60px;}
@@ -813,14 +817,7 @@ footer{ position: fixed; bottom:0; width: 640px;}
 .collection-pbox{margin-top: 30px;}
 .collection-pbox p{ font-size: 26px;}
 /*----------------------------------------Shop Browerse-------------------------------------------*/
-.browerse-icon { top: 40px;}
-.shop-head-inner .browerse-icon li { padding: 0 5px;}
-.browerse-icon li a { color: #676767; font-size: 14px;}
-.hd{background-size: 16px auto; width: 16px; height: 16px;}
-.btn-star{background-position: center -144px;}
-.btn-star-active{background-position: center -72px;}
-.btn-share{background-position: center -216px;}
-.price-box .btn-small{padding: 0 12px;}
+.price-box .btn-small{padding: 8px 12px;} 
 
 /*-------------------------------------------------Empty--------------------------------------------*/
 .empty-box{ padding-top: 15%;}
@@ -874,6 +871,19 @@ footer{ position: fixed; bottom:0; width: 640px;}
 }
 
 @media screen and (max-width: 480px) {
+  /*----------------------------------------Shop Browerse-------------------------------------------*/
+.browerse-icon { top: 40px;}
+.shop-head-inner .browerse-icon li { padding: 0 5px;}
+.header-box-index{margin-bottom: 14%;}
+.browerse-shop-name{margin-bottom: 8%;}
+.browerse-icon .browerse-nav-link { font-size: 14px;}
+.shop-head{bottom: -30%;}
+.hd{background-size: 16px auto; width: 16px; height: 16px;}
+.btn-star{background-position: center -144px;}
+.btn-star-active{background-position: center -72px;}
+.btn-share{background-position: center -216px;}
+.price-box .btn-small{padding: 0 12px;}
+
   .modal-grey{ padding-top: 0;}
   .browerse-icon { top: 26px;}
   .collection-pbox{margin: 0 14px 0 0;}
