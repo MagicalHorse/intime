@@ -100,8 +100,8 @@
         <% end %>
       </div>
       <% end %>
-
-
+<!-- 当前用户不是导购 -->
+      <% if @order[:is_owner] %>
       <div class="bottom-button indent-btn">
         <div class="form-defined">
           <div class="controls-defined defined-large">
@@ -121,7 +121,8 @@
 
           </div>
         </div>
-    </div>
+      </div>
+      <% end %>
 </div>
 
 
