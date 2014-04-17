@@ -1,5 +1,5 @@
 <% combos.each do |combo| %>
-  <%= link_to ims_combo_path(combo["id"]) do %>
+  <%= link_to ims_combo_path(combo["id"], :private_to => true) do %>
   <div class="module common-white combo_paginate-content" id="combo_content_<%=combo["id"]%>">
     <div class="txt-block detail-contact">
         <div class="row-fluid">
@@ -44,7 +44,7 @@ $(function(){
             success_modal("删除成功");
             $("#combo_content_"+combo_id).remove();
           }else{
-            error_modal(res["msg"]);
+            error_modal(res["message"]);
           }
         }
       });
