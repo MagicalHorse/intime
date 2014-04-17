@@ -24,6 +24,11 @@ class Ims::Combo < Ims::Base
    def online_num(req, params = {})
       post(req, params.merge(path: 'assistant/combos_online_count'))
    end
+   
+   def delete(req, params = {})
+      post(req, params.merge(path: 'combo/delete'))
+   end
+  
  end
 
 end
