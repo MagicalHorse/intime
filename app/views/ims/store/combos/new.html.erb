@@ -174,7 +174,7 @@ var check_form = function(){
     })
 
     $("#combo_submit").click(function(){
-      $("#combo_form").submit();
+      $("#combo_form").ajaxSubmit();
     });
 
     $("#combo_form").submit(function(){
@@ -196,90 +196,91 @@ var check_form = function(){
        }
     });
 
+    $("#upfile").change(function(){
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        console.log(reader);
 
-    // $("#upfile").change(function(){
-    //     var file = this.files[0];
-    //     var reader = new FileReader();
-    //     reader.readAsArrayBuffer(file);
-
-    //     reader.onload = function (event) {
-    //       var blob = new Blob([event.target.result]); // create blob...
-    //       window.URL = window.URL || window.webkitURL;
-    //       var blobURL = window.URL.createObjectURL(blob);
-    //       var image = new Image();
-    //       image.src = blobURL;
-
-    //       image.onload = function() {
-    //         var resized = resizeMe(image, 393, 393);
-    //         $.ajax({
-    //           url: "/ims/combos/upload",
-    //           dataType: 'json',
-    //           type: 'post',
-    //           data: {"img": resized, "id": "<%= @combo.id %>"},
-    //           beforeSend: function(){
-    //             $("#loading-box").modal();
-    //             $("#add_img").hide();
-    //           },
-    //           success: function(data){
-    //             $("#loading-box").modal('hide');
-    //             if(data['status'] == 1){
-    //                setTimeout(function(){
-    //                  $("#img_box").prepend("<li><i id='img_"+data['id']+"' data='"+data['id']+"'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>");
-    //                  $("#default_img").addClass("show-imgbox-yes");
-    //                  $("#default_img").removeClass("show-imgbox-no");
-    //                  $("#default_img").html("<img src='"+data['img']+"'>");
-    //                  img_size = $("#img_box li[class!='add-link']").length;
-    //                  if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
-    //                   format_img(".show-imgbox-no");
-    //                   format_img(".img-spa");
-    //                   format_img(".show-imgbox-yes");
-    //                }, 800);
-    //              }else{
-    //                error_modal("网络错误，请稍后重试");
-    //              }
-    //           }
-    //         });
-    //       }
-    //     }
-    //
-    // });
-
-    $('#upfile').fileupload({
-        url: "/ims/store/combos/<%= @combo.id %>/add_img",
-        type: 'get',
-        dataType: 'json',
-        beforeSend: function(){
-          $("#loading-box").modal();
-          $("#add_img").hide();
-        },
-
-        fileuploadfail: function(e, data){
-          error_modal(e);
-        },
-        fileuploadchunkfail: function(e, data){
-          error_modal(e);
-        },
-        done: function(e, data){
-          $("#loading-box").modal('hide');
-          if(data.result['status'] == 1){
-            setTimeout(function(){
-              $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><span class='img-spa'><img src='"+data.result['img']+"'></span></li>");
-              $("#default_img").addClass("show-imgbox-yes");
-              $("#default_img").removeClass("show-imgbox-no");
-              $("#default_img").html("<img src='"+data.result['img']+"'>");
-              img_size = $("#img_box li[class!='add-link']").length;
-              if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
-
-               format_img(".show-imgbox-no");
-               format_img(".img-spa");
-               format_img(".show-imgbox-yes");
-            }, 800);
-          }else{
-            error_modal("网络错误，请稍后重试");
+        reader.onload = (function (event) {
+          var blob = new NewBlob(event.target.result);
+          window.URL = window.URL || window.webkitURL;
+          var blobURL = window.URL.createObjectURL(blob);
+          var image = new Image();
+          image.src = blobURL;
+          image.onload = function(){
+            var resized = resizeMe(image, 393, 393);
+            $.ajax({
+              url: "/ims/combos/upload",
+              dataType: 'json',
+              type: 'post',
+              data: {"img": resized, "id": "<%= @combo.id %>"},
+              beforeSend: function(){
+                $("#loading-box").modal();
+                $("#add_img").hide();
+              },
+              success: function(data){
+                $("#loading-box").modal('hide');
+                if(data['status'] == 1){
+                   setTimeout(function(){
+                     $("#img_box").prepend("<li><i id='img_"+data['id']+"' data='"+data['id']+"'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>");
+                     $("#default_img").addClass("show-imgbox-yes");
+                     $("#default_img").removeClass("show-imgbox-no");
+                     $("#default_img").html("<img src='"+data['img']+"'>");
+                     img_size = $("#img_box li[class!='add-link']").length;
+                     if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
+                      format_img(".show-imgbox-no");
+                      format_img(".img-spa");
+                      format_img(".show-imgbox-yes");
+                   }, 800);
+                 }else{
+                   error_modal("网络错误，请稍后重试");
+                 }
+              }
+            });
           }
+        });
+    
+    });
 
-        }
-       });
+
+
+    // $('#upfile').fileupload({
+    //     url: "/ims/store/combos/<%= @combo.id %>/add_img",
+    //     type: 'get',
+    //     dataType: 'json',
+    //     beforeSend: function(){
+    //       $("#loading-box").modal();
+    //       $("#add_img").hide();
+    //     },
+
+    //     fileuploadfail: function(e, data){
+    //       error_modal(e);
+    //     },
+    //     fileuploadchunkfail: function(e, data){
+    //       error_modal(e);
+    //     },
+    //     done: function(e, data){
+    //       $("#loading-box").modal('hide');
+    //       if(data.result['status'] == 1){
+    //         setTimeout(function(){
+    //           $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><span class='img-spa'><img src='"+data.result['img']+"'></span></li>");
+    //           $("#default_img").addClass("show-imgbox-yes");
+    //           $("#default_img").removeClass("show-imgbox-no");
+    //           $("#default_img").html("<img src='"+data.result['img']+"'>");
+    //           img_size = $("#img_box li[class!='add-link']").length;
+    //           if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
+
+    //            format_img(".show-imgbox-no");
+    //            format_img(".img-spa");
+    //            format_img(".show-imgbox-yes");
+    //         }, 800);
+    //       }else{
+    //         error_modal("网络错误，请稍后重试");
+    //       }
+
+    //     }
+    //    });
 
 
 

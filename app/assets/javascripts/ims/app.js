@@ -7,6 +7,49 @@
 //   $(".loading").remove();
 // }
 
+var NewBlob = function(data, datatype)
+{
+    var out;
+
+    try {
+        out = new Blob([data], {type: datatype});
+        console.log("case 1");
+    }
+    catch (e) {
+        window.BlobBuilder = window.BlobBuilder ||
+                window.WebKitBlobBuilder ||
+                window.MozBlobBuilder ||
+                window.MSBlobBuilder;
+
+        if (e.name == 'TypeError' && window.BlobBuilder) {
+            var bb = new BlobBuilder();
+            bb.append(data);
+            out = bb.getBlob(datatype);
+            console.log("case 2");
+        }
+        else if (e.name == "InvalidStateError") {
+            // InvalidStateError (tested on FF13 WinXP)
+            out = new Blob([data], {type: datatype});
+            console.log("case 3");
+        }
+        else {
+            // We're screwed, blob constructor unsupported entirely   
+            console.log("Errore");
+        }
+    }
+    return out;
+}
+
+// function isSupportFileApi() {
+//     if(window.Blob) {
+//       var blob = new NewBlob(["Hello world!"], { type: "text/plain" });
+//       return blob;
+//     }
+//     return false;
+// }
+
+
+
 function error_modal(txt){
     $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>错误提示</div><div class='txt4'>"+txt+"</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' data-dismiss='modal' aria-hidden='true' >OK</a></div>")
    $("#ex2").modal();
