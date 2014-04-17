@@ -9,7 +9,11 @@
       <div class="tab-content">
         <div id="gift_cards" class="tab-pane active">
           <div class="module-table-box module-record">
-            <%= render "gift_card_list", gift_cards: @gift_cards %>
+            <% if @gift_cards.present? %>
+              <%= render "gift_card_list", gift_cards: @gift_cards %>
+            <% else %>
+              <%= render 'ims/shared/empty' %>
+            <% end %>
           </div>
         </div>
 

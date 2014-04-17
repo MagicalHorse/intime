@@ -1,7 +1,11 @@
 <div class="wrap-inner back-wrap-inner">
-  <%= render "list", products: @products, combo: @combo %>
-  <div id="loading" class="text-center">
-  </div>
+  <% if @products.present? %>
+    <%= render "list", products: @products, combo: @combo %>
+    <div id="loading" class="text-center">
+    </div>
+  <% else %>
+    <%= render 'ims/shared/empty' %>
+  <% end %>
 </div>
 
 <%= hidden_field_tag "count", @search[:data][:totalcount] %>
