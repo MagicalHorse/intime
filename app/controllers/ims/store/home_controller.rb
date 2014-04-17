@@ -26,7 +26,10 @@ class Ims::Store::HomeController < Ims::Store::BaseController
       })
       session[:current_wx_user] = user
       redirect_to my_ims_store_store_path(:id => user.store_id)
-    else
+    elsif @status[:message].include?("用户已经")
+      session[:user_token] = nil
+      redirect_to check_ims_store_stores_path
+    else  
       @error = true
       render :action => :index
     end
