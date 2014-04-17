@@ -1,6 +1,6 @@
 class Ims::Store::HomeController < Ims::Store::BaseController
   skip_filter :authenticate
-  # before_filter :go_store, only: [:login]
+  before_filter :go_store
   
 
   def index
