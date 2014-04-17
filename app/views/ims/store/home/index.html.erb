@@ -7,14 +7,14 @@
             <div class="control-group <%= 'error' if @error %>">
               <input class="input-block-level large-block" name="invite_code"  value="<%= @invite_code %>" type="text" placeholder="请填写邀请码">
               <% if @error.present? %>
-              <span class="help-inline txt4">邀请码码输入有误</span>
+              <span class="help-inline txt4"><%= @status["message"] %></span>
               <% end %>
               <p class="tips txt3 txt-grey">凭店铺邀请码<span class="atip" onclick="javascript:return false;"  data-toggle="tooltip"  data-html="true" data-placement="top" title="" data-original-title="<div class='tooltip-content txt4'>目前店铺邀请码由系统分配提供，暂不向外开放。具体开放时间，请关注公众账号通知。</div>"><i class="fa fa-question-circle"></i></span>登录店铺</p>
             </div>
-            <div>
-               <button type="submit" class="btn btn-danger btn-large btn-block">我要开店</button>
-            </div>
           <% end %>
+          <div>
+               <button type="submit" class="btn btn-danger btn-large btn-block" id="">我要开店</button>
+            </div>
         </div>
       </div>
     </div>

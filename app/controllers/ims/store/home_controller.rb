@@ -1,17 +1,15 @@
 class Ims::Store::HomeController < Ims::Store::BaseController
   skip_filter :authenticate
+  before_filter :go_store
   
 
   def index
-    if current_user.store_id.present?
-      redirect_to my_ims_store_store_path(:id => current_user.store_id)
-    end
   end
 
   def login
     @invite_code = params[:invite_code]
-    status = Ims::Store.create(request, {:invite_code => params[:invite_code]})
-    if status[:isSuccessful]
+    @status = Ims::Store.create(request, {:invite_code => params[:invite_code]})
+    if @status[:isSuccessful]
       user = Ims::User.new({
       :id => status[:data][:id],
       :email => status[:data][:email],
@@ -37,8 +35,12 @@ class Ims::Store::HomeController < Ims::Store::BaseController
 
   end
 
+
+  private
   def go_store
-    
+    if current_user.store_id.present?
+      redirect_to my_ims_store_store_path(:id => current_user.store_id)
+    end
   end
 
 end
