@@ -1,5 +1,6 @@
 # encoding: utf-8
 class Ims::Store::CombosController < Ims::Store::BaseController
+  before_filter :goto_combo, only: [:edit]
 
   #新建搭配
   def new
@@ -44,7 +45,6 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   end
 
   def edit
-    @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
     @remote_id = @remote_combo[:data][:id]
     @title = "修改搭配"
 
@@ -118,5 +118,10 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     render :json => {status: "200"}.to_json
   end
 
+  private
+  def goto_combo
+    @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
+    redirect_to ims_combo_path(id: params[:id]) if current_user.id != @remote_combo[:data][:owner_id]
+  end
 
 end
