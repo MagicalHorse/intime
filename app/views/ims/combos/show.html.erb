@@ -22,7 +22,7 @@
 
                 <div class="span4">
                   <div class="combos-product">
-                    <a href="<%= mini_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">   
+                    <a href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">   
                     <span class="img-spa">
                     <img src="<%= product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>">
                     </span>
