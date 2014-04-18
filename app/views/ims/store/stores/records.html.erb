@@ -49,6 +49,10 @@
           $(this).tab('show');
         })
 
+        $(".order_show").on("click", function(){
+          $("#loading-box").modal();
+        })
+
         $(window).scroll(function(){
           var htmlHeight=document.body.scrollHeight
           var clientHeight=document.body.clientHeight
