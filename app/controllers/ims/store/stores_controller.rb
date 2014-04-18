@@ -45,7 +45,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     @gift_cards = @search_gift_card["data"]["items"]
     @search_order = Ims::Store.order_records(request, page: params[:order_page] || 1, pagesize: params[:order_per_page] || 10)
     @orders = @search_order["data"]["items"]
-    @title = "成交记录"
+    @title = "交易记录"
 
     respond_to do |format|
       format.html{}
