@@ -99,7 +99,7 @@
       </div>
       <% end %>
 <!-- 当前用户不是导购 -->
-      <% if @order[:is_owner] %>
+      <% if @order[:is_owner] && (@order[:statust].zero? || @order[:canvoid] || @order[:canrma] || @current_rmas.present?) %>
       <div class="bottom-button indent-btn">
         <div class="form-defined">
           <div class="controls-defined defined-large">
