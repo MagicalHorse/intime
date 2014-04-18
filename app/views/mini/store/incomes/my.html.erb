@@ -2,7 +2,7 @@
     <div class="row-fluid">
       <div clss="span12">
         <div class="income">
-          <div class="common-white">
+          <div class="common-white text-center">
              <h4>截至<%= Date.today.strftime("%Y年%m月%d日") %>号为止， 您已提现的总金额为</h4>
              <h3><span>￥<%= @income[:data][:received_amount] %><span></h3>
           </div>
@@ -17,7 +17,7 @@
 
           <div class="common-white" id="frozen_list">
             <a href="/mini/store/incomes/frozen" class="income-menu2">
-              <i class="fa fa-bars"></i>
+              <i class="fa fa-th-list"></i>
               <span>不可提现记录</span> 
               <i class="fa fa-angle-right"><span>￥<%= @income[:data][:frozen_amount] %></span></i>
             </a>
@@ -33,8 +33,8 @@
           </div>
 
           <div class="common-white">
-              <i class="fa fa-money"></i>
-              <span class="txt-red">可提现金额：￥<%= @income[:data][:avail_amount] %></span> 
+              <i class="fa fa-jpy"></i>
+              <span class="txt-red">可提现金额：<em class="can-carry">￥<%= @income[:data][:avail_amount] %></em></span> 
           </div>
 
           <div class="bottom-btnbox">
