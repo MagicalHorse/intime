@@ -25,7 +25,7 @@
        </div>
     </div>
     <div class="mini-imgbox">
-        <ul class="inline" id="img_box">
+        <ul class="inline clearfix" id="img_box">
             <% @combo.combo_pics.each do |pic| %>
             <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><span class="img-spa"><img src='<%= pic.url -%>'></span></li>
             <% end %>
