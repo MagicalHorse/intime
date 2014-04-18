@@ -50,8 +50,8 @@
         })
 
         $(document).on("click", ".order_show", function(){
+          $("#loading-box").modal()
           order_no = $(this).attr("orderno")
-          $("#loading-box").modal();
           window.location.href = "/ims/orders_show?id="+order_no
         })
 
