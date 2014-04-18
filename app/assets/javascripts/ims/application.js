@@ -25,5 +25,7 @@
 //= require ims/jquery-barcode.js
 //= require ims/idangerous.swiper.js
 //= require ims/app.js
+//= require ims/exif.js
+//= require ims/megapix-image.js
 //= require_self
 
