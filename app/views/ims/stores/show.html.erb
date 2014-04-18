@@ -128,9 +128,9 @@
 <script>
   $(function(){
     <% if @store[:data][:is_favored] %>
-    $("#unfavor_store").hide();
-    <% else %>
     $("#favor_store").hide();
+    <% else %>
+    $("#unfavor_store").hide();
     <% end %>
 
     $("#favor_store").click(function(){
