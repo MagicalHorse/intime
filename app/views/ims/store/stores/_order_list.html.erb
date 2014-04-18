@@ -1,6 +1,5 @@
 <% orders.each do |item| %>
-  <%= link_to ims_orders_show_path(id: item[:order_no]), class: "order_show" do %>
-  <div class="module common-white order_paginate-content">
+  <div class="module common-white order_paginate-content order_show" orderno="<%= item[:order_no] %>">
       <div class="row-fluid">
         <div class="span12">
             <div class="txt-block detail-contact">
@@ -12,5 +11,4 @@
         </div>
      </div>
   </div>
-  <% end %>
 <% end %>

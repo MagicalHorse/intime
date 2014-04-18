@@ -49,8 +49,10 @@
           $(this).tab('show');
         })
 
-        $(".order_show").on("click", function(){
+        $(document).on("click", ".order_show", function(){
+          order_no = $(this).attr("orderno")
           $("#loading-box").modal();
+          window.location.href = "/ims/orders_show?id="+order_no
         })
 
         $(window).scroll(function(){
