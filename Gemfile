@@ -67,6 +67,8 @@ gem 'rails_config'
 gem 'kaminari'
 gem 'dalli'
 
+gem 'thin'
+
 group :development, :test do
   gem "rspec"
   gem "rspec-rails"
