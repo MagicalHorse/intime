@@ -2,7 +2,7 @@
 class Ims::AccountsController < Ims::BaseController
   before_filter :user_account_info, only: [:mine, :barcode]
   before_filter :validate_verified_phone!, only: [:new, :create]
-  before_filter :validate_identity_no!, only: [:new, :create]
+  # before_filter :validate_identity_no!, only: [:new, :create]
   before_filter :validate_sms!, only: [:reset_password]
   before_filter :isbindcard!, only: [:phone_page, :verify_identify_phone]
   layout "ims/user"
@@ -53,7 +53,7 @@ class Ims::AccountsController < Ims::BaseController
     if params[:sms_code].present? && current_user.sms_code.to_i == params[:sms_code].to_i
       current_user.verified_phone = current_user.identify_phone
       # redirect_to set_identity_no_page_ims_accounts_path
-      render json: {success: true, url: set_identity_no_page_ims_accounts_path}
+      render json: {success: true, url: new_ims_account_path}
     else
       # redirect_to verify_identify_phone_ims_accounts_path, notice: "验证码错误"
       render json: {success: true, notice: "验证码错误"}
@@ -101,7 +101,7 @@ class Ims::AccountsController < Ims::BaseController
     end
     # API_NEED: 创建资金账户
     # 此接口需要支持能同时充值一张充值卡、如果此用户是买卡后进行的绑卡，需要将当时所购卡，进行充值
-    result = Ims::Giftcard.create(request, {phone: current_user.verified_phone, pwd: Ims::Des.new.encode(params[:pwd]), charge_no: current_user.will_charge_no, identity_no: current_user.identity_no })
+    result = Ims::Giftcard.create(request, {phone: current_user.verified_phone, pwd: Ims::Des.new.encode(params[:pwd]), charge_no: current_user.will_charge_no })
     if result[:isSuccessful]
       current_user.isbindcard = true
       redirect_to current_user.back_url || mine_ims_accounts_path
