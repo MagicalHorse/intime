@@ -26,6 +26,7 @@
     </div>
     <div class="mini-imgbox">
         <ul class="inline clearfix" id="img_box">
+            <li style="display:none;"></li>
             <% @combo.combo_pics.each do |pic| %>
             <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><span class="img-spa"><img src='<%= pic.url -%>'></span></li>
             <% end %>
@@ -223,7 +224,8 @@ var check_form = function(){
                 $("#loading-box").modal('hide');
                 if(data['status'] == 1){
                    setTimeout(function(){
-                     $("#img_box").prepend("<li><i id='img_"+data['id']+"' data='"+data['id']+"'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>");
+                     insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
+                     $($("#img_box li[class!='add-link']:last")).after(insert_html);
                      $("#default_img").addClass("show-imgbox-yes");
                      $("#default_img").removeClass("show-imgbox-no");
                      $("#default_img").html("<img src='"+data['img']+"'>");
@@ -243,47 +245,7 @@ var check_form = function(){
     
     });
 
-
-
-    // $('#upfile').fileupload({
-    //     url: "/ims/store/combos/<%= @combo.id %>/add_img",
-    //     type: 'get',
-    //     dataType: 'json',
-    //     beforeSend: function(){
-    //       $("#loading-box").modal();
-    //       $("#add_img").hide();
-    //     },
-
-    //     fileuploadfail: function(e, data){
-    //       error_modal(e);
-    //     },
-    //     fileuploadchunkfail: function(e, data){
-    //       error_modal(e);
-    //     },
-    //     done: function(e, data){
-    //       $("#loading-box").modal('hide');
-    //       if(data.result['status'] == 1){
-    //         setTimeout(function(){
-    //           $("#img_box").prepend("<li><i id='img_"+data.result['id']+"' data='"+data.result['id']+"'></i><span class='img-spa'><img src='"+data.result['img']+"'></span></li>");
-    //           $("#default_img").addClass("show-imgbox-yes");
-    //           $("#default_img").removeClass("show-imgbox-no");
-    //           $("#default_img").html("<img src='"+data.result['img']+"'>");
-    //           img_size = $("#img_box li[class!='add-link']").length;
-    //           if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
-
-    //            format_img(".show-imgbox-no");
-    //            format_img(".img-spa");
-    //            format_img(".show-imgbox-yes");
-    //         }, 800);
-    //       }else{
-    //         error_modal("网络错误，请稍后重试");
-    //       }
-
-    //     }
-    //    });
-
-
-
+    
       $("#img_box li").click(function(){
         if(!$(this).hasClass("add-link")){
           src = $(this).find("img")[0].src;

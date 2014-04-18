@@ -15,8 +15,8 @@
                           </div>
                           <div class="span9">
                               <h2 class="shop-name index-shop-name"><%= @store[:data][:name].present? ? @store[:data][:name] : "暂无店铺名称" %></h2>
-                              <div class="index-share clearfix">
-                                  <button class="btn btn-small btn-danger btn-share0 pull-right" id="share_to_user_model"><i class="fa fa-share-square-o"></i> 分享好友</button>
+                              <div class="index-share text-right">
+                                  <button class="btn btn-small btn-danger btn-share0" id="share_to_user_model"><i class="fa fa-share-square-o"></i> 分享好友</button>
                               </div>
                           </div>
                       </div>
@@ -37,16 +37,16 @@
             <div class="module-title">
                 <h3>礼品卡</h3>
             </div>
-            
+
              <% @store[:data][:gift_card].each do |card| %>
             <div class="module-content module-content-card">
                 <div class="img-box"><a href="<%= ims_cards_path(store_id: @store[:data][:id]) %>"><img src="<%= card["Image"] %>" alt=""></a></div>
                 <p><a href="#"><%= card["Desc"] %></a></p>
-                
+
             </div>
             <% end %>
         </div>
-       <% end %> 
+       <% end %>
 
 <% if @store[:data][:combos].present? %>
         <div class="module module-ele">
@@ -54,7 +54,7 @@
                 <h3>精品搭配</h3>
             </div>
          </div>
-         
+
         <% @store[:data][:combos].each do |combo| %>
         <div class="module module-ele">
             <div class="module-content module-content-img">
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="clearfix suit-left">
                     <p class="pull-left price-box">
                         <span class="price txt3">打包价：<em>¥<%= combo["Price"] %></em></span>
@@ -81,11 +81,11 @@
                             <em id="d<%=combo['Id']%>">00</em><span>天</span><em id="h<%=combo['Id']%>">00</em>:<em id="m<%=combo['Id']%>">00</em>:<em id="s<%=combo['Id']%>">00</em><span>后下架</span>
                         </span>
                         <script type="text/javascript">
-                          tms[tms.length] = "<%=combo['ExpiredIn'] %>"; 
-                          day[day.length] = "d<%=combo['Id']%>"; 
-                          hour[hour.length] = "h<%=combo['Id']%>"; 
-                          minute[minute.length] = "m<%=combo['Id']%>"; 
-                          second[second.length] = "s<%=combo['Id']%>"; 
+                          tms[tms.length] = "<%=combo['ExpiredIn'] %>";
+                          day[day.length] = "d<%=combo['Id']%>";
+                          hour[hour.length] = "h<%=combo['Id']%>";
+                          minute[minute.length] = "m<%=combo['Id']%>";
+                          second[second.length] = "s<%=combo['Id']%>";
                         </script>
                         <% else %>
                         <span class="pull-right countdown">
@@ -98,7 +98,7 @@
         </div>
         <% end %>
         <% end %>
-  <% end %>      
+  <% end %>
 </div>
 
 <footer>
@@ -110,7 +110,7 @@
           </a>
         </div>
         <div class="span3 add_loading">
-          <a class="nav2 nav--current" href="/ims/store/stores/records">成交记录</a>
+          <a class="nav2 nav--current" href="/ims/store/stores/records">交易记录</a>
         </div>
         <div class="span3 add_loading"><a class="nav3" href="/ims/store/incomes/my">我的收益</a></div>
         <div class="span3">
@@ -133,7 +133,7 @@
    format_img(".img-spa");
 
    $(".dropdown-toggle").click(function(){
-      $("#nav-menu").toggle(); 
+      $("#nav-menu").toggle();
    });
 
    $(".add_loading").click(function(){
