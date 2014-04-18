@@ -8,6 +8,7 @@ class Ims::CombosController < Ims::BaseController
     @store_id = params[:store_id]
     @title = "搭配展示"
     @can_share = true
+    session[:store_id] = @remote_combo[:data][:store_id]
   end
 
   def upload
