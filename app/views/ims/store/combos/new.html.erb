@@ -26,7 +26,6 @@
     </div>
     <div class="mini-imgbox">
         <ul class="inline clearfix" id="img_box">
-            <li style="display:none;"></li>
             <% @combo.combo_pics.each do |pic| %>
             <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><span class="img-spa"><img src='<%= pic.url -%>'></span></li>
             <% end %>
@@ -225,7 +224,12 @@ var check_form = function(){
                 if(data['status'] == 1){
                    setTimeout(function(){
                      insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
-                     $($("#img_box li[class!='add-link']:last")).after(insert_html);
+                     if($("#img_box li[class!='add-link']").length >0 ){
+                       $($("#img_box li[class!='add-link']:last")).after(insert_html);  
+                     }else{
+                       $("#img_box").prepend(insert_html);
+                     };
+                     
                      $("#default_img").addClass("show-imgbox-yes");
                      $("#default_img").removeClass("show-imgbox-no");
                      $("#default_img").html("<img src='"+data['img']+"'>");
