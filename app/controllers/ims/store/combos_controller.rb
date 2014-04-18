@@ -26,6 +26,8 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   #查看搭配
   def show
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
+    binding.pry
+    session[:current_store_id] = @remote_combo[:data][:store_id]
   end
 
   def tutorials
