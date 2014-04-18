@@ -343,13 +343,13 @@ IntimeService::Application.routes.draw do
     resources :cards, only: [:index] do
       collection do
         get     :recharge
-        get     :gift_page
         get     :give_page
         get     :give
         get     :refuse
         get     :agreement
       end
     end
+    get 'cards/gift_page/:charge_no', to: 'cards#gift_page'
     resources :card_orders, only: [:new, :create, :show] do
       collection do
         get :my_list

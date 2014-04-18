@@ -64,7 +64,7 @@ class Mini::CardsController < Mini::BaseController
       # API_NEED: 赠送礼品卡接口
       @result = Mini::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from: params[:from])
       flash[:page_type] = "give_show_page"
-      return redirect_to gift_page_mini_cards_path(charge_no: @charge_no, _: Time.now.to_i)
+      return redirect_to "/mini/cards/gift_page/#{@charge_no}"
     end
   end
 
