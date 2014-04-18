@@ -1,0 +1,333 @@
+<div class="wrap-inner back-wrap-inner bottom-distance">
+<%= form_for [:mini, :store, @combo], remote: true, html: {class: 'form-defined goods-describe', id: 'combo_form'} do |f| %>
+<div class="module module-bg-white">
+    <div class="module-title2">
+        <div class="row-fluid">
+            <div class="span6"><h3><i class="fa fa-heart"></i>搭配组合照</h3></div>
+            <div class="span6 text-right">
+              <%#= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_mini_store_combos_path, class: "title-link" %>
+            </div>
+        </div>
+    </div>
+    <div class="module-pull">
+       <div class="row-fluid">
+           <div class="span2">&nbsp;</div>
+           <div class="span8">
+               <div class="<%= @combo.combo_pics.present? ? 'show-imgbox-yes' : 'show-imgbox-no' %>" id="default_img"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
+                 <% if @combo.combo_pics.present? %>
+                   <img src="<%= @combo.combo_pics.last.url %>">
+                 <% else %>
+                   <img src="/images/mini/no-image.jpg" alt="img-name"><!-- 400px * 400px 没有上传图片时显示默认图片no-image.jpg-->
+                 <% end %>
+               </div>
+           </div>
+           <div class="span2">&nbsp;</div>
+       </div>
+    </div>
+    <div class="mini-imgbox">
+        <ul class="inline clearfix" id="img_box">
+            <li style="display:none;"></li>
+            <% @combo.combo_pics.each do |pic| %>
+            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><span class="img-spa"><img src='<%= pic.url -%>'></span></li>
+            <% end %>
+            <% if @combo.combo_pics.size < 5 %>
+            <li class="add-link" id="add_img"><span class="img-spa"><img src="/images/mini/add-img.png"></span></li>
+            <% end %>
+            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*">
+            </div>
+        </ul>
+    </div>
+</div>
+
+
+<div class="module module-bg-white">
+    <div class="module-title2">
+        <div class="row-fluid">
+            <div class="span12"><h3><i class="fa fa-heart"></i>搭配商品上传</h3></div>
+        </div>
+    </div>
+    <div class="upload-img">
+        <ul class="inline" id="p_box">
+          <% @combo.combo_products.each do |product| %>
+            <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><span class="img-spa"><img src="<%= product.img_url %>"></span></li>
+          <% end %>
+          <% if @combo.combo_products.size < 3 %>
+          <li class="add-link" id="add_product"><a href="javascript:void(0);"><span class="img-spa"><img src="/images/mini/add-img.png"></span></a></li>
+          <% end %>
+        </ul>
+    </div>
+</div>
+
+<div class="module module-bg-white">
+    <div class="module-title2">
+        <div class="row-fluid">
+            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>搭配描述</h3></div>
+            <div class="span8">
+                <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多128，最少10个字符</small></div>
+            </div>
+        </div>
+    </div>
+    <div class="goods-describe">
+      <%= f.text_area :desc, :rows => 4 %>
+    </div>
+</div>
+
+<div class="module module-bg-white">
+    <div class="module-title2">
+        <div class="row-fluid">
+            <div class="span12"><h3><i class="fa fa-user"></i>定制对象</h3></div>
+        </div>
+    </div>
+    <div class="module-formbox">
+      <%= f.text_field :private_to, class: 'input-block-level small-block', placeholder: "顾客姓名或昵称"  %>
+    </div>
+</div>
+<% if @remote_id.present? %>
+  <%= hidden_field_tag :remote_id, @remote_id %>
+<% end %>
+
+<% end %>
+<div class="bottom-btnbox" id="buttons">
+    <button class="btn btn-small btn-danger preview" type="button">预 览</button>
+    <button class="btn btn-small btn-danger" type="button" id="combo_submit" >提交发布</button>
+</div>
+
+<div class="popup-menu-box">
+  <div class="popup-menu" style="display:none;" id="pop-menu">
+    <% if @combo.combo_products.blank? %>
+      <% if current_user.operate_right >= 4 %>
+        <%= link_to "新拍商品", new_mini_store_product_path(:combo_id => @combo.id), class: 'txt1' %>
+        <%= link_to "已拍商品", mini_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
+      <% end %>
+      <%= link_to "从系统选择", search_mini_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
+    <% elsif @combo.combo_products.first.product_type == "2" %>
+      <%= link_to "新拍商品", new_mini_store_product_path(:combo_id => @combo.id), class: 'txt1' %>
+      <%= link_to "已拍商品", mini_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
+    <% else %>
+      <%= link_to "从系统选择", search_mini_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
+    <% end %>
+
+
+    <button class="btn btn-large btn-danger btn-block txt1" id="btn-cancel">取消</button>
+  </div>
+
+</div>
+</div>
+<script type="text/javascript">
+var check_form = function(){
+      var image_fields = $("#img_box li[class!='add-link']");
+      var product_image_fields = $("#p_box li");
+      verify_image1 = image_fields.length < 1;
+      verify_image2 = image_fields.length > 5;
+      verify_product1 = product_image_fields.length < 2;
+      verify_product2 = product_image_fields.length > 4;
+      var desc_length = $("#combo_desc").val().length;
+      var status = true;
+
+      if(verify_image1){
+        error_modal("主图必须至少有1张");
+        status = false;
+      }
+      if(verify_image2){
+        error_modal("主图最多有5张");
+        status = false;
+      }
+      if(verify_product1){
+        error_modal("商品搭配至少要由1个组成");
+        status = false;
+      }
+      if(verify_product2){
+        error_modal("商品搭配最多由3个组成");
+        status = false;
+      }
+      if(verify_image1 || verify_image2){
+        status = false;
+      }
+      if(desc_length < 10){
+        error_modal("商品描述最少10个字");
+        status = false;
+      }
+      if(desc_length > 128){
+        error_modal("商品描述最多128个字");
+        status = false;
+      }
+      return status;
+    }
+    </script>
+<%= content_for :javascripts do -%>
+<script type="text/javascript" charset="utf-8">
+
+  $(function(){
+    <% if @remote_combo.blank? && @online_num >= current_user.max_comboitems %>
+      $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>搭配上架数量已到上限</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' onclick='window.location.href=\"/mini/store/sells?combo=true\"' >OK</a></div>")
+      $("#ex2").modal({backdrop: 'static'});
+    <% end %>
+
+    <% if @combo.desc.blank?  %>
+    $("#combo_desc").val("<%= @combo.product_desc %>")
+    <% end %>
+
+    $("#combo_desc").blur(function(){
+      $.ajax({
+        url: "/mini/store/combos/<%= @combo.id %>/update_desc",
+        data: {"desc": $("#combo_desc").val()}
+      })
+    })
+
+    $("#combo_submit").click(function(){
+      $("#combo_form").ajaxSubmit();
+    });
+
+    $("#combo_form").submit(function(){
+      check_form();
+    });
+
+
+    $("#add a").click(function(){
+      $("#add_list").show();
+    });
+
+
+    $("#add_img").click(function(){
+       img_size = $("#img_box li[class!='add-link']").length;
+       if(img_size < 5){
+         document.getElementById("upfile").click();
+       }else{
+        error_modal("上传主图不能超过5个");
+       }
+    });
+
+    $("#upfile").change(function(){
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        console.log(reader);
+
+        reader.onload = (function (event) {
+          var blob = new NewBlob(event.target.result);
+          window.URL = window.URL || window.webkitURL;
+          var blobURL = window.URL.createObjectURL(blob);
+          var image = new Image();
+          image.src = blobURL;
+          image.onload = function(){
+            var resized = resizeMe(image, 640, 640);
+            $.ajax({
+              url: "/mini/combos/upload",
+              dataType: 'json',
+              type: 'post',
+              data: {"img": resized, "id": "<%= @combo.id %>"},
+              beforeSend: function(){
+                $("#loading-box").modal();
+                $("#add_img").hide();
+              },
+              success: function(data){
+                $("#loading-box").modal('hide');
+                if(data['status'] == 1){
+                   setTimeout(function(){
+                     insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
+                     $($("#img_box li[class!='add-link']:last")).after(insert_html);
+                     $("#default_img").addClass("show-imgbox-yes");
+                     $("#default_img").removeClass("show-imgbox-no");
+                     $("#default_img").html("<img src='"+data['img']+"'>");
+                     img_size = $("#img_box li[class!='add-link']").length;
+                     if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
+                      format_img(".show-imgbox-no");
+                      format_img(".img-spa");
+                      format_img(".show-imgbox-yes");
+                   }, 800);
+                 }else{
+                   error_modal("网络错误，请稍后重试");
+                 }
+              }
+            });
+          }
+        });
+    
+    });
+
+    
+      $("#img_box li").click(function(){
+        if(!$(this).hasClass("add-link")){
+          src = $(this).find("img")[0].src;
+          $("#default_img").html("<img src='"+src+"'>");
+        }
+      });
+
+     $(document).on("click", "#img_box li i", function(){
+       mid = $(this).attr("data");
+       $.ajax({
+        url: "/mini/store/combos/remove_img?img_id="+mid,
+        success: function(response){
+            $("#img_"+mid).parent().remove();
+            img_size = $("#img_box li[class!='add-link']").length;
+            if(img_size < 5 && img_size > 0){
+              $("#add_img").show();
+              $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] img")[0].src+"'>");
+            }else{
+              $("#add_img").show();
+              $("#default_img").html("<img src='/images/mini/no-image.jpg'>");
+            }
+            format_img(".show-imgbox-no");
+            format_img(".img-spa");
+            format_img(".show-imgbox-yes");
+        }
+       });
+
+     });
+
+     $("#add_product").click(function(){
+       var p_size = $("#p_box li[class!='add-link']").length;
+       if(p_size < 3){
+        $("#buttons").hide();
+         $("#pop-menu").show();
+       }else{
+        error_modal('最多只能搭配3个商品');
+       }
+     });
+
+     $("#btn-cancel").click(function(){
+       $("#pop-menu").hide();
+       $("#buttons").show();
+     });
+
+     $(document).on("click", "#p_box li i", function(){
+       mid = $(this).attr("data");
+       $.ajax({
+        url: "/mini/store/combos/remove_product?product_id="+mid,
+        success: function(response){
+            $("#p_"+mid).parent().remove();
+            var p_size = $("#p_box li[class!='add-link']").length;
+            if(p_size < 3){
+              $("#add_product").show();
+            }
+        }
+       });
+     });
+
+     $(".preview").click(function(){
+         status = check_form();
+           desc = $("#combo_desc").val();
+           private_to = $("#combo_private_to").val();
+           console.log(private_to);
+         if(status != "false"){
+           $.ajax({
+             url: "<%=update_desc_mini_store_combo_path(@combo)%>",
+             method: 'put',
+             data: {"desc": desc, "private_to": private_to},
+             beforeSend: function(){
+              $("#loading-box").modal();
+             },
+             success: function(response){
+               self.location="/mini/store/combos/<%=@combo.id%>/preview";
+             }
+           });
+         }
+       })
+
+     format_img(".show-imgbox-no");
+     format_img(".img-spa");
+     format_img(".show-imgbox-yes");
+
+  });
+</script>
+<% end -%>

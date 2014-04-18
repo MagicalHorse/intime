@@ -1,0 +1,55 @@
+<div id="ex2" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+</div>
+
+<div id="shareToAllModel" class="modal hide fade modal-grey modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="text-center">
+      <div class=""><img src="/images/mini/share-top-4.png"></div>
+    </div>
+  </div>
+
+  <div id="shareToUserModel" class="modal hide fade modal-grey modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="top: 0;">
+    <div class="text-center">
+      <div class=""><img src="/images/mini/share-top-2.png"></div>
+    </div>
+  </div>
+
+  <div id="shareToMomentModel" class="modal hide fade modal-grey modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+    <div class="text-center">
+      <div class=""><img src="/images/mini/right-top.png"></div>
+    </div>
+  </div>
+
+ <!--加载框-->
+ <div id="loading-box" class="modal hide fade modal-loading" tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="false">
+  <p><img src="/images/mini/loading.gif" ></p>
+  <p>加载中，请稍候</p>
+</div>
+
+  <%= yield :javascripts -%>
+  <script>
+    $(function(){
+      // 全局分享按钮
+      $("#share_to_all_model").click(function(){
+        $("#shareToAllModel").modal();
+        setTimeout(function(){
+          $("#shareToAllModel").modal('hide');
+        },  3000);
+      })
+
+      // 分享给好友按钮
+      $("#share_to_user_model").click(function(){
+        $("#shareToUserModel").modal();
+        setTimeout(function(){
+          $("#shareToUserModel").modal('hide');
+        },  3000);
+      })
+
+      // 分享到朋友圈按钮
+      $("#share_to_moment_model").click(function(){
+        $("#shareToMomentModel").modal();
+        setTimeout(function(){
+          $("#shareToMomentModel").modal('hide');
+        },  3000);
+      })
+    });
+  </script>

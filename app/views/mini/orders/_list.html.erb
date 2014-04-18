@@ -1,0 +1,71 @@
+  <% @orders.each do |order| %>
+  <div class="module common-white paginate-content" id="order_<%= order["order_no"] %>">
+    <div class="module-state">
+      <div class="row-fluid">
+        <div class="span6"><span class="txt3">订单状态：<em class="status"><%= order["status"] %></em></span></div>
+        <div class="span6 text-right"><span class="txt3">订单金额：<em>￥<%= order['amount'] %></em></span></div>
+      </div>
+    </div>
+
+    <% order["products"].each do |product| %>
+      <div class="indent-head">
+        <div class="row-fluid">
+           <div class="span3">
+               <div class="detail-imgbox">
+                 <%= link_to mini_store_product_path(product["id"]) do %>
+                   <%= image_tag product["image"] %>
+                 <% end %>
+                   <!-- <img src="/images/mini/img800.jpg"> -->
+               </div>
+           </div>
+           <div class="span9">
+               <div class="price-detail">
+                   <h3 class="one-line"><%= product["name"] %></h3>
+                   <p class="txt3 clearfix">
+                     <span class="pull-left">微信价：<em>￥<%= product["price"] %></em></span>
+                     <% if nil %>
+                     <span class="pull-right">数量：<%= product["quantity"] %></span>
+                     <% end %>
+                   </p>
+                   <p class="txt3 clearfix">
+                     <span class="pull-left"><%= product["productdesc"] %></span>
+                   </p>
+               </div>
+           </div>
+        </div>
+      </div>
+
+    <% end %>
+
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="detail-block detail-contact-bd">
+        <%= link_to mini_orders_show_path(id: order["order_no"]) do %>
+        <div class="txt-block">
+          <p class="txt4 clearfix">
+            <span class="pull-left">
+              <b>订单号：<%= order['order_no'] %></b>
+            </span>
+          </p>
+          <p class="txt4 clearfix"><span><b>收货人：<%= order['shipping_name'] %></b></span></p>
+          <p class="txt4 clearfix"><span><b>下单时间：<%= l order['create_date'].to_time %></b></span></p>
+        </div>
+        <% end %>
+
+        <% if order["status_i"] == 0 %>
+          <p class="immediate-payment">
+            <a class="btn btn-danger btn-mini payment" href="javascript:void(0);" orderno="<%= order['order_no'] %>" amount="<%= order["amount"] %>">立即支付</a>
+          </p>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+<script type="text/javascript">
+    $(".detail-imgbox").each(function(){
+        $(this).css("height", $(this).width())
+        $(this).css("line-height", $(this).height()+"px")
+    });
+</script>

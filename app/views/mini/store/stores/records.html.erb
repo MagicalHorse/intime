@@ -1,0 +1,99 @@
+<div class="wrap-content">
+    <div class="module module-white min-height">
+  		<div class="module-tab0 module-tab2">
+        <ul class="nav nav-tabs" id="myTab">
+          <li class="active"><a href="#gift_cards">礼品卡</a></li>
+          <li><a href="#orders">其他订单</a></li>
+        </ul>
+
+        <div class="tab-content">
+          <div id="gift_cards" class="tab-pane active">
+            <div class="module-table-box module-record">
+             <% if @search_gift_card[:data].present? && @gift_cards.present? %>
+                <%= render "gift_card_list", gift_cards: @gift_cards %>
+              <% else %>
+                <%= render 'mini/shared/empty' %>
+             <% end %>
+
+            </div>
+          </div>
+          <div id="orders" class="tab-pane">
+            <div class="module-table-box module-record">
+              <% if @search_order[:data].present? && @orders.present? %>
+                <%= render "order_list", orders: @orders %>
+              <% else %>
+                <%= render 'mini/shared/empty' %>
+              <% end %>
+            </div>
+          </div>
+
+        </div>
+        <div id="loading" class="text-center"></div>
+      </div>
+    </div>
+  </div>
+
+  <%= hidden_field_tag "gift_card_count", @search_gift_card[:data][:totalcount] %>
+  <%= hidden_field_tag "gift_card_page", @search_gift_card[:data][:pageindex] %>
+  <%= hidden_field_tag "gift_card_per_page", @search_gift_card[:data][:pagesize] %>
+
+  <%= hidden_field_tag "order_count", @search_order[:data][:totalcount] %>
+  <%= hidden_field_tag "order_page", @search_order[:data][:pageindex] %>
+  <%= hidden_field_tag "order_per_page", @search_order[:data][:pagesize] %>
+
+<% content_for :javascripts do %>
+<script>
+  $(function(){
+        $('#myTab a').click(function (e) {
+          e.preventDefault();
+          $(this).tab('show');
+        })
+
+        $(window).scroll(function(){
+          var htmlHeight=document.body.scrollHeight
+          var clientHeight=document.body.clientHeight
+          var scrollTop=document.body.scrollTop
+
+          if(scrollTop+clientHeight == htmlHeight){
+
+            if($("#gift_cards").attr("class").indexOf("active") >= 0){
+              var count = parseInt($("#gift_card_count").attr("value"))
+              var page = parseInt($("#gift_card_page").attr("value"))
+              var per_page = parseInt($("#gift_card_per_page").attr("value"))
+              if(page * per_page < count){
+                $("#loading").html("<img src='/images/mini/loading.gif'/>");
+                $.get("/mini/store/stores/records", {gift_card_page: page + 1, gift_card_per_page: per_page}, function(data){
+                  if(data["status"] == true){
+                    $(".gift_card_paginate-content:last").after(data["html"])
+                    $("#gift_card_count").attr("value", data["count"])
+                    $("#gift_card_page").attr("value", data["page"])
+                    $("#gift_card_per_page").attr("value", data["per_page"])
+                    $("#loading").html("");
+                  }
+                }, "json")
+              }
+            }else if($("#orders").attr("class").indexOf("active") >= 0){
+              var count = parseInt($("#order_count").attr("value"))
+              var page = parseInt($("#order_page").attr("value"))
+              var per_page = parseInt($("#order_per_page").attr("value"))
+              if(page * per_page < count){
+                $("#loading").html("<img src='/images/mini/loading.gif'/>");
+                $.get("/mini/store/stores/records", {order_page: page + 1, order_per_page: per_page}, function(data){
+                  if(data["status"] == true){
+                    $(".order_paginate-content:last").after(data["html"])
+                    $("#order_count").attr("value", data["count"])
+                    $("#order_page").attr("value", data["page"])
+                    $("#order_per_page").attr("value", data["per_page"])
+                    $("#loading").html("");
+                  }
+                }, "json")
+              }
+            }
+
+          }
+        })
+
+      })
+  </script>
+
+<% end %>

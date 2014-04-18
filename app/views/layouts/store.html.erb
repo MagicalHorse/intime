@@ -10,20 +10,20 @@
     <meta name="keywords" content="">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
 
-    <%= stylesheet_link_tag "ims/application", :media => "all" %>
-    <%= javascript_include_tag 'ims/application' %>
+    <%= stylesheet_link_tag "mini/application", :media => "all" %>
+    <%= javascript_include_tag 'mini/application' %>
 
    <!--[if lte IE 6]>
-   <script type="text/javascript" src="ims_assets/bootstrap-2.3.2/js/ie-js/bootstrap-ie.js"></script>
+   <script type="text/javascript" src="mini_assets/bootstrap-2.3.2/js/ie-js/bootstrap-ie.js"></script>
    <![endif]-->
 
   </head>
   <body>
-    <%= render 'ims/shared/wx_view' %>
-    <%#= render 'ims/shared/top' %>
+    <%= render 'mini/shared/wx_view' %>
+    <%#= render 'mini/shared/top' %>
     <div class="wrap">
       <%= yield %>
     </div>
-    <%= render 'ims/shared/share_button' %>
+    <%= render 'mini/shared/share_button' %>
   </body>
 </html>

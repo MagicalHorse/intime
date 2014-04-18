@@ -311,7 +311,7 @@ IntimeService::Application.routes.draw do
 
   end
 
-  namespace :ims do
+  namespace :mini do
     resource :auth
     resources :stores, only: [:show]
     resources :combos, only: [:show, :destroy] do

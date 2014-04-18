@@ -1,0 +1,58 @@
+<div class="wrap-inner back-wrap-inner bottom-distance">
+    <div class="row-fluid">
+      <div clss="span12">
+        <div class="income">
+          <div class="common-white">
+             <h4>截至<%= Date.today.strftime("%Y年%m月%d日") %>号为止， 您已提现的总金额为</h4>
+             <h3><span>￥<%= @income[:data][:received_amount] %><span></h3>
+          </div>
+
+          <div class="common-white" id="income_list">
+            <a href="/mini/store/incomes/list" class="income-menu1">
+              <i class="fa fa-bars"></i>
+              <span>提现记录</span> 
+              <i class="fa fa-angle-right"></i>
+            </a>
+          </div>
+
+          <div class="common-white" id="frozen_list">
+            <a href="/mini/store/incomes/frozen" class="income-menu2">
+              <i class="fa fa-bars"></i>
+              <span>不可提现记录</span> 
+              <i class="fa fa-angle-right"><span>￥<%= @income[:data][:frozen_amount] %></span></i>
+            </a>
+          </div>
+          <div class="tips">
+            <span><i class="fa fa-exclamation-circle"></i>成交7日并且没有发生退货才可提取！</span>
+          </div>
+
+          <div class="common-white">
+              <i class="fa fa-money"></i>
+              <span class="txt-grey">提现申请中的金额</span> 
+              <i class="pull-right txt-grey"><span>￥<%= @income[:data][:request_amount] %></span></i>
+          </div>
+
+          <div class="common-white">
+              <i class="fa fa-money"></i>
+              <span class="txt-red">可提现金额：￥<%= @income[:data][:avail_amount] %></span> 
+          </div>
+
+          <div class="bottom-btnbox">
+            <button class="btn btn-small btn-danger"><a href="/mini/store/incomes/new">申请提现</a></button>
+            <!-- <div><a href="<%= tips_mini_store_incomes_path %>"><span>提现指导</span><i class="fa fa-angle-right"></i></a></div> -->
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+   $("#income_list").click(function(){
+     window.location.href = "/mini/store/incomes/list";
+   });
+   
+   $("#frozen_list").click(function(){
+     window.location.href = "/mini/store/incomes/frozen";
+   });
+  </script>
+
+

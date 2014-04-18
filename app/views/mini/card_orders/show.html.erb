@@ -1,0 +1,42 @@
+<div class="module module-white module-user-card">
+  <h1>恭喜您，银泰礼品卡购买成功！</h1>
+  <div class="module-table-box">
+    <table class="table table-bordered">
+      <tbody><tr>
+        <td>礼品卡金额</td>
+        <td>￥<%= @card[:amount] %></td>
+      </tr>
+      <tr>
+        <td>礼品卡卡号</td>
+        <td><%= @charge_no %></td>
+      </tr>
+    </tbody></table>
+  </div>
+  <div class="module-btn text-center">
+    <button class="btn btn-large btn-danger" id="rechage_button">充值自用</button>
+    <button class="btn btn-large btn-danger" id="give_button">赠送好友</button>
+  </div>
+  <div class="module module-notice">
+    <h4><i class="fa fa-exclamation-circle"></i> 温馨提示</h4>
+    <ol>
+      <li>礼品卡购买成功后，您可以为自己充值，也可以转送微信好友。</li>
+      <li>转送时，请记得通知Ta及时领取。</li>
+    </ol>
+  </div>
+</div> 
+<%= content_for :javascripts do %>
+<script>
+
+  $(document).ready(function() {
+
+    $("#rechage_button").click(function(){
+      window.location.href = "<%= recharge_mini_cards_path %>?charge_no=<%= @charge_no %>&type=buy";
+    })
+
+    $("#give_button").click(function(){
+      window.location.href = "<%= give_page_mini_cards_path %>?charge_no=<%= @charge_no %>";
+    })
+
+  });
+</script>
+<% end %>

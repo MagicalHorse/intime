@@ -1,0 +1,54 @@
+<div class="wrap-content">
+  <div class="module module-white min-height">
+    <div class="module-tranding">
+      <ul class="nav nav-tabs" id="myTab">
+        <li class="active"><%= link_to "自己购买", my_list_mini_card_orders_path %></li>
+        <li class=""><%= link_to "好友赠送", received_list_mini_card_orders_path %></li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          <div class="module-table-box module-record">
+            <table class="table table-bordered">
+              <% if @my[:data].present? and @my[:data][:items].any? %>
+              <%= render "my_list", my_list: @my %>
+              <% else %>
+              <%= render 'mini/shared/empty' %>
+              <% end %>
+            </table>
+            <div id="loading" class="text-center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= hidden_field_tag "page", 1 %>
+
+<% if @my[:data].present? and @my[:data][:items].any? %>
+<% content_for :javascripts do %>
+<script>
+  $(function(){
+    $(window).scroll(function(){
+      var htmlHeight=document.body.scrollHeight
+      var clientHeight=document.body.clientHeight
+      var scrollTop=document.body.scrollTop
+      var page = parseInt($("#page").attr("value"))
+
+      if(scrollTop+clientHeight == htmlHeight){
+        $("#loading").html("<img src='/images/mini/loading.gif'/>");
+        $.get("/mini/card_orders/my_list", {page: page + 1}, function(data){
+          if(data["status"] == true){
+            $(".paginate-content:last").after(data["html"])
+            $("#page").attr("value", data["page"])
+            $("#loading").html("");
+          }
+        }, "json")
+      }
+
+    })
+  })
+</script>
+<% end %>
+<% end %>

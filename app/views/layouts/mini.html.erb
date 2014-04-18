@@ -1,0 +1,26 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title><%= @title || '我的店铺' %></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+  <%= stylesheet_link_tag "mini/application", :media => "all" %>
+  <%= javascript_include_tag 'mini/application' %>
+
+ <!--[if lte IE 6]>
+ <script type="text/javascript" src="mini_assets/bootstrap-2.3.2/js/ie-js/bootstrap-ie.js"></script>
+ <![endif]-->
+
+</head>
+<body style="">
+  <%= render 'mini/shared/wx_view' %>
+  <div class="wrap">
+   <%= render 'mini/shared/top' %>
+   <%= yield %>
+</div>
+<%= render 'mini/shared/share_button' %>
+</body>
+</html>
