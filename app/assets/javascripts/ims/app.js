@@ -131,7 +131,7 @@ var fnTimeCountDown = function(o){
 function resizeMe(img, max_width, max_height) {
   var canvas = document.createElement('canvas');
   var mpImg = new MegaPixImage(img);
-  mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.7 });
+  mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.5 });
 
   return canvas.toDataURL("image/jpeg",0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
 }
