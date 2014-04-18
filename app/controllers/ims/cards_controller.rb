@@ -37,7 +37,7 @@ class Ims::CardsController < Ims::BaseController
   def gift_page
     @can_share = true
     @title = "获赠礼品卡"
-    @charge_no = params[:charge_no]
+    @charge_no = params[:charge_no].split("-").first
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"] || {}
     current_user.other_phone = @card[:phone]
@@ -64,7 +64,7 @@ class Ims::CardsController < Ims::BaseController
       # API_NEED: 赠送礼品卡接口
       @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from: params[:from])
       flash[:page_type] = "give_show_page"
-      return redirect_to gift_page_ims_cards_path(charge_no: @charge_no, _: Time.now.to_i)
+      return redirect_to "/mini/cards/gift_page/#{@charge_no}-#{Time.now.to_i}"
     end
   end
 
