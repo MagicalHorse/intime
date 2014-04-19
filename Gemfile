@@ -58,7 +58,7 @@ gem 'rake', '>= 10.1.0'
 
 gem 'rails_config'
 gem 'kaminari'
-gem 'dalli'
+gem 'memcached'
 
 group :development, :test do
   gem "rspec"

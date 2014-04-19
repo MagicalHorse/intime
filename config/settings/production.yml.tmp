@@ -41,5 +41,7 @@ api:
   apis: 'http://iapi.intime.com.cn/api'
 domain: 'intime.com.cn'
 elasticache:
-  host: 'intimeo2o.wm1vwt.cfg.apse1.cache.amazonaws.com'
-  pot:  '11211'
+  host: '26497daec78911e3.m.cnhzalicm10pub001.ocs.aliyuncs.com'
+  port:  '11211'
+  username: '26497daec78911e3'
+  password: 'Intime_123'
