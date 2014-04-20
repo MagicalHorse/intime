@@ -49,6 +49,12 @@
           $(this).tab('show');
         })
 
+        $(document).on("click", ".order_show", function(){
+          $("#loading-box").modal()
+          order_no = $(this).attr("orderno")
+          window.location.href = "/ims/orders_show?id="+order_no
+        })
+
         $(window).scroll(function(){
           var htmlHeight=document.body.scrollHeight
           var clientHeight=document.body.clientHeight

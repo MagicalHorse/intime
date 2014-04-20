@@ -28,10 +28,10 @@
                     </span>
                     </a>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
-                    <% if product[:is_online] %>
+                    <% if @remote_combo[:data][:is_online] && product[:is_online] %>
                     <a class="btn btn-danger btn-mini btn-block" href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">点击购买</a>
                     <% else %>
-                    <a href="javascript:void(0);" class="btn btn-grey btn-mini btn-block">已售罄</a>
+                    <a href="javascript:void(0);" class="btn btn-grey btn-mini btn-block">已下架</a>
                     <% end %>
                   </div>
                 </div>
@@ -60,7 +60,8 @@
               <span>打包价：<em>￥<%= @remote_combo[:data][:price] %></span>
           </p>
         <p class="pull-left price-box">
-          <% if @remote_combo[:data]["expire_in"].present? %>
+          <% if @remote_combo[:data][:is_online] %>
+          <% if  @remote_combo[:data]["expire_in"].present? %>
               <span class="pull-left countdown">
                   <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
               </span>
@@ -76,22 +77,30 @@
                长期有效
             </span>
           <% end %>
+          <% end %>
+
           <span class="txt4 pull-right txt-red" id="unfavor_combo"><a href="javascript:void(0)"><i class="fa fa-star"></i> 已收藏</a></span>
           <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
           </p>
       </div>
     </div>
 
+    <% if @remote_combo[:data][:is_online] %>
     <div class="bottom-btnbox">
     <button class="btn btn-small btn-danger" id="share_to_user_model">分享好友</button>
     <button class="btn btn-small btn-danger">
       <% if current_user.id == @remote_combo[:data][:owner_id] %>
       <a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>">编 辑</a>
       <% else %>
-      <a href="<%= ims_orders_new_path(:combo_id => @remote_combo[:data][:id], :store_id => @store_id)%>">打包购买</a>
+          <a href="<%= ims_orders_new_path(:combo_id => @remote_combo[:data][:id], :store_id => @store_id)%>">打包购买</a>
       <% end %>
     </button>
   </div>
+  <% else %>
+  <div class="bottom-btnbox">
+    <button class="btn btn-grey btn-small">已下架</button>
+  </div>  
+  <% end %>
 
   </div>
 

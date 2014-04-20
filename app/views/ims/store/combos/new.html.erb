@@ -208,8 +208,9 @@ var check_form = function(){
           var blobURL = window.URL.createObjectURL(blob);
           var image = new Image();
           image.src = blobURL;
+          
           image.onload = function(){
-            var resized = resizeMe(image, 640, 640);
+            var resized = resizeIos(image, 640, 640);
             $.ajax({
               url: "/ims/combos/upload",
               dataType: 'json',
