@@ -43,6 +43,10 @@ class Ims::Giftcard < Ims::Base
     post(req, params.merge(path: 'giftcard/detail'))
   end
 
+  def self.trans_detail(req, params = {})
+    post(req, params.merge(path: 'giftcard/trans_detail'))
+  end
+
   def self.recharge(req, params = {})
     post(req, params.merge(path: 'giftcard/recharge'))
   end
