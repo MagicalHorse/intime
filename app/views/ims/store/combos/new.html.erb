@@ -250,11 +250,11 @@ var check_form = function(){
     
     });
 
-    
       $("#img_box li").click(function(){
         if(!$(this).hasClass("add-link")){
           src = $(this).find("img")[0].src;
           $("#default_img").html("<img src='"+src+"'>");
+          format_img(".show-imgbox-yes");
         }
       });
 
