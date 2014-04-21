@@ -809,7 +809,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 /*-----------------------------------Countdown--------------------------------------*/
 .countdown{display: inline-block; font-size: 21px; font-style: normal;}
 .countdown em{ font-style: normal; font-family: arial; line-height: normal; padding: 0 4px; margin: 0 2px;}
-.price-box .countdown span{padding: 0 4px;}
+.price-box .countdown span{padding: 0 4px; line-height: 2.5em}
 /*---------------------------------img-box--------------------------------------*/
 .img-spa{ display: block; text-align: center; font-size: 1px; overflow: hidden; border:1px solid #eeeeee; border-radius: 0; background-color: white;}
 .detail-contact .img-spa{ display: block; text-align: center; font-size: 1px; overflow: hidden; border:1px solid #eeeeee; border-radius: 6px; background-color: white;}
@@ -904,10 +904,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .index-shop-name{margin-bottom: 0;}
 .browerse-icon .browerse-nav-link { font-size: 14px;}
 .shop-head{bottom: -26%;}
-.btn-star{background-position: center -144px;}
-.btn-star-active{background-position: center -72px;}
-.btn-share{background-position: center -216px;}
-.price-box .btn-small{padding: 0 12px;}
+.price-box .btn-small{padding: 4px 12px;}
 
   .modal-grey{ padding-top: 0;}
   .browerse-icon { top: 26px;}
@@ -917,7 +914,11 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .tabs-fixed .nav-tabs{ width: 100%;}
 .tabs-fixed .tab-content{margin-top: 15%;}
 }
-
+@media screen and (max-width: 320px) {
+.btn-star{background-position: center -144px;}
+.btn-star-active{background-position: center -72px;}
+.btn-share{background-position: center -216px;}
+}
 .loading{
   position: fixed;
   left: 50%;
