@@ -2,22 +2,12 @@
   <div class="module module-white min-height">
     <div class="module-tab0 module-tab2 module-product">
       <ul id="myTab" class="nav nav-tabs">
-        <li class="active"><a href="#gift_cards">礼品卡</a></li>
-        <li class=""><a href="#combos">商品搭配</a></li>
+        <li class="active"><a href="#combos">商品搭配</a></li>
+        <li class=""><a href="#gift_cards">礼品卡</a></li>
       </ul>
 
       <div class="tab-content">
-        <div id="gift_cards" class="tab-pane active">
-          <div class="module-table-box module-record">
-            <% if @gift_cards.present? %>
-              <%= render "gift_card_list", gift_cards: @gift_cards %>
-            <% else %>
-              <%= render 'ims/shared/empty' %>
-            <% end %>
-          </div>
-        </div>
-
-        <div id="combos" class="tab-pane">
+        <div id="combos" class="tab-pane active">
           <div class="bottom-button">
             <div class="form-defined">
               <div class="controls-defined defined-large">
@@ -36,6 +26,17 @@
             <% end %>
           </div>
         </div>
+
+        <div id="gift_cards" class="tab-pane">
+          <div class="module-table-box module-record">
+            <% if @gift_cards.present? %>
+              <%= render "gift_card_list", gift_cards: @gift_cards %>
+            <% else %>
+              <%= render 'ims/shared/empty' %>
+            <% end %>
+          </div>
+        </div>
+
       </div>
       <div id="loading" class="text-center">
     </div>
