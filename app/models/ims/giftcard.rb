@@ -75,6 +75,10 @@ class Ims::Giftcard < Ims::Base
     post(req, params.merge(path: 'giftcard/refuse'))
   end
 
+  def self.refusebytransid(req, params = {})
+    post(req, params.merge(path: 'giftcard/refusebytransid'))
+  end
+
   def self.list(req, params = {})
     post(req, params.merge(path: 'giftcard/list'))
   end

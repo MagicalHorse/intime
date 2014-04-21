@@ -81,8 +81,12 @@ class Ims::CardsController < Ims::BaseController
 
   # 不接受，归还原有用户
   def refuse
-    # API_NEED: 拒收并退回礼品卡
-    Ims::Giftcard.refuse(request, charge_no: params[:charge_no])
+    if params[:trans_id].to_i != 0
+      Ims::Giftcard.refusebytransid(request, trans_id: params[:trans_id])
+    else
+      # API_NEED: 拒收并退回礼品卡
+      Ims::Giftcard.refuse(request, charge_no: params[:charge_no])
+    end
     return redirect_to "/ims/cards/gift_page/#{params[:charge_no]}-#{Time.now.to_i}-#{params[:trans_id]}"
   end
 
