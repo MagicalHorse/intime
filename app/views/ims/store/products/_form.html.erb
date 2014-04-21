@@ -106,13 +106,13 @@
               </div>
           </div>
 
-
-
-          <div class="block-box">
-              <button type="submit" class="btn btn-danger btn-large btn-block">提交</button>
-          </div>
+          
       <% end %>
+      
     </div>
+</div>
+<div class="bottom-btnbox">
+  <button class="btn btn-small btn-danger" id="submit_product">提交</button>
 </div>
 
 
@@ -143,6 +143,10 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+
+    $("#submit_product").click(function(){
+      $("#product_form").submit();
+    });
 
     $("#product_form").on("submit", function(){
       error = '尺码不能为空'
