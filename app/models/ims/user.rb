@@ -1,6 +1,6 @@
-class Ims::User
- ATTRIBUTES = [:id, :email, :level, :nickname, :mobile, :isbindcard, :logo, :level, :operate_right, :token, 
-  :card_no, :verified_phone, :identify_phone, :sms_code, :back_url, :will_charge_no, :identity_no, :charge_type, 
+class Ims::User < Ims::Base
+ ATTRIBUTES = [:id, :email, :level, :nickname, :mobile, :isbindcard, :logo, :level, :operate_right, :token,
+  :card_no, :verified_phone, :identify_phone, :sms_code, :back_url, :will_charge_no, :identity_no, :charge_type,
   :other_phone, :verified_other_phones, :amount, :store_id, :max_comboitems]
   attr_accessor *ATTRIBUTES
 
@@ -30,11 +30,15 @@ class Ims::User
     end
   end
 
+  def self.latest_address(req, params = {})
+    post(req, params.merge(path: "user/latest_address"))
+  end
+
   protected
 
   def assign_attributes(attributes = {})
     attributes.symbolize_keys.slice(*ATTRIBUTES).each do |k, v|
       send("#{k.to_s}=", v)
     end
-  end 
+  end
 end
