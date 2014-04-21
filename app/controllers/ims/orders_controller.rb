@@ -26,6 +26,8 @@ class Ims::OrdersController < Ims::BaseController
       @order = Ims::Order::computeamount(request, combo_id: params["combo_id"], quantity: 1)[:data]
     end
 
+    @contact = Ims::User.latest_address(request, params)[:data]
+
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     access_token  = cookies[:user_access_token]
