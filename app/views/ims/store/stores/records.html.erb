@@ -1,13 +1,23 @@
 <div class="wrap-content">
     <div class="module module-white min-height">
-  		<div class="module-tab0 module-tab2">
+  		<div class="module-tab0 module-tab2 tabs-fixed">
         <ul class="nav nav-tabs" id="myTab">
-          <li class="active"><a href="#gift_cards">礼品卡</a></li>
-          <li><a href="#orders">其他订单</a></li>
+          <li class="active"><a href="#orders">商品订单</a></li>
+          <li><a href="#gift_cards">礼品卡</a></li>
         </ul>
 
         <div class="tab-content">
-          <div id="gift_cards" class="tab-pane active">
+          <div id="orders" class="tab-pane active">
+            <div class="module-table-box module-record">
+              <% if @search_order[:data].present? && @orders.present? %>
+                <%= render "order_list", orders: @orders %>
+              <% else %>
+                <%= render 'ims/shared/empty' %>
+              <% end %>
+            </div>
+          </div>
+
+          <div id="gift_cards" class="tab-pane">
             <div class="module-table-box module-record">
              <% if @search_gift_card[:data].present? && @gift_cards.present? %>
                 <%= render "gift_card_list", gift_cards: @gift_cards %>
@@ -15,15 +25,6 @@
                 <%= render 'ims/shared/empty' %>
              <% end %>
 
-            </div>
-          </div>
-          <div id="orders" class="tab-pane">
-            <div class="module-table-box module-record">
-              <% if @search_order[:data].present? && @orders.present? %>
-                <%= render "order_list", orders: @orders %>
-              <% else %>
-                <%= render 'ims/shared/empty' %>
-              <% end %>
             </div>
           </div>
 

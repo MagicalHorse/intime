@@ -18,10 +18,10 @@
 
   <%= hidden_field_tag "order[payment[paymentcode]]", 29 %>
   <%= hidden_field_tag "order[payment[paymentname]]", "微信支付" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", value, id: "name" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", value, id: "contact" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", value, id: "zipcode" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", value, id: "address" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", @contact["contact_person"] || value, id: "name" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", @contact["contact_phone"] || value, id: "contact" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", @contact["zip_code"] || value, id: "zipcode" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", @contact["full_address"] || value, id: "address" %>
   <%= hidden_field_tag "order[needinvoice]", false %>
 
 
@@ -159,7 +159,7 @@
          <div class="row-fluid">
              <div class="span12">
 
-                 <div id="contact_select_wrapper" class="detail-block detail-contact">
+                 <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: inline;' %>">
                      <p class="txt8">
                        <span>
                        <i class="fa fa-map-marker"></i>正在选择地址
@@ -167,19 +167,19 @@
                      </p>
                  </div>
 
-                 <div id="contact_wrapper" class="detail-block detail-contact" style="display: none;">
+                 <div id="contact_wrapper" class="detail-block detail-contact" style="<%= @contact.present? ? 'display: inline;' : 'display: none;' %>">
                      <p class="txt8">
                        <span>
-                         <i class="fa fa-user"></i><span id="weixin_name"></span>
+                         <i class="fa fa-user"></i><span id="weixin_name"><%= @contact["contact_person"] %></span>
                        </span>
                        &nbsp;
                        <span>
-                       <i class="fa fa-phone"></i><span id="weixin_contact"></span>
+                       <i class="fa fa-phone"></i><span id="weixin_contact"><%= @contact["contact_phone"] %></span>
                        </span>
                      </p>
                      <p class="txt8">
                        <span>
-                       <i class="fa fa-map-marker"></i><span id="weixin_address"></span>
+                       <i class="fa fa-map-marker"></i><span id="weixin_address"><%= @contact["full_address"] %></span>
                        </span>
                      </p>
                  </div>
@@ -456,9 +456,11 @@
 
     // 获取送货地址、送货人等
 
+    <% if @contact.blank? %>
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
       load_address()
     })
+    <% end %>
 
 
 

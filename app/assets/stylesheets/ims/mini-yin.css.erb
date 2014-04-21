@@ -753,7 +753,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 /*---------------------------------Tab--------------------------------------------*/
 .module-tab0{padding: 30px;}
 .module-record td p{margin-bottom: 0;}
-.module-tab0 .nav-tabs{ border-radius: 5px;}
+.module-tab0 .nav-tabs{ border-radius: 0; background: white;}
 .module-tab0 .nav-tabs li a{ padding: 18px 8px;}
 .module-tab0 .nav-tabs li a:hover{ background: white;}
 .module-tab0 .nav-tabs li a,
@@ -769,13 +769,14 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .module-tab .btn-line .btn{margin-right: 5px;}
 
 .txt-block{ background-image:url(/images/ims/right.png); background-position: 99% center; background-repeat: no-repeat; background-color: transparent;}
-.txt-block p{line-height: normal;}
+.txt-block p{line-height: normal; margin-bottom: 0;}
 .collection-p p{margin: 0; line-height: 1.4em text-indent: 0;}
 .shelves {margin-top: 5px;}
 .shelves .btn{margin-left: 10px;}
 
 .tel-nun a {color: #676767;}
 .module-tab0 .tel-nun a{color:#676767}
+
 /*------------------------------------agreement---------------------------------------*/
 .module-argreement{ text-align: left;}
 .module-argreement h1{ font-weight: bold; color: #333333;}
@@ -783,6 +784,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .module-argreement ul{ margin: 10px 0 0; list-style: none;}
 .module-argreement li{ margin: 0 0 5px; line-height: 30px;}
 /*----------------------------------------Shop Browerse-------------------------------------------*/
+
 .hd{ margin: 0; display: inline-block; width: 26px; height: 26px;
  background-image: url(/images/ims/shop-browerse-icon.png); background-color: transparent; background-position: center top; background-repeat: no-repeat; background-size: auto auto;
 }
@@ -811,6 +813,28 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 /*---------------------------------img-box--------------------------------------*/
 .img-spa{ display: block; text-align: center; font-size: 1px; overflow: hidden; border:1px solid #eeeeee; border-radius: 0; background-color: white;}
 .detail-contact .img-spa{ display: block; text-align: center; font-size: 1px; overflow: hidden; border:1px solid #eeeeee; border-radius: 6px; background-color: white;}
+
+
+/*-----------------------------------------Tab----------------------------------------------*/
+.tabs-fixed .nav-tabs{ margin:0; position: fixed; top:0; width: 640px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
+.tabs-fixed .tab-content{margin-top: 14%;}
+
+#loading-box {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  color:#555555;
+  top: 30%;
+  left: 50%;
+  width: 50% !important;
+  margin: 0 auto 0 -25% !important;
+  padding: 5px;
+  border:1px solid rgba(0, 0, 0, 0.1);
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+}
+#loading-box img{ height: 32px; width: 32px;}
+
 @media screen and (max-width: 580px) {
 .module-user-card h1{ background-size: 30px auto; line-height: 30px; }
 .txt-block{ background-size: 12px auto;}
@@ -836,21 +860,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 /*-----------------------------------Css Modal------------------------------------*/
 .modal { width: 90%; padding: 15px; margin: 0 auto; left: 0; right: 0;}
 .modal-grey{ padding-top: 70px; width: 100% !important;}
-#loading-box {
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  color:#555555;
-  top: 30%;
-  left: 50%;
-  width: 50% !important;
-  margin: 0 auto 0 -25% !important;
-  padding: 5px;
-  border:1px solid rgba(0, 0, 0, 0.1);
-  box-sizing:border-box;
-  -moz-box-sizing:border-box; /* Firefox */
-  -webkit-box-sizing:border-box; /* Safari */
-}
-#loading-box img{ height: 32px; width: 32px;}
+
 /*-----------------------------------Countdown--------------------------------------*/
 .price-box .countdown{ padding: 0; font-size: 12px;}
 .price-box .countdown span{ padding: 0;}
@@ -879,6 +889,9 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
   right: 0;
   margin-left: 5%;
 }
+/*-----------------------------------------Tab----------------------------------------------*/
+.tabs-fixed .nav-tabs{ width: 100%; left: 0;}
+.tabs-fixed .tab-content{margin-top: 10%;}
 }
 
 @media screen and (max-width: 480px) {
@@ -899,6 +912,9 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
   .browerse-icon { top: 26px;}
   .collection-pbox{margin: 0 14px 0 0;}
   .collection-pbox p{ font-size: 15px;}
+/*-----------------------------------------Tab-fixed----------------------------------------------*/
+.tabs-fixed .nav-tabs{ width: 100%;}
+.tabs-fixed .tab-content{margin-top: 15%;}
 }
 
 .loading{
