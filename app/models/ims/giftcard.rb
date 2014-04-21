@@ -39,8 +39,8 @@ class Ims::Giftcard < Ims::Base
   end
 
   # 获取礼品卡赠送信息 通过赠送记录 id
-  def self.transfer_detail2(req, params = {})
-    post(req, params.merge(path: 'giftcard/transfer_detail2'))
+  def self.trans_detail2(req, params = {})
+    post(req, params.merge(path: 'giftcard/trans_detail2'))
   end
 
   def self.detail(req, params = {})
