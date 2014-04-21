@@ -62,7 +62,7 @@ class Ims::CardsController < Ims::BaseController
       return redirect_to "#{give_page_ims_cards_path(charge_no: @charge_no, phone: params[:phone], comment: params[:comment], from: params[:from])}", notice: @notice
     else
       # API_NEED: 赠送礼品卡接口
-      @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from: params[:from])
+      @result = Ims::Giftcard.send(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from: params[:from], trans_id: params[:trans_id] || 0)
       flash[:page_type] = "give_show_page"
       return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}"
     end

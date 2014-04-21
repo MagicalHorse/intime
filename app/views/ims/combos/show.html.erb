@@ -31,7 +31,7 @@
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
                     <a class="btn btn-danger btn-mini btn-block" href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">点击购买</a>
                     <% else %>
-                    <a href="javascript:void(0);" class="btn btn-grey btn-mini btn-block">已下架</a>
+                    <a href="javascript:void(0);" class="btn btn-grey btn-mini btn-block">已售罄</a>
                     <% end %>
                   </div>
                 </div>

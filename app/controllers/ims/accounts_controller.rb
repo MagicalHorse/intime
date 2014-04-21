@@ -204,7 +204,7 @@ class Ims::AccountsController < Ims::BaseController
 
   # 如果没有认证的手机号，则跳回认证手机号页面
   def validate_verified_phone!
-    redirect_to verify_identify_phone_ims_accounts_path if current_user.verified_phone.blank? 
+    redirect_to phone_page_ims_accounts_path if current_user.verified_phone.blank? 
   end
 
   # 如果没有身份证号，则跳回填写身份证号页面
