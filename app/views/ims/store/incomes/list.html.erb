@@ -29,14 +29,14 @@
 
         if(scrollTop+clientHeight == htmlHeight){
           if(page * per_page < count){
-            $("#loading").html("<img src='/images/ims/loading.gif'/>");
+            $("#loading-box").modal();
             $.get("/ims/store/incomes/list", {page: page + 1, per_page: per_page}, function(data){
               if(data["status"] == true){
+                $("#loading-box").modal('hide');
                 $(".paginate-content:last").after(data["html"])
                 $("#count").attr("value", data["count"])
                 $("#page").attr("value", data["page"])
                 $("#per_page").attr("value", data["per_page"])
-                $("#loading").html("");
               }
             }, "json")
           }
