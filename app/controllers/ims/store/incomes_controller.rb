@@ -13,6 +13,7 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
   def new
     @banks = Ims::Income.banks(request)
     @income = Ims::Income.my(request)
+    @data = Ims::Income.latest_bank(request)[:data]
     @title = "申请提现"
   end
 

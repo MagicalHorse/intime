@@ -29,12 +29,12 @@
       var page = parseInt($("#page").attr("value"))
 
       if(scrollTop+clientHeight == htmlHeight){
-        $("#loading").html("<img src='/images/ims/loading.gif'/>");
+        $("#loading-box").modal();
         $.get("/ims/favorites/combos_list", {page: page + 1}, function(data){
           if(data["status"] == true){
+            $("#loading-box").modal('hide');
             $(".paginate-content:last").after(data["html"])
             $("#page").attr("value", data["page"])
-            $("#loading").html("");
           }
         }, "json")
       }
