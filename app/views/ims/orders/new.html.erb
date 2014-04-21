@@ -241,6 +241,8 @@
     $(".save_button").on("click", function(){
       modal_doc = $(this).parents(".modal")
       var index = modal_doc.attr("index")
+      change_color_value(modal_doc, index)
+      change_size_value(modal_doc, index)
       var color = jQuery.trim($("#colorvaluename"+index).val())
       var size = jQuery.trim($("#sizevaluename"+index).val())
       if(color.length > 0 || size.length > 0){
@@ -261,6 +263,62 @@
       // modal_doc.modal("hide")
     })
 
+    var change_color_value = function(modal_doc, index){
+      color_link = modal_doc.find(".salecolors li.active a")
+      colorvalueid_doc = $("#colorvalueid"+index)
+      colorvaluename_doc = $("#colorvaluename"+index)
+      if(color_link.length > 0){
+        colorvalueid_doc.attr("value", color_link.attr("valueid"))
+        colorvaluename_doc.attr("value", color_link.attr("valuename"))
+      }else{
+        colorvalueid_doc.attr("value", '')
+        colorvaluename_doc.attr("value", '')
+      }
+    }
+
+    var change_size_value = function(modal_doc, index){
+      size_link = modal_doc.find(".sizes li.active a")
+      sizevalueid_doc = $("#sizevalueid"+index)
+      sizevaluename_doc = $("#sizevaluename"+index)
+      if(size_link.length > 0){
+        sizevalueid_doc.attr("value", size_link.attr("valueid"))
+        sizevaluename_doc.attr("value", size_link.attr("valuename"))
+      }else{
+        sizevalueid_doc.attr("value", '')
+        sizevaluename_doc.attr("value", '')
+      }
+    }
+
+    $(document).on("click", ".salecolors li a", function(){
+      this_li = $(this).parents("li")
+      class_name = this_li.attr("class") || ""
+      this_salecolors = $(this).parents(".salecolors")
+      index = this_salecolors.attr("index")
+      this_salecolors.find("li").removeClass("active")
+
+      if(class_name.indexOf('active') >= 0){
+        this_li.removeClass("active")
+      }else{
+        this_li.addClass("active")
+      }
+    })
+
+    $(document).on("click", ".sizes li a", function(){
+      this_li = $(this).parents("li")
+      class_name = this_li.attr("class") || ""
+      this_sizes = $(this).parents(".sizes")
+      index = this_sizes.attr("index")
+      this_sizes.find("li").removeClass("active")
+
+      if(class_name.indexOf('active') >= 0){
+        this_li.removeClass("active")
+      }else{
+        this_li.addClass("active")
+      }
+    })
+
+
+    <% if nil %>
     $(document).on("click", ".salecolors li a", function(){
       this_li = $(this).parents("li")
       class_name = this_li.attr("class") || ""
@@ -300,6 +358,7 @@
       }
     })
 
+    <% end %>
 
     var validator = $("#new_order_form").validate({
       ignore: "",

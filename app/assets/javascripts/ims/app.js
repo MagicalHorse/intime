@@ -151,7 +151,7 @@ function resizeIos(img, max_width, max_height) {
   var canvas = document.createElement('canvas');
   var mpImg = new MegaPixImage(img);
   if(browser.versions.ios || browser.versions.iPhone || browser.versions.iPad){
-    if(img.naturalWidth >= img.naturalHeight){
+    if(img.naturalWidth > img.naturalHeight){
       mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.6, orientation: 8});
     }else{
       mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.6});
