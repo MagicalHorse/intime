@@ -108,7 +108,18 @@ class Product < ActiveRecord::Base
           json.child! do
             json.term do
               json.status 1
-              # json.status 0
+            end
+          end
+
+          json.child! do
+            json.term do
+              json.isSystem true
+            end
+          end
+
+          json.child! do
+            json.term do
+              json.is4Sale true
             end
           end
 
@@ -197,6 +208,7 @@ class Product < ActiveRecord::Base
     prod = Product.search :per_page=>pagesize, :page=>pageindex do
           query do
             match :status,1
+            match :isSystem,true
             if !(tagid.nil?) && tagid.to_i>0
               #find by tag
               match 'tag.id',tagid
@@ -280,7 +292,7 @@ class Product < ActiveRecord::Base
          query do
               string term, {:fields=>['upcCode','name','description','brand.name','brand.engname','recommendreason'],:minimum_should_match=>'75%'}
               match :status,1
-
+              match :isSystem,true
             end
           end
     prods_hash = []
@@ -328,7 +340,7 @@ class Product < ActiveRecord::Base
     next_gt_prod = Product.search :per_page=>1,:page=>1 do
             query do
               match :status,1
-
+              match :isSystem,true
             end
             filter :range,{
                   'id' =>{
@@ -340,7 +352,7 @@ class Product < ActiveRecord::Base
     next_lt_prod = Product.search :per_page=>1,:page=>1 do
             query do
               match :status,1
-
+              match :isSystem,true
             end
             filter :range,{
                   'id' =>{

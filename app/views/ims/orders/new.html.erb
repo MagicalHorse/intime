@@ -158,7 +158,7 @@
          <div class="row-fluid">
              <div class="span12">
 
-                 <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: inline;' %>">
+                 <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: block;' %>">
                      <p class="txt8">
                        <span>
                        <i class="fa fa-map-marker"></i>正在选择地址
@@ -498,6 +498,8 @@
         }
       })
     }
+
+    format_img(".detail-imgbox");
 
   })
 </script>

@@ -19,6 +19,10 @@
   <script>
     $(function(){
 
+      $(document).on("click", ".order_show", function(){
+        $("#loading-box").modal()
+      })
+
       $(document).on("click", ".payment", function(){
         orderno = $(this).attr("orderno")
         totalamount = $(this).attr("amount")
