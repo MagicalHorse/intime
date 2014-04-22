@@ -5,7 +5,6 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   #新建搭配
   def new
     @combo = ::Combo.find_by_id(params[:combo_id]) || @combo = ::Combo.create
-    @online_num = Ims::Combo.online_num(request)[:data][:total_count] rescue 0
     @title = "新建搭配"
   end
 
