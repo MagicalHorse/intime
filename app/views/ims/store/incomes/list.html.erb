@@ -29,10 +29,10 @@
 
         if(scrollTop+clientHeight == htmlHeight){
           if(page * per_page < count){
-            $("#loading-box").modal();
+            $("#bottom-loading-box").modal();
             $.get("/ims/store/incomes/list", {page: page + 1, per_page: per_page}, function(data){
               if(data["status"] == true){
-                $("#loading-box").modal('hide');
+                $("#bottom-loading-box").modal('hide');
                 $(".paginate-content:last").after(data["html"])
                 $("#count").attr("value", data["count"])
                 $("#page").attr("value", data["page"])

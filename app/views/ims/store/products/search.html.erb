@@ -130,10 +130,10 @@
 
       if(scrollTop+clientHeight == htmlHeight){
         if(page * per_page < count){
-          $("#loading-box").modal();
+          $("#bottom-loading-box").modal();
           $.get("/ims/store/products/search", {from_price: from_price, to_price: to_price, from_discount: from_discount, to_discount: to_discount, brand_id: brand_id, keywords: keywords, combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
             if(data["status"] == true){
-              $("#loading-box").modal('hide');
+              $("#bottom-loading-box").modal('hide');
               $(".paginate-content:last").after(data["html"])
               $("#count").attr("value", data["count"])
               $("#page").attr("value", data["page"])
