@@ -836,25 +836,29 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 }
 #loading-box img{ height: 32px; width: 32px;}
 
-@media screen and (max-width: 580px) {
-#loading-box{ width: 120px !important; margin: 0 auto 0 -60px !important;}
-
 #bottom-loading-box {
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0);
   color:white;
-  top: 30%;
+  top: auto;
+  bottom: 10px;
   left: 50%;
   width: 150px !important;
   margin: 0 auto 0 -75px !important;
   padding: 5px;
-  border:1px solid rgba(0, 0, 0, 0.4);
+  border:1px solid rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
   box-sizing:border-box;
   -moz-box-sizing:border-box; /* Firefox */
   -webkit-box-sizing:border-box; /* Safari */
 }
-#bottom-loading-box img{ height: 32px; width: 32px;}
-#bottom-loading-box{ width: 120px !important; margin: 0 auto 0 -60px !important;}
+#bottom-loading-box img{ height: 40px; width: 40px;}
+
+
+@media screen and (max-width: 580px) {
+#loading-box{ width: 120px !important; margin: 0 auto 0 -60px !important;}
+
+
 .module-user-card h1{ background-size: 30px auto; line-height: 30px; }
 .txt-block{ background-size: 12px auto;}
 .bottom-button{ width: 100%;}
