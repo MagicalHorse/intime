@@ -257,31 +257,33 @@ var check_form = function(){
     
     });
 
-     $(document).on('click', "#img_box li[class!='add-link']", function(){
+     $(document).on('click', "#img_box li[class!='add-link'] span", function(){
           src = $(this).find("img")[0].src;
           $("#default_img").html("<img src='"+src+"'>");
           format_img(".show-imgbox-yes");
      });
 
      $(document).on("click", "#img_box li i", function(){
-       mid = $(this).attr("data");
-       $.ajax({
-        url: "/ims/store/combos/remove_img?img_id="+mid,
-        success: function(response){
-            $("#img_"+mid).parent().remove();
-            img_size = $("#img_box li[class!='add-link']").length;
-            if(img_size < 5 && img_size > 0){
-              $("#add_img").show();
-              $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] img")[0].src+"'>");
-            }else{
-              $("#add_img").show();
-              $("#default_img").html("<img src='/images/ims/no-image.jpg'>");
-            }
-            format_img(".show-imgbox-no");
-            format_img(".img-spa");
-            format_img(".show-imgbox-yes");
-        }
-       });
+       if(confirm("确定要删除该图片？")){
+         mid = $(this).attr("data");
+         $.ajax({
+          url: "/ims/store/combos/remove_img?img_id="+mid,
+          success: function(response){
+              $("#img_"+mid).parent().remove();
+              img_size = $("#img_box li[class!='add-link']").length;
+              if(img_size < 5 && img_size > 0){
+                $("#add_img").show();
+                $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] img")[0].src+"'>");
+              }else{
+                $("#add_img").show();
+                $("#default_img").html("<img src='/images/ims/no-image.jpg'>");
+              }
+              format_img(".show-imgbox-no");
+              format_img(".img-spa");
+              format_img(".show-imgbox-yes");
+          }
+         });
+      }
 
      });
 
