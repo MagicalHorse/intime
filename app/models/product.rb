@@ -108,7 +108,18 @@ class Product < ActiveRecord::Base
           json.child! do
             json.term do
               json.status 1
-              # json.status 0
+            end
+          end
+
+          json.child! do
+            json.term do
+              json.isSystem true
+            end
+          end
+
+          json.child! do
+            json.term do
+              json.is4Sale true
             end
           end
 
