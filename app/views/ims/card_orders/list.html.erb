@@ -64,13 +64,13 @@
       var received_page = parseInt($("#received_page").attr("value"))
 
       if(scrollTop+clientHeight == htmlHeight){
-        $("#loading-box").modal();
+        $("#bottom-loading-box").modal();
         if($("#my").attr("class").indexOf("active") >= 0){
           $.get("/ims/card_orders/my_list", {page: my_page + 1}, function(data){
             if(data["status"] == true){
               $(".my-list-paginate-content:last").after(data["html"])
               $("#my_page").attr("value", data["page"])
-              $("#loading-box").modal('hide');
+              $("#bottom-loading-box").modal('hide');
             }
           }, "json")
         }else{
@@ -78,7 +78,7 @@
             if(data["status"] == true){
               $(".received-list-paginate-content:last").after(data["html"])
               $("#received_page").attr("value", data["page"])
-              $("#loading-box").modal('hide');
+              $("#bottom-loading-box").modal('hide');
             }
           }, "json")
         }
