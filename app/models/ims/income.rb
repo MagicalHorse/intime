@@ -20,6 +20,10 @@ class Ims::Income < Ims::Base
    def apply(req, params = {})
    	 post(req, params.merge(path: 'assistant/income_request'))
    end
+
+   def latest_bank(req, params = {})
+     post(req, params.merge(path: 'assistant/latest_bankinfo'))
+   end   
  end
 
 end

@@ -19,6 +19,7 @@ a,button,input,textarea{-webkit-tap-highlight-color:rgba(255,0,0,0);}/* 1.去除
 @media screen and (max-width: 580px) {
   .common-white{padding: 10px 10px; margin-bottom: 8px;}
   .bottom-distance{margin-bottom: 80px !important;}
+  .block-p p{margin-bottom: 0;}
 }
 .module-white{background: white;}
 .module-grey{background: #faf9f9;}
@@ -809,7 +810,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 /*-----------------------------------Countdown--------------------------------------*/
 .countdown{display: inline-block; font-size: 21px; font-style: normal;}
 .countdown em{ font-style: normal; font-family: arial; line-height: normal; padding: 0 4px; margin: 0 2px;}
-.price-box .countdown span{padding: 0 4px;}
+.price-box .countdown span{padding: 0 4px; line-height: 2.5em}
 /*---------------------------------img-box--------------------------------------*/
 .img-spa{ display: block; text-align: center; font-size: 1px; overflow: hidden; border:1px solid #eeeeee; border-radius: 0; background-color: white;}
 .detail-contact .img-spa{ display: block; text-align: center; font-size: 1px; overflow: hidden; border:1px solid #eeeeee; border-radius: 6px; background-color: white;}
@@ -819,9 +820,24 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .tabs-fixed .nav-tabs{ margin:0; position: fixed; top:0; width: 640px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
 .tabs-fixed .tab-content{margin-top: 14%;}
 
-
+#loading-box {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.4);
+  color:#333333;
+  top: 30%;
+  left: 50%;
+  width: 150px !important;
+  margin: 0 auto 0 -75px !important;
+  padding: 5px;
+  border:1px solid rgba(0, 0, 0, 0.4);
+  box-sizing:border-box;
+  -moz-box-sizing:border-box; /* Firefox */
+  -webkit-box-sizing:border-box; /* Safari */
+}
+#loading-box img{ height: 32px; width: 32px;}
 
 @media screen and (max-width: 580px) {
+#loading-box{ width: 120px !important; margin: 0 auto 0 -60px !important;}
 .module-user-card h1{ background-size: 30px auto; line-height: 30px; }
 .txt-block{ background-size: 12px auto;}
 .bottom-button{ width: 100%;}
@@ -846,21 +862,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 /*-----------------------------------Css Modal------------------------------------*/
 .modal { width: 90%; padding: 15px; margin: 0 auto; left: 0; right: 0;}
 .modal-grey{ padding-top: 70px; width: 100% !important;}
-#loading-box {
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.8);
-  color:#555555;
-  top: 30%;
-  left: 50%;
-  width: 50% !important;
-  margin: 0 auto 0 -25% !important;
-  padding: 5px;
-  border:1px solid rgba(0, 0, 0, 0.1);
-  box-sizing:border-box;
-  -moz-box-sizing:border-box; /* Firefox */
-  -webkit-box-sizing:border-box; /* Safari */
-}
-#loading-box img{ height: 32px; width: 32px;}
+
 /*-----------------------------------Countdown--------------------------------------*/
 .price-box .countdown{ padding: 0; font-size: 12px;}
 .price-box .countdown span{ padding: 0;}
@@ -903,10 +905,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .index-shop-name{margin-bottom: 0;}
 .browerse-icon .browerse-nav-link { font-size: 14px;}
 .shop-head{bottom: -26%;}
-.btn-star{background-position: center -144px;}
-.btn-star-active{background-position: center -72px;}
-.btn-share{background-position: center -216px;}
-.price-box .btn-small{padding: 0 12px;}
+.price-box .btn-small{padding: 4px 12px;}
 
   .modal-grey{ padding-top: 0;}
   .browerse-icon { top: 26px;}
@@ -916,7 +915,11 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .tabs-fixed .nav-tabs{ width: 100%;}
 .tabs-fixed .tab-content{margin-top: 15%;}
 }
-
+@media screen and (max-width: 320px) {
+.btn-star{background-position: center -144px;}
+.btn-star-active{background-position: center -72px;}
+.btn-share{background-position: center -216px;}
+}
 .loading{
   position: fixed;
   left: 50%;

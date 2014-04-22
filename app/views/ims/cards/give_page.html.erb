@@ -8,6 +8,7 @@
   <div class="module module-white card-form-box">
     <%= form_tag give_ims_cards_path, class: "form-defined", id: "give_form",method: "get" do  %>
     <%= hidden_field_tag :charge_no, params[:charge_no]  %>
+    <%= hidden_field_tag :trans_id, params[:trans_id]  %>
     <div class="controls-defined defined-small">
       <label class="col-5 text-left"><i class="fa fa-user"></i>我的姓名</label>
       <div class="col-7">

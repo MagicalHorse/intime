@@ -1,4 +1,3 @@
-<% value = (request.host == "localhost" ? 'nil' : nil) %>
 <%= form_tag ims_orders_path, id: "new_order_form", style: "display: none;" do %>
 
   <% @products.each_with_index do |product, index| %>
@@ -18,10 +17,10 @@
 
   <%= hidden_field_tag "order[payment[paymentcode]]", 29 %>
   <%= hidden_field_tag "order[payment[paymentname]]", "微信支付" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", @contact["contact_person"] || value, id: "name" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", @contact["contact_phone"] || value, id: "contact" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", @contact["zip_code"] || value, id: "zipcode" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", @contact["full_address"] || value, id: "address" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", @contact["contact_person"], id: "name" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", @contact["contact_phone"], id: "contact" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", @contact["zip_code"], id: "zipcode" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", @contact["full_address"], id: "address" %>
   <%= hidden_field_tag "order[needinvoice]", false %>
 
 
@@ -159,7 +158,7 @@
          <div class="row-fluid">
              <div class="span12">
 
-                 <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: inline;' %>">
+                 <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: block;' %>">
                      <p class="txt8">
                        <span>
                        <i class="fa fa-map-marker"></i>正在选择地址

@@ -38,6 +38,10 @@ class Ims::Giftcard < Ims::Base
     post(req, params.merge(path: 'giftcard/transfer_detail'))
   end
 
+  # 获取礼品卡赠送信息 通过赠送记录 id
+  def self.trans_detail2(req, params = {})
+    post(req, params.merge(path: 'giftcard/trans_detail2'))
+  end
 
   def self.detail(req, params = {})
     post(req, params.merge(path: 'giftcard/detail'))
@@ -55,6 +59,10 @@ class Ims::Giftcard < Ims::Base
     post(req, params.merge(path: 'giftcard/send'))
   end
 
+  def self.sendex(req, params = {})
+    post(req, params.merge(path: 'giftcard/sendex'))
+  end
+
   def self.changepwd(req, params = {})
     post(req, params.merge(path: 'giftcard/change_pwd'))
   end
@@ -65,6 +73,10 @@ class Ims::Giftcard < Ims::Base
 
   def self.refuse(req, params = {})
     post(req, params.merge(path: 'giftcard/refuse'))
+  end
+
+  def self.refusebytransid(req, params = {})
+    post(req, params.merge(path: 'giftcard/refusebytransid'))
   end
 
   def self.list(req, params = {})

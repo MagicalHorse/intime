@@ -21,7 +21,7 @@
               <div class="col-8">
                 <select name="bank_code">
                   <% @banks[:data][:items].each do |item| %>
-                   <option value="<%=item["code"]%>"><%= item["name"] %></option>
+                   <option value="<%=item["code"]%>" <%= 'checked' if item["code"] == @data[:bank_code] %>><%= item["name"] %></option>
                   <% end %>
                 </select>
               </div>
@@ -31,13 +31,13 @@
               <div class="controls-defined defined-small">
                 <label class="col-4"><abbr class="txt-red">*</abbr>开户姓名:</label>
                 <div class="col-8">
-                <%= text_field_tag :user_name, "" %></div>
+                <%= text_field_tag :user_name, "#{@data[:user_name]}" %></div>
               </div>
           </div>
           <div class="module common-white">
               <div class="controls-defined defined-small">
                 <label class="col-4"><abbr class="txt-red">*</abbr>卡号:</label>
-                <div class="col-8"><%= text_field_tag :bank_no, "" %></div>
+                <div class="col-8"><%= text_field_tag :bank_no, "#{@data[:bank_no]}" %></div>
               </div>
           </div>
           <div class="module withdrawal-notice">
