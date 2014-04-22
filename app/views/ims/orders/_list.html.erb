@@ -54,7 +54,7 @@
 
         <% if order["status_i"] == 0 %>
           <p class="immediate-payment">
-            <a class="btn btn-danger btn-mini payment" href="javascript:void(0);" orderno="<%= order['order_no'] %>" amount="<%= order["amount"] %>">立即支付</a>
+            <a class="btn btn-danger btn-small payment" href="javascript:void(0);" orderno="<%= order['order_no'] %>" amount="<%= order["amount"] %>">立即支付</a>
           </p>
         <% end %>
         </div>
