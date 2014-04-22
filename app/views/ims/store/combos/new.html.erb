@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="upload-img">
-        <ul class="inline clearfix" id="p_box">
+        <ul class="inline" id="p_box">
           <% @combo.combo_products.each do |product| %>
             <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><span class="img-spa"><img src="<%= product.img_url %>"></span></li>
           <% end %>
