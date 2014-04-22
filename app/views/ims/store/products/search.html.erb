@@ -53,8 +53,11 @@
 </div>
 
 <% else %>
-
-  <%= render "search_list", products: @products, combo: @combo %>
+  <% if @products.present? %>
+    <%= render "search_list", products: @products, combo: @combo %>
+  <% else %>
+    <%= render 'ims/shared/empty' %>
+  <% end %>
   <div id="loading" class="text-center">
   </div>
 
