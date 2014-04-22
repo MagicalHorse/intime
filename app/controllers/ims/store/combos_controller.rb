@@ -58,7 +58,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
         if product[:product_type].blank? || product[:product_type] == 1
          p = ::Product.fetch_product(product[:id])
          ComboProduct.create({:img_url => p[:data][:image], :price => product[:price],
-          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 1, :remote_id => product[:id]})
+          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 1, :remote_id => product[:id]}) if p.present?
         else
           ComboProduct.create({:img_url => product[:image], :price => product[:price],
           :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 2, :remote_id => product[:id]})
