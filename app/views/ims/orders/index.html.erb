@@ -40,9 +40,11 @@
 
         if(scrollTop+clientHeight == htmlHeight){
           if(page * per_page < count){
-            $("#loading").html("<img src='/images/ims/loading.gif'/>");
+            $("#bottom-loading-box").modal();
+            // $("#loading").html("<img src='/images/ims/loading.gif'/>");
             $.get("/ims/orders", {page: page + 1, per_page: per_page}, function(data){
               if(data["status"] == true){
+                $("#bottom-loading-box").modal('hide');
                 $(".paginate-content:last").after(data["html"])
                 $("#count").attr("value", data["count"])
                 $("#page").attr("value", data["page"])

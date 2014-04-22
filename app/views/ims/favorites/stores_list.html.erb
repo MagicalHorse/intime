@@ -29,10 +29,10 @@
       var page = parseInt($("#page").attr("value"))
 
       if(scrollTop+clientHeight == htmlHeight){
-        $("#loading-box").modal();
+        $("#bottom-loading-box").modal();
         $.get("/ims/favorites/stores_list", {page: page + 1}, function(data){
           if(data["status"] == true){
-            $("#loading-box").modal('hide');
+            $("#bottom-loading-box").modal('hide');
             $(".paginate-content:last").after(data["html"])
             $("#page").attr("value", data["page"])
           }

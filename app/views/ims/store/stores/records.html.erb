@@ -68,10 +68,10 @@
               var page = parseInt($("#gift_card_page").attr("value"))
               var per_page = parseInt($("#gift_card_per_page").attr("value"))
               if(page * per_page < count){
-                $("#loading-box").modal();
+                $("#bottom-loading-box").modal();
                 $.get("/ims/store/stores/records", {gift_card_page: page + 1, gift_card_per_page: per_page}, function(data){
                   if(data["status"] == true){
-                    $("#loading-box").modal('hide');
+                    $("#bottom-loading-box").modal('hide');
                     $(".gift_card_paginate-content:last").after(data["html"])
                     $("#gift_card_count").attr("value", data["count"])
                     $("#gift_card_page").attr("value", data["page"])
@@ -84,10 +84,10 @@
               var page = parseInt($("#order_page").attr("value"))
               var per_page = parseInt($("#order_per_page").attr("value"))
               if(page * per_page < count){
-                $("#loading-box").modal();
+                $("#bottom-loading-box").modal();
                 $.get("/ims/store/stores/records", {order_page: page + 1, order_per_page: per_page}, function(data){
                   if(data["status"] == true){
-                    $("#loading-box").modal('hide');
+                    $("#bottom-loading-box").modal('hide');
                     $(".order_paginate-content:last").after(data["html"])
                     $("#order_count").attr("value", data["count"])
                     $("#order_page").attr("value", data["page"])

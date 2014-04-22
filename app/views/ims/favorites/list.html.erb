@@ -21,7 +21,7 @@
           <div class="module-table-box module-record">
             <% if @combos.present? %>
             <%= render "combos_list", combos_list: @combos %>
-            <% else %>  
+            <% else %>
             <%= render "ims/shared/empty" %>
             <% end %>
           </div>
@@ -60,11 +60,11 @@
       var combos_page = parseInt($("#combos_page").attr("value"))
 
       if(scrollTop+clientHeight == htmlHeight){
-        $("#loading-box").modal();
+        $("#bottom-loading-box").modal();
         if($("#stores").attr("class").indexOf("active") >= 0){
           $.get("/ims/favorites/stores_list", {page: stores_page + 1}, function(data){
             if(data["status"] == true){
-              $("#loading-box").modal('hide');
+              $("#bottom-loading-box").modal('hide');
               $(".stores-list-paginate-content:last").after(data["html"])
               $("#stores_page").attr("value", data["page"])
             }
@@ -72,7 +72,7 @@
         }else{
           $.get("/ims/favorites/combos_list", {page: combos_page + 1}, function(data){
             if(data["status"] == true){
-              $("#loading-box").modal('hide');
+              $("#bottom-loading-box").modal('hide');
               $(".combos-list-paginate-content:last").after(data["html"])
               $("#combos_page").attr("value", data["page"])
             }
