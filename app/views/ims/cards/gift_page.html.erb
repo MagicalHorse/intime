@@ -80,18 +80,18 @@
   $(function(){
 
     $("#button_give").click(function(){
-      window.location.href = "<%= give_page_ims_cards_path %>?charge_no=<%= @charge_no %>";
+      window.location.href = "<%= give_page_ims_cards_path(charge_no: @charge_no, trans_id: @trans_id) %>";
     })
 
     $("#button_refuse").click(function(){
       var r = confirm("您确定要拒收吗？");
       if (r == true){
-        window.location.href = "<%= refuse_ims_cards_path %>?charge_no=<%= @charge_no %>";
+        window.location.href = "<%= refuse_ims_cards_path(charge_no: @charge_no, trans_id: @trans_id) %>";
       }
     })
 
     $("#button_accept").click(function(){
-      window.location.href = "<%= recharge_ims_cards_path %>?charge_no=<%= @charge_no %>&charge_type=giftcard";
+      window.location.href = "<%= recharge_ims_cards_path(charge_no: @charge_no, trans_id: @trans_id, charge_type: 'giftcard') %>";
     })
 
   });

@@ -157,6 +157,12 @@ var check_form = function(){
 <script type="text/javascript" charset="utf-8">
 
   $(function(){
+
+    $(".popup-menu a").click(function(){
+      $("#loading-box").modal();
+    });
+    
+
     <% if @remote_combo.blank? && @online_num >= current_user.max_comboitems %>
       $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>搭配上架数量已到上限</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' onclick='window.location.href=\"/ims/store/sells?combo=true\"' >OK</a></div>")
       $("#ex2").modal({backdrop: 'static'});
@@ -175,6 +181,7 @@ var check_form = function(){
 
     $("#combo_submit").click(function(){
       $("#combo_form").ajaxSubmit();
+      $("#loading-box").modal();
     });
 
     $("#combo_form").submit(function(){
