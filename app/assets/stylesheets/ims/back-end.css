@@ -20,7 +20,7 @@
 .mini-imgbox ul li .img-spa:focus,
 .mini-imgbox ul li .img-spa:hover,
 .mini-imgbox ul li .img-spa:active{ border:2px solid #f86b9f;}
-.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: inline-block; width: 28px; height: 28px; background-image:url(/images/ims/delate.png); background-position: center center; background-repeat: no-repeat; background-color: transparent; background-size: 24px auto;}
+.mini-imgbox ul li i{ position: absolute;left: -10%; top: -20%;display: block; width: 28px; height: 28px; background-image:url(/images/ims/delate.png); background-position: center center; background-repeat: no-repeat; background-color: transparent; background-size: 24px auto;}
 .mini-imgbox ul li img{ width: auto; height: auto;}
 .mini-imgbox ul li.add-link a{ display: block;}
 
