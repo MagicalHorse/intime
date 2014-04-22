@@ -44,10 +44,6 @@
 
     format_img(".img-spa");
 
-    <% if @combo.present? %>
-    $('#myTab a[href="#combos"]').tab('show');
-    <% end %>
-
     $('#myTab a').click(function (e) {
       e.preventDefault()
       $(this).tab('show');
@@ -69,7 +65,7 @@
           $.get("/ims/favorites/stores_list", {page: stores_page + 1}, function(data){
             if(data["status"] == true){
               $("#loading-box").modal('hide');
-              $(".combos-list-paginate-content:last").after(data["html"])
+              $(".stores-list-paginate-content:last").after(data["html"])
               $("#stores_page").attr("value", data["page"])
             }
           }, "json")
@@ -77,7 +73,7 @@
           $.get("/ims/favorites/combos_list", {page: combos_page + 1}, function(data){
             if(data["status"] == true){
               $("#loading-box").modal('hide');
-              $(".stores-list-paginate-content:last").after(data["html"])
+              $(".combos-list-paginate-content:last").after(data["html"])
               $("#combos_page").attr("value", data["page"])
             }
           }, "json")
