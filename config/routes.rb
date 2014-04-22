@@ -364,6 +364,7 @@ IntimeService::Application.routes.draw do
       collection do
         get  :stores_list
         get  :combos_list
+        get  :list
         post :favor
         post :unfavor
       end

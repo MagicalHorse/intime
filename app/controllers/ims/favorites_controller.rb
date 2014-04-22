@@ -1,6 +1,11 @@
 # encoding: utf-8
 class Ims::FavoritesController < Ims::BaseController
 
+  def list
+    @stores = Ims::UserApi.favor_store(request, {page: (params[:page] || 1), pagesize: 10} )["data"]["items"]
+    @combos = Ims::UserApi.favor_combo(request, {page: (params[:page] || 1), pagesize: 10} )["data"]["items"]
+  end
+
   def stores_list
     @stores = Ims::UserApi.favor_store(request, {page: (params[:page] || 1), pagesize: 10} )["data"]["items"]
   end
