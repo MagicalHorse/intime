@@ -352,6 +352,7 @@ IntimeService::Application.routes.draw do
     get 'cards/gift_page/:charge_no', to: 'cards#gift_page'
     resources :card_orders, only: [:new, :create, :show] do
       collection do
+        get :list
         get :my_list
         get :received_list
         get :check_status

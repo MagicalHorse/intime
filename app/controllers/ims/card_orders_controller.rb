@@ -6,6 +6,11 @@ class Ims::CardOrdersController < Ims::BaseController
     @cards = Ims::Giftcard.items(request, {id: Ims::Giftcard::DEFAULT_ID})["data"]["items"]
   end
 
+  def list
+    @my = Ims::Giftcard.list(request, {type: 1, page: (params[:page] || 1), pagesize: 10})
+    @received = Ims::Giftcard.list(request, {type: 2, page: (params[:page] || 1), pagesize: 10})
+  end
+
   # 自己购买
   def my_list
     @title = "自己购买"
