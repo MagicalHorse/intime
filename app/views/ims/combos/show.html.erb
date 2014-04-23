@@ -170,8 +170,8 @@
     WxEnv = {};
   }
   WxEnv.shareUrl = "<%= request.url %>";
-  WxEnv.shareImgUrl = "";
-  WxEnv.shareName = "" + "-银泰";
-  WxEnv.shareDes = "描述。。。";
+  WxEnv.shareImgUrl = "<%= @remote_combo[:data][:images].first['name'] %>";
+  WxEnv.shareName = "我给您分享了一组搭配，希望您喜欢。";
+  WxEnv.shareDes = "<%= @remote_combo[:data][:desc] %>";
 
 </script>
