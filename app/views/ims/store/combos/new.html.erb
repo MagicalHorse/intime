@@ -27,12 +27,12 @@
     <div class="mini-imgbox">
         <ul class="inline clearfix" id="img_box">
             <% @combo.combo_pics.each do |pic| %>
-            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"></i><span class="img-spa"><img src='<%= pic.url -%>'></span></li>
+            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"><img src="/images/ims/delate.png"></i><span class="img-spa"><img src='<%= pic.url -%>'></span></li>
             <% end %>
             <% if @combo.combo_pics.size < 5 %>
-            <li class="add-link" id="add_img"><span class="img-spa"><img src="/images/ims/add-img.png"></span></li>
+            <li class="add-link" id="add_img"><span class="img-spa"><img src="/images/ims/delate.png"><img src="/images/ims/add-img.png"></span></li>
             <% end %>
-            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*">
+            <div style="height: 0px;width: 0px; overflow:hidden;"><img src="/images/ims/delate.png"><input id="upfile" type="file" value="upload" name="img" accept="image/*">
             </div>
         </ul>
     </div>
