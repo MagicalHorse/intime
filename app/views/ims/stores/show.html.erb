@@ -130,9 +130,9 @@
     WxEnv = {};
   }
   WxEnv.shareUrl = "<%= request.url %>";
-  WxEnv.shareImgUrl = "";
-  WxEnv.shareName = "" + "-银泰";
-  WxEnv.shareDes = "描述。。。";
+  WxEnv.shareImgUrl = "<%= @store[:data][:logo] %>";
+  WxEnv.shareName = "迎您光临<%=@store[:data][:name]%>迷你店";
+  WxEnv.shareDes = "希望您能找到自己喜欢的商品,谢谢光临!~~~ 欢迎您来看看哦！";
 
   $(function(){
     <% if @store[:data][:is_favored] %>
