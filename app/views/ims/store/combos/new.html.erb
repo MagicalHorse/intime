@@ -52,6 +52,8 @@
           <% end %>
           <% if @combo.combo_products.size < 3 %>
           <li class="add-link" id="add_product"><a href="javascript:void(0);"><span class="img-spa"><img src="/images/ims/add-img.png"></span></a></li>
+          <% else %>
+          <li class="add-link" id="add_product" style="display:none;"><a href="javascript:void(0);"><span class="img-spa"><img src="/images/ims/add-img.png"></span></a></li>
           <% end %>
         </ul>
     </div>
@@ -225,7 +227,7 @@ var check_form = function(){
                 $("#loading-box").modal('hide');
                 if(data['status'] == 1){
                    setTimeout(function(){
-                     insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
+                     insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'><img src='/images/ims/delate.png'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
                      if($("#img_box li[class!='add-link']").length >0 ){
                        $($("#img_box li[class!='add-link']:last")).after(insert_html);  
                      }else{
@@ -252,58 +254,6 @@ var check_form = function(){
 
 };
 
-    // $("#upfile").change(function(){
-    //     $("#loading-box").modal();
-    //     var file = this.files[0];
-    //     var reader = new FileReader();
-    //     reader.readAsArrayBuffer(file);
-
-    //     reader.onload = (function (event) {
-    //       var blob = new NewBlob(event.target.result);
-    //       window.URL = window.URL || window.webkitURL;
-    //       var blobURL = window.URL.createObjectURL(blob);
-    //       var image = new Image();
-    //       image.src = blobURL;
-          
-    //       image.onload = function(){
-          //   var resized = resizeIos(image, 640, 640);
-          //   $.ajax({
-          //     url: "/ims/combos/upload",
-          //     dataType: 'json',
-          //     type: 'post',
-          //     data: {"img": resized, "id": "<%= @combo.id %>"},
-          //     beforeSend: function(){
-          //       $("#add_img").hide();
-          //     },
-          //     success: function(data){
-          //       $("#loading-box").modal('hide');
-          //       if(data['status'] == 1){
-          //          setTimeout(function(){
-          //            insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
-          //            if($("#img_box li[class!='add-link']").length >0 ){
-          //              $($("#img_box li[class!='add-link']:last")).after(insert_html);  
-          //            }else{
-          //              $("#img_box").prepend(insert_html);
-          //            };
-                     
-          //            $("#default_img").addClass("show-imgbox-yes");
-          //            $("#default_img").removeClass("show-imgbox-no");
-          //            $("#default_img").html("<img src='"+data['img']+"'>");
-          //            img_size = $("#img_box li[class!='add-link']").length;
-          //            if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
-          //             format_img(".show-imgbox-no");
-          //             format_img(".img-spa");
-          //             format_img(".show-imgbox-yes");
-          //          }, 800);
-          //        }else{
-          //          error_modal("网络错误，请稍后重试");
-          //        }
-          //     }
-          //   });
-          // }
-    //     });
-    
-    // });
 
      $(document).on('click', "#img_box li[class!='add-link'] span", function(){
           src = $(this).find("img")[0].src;
@@ -321,7 +271,7 @@ var check_form = function(){
               img_size = $("#img_box li[class!='add-link']").length;
               if(img_size < 5 && img_size > 0){
                 $("#add_img").show();
-                $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] img")[0].src+"'>");
+                $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] span img")[0].src+"'>");
               }else{
                 $("#add_img").show();
                 $("#default_img").html("<img src='/images/ims/no-image.jpg'>");
@@ -348,6 +298,7 @@ var check_form = function(){
      $("#btn-cancel").click(function(){
        $("#pop-menu").hide();
        $("#buttons").show();
+       $("#loading-box").modal('hide');
      });
 
      $(document).on("click", "#p_box li i", function(){
@@ -357,8 +308,10 @@ var check_form = function(){
         success: function(response){
             $("#p_"+mid).parent().remove();
             var p_size = $("#p_box li[class!='add-link']").length;
+            console.log(p_size);
             if(p_size < 3){
               $("#add_product").show();
+              format_img(".img-spa");
             }
         }
        });
