@@ -133,13 +133,46 @@ class Product < ActiveRecord::Base
         json.query do
           json.bool do
 
-            json.should [["name", "wildcard"], ["upcCode", "term"], ["brand.name", "term"]] do |array|
+            json.should do
+              json.child! do
+                json.wildcard do
+                  json.name "*"+keywords+"*"
+                end
+              end
 
-              json.set! array[1] do
-                json.set! array[0], keywords
+              json.child! do
+                json.wildcard do
+                  json.set! "brand.name", "*"+keywords+"*"
+                end
+              end
+
+              json.child! do
+                json.wildcard do
+                  json.upcCode "*"+keywords+"*"
+                end
+              end
+
+              json.child! do
+                json.text do
+                  json.name keywords
+                end
+              end
+
+              json.child! do
+                json.text do
+                  json.upcCode keywords
+                end
+              end
+
+              json.child! do
+                json.text do
+                  json.set! "brand.name", keywords
+                end
               end
 
             end
+
+
             json.minimum_number_should_match 1
             json.boost 1.0
           end
