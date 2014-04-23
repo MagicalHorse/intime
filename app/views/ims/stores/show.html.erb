@@ -91,9 +91,9 @@
                     </div>
                 </div>
                 
-                <div class="clearfix suit-left">
+                <div class="clearfix countdown-browser">
                     <p class="pull-left price-box">
-                        <span class="txt3 price">打包价：<em>¥<%= combo["Price"] %></em></span>
+                        <span class="txt3 price price-span">打包价：<em>¥<%= combo["Price"] %></em></span>
                     </p>
                     <p class="pull-left price-box">
                         <% if combo["ExpiredIn"].present? %>
@@ -126,6 +126,14 @@
 
 <%= content_for :javascripts do %>
 <script>
+  if (typeof WxEnv == 'undefined') {
+    WxEnv = {};
+  }
+  WxEnv.shareUrl = "<%= request.url %>";
+  WxEnv.shareImgUrl = "";
+  WxEnv.shareName = "" + "-银泰";
+  WxEnv.shareDes = "描述。。。";
+
   $(function(){
     <% if @store[:data][:is_favored] %>
     $("#favor_store").hide();
