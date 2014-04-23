@@ -133,13 +133,46 @@ class Product < ActiveRecord::Base
         json.query do
           json.bool do
 
-            json.should [["name", "wildcard"], ["upcCode", "term"], ["brand.name", "term"]] do |array|
+            json.should do
+              json.child! do
+                json.wildcard do
+                  json.name "*"+keywords+"*"
+                end
+              end
 
-              json.set! array[1] do
-                json.set! array[0], keywords
+              json.child! do
+                json.wildcard do
+                  json.set! "brand.name", "*"+keywords+"*"
+                end
+              end
+
+              json.child! do
+                json.wildcard do
+                  json.upcCode "*"+keywords+"*"
+                end
+              end
+
+              json.child! do
+                json.text do
+                  json.name keywords
+                end
+              end
+
+              json.child! do
+                json.text do
+                  json.upcCode keywords
+                end
+              end
+
+              json.child! do
+                json.text do
+                  json.set! "brand.name", keywords
+                end
               end
 
             end
+
+
             json.minimum_number_should_match 1
             json.boost 1.0
           end
@@ -161,11 +194,15 @@ class Product < ActiveRecord::Base
 
 
   def self.fetch_product(id)
-    data = self.es_search(id: id)[:data].first
-    r = data[:resource].first
-    image = self.img_url(r)
-
-    return {:data => {:id => data[:id], :price => data[:price], :image => image, :brand_name => data[:brand][:name], :category_name => data[:tag][:name]}}
+    data = self.es_search(id: id)[:data].first || {}
+    if data.present?
+      r = data[:resource].first if data[:resource].present?
+      image = self.img_url(r) if r.present?
+     
+      return {:data => {:id => data[:id], :price => data[:price], :image => image, :brand_name => data[:brand][:name], :category_name => data[:tag][:name]}}
+    else
+      return nil
+    end
   end
 
   def self.img_url(r)
