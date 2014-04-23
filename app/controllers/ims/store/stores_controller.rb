@@ -24,7 +24,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def check
     if current_user.store_id.present?
-      redirect_to my_ims_store_store_path(id: current_user.store_id)
+      redirect_to my_ims_store_store_path(id: current_user.store_id, :t => Time.now.to_i)
     else
       redirect_to ims_store_root_path
     end

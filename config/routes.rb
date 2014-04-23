@@ -464,6 +464,8 @@ IntimeService::Application.routes.draw do
   match "promotion/:id" => "promotion#show"
 
   match "ims/combos/:id/:t" => "ims/combos#show", as: "ims_combo"
+  match "ims/stores/:id/:t" => "ims/stores#show", as: "ims_store"
+  match "ims/store/stores/:id/my/:t" => "ims/store/stores#my", as: "my_ims_store_store"
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'

@@ -26,11 +26,11 @@
 
 .upload-img {margin-top: 30px;}
 .upload-img ul{margin: 0; list-style: none; width: 100%；}
-.upload-img ul li{ position: relative; margin:0 5px 5px 0; padding: 4px; border:2px solid #eeeeee; border-radius: 5px; background-color: #ffffff; text-align: center; width: 30%;}
+.upload-img ul li{ float: left; position: relative; margin:0 5px 5px 0; padding: 4px; border:2px solid #eeeeee; border-radius: 5px; background-color: #ffffff; text-align: center; width: 30%;}
 .upload-img ul li:focus,
 .upload-img ul li:hover,
 .upload-img ul li:active{ border:2px solid #f86b9f;}
-.upload-img ul li i{ cursor: pointer; position: absolute;left: -5%; top: -8%;display: inline-block; width: 28px; height: 28px;background-image:url(/images/ims/delate.png); background-position: center center; background-repeat: no-repeat; background-color: transparent; background-size: 24px auto;}
+.upload-img ul li i{ cursor: pointer; position: absolute;left: -4%; top: -8%;display: block; width: 28px; height: 28px;background-image:url(/images/ims/delate.png); background-position: center center; line-height: 0; background-repeat: no-repeat; background-color: transparent; background-size: 24px auto;}
 .upload-img ul li img{ height: auto; width: auto;}
 .upload-img ul li.add-link{ border:2px dashed #eeeeee; background-color: #f6f8fa;}
 .upload-img ul li.add-link a{ display: block; }
