@@ -44,16 +44,13 @@ var NewBlob = function(data, datatype)
             var bb = new BlobBuilder();
             bb.append(data);
             out = bb.getBlob(datatype);
-            console.log("case 2");
         }
         else if (e.name == "InvalidStateError") {
             // InvalidStateError (tested on FF13 WinXP)
             out = new Blob([data], {type: datatype});
-            console.log("case 3");
         }
         else {
             // We're screwed, blob constructor unsupported entirely   
-            console.log("Errore");
         }
     }
     return out;
@@ -147,15 +144,12 @@ var fnTimeCountDown = function(o){
 
 
 
-function resizeIos(img, max_width, max_height) {
+function resizeIos(img, max_width, max_height, orientation) {
   var canvas = document.createElement('canvas');
   var mpImg = new MegaPixImage(img);
+
   if(browser.versions.ios || browser.versions.iPhone || browser.versions.iPad){
-    if(img.naturalWidth > img.naturalHeight){
-      mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.6});
-    }else{
-      mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.6});
-    }
+    mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.6, orientation: orientation});
   }else{
     mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.1});
   }

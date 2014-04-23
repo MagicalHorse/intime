@@ -32,7 +32,7 @@
             <% if @combo.combo_pics.size < 5 %>
             <li class="add-link" id="add_img"><span class="img-spa"><img src="/images/ims/add-img.png"></span></li>
             <% end %>
-            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*">
+            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera">
             </div>
         </ul>
     </div>
@@ -163,11 +163,6 @@ var check_form = function(){
     });
     
 
-    <% if @remote_combo.blank? && @online_num >= current_user.max_comboitems %>
-      $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>搭配上架数量已到上限</div><a class='btn btn-danger btn-small btn-block btn-modal' href='javascript:void();' onclick='window.location.href=\"/ims/store/sells?combo=true\"' >OK</a></div>")
-      $("#ex2").modal({backdrop: 'static'});
-    <% end %>
-
     <% if @combo.desc.blank?  %>
     $("#combo_desc").val("<%= @combo.product_desc %>")
     <% end %>
@@ -203,28 +198,27 @@ var check_form = function(){
        }
     });
 
-    $("#upfile").change(function(){
-        var file = this.files[0];
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        console.log(reader);
+    document.getElementById('upfile').onchange = function (e) {
+      $("#loading-box").modal();
+      var orientation ;
+      loadImage.parseMetaData(
+        e.target.files[0],
+        function(data){
+          if(data.exif)
+          orientation = data.exif.get('Orientation');
+        }
+      );
 
-        reader.onload = (function (event) {
-          var blob = new NewBlob(event.target.result);
-          window.URL = window.URL || window.webkitURL;
-          var blobURL = window.URL.createObjectURL(blob);
-          var image = new Image();
-          image.src = blobURL;
-          
-          image.onload = function(){
-            var resized = resizeIos(image, 640, 640);
-            $.ajax({
+      loadImage(
+        e.target.files[0],
+        function(img){
+          var resized = resizeIos(img, 640, 640, orientation);
+          $.ajax({
               url: "/ims/combos/upload",
               dataType: 'json',
               type: 'post',
               data: {"img": resized, "id": "<%= @combo.id %>"},
               beforeSend: function(){
-                $("#loading-box").modal();
                 $("#add_img").hide();
               },
               success: function(data){
@@ -252,10 +246,64 @@ var check_form = function(){
                  }
               }
             });
-          }
-        });
+        }
+      )
+
+
+};
+
+    // $("#upfile").change(function(){
+    //     $("#loading-box").modal();
+    //     var file = this.files[0];
+    //     var reader = new FileReader();
+    //     reader.readAsArrayBuffer(file);
+
+    //     reader.onload = (function (event) {
+    //       var blob = new NewBlob(event.target.result);
+    //       window.URL = window.URL || window.webkitURL;
+    //       var blobURL = window.URL.createObjectURL(blob);
+    //       var image = new Image();
+    //       image.src = blobURL;
+          
+    //       image.onload = function(){
+          //   var resized = resizeIos(image, 640, 640);
+          //   $.ajax({
+          //     url: "/ims/combos/upload",
+          //     dataType: 'json',
+          //     type: 'post',
+          //     data: {"img": resized, "id": "<%= @combo.id %>"},
+          //     beforeSend: function(){
+          //       $("#add_img").hide();
+          //     },
+          //     success: function(data){
+          //       $("#loading-box").modal('hide');
+          //       if(data['status'] == 1){
+          //          setTimeout(function(){
+          //            insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
+          //            if($("#img_box li[class!='add-link']").length >0 ){
+          //              $($("#img_box li[class!='add-link']:last")).after(insert_html);  
+          //            }else{
+          //              $("#img_box").prepend(insert_html);
+          //            };
+                     
+          //            $("#default_img").addClass("show-imgbox-yes");
+          //            $("#default_img").removeClass("show-imgbox-no");
+          //            $("#default_img").html("<img src='"+data['img']+"'>");
+          //            img_size = $("#img_box li[class!='add-link']").length;
+          //            if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
+          //             format_img(".show-imgbox-no");
+          //             format_img(".img-spa");
+          //             format_img(".show-imgbox-yes");
+          //          }, 800);
+          //        }else{
+          //          error_modal("网络错误，请稍后重试");
+          //        }
+          //     }
+          //   });
+          // }
+    //     });
     
-    });
+    // });
 
      $(document).on('click', "#img_box li[class!='add-link'] span", function(){
           src = $(this).find("img")[0].src;

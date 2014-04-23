@@ -194,11 +194,15 @@ class Product < ActiveRecord::Base
 
 
   def self.fetch_product(id)
-    data = self.es_search(id: id)[:data].first
-    r = data[:resource].first
-    image = self.img_url(r)
-
-    return {:data => {:id => data[:id], :price => data[:price], :image => image, :brand_name => data[:brand][:name], :category_name => data[:tag][:name]}}
+    data = self.es_search(id: id)[:data].first || {}
+    if data.present?
+      r = data[:resource].first if data[:resource].present?
+      image = self.img_url(r) if r.present?
+     
+      return {:data => {:id => data[:id], :price => data[:price], :image => image, :brand_name => data[:brand][:name], :category_name => data[:tag][:name]}}
+    else
+      return nil
+    end
   end
 
   def self.img_url(r)

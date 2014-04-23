@@ -62,11 +62,11 @@
                     <div class="row-fluid">
                         <div class="span12">
                             <div class="suit-left">
-                              <a class="img-box img-posi add_loading" href="<%= ims_combo_path(id: combo["Id"], :store_id => @store[:data][:id], :private_to => true) %>">
+                              <a class="img-box img-posi add_loading" href="<%= ims_combo_path(id: combo["Id"], :store_id => @store[:data][:id], :private_to => true, :t => Time.now.to_i) %>">
                                     <img src="<%= combo['Image'].present? ? combo['Image'] : Settings.default_image_url.product.middle %>" alt="">
                                     <img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
                                     <p>
-                                      <a href="<%= ims_combo_path(id: combo["Id"], :store_id => @store[:data][:id], :private_to => true) %>"><%= combo["Desc"] %></a>
+                                      <a href="<%= ims_combo_path(id: combo["Id"], :t => Time.now.to_i, :store_id => @store[:data][:id], :private_to => true) %>"><%= combo["Desc"] %></a>
                                     </p>
                             </div>
                         </div>

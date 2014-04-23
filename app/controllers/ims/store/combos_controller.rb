@@ -5,7 +5,6 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   #新建搭配
   def new
     @combo = ::Combo.find_by_id(params[:combo_id]) || @combo = ::Combo.create
-    @online_num = Ims::Combo.online_num(request)[:data][:total_count] rescue 0
     @title = "新建搭配"
   end
 
@@ -58,7 +57,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
         if product[:product_type].blank? || product[:product_type] == 1
          p = ::Product.fetch_product(product[:id])
          ComboProduct.create({:img_url => p[:data][:image], :price => product[:price],
-          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 1, :remote_id => product[:id]})
+          :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 1, :remote_id => product[:id]}) if p.present?
         else
           ComboProduct.create({:img_url => product[:image], :price => product[:price],
           :combo_id => @combo.id, :brand_name => product[:brand_name], :category_name => product[:category_name], :product_type => 2, :remote_id => product[:id]})
@@ -121,7 +120,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   private
   def goto_combo
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
-    redirect_to ims_combo_path(id: params[:id]) if current_user.id != @remote_combo[:data][:owner_id]
+    redirect_to ims_combo_path(id: params[:id], t: Time.now.to_i) if current_user.id != @remote_combo[:data][:owner_id]
   end
 
 end
