@@ -21,7 +21,7 @@ class Ims::Store::SellsController < Ims::Store::BaseController
       item_id: params[:item_id],
       is_online: params[:is_online] == "true"
     })
-    render json: {status: assistant["isSuccessful"]}.to_json
+    render json: {status: assistant["isSuccessful"], message: assistant["message"]}.to_json
   end
 
 end
