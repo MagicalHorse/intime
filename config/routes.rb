@@ -462,6 +462,8 @@ IntimeService::Application.routes.draw do
   get 'payment/callback', to: 'front/orders#pay_callback'
   match "product/:id" => "product#show"
   match "promotion/:id" => "promotion#show"
+
+  match "ims/combos/:id/:t" => "ims/combos#show", as: "ims_combo"
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'

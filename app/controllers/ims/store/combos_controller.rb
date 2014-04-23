@@ -120,7 +120,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   private
   def goto_combo
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
-    redirect_to ims_combo_path(id: params[:id]) if current_user.id != @remote_combo[:data][:owner_id]
+    redirect_to ims_combo_path(id: params[:id], t: Time.now.to_i) if current_user.id != @remote_combo[:data][:owner_id]
   end
 
 end
