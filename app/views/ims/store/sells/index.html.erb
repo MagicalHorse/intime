@@ -125,9 +125,7 @@
       text = this_ele.text()
       is_online = text.indexOf("上") >= 0 ? true : false
       click_text = is_online ? "上架" : "下架"
-      if(is_online && online_num >= max_combo_num){
-        error_modal("上架数量已到上限");
-      }else{
+      
       $.post("/ims/store/sells/id/update_is_online", {_method: "put", item_id: item_id, item_type: item_type, is_online: is_online}, function(data){
         if(data["status"] == true){
           this_ele.text(is_online ? "下 架" : "上 架")
@@ -137,10 +135,10 @@
             online_num += 1
           }
         }else{
-          error_modal(click_text+"失败" + data["message"])
+          error_modal(data["message"]);
         }
       })
-     }
+     
     })
 
   })
