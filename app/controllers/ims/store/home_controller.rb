@@ -25,7 +25,7 @@ class Ims::Store::HomeController < Ims::Store::BaseController
       :max_comboitems => @status[:data][:max_comboitems]
       })
       session[:current_wx_user] = user
-      redirect_to my_ims_store_store_path(:id => user.store_id)
+      redirect_to my_ims_store_store_path(:id => user.store_id, :t => Time.now.to_i)
     elsif @status[:message].include?("用户已经")
       session[:user_token] = nil
       redirect_to check_ims_store_stores_path
@@ -43,7 +43,7 @@ class Ims::Store::HomeController < Ims::Store::BaseController
   private
   def go_store
     if current_user.store_id.present?
-      redirect_to my_ims_store_store_path(:id => current_user.store_id)
+      redirect_to my_ims_store_store_path(:id => current_user.store_id, :t => Time.now.to_i)
     end
   end
 
