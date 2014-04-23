@@ -25,6 +25,7 @@ class Ims::AuthsController < ActionController::Base
       :outsitetoken     => Ims::Weixin.access_token
     })
     session[:user_token] = user_hash[:data][:token]
+    cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 19.minutes }
     user = Ims::User.new({
       :id => user_hash[:data][:id],
       :email => user_hash[:data][:email],

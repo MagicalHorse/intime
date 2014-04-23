@@ -26,7 +26,7 @@ class Ims::BaseController < ApplicationController
     if request.host != "114.215.179.76" || request.headers["HTTP_USER_AGENT"].include?("Firefox") || request.headers["HTTP_USER_AGENT"].include?("Chromium") || request.headers["HTTP_USER_AGENT"].include?("Chrome")
       get_token_from_api(request) unless session[:user_token]
     else
-      raise Ims::Unauthorized if session[:user_token].blank? || cookies[:user_access_token].blank?
+      raise Ims::Unauthorized if cookies[:user_token].blank? || cookies[:user_access_token].blank?
     end
   end
 
