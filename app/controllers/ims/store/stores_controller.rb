@@ -36,7 +36,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
       @store = Ims::Store.my(request)
       render :layout =>  'ims'
     else
-      redirect_to ims_store_path(:id => params[:id])
+      redirect_to ims_store_path(:id => params[:id], t: Time.now.to_i)
     end
   end
 

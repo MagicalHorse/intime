@@ -35,7 +35,7 @@
                     <% end %>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
-                    <a class="btn btn-danger btn-mini btn-block payment_product" href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">点击购买</a>
+                    <%= link_to "点击购买", ims_orders_new_path(:product_id => product[:id], :store_id => @store_id), class: "btn btn-danger btn-mini btn-block payment_product" %>
                     <% else %>
                     <a href="javascript:void(0);" class="btn btn-grey btn-mini btn-block">已售罄</a>
                     <% end %>
@@ -112,6 +112,58 @@
 
   </div>
 
+  <% content_for :javascripts do %>
+    <script>
+    $(function(){
+
+        var mySwiper = $('.swiper-container').swiper({
+        mode:'horizontal',
+        autoplay: 3000,
+        speed: 1000,
+        calculateHeight: true,
+        watchActiveIndex: true,
+        loop: true,
+        centeredSlides: true,
+        offsetPxBefore: 100
+      });
+
+        <% if @remote_combo[:data][:is_favored] %>
+        $("#favor_combo").hide();
+        <% else %>
+        $("#unfavor_combo").hide();
+        <% end %>
+
+        $("#favor_combo").click(function(){
+            $.post("/ims/favorites/favor", {
+                id: "<%= @remote_combo[:data][:id] %>",
+                type: "2"
+            },function(){});
+            $("#favor_combo").hide();
+            $("#unfavor_combo").show();
+        })
+
+        $("#unfavor_combo").click(function(){
+            $.post("/ims/favorites/unfavor", {
+                id: "<%= @remote_combo[:data][:id] %>",
+                type: "2"
+            },function(){});
+            $("#unfavor_combo").hide();
+            $("#favor_combo").show();
+        })
+
+        $(document).on("click", ".payment_product", function(){
+          $("#loading-box").modal()
+        })
+
+        $("#edit_or_payment_combo").on("click", function(){
+          $("#loading-box").modal()
+        })
+
+        format_img(".img-spa");
+
+    })
+    </script>
+  <% end %>
 
 <script type="text/javascript">
   if (typeof WxEnv == 'undefined') {
@@ -122,52 +174,4 @@
   WxEnv.shareName = "我给您分享了一组搭配，希望您喜欢。";
   WxEnv.shareDes = "<%= @remote_combo[:data][:desc] %>";
 
-  $(function(){
-
-    var mySwiper = $('.swiper-container').swiper({
-    mode:'horizontal',
-    autoplay: 3000,
-    speed: 1000,
-    calculateHeight: true,
-    watchActiveIndex: true,
-    loop: true,
-    centeredSlides: true,
-    offsetPxBefore: 100
-  });
-
-    <% if @remote_combo[:data][:is_favored] %>
-    $("#favor_combo").hide();
-    <% else %>
-    $("#unfavor_combo").hide();
-    <% end %>
-
-    $("#favor_combo").click(function(){
-        $.post("/ims/favorites/favor", {
-            id: "<%= @remote_combo[:data][:id] %>",
-            type: "2"
-        },function(){});
-        $("#favor_combo").hide();
-        $("#unfavor_combo").show();
-    })
-
-    $("#unfavor_combo").click(function(){
-        $.post("/ims/favorites/unfavor", {
-            id: "<%= @remote_combo[:data][:id] %>",
-            type: "2"
-        },function(){});
-        $("#unfavor_combo").hide();
-        $("#favor_combo").show();
-    })
-
-    $(".payment_product").on("click", function(){
-      $("#loading-box").modal()
-    })
-
-    $("#edit_or_payment_combo").on("click", function(){
-      $("#loading-box").modal()
-    })
-
-    format_img(".img-spa");
-
-  })
 </script>
