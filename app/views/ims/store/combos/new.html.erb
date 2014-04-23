@@ -48,7 +48,7 @@
     <div class="upload-img">
         <ul class="inline" id="p_box">
           <% @combo.combo_products.each do |product| %>
-            <li><i id="p_<%=product.id%>" data="<%=product.id%>"></i><span class="img-spa"><img src="<%= product.img_url %>"></span></li>
+            <li><i id="p_<%=product.id%>" data="<%=product.id%>"><img src='/images/ims/delate.png'></i><span class="img-spa"><img src="<%= product.img_url %>"></span></li>
           <% end %>
           <% if @combo.combo_products.size < 3 %>
           <li class="add-link" id="add_product"><a href="javascript:void(0);"><span class="img-spa"><img src="/images/ims/add-img.png"></span></a></li>
