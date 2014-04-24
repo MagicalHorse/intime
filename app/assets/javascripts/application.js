@@ -18,6 +18,7 @@
 //= require bootstrap.min.js
 //= require scrolltopcontrol.js
 //= require environment.js
+//= require mousewheel.min.js
 //= require common.js
 //= require jquery.form.js
 //= require addresslist.js
