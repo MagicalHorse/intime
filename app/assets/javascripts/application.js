@@ -20,5 +20,18 @@
 //= require environment.js
 //= require common.js
 //= require jquery.form.js
+//= require addresslist.js
+//= require gallery.js
+//= require hspace.js
+//= require index_water.js
+//= require order.js
+//= require orderaddress.js
+//= require product.js
+//= require promo.js
+//= require sort_list.js
+//= require space.js
+//= require special.js
+//= require zxcx.js
 //= require_self
-//= require_directory .
+
+

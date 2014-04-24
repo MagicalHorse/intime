@@ -13,6 +13,11 @@
  *= require base.css
  *= require login.css
  *= require uiscc.css
+ *= require ajax_page.css
+ *= require common.css
+ *= require homepage.css
+ *= require perfect-scrollbar-0.4.3.min.css
+ *= require royalslider.css
+ *= require themes.css
  *= require_self
- *= require_directory .
  */
