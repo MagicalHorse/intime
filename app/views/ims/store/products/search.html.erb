@@ -90,12 +90,20 @@
     //   }
     // })
 
+    $(document).keydown(function(event){
+      submit_search()
+    });
+
     $("#search .btn").on("click", function(){
+      submit_search()
+    })
+
+    var submit_search = function(){
       $("#loading-box").modal()
       setTimeout(function(){
         $("#search").submit()
       }, 1)
-    })
+    }
 
     $(".search-condition a").on("click", function(){
       this_ele = $(this)
