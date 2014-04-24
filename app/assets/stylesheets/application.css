@@ -14,5 +14,5 @@
  *= require login.css
  *= require uiscc.css
  *= require_self
- *= require_tree .
+ *= require_directory .
  */
