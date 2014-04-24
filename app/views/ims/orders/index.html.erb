@@ -20,7 +20,11 @@
     $(function(){
 
       $(document).on("click", ".order_show", function(){
+        url = $(this).attr("value")
         $("#loading-box").modal()
+        setTimeout(function(){
+          window.location.href = url
+        }, 1)
       })
 
       $(document).on("click", ".payment", function(){
