@@ -35,7 +35,8 @@
                     <% end %>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
-                    <%= link_to "点击购买", ims_orders_new_path(:product_id => product[:id], :store_id => @store_id), class: "btn btn-danger btn-mini btn-block payment_product" %>
+                    <%#= link_to "11111", "#loading-box", "data-toggle" => "modal", class: "payment_product", value: ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>
+                    <%= link_to "点击购买", 'javascript:void(0);', class: "btn btn-danger btn-mini btn-block payment_product", value: ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>
                     <% else %>
                     <a href="javascript:void(0);" class="btn btn-grey btn-mini btn-block">已售罄</a>
                     <% end %>
@@ -96,11 +97,11 @@
     <% if @remote_combo[:data][:is_online] %>
     <div class="bottom-btnbox">
     <button class="btn btn-small btn-danger" id="share_to_user_model">分享好友</button>
-    <button id="edit_or_payment_combo" class="btn btn-small btn-danger">
+    <button class="btn btn-small btn-danger">
       <% if current_user.id == @remote_combo[:data][:owner_id] %>
-        <a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>">编 辑</a>
+        <%= link_to '编 辑', "javascript:void(0);", id: "edit_combo", value: edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>
       <% else %>
-        <a href="<%= ims_orders_new_path(:combo_id => @remote_combo[:data][:id], :store_id => @store_id)%>">打包购买</a>
+        <%= link_to '打包购买', "javascript:void(0);", id: "payment_combo", value: ims_orders_new_path(:combo_id => @remote_combo[:data][:id], :store_id => @store_id) %>
       <% end %>
     </button>
   </div>
@@ -117,15 +118,15 @@
     $(function(){
 
         var mySwiper = $('.swiper-container').swiper({
-        mode:'horizontal',
-        autoplay: 3000,
-        speed: 1000,
-        calculateHeight: true,
-        watchActiveIndex: true,
-        loop: true,
-        centeredSlides: true,
-        offsetPxBefore: 100
-      });
+          mode:'horizontal',
+          autoplay: 3000,
+          speed: 1000,
+          calculateHeight: true,
+          watchActiveIndex: true,
+          loop: true,
+          centeredSlides: true,
+          offsetPxBefore: 100
+        });
 
         <% if @remote_combo[:data][:is_favored] %>
         $("#favor_combo").hide();
@@ -152,11 +153,19 @@
         })
 
         $(document).on("click", ".payment_product", function(){
+          url = $(this).attr("value")
           $("#loading-box").modal()
+          setTimeout(function(){
+            window.location.href = url
+          }, 1)
         })
 
-        $("#edit_or_payment_combo").on("click", function(){
+        $("#edit_combo, #payment_combo").on("click", function(){
+          url = $(this).attr("value")
           $("#loading-box").modal()
+          setTimeout(function(){
+            window.location.href = url
+          }, 1)
         })
 
         format_img(".img-spa");
