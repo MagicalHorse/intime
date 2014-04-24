@@ -7,7 +7,7 @@ class Ims::CombosController < Ims::BaseController
     @private_to = params[:private_to]
     @store_id = params[:store_id]
     @title = "搭配展示"
-    @can_share = true
+    @can_share = true if @remote_combo[:data][:is_online]
     session[:store_id] = @remote_combo[:data][:store_id]
   end
 

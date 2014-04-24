@@ -23,7 +23,7 @@
                 <div class="span4">
                   <div class="combos-product">
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
-                    <a href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">   
+                    <a href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">
                     <span class="img-spa">
                     <img src="<%= product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>">
                     </span>
@@ -35,7 +35,7 @@
                     <% end %>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
-                    <a class="btn btn-danger btn-mini btn-block" href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">点击购买</a>
+                    <%= link_to "点击购买", ims_orders_new_path(:product_id => product[:id], :store_id => @store_id), class: "btn btn-danger btn-mini btn-block payment_product" %>
                     <% else %>
                     <a href="javascript:void(0);" class="btn btn-grey btn-mini btn-block">已售罄</a>
                     <% end %>
@@ -96,70 +96,82 @@
     <% if @remote_combo[:data][:is_online] %>
     <div class="bottom-btnbox">
     <button class="btn btn-small btn-danger" id="share_to_user_model">分享好友</button>
-    <button class="btn btn-small btn-danger">
+    <button id="edit_or_payment_combo" class="btn btn-small btn-danger">
       <% if current_user.id == @remote_combo[:data][:owner_id] %>
-      <a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>">编 辑</a>
+        <a href="<%= edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>">编 辑</a>
       <% else %>
-          <a href="<%= ims_orders_new_path(:combo_id => @remote_combo[:data][:id], :store_id => @store_id)%>">打包购买</a>
+        <a href="<%= ims_orders_new_path(:combo_id => @remote_combo[:data][:id], :store_id => @store_id)%>">打包购买</a>
       <% end %>
     </button>
   </div>
   <% else %>
   <div class="bottom-btnbox">
     <button class="btn btn-grey btn-small">已下架</button>
-  </div>  
+  </div>
   <% end %>
 
   </div>
 
+  <% content_for :javascripts do %>
+    <script>
+    $(function(){
+
+        var mySwiper = $('.swiper-container').swiper({
+        mode:'horizontal',
+        autoplay: 3000,
+        speed: 1000,
+        calculateHeight: true,
+        watchActiveIndex: true,
+        loop: true,
+        centeredSlides: true,
+        offsetPxBefore: 100
+      });
+
+        <% if @remote_combo[:data][:is_favored] %>
+        $("#favor_combo").hide();
+        <% else %>
+        $("#unfavor_combo").hide();
+        <% end %>
+
+        $("#favor_combo").click(function(){
+            $.post("/ims/favorites/favor", {
+                id: "<%= @remote_combo[:data][:id] %>",
+                type: "2"
+            },function(){});
+            $("#favor_combo").hide();
+            $("#unfavor_combo").show();
+        })
+
+        $("#unfavor_combo").click(function(){
+            $.post("/ims/favorites/unfavor", {
+                id: "<%= @remote_combo[:data][:id] %>",
+                type: "2"
+            },function(){});
+            $("#unfavor_combo").hide();
+            $("#favor_combo").show();
+        })
+
+        $(document).on("click", ".payment_product", function(){
+          $("#loading-box").modal()
+        })
+
+        $("#edit_or_payment_combo").on("click", function(){
+          $("#loading-box").modal()
+        })
+
+        format_img(".img-spa");
+
+    })
+    </script>
+  <% end %>
 
 <script type="text/javascript">
   if (typeof WxEnv == 'undefined') {
     WxEnv = {};
   }
   WxEnv.shareUrl = "<%= request.url %>";
-  WxEnv.shareImgUrl = "";
-  WxEnv.shareName = "" + "-银泰";
-  WxEnv.shareDes = "描述。。。";
+  WxEnv.shareImgUrl = "<%= @remote_combo[:data][:images].first['name'] %>";
+  WxEnv.shareName = "我给您分享了一组搭配，希望您喜欢。";
+  WxEnv.shareDes = "<%= @remote_combo[:data][:desc] %>";
 
-  $(function(){
-
-    var mySwiper = $('.swiper-container').swiper({
-    mode:'horizontal',
-    autoplay: 3000,
-    speed: 1000,
-    calculateHeight: true,
-    watchActiveIndex: true,
-    loop: true,
-    centeredSlides: true,
-    offsetPxBefore: 100
-  });
-
-    <% if @remote_combo[:data][:is_favored] %>
-    $("#favor_combo").hide();
-    <% else %>
-    $("#unfavor_combo").hide();
-    <% end %>
-
-    $("#favor_combo").click(function(){
-        $.post("/ims/favorites/favor", {
-            id: "<%= @remote_combo[:data][:id] %>",
-            type: "2"
-        },function(){});
-        $("#favor_combo").hide();
-        $("#unfavor_combo").show();
-    })
-
-    $("#unfavor_combo").click(function(){
-        $.post("/ims/favorites/unfavor", {
-            id: "<%= @remote_combo[:data][:id] %>",
-            type: "2"
-        },function(){});
-        $("#unfavor_combo").hide();
-        $("#favor_combo").show();
-    })
-
-    format_img(".img-spa");
-
-  })
 </script>
