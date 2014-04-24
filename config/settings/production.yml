@@ -33,15 +33,24 @@ payment_code:
   alipay: 25
   wxpay:  29
 
-alipay_notify_url: http://iapi.intime.com.cn/api/payment/notify
-alipay_pc_notify_url: http://iapi.intime.com.cn/api/payment/notify2
+alipay_notify_url: http://42.120.63.90/api/payment/notify
+alipay_pc_notify_url: http://42.120.63.90/api/payment/notify2
 
 api:
   stage: 'http://localhost'
-  apis: 'http://iapi.intime.com.cn/api'
+  apis: 'http://42.120.63.90/api'
+  imsapi: 'http://42.120.63.90/ims'
 domain: 'intime.com.cn'
 elasticache:
   host: 'intimeo2o.wm1vwt.cfg.apse1.cache.amazonaws.com'
   pot:  '11211'
 
-elasticsearch_url: "http://ec2-46-137-197-113.ap-southeast-1.compute.amazonaws.com:9200"
+elasticsearch_url: "http://10.161.218.70:9200"
+wx:
+  appid: wx4b1d3b7765ce45d1
+  appsecret: cc8219601137db20d7cf2fa94efc8fd6
+  paysignkey: 5fYYsQSHaEsZbcbf76GKyim7loJUxSPKRUqUbgC7jAFzDtslhiWF44tzXiNrv9QzhI9Yl0IPE7QVUuuODU8v0qsKAAgaHNwbuW1MoPicV1z1xg85rxNAYo0BcsYBt5NE
+  parterid: 1218686401
+  parterkey: a8d319ce4a9c358293b97b1df51d531e
+  backdomain: "i.intime.com.cn"
+  open_id: ""
