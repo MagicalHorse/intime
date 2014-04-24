@@ -13,7 +13,7 @@
       <% else %>
       <p>购买时间：<%= item[:purchase_date] %></p>
       <% end %>
-      <% if !item[:recharged] and (item[:status_i] == 0 || item[:status_i] == 2) %>
+      <% if !item[:recharged] and (item[:status_i] == 0 || item[:status_i] == 2 || item[:status_i] == 6) %>
       <p class="btn-line text-center">
         <%= link_to "充值自用", recharge_ims_cards_path(charge_no: item[:card_no], type: "buy"), class: "btn btn-danger btn-small"  %>
         <%= link_to "赠送好友", give_page_ims_cards_path(charge_no: item[:card_no], trans_id: item[:trans_id]), class: "btn btn-danger btn-small"  %>

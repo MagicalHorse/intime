@@ -22,12 +22,28 @@
     <%= image_tag "/images/ims/card-self.png" %>
   </div>
   <div class="btn-already">
-    <%= link_to "我 要 购 卡", "#{ims_card_orders_pay_path}?showwxpaytitle=1", class: "btn btn-defult btn-large btn-block" %>
+    <%= link_to "我 要 购 卡", "javascript:void(0);", value: "#{ims_card_orders_pay_path}?showwxpaytitle=1", class: "btn btn-defult btn-large btn-block card_order_link" %>
   </div>
 </div>
 <div class="module-user-change">
   <ul class="txt1">
-    <li><%= link_to raw('<span>交易记录</span><i class="fa fa-angle-right"></i>'), list_ims_card_orders_path, class: "clearfix popup-menu3" %></li>
+    <li><%= link_to raw('<span>交易记录</span><i class="fa fa-angle-right"></i>'), "javascript:void(0);", value: list_ims_card_orders_path, class: "clearfix popup-menu3 card_order_link" %></li>
   </ul>
 </div>
+<% end %>
+
+
+<% content_for :javascripts do %>
+<script>
+  $(function(){
+
+    $(".card_order_link").on("click", function(){
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+  })
+</script>
 <% end %>

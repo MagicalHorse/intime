@@ -22,7 +22,7 @@ class Ims::CardsController < Ims::BaseController
         # API_NEED: 根据礼品卡号，获取礼品卡相关信息
         @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"] || {}
       else
-        @card = {}
+        @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"] || {}
         Rails.logger.debug(@result.to_s)
       end
     else
@@ -57,7 +57,7 @@ class Ims::CardsController < Ims::BaseController
       @card = Ims::Giftcard.trans_detail2(request, trans_id: params[:trans_id])["data"] || {}
     else
       @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
-      @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"]
+      @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"] if @card.blank?
       @card = {} if @card.blank?
     end
     current_user.other_phone = @card[:phone]
@@ -66,7 +66,7 @@ class Ims::CardsController < Ims::BaseController
   # 赠送给别人
   def give
     @charge_no = params[:charge_no]
-    @trans_id = params[:trans_id] || 0
+    @trans_id = params[:trans_id].to_i || 0
     @notice = "请输入对方正确的手机号" unless params[:phone][/^\d{11}$/]
     @notice = "请输入您的姓名" if params[:from].blank?
     if @notice
@@ -74,8 +74,9 @@ class Ims::CardsController < Ims::BaseController
     else
       # API_NEED: 赠送礼品卡接口
       @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from: params[:from], trans_id: @trans_id)
+      p @result
       flash[:page_type] = "give_show_page"
-      return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@trans_id}"
+      return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@trans_id.to_i}"
     end
   end
 
