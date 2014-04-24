@@ -83,6 +83,7 @@
     });
 
     $("#combo_submit").click(function(){
+      $("#loading-box").modal()
       $("#combo_form").ajaxSubmit();
     });
   })
