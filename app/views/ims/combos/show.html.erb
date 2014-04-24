@@ -118,9 +118,18 @@
     </button>
   </div>
   <% else %>
+  <% if current_user.id == @remote_combo[:data][:owner_id] %>
+   <div class="bottom-btnbox">
+    <button class="btn btn-small btn-grey">已下架</button>
+    <button class="btn btn-small btn-danger">
+        <%= link_to '编 辑', "javascript:void(0);", id: "edit_combo", value: edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>
+    </button>
+  </div>
+  <% else %>
   <div class="bottom-btnbox">
     <button class="btn btn-grey btn-small">已下架</button>
   </div>
+  <% end %>
   <% end %>
 
   </div>
