@@ -43,7 +43,7 @@ api:
 domain: 'intime.com.cn'
 elasticache:
   host: '26497daec78911e3.m.cnhzalicm10pub001.ocs.aliyuncs.com'
-  pot:  '11211'
+  port:  '11211'
   username: '26497daec78911e3'
   password: 'selinadu_123'
   
