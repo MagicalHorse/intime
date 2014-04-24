@@ -66,7 +66,7 @@ class Ims::CardsController < Ims::BaseController
   # 赠送给别人
   def give
     @charge_no = params[:charge_no]
-    @trans_id = params[:trans_id] || 0
+    @trans_id = params[:trans_id].to_i || 0
     @notice = "请输入对方正确的手机号" unless params[:phone][/^\d{11}$/]
     @notice = "请输入您的姓名" if params[:from].blank?
     if @notice
