@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'dalli'
 module Cacheable
   def cache_get(key,expires,&block)

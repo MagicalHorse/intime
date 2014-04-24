@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'cacheable'
 module API
   class Environment < API::Base

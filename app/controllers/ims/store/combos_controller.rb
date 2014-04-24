@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class Ims::Store::CombosController < Ims::Store::BaseController
   before_filter :goto_combo, only: [:edit]
 

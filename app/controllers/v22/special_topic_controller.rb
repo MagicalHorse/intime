@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class V22::SpecialTopicController < SpecialTopicController
 # list api always return json
   # input: 

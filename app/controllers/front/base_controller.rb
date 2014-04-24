@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class Front::BaseController < ApplicationController
   layout 'front'
   helper_method :current_user, :signed_in?, :gen_user_logo, :format_newline,:oauth_path

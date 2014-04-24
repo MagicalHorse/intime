@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Front::AddressesController < Front::BaseController
   before_filter :authenticate!
 

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Combo < ActiveRecord::Base
   attr_accessible :desc, :remote_id, :combo_type, :private_to
 

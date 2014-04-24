@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'builder'
 class WxBaseResponse
   attr_accessor :ToUserName, :FromUserName,:CreateTime,:MsgType,:FuncFlag

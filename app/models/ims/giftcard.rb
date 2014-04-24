@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class Ims::Giftcard < Ims::Base
 
   # 默认礼品卡Id

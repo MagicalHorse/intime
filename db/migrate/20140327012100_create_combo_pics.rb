@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateComboPics < ActiveRecord::Migration
   def change
     create_table :combo_pics do |t|

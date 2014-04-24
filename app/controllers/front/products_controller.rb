@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class Front::ProductsController < Front::BaseController
   before_filter :authenticate!, only: [:favor, :unfavor, :download_coupon, :comment]
 

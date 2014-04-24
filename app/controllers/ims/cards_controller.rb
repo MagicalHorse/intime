@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class Ims::CardsController < Ims::BaseController
   before_filter :user_account_info, only: [:gift_page]
   before_filter :validate_sms!, only: [:give, :refuse, :recharge]

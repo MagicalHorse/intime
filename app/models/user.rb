@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
   include Tire::Model::Search
   index_name ES_DEFAULT_INDEX

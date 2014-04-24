@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateCards < ActiveRecord::Migration
   def change
     create_table :cards do |t|

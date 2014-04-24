@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'cacheable'
 class Ims::Weixin
   extend Cacheable

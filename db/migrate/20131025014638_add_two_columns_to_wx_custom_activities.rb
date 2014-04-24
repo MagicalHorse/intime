@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddTwoColumnsToWxCustomActivities < ActiveRecord::Migration
   def change
     add_column :wx_custom_activities, :join_msg, :string

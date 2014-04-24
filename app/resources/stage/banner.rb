@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Stage
   class Banner < Stage::Base
     class << self

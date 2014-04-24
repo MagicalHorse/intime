@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Ims::Assistant < Ims::Base
 
   def self.update_is_online(req, params = {})

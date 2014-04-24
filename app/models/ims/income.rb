@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Ims::Income < Ims::Base
 
  class << self

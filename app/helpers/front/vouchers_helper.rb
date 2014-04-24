@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Front::VouchersHelper
   def fetch_user_card_info
     return nil unless current_user.isbindcard

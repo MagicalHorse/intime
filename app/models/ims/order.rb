@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Ims::Order < Ims::Base
 
  class << self

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Front::ProductsHelper
   def images_resource(p)
     p.resource.select{|r| r[:type]==1}

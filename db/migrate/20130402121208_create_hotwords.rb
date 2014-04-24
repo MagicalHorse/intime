@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateHotwords < ActiveRecord::Migration
   def change
     create_table :hotwords do |t|

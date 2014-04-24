@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 module Ims::ApplicationHelper
   def card_orders_status status_id
     case status_id

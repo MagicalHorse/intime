@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Front::CommentHelper
 
   def href_of_comment_item(comment)

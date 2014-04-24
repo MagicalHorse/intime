@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class Ims::BaseController < ApplicationController
   layout 'ims'
   before_filter :wx_auth!

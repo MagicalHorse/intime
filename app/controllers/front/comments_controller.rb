@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Front::CommentsController < Front::BaseController
   before_filter :authenticate!, only: [:create]
 

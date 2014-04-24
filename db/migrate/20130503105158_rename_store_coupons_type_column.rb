@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RenameStoreCouponsTypeColumn < ActiveRecord::Migration
   def up
     rename_column :store_coupons, :type, :coupontype

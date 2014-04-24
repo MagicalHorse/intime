@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class Ims::AuthsController < ActionController::Base
 
   # 在微信端验证后，客户端的响应页面
