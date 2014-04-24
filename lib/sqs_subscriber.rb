@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 require 'json'
 module ISAwsSqs
   ROUTES_NAME = %w(comment storecoupon promotioncoupon)

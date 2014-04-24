@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class CreateWxReplyMsgs < ActiveRecord::Migration
   def change
     create_table :wx_reply_msgs do |t|

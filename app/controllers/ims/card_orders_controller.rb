@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::CardOrdersController < Ims::BaseController
   layout "ims/user"
 

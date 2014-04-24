@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::CombosController < Ims::BaseController
   layout "store"
 

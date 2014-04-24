@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 module Stage
   class Promotion < Stage::Base
     class << self

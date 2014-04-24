@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class AddBrandCategoryName < ActiveRecord::Migration
   def up
   	 add_column :combo_products, :brand_name, :string 

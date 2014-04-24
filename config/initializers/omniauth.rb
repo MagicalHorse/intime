@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :weibo, Settings.omniauth.weibo.key, Settings.omniauth.weibo.secret
   provider :qq_connect, Settings.omniauth.qq_connect.key, Settings.omniauth.qq_connect.secret

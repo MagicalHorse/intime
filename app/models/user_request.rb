@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class UserRequest < ActiveRecord::Base
   attr_accessible :lastaction, :msg, :utoken,:lastpage
 end

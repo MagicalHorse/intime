@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::RechargeHistroiesController < Ims::BaseController
 
   # 充值记录

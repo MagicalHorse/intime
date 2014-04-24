@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 Tire.configure do
   url Settings.elasticsearch_url
   logger "#{Rails.root}/log/elasticsearch.log", level: 'debug'

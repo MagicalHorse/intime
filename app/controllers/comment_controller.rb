@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class CommentController < ApplicationController
   def get_list
     render_items mock_up

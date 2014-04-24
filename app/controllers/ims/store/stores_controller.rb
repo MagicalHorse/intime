@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::Store::StoresController < Ims::Store::BaseController
   skip_filter :authenticate, only: [:my, :check]
   before_filter :is_my_store, only: [:edit, :update, :my]

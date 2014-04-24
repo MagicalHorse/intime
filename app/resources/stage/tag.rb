@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 module Stage
   class Tag < Stage::Base
     class << self

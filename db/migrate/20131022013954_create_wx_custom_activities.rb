@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class CreateWxCustomActivities < ActiveRecord::Migration
   def change
     create_table :wx_custom_activities do |t|

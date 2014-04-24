@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 module Stage
   class HotWord < Stage::Base
     class << self

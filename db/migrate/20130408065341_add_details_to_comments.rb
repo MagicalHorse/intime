@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class AddDetailsToComments < ActiveRecord::Migration
   def change
     change_table :comments do |t|

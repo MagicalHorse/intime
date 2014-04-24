@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::Store::Order < Ims::Base
 
  class << self

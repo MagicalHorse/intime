@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class VersionConstraint
   def initialize(*version)
     @version = version[0].to_i unless version.nil?

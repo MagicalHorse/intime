@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 module API
   class Customer < API::Base
     GENDER = { 0 => '保密', 1 => '男', 2 => '女' }

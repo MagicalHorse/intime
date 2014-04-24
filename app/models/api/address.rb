@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 module API
   class Address < API::Base
     MAX_SIZE = 8

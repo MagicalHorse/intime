@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::UserApi < Ims::Base
 
   def self.favor(req, params = {})

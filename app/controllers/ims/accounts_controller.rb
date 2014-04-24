@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::AccountsController < Ims::BaseController
   before_filter :user_account_info, only: [:mine, :barcode]
   before_filter :validate_verified_phone!, only: [:new, :create]

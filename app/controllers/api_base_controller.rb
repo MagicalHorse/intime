@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class ApiBaseController < ApplicationController
   include ISAuthenticate
   before_filter :auth_api,:except=>[:mock,:consume]

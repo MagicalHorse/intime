@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Front::CommonController < Front::BaseController
 
   def hotwords

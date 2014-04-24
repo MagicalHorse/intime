@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class CreateWxActivityLogs < ActiveRecord::Migration
   def change
     create_table :wx_activity_logs do |t|

@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 require 'cacheable'
 module Stage
   class Product < Stage::Base

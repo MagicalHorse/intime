@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class CreateStoreCouponLogs < ActiveRecord::Migration
   def change
     create_table :store_coupon_logs do |t|

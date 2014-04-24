@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 require 'tire'
 class CommentES
   include Tire::Model::Persistence
