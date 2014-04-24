@@ -35,7 +35,6 @@
                     <% end %>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
-                    <%#= link_to "11111", "#loading-box", "data-toggle" => "modal", class: "payment_product", value: ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>
                     <%= link_to "点击购买", 'javascript:void(0);', class: "btn btn-danger btn-mini btn-block payment_product", value: ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>
                     <% else %>
                     <a href="javascript:void(0);" class="btn btn-grey btn-mini btn-block">已售罄</a>
