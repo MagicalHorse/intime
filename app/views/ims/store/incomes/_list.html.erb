@@ -1,0 +1,13 @@
+<% list.each do |item| %>
+<div class="common-white paginate-content clearfix">
+    <div class="row-fluid">
+      <div class="span12 txt2">
+        <div><span>订单时间：<%= l item[:create_date].to_time %> </span></div>
+        <div><span>开户银行：<%= item[:bank_name] %>  </span></div>
+        <div><span class="tel-nun">卡号：<%= item[:card_no] %></span></div>
+        <div><span>状态：<%= item[:status] %><div class="pull-right"><span>提现金额：<span class='txt-red'>￥<%= item[:amount] %></span></span></span></div></div>
+      </div>
+      
+   </div>
+</div>
+<% end %>

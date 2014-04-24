@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130624013326) do
+ActiveRecord::Schema.define(:version => 20140403140157) do
 
   create_table "auth_keys", :force => true do |t|
     t.string   "private"
@@ -53,6 +53,36 @@ ActiveRecord::Schema.define(:version => 20130624013326) do
 
   add_index "cards", ["no", "utoken"], :name => "index_cards_on_no_and_utoken"
   add_index "cards", ["utoken", "isbinded"], :name => "index_cards_on_utoken_and_isbinded"
+
+  create_table "combo_pics", :force => true do |t|
+    t.integer  "remote_id"
+    t.integer  "combo_id"
+    t.string   "url"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "combo_products", :force => true do |t|
+    t.integer  "remote_id"
+    t.integer  "combo_id"
+    t.string   "img_url"
+    t.string   "product_type"
+    t.decimal  "price",         :precision => 10, :scale => 1
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+    t.string   "brand_name"
+    t.string   "category_name"
+  end
+
+  create_table "combos", :force => true do |t|
+    t.integer  "remote_id"
+    t.string   "private_to"
+    t.string   "combo_type"
+    t.text     "desc"
+    t.decimal  "price",      :precision => 10, :scale => 1
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
 
   create_table "comments", :force => true do |t|
     t.integer  "status"

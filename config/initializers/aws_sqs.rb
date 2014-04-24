@@ -30,7 +30,7 @@ module ISAwsSqs
     # Thin is built on EventMachine, doesn't need this thread
     end
   end
-   
+
   def self.die_gracefully_on_signal
     Signal.trap("INT") { EM.stop }
     Signal.trap("TERM") { EM.stop }
@@ -39,15 +39,15 @@ module ISAwsSqs
     sqs = AWS::SQS.new
     q = sqs.queues.create 'sql2mysql'
     Rails.logger.info 'create/get queue success'
-    EventMachine.add_timer { 
+    EventMachine.add_timer {
       Rails.logger.info 'start polling message...'
       q.poll(:wait_time_seconds => 20,:batch_size=>10) do |msg|
         msg_data = msg.body
         ISAwsSqs::Subscriber.dispatch msg_data
-        
-      end 
+
+      end
      }
   end
 end
-   
-#ISAwsSqs.start
+
+ISAwsSqs.start unless Rails.env.development?

@@ -1,0 +1,13 @@
+<% gift_cards.each do |item| %>
+<div class="module common-white gift_card_paginate-content">
+    <div class="row-fluid">
+      <div class="span12">
+          <div class="detail-contact block-p">
+              <p class="txt8">礼品卡金额：<span class="txt-red">￥<%= item[:amount] %>元</span></p>
+              <p class="txt8 tel-nun">编码：<%= item[:no] %> </p>
+              <p class="txt8 tel-nun">下单时间：<%= l item[:create_date].to_time %></p>
+          </div>
+      </div>
+   </div>
+</div>
+<% end %>

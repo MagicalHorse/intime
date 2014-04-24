@@ -1,0 +1,46 @@
+<div class="wrap-inner back-wrap-inner">
+  <% if @products.present? %>
+    <%= render "list", products: @products, combo: @combo %>
+    <div id="loading" class="text-center">
+    </div>
+  <% else %>
+    <%= render 'ims/shared/empty' %>
+  <% end %>
+</div>
+
+<%= hidden_field_tag "count", @search[:data][:totalcount] %>
+<%= hidden_field_tag "page", @search[:data][:pageindex] %>
+<%= hidden_field_tag "per_page", @search[:data][:pagesize] %>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      $(window).scroll(function(){
+        var htmlHeight=document.body.scrollHeight
+        var clientHeight=document.body.clientHeight
+        var scrollTop=document.body.scrollTop
+        var combo_id = "<%= @combo.try(:id) %>"
+        var count = parseInt($("#count").attr("value"))
+        var page = parseInt($("#page").attr("value"))
+        var per_page = parseInt($("#per_page").attr("value"))
+
+
+        if(scrollTop+clientHeight == htmlHeight){
+          if(page * per_page < count){
+            $("#loading").html("<img src='/images/ims/loading.gif'/>");
+            $.get("/ims/store/products", {combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
+              if(data["status"] == true){
+                $(".paginate-content:last").after(data["html"])
+                $("#count").attr("value", data["count"])
+                $("#page").attr("value", data["page"])
+                $("#per_page").attr("value", data["per_page"])
+                $("#loading").html("");
+              }
+            }, "json")
+          }
+        }
+
+      })
+    })
+  </script>
+<% end %>

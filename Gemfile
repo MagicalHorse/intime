@@ -1,4 +1,5 @@
-source 'http://rubygems.org'
+# source 'http://rubygems.org'
+source 'http://ruby.taobao.org'
 
 gem 'rails','3.2.13'
 
@@ -21,6 +22,9 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'font-awesome-sass'
+
+gem 'jquery-ui-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -36,10 +40,13 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'debugger'
-gem 'rb-readline', '~>0.4.2'
+# gem 'rb-readline', '~>0.4.2'
 gem 'mysql2'
 
 gem 'tire'
+gem 'elasticsearch'
+gem 'elasticsearch-ruby'
+gem 'jbuilder'
 gem "bootstrap-sass", ">= 2.3.0.0"
 
 # monitor
@@ -59,6 +66,8 @@ gem 'rake', '>= 10.1.0'
 gem 'rails_config'
 gem 'kaminari'
 gem 'memcached'
+
+gem 'thin'
 
 group :development, :test do
   gem "rspec"

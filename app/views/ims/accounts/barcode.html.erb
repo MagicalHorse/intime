@@ -1,0 +1,27 @@
+<div class="module module-white">
+  <div class="module-card module-card-scan">
+    <h1 class="text-center">礼品卡余额：<%= current_user.amount %>元</h1>
+    <div class="text-center card-wrap barcord-box">
+      <%= image_tag "/images/ims/card-4.png" %>
+      <div class="text-center card-wrap tel-nun bar-code" id="bcTarget"></div>
+    </div>
+    <div class="btn-scan">
+      <a type="button" class="btn btn-default btn-large btn-block" href="<%= mine_ims_accounts_path %>">支付完成</a>
+    </div>
+    <div class="module module-notice">
+      <h4><i class="fa fa-exclamation-circle"></i> 温馨提示</h4>
+      <ol>
+        <li>支付时请将条形码对准POS扫描器</li>
+        <li>使用范围：银泰商业（集团）有限公司旗下门店</li>
+        <li>忘记密码了？赶紧<%= link_to "找回密码", before_reset_password_page_ims_accounts_path %></li>
+      </ol>
+    </div>
+  </div>
+</div>
+<%= content_for :javascripts do %>
+<script>
+  $(function(){
+    $("#bcTarget").barcode("<%= current_user.card_no %>", "code128", {barWidth:1, barHeight:35});   
+  });
+</script>
+<% end %>

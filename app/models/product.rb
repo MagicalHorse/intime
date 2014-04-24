@@ -1,5 +1,6 @@
 require 'tire'
 class Product < ActiveRecord::Base
+  DOCUMENT_TYPE = "esproducts"
   belongs_to :store
   belongs_to :tag
   belongs_to :user
@@ -11,8 +12,208 @@ class Product < ActiveRecord::Base
   extend Searchable
   include Tire::Model::Search
   index_name ES_DEFAULT_INDEX
-  document_type 'esproducts'
-  
+
+  document_type DOCUMENT_TYPE
+
+  def self.es_search(options={})
+    id = options[:id]
+    from_discount = options[:from_discount]
+    to_discount = options[:to_discount]
+    from_price = options[:from_price]
+    to_price = options[:to_price]
+    brand_id = options[:brand_id]
+    keywords = options[:keywords].try(:downcase)
+    per_page = [options[:per_page], 10].find{|obj| obj.present?}.to_i
+    page = [options[:page], 1].find{|obj| obj.present?}.to_i
+
+
+    query = Jbuilder.encode do |json|
+
+      json.filter do
+
+        json.and do
+
+          if from_price.present?
+
+            json.child! do
+              json.range do
+                json.price do
+                  json.gte from_price
+                end
+              end
+            end
+
+          end
+
+          if to_price.present?
+
+            json.child! do
+              json.range do
+                json.price do
+                  json.lte to_price
+                end
+              end
+            end
+
+          end
+
+          if from_discount.present?
+
+            json.child! do
+              json.range do
+                json.discountRate do
+                  json.gte from_discount
+                end
+              end
+            end
+
+            json.child! do
+              json.range do
+                json.discountRate do
+                  json.lte 100
+                end
+              end
+            end
+
+          end
+
+          if to_discount.present?
+
+            json.child! do
+              json.range do
+                json.discountRate do
+                  json.lte to_discount
+                end
+              end
+            end
+
+          end
+
+          if brand_id.present?
+            json.child! do
+              json.term do
+                json.set! "brand.id", brand_id
+              end
+            end
+          end
+
+          if id.present?
+            json.child! do
+              json.term do
+                json.id id
+              end
+            end
+          end
+
+          json.child! do
+            json.term do
+              json.status 1
+            end
+          end
+
+          json.child! do
+            json.term do
+              json.isSystem true
+            end
+          end
+
+          json.child! do
+            json.term do
+              json.is4Sale true
+            end
+          end
+
+
+
+        end
+
+      end
+
+      if keywords.present?
+        json.query do
+          json.bool do
+
+            json.should do
+              json.child! do
+                json.wildcard do
+                  json.name "*"+keywords+"*"
+                end
+              end
+
+              json.child! do
+                json.wildcard do
+                  json.set! "brand.name", "*"+keywords+"*"
+                end
+              end
+
+              json.child! do
+                json.wildcard do
+                  json.upcCode "*"+keywords+"*"
+                end
+              end
+
+              json.child! do
+                json.text do
+                  json.name keywords
+                end
+              end
+
+              json.child! do
+                json.text do
+                  json.upcCode keywords
+                end
+              end
+
+              json.child! do
+                json.text do
+                  json.set! "brand.name", keywords
+                end
+              end
+
+            end
+
+
+            json.minimum_number_should_match 1
+            json.boost 1.0
+          end
+        end
+      end
+
+
+      json.sort do
+        json.createdDate "desc"
+      end
+    end
+
+    # result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: 10000000, body: query
+    result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1)*per_page, body: query
+    mash = Hashie::Mash.new result
+    count = mash["hits"]["total"]
+    {count: count, page: page, per_page: per_page, from_discount: from_discount, to_discount: to_discount, from_price: from_price, to_price: to_price, brand_id: brand_id, keywords: keywords, data: mash.hits.hits.collect(&:_source)}
+  end
+
+
+  def self.fetch_product(id)
+    data = self.es_search(id: id)[:data].first || {}
+    if data.present?
+      r = data[:resource].first if data[:resource].present?
+      image = self.img_url(r) if r.present?
+     
+      return {:data => {:id => data[:id], :price => data[:price], :image => image, :brand_name => data[:brand][:name], :category_name => data[:tag][:name]}}
+    else
+      return nil
+    end
+  end
+
+  def self.img_url(r)
+    if r.is_a?(::Hash) && (name = r[:name] || r['name']).present?
+      PIC_DOMAIN + name.to_s + '_320x0.jpg'
+    else
+      Settings.default_image_url.product.middle
+    end
+  end
+
+
   def self.list_by_page(options={})
     #parse input params
     pageindex = options[:page]
@@ -21,7 +222,7 @@ class Product < ActiveRecord::Base
     pagesize = [(pagesize ||=40).to_i,40].min
     is_refresh = options[:type] == 'refresh'
     refreshts = options[:refreshts]
-    
+
     # if refreshts not provide but is_refresh, return empty
     return success do {
         :pageindex=>1,
@@ -31,7 +232,7 @@ class Product < ActiveRecord::Base
         :ispaged=> false
         }
       end if is_refresh == true && refreshts.nil?
-  
+
     tagid = options[:tagid]
     brandid = options[:brandid]
     should_include_branddesc = brandid && brandid.to_i >0
@@ -44,6 +245,7 @@ class Product < ActiveRecord::Base
     prod = Product.search :per_page=>pagesize, :page=>pageindex do
           query do
             match :status,1
+            match :isSystem,true
             if !(tagid.nil?) && tagid.to_i>0
               #find by tag
               match 'tag.id',tagid
@@ -75,10 +277,10 @@ class Product < ActiveRecord::Base
           when 4 then sort {by :sortOrder,'desc'}
           else sort {by :createdDate,'desc'}
           end
-          
+
     end
     # render request
-    prods_hash = []       
+    prods_hash = []
     prod.results.each {|p|
       default_resource = select_defaultresource p[:resource]
       next if default_resource.nil?
@@ -112,7 +314,7 @@ class Product < ActiveRecord::Base
         :products=>prods_hash
       }
     end
-    
+
   end
   def self.search_by_key(options={})
     page_index_in = options[:page]
@@ -122,15 +324,15 @@ class Product < ActiveRecord::Base
     page_size = 40 if page_size>40
     page_index = (page_index_in.nil?)?1:page_index_in.to_i
     term = '' if term.nil?
-    products =  Product.search :per_page=>page_size,:page=>page_index do    
+    products =  Product.search :per_page=>page_size,:page=>page_index do
           min_score 1
          query do
               string term, {:fields=>['upcCode','name','description','brand.name','brand.engname','recommendreason'],:minimum_should_match=>'75%'}
               match :status,1
-
+              match :isSystem,true
             end
           end
-    prods_hash = []       
+    prods_hash = []
     products.results.each {|p|
       default_resource = select_defaultresource p[:resource]
       next if default_resource.nil?
@@ -160,11 +362,11 @@ class Product < ActiveRecord::Base
       :products=>prods_hash
       }
     end
-    
+
   end
   def self.get_by_id(options={})
     pid = options[:id]
-    prod = Product.search :per_page=>1,:page=>1 do 
+    prod = Product.search :per_page=>1,:page=>1 do
             query do
               match :id,pid
             end
@@ -172,10 +374,10 @@ class Product < ActiveRecord::Base
     return render :json=>error_500 if prod.total<=0
     next_gt_pid = nil
     next_lt_pid = nil
-    next_gt_prod = Product.search :per_page=>1,:page=>1 do 
+    next_gt_prod = Product.search :per_page=>1,:page=>1 do
             query do
               match :status,1
-              
+              match :isSystem,true
             end
             filter :range,{
                   'id' =>{
@@ -184,10 +386,10 @@ class Product < ActiveRecord::Base
                 }
           end
     next_gt_pid = next_gt_prod.results[0][:id] if next_gt_prod.total>0
-    next_lt_prod = Product.search :per_page=>1,:page=>1 do 
+    next_lt_prod = Product.search :per_page=>1,:page=>1 do
             query do
               match :status,1
-              
+              match :isSystem,true
             end
             filter :range,{
                   'id' =>{
@@ -232,6 +434,7 @@ class Product < ActiveRecord::Base
         :nextltpid=>next_lt_pid
        }
     end
-    
+
+
   end
 end

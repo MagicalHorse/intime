@@ -32,3 +32,8 @@ config/environments/*.local.yml
 config/aws.yml
 config/settings/production.yml
 
+config/database.yml
+Gemfile.lock
+config/settings/development.yml
+db/schema.rb
+

@@ -1,0 +1,112 @@
+<div class="wrap-content bottom-distance">
+    <div class="module module-white">
+      <div class="module-withdrawal">
+        <%= form_tag ims_store_incomes_path, id: "income_form", class: 'form-defined', remote: true do |f| %>
+          <div class="module common-white">
+              <div class="controls-defined defined-small">
+                <label class="col-4"><abbr class="txt-red">*</abbr>金额 (元):</label>
+                <div class="col-8">
+                <%= text_field_tag :amount, "", placeholder: "请输入提现金额", type: 'number' %>
+                </div>
+              </div>
+          </div>  
+          <div class="module common-white module-grey">
+              <div class="controls-defined defined-small">
+                <div class="col-12"><span class="txt-red">可提现金额 ￥<span id="amount"><%= @income[:data][:avail_amount] %></span>  元</span></div>
+              </div>
+          </div> 
+          <div class="module common-white">
+            <div class="controls-defined defined-small">
+              <label class="col-4"><abbr class="txt-red">*</abbr>开户银行:</label>
+              <div class="col-8">
+                <select name="bank_code">
+                  <% @banks[:data][:items].each do |item| %>
+                   <option value="<%=item["code"]%>" <%= 'checked' if item["code"] == @data[:bank_code] %>><%= item["name"] %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div> 
+          <div class="module common-white">
+              <div class="controls-defined defined-small">
+                <label class="col-4"><abbr class="txt-red">*</abbr>开户姓名:</label>
+                <div class="col-8">
+                <%= text_field_tag :user_name, "#{@data[:user_name]}" %></div>
+              </div>
+          </div>
+          <div class="module common-white">
+              <div class="controls-defined defined-small">
+                <label class="col-4"><abbr class="txt-red">*</abbr>卡号:</label>
+                <div class="col-8"><%= text_field_tag :bank_no, "#{@data[:bank_no]}" %></div>
+              </div>
+          </div>
+          <div class="module withdrawal-notice">
+              <p class="txt3 txt-grey"><i class="fa fa-exclamation-circle txt-red"></i> 温馨提示</p>
+              <ol class="txt3 txt-grey">
+                <li>提交提现申请我们审核通过后，我们将尽快将钱打到您所提交的账户中。</li>
+                <li>提交提现申请时，请务必保证填写信息的准确性，否则您将不能收到款项。</li>
+              </ol>
+              
+          </div>
+        <% end %>
+        <div class="bottom-btnbox">
+            <button class="btn btn-small btn-danger" id="submit_income">提交申请</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+
+<%= content_for :javascripts do -%>
+<script type="text/javascript">
+  $(function(){
+
+    $("#submit_income").click(function(){
+      $("#income_form").submit();
+    })
+
+    $("#income_form").validate({
+      rules: {
+        "amount": {
+          required: true,
+          number: true,
+          dontMorethan: <%= @income[:data][:avail_amount] %>
+        },
+        "bank_no": {
+          required: true
+        },
+        "bank": {
+          required: true
+        },
+        "user_name": {
+          required: true
+        }
+      },
+      messages:{
+        "amount": {required: '必须填写提取金额', number: '必须填写正确的数字', dontMorethan: '提现金额不够'},
+        "bank_no": {required: '必须填写银行卡号'},
+        "user_name": {required: '必须填写开户姓名'}
+      },
+       showErrors: function (errorMap, errorList) {
+
+            $.each(this.successList, function (index, value) {
+                $('#'+value.id+'').tooltip('destroy');
+            });
+
+            $.each(errorList, function (index, value) {
+
+                $('#'+value.element.id+'').attr('title',value.message).tooltip({
+                    placement: 'bottom',
+                    trigger: 'manual',
+                    delay: { show: 500, hide: 5000 }
+                }).tooltip('show');
+
+            });
+
+        }
+
+    })
+
+  })
+</script>
+<% end %>

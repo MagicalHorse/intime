@@ -1,0 +1,49 @@
+<% if current_user.isbindcard %>
+<div class="module-card module-card-scan">
+  <h1 class="text-center">礼品卡余额：<%= current_user.amount %>元</h1>
+  <div class="text-center card-wrap">
+    <a href="<%= barcode_ims_accounts_path %>"><%= image_tag "/images/ims/tap-and-pay.png" %></a>
+  </div>
+  <div class="btn-already">
+    <%= link_to "我 要 购 卡", "#{ims_card_orders_pay_path}?showwxpaytitle=1", class: "btn btn-defult btn-large btn-block" %>
+  </div>
+</div>
+<div class="module-user-change">
+  <ul class="txt1">
+    <li><%= link_to raw('<span>交易记录</span><i class="fa fa-angle-right"></i>'), list_ims_card_orders_path, class: "clearfix popup-menu3" %></li>
+    <li><%= link_to raw('<span>修改密码</span><i class="fa fa-angle-right"></i>'), change_password_page_ims_accounts_path, class: "clearfix popup-menu1" %></li>
+    <li><%= link_to raw('<span>找回密码</span><i class="fa fa-angle-right"></i>'), before_reset_password_page_ims_accounts_path, class: "clearfix popup-menu2" %></li>
+    <li><%= link_to raw('<span>完善信息</span><i class="fa fa-angle-right"></i>'), set_id_page_ims_accounts_path, class: "clearfix popup-menu4" %></li>
+  </ul>
+</div>
+<% else %>
+<div class="module-card module-card-scan">
+  <div class="text-center card-wrap">
+    <%= image_tag "/images/ims/card-self.png" %>
+  </div>
+  <div class="btn-already">
+    <%= link_to "我 要 购 卡", "javascript:void(0);", value: "#{ims_card_orders_pay_path}?showwxpaytitle=1", class: "btn btn-defult btn-large btn-block card_order_link" %>
+  </div>
+</div>
+<div class="module-user-change">
+  <ul class="txt1">
+    <li><%= link_to raw('<span>交易记录</span><i class="fa fa-angle-right"></i>'), "javascript:void(0);", value: list_ims_card_orders_path, class: "clearfix popup-menu3 card_order_link" %></li>
+  </ul>
+</div>
+<% end %>
+
+
+<% content_for :javascripts do %>
+<script>
+  $(function(){
+
+    $(".card_order_link").on("click", function(){
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+  })
+</script>
+<% end %>

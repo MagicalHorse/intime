@@ -1,0 +1,61 @@
+<div class="module module-white">
+  <div class="verify-code">
+    <div class='verify-code-txt'>
+      <h2>我们已发送验证码短信到这个号码</h2>
+      <h2><%= @phone[0, 3] %><span>****</span><%= @phone[7, 4] %></h2>
+    </div>
+    <%= form_tag(@path, class: "form-defined", :method => 'get') do %>
+    <div class="controls-defined defined-small">
+      <div class="col-6">
+        <%= text_field_tag "sms_code", "", type: 'number', class: "input-verify-code", placeholder: "请填写验证码" %>
+      </div>
+      <div class="col-6">
+        <div class='btn btn-danger btn-small btn-block' id="count_down"><span id="num">60</span>秒后重新发送</div>
+        <div class='btn btn-danger btn-small btn-block' id="resend" style="display:none; margin-top: 0px;">重新获取验证码</div>
+      </div>
+    </div>
+    <% end %>
+    <button class="btn btn-danger btn-large btn-block next-btn" id="verify_phone_button">下一步</button>
+  </div>
+</div>
+
+<%= content_for :javascripts do %>
+<script>
+  function count_down(){
+    $("#num").text( parseInt($("#num").text()) - 1 );
+    if(parseInt($("#num").text()) == 0){
+      clearInterval(interval_count_down);
+      $("#num").text(60);
+      $("#count_down").hide();
+      $("#resend").show();
+    }
+  }
+
+  $(document).ready(function() {
+    interval_count_down = setInterval("count_down()", 1000);
+
+    $("#resend").click(function(){
+      $.post("/ims/accounts/resend_sms", {"phone": "<%= @phone %>" },function(){
+        $("#count_down").show();
+        $("#resend").hide();
+        interval_count_down = setInterval("count_down()", 1000);
+      }, "text");
+    })
+
+    // 验证手机号
+    $("#verify_phone_button").click(function(){
+      var sms_code = $("#sms_code").val();
+      $.get("<%= @path %>", {
+        "sms_code": sms_code
+      },function(res){
+        if(res.notice){
+          error_modal(res.notice);
+        }else{
+          window.location.href = res.url;
+        }
+      }, "json");
+    })
+
+  });
+</script>
+<% end %>

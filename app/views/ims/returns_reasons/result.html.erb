@@ -1,0 +1,17 @@
+<div class="wrap-content">
+  <div class="module module-white min-height">
+    <div class="module-applications">
+      <div class="module module-white">
+        <h1 class="pay-h1 text-center"><i></i>您的退货申请已提交成功！</h1>
+      </div>
+      <p class="txt3"><i class="fa fa-exclamation-circle"></i> 注意事项</p>
+      <ol class="txt3">
+        <li>退款时，请准备邮寄包裹的必要材料、面单、发票</li>
+        <li>退货地址请参考面单提供的退货地址</li>
+      </ol>
+      <p class="block-button">
+      <%= link_to "返回订单详情", ims_orders_show_path(id: params[:order_id]), class: "btn btn-danger btn-large btn-block" %>
+      </p>
+    </div>
+  </div>
+</div>

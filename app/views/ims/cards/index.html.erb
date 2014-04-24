@@ -1,0 +1,26 @@
+<div class="module module-white">
+  <div class="module-card module-card-posi">
+    <h1 class="text-center">银泰礼品卡<br>送亲人，送好友，您的最佳选择</h1>
+    <p class="txt4 text-center posi-txt">银泰礼品卡在线销售，史无前例的O2O行为，错过将后悔一生，希望你能把握此次机会。</p>
+    <img src="/images/ims/card-self.png">
+  </div>
+</div>  
+<div class="bottom-button">
+  <div class="form-defined">
+    <div class="controls-defined defined-large">
+      <div class="col-6"><a class="btn btn-danger btn-large btn-block" id="share_to_user_model">分享给好友</a></div>
+      <div class="col-6"><a class="btn btn-danger btn-large btn-block" href="<%= ims_card_orders_pay_path(store_id: params[:store_id], showwxpaytitle: 1) %>">立即购买</a></div>
+    </div>
+  </div>
+</div>
+<%= content_for :javascripts do %>
+<script>
+  if (typeof WxEnv == 'undefined') {
+    WxEnv = {};
+  }
+  WxEnv.shareUrl = "<%= request.url %>";
+  WxEnv.shareImgUrl = '<%= image_url "/images/ims/card-self.png" %>';
+  WxEnv.shareName = "银泰礼品卡";
+  WxEnv.shareDes = "送亲人，送朋友，您的最佳选择！";
+  </script>
+<% end %>

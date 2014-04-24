@@ -3,9 +3,9 @@ class ApplicationController < ActionController::Base
   before_filter :parse_params, :only=>[:list,:search]
   helper_method :middle_pic_url, :href_of_avatar_url, :default_product_pic_url
 
-  def default_url_options
-    Settings.default_url_options.to_hash
-  end
+  # def default_url_options
+  #   Settings.default_url_options.to_hash
+  # end
 
   def href_of_avatar_url(avatar_url)
     if avatar_url.present? && avatar_url =~ /\d+x\d+\.jpg$/i
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   protected
   def error_500
-    message = 'internal failed problem.' 
+    message = 'internal failed problem.'
     message =  yield if block_given?
     {:isSuccessful=>false,
       :message =>message,
@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
      }.to_json()
   end
    def succ_200
-    message = 'success.' 
+    message = 'success.'
     message =  yield if block_given?
     {:isSuccessful=>true,
       :message =>message,
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
   def ensure_resources(resource)
     resource.map{|r|
       new_domain = PIC_DOMAIN
-      new_domain = AUDIO_DOMAIN if r[:type]==2          
+      new_domain = AUDIO_DOMAIN if r[:type]==2
       r.to_hash.merge!(:domain=>new_domain)
     }
   end

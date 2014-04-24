@@ -1,0 +1,14 @@
+<% orders.each do |item| %>
+  <div class="module common-white order_paginate-content order_show" orderno="<%= item[:order_no] %>">
+      <div class="row-fluid">
+        <div class="span12">
+            <div class="txt-block detail-contact">
+                <p class="txt8">用户：<%= item[:shipping_name] %></p>
+                <p class="txt8 tel-nun">订单号：<%= item[:order_no] %></p>
+                <p class="txt8 tel-nun">下单时间：<%= l item[:create_date].to_time %></p>
+                <p class="txt8 tel-nun clearfix"><span class="pull-left">订单状态：<span class="txt-red"><%= item[:status] %></span></span><span class="pull-right txt-red">￥<%= item[:amount] %></span></p>
+            </div>
+        </div>
+     </div>
+  </div>
+<% end %>

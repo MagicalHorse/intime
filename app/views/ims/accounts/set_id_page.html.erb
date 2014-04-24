@@ -1,0 +1,33 @@
+<div class="module module-white min-height">
+  <div class="module-form module-set-password form-padding">
+    <div class="control-group">
+      <h1>请输入您的身份证号码</h1>
+    </div>
+    <div class="control-group">
+      <%= text_field_tag "identity_no", "", class: "input-block-level", placeholder: "请输入您的身份证号码" %>
+    </div>
+    <ol class="ol-list txt3">
+      <li>身份证号码将作为保证账户安全，作为挂失冻结依据</li>
+      <li>请确保身份证号码的正确性</li>
+    </ol>
+    <div class="control-group">
+      <button type="submit" class="btn btn-large btn-block btn-danger" id="">确 定</button>
+    </div>
+  </div>
+</div>
+
+<%= content_for :javascripts do %>
+<script>
+
+  $( function(){
+
+    $("#set_id_page_submit").click(function(){
+      var identity_no = $("#identity_no").val();
+      $.post("/ims/accounts/set_id", {"identity_no": identity_no },function(){
+        window.location.href = "<%= mine_ims_accounts_path %>";
+      }, "json");
+    })
+
+  });
+</script>
+<% end %>

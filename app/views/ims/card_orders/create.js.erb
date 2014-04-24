@@ -1,0 +1,33 @@
+WeixinJSBridge.invoke('getBrandWCPayRequest', {
+"appId" : "<%= Settings.wx.appid %>", //公众号名称，由商户传入
+"timeStamp" : "<%= @time_val.to_i %>", //时间戳
+"nonceStr" : "<%= raw @noncestr_val %>", //随机串
+"package" : "<%= raw @package_val %>",//扩展字段，由商户传入
+"signType" : "SHA1", //微信签名方式:sha1
+"paySign" : "<%= @paySign_val %>" //微信签名
+},function(res){
+
+  if(res.err_msg == "get_brand_wcpay_request:ok"){
+    $("#loading-box").modal();
+      // get_brand_wcpay_request:ok 发送成功
+    setInterval(function(){
+      $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= @card_id %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
+        var result = r.result
+        if(result.data){
+          window.location.href = "/ims/card_orders/" + result.data.charge_no;
+        }
+      }, "json");
+    },1000)
+
+  }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+     // get_brand_wcpay_request:cancel 用户取消
+
+  }else if(res.err_msg == "get_brand_wcpay_request:fail"){
+
+  }else{
+    error_modal(res.err_msg)
+  }
+
+// WeixinJSBridge.log(res.err_msg);
+// alert(res.err_code+res.err_desc);
+});

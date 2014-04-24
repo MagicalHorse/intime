@@ -1,0 +1,22 @@
+<% 3.times.each do %>
+  <%= link_to "javascript:void(0);", value: "theme_id", class: "theme" do %>
+    <%= image_tag "/images/1.jpg" %>
+  <% end %>
+<% end %>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      $(".theme").on("click", function(){
+        theme_id = $(this).attr("value")
+        $.post("/ims/store/themes/"+theme_id, {_method: "put"}, function(data){
+          if(data["status"] == true){
+            error_modal("修改主题成功")
+          }else{
+            error_modal("修改主题失败")
+          }
+        }, "json")
+      })
+    })
+  </script>
+<% end %>

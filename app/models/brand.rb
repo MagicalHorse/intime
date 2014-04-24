@@ -1,14 +1,22 @@
 require 'tire'
 class Brand < ActiveRecord::Base
+  DOCUMENT_TYPE = "esbrands"
   attr_accessible :desc, :englishname, :logo, :name, :status, :website
   has_many :products
   has_many :promotions
-  
+
   include Tire::Model::Search
   extend Searchable
   index_name ES_DEFAULT_INDEX
-  document_type 'esbrands'
-  
+  document_type DOCUMENT_TYPE
+
+
+  def self.es_search(options={})
+    result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: 10000000
+    mash = Hashie::Mash.new result
+    mash.hits.hits.collect(&:_source)
+  end
+
   def self.list_all
     prod = search :per_page=>PAGE_ALL_SIZE do
           query do
@@ -16,7 +24,7 @@ class Brand < ActiveRecord::Base
           end
     end
     # render request
-    prods_hash = []       
+    prods_hash = []
     prod.results.each {|p|
       prods_hash << {
         :id=>p[:id],
@@ -29,8 +37,9 @@ class Brand < ActiveRecord::Base
     success do
       prods_hash
     end
-    
+
   end
+
   def self.list_by_group
      prod = Brand.search :per_page=>PAGE_ALL_SIZE do
           query do
@@ -40,8 +49,8 @@ class Brand < ActiveRecord::Base
             by :group
           }
     end
-    # render request  
-    group_hash = {} 
+    # render request
+    group_hash = {}
     prod.results.each {|p|
       group_value = p[:group]
       group_value ||= '#'
@@ -57,16 +66,17 @@ class Brand < ActiveRecord::Base
         :log=>p[:logo]
       }
     }
-    prods_hash = [] 
+    prods_hash = []
     group_hash.each do |key,value|
       prods_hash<<{
         :groupname=>key,
         :groupval=>value
-      }  
+      }
     end
     success do
       prods_hash
     end
-    
+
   end
+
 end

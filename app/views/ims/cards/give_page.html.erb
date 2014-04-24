@@ -1,0 +1,85 @@
+<div class="wrap-content">
+  <div class="module module-white">
+    <div class="module-card" style="margin-bottom: 0px;">
+      <h1 class="text-center">礼品卡金额：<%= @card[:amount] %>元</h1>
+      <img src="/images/ims/card-self.png">
+    </div>
+  </div>
+  <div class="module module-white card-form-box">
+    <%= form_tag give_ims_cards_path, class: "form-defined", id: "give_form",method: "get" do  %>
+    <%= hidden_field_tag :charge_no, params[:charge_no]  %>
+    <%= hidden_field_tag :trans_id, params[:trans_id]  %>
+    <div class="controls-defined defined-small">
+      <label class="col-5 text-left"><i class="fa fa-user"></i>我的姓名</label>
+      <div class="col-7">
+        <%= text_field_tag :from, params[:from], placeholder: "请输入您的姓名" %>
+      </div>
+    </div>
+    <div class="controls-defined defined-small">
+      <label class="col-12 text-left"><i class="fa fa-pencil-square-o"></i>对好友留言</label>
+      <div class="col-12">
+        <%= text_area_tag :comment, params[:comment], rows: 3, placeholder: "说点什么吧..." %>
+      </div>
+    </div>
+    <div class="controls-defined defined-small">
+      <label class="col-5 text-left"><i class="fa fa-phone"></i>好友联系方式</label>
+      <div class="col-7">
+        <%= text_field_tag :phone, params[:phone], type: "number", placeholder: "请输入11位手机号码" %>
+      </div>
+    </div>
+    <button type="button" class="btn btn-danger btn-large btn-block" id="submit_button">确认赠送</button>
+    <% end %>
+    <p class="card-notice txt3">
+      <i class="fa fa-exclamation-circle"></i>温馨提示<br />
+      好友确认接收时，将会收到系统发送的短信验证码，请确保手机号码输入无误。
+    </p>
+  </div>
+</div>
+
+
+
+<%= content_for :javascripts do -%>
+<script type="text/javascript">
+  $(function(){
+
+    $("#submit_button").on("click", function(){
+      form = $(this).parents("form")
+      if(form.valid()){
+        $("#loading-box").modal()
+        form.submit()
+      }
+    })
+
+    $("#give_form").validate({
+      rules: {
+        "from": {
+          required: true
+        },
+        "phone": {
+          required: true,
+          number: true
+        }
+      },
+      messages:{
+        "from": {required: '请输入您的姓名'},
+        "phone": {required: '请输入对方正确的手机号'}
+      },
+      showErrors: function (errorMap, errorList) {
+        $.each(this.successList, function (index, value) {
+          $('#'+value.id+'').tooltip('destroy');
+        });
+
+        $.each(errorList, function (index, value) {
+          $('#'+value.element.id+'').attr('title',value.message).tooltip({
+            placement: 'bottom',
+            trigger: 'manual',
+            delay: { show: 500, hide: 5000 }
+          }).tooltip('show');
+        });
+      }
+
+    })
+
+  })
+</script>
+<% end %>

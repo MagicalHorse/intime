@@ -1,0 +1,87 @@
+<style type="text/css">
+  .txt1 {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+  .defined-small textarea {
+    font-size: 14px;
+  }
+</style>
+<div class="wrap-content bottom-distance">
+  <%= form_tag ims_store_suggesstions_path, id: "new_suggesstion", class: "form-defined", remote: true do %>
+    <div class="module common-white min-height card-form-box">
+      <div class="controls-defined defined-small">
+        <div class="col-12 text-left txt1">请留下您的宝贵意见</div>
+        <div class="col-12">
+          <%= text_area_tag "content", '', placeholder: "说点什么。。。", rows: 5, class: "active-write" %>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-button">
+      <div class="form-defined">
+        <div class="controls-defined defined-large">
+          <div class="col-12"><button class="btn btn-danger btn-large btn-block" id="save_suggesstion">确认</button></div>
+        </div>
+      </div>
+    </div>   
+  <% end %>
+</div>
+
+
+<div id="ex2" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+
+      $("#content").trigger("focus")
+
+      $("#save_suggesstion").on("click", function(){
+        if($("#new_suggesstion").valid()){
+          content = $("#content").val()
+          $.post("/ims/store/suggesstions", {content: content}, function(data){
+            $("#loading-box").modal('hide');
+            if(data["status"] == true){
+              $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>意见反馈成功</div><a class='btn btn-danger btn-small btn-block btn-modal' data-dismiss='modal' aria-hidden='true'>OK</a></div>");
+              $("#ex2").modal();
+            }else{
+              $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>网络错误，请稍后重试</div><a class='btn btn-danger btn-small btn-block btn-modal' data-dismiss='modal' aria-hidden='true'>OK</a></div>");
+              $("#ex2").modal();
+            }
+          }, "json")
+        }
+      })
+
+      $("#new_suggesstion").validate({
+        rules: {
+          "content": {
+            required: true,
+            maxlength: 1024
+          }
+        },
+        errorPlacement:function(error, element){
+          element.after(error)
+        },
+       showErrors: function (errorMap, errorList) {
+            $.each(this.successList, function (index, value) {
+                $('#'+value.id+'').tooltip('destroy');
+            });
+            $.each(errorList, function (index, value) {
+                $('#'+value.element.id+'').attr('title',value.message).tooltip({
+                    placement: 'top',
+                    trigger: 'manual',
+                    delay: { show: 500, hide: 5000 }
+                }).tooltip('show');
+            });
+        },
+        submitHandler: function(form) {
+          $("#loading-box").modal();
+          $(form).ajaxSubmit();
+        }
+      })
+
+    })
+  </script>
+<% end %>

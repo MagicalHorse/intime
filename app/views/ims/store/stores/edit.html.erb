@@ -1,0 +1,152 @@
+<div class="wrap-content bottom-distance">
+  <div class="module module-white min-height">
+    <div class="module common-white">
+      <div class="txt-block detail-contact shop-information">
+          <div class="row-fluid">
+          <div class="span8"><span class="txt2 shop-title">修改店铺LOGO</span></div>
+          <div class="span3 text-right">
+            <a class="shop-logo" href="#" id="logo"><img src="<%= @store[:data][:logo] %>"></a>
+            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera"></div>
+          </div>
+          </div>
+      </div>
+    </div>
+    <div class="module common-white">
+      <%= form_tag("/ims/store/stores/#{@store[:data][:id]}", method: :put, id: "store_form", class: 'form-defined shop-form-defined', remote: true)  do |f| %>
+        <div class="shop-information2 txt2">
+          <div class="controls-defined defined-small shop-bd">
+            <label class="col-4 text-left">店铺名称</label>
+            <div class="col-8"><%= text_field_tag :name, @store[:data][:name] %></div>
+          </div>
+          <div class="controls-defined defined-small">
+            <label class="col-4 text-left">电话</label>
+            <div class="col-8"><%= text_field_tag :mobile, @store[:data][:mobile] %></div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="bottom-button">
+        <div class="form-defined">
+          <div class="controls-defined defined-large">
+            <div class="col-12"><button class="btn btn-danger btn-large btn-block" type="button" id="store_submit">修改</button></div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div id="ex2" class="modal hide fade modal-red" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+</div>
+
+<%= content_for :javascripts do -%>
+  <script type="text/javascript">
+   $(function(){
+    $("#store_submit").click(function(){
+      $("#store_form").submit();
+    });
+
+    $("#store_form").validate({
+      rules: {
+        "name": {
+          required: true
+        },
+        "mobile": {
+          required: true
+        }
+      },
+      messages:{
+        "name": {required: '必须填写店铺名称'},
+        "mobile": {required: '必须填写手机号'},
+      },
+      showErrors: function (errorMap, errorList) {
+        $.each(this.successList, function (index, value) {
+            $('#'+value.id+'').tooltip('destroy');
+        });
+        $.each(errorList, function (index, value) {
+            $('#'+value.element.id+'').attr('title',value.message).tooltip({
+                placement: 'bottom',
+                trigger: 'manual',
+                delay: { show: 500, hide: 5000 }
+            }).tooltip('show');
+        });
+      },
+      submitHandler: function(form) {
+        $("#loading-box").modal();
+        $(form).ajaxSubmit();
+      }
+    });
+
+    $(".shop-information").click(function(){
+       document.getElementById("upfile").click();
+    });
+
+    // $('#upfile').fileupload({
+    //   url: "<%= change_logo_ims_store_stores_path %>",
+    //   type: 'post',
+    //   dataType: 'json',
+    //   beforeSend: function(){
+    //     $("#loading-box").modal();
+    //   },
+    //   fileuploadfail: function(e, data){
+    //     error_modal(e);
+    //   },
+    //   fileuploadchunkfail: function(e, data){
+    //     error_modal(e);
+    //   },
+    //   done: function(e, data){
+    //     $("#loading-box").modal('hide');
+    //     if(data.result['status'] == 1){
+    //       setTimeout(function(){
+    //         $("#logo").html("<img src="+data.result['img']+" class='img-rounded'/>")
+    //       }, 500);
+    //     }else{
+    //       error_modal("网络错误，请稍后重试");
+    //     }
+
+    //   }
+    //  });
+
+    document.getElementById('upfile').onchange = function (e) {
+      $("#loading-box").modal();
+      var orientation ;
+      loadImage.parseMetaData(
+        e.target.files[0],
+        function(data){
+          if(data.exif)
+          orientation = data.exif.get('Orientation');
+        }
+      );
+
+      loadImage(
+        e.target.files[0],
+        function(img){
+          var resized = resizeIos(img, 640, 640, orientation);
+          $.ajax({
+              url: "<%= change_logo_ims_store_stores_path %>",
+              dataType: 'json',
+              type: 'post',
+              data: {"img": resized},
+              success: function(data){
+                $("#loading-box").modal('hide');
+                if(data['status'] == 1){
+                  setTimeout(function(){
+                    $("#logo").html("<img src="+data['img']+" class='img-rounded'/>")
+                  }, 500);
+                }
+              }
+          });
+         } 
+      );
+     }        
+
+
+
+    })
+
+    /*--------------------img----------------------------*/
+    format_img(".shop-logo");
+
+
+  </script>
+<% end -%>

@@ -1,0 +1,507 @@
+<%= form_tag ims_orders_path, id: "new_order_form", style: "display: none;" do %>
+
+  <% @products.each_with_index do |product, index| %>
+    <% salecolors = product[:salecolors] %>
+    <% sizes = salecolors.first.try(:[], :sizes) || [] %>
+    <% if salecolors.present? %>
+      <%= hidden_field_tag "order[products][][productid]", product[:id] %>
+      <%= hidden_field_tag "order[products][][quantity]", 1 %>
+      <%= hidden_field_tag "order[products][][properties][sizevalueid]", nil, id: "sizevalueid#{index}" %>
+      <%= hidden_field_tag "order[products][][properties][colorvalueid]", salecolors.present? ? salecolors.first[:colorid] : nil, id: "colorvalueid#{index}" %>
+
+      <%= hidden_field_tag "order[products][][desc]", product[:name] %>
+      <%= hidden_field_tag "order[products][][properties][sizevaluename]", nil, id: "sizevaluename#{index}" %>
+      <%= hidden_field_tag "order[products][][properties][colorvaluename]", salecolors.present? ? salecolors.first[:colorname] : nil, id: "colorvaluename#{index}" %>
+    <% end %>
+  <% end %>
+
+  <%= hidden_field_tag "order[payment[paymentcode]]", 29 %>
+  <%= hidden_field_tag "order[payment[paymentname]]", "微信支付" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", @contact["contact_person"], id: "name" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", @contact["contact_phone"], id: "contact" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", @contact["zip_code"], id: "zipcode" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", @contact["full_address"], id: "address" %>
+  <%= hidden_field_tag "order[needinvoice]", false %>
+
+
+
+  <%= hidden_field_tag "order[invoicetitle]", nil %>
+  <%= hidden_field_tag "order[invoicedetail]", nil %>
+  <%= hidden_field_tag "order[memo]", nil %>
+  <%= hidden_field_tag "order[storeid]", session[:store_id] %>
+  <%= hidden_field_tag "open_id", session[:wx_openid] %>
+  <%= link_to "请点击选择地址", "javascript:void(0);" %>
+  <%= submit_tag "提交表单" %>
+
+
+<% end %>
+
+
+<div class="wrap-inner back-wrap-inner">
+  <% @products.each_with_index do |product, index| %>
+  <% salecolors = product[:salecolors] %>
+  <% sizes = salecolors.first.try(:[], :sizes) || [] %>
+  <div class="module common-white">
+     <div class="row-fluid">
+         <div class="span3">
+             <div class="detail-imgbox">
+                <%= image_tag Product.img_url(salecolors.first.try(:[], :resource)) %>
+             </div>
+         </div>
+         <div class="span9">
+             <div class="price-detail">
+                <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
+                <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+             </div>
+         </div>
+     </div>
+     <div class="current-choose txt8">
+        <div class="row-fluid">
+          <div class="span10">
+            <div style="display: none;" id="selected_color_size<%= index %>">已选：“黑色” “S”</div>
+            <div id="un_select_color_size<%= index %>">
+              <% if salecolors.blank? %>
+                已售罄
+              <% else %>
+                  请选择颜色，尺码
+              <% end %>
+            </div>
+          </div>
+          <div class="span2">
+            <% if salecolors.present? %>
+            <div class="text-right">
+              <a class="ellipsis" href="#myModal<%=index%>" data-toggle="modal">•••</a>
+            </div>
+            <% end %>
+              <div id="myModal<%=index%>" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" index="<%= index %>">
+                <form>
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h3 id="myModalLabel">&nbsp;</h3>
+                </div>
+                  <div class="modal-body">
+                    <div class="module common-white">
+                      <div class="row-fluid">
+                         <div class="span3">
+                             <div class="detail-imgbox">
+                                 <%= image_tag Product.img_url(salecolors.first.try(:[], :resource)) %>
+                             </div>
+                         </div>
+                         <div class="span9">
+                             <div class="price-detail">
+                                 <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
+                                 <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+                             </div>
+                         </div>
+                      </div>
+                    </div>
+                    <div class="module-grey">
+                    <% if salecolors.present?  %>
+                      <div class="modal-color salecolors" index="<%= index %>">
+                        <p class="txt8">颜色</p>
+                        <div class="product-detail">
+                           <ul class="inline clearfix" >
+                          <% salecolors.each_with_index do |salecolor, index| %>
+                            <li class="<%= 'active' if salecolors.present? && index.zero? %>">
+                              <a href="javascript:void(0);" valueid='<%= salecolor['colorid'] %>' valuename='<%= salecolor['colorname'] %>'>
+                                <%= salecolor['colorname'] %>
+                              </a>
+                            </li>
+                          <% end %>
+                        </ul>
+                        </div>
+                      </div>
+                    <% end %>
+
+                    <% if sizes.present? %>
+                      <div class="modal-size sizes" index="<%= index %>">
+                        <p class="txt8">尺码</p>
+                        <div class="product-detail">
+                           <ul class="inline clearfix">
+                          <% sizes.each do |size| %>
+                            <li>
+                              <a href="javascript:void(0);" valueid='<%= size['sizeid'] %>' valuename='<%= size['sizename'] %>'>
+                                <%= size['sizename'] %>
+                              </a>
+                            </li>
+                          <% end %>
+                        </ul>
+                        </div>
+                      </div>
+                    <% end %>
+                      <% if nil %>
+                      <div class="modal-num">
+                        <span class="tb-stock clearfix">
+                            <span>购买数量</span>
+                            <a class="tb-reduce" hidefocus="" href="javascript:void(0);">-</a>
+                            <input type="text" placeholder="1" class="txt8 tb-text" id="count<%= index %>">
+                            <a class="tb-increase" href="javascript:void(0);">+</a>
+                        </span>
+                      </div>
+                      <% end %>
+
+                    </div>
+                  </div>
+                   <div class="modal-footer">
+                    <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button" data-dismiss='modal' aria-hidden='true'>确 定</a>
+                  </div>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+  <% end %>
+      <div class="module common-white" id="address_doc">
+         <div class="row-fluid">
+             <div class="span12">
+
+                 <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: block;' %>">
+                     <p class="txt8">
+                       <span>
+                       <i class="fa fa-map-marker"></i>正在选择地址
+                       </span>
+                     </p>
+                 </div>
+
+                 <div id="contact_wrapper" class="detail-block detail-contact" style="<%= @contact.present? ? 'display: inline;' : 'display: none;' %>">
+                     <p class="txt8">
+                       <span>
+                         <i class="fa fa-user"></i><span id="weixin_name"><%= @contact["contact_person"] %></span>
+                       </span>
+                       &nbsp;
+                       <span>
+                       <i class="fa fa-phone"></i><span id="weixin_contact"><%= @contact["contact_phone"] %></span>
+                       </span>
+                     </p>
+                     <p class="txt8">
+                       <span>
+                       <i class="fa fa-map-marker"></i><span id="weixin_address"><%= @contact["full_address"] %></span>
+                       </span>
+                     </p>
+                 </div>
+             </div>
+         </div>
+      </div>
+      <div class="module common-white">
+         <div class="row-fluid">
+             <div class="span12">
+                 <div class="detail-block detail-contact-bd">
+                     <p class="txt8 txt-bd clearfix">
+                       <span class="pull-left">
+                         <i class="fa fa-truck"></i>运费：<%= (totalfee = @order[:totalfee]).zero? ? "免运费" : totalfee %>
+                       </span>
+                       <span class="pull-right"><b>实付：</b><i>￥<%= @order[:totalamount] %></i></span>
+                     </p>
+                     <p class="txt8 txt0">
+                       <i class="fa fa-exclamation-circle"></i>提交订单后，请在1小时内完成支付，过时订单将会自动取消
+                     </p>
+                 </div>
+             </div>
+         </div>
+      </div>
+      <% if @products.any?{|p| p[:salecolors].present?} %>
+        <p class="wx-payment">
+        <button type="button" class="btn btn-danger btn-large btn-block" id="save_order">
+          <i class="fa fa-share-square-o"></i>微信安全支付
+        </button>
+        </p>
+      <% else %>
+        <div style="display: inline;" class="col-12">
+          <a value="114041090567" id="cancel_order" class="btn btn-grey btn-large btn-block" href="javascript:void(0);">已售罄</a>
+        </div>
+      <% end %>
+</div>
+
+<%= hidden_field_tag "totalamount", @order[:totalamount] %>
+<%= hidden_field_tag "orderno", nil %>
+
+
+<% content_for :javascripts do %>
+<script>
+  $(function(){
+
+    $(".tb-reduce, .tb-increase").on("click", function(){
+      index = $(this).parents(".modal").attr("index")
+      this_class = $(this).attr("class")
+      count_doc = $("#count"+index)
+      value = parseInt(count_doc.val())
+      if(this_class.indexOf("tb-reduce") >= 0){
+        if(value > 1){
+          count_doc.val(value - 1)
+        }
+      }else{
+        count_doc.val(value + 1)
+      }
+    })
+
+    $(".save_button").on("click", function(){
+      modal_doc = $(this).parents(".modal")
+      var index = modal_doc.attr("index")
+      change_color_value(modal_doc, index)
+      change_size_value(modal_doc, index)
+      var color = jQuery.trim($("#colorvaluename"+index).val())
+      var size = jQuery.trim($("#sizevaluename"+index).val())
+      if(color.length > 0 || size.length > 0){
+        color_text = color.length > 0 ? "\""+color+"\"" : ""
+        size_text = size.length > 0 ? "\""+size+"\"" : ""
+        text = jQuery.trim([color_text, size_text].join(" "))
+        un_select_doc = $("#un_select_color_size"+index)
+        selected_doc = $("#selected_color_size"+index)
+        un_select_doc.hide()
+        selected_doc.show()
+        selected_doc.text("已选：" + text)
+      }else{
+        un_select_doc.show()
+        un_select_doc.text("请选择颜色，尺码 ")
+        selected_doc.hide()
+      }
+      // modal_doc.find(".close").trigger("click")
+      // modal_doc.modal("hide")
+    })
+
+    var change_color_value = function(modal_doc, index){
+      color_link = modal_doc.find(".salecolors li.active a")
+      colorvalueid_doc = $("#colorvalueid"+index)
+      colorvaluename_doc = $("#colorvaluename"+index)
+      if(color_link.length > 0){
+        colorvalueid_doc.attr("value", color_link.attr("valueid"))
+        colorvaluename_doc.attr("value", color_link.attr("valuename"))
+      }else{
+        colorvalueid_doc.attr("value", '')
+        colorvaluename_doc.attr("value", '')
+      }
+    }
+
+    var change_size_value = function(modal_doc, index){
+      size_link = modal_doc.find(".sizes li.active a")
+      sizevalueid_doc = $("#sizevalueid"+index)
+      sizevaluename_doc = $("#sizevaluename"+index)
+      if(size_link.length > 0){
+        sizevalueid_doc.attr("value", size_link.attr("valueid"))
+        sizevaluename_doc.attr("value", size_link.attr("valuename"))
+      }else{
+        sizevalueid_doc.attr("value", '')
+        sizevaluename_doc.attr("value", '')
+      }
+    }
+
+    $(document).on("click", ".salecolors li a", function(){
+      this_li = $(this).parents("li")
+      class_name = this_li.attr("class") || ""
+      this_salecolors = $(this).parents(".salecolors")
+      index = this_salecolors.attr("index")
+      this_salecolors.find("li").removeClass("active")
+
+      if(class_name.indexOf('active') >= 0){
+        this_li.removeClass("active")
+      }else{
+        this_li.addClass("active")
+      }
+    })
+
+    $(document).on("click", ".sizes li a", function(){
+      this_li = $(this).parents("li")
+      class_name = this_li.attr("class") || ""
+      this_sizes = $(this).parents(".sizes")
+      index = this_sizes.attr("index")
+      this_sizes.find("li").removeClass("active")
+
+      if(class_name.indexOf('active') >= 0){
+        this_li.removeClass("active")
+      }else{
+        this_li.addClass("active")
+      }
+    })
+
+
+    <% if nil %>
+    $(document).on("click", ".salecolors li a", function(){
+      this_li = $(this).parents("li")
+      class_name = this_li.attr("class") || ""
+      salecolor_id = $(this).attr("valueid")
+      salecolor_name = $(this).attr("valuename")
+      this_salecolors = $(this).parents(".salecolors")
+      index = this_salecolors.attr("index")
+      this_salecolors.find("li").removeClass("active")
+
+      if(class_name.indexOf('active') >= 0){
+        $("#colorvalueid"+index).attr("value", '')
+        $("#colorvaluename"+index).attr("value", '')
+        this_li.removeClass("active")
+      }else{
+        $("#colorvalueid"+index).attr("value", salecolor_id)
+        $("#colorvaluename"+index).attr("value", salecolor_name)
+        this_li.addClass("active")
+      }
+    })
+
+    $(document).on("click", ".sizes li a", function(){
+      this_li = $(this).parents("li")
+      class_name = this_li.attr("class") || ""
+      size_id = $(this).attr("valueid")
+      size_name = $(this).attr("valuename")
+      this_sizes = $(this).parents(".sizes")
+      index = this_sizes.attr("index")
+      this_sizes.find("li").removeClass("active")
+      if(class_name.indexOf('active') >= 0){
+        $("#sizevalueid"+index).attr("value", '')
+        $("#sizevaluename"+index).attr("value", '')
+        this_li.removeClass("active")
+      }else{
+        $("#sizevalueid"+index).attr("value", size_id)
+        $("#sizevaluename"+index).attr("value", size_name)
+        this_li.addClass("active")
+      }
+    })
+
+    <% end %>
+
+    var validator = $("#new_order_form").validate({
+      ignore: "",
+      rules: {
+        "order[products][][productid]": {
+          required: true
+        },
+        // "order[products][][desc]":{
+        //   required: true
+        // },
+        "order[products][][quantity]": {
+          required: true
+        },
+        "order[products][][properties][sizevalueid]": {
+          required: true
+        },
+        "order[products][][properties][colorvalueid]": {
+          required: true
+        },
+        "order[payment[paymentcode]]": {
+          required: true
+        },
+        "order[payment[paymentname]]": {
+          required: true
+        },
+        <% if nil %>
+        "order[shippingaddress[shippingcontactperson]]": {
+          required: true
+        },
+        "order[shippingaddress[shippingcontactphone]]": {
+          required: true
+        },
+        "order[shippingaddress[shippingzipcode]]": {
+          required: true
+        },
+        <% end %>
+        "order[shippingaddress[shippingaddress]]": {
+          required: true
+        },
+        "order[needinvoice]": {
+          required: true
+        }
+      },
+      messages: {
+        "order[products][][properties][sizevalueid]": {
+          required: "请选择尺码"
+        },
+        "order[products][][properties][colorvalueid]": {
+          required: "请选择颜色"
+        },
+        "order[shippingaddress[shippingaddress]]": {
+          required: "请选择地址"
+        }
+      },
+      showErrors: function(errorMap, errorList) {
+        var msg = "";
+        $.each(errorList, function(i,v){
+          msg += (v.message+"\r\n");
+        });
+        if(msg!="") error_modal(msg);
+      },
+      errorPlacement:function(error, element){
+        element.after(error)
+      }
+
+    })
+
+    $("#save_order").on("click", function(){
+      var this_ele = $(this)
+      var form = $("#new_order_form")
+      var totalamount = $("#totalamount").val()
+      var orderno = $("#orderno").val()
+      if(orderno.length == 0){
+        if($("#new_order_form").valid()){
+          form.ajaxSubmit({
+            dataType: "json",
+            success: function(data){
+              if(data["status"] == true){
+                $("#loading-box").modal()
+                order_id = data["data"]["orderno"]
+                $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
+              }else{
+                error_modal("提交订单失败")
+              }
+            },
+            error: function(data){
+              error_modal("提交订单发生错误")
+            }
+          })
+        }
+      }else{
+        $.post("/ims/orders/"+order_id+"/payments", {money: totalamount}, function(data){}, "script")
+      }
+
+    })
+
+    // 获取送货地址、送货人等
+
+    <% if @contact.blank? %>
+    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+      load_address()
+    })
+    <% end %>
+
+
+
+    $("#address_doc").on("click", function(){
+      load_address()
+    })
+
+
+    var load_address = function(){
+      WeixinJSBridge.invoke('editAddress',{
+      appId: "<%= Settings.wx.appid %>",
+      scope: "jsapi_address",
+      signType: "sha1",
+      addrSign: "<%= raw @addrSign_val %>",
+      timeStamp: "<%= @timeStamp_val %>",
+      nonceStr: "<%= @nonceStr_val %>"
+      },function(res){
+      //若 res 中所带的返回值不为空，则表示用户选择该返回值作为收货地址。否则若返回空，则表示用户取消了这一次编辑收货地址。
+        if(res.err_msg == "edit_address:ok"){
+          name = res.userName
+          zipcode = res.addressPostalCode
+          address = [res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.addressDetailInfo].join(" ")
+          contact = res.telNumber
+          $("#name").attr("value", name)
+          $("#weixin_name").text(name)
+          $("#zipcode").attr("value", zipcode)
+          $("#address").attr("value", address)
+          $("#weixin_address").text(address)
+          $("#contact").attr("value", contact)
+          $("#weixin_contact").text(contact)
+
+          $("#contact_select_wrapper").hide()
+          $("#contact_wrapper").show()
+        }else{
+
+        }
+      })
+    }
+
+    format_img(".detail-imgbox");
+
+  })
+</script>
+<% end %>

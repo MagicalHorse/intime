@@ -3,7 +3,7 @@ class VersionConstraint
     @version = version[0].to_i unless version.nil?
     @version = 2*100+1*10+1 if @version.nil? || @version ==0
   end
- 
+
   def matches?(request)
     current_ver = request.query_parameters[:client_version]
     return false if current_ver.nil?
@@ -17,7 +17,7 @@ class VersionConstraint
 end
 
 IntimeService::Application.routes.draw do
-  
+
   get "comment/get_list"
 
   match "wxmsg/update"=>"wxReply#update"
@@ -43,7 +43,7 @@ IntimeService::Application.routes.draw do
     delete '/logout', to: 'sessions#destory'
     get '/login', to: 'sessions#login'
   end
- 
+
   match "hotword/list"=>"hotword#list"
   match "banner/list"=>"banner#list"
 
@@ -63,12 +63,12 @@ IntimeService::Application.routes.draw do
 
   match "product/search" => "product#search"
   match "product/list" => "product#list"
-  
+
   match "promotion/list" => "promotion#list"
-  
+
   match "wx_object/search" => "wxobject#validate", :via=>:get, :defaults=>{:format=>'html'}
   match "wx_object/search" => "wxobject#search", :via=>:post, :defaults=>{:format=>'xml'}
-  
+
   match "card/find"=>"card#find"
 
   resources :special_topic, only: [:index] do
@@ -311,9 +311,161 @@ IntimeService::Application.routes.draw do
 
   end
 
+  namespace :ims do
+    resource :auth
+    resources :stores, only: [:show]
+    resources :combos, only: [:show, :destroy] do
+      collection do 
+        post 'upload'
+      end
+    end
+    resources :accounts, only: [:new, :create] do
+      collection do
+        get   :mine
+        get   :barcode
+        get   :phone_page
+        get   :verify_identify_phone
+        get   :verify_identify_sms_code
+        get   :verify_phone
+        get   :verify_sms_code
+        post  :resend_sms
+        get   :set_identity_no_page
+        get   :set_identity_no
+        get   :before_reset_password_page
+        get   :reset_password_page
+        get   :reset_password
+        get   :change_password_page
+        get   :change_password
+        get   :set_id_page
+        post  :set_id
+      end
+    end
+    resources :cards, only: [:index] do
+      collection do
+        get     :recharge
+        get     :give_page
+        get     :give
+        get     :refuse
+        get     :agreement
+      end
+    end
+    get 'cards/gift_page/:charge_no', to: 'cards#gift_page'
+    resources :card_orders, only: [:new, :create, :show] do
+      collection do
+        get :list
+        get :my_list
+        get :received_list
+        get :check_status
+      end
+    end
+    match "card_orders_pay" => "card_orders#new"
+    match "orders_new" => "orders#new"
+    match "orders_show" => "orders#show"
+    resources :favorites, only: [] do
+      collection do
+        get  :stores_list
+        get  :combos_list
+        get  :list
+        post :favor
+        post :unfavor
+      end
+    end
+    resources :recharge_histroy, only: [:index]
+    resources :orders, only: [:index, :new, :create, :show] do
+      member do
+        put :change_state
+        post :payments
+      end
+
+      collection do
+        get :check_status
+      end
+      resources :returns_reasons, only: [:new, :create] do
+        member do
+          put :cancel
+        end
+        collection do
+          get "result"
+        end
+      end
+    end
+
+
+    namespace :store do
+      root :to => "home#index"
+      post "login" => "home#login"
+      get 'check_code' => 'home#check_code'
+      resources :sales_codes, only: :create
+      resources :sells, only: :index do
+        member do
+          put :update_is_online
+        end
+      end
+      resources :suggesstions, only: [:new, :create]
+      resources :themes, only: [:index, :update]
+      resources :products do
+        member do
+          get 'add_to_combo'
+        end
+        collection do
+          get :tutorials
+          get :search
+        end
+      end
+      resources :combos do
+        member do
+          put 'add_img'
+          put 'update_desc'
+          get 'preview'
+          get 'update_desc'
+        end
+        collection do
+          get :tutorials
+          get 'remove_img'
+          get 'remove_product'
+        end
+      end
+      resources :stores, only: [:index, :show, :edit, :update] do
+        collection do
+          get 'records', 'manage', 'theme', 'check'
+          post 'change_logo'
+          post 'change_info'
+        end
+        member do
+          get 'my'
+        end
+      end
+      resources :incomes, only: [:index, :new, :create] do
+        collection do
+          get :my, :list, :frozen, :tips
+        end
+      end
+      resources :dicts, only: [] do
+        collection do
+          get :product_sizes
+        end
+      end
+
+      resources :orders, only: [:index, :show]
+    end
+
+    # weixin self defined menu
+    resource :weixin,only:[] do
+      member do
+        get 'menu',to: :verify
+        post 'menu', to: :message
+        get :access_token
+      end
+    end
+  end
+
   get 'payment/callback', to: 'front/orders#pay_callback'
   match "product/:id" => "product#show"
   match "promotion/:id" => "promotion#show"
+
+  match "ims/combos/:id/:t" => "ims/combos#show", as: "ims_combo"
+  match "ims/stores/:id/:t" => "ims/stores#show", as: "ims_store"
+  match "ims/store/stores/:id/my/:t" => "ims/store/stores#my", as: "my_ims_store_store"
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
