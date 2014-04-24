@@ -28,6 +28,7 @@
       })
 
       $(document).on("click", ".payment", function(){
+        $("#loading-box").modal()
         orderno = $(this).attr("orderno")
         totalamount = $(this).attr("amount")
         $.post("/ims/orders/"+orderno+"/payments", {money: totalamount, from_page: "orders_list"}, function(data){}, "script")

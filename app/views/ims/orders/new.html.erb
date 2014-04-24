@@ -436,6 +436,7 @@
             dataType: "json",
             success: function(data){
               if(data["status"] == true){
+                $("#loading-box").modal()
                 order_id = data["data"]["orderno"]
                 $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
               }else{
