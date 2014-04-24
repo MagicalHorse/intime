@@ -91,7 +91,9 @@
     // })
 
     $(document).keydown(function(event){
-      submit_search()
+      if(event.keyCode == 13){
+        submit_search()
+      }
     });
 
     $("#search .btn").on("click", function(){
