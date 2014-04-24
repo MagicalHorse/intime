@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'rest_client'
 require 'digest/sha1'
 module Ims

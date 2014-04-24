@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require 'tire'
 class Banner < ActiveRecord::Base
   attr_accessible :sortorder, :status

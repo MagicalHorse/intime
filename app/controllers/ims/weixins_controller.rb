@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 class Ims::WeixinsController < ApiBaseController
   skip_before_filter :auth_api, :only=>[:verify,:message]
   def verify

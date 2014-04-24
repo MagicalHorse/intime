@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Comment < ActiveRecord::Base
   attr_accessible :status, :textmsg,:source_id,:source_type,:reply_id,:user_id
   belongs_to :user

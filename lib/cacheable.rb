@@ -1,4 +1,6 @@
+# -*- encoding : utf-8 -*-
 require 'memcached'
+
 module Cacheable
   def cache_get(key,expires,&block)
     dc = nil;

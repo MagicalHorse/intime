@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CurrentUser
   # email 用户邮箱
   # level 用户的等级 2-达人
