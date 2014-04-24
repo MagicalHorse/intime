@@ -20,10 +20,15 @@
     $(function(){
 
       $(document).on("click", ".order_show", function(){
+        url = $(this).attr("value")
         $("#loading-box").modal()
+        setTimeout(function(){
+          window.location.href = url
+        }, 1)
       })
 
       $(document).on("click", ".payment", function(){
+        $("#loading-box").modal()
         orderno = $(this).attr("orderno")
         totalamount = $(this).attr("amount")
         $.post("/ims/orders/"+orderno+"/payments", {money: totalamount, from_page: "orders_list"}, function(data){}, "script")

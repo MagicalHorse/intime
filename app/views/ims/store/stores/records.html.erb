@@ -53,7 +53,9 @@
         $(document).on("click", ".order_show", function(){
           $("#loading-box").modal()
           order_no = $(this).attr("orderno")
-          window.location.href = "/ims/orders_show?id="+order_no
+          setTimeout(function(){
+            window.location.href = "/ims/orders_show?id="+order_no
+          }, 1)
         })
 
         $(window).scroll(function(){
