@@ -10,7 +10,7 @@
               <%= hidden_field_tag "to_discount", @search[:to_discount] %>
               <%= hidden_field_tag "brand_id", @search[:brand_id] %>
               <%= hidden_field_tag "combo_id", @combo.try(:id) %>
-              <button class="btn" type="submit">搜 索</button>
+              <button class="btn" type="button">搜 索</button>
             <% end %>
         </div>
     </div>
@@ -90,6 +90,13 @@
     //   }
     // })
 
+    $("#search .btn").on("click", function(){
+      $("#loading-box").modal()
+      setTimeout(function(){
+        $("#search").submit()
+      }, 1)
+    })
+
     $(".search-condition a").on("click", function(){
       this_ele = $(this)
       type = this_ele.attr("type")
@@ -104,14 +111,20 @@
       $("#from_discount").attr("value", from_discount)
       $("#to_discount").attr("value", to_discount)
       $("#brand_id").attr("value", brand_id)
-      $("#search").submit()
+      $("#loading-box").modal()
+      setTimeout(function(){
+        $("#search").submit()
+      }, 1)
 
     })
 
     $(".keywords").on("click", function(){
       keywords = $(this).attr("value")
       $("#keywords").val(keywords)
-      $("#search").submit()
+      $("#loading-box").modal()
+      setTimeout(function(){
+        $("#search").submit()
+      }, 1)
     })
 
     $(window).scroll(function(){
