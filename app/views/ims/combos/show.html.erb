@@ -23,7 +23,7 @@
                 <div class="span4">
                   <div class="combos-product">
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
-                    <a href="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>">
+                    <a href="javascript:void(0);" value="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>" class="payment_product">
                     <span class="img-spa">
                     <img src="<%= product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>">
                     </span>
@@ -92,9 +92,17 @@
     </div>
     <div class="intime-btm"><img src="/images/ims/intime-btm.png"></div>
     <% if current_user.id != @remote_combo[:data][:owner_id] %>
-    <p class="text-center shopping-icon-box"><a type="button" class="btn btn-danger btn-small btn-danger-defult" href="/ims/stores/<%=@remote_combo[:data][:store_id]%>/<%=Time.now.to_i%>" ><i class="shop-icon0"></i>进店铺逛逛</a></p>
+    <p class="text-center shopping-icon-box">
+    <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-small btn-danger-defult" value="/ims/stores/<%=@remote_combo[:data][:store_id]%>/<%=Time.now.to_i%>" >
+    <i class="shop-icon0"></i>进店铺逛逛
+    </a>
+    </p>
     <% else %>
-    <p class="text-center shopping-icon-box"><a type="button" class="btn btn-danger btn-small btn-danger-defult" href="/ims/store/stores/<%=@remote_combo[:data][:store_id]%>/my/<%=Time.now.to_i%>" ><i class="shop-icon0"></i>进店铺逛逛</a></p>
+    <p class="text-center shopping-icon-box">
+    <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-small btn-danger-defult" value="/ims/store/stores/<%=@remote_combo[:data][:store_id]%>/my/<%=Time.now.to_i%>" >
+    <i class="shop-icon0"></i>进店铺逛逛
+    </a>
+    </p>
     <% end %>
 
 
@@ -174,6 +182,14 @@
         })
 
         $("#edit_combo, #payment_combo").on("click", function(){
+          url = $(this).attr("value")
+          $("#loading-box").modal()
+          setTimeout(function(){
+            window.location.href = url
+          }, 1)
+        })
+
+        $("#store").on("click", function(){
           url = $(this).attr("value")
           $("#loading-box").modal()
           setTimeout(function(){
