@@ -25,7 +25,7 @@
     WxEnv = {};
   }
   WxEnv.shareUrl = "<%= request.url %>";
-  WxEnv.shareImgUrl = '<%= image_path "/images/ims/card-self.png" %>';
+  WxEnv.shareImgUrl = '<%= image_url "/images/ims/card-self.png" %>';
   WxEnv.shareName = "<%= @card[:from] %>给您送的银泰礼品卡";
   WxEnv.shareDes = "<%= @card[:comment] %>";
 </script>
