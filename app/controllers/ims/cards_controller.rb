@@ -77,7 +77,7 @@ class Ims::CardsController < Ims::BaseController
       @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from: params[:from], trans_id: @trans_id)
       Rails.logger.debug(@result.to_s)
       flash[:page_type] = "give_show_page"
-      return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@result[:trans_id]}"
+      return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@result[:data][:trans_id]}"
     end
   end
 
