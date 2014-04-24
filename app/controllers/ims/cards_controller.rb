@@ -45,6 +45,7 @@ class Ims::CardsController < Ims::BaseController
       # API_NEED: 根据礼品卡号，获取礼品卡相关信息
       @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"] || {}
     end
+    @trans_id = @card[:trans_id]
     current_user.other_phone = @card[:phone]
   end
 
