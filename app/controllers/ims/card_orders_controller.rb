@@ -38,8 +38,7 @@ class Ims::CardOrdersController < Ims::BaseController
     @out_trade_no = "#{Time.now.to_i}#{rand(99).to_s.rjust(2,"0")}-#{@card_id}-#{current_user.id}"
     @out_trade_no = "#{@out_trade_no}-#{params[:store_id]}" if params[:store_id].present?
     @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
-    # TODO 上线前，修改为正式地址
-    @notify_url = 'http://111.207.166.195/ims/payment/notify_giftcard'
+    @notify_url = "http://#{Settings.wx.backdomain}/ims/payment/notify_giftcard"
     @time_val = Time.now
 
     package = {
