@@ -1,3 +1,4 @@
+$("#loading-box").modal("hide")
 
 WeixinJSBridge.invoke('getBrandWCPayRequest', {
 "appId" : "<%= Settings.wx.appid %>", //公众号名称，由商户传入
@@ -7,7 +8,6 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
 "signType" : "SHA1", //微信签名方式:sha1
 "paySign" : "<%= @paySign_val %>" //微信签名
 },function(res){
-  $("#loading-box").modal("hide")
   orderno = "<%= @orderno %>"
   from_page = "<%= @from_page %>"
   if(res.err_msg == "get_brand_wcpay_request:ok"){
