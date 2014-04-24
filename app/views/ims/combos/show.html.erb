@@ -91,7 +91,11 @@
       </div>
     </div>
     <div class="intime-btm"><img src="/images/ims/intime-btm.png"></div>
-    <p class="text-center shopping-icon-box"><a type="button" class="btn btn-danger btn-small btn-danger-defult"><i class="shop-icon0"></i>进店铺逛逛</a></p>
+    <% if current_user.id != @remote_combo[:data][:owner_id] %>
+    <p class="text-center shopping-icon-box"><a type="button" class="btn btn-danger btn-small btn-danger-defult" href="/ims/stores/<%=@remote_combo[:data][:store_id]%>/<%=Time.now.to_i%>" ><i class="shop-icon0"></i>进店铺逛逛</a></p>
+    <% else %>
+    <p class="text-center shopping-icon-box"><a type="button" class="btn btn-danger btn-small btn-danger-defult" href="/ims/store/stores/<%=@remote_combo[:data][:store_id]%>/my/<%=Time.now.to_i%>" ><i class="shop-icon0"></i>进店铺逛逛</a></p>
+    <% end %>
 
 
     <% if @remote_combo[:data][:is_online] %>
