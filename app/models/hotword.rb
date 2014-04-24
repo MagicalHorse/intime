@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 require 'tire'
 class Hotword < ActiveRecord::Base
   attr_accessible :brandid, :sortorder, :status, :type, :word

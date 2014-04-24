@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class ProfileController < ApplicationController
 
   def get_list

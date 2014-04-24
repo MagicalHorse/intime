@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 module Alipay
   class Notify
     def self.verify?(params)

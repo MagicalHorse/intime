@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 module Front::PromotionsHelper
   
   def display_store_map(store)

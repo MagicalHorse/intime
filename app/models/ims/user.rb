@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::User < Ims::Base
  ATTRIBUTES = [:id, :email, :level, :nickname, :mobile, :isbindcard, :logo, :level, :operate_right, :token,
   :card_no, :verified_phone, :identify_phone, :sms_code, :back_url, :will_charge_no, :identity_no, :charge_type,

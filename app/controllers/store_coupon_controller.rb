@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 require 'cgi'
 class StoreCouponController < ApiBaseController
   before_filter :auth_api2,:only=>[:consume]

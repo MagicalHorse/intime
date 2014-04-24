@@ -42,8 +42,11 @@ api:
   imsapi: 'http://42.120.63.90/ims'
 domain: 'intime.com.cn'
 elasticache:
-  host: 'intimeo2o.wm1vwt.cfg.apse1.cache.amazonaws.com'
+  host: '26497daec78911e3.m.cnhzalicm10pub001.ocs.aliyuncs.com'
   pot:  '11211'
+  username: '26497daec78911e3'
+  password: 'selinadu_123'
+  
 
 elasticsearch_url: "http://10.161.218.70:9200"
 wx:

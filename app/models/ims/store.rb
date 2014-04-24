@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::Store < Ims::Base
  class << self  
    def create(req, params={})

@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class CreateKeys < ActiveRecord::Migration
   def change
     create_table :keys do |t|

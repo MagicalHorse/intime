@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Front::VouchersController < Front::BaseController
   before_filter :authenticate!
 

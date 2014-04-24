@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Store < ActiveRecord::Base
   belongs_to :company
   belongs_to :region

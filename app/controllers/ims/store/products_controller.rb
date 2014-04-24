@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index

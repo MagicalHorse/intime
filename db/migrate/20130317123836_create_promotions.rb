@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class CreatePromotions < ActiveRecord::Migration
   def change
     create_table :promotions do |t|

@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Front::EnvironmentController < Front::BaseController
 
   # 省市区

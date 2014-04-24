@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Front::StorepromotionsController < Front::BaseController
   before_filter :authenticate!
   before_filter :binding_card, except: [:index]

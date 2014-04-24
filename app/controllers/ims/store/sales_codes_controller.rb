@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: utf-8
 class Ims::Store::SalesCodesController < Ims::Store::BaseController
   def create
     sales_code = Ims::ProductCoding.create(request, {sale_code: params["coding"]})
