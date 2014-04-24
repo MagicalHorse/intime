@@ -4,7 +4,7 @@
       <h1 class="text-center">礼品卡金额：<%= @card[:amount] %>元</h1>
       <img src="/images/ims/card-self.png">
     </div>
-  </div>  
+  </div>
   <div class="module module-white card-form-box">
     <%= form_tag give_ims_cards_path, class: "form-defined", id: "give_form",method: "get" do  %>
     <%= hidden_field_tag :charge_no, params[:charge_no]  %>
@@ -27,7 +27,7 @@
         <%= text_field_tag :phone, params[:phone], type: "number", placeholder: "请输入11位手机号码" %>
       </div>
     </div>
-    <button type="submit" class="btn btn-danger btn-large btn-block">确认赠送</button>
+    <button type="button" class="btn btn-danger btn-large btn-block" id="submit_button">确认赠送</button>
     <% end %>
     <p class="card-notice txt3">
       <i class="fa fa-exclamation-circle"></i>温馨提示<br />
@@ -41,6 +41,14 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+
+    $("#submit_button").on("click", function(){
+      form = $(this).parents("form")
+      if(form.valid()){
+        $("#loading-box").modal()
+        form.submit()
+      }
+    })
 
     $("#give_form").validate({
       rules: {
