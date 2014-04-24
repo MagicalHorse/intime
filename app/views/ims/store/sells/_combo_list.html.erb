@@ -1,5 +1,5 @@
 <% combos.each do |combo| %>
-  <%= link_to ims_combo_path(combo["id"], :private_to => true, :t => Time.now.to_i) do %>
+  <%= link_to "javascript:void(0);", value: ims_combo_path(combo["id"], :private_to => true, :t => Time.now.to_i), class: "combo_show" do %>
   <div class="module common-white combo_paginate-content" id="combo_content_<%=combo["id"]%>">
     <div class="txt-block detail-contact">
         <div class="row-fluid">
@@ -31,6 +31,15 @@
 <script>
 $(function(){
   format_img(".img-spa");
+
+  $(document).on("click", ".combo_show, #new_combo", function(){
+    url = $(this).attr("value")
+    $("#loading-box").modal()
+    setTimeout(function(){
+      window.location.href = url
+    }, 1)
+  })
+
   $(".delete-combo").click(function(){
     status = confirm("确定要删除该搭配？");
     if(status){

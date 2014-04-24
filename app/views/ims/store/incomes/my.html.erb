@@ -7,18 +7,18 @@
              <h3><span>￥<%= @income[:data][:received_amount] %><span></h3>
           </div>
 
-          <div class="common-white" id="income_list">
-            <a href="/ims/store/incomes/list" class="income-menu1">
+          <div class="common-white" id="income_list" value="/ims/store/incomes/list">
+            <a href="javascript:void(0);" class="income-menu1">
               <i class="fa fa-bars"></i>
-              <span>提现记录</span> 
+              <span>提现记录</span>
               <i class="fa fa-angle-right"></i>
             </a>
           </div>
 
-          <div class="common-white" id="frozen_list">
-            <a href="/ims/store/incomes/frozen" class="income-menu2">
+          <div class="common-white" id="frozen_list" value="/ims/store/incomes/frozen">
+            <a href="javascript:void(0);"  class="income-menu2">
               <i class="fa fa-th-list"></i>
-              <span>不可提现记录</span> 
+              <span>不可提现记录</span>
               <i class="fa fa-angle-right"><span>￥<%= @income[:data][:frozen_amount] %></span></i>
             </a>
           </div>
@@ -28,17 +28,19 @@
 
           <div class="common-white">
               <i class="fa fa-money"></i>
-              <span class="txt-grey">提现申请中的金额</span> 
+              <span class="txt-grey">提现申请中的金额</span>
               <i class="pull-right txt-grey"><span>￥<%= @income[:data][:request_amount] %></span></i>
           </div>
 
           <div class="common-white">
               <i class="fa fa-jpy"></i>
-              <span class="txt-red">可提现金额：<em class="can-carry">￥<%= @income[:data][:avail_amount] %></em></span> 
+              <span class="txt-red">可提现金额：<em class="can-carry">￥<%= @income[:data][:avail_amount] %></em></span>
           </div>
 
           <div class="bottom-btnbox">
-            <button class="btn btn-small btn-danger"><a href="/ims/store/incomes/new">申请提现</a></button>
+            <button id="new_income" class="btn btn-small btn-danger" value="/ims/store/incomes/new">
+              <a href="javascript:void(0);">申请提现</a>
+            </button>
             <!-- <div><a href="<%= tips_ims_store_incomes_path %>"><span>提现指导</span><i class="fa fa-angle-right"></i></a></div> -->
           </div>
       </div>
@@ -46,12 +48,29 @@
   </div>
 
   <script type="text/javascript">
+
+  $("#new_income").click(function(){
+    url = $(this).attr("value")
+    $("#loading-box").modal()
+    setTimeout(function(){
+      window.location.href = url
+    }, 1)
+  });
+
    $("#income_list").click(function(){
-     window.location.href = "/ims/store/incomes/list";
+     url = $(this).attr("value")
+     $("#loading-box").modal()
+     setTimeout(function(){
+       window.location.href = url
+     }, 1)
    });
-   
+
    $("#frozen_list").click(function(){
-     window.location.href = "/ims/store/incomes/frozen";
+     url = $(this).attr("value")
+     $("#loading-box").modal()
+     setTimeout(function(){
+       window.location.href = url
+     }, 1)
    });
   </script>
 
