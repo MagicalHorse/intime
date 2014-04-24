@@ -93,7 +93,9 @@
           <p>退货原因：<%= rmas[:reason] %></p>
           <p>退货方式：<%= rmas[:rmatype] %></p>
           <p>退货状态：<span class="rmas_status"><%= rmas[:status] %></span></p>
+          <% if rmas[:mailaddress].present? %>
           <p class="txt-red">退货地址：<%= rmas[:mailaddress] %></p>
+          <% end %>
         </div>
         <% end %>
       </div>
