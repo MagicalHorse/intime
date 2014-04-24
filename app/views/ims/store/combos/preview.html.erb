@@ -51,7 +51,9 @@
     <% end %>
 
     <div class="bottom-btnbox">
-      <button class="btn btn-small btn-danger preview" type="button"><a href="<%= new_ims_store_combo_path(combo_id: @combo.id, t: Time.now.to_i) %>">返回</a></button>
+      <button class="btn btn-small btn-danger preview" type="button">
+        <%= link_to "返回", "javascript:void(0);", value: new_ims_store_combo_path(combo_id: @combo.id, t: Time.now.to_i), id: "return_url" %>
+      </button>
       <button class="btn btn-small btn-danger" type="button" id="combo_submit" >提交发布</button>
     </div>
   </div>
@@ -72,8 +74,12 @@
 
     format_img(".img-spa");
 
-    $("a").click(function(){
-      $("#loading-box").modal();
+    $("#return_url").click(function(){
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
     });
 
     $("#combo_submit").click(function(){
