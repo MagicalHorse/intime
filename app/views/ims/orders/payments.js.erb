@@ -66,7 +66,10 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
   }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
     if(from_page == "orders_new"){
       $("#orderno").attr("value", orderno)
-      window.location.href = "/ims/orders_show?id="+orderno
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = "/ims/orders_show?id="+orderno
+      }, 1)
     }
      // get_brand_wcpay_request:cancel 用户取消
 

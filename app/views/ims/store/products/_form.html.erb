@@ -37,7 +37,7 @@
       <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-defined" do %>
 
         <div style="height: 0px;width: 0px; overflow:hidden;">
-          <%= file_field_tag "image", id: "input", accept: "image/*" %>
+          <%= file_field_tag "image", id: "input", accept: "image/*", capture: "camera" %>
         </div>
         <%= hidden_field_tag "id", @product.try(:[], :id) %>
         <% if @combo_id.present? %>
@@ -106,9 +106,9 @@
               </div>
           </div>
 
-          
+
       <% end %>
-      
+
     </div>
 </div>
 <div class="bottom-btnbox">
