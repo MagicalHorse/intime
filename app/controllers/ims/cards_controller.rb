@@ -57,7 +57,7 @@ class Ims::CardsController < Ims::BaseController
       @card = Ims::Giftcard.trans_detail2(request, trans_id: params[:trans_id])["data"] || {}
     else
       @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"]
-      @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"]
+      @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"] if @card.blank?
       @card = {} if @card.blank?
     end
     current_user.other_phone = @card[:phone]
