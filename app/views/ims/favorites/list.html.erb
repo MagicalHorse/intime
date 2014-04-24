@@ -42,6 +42,14 @@
 <script>
   $(function(){
 
+    $(".favorite_link").on("click", function(){
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+
     format_img(".img-spa");
 
     $('#myTab a').click(function (e) {

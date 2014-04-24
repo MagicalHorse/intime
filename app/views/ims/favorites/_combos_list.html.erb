@@ -1,6 +1,6 @@
 <div class="module-table-box module-record combos-list-paginate-content">
   <% combos_list.each do |combo| %>
-  <div class="module common-white" onclick="window.location.href = '<%= ims_combo_path(combo["id"], t: Time.now.to_i) %>'">
+  <div class="module common-white favorite_link" value="<%= ims_combo_path(combo["id"], t: Time.now.to_i) %>">
     <div class="txt-block detail-contact">
       <div class="row-fluid">
         <div class="span3"><span class="img-spa"><img class="img-rounded" src="<%= combo["image"] %>"></span></div>
