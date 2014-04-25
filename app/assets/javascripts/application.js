@@ -20,7 +20,6 @@
 //= require environment.js
 //= require mousewheel.min.js
 //= require common.js
-//= require jquery.form.js
 //= require addresslist.js
 //= require gallery.js
 //= require hspace.js
