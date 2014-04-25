@@ -223,6 +223,12 @@
 <script>
   $(function(){
 
+    $(".ellipsis").on("click", function(){
+      setTimeout(function(){
+        format_img(".detail-imgbox")
+      }, 200)
+    })
+
     $(".tb-reduce, .tb-increase").on("click", function(){
       index = $(this).parents(".modal").attr("index")
       this_class = $(this).attr("class")
