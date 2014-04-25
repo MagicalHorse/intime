@@ -1,7 +1,7 @@
 <%= render 'ims/shared/countdown' %>
 <header id="TOP">
     <div class="header-box">
-        <div class="head-img"><img src="/images/ims/shop-browse.jpg"></div>
+        <div class="head-img"><img src="<%=Settings.fileserver_host%>/images/ims/shop-browse.jpg"></div>
         <div class="shop-head" id="head-menu">
             <div class="shop-head-inner">
                 <div class="row-fluid">
@@ -12,7 +12,7 @@
                                   <% if @store[:data][:logo].present? %>
                                   <img class="face-img" src="<%= @store[:data][:logo] %>">
                                   <% else %>
-                                  <img class="face-img" src="/images/ims/logo-default.jpg">
+                                  <img class="face-img" src="<%=Settings.fileserver_host%>/images/ims/logo-default.jpg">
                                   <% end %>
                                 </span>
                             </div>
@@ -84,7 +84,7 @@
                     		<div class="suit-left">
 		                    	<a class="img-box img-posi add_loading" href="javascript:void(0);" value="<%= ims_combo_path(id: combo["Id"], t: Time.now.to_i) %>">
                                     <img src="<%= combo['Image'].present? ? combo['Image'] : Settings.default_image_url.product.middle %>" alt="">
-                                    <img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
+                                    <img class="mark-img" src="<%=Settings.fileserver_host%>/images/ims/jingpin.png" alt=""></a>
                                     <p><a href="<%= ims_combo_path(id: combo["Id"], t: Time.now.to_i) %>"><%= combo["Desc"] %></a></p>
 		                    </div>
                     	</div>
@@ -132,7 +132,7 @@
         <% end %>
         <% end %>
         <% end %>
-<div class="intime-btm intime-btm-index"><img src="/images/ims/intime-btm.png"></div>
+<div class="intime-btm intime-btm-index"><img src="<%=Settings.fileserver_host%>/images/ims/intime-btm.png"></div>
 
 	</div>
 

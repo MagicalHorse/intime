@@ -16,16 +16,6 @@ var browser={
     }()  
 }  
 
-
-// function show_loading_img(){
-//   img = "<div class='loading'><img src='/images/ims/loading.gif'/></div>";
-//   $("body").append(img);
-// }
-
-// function hide_loading_img(){
-//   $(".loading").remove();
-// }
-
 var NewBlob = function(data, datatype)
 {
     var out;
