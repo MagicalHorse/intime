@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Stage
   class Special < Stage::Base
     class << self

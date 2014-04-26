@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'alipay/lib/alipay'
 Alipay.pid            = Settings.alipay.pid
 Alipay.key            = Settings.alipay.key

@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'auth/authenticate_system'
 class ApplicationController < ActionController::Base
   before_filter :parse_params, :only=>[:list,:search]

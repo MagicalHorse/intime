@@ -2,7 +2,7 @@
 <div class="module-card module-card-scan">
   <h1 class="text-center">礼品卡余额：<%= current_user.amount %>元</h1>
   <div class="text-center card-wrap">
-    <a href="<%= barcode_ims_accounts_path %>"><%= image_tag "/images/ims/tap-and-pay.png" %></a>
+    <a href="<%= barcode_ims_accounts_path %>"><%= image_tag "#{Settings.fileserver_host}/images/ims/tap-and-pay.png" %></a>
   </div>
   <div class="btn-already">
     <%= link_to "我 要 购 卡", "#{ims_card_orders_pay_path}?showwxpaytitle=1", class: "btn btn-defult btn-large btn-block" %>
@@ -19,7 +19,7 @@
 <% else %>
 <div class="module-card module-card-scan">
   <div class="text-center card-wrap">
-    <%= image_tag "/images/ims/card-self.png" %>
+    <%= image_tag "#{Settings.fileserver_host}/images/ims/card-self.png" %>
   </div>
   <div class="btn-already">
     <%= link_to "我 要 购 卡", "javascript:void(0);", value: "#{ims_card_orders_pay_path}?showwxpaytitle=1", class: "btn btn-defult btn-large btn-block card_order_link" %>

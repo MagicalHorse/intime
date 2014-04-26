@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Front::RmasController < Front::BaseController
   before_filter :authenticate!
 

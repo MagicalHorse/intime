@@ -17,7 +17,7 @@
                  <% if @combo.combo_pics.present? %>
                    <img src="<%= @combo.combo_pics.last.url %>">
                  <% else %>
-                   <img src="/images/ims/no-image.jpg" alt="img-name"><!-- 400px * 400px 没有上传图片时显示默认图片no-image.jpg-->
+                   <img src="<%=Settings.fileserver_host%>/images/ims/no-image.jpg" alt="img-name"><!-- 400px * 400px 没有上传图片时显示默认图片no-image.jpg-->
                  <% end %>
                </div>
            </div>
@@ -27,10 +27,10 @@
     <div class="mini-imgbox">
         <ul class="inline clearfix" id="img_box">
             <% @combo.combo_pics.each do |pic| %>
-            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"><img src="/images/ims/delate.png"></i><span class="img-spa"><img src='<%= pic.url -%>'></span></li>
+            <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"><img src="<%=Settings.fileserver_host%>/images/ims/delate.png"></i><span class="img-spa"><img src='<%= pic.url -%>'></span></li>
             <% end %>
             <% if @combo.combo_pics.size < 5 %>
-            <li class="add-link" id="add_img"><span class="img-spa"><img src="/images/ims/add-img.png"></span></li>
+            <li class="add-link" id="add_img"><span class="img-spa"><img src="<%=Settings.fileserver_host%>/images/ims/add-img.png"></span></li>
             <% end %>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera">
             </div>
@@ -48,12 +48,12 @@
     <div class="upload-img">
         <ul class="inline clearfix" id="p_box">
           <% @combo.combo_products.each do |product| %>
-            <li><i id="p_<%=product.id%>" data="<%=product.id%>"><img src='/images/ims/delate.png'></i><span class="img-spa"><img src="<%= product.img_url %>"></span></li>
+            <li><i id="p_<%=product.id%>" data="<%=product.id%>"><img src='<%=Settings.fileserver_host%>/images/ims/delate.png'></i><span class="img-spa"><img src="<%= product.img_url %>"></span></li>
           <% end %>
           <% if @combo.combo_products.size < 3 %>
-          <li class="add-link" id="add_product"><a href="javascript:void(0);"><span class="img-spa"><img src="/images/ims/add-img.png"></span></a></li>
+          <li class="add-link" id="add_product"><a href="javascript:void(0);"><span class="img-spa"><img src="<%=Settings.fileserver_host%>/images/ims/add-img.png"></span></a></li>
           <% else %>
-          <li class="add-link" id="add_product" style="display:none;"><a href="javascript:void(0);"><span class="img-spa"><img src="/images/ims/add-img.png"></span></a></li>
+          <li class="add-link" id="add_product" style="display:none;"><a href="javascript:void(0);"><span class="img-spa"><img src="<%=Settings.fileserver_host%>/images/ims/add-img.png"></span></a></li>
           <% end %>
         </ul>
     </div>
@@ -231,7 +231,7 @@ var check_form = function(){
                 $("#loading-box").modal('hide');
                 if(data['status'] == 1){
                    setTimeout(function(){
-                     insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'><img src='/images/ims/delate.png'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
+                     insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'><img src='<%=Settings.fileserver_host%>/images/ims/delate.png'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
                      if($("#img_box li[class!='add-link']").length >0 ){
                        $($("#img_box li[class!='add-link']:last")).after(insert_html);
                      }else{
@@ -278,7 +278,7 @@ var check_form = function(){
                 $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] span img")[0].src+"'>");
               }else{
                 $("#add_img").show();
-                $("#default_img").html("<img src='/images/ims/no-image.jpg'>");
+                $("#default_img").html("<img src='<%=Settings.fileserver_host%>/images/ims/no-image.jpg'>");
               }
               format_img(".show-imgbox-no");
               format_img(".img-spa");

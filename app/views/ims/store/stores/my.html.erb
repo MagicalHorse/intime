@@ -3,7 +3,7 @@
 <header id="TOP">
   <div class="header-box header-box-index">
       <div class="head-img">
-        <%= image_tag("/images/ims/top-img-2x.jpg") %>
+        <%= image_tag("#{Settings.fileserver_host}/images/ims/top-img-2x.jpg") %>
       </div>
       <div class="shop-head" id="head-menu">
           <div class="shop-head-inner">
@@ -68,7 +68,7 @@
                             <div class="suit-left">
                               <a class="img-box img-posi add_loading" href="javascript:void(0);" value="<%= ims_combo_path(id: combo["Id"], :store_id => @store[:data][:id], :private_to => true, :t => Time.now.to_i) %>">
                                     <img src="<%= combo['Image'].present? ? combo['Image'] : Settings.default_image_url.product.middle %>" alt="">
-                                    <img class="mark-img" src="/images/ims/jingpin.png" alt=""></a>
+                                    <img class="mark-img" src="<%=Settings.fileserver_host%>/images/ims/jingpin.png" alt=""></a>
                                     <p>
                                       <a href="<%= ims_combo_path(id: combo["Id"], :t => Time.now.to_i, :store_id => @store[:data][:id], :private_to => true) %>"><%= combo["Desc"] %></a>
                                     </p>
@@ -103,7 +103,7 @@
         <% end %>
         <% end %>
   <% end %>
-  <div class="intime-btm intime-btm-index"><img src="/images/ims/intime-btm.png"></div>
+  <div class="intime-btm intime-btm-index"><img src="<%=Settings.fileserver_host%>/images/ims/intime-btm.png"></div>
 </div>
 
 <footer>
@@ -111,7 +111,7 @@
       <div class="row-fluid">
         <div class="span3 add_loading" value="/ims/store/sells">
           <a class="nav1" href="javascript:void(0);">
-           <%= image_tag "/images/ims/main-index.png" %>
+           <%= image_tag "#{Settings.fileserver_host}/images/ims/main-index.png" %>
           </a>
         </div>
         <div class="span3 add_loading" value="/ims/store/stores/records">

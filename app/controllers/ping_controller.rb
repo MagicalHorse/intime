@@ -1,3 +1,4 @@
+# encoding: utf-8
 class PingController < ApiBaseController
   before_filter :auth_api2
   def mock

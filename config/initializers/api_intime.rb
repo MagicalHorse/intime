@@ -1,3 +1,4 @@
+# encoding: utf-8
 RestClient.log = 'log/restclient.log'
 PAGE_ALL_SIZE = 1000
 if Rails.env.production?

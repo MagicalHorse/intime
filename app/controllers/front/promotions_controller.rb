@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Front::PromotionsController < Front::BaseController
   before_filter :authenticate!, only: [:favor, :unfavor, :download_coupon, :comment]
 

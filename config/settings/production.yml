@@ -42,15 +42,20 @@ api:
   imsapi: 'http://42.120.63.90/ims'
 domain: 'intime.com.cn'
 elasticache:
-  host: 'intimeo2o.wm1vwt.cfg.apse1.cache.amazonaws.com'
-  pot:  '11211'
+  host: '26497daec78911e3.m.cnhzalicm10pub001.ocs.aliyuncs.com'
+  port:  '11211'
+  username: '26497daec78911e3'
+  password: 'selinadu_123'
+  
 
 elasticsearch_url: "http://10.161.218.70:9200"
+fileserver_host: "http://irss.oss.aliyuncs.com/ims"
 wx:
   appid: wx4b1d3b7765ce45d1
   appsecret: cc8219601137db20d7cf2fa94efc8fd6
   paysignkey: 5fYYsQSHaEsZbcbf76GKyim7loJUxSPKRUqUbgC7jAFzDtslhiWF44tzXiNrv9QzhI9Yl0IPE7QVUuuODU8v0qsKAAgaHNwbuW1MoPicV1z1xg85rxNAYo0BcsYBt5NE
   parterid: 1218686401
   parterkey: a8d319ce4a9c358293b97b1df51d531e
-  backdomain: "i.intime.com.cn"
+  backdomain: "42.121.255.198"
+  notifydomain: "42.120.63.90"
   open_id: ""

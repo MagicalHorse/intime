@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Front::SessionsController < Front::BaseController
   def create
     login_user = login_from_api

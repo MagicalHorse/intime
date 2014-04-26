@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::Des
   require 'openssl'  
   require 'base64'  

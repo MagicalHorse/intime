@@ -1,3 +1,4 @@
+# encoding: utf-8
 class WxReplyMsg < ActiveRecord::Base
   attr_accessible :rkey, :rmsg, :status
   class<<self

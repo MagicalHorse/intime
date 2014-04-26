@@ -90,7 +90,7 @@
           </p>
       </div>
     </div>
-    <div class="intime-btm"><img src="/images/ims/intime-btm.png"></div>
+    <div class="intime-btm"><img src="<%=Settings.fileserver_host%>/images/ims/intime-btm.png"></div>
     <% if current_user.id != @remote_combo[:data][:owner_id] %>
     <p class="text-center shopping-icon-box">
     <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-small btn-danger-defult" value="/ims/stores/<%=@remote_combo[:data][:store_id]%>/<%=Time.now.to_i%>" >

@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'tire'
 class Brand < ActiveRecord::Base
   DOCUMENT_TYPE = "esbrands"

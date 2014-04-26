@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CreateSpecialTopics < ActiveRecord::Migration
   def change
     create_table :special_topics do |t|

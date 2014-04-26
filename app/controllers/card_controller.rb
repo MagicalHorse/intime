@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CardController < ApiBaseController
   def find
     uid = params[:data][:uid]

@@ -1,3 +1,4 @@
+# encoding: utf-8
 module ApplicationHelper
 
   def small_pic_url(r)

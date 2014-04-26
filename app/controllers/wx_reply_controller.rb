@@ -1,3 +1,4 @@
+# encoding: utf-8
 class WxReplyController < ApiBaseController
   def update
     input_data = params[:data]
