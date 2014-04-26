@@ -15,7 +15,7 @@
     <% end %>
   <% end %>
 
-  <%= hidden_field_tag "order[payment[paymentcode]]", 29 %>
+  <%= hidden_field_tag "order[payment[paymentcode]]", Setting.payment_code.imswxpay %>
   <%= hidden_field_tag "order[payment[paymentname]]", "微信支付" %>
   <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", @contact["contact_person"], id: "name" %>
   <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", @contact["contact_phone"], id: "contact" %>

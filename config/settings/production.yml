@@ -32,6 +32,7 @@ default_image_url:
 payment_code:
   alipay: 25
   wxpay:  29
+  imswxpay: 30
 
 alipay_notify_url: http://42.120.63.90/api/payment/notify
 alipay_pc_notify_url: http://42.120.63.90/api/payment/notify2
