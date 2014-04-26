@@ -57,4 +57,5 @@ wx:
   parterid: 1218686401
   parterkey: a8d319ce4a9c358293b97b1df51d531e
   backdomain: "42.121.255.198"
+  notifydomain: "42.120.63.90"
   open_id: ""
