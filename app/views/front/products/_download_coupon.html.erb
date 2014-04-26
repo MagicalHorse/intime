@@ -1,6 +1,6 @@
 <dd>
 <% if @product_info.blank? || !@product_info['ifcancoupon'] -%>
-  <%= image_tag "<%=Settings.fileserver_host%>/images/icon_barcodex_2x.png", height: 24, width: 24 -%><span>优惠码</span>
+  <%= image_tag Settings.fileserver_host+"/images/icon_barcodex_2x.png", height: 24, width: 24 -%><span>优惠码</span>
 <% else -%>
   <%= link_to raw("#{image_tag(Settings.fileserver_host+'/images/icon_barcode_2x.png', height: 24, width: 24)}<span>优惠码</span>"), download_coupon_front_product_path(product.id), remote: true, method: :post, disable_with: "#{image_tag('/images/icon_barcode_2x.png', height: 24, width: 24)}<span>下载中</span>" -%>
 <% end -%>
