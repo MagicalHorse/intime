@@ -104,7 +104,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   protected
 
   def product_relation_data
-    @brands = Brand.es_search
+    @brands = Ims::Assistant.brands(request)["data"]["items"]
     # @categories = Ims::ProductCategory.list(request)["data"]["items"]
     @categories = Tag.es_search(per_page: 200000)[:data]
     @codings = Ims::ProductCoding.list(request)["data"]["items"]
