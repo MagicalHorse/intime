@@ -57,6 +57,14 @@
 <script>
   $(function(){
 
+    $(document).on("click", "#new_combo", function(){
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+
     var max_combo_num = <%= current_user.max_comboitems %>;
     var online_num = <%= @online_num %>;
 
