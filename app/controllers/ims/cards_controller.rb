@@ -68,13 +68,14 @@ class Ims::CardsController < Ims::BaseController
   def give
     @charge_no = params[:charge_no]
     @trans_id = params[:trans_id].to_i || 0
-    @notice = "请输入对方正确的手机号" unless params[:phone][/^\d{11}$/]
+    phone = params[:phone].gsub("-", "")
+    @notice = "请输入对方正确的手机号" unless phone[/^\d{11}$/]
     @notice = "请输入您的姓名" if params[:from].blank?
     if @notice
-      return redirect_to "#{give_page_ims_cards_path(charge_no: @charge_no, phone: params[:phone], comment: params[:comment], from: params[:from])}", notice: @notice
+      return redirect_to "#{give_page_ims_cards_path(charge_no: @charge_no, phone: phone, comment: params[:comment], from: params[:from])}", notice: @notice
     else
       # API_NEED: 赠送礼品卡接口
-      @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: params[:comment], phone: params[:phone], from: params[:from], trans_id: @trans_id)
+      @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: params[:comment], phone: phone, from: params[:from], trans_id: @trans_id)
       Rails.logger.debug(@result.to_s)
       flash[:page_type] = "give_show_page"
       return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@result[:data][:trans_id]}"
