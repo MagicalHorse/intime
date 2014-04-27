@@ -111,7 +111,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     end
 
     img = File.new("#{Rails.root}/public/#{filename}", 'rb')
-    @image = Ims::Combo.upload_img(request, {:image => img, :image_type => 15})
+    @image = Ims::Combo.upload_img(request, {:image => img, :image_type => 1})
 
     if @image[:isSuccessful]
       image = ComboPic.create({remote_id: @image[:data][:id], url: @image[:data][:url]})
