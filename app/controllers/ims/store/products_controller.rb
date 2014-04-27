@@ -114,9 +114,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     @image = Ims::Combo.upload_img(request, {:image => img, :image_type => 1})
 
     if @image[:isSuccessful]
-      image = ComboPic.create({remote_id: @image[:data][:id], url: @image[:data][:url]})
       File.delete("#{Rails.root}/public/#{filename}")
-      json = {"status" => 1, "img_url" => @image[:data][:url], "id" => image.id}.to_json
+      json = {"status" => 1, "img_url" => @image[:data][:url], "id" => @image[:data][:id]}.to_json
     else
       json = {"status" => 0}.to_json
     end
