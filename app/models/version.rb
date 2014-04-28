@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Version < ActiveRecord::Base
   attr_accessible :desc, :downloadurl, :no, :status,:versionno,:updatetype
   

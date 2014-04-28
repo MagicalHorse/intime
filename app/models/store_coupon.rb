@@ -1,3 +1,4 @@
+# encoding: utf-8
 class StoreCoupon < ActiveRecord::Base
   attr_accessible :amount, :code, :status, :userid, :validenddate, :validstartdate, :vipcard,:coupontype,:islimitonce
   

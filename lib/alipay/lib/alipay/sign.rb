@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Alipay
   module Sign
     def self.generate(params)

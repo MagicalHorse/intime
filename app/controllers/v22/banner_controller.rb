@@ -1,3 +1,4 @@
+# encoding: utf-8
 class V22::BannerController < BannerController
 # list api always return json
   # input: 

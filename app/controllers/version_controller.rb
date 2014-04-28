@@ -1,3 +1,4 @@
+# encoding: utf-8
 class VersionController < ApiBaseController
   skip_before_filter :auth_api, :only =>[:latest]
   def latest

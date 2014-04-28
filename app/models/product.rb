@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'tire'
 class Product < ActiveRecord::Base
   DOCUMENT_TYPE = "esproducts"
@@ -153,19 +154,19 @@ class Product < ActiveRecord::Base
               end
 
               json.child! do
-                json.text do
+                json.match do
                   json.name keywords
                 end
               end
 
               json.child! do
-                json.text do
+                json.match do
                   json.upcCode keywords
                 end
               end
 
               json.child! do
-                json.text do
+                json.match do
                   json.set! "brand.name", keywords
                 end
               end
@@ -184,7 +185,6 @@ class Product < ActiveRecord::Base
         json.createdDate "desc"
       end
     end
-
     # result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: 10000000, body: query
     result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1)*per_page, body: query
     mash = Hashie::Mash.new result
@@ -198,7 +198,7 @@ class Product < ActiveRecord::Base
     if data.present?
       r = data[:resource].first if data[:resource].present?
       image = self.img_url(r) if r.present?
-     
+
       return {:data => {:id => data[:id], :price => data[:price], :image => image, :brand_name => data[:brand][:name], :category_name => data[:tag][:name]}}
     else
       return nil

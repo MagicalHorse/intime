@@ -1,3 +1,4 @@
+# encoding: utf-8
 class HotwordController < ApplicationController
  # list api always return json
   # input: 

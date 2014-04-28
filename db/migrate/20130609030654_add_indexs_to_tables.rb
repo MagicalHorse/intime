@@ -1,3 +1,4 @@
+# encoding: utf-8
 class AddIndexsToTables < ActiveRecord::Migration
   def change
     add_index :wx_reply_msgs, [:rkey]

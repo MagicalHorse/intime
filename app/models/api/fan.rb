@@ -1,3 +1,4 @@
+# encoding: utf-8
 module API
   class Fan < API::Base
 

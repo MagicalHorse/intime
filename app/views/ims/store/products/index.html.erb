@@ -27,7 +27,7 @@
 
         if(scrollTop+clientHeight == htmlHeight){
           if(page * per_page < count){
-            $("#loading").html("<img src='/images/ims/loading.gif'/>");
+            $("#loading").html("<img src='<%=Settings.fileserver_host%>/images/ims/loading.gif'/>");
             $.get("/ims/store/products", {combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
               if(data["status"] == true){
                 $(".paginate-content:last").after(data["html"])

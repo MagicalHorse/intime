@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CreateComboProducts < ActiveRecord::Migration
   def change
     create_table :combo_products do |t|

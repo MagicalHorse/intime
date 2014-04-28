@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'tire'
 class Promotion < ActiveRecord::Base
   include Tire::Model::Search

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Front::UsersCenterController < Front::BaseController 
 
   before_filter :authenticate!, :except => [:his_info, :his_favorite]

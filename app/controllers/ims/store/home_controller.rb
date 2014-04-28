@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Ims::Store::HomeController < Ims::Store::BaseController
   skip_filter :authenticate
   before_filter :go_store
