@@ -66,20 +66,20 @@
 <% else %>
 
 <div class="module module-white">
-  <div class="module-card" id="button_accept">
+  <div class="module-card">
     <h1 class="text-center"><%= @card[:sender] %>给你送来一张银泰礼品卡</h1>
     <p class="txt1 text-center txt-money">礼品卡金额：<%= @card[:amount] %>元</p>
     <p class="txt3 card-text">
       好友留言：<%= @card[:comment] %>
     </p>
-    <img src="<%=Settings.fileserver_host%>/images/ims/card-hand.png">
+    <img src="<%=Settings.fileserver_host%>/images/ims/card-self.png">
   </div>
 </div>  
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
-      <div class="col-6"><button class="btn btn-danger btn-large btn-block" id="button_give">转赠好友</button></div>
-      <div class="col-6"><button class="btn btn-grey btn-large btn-block" id="button_refuse">拒绝接收</button></div>
+      <div class="col-6"><button class="btn btn-danger btn-large btn-block" id="button_accept">接受礼品卡</button></div>
+      <div class="col-6"><button class="btn btn-grey btn-large btn-block" id="button_give">转赠好友</button></div>
     </div>
   </div>
 </div>
