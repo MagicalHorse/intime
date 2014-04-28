@@ -2,15 +2,21 @@
 <div class="module module-searchinput">
     <div class="row-fluid">
         <div class="span12">
-            <%= form_tag search_ims_store_products_path, method: "GET", id: "search", class: "form-inline" do %>
-              <%= text_field_tag "keywords", @search[:keywords], placeholder: "搜索商品名称、品牌、货号等", class: "input-small bg-img" %>
+            <%= form_tag search_ims_store_products_path, method: "GET", id: "search", class: "form-defined" do %>
               <%= hidden_field_tag "from_price", @search[:from_price] %>
               <%= hidden_field_tag "to_price", @search[:to_price] %>
               <%= hidden_field_tag "from_discount", @search[:from_discount] %>
               <%= hidden_field_tag "to_discount", @search[:to_discount] %>
               <%= hidden_field_tag "brand_id", @search[:brand_id] %>
               <%= hidden_field_tag "combo_id", @combo.try(:id) %>
-              <button class="btn" type="button">搜 索</button>
+              <div class="controls-defined defined-small">
+                <div class="col-9">
+                  <%= text_field_tag "keywords", @search[:keywords], placeholder: "搜索商品名称、品牌、货号等", class: "bg-img" %>
+                </div>
+                <div class="col-3">
+                <button type="button" class="btn btn-danger btn-small btn-block">搜 索</button>
+                </div>
+              </div>
             <% end %>
         </div>
     </div>

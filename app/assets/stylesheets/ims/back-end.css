@@ -65,8 +65,8 @@
 .wrap-goodssearch{margin: 0;}
 .module-searchinput{ padding: 10px 20px;}
 .module-searchinput form{ margin: 0;}
-.module-searchinput input{ width: 80%; height: 50px;font: 24px/50px "microsoft yahei"; padding-left: 44px;}
-.module-searchinput .btn{ background:white; color: #F86B9F; padding: 14px 24px; font-size: 22px;}
+.module-searchinput .form-defined input{ margin-bottom: 0; font: 24px/1.4em "microsoft yahei"; padding-left: 44px;}
+.module-searchinput .btn{ border-color: white; background:white; color: #F86B9F; padding: 14px 24px; font-size: 22px;}
 .bg-img{background-image:url(/images/ims/search.png); background-position: 10px center; background-repeat: no-repeat; background-color: transparent;}
 .module-tab .nav-tabs { margin: 0; background: white; width: 100%;}
 .module-tab .nav-tabs > li{ width: 33.3%; text-align: center;}
@@ -116,7 +116,6 @@
 .p-price1 span a{color: #abadb3;}
 .p-price1 .txt-red {color: #F16498;padding-right: 30px;}
 .p-price1 .txt-red a{color: #F16498;}
-/*.p-price1 span:first-child em {color: #f86b9f;}*/
 .p-price1 span em{font-style: normal;}
 .p-wx-price {color: #F16498;}
 

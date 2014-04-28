@@ -41,8 +41,7 @@ $(function(){
   })
 
   $(".delete-combo").click(function(){
-    status = confirm("确定要删除该搭配？");
-    if(status){
+    if(confirm("确定要删除该搭配？")){
       var combo_id = $(this).attr('data');
       var ele = $(this);
       $.ajax({
