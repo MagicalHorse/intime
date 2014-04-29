@@ -1,7 +1,9 @@
 <% gift_cards.each do |card| %>
 <div class="module common-white product-card gift_card_paginate-content">
 
-<div class="img-box"><%= image_tag card["image"] %></div>
+<div class="img-box">
+	<img src="<%=card["image"]%>">
+</div>
   <h4 class="txt-grey"><%= card["desc"] %></h4>
   <div class="clearfix text-center">
     <%= link_to card["is_online"] ? "下 架" : "上 架", "javascript:void(0);", class: "card_or_combo btn btn-danger btn-large btn-block", item_id: card["id"], item_type: 1 %>

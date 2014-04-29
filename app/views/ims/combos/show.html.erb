@@ -8,7 +8,7 @@
                 <% if @remote_combo[:data][:images].present? %>
                 <% @remote_combo[:data][:images].each_with_index do |img, i| %>
                  <div class="swiper-slide">
-                  <%= image_tag img["name"] %>
+                  <img src="<%= img["name"] %>">
                  </div>
                  <% end %>
                  <% end %>
@@ -26,12 +26,12 @@
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
                     <a href="javascript:void(0);" value="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>" class="payment_product">
                     <span class="img-spa">
-                    <%= image_tag(img_url) %>
+                      <img src="<%= img_url %>">
                     </span>
                     </a>
                     <% else %>
                     <span class="img-spa">
-                    <%= image_tag(img_url) %>
+                    <img src="<%= img_url %>">
                     </span>
                     <% end %>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
