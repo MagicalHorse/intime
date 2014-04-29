@@ -110,12 +110,10 @@
     <div class="footer-inner">
       <div class="row-fluid">
         <div class="span3 add_loading" value="/ims/store/sells">
-          <a class="nav1" href="javascript:void(0);">
-           <%= image_tag "#{Settings.fileserver_host}/images/ims/main-index.png" %>
-          </a>
+          <a class="nav1" href="javascript:void(0);">商品管理</a>
         </div>
         <div class="span3 add_loading" value="/ims/store/stores/records">
-          <a class="nav2 nav--current" href="javascript:void(0);">交易记录</a>
+          <a class="nav2" href="javascript:void(0);">交易记录</a>
         </div>
         <div class="span3 add_loading" value="/ims/store/incomes/my">
           <a class="nav3" href="javascript:void(0);">我的收益</a>
@@ -139,7 +137,7 @@
   if (typeof WxEnv == 'undefined') {
     WxEnv = {};
   }
-  WxEnv.shareUrl = "<%= request.url %>";
+  WxEnv.shareUrl = "<%= ims_store_url(:id => @store[:data][:id], :t => Time.now.to_i) %>";
   WxEnv.shareImgUrl = "<%= @store[:data][:logo] %>";
   WxEnv.shareName = "欢迎您光临<%=@store[:data][:name]%>迷你店";
   WxEnv.shareDes = "希望您能找到自己喜欢的商品,谢谢光临!~~~ 欢迎您来看看哦！";

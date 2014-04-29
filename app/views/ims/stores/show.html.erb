@@ -141,7 +141,7 @@
   if (typeof WxEnv == 'undefined') {
     WxEnv = {};
   }
-  WxEnv.shareUrl = "<%= request.url %>";
+  WxEnv.shareUrl = "<%= ims_store_url(:id => @store[:data][:id], :t => Time.now.to_i) %>";
   WxEnv.shareImgUrl = "<%= @store[:data][:logo] %>";
   WxEnv.shareName = "欢迎您光临<%=@store[:data][:name]%>迷你店";
   WxEnv.shareDes = "希望您能找到自己喜欢的商品,谢谢光临!~~~ 欢迎您来看看哦！";

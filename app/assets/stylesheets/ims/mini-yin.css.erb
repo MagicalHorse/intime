@@ -692,15 +692,18 @@ h6 small {font-size: 10px; line-height: 16px;}
 
 /*-------------------------------Css Footer-----------------------------------*/
 footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
-.footer-inner{ position: relative; width: 100%; background-color: rgba(241, 240, 240, 0.95); border-top:1px solid #dddddd; text-align: center;}
-.nav1{position: absolute; left: 30px; top: -30px;}
+.footer-inner{ position: relative; width: 100%; background-color: rgba(241, 240, 240, 0.95); border-top:1px solid rgba(221, 221, 221, 0.4); text-align: center;}
+
+.nav1,
 .nav2,
 .nav3,
 .footer-inner .nav4{ display: inline-block; padding: 60px 0 20px; font-size: 24px; background-image: url(/images/ims/nav-img.png); background-repeat: no-repeat;}
-
+.nav1{position: absolute; left: 5%; top: -30px; padding: 90px 10px 20px;}
+.nav1{background-position: center -1108px;}
 .nav2{background-position: center 10px;}
 .nav3{background-position: center -350px;}
 .footer-inner .nav4{background-position: center -690px;}
+.nav1.nav-current{background-position: center -1387px;}
 .nav2.nav-current{background-position: center -170px;}
 .nav3.nav-current{background-position: center -530px;}
 .footer-inner .nav4.nav-current{background-position: center -870px;}
@@ -898,6 +901,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .price-span{font-size: 22px;}
 .price-box .countdown{ padding: 0; font-size: 22px;}
 .price-box .countdown span{ padding: 0;}
+
 .countdown span{ padding: 0;}
 .countdown em{ font-size: 22px; font-style: normal; line-height: normal; padding: 0 2px; margin: 0 2px;}
 .countdown-browser .countdown span{ line-height: 22px;}

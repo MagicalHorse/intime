@@ -15,12 +15,15 @@
 .nav2,
 .nav3,
 .footer-inner .nav4{ color: #c3c6cb;}
+.nav1:hover,
+.nav1:focus,
 .nav2:focus,
 .nav2:hover,
 .nav3:focus,
 .nav3:hover,
 .footer-inner.nav4:focus,
 .footer-inner.nav4:hover{ color: #c3c6cb; text-decoration: none;}
+.nav1.nav-current,
 .nav2.nav-current,
 .nav3.nav-current,
 .footer-inner .nav4.nav-current{color:#f86b9f;}
