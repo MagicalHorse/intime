@@ -34,6 +34,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     if current_user.store_id.to_i == params[:id].to_i
       @can_share = true
       @store = Ims::Store.my(request)
+      @template_id = @store[:data][:template_id]
       render :layout =>  'ims'
     else
       redirect_to ims_store_path(:id => params[:id], t: Time.now.to_i)
@@ -102,11 +103,11 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def theme
-
+    @store = Ims::Store.my(request)
   end
 
   def change_theme
-    @status = Ims::Store.change_theme(request, {template_id: params[:id]})
+    @status = Ims::Store.change_theme(request, {templateId: params[:id]})
     if @status[:isSuccessful]
       render :json => {"status" => 200}.to_json
     else
