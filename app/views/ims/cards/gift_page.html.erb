@@ -3,7 +3,7 @@
 <div class="module module-white">
   <div class="module-card module-card-posi">
     <h1 class="text-center">银泰礼品卡<br>送亲人，送好友，您的最佳选择</h1>
-    <img src="<%=Settings.fileserver_host%>/images/ims/card-self.png">
+    <%= image_tag "ims/card-self.png" %>
     <p class="txt4 text-center posi-txt">银泰礼品卡是银泰百货（集团）发行的银泰电子消费卡，持卡人可在全国所有的银泰百货消费。此卡可作为个人、机关、企事业单位礼品或福利卡。送亲人、送好友，您的最佳选择！</p>
   </div>
 </div>  
@@ -25,7 +25,7 @@
     WxEnv = {};
   }
   WxEnv.shareUrl = "<%= request.url %>";
-  WxEnv.shareImgUrl = '<%= image_url "#{Settings.fileserver_host}/images/ims/card-self.png" %>';
+  WxEnv.shareImgUrl = '<%= image_url "ims/card-self.png" %>';
   WxEnv.shareName = "<%= @card[:sender] %>给您送的银泰礼品卡";
   WxEnv.shareDes = "<%= @card[:comment] %>";
 </script>
@@ -47,7 +47,7 @@
     <h1 class="text-center">您已拒绝好友赠送的银泰礼品卡！</h1>
     <% end %>
     <p class="txt1 text-center txt-money">礼品卡金额：<%= @card[:amount] %>元</p>
-    <img src="<%=Settings.fileserver_host%>/images/ims/card-self.png">
+    <%= image_tag "ims/card-self.png" %>
   </div>
 </div>  
 <div class="bottom-button">
@@ -72,7 +72,7 @@
     <p class="txt3 card-text">
       好友留言：<%= @card[:comment] %>
     </p>
-    <img src="<%=Settings.fileserver_host%>/images/ims/card-self.png">
+    <%= image_tag "ims/card-self.png" %>
   </div>
 </div>  
 <div class="bottom-button">
