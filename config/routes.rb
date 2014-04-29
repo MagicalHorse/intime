@@ -316,7 +316,7 @@ IntimeService::Application.routes.draw do
     resource :auth
     resources :stores, only: [:show]
     resources :combos, only: [:show, :destroy] do
-      collection do 
+      collection do
         post 'upload'
       end
     end
@@ -409,6 +409,7 @@ IntimeService::Application.routes.draw do
           get 'add_to_combo'
         end
         collection do
+          post :upload
           get :tutorials
           get :search
         end

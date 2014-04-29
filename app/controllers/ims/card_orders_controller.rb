@@ -77,6 +77,7 @@ class Ims::CardOrdersController < Ims::BaseController
   def show
     @title = "订单详情"
     @charge_no = params[:id]
+    current_user.other_phone = nil
     # API_NEED: 根据礼品卡号，获取礼品卡相关信息
     @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"] || {}
   end

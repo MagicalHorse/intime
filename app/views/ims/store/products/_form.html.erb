@@ -40,6 +40,7 @@
           <%= file_field_tag "image", id: "input", accept: "image/*", capture: "camera" %>
         </div>
         <%= hidden_field_tag "id", @product.try(:[], :id) %>
+        <%= hidden_field_tag :image_id, @product.try(:[], :image_id) %>
         <% if @combo_id.present? %>
           <%= hidden_field_tag :combo_id, @combo_id %>
         <% end %>
@@ -143,6 +144,65 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+
+    document.getElementById('input').onchange = function (e) {
+      $("#loading-box").modal();
+      var orientation ;
+      loadImage.parseMetaData(
+        e.target.files[0],
+        function(data){
+          if(data.exif)
+          orientation = data.exif.get('Orientation');
+        }
+      );
+
+      loadImage(
+        e.target.files[0],
+        function(img){
+          var resized = resizeIos(img, 640, 640, orientation);
+          $.ajax({
+            url: "/ims/store/products/upload",
+            dataType: 'json',
+            type: 'post',
+            data: {"img": resized},
+            success: function(data){
+              $("#loading-box").modal('hide');
+              if(data['status'] == 1){
+                setTimeout(function(){
+                   // insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'><img src='<%=Settings.fileserver_host%>/images/ims/delate.png'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
+                   // if($("#img_box li[class!='add-link']").length >0 ){
+                   //   $($("#img_box li[class!='add-link']:last")).after(insert_html);
+                   // }else{
+                   //   $("#img_box").prepend(insert_html);
+                   // };
+
+                   // $("#default_img").addClass("show-imgbox-yes");
+                   // $("#default_img").removeClass("show-imgbox-no");
+                   // $("#default_img").html("<img src='"+data['img']+"'>");
+                   // img_size = $("#img_box li[class!='add-link']").length;
+                   // if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
+                   // format_img(".show-imgbox-no");
+                   // format_img(".img-spa");
+                   // format_img(".show-imgbox-yes");
+                   $("#image_id").attr("value", data["id"])
+                   img = "<img src='"+data["img_url"]+"'/>"
+                   $("#result").html(img)
+                   format_img("#result")
+                 }, 800);
+               }else{
+                 error_modal("网络错误，请稍后重试");
+               }
+            },
+            error: function(data){
+              $("#loading-box").modal('hide');
+              error_modal("上传发生错误，请稍后重试");
+            }
+          });
+        }
+      )
+    };
+
+
 
     $("#submit_product").click(function(){
       $("#product_form").submit();
@@ -279,12 +339,12 @@
     var result = document.getElementById("result");
     var input = document.getElementById("input");
 
-    if(typeof FileReader==='undefined'){
-      result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
-      input.setAttribute('disabled','disabled');
-    }else{
-      input.addEventListener('change',readFile,false);
-    }
+    // if(typeof FileReader==='undefined'){
+    //   result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
+    //   input.setAttribute('disabled','disabled');
+    // }else{
+    //   input.addEventListener('change',readFile,false);
+    // }
 
     $(document).on("click", "#result, #upload_img_link", function(){
       $("#input").trigger("click")
@@ -332,18 +392,18 @@
       $("#category_id").trigger("change")
     <% end %>
 
-    function readFile(){
-      var file = this.files[0];
-      if(!/image\/\w+/.test(file.type)){
-        error_modal("文件必须为图片！");
-        return false;
-      }
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = function(e){
-        result.innerHTML = '<img src="'+this.result+'"/>'
-      }
-    }
+    // function readFile(){
+    //   var file = this.files[0];
+    //   if(!/image\/\w+/.test(file.type)){
+    //     error_modal("文件必须为图片！");
+    //     return false;
+    //   }
+    //   var reader = new FileReader();
+    //   reader.readAsDataURL(file);
+    //   reader.onload = function(e){
+    //     result.innerHTML = '<img src="'+this.result+'"/>'
+    //   }
+    // }
 
   })
 </script>
