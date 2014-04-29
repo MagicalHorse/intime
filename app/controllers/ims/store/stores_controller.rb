@@ -105,6 +105,15 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   end
 
+  def change_theme
+    @status = Ims::Store.change_theme(request, {template_id: params[:id]})
+    if @status[:isSuccessful]
+      render :json => {"status" => 200}.to_json
+    else
+      render :json => {"status" => 500}.to_json
+    end
+  end
+
   private
   def is_my_store
     redirect_to ims_store_path(:id => params[:id]) unless current_user.store_id.to_i == params[:id].to_i

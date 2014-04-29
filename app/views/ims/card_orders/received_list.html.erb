@@ -37,7 +37,7 @@
       var page = parseInt($("#page").attr("value"))
 
       if(scrollTop+clientHeight == htmlHeight){
-        $("#loading").html("<img src='<%=Settings.fileserver_host%>/images/ims/loading.gif'/>");
+        $("#loading").html('<%= image_tag "ims/loading.gif" %>');
         $.get("/ims/card_orders/received_list", {page: page + 1}, function(data){
           if(data["status"] == true){
             $(".paginate-content:last").after(data["html"])

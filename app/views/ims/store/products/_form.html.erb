@@ -16,7 +16,7 @@
          <div class="span8">
             <div id="result" class="show-imgbox-no"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
               <% if @product.blank? %>
-                <%= image_tag "#{Settings.fileserver_host}/images/ims/upload-image.jpg", alt: "img-name", id: "img" %>
+                <%= image_tag "ims/upload-image.jpg", alt: "img-name", id: "img" %>
               <% else %>
                 <%= image_tag @product[:image], alt: "img-name", id: "img" %>
               <% end %>
@@ -169,21 +169,6 @@
               $("#loading-box").modal('hide');
               if(data['status'] == 1){
                 setTimeout(function(){
-                   // insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'><img src='<%=Settings.fileserver_host%>/images/ims/delate.png'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
-                   // if($("#img_box li[class!='add-link']").length >0 ){
-                   //   $($("#img_box li[class!='add-link']:last")).after(insert_html);
-                   // }else{
-                   //   $("#img_box").prepend(insert_html);
-                   // };
-
-                   // $("#default_img").addClass("show-imgbox-yes");
-                   // $("#default_img").removeClass("show-imgbox-no");
-                   // $("#default_img").html("<img src='"+data['img']+"'>");
-                   // img_size = $("#img_box li[class!='add-link']").length;
-                   // if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
-                   // format_img(".show-imgbox-no");
-                   // format_img(".img-spa");
-                   // format_img(".show-imgbox-yes");
                    $("#image_id").attr("value", data["id"])
                    img = "<img src='"+data["img_url"]+"'/>"
                    $("#result").html(img)
@@ -391,19 +376,6 @@
     <% if params[:action] == "new" %>
       $("#category_id").trigger("change")
     <% end %>
-
-    // function readFile(){
-    //   var file = this.files[0];
-    //   if(!/image\/\w+/.test(file.type)){
-    //     error_modal("文件必须为图片！");
-    //     return false;
-    //   }
-    //   var reader = new FileReader();
-    //   reader.readAsDataURL(file);
-    //   reader.onload = function(e){
-    //     result.innerHTML = '<img src="'+this.result+'"/>'
-    //   }
-    // }
 
   })
 </script>

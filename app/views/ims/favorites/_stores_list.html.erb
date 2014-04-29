@@ -3,7 +3,9 @@
   <div class="module common-white favorite_link" value="<%= ims_store_path(store["id"], t: Time.now.to_i) %>">
     <div class="txt-block detail-contact">
       <div class="row-fluid">
-        <div class="span3"><span class="img-spa"><img class="img-rounded" src="<%= store["image"] %>"></span></div>
+        <div class="span3"><span class="img-spa">
+          <%= image_tag(store["image"], class: "img-rounded") %>
+        </span></div>
         <div class="span9">
             <div class="collection-p collection-pbox">
               <p class="txt2 txt-red one-line"><%= store["name"] %></p>

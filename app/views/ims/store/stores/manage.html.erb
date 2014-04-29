@@ -11,7 +11,9 @@
             <% if @giftcards[:data]["items"].present? %>
               <% @giftcards[:data]["items"].each do |card| %>
               <div class="module common-white product-card">
-                <div class="img-box"><a href="#"><img alt="" src="<%= card["image"] %>"></a></div>
+                <div class="img-box"><a href="#">
+                 <%= image_tag card["image"] %>
+                </a></div>
                 <h4 class="txt-grey"><%= card["desc"] %></h4>
                 <div class="clearfix text-center">
                   <% if card["is_online"] %>
@@ -31,7 +33,9 @@
               <div class="module common-white">
                 <div class="txt-block detail-contact">
                     <div class="row-fluid">
-                      <div class="span3"><img class="img-rounded" src="<%= combo["image"] %>"></div>
+                      <div class="span3">
+                        <%= image_tag(combo["image"], class: "img-rounded")  %>
+                      </div>
                       <div class="span9 collection-p">
                         <p class="txt2 one-line"><%= combo["desc"] %></p>
                         <p class="txt2 txt-red">打包价：￥<%= combo["price"] %></p>

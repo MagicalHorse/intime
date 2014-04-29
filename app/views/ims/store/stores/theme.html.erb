@@ -3,13 +3,42 @@
   		<div class="module-theme">
         <div class="row-fluid">
           <div class="span4">
-            <div class="theme-ele active">
+            <div class="theme-ele active" data="1">
               <i class="fa fa-check-circle txt8"></i>
-              <img src="<%=Settings.fileserver_host%>/images/ims/theme.jpg">
+              <%= image_tag('ims/theme.jpg') %>
               <p class="txt3">秋意黯然</p>
+            </div>
+          </div>
+          <div class="span4">
+            <div class="theme-ele" data="2">
+              <i class="fa fa-check-circle txt8"></i>
+              <%= image_tag('ims/theme.jpg') %>
+              <p class="txt3">秋意黯然1</p>
             </div>
           </div>
         </div>  
       </div>
     </div>
   </div>
+<script type="text/javascript">
+ $(function(){
+  $(".theme-ele").click(function(){
+    $("#loading-box").modal();
+
+    var dataid = $(this).attr('data');
+    $.ajax({
+      url: "<%= change_theme_ims_store_stores_path %>",
+      data: {"id": dataid},
+      success: function(res){
+        $("#loading-box").modal('hide');
+        if(res["status"] == 200){
+          $(".theme-ele").each(function(){$(this).removeClass("active");});
+          $(this).addClass("active");
+        }else{
+          alert("网络错误，请稍后重试");
+        }
+      }
+    })
+  });
+ })
+</script>  
