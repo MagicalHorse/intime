@@ -3,7 +3,7 @@
 <header id="TOP">
   <div class="header-box header-box-index">
       <div class="head-img">
-        <%= image_tag("ims/top-img-2x.jpg") %>
+        <%= image_tag "ims/shop-browse#{@store[:data][:template_id] || 1}.jpg" %>
       </div>
       <div class="shop-head" id="head-menu">
           <div class="shop-head-inner">
@@ -74,7 +74,7 @@
                                     <% else %>
                                     <%= image_tag(Settings.default_image_url.product.middle) %>
                                     <% end %>
-                                    <%= image_tag("ims/jingpin.png", class: "mark-img") %>
+                                    <%= image_tag("ims/jingpin#{@store[:data][:template_id] || 1}.png", class: "mark-img") %>
                                   </a>
                                     <p>
                                       <a href="<%= ims_combo_path(id: combo["Id"], :t => Time.now.to_i, :store_id => @store[:data][:id], :private_to => true) %>"><%= combo["Desc"] %></a>
