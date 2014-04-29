@@ -181,12 +181,11 @@ var check_form = function(){
     })
 
     $("#combo_submit").click(function(){
-      $("#combo_form").ajaxSubmit();
-      $("#loading-box").modal();
-    });
-
-    $("#combo_form").submit(function(){
-      check_form();
+      var status = check_form();
+      if(status){
+        $("#combo_form").ajaxSubmit();
+        $("#loading-box").modal();
+      }  
     });
 
 
