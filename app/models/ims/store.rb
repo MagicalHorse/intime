@@ -29,6 +29,10 @@ class Ims::Store < Ims::Base
       post(req, params.merge(api_path: true, path: 'customer/portrait/create'))
    end
 
+   def change_theme(req, params = {})
+      post(req, params.merge(path: 'assistant/update_template'))
+   end
+
 
    #导购收益礼品卡
    def giftcard_records(req, params = {})
