@@ -7,7 +7,7 @@
               <div class="swiper-wrapper">
                 <% @combo.combo_pics.each_with_index do |img, i| %>
                  <div class="swiper-slide">
-                  <%= image_tag(img.url) %>
+                  <img src="<%=img.url%>">
                  </div>
                  <% end %>
               </div>
@@ -18,7 +18,7 @@
                 <div class="span4">
                   <div class="combos-product">
                     <span class="img-spa">
-                      <%= image_tag(product.img_url) %>
+                      <img src="<%=product.img_url%>" >
                     </span>
                     <p><span class="txt3">￥<%= product.price %></span></p>
                     <a class="btn btn-danger btn-mini btn-block" href="javascrip:void(0);">点击购买</a>
