@@ -53,7 +53,11 @@
         <ul class="inline clearfix" id="p_box">
           <% @combo.combo_products.each do |product| %>
             <li><i id="p_<%=product.id%>" data="<%=product.id%>"><%= image_tag 'ims/delate.png' %></i><span class="img-spa">
+              <% if product.img_url.present? %>
               <img src="<%=product.img_url%>">
+              <% else %>
+              <img src="<%=Settings.default_image_url.product.middle%>">
+              <% end %>
             </span></li>
           <% end %>
           <% if @combo.combo_products.size < 3 %>
