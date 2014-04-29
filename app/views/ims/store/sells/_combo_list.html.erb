@@ -5,11 +5,8 @@
         <div class="row-fluid">
           <div class="span3">
             <span class="img-spa">
-              <% if combo["image"].present? %>
-                <%= image_tag combo["image"] %>
-              <% else %>
-                <%= image_tag Settings.default_image_url.product.small %>
-              <% end %>
+              <% img_url = combo["image"].present? ? combo["image"] : Settings.default_image_url.product.small %>
+              <img src="<%=img_url%>" >
             </span>
           </div>
           <div class="span9 collection-p">

@@ -12,7 +12,7 @@
               <% @giftcards[:data]["items"].each do |card| %>
               <div class="module common-white product-card">
                 <div class="img-box"><a href="#">
-                 <%= image_tag card["image"] %>
+                  <img src="<%=card["image"]%>">
                 </a></div>
                 <h4 class="txt-grey"><%= card["desc"] %></h4>
                 <div class="clearfix text-center">

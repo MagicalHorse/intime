@@ -14,8 +14,11 @@
            <div class="span2">&nbsp;</div>
            <div class="span8">
                <div class="<%= @combo.combo_pics.present? ? 'show-imgbox-yes' : 'show-imgbox-no' %>" id="default_img"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
-                 <% img_url = @combo.combo_pics.present? ? @combo.combo_pics.last.url : 'ims/no-image.jpg' %>
-                 <%= image_tag img_url %>
+                <% if @combo.combo_pics.present? %>
+                 <img src="<%=@combo.combo_pics.last.url%>"> 
+                <% else %>
+                 <%= image_tag 'ims/no-image.jpg' %>
+                <% end %>
                </div>
            </div>
            <div class="span2">&nbsp;</div>
