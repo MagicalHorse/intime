@@ -56,7 +56,7 @@ module IntimeService
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
 
-    config.assets.precompile += %w(ims/application.js ims/application.css, ims/template1.css, ims/template3.css, ims/template4.css)
+    config.assets.precompile += %w(ims/application.js ims/application.css ims/template1.css ims/template3.css ims/template4.css)
 
     # Enable the asset pipeline
     config.assets.enabled = true

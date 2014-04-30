@@ -34,7 +34,6 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     if current_user.store_id.to_i == params[:id].to_i
       @can_share = true
       @store = Ims::Store.my(request)
-      @template_id = @store[:data][:template_id]
       render :layout =>  'ims'
     else
       redirect_to ims_store_path(:id => params[:id], t: Time.now.to_i)
@@ -104,6 +103,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def theme
     @store = Ims::Store.my(request)
+    @title = "更换主题"
   end
 
   def change_theme
