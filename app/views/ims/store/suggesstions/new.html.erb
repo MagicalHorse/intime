@@ -23,7 +23,7 @@
           <div class="col-12"><button class="btn btn-danger btn-large btn-block" id="save_suggesstion">确认</button></div>
         </div>
       </div>
-    </div>   
+    </div>
   <% end %>
 </div>
 
@@ -55,6 +55,10 @@
       })
 
       $("#new_suggesstion").validate({
+        onsubmit: true,
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
         rules: {
           "content": {
             required: true,

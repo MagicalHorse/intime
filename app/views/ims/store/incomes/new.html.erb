@@ -9,12 +9,12 @@
                 <%= text_field_tag :amount, "", placeholder: "请输入提现金额", type: 'number' %>
                 </div>
               </div>
-          </div>  
+          </div>
           <div class="module common-white module-grey">
               <div class="controls-defined defined-small">
                 <div class="col-12"><span class="txt-red">可提现金额 ￥<span id="amount"><%= @income[:data][:avail_amount] %></span>  元</span></div>
               </div>
-          </div> 
+          </div>
           <div class="module common-white">
             <div class="controls-defined defined-small">
               <label class="col-4"><abbr class="txt-red">*</abbr>开户银行:</label>
@@ -26,7 +26,7 @@
                 </select>
               </div>
             </div>
-          </div> 
+          </div>
           <div class="module common-white">
               <div class="controls-defined defined-small">
                 <label class="col-4"><abbr class="txt-red">*</abbr>开户姓名:</label>
@@ -46,7 +46,7 @@
                 <li>提交提现申请我们审核通过后，我们将尽快将钱打到您所提交的账户中。</li>
                 <li>提交提现申请时，请务必保证填写信息的准确性，否则您将不能收到款项。</li>
               </ol>
-              
+
           </div>
         <% end %>
         <div class="bottom-btnbox">
@@ -66,6 +66,10 @@
     })
 
     $("#income_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
       rules: {
         "amount": {
           required: true,

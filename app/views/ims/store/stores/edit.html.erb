@@ -49,6 +49,10 @@
     });
 
     $("#store_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
       rules: {
         "name": {
           required: true
@@ -112,9 +116,9 @@
                 }
               }
           });
-         } 
+         }
       );
-     }        
+     }
 
 
 

@@ -373,6 +373,10 @@
     <% end %>
 
     var validator = $("#new_order_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
       ignore: "",
       rules: {
         "order[products][][productid]": {

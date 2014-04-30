@@ -23,6 +23,10 @@
   $(function(){
 
     $("#phone_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
       rules: {
         "phone": {
           required: true
