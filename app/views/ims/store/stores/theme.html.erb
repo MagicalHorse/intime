@@ -3,17 +3,24 @@
   		<div class="module-theme">
         <div class="row-fluid">
           <div class="span4">
-            <div class="theme-ele active" data="1">
+            <div class="theme-ele <%= 'active' if @store[:data][:template_id] == 1 %> " data="1">
               <i class="fa fa-check-circle txt8"></i>
-              <%= image_tag('ims/theme.jpg') %>
-              <p class="txt3">秋意黯然</p>
+              <%= image_tag('ims/theme1.jpg') %>
+              <p class="txt3">温婉女子</p>
             </div>
           </div>
           <div class="span4">
-            <div class="theme-ele" data="2">
+            <div class="theme-ele <%= 'active' if @store[:data][:template_id] == 3 %>" data="3">
               <i class="fa fa-check-circle txt8"></i>
-              <%= image_tag('ims/theme.jpg') %>
-              <p class="txt3">秋意黯然1</p>
+              <%= image_tag('ims/theme3.jpg') %>
+              <p class="txt3">逗陛娃娃</p>
+            </div>
+          </div>
+          <div class="span4">
+            <div class="theme-ele <%= 'active' if @store[:data][:template_id] == 4 %>" data="4">
+              <i class="fa fa-check-circle txt8"></i>
+              <%= image_tag('ims/theme4.jpg') %>
+              <p class="txt3">狂热少女</p>
             </div>
           </div>
         </div>  
@@ -24,7 +31,7 @@
  $(function(){
   $(".theme-ele").click(function(){
     $("#loading-box").modal();
-
+    var ele = this;
     var dataid = $(this).attr('data');
     $.ajax({
       url: "<%= change_theme_ims_store_stores_path %>",
@@ -33,9 +40,10 @@
         $("#loading-box").modal('hide');
         if(res["status"] == 200){
           $(".theme-ele").each(function(){$(this).removeClass("active");});
-          $(this).addClass("active");
+          $(ele).addClass("active");
+          success_modal("更换主题成功");
         }else{
-          alert("网络错误，请稍后重试");
+          error_modal("网络错误，请稍后重试");
         }
       }
     })

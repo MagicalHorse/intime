@@ -12,6 +12,7 @@
 
     <%= stylesheet_link_tag "ims/application", :media => "all" %>
     <%= javascript_include_tag 'ims/application' %>
+    <%= stylesheet_link_tag "ims/template#{@template_id || 1}.css", :media => "all" %>
 
    <!--[if lte IE 6]>
    <script type="text/javascript" src="ims_assets/bootstrap-2.3.2/js/ie-js/bootstrap-ie.js"></script>

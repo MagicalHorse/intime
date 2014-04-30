@@ -8,6 +8,7 @@ class Ims::CombosController < Ims::BaseController
     @store_id = params[:store_id]
     @title = "搭配展示"
     @can_share = true if @remote_combo[:data][:is_online]
+    @template_id = @remote_combo[:data][:template_id]
     session[:store_id] = @remote_combo[:data][:store_id]
   end
 
