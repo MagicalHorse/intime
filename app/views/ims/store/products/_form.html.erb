@@ -53,7 +53,7 @@
           <div class="controls-defined defined-small">
               <label class="col-4 text-left"><abbr class="txt-red">*</abbr>销售编码：</label>
               <div class="col-5">
-                  <%= select_tag "coding_id", options_for_select(@codings, @product.try(:[], :sales_code)), prompt: "请选择" %>
+                  <%= select_tag "sales_code", options_for_select(@codings, @product.try(:[], :sales_code)), prompt: "请选择" %>
               </div>
               <div class="col-3 text-center">
               <span>
@@ -227,11 +227,11 @@
         $.post("/ims/store/sales_codes", {coding: coding}, function(data){
           if(data["status"] == true){
             // $("#new_coding_form").modal("hide")
-            $("#coding_id").html("")
+            $("#sales_code").html("")
             $.each(data["data"], function(index, value){
-              $("#coding_id").append("<option value='"+value+"'>"+value+"</option>")
+              $("#sales_code").append("<option value='"+value+"'>"+value+"</option>")
             })
-            $("#coding_id option:last").attr("selected", true)
+            $("#sales_code option:last").attr("selected", true)
           }else{
             error_modal("销售编码添加失败")
           }
@@ -255,7 +255,7 @@
         "brand_id": {
           required: true
         },
-        "coding_id": {
+        "sales_code": {
           required: true
         },
         "sku_code": {
@@ -290,7 +290,7 @@
         "brand_id": {
           required: "品牌不能为空"
         },
-        "coding_id": {
+        "sales_code": {
           required: "销售编码不能为空"
         },
         "sku_code": {
