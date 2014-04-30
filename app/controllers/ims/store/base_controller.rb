@@ -10,6 +10,6 @@ class Ims::Store::BaseController < Ims::BaseController
 
   def fetch_template
   	 store = Ims::Store.my(request)
-  	 @template_id = store[:data][:template_id]
+  	 @template_id = store[:data][:template_id] if store[:data].present?
   end
 end
