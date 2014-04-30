@@ -12,7 +12,7 @@
               <div class="carousel-inner slides">
                 <% @remote_combo[:data][:images].each_with_index do |src, i| %>
                   <div class="item slide <%= 'active' if i == 0 %>">
-                    <%= image_tag src %>
+                    <img src="<%=src%>">
                   </div>
                 <% end %>
               </div>
@@ -22,7 +22,7 @@
                 <% @remote_combo[:data][:products].each do |product| %>
                 <div class="span4">
                   <div class="combos-product">
-                    <%= image_tag product[:image] %>
+                    <img src="<%=product[:image]%>">
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
                     <a class="btn btn-danger btn-mini btn-block" href="<%= ims_orders_new_path(:product_id => product[:id]) %>">点击购买</a>
                   </div>

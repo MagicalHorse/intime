@@ -6,7 +6,7 @@
           <div class="span8"><span class="txt2 shop-title">修改店铺LOGO</span></div>
           <div class="span3 text-right">
             <a class="shop-logo" href="#" id="logo">
-              <%= image_tag @store[:data][:logo] %>
+              <img src="<%=@store[:data][:logo]%>">
             </a>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera"></div>
           </div>

@@ -12,7 +12,7 @@
               <% @giftcards[:data]["items"].each do |card| %>
               <div class="module common-white product-card">
                 <div class="img-box"><a href="#">
-                 <%= image_tag card["image"] %>
+                  <img src="<%=card["image"]%>">
                 </a></div>
                 <h4 class="txt-grey"><%= card["desc"] %></h4>
                 <div class="clearfix text-center">
@@ -34,7 +34,7 @@
                 <div class="txt-block detail-contact">
                     <div class="row-fluid">
                       <div class="span3">
-                        <%= image_tag(combo["image"], class: "img-rounded")  %>
+                        <img src="<%=combo["image"]%>" class="img-rounded">
                       </div>
                       <div class="span9 collection-p">
                         <p class="txt2 one-line"><%= combo["desc"] %></p>

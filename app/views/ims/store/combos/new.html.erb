@@ -14,8 +14,11 @@
            <div class="span2">&nbsp;</div>
            <div class="span8">
                <div class="<%= @combo.combo_pics.present? ? 'show-imgbox-yes' : 'show-imgbox-no' %>" id="default_img"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
-                 <% img_url = @combo.combo_pics.present? ? @combo.combo_pics.last.url : 'ims/no-image.jpg' %>
-                 <%= image_tag img_url %>
+                <% if @combo.combo_pics.present? %>
+                 <img src="<%=@combo.combo_pics.last.url%>"> 
+                <% else %>
+                 <%= image_tag 'ims/no-image.jpg' %>
+                <% end %>
                </div>
            </div>
            <div class="span2">&nbsp;</div>
@@ -26,7 +29,7 @@
             <% @combo.combo_pics.each do |pic| %>
             <li><i id="img_<%= pic.id -%>" data="<%= pic.id -%>"><%= image_tag 'ims/delate.png' %></i>
               <span class="img-spa">
-                <%= image_tag(pic.url) %>
+                <img src="<%=pic.url%>" >
               </span>
             </li>
             <% end %>
@@ -50,7 +53,11 @@
         <ul class="inline clearfix" id="p_box">
           <% @combo.combo_products.each do |product| %>
             <li><i id="p_<%=product.id%>" data="<%=product.id%>"><%= image_tag 'ims/delate.png' %></i><span class="img-spa">
-              <%= image_tag(product.img_url) %>
+              <% if product.img_url.present? %>
+              <img src="<%=product.img_url%>">
+              <% else %>
+              <img src="<%=Settings.default_image_url.product.middle%>">
+              <% end %>
             </span></li>
           <% end %>
           <% if @combo.combo_products.size < 3 %>

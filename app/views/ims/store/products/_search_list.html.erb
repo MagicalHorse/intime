@@ -12,7 +12,7 @@
             <div class="span4">
                 <div class="goods-box">
                     <div class="imgs">
-                      <%= image_tag Product.img_url(obj["resource"].first) %>
+                      <img src="<%=Product.img_url(obj["resource"].first)%>">
                       <div class="goods-price">￥<%= obj["price"] %></div>
                     </div>
                     <div class="goods-text">
