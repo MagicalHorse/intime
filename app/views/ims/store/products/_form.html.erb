@@ -70,6 +70,13 @@
           </div>
 
           <div class="controls-defined defined-small">
+              <label class="col-4 text-left"><abbr class="txt-red">*</abbr>原价：</label>
+              <div class="col-8">
+              <%= text_field_tag "unitprice", @product.try(:[], :unitprice) %>
+              </div>
+          </div>
+
+          <div class="controls-defined defined-small">
               <label class="col-4 text-left"><abbr class="txt-red">*</abbr>微信价：</label>
               <div class="col-8">
               <%= text_field_tag "price", @product.try(:[], :price) %>
@@ -260,6 +267,10 @@
           required: true,
           number: true
         },
+        "unitprice": {
+          required: true,
+          number: true
+        },
         "category_id": {
           required: true
         },
@@ -290,6 +301,10 @@
         "price": {
           required: "微信价不能为空",
           number: "微信价只能是数字"
+        },
+        "unitprice": {
+          required: "原价不能为空",
+          number: "原价只能是数字"
         },
         "category_id": {
           required: "分类不能为空"
