@@ -26,7 +26,7 @@ class Ims::BaseController < ApplicationController
   end
   
   def track_options
-    params
+    params||{}
   end
   private
 

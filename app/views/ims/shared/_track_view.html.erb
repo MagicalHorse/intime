@@ -4,7 +4,7 @@ $(function(){
   FlurryAgent.setUserId("<%= current_user.id -%>");
   var event_name = "<%= controller.controller_name-%>_<%= controller.action_name-%>"
   var event_paras = {};
-  <% @track_options.each do |k,v| %>
+  <% track_options.each do |k,v| %>
 	event_paras['<%= k.to_s%>'] = "<%= v%>";
   <% end -%>
   FlurryAgent.logEvent(eventName, event_paras)
