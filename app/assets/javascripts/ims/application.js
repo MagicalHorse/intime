@@ -31,5 +31,6 @@
 //= require ims/load-image-ios.js
 //= require ims/load-image-orientation.js
 //= require ims/load-image-exif.js
+//= require ims/flurry.js
 //= require_self
 

@@ -2,7 +2,7 @@
 class Ims::BaseController < ApplicationController
   layout 'ims'
   before_filter :wx_auth!
-  helper_method :current_user
+  helper_method [:current_user,:track_options]
 
   rescue_from Ims::Unauthorized do
     redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: Settings.wx.appid, redirect_uri: URI.escape("http://#{Settings.wx.backdomain}/ims/auth"), response_type: 'code', scope: 'snsapi_base', state: "STATE"}.to_param, 'wechat_redirect']).to_s)
@@ -24,7 +24,10 @@ class Ims::BaseController < ApplicationController
   def wx_auth!
       raise Ims::Unauthorized if cookies[:user_token].blank? || cookies[:user_access_token].blank?
   end
-
+  
+  def track_options
+    params
+  end
   private
 
   def get_token_from_api(request)
