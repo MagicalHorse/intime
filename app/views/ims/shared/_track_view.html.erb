@@ -7,6 +7,6 @@ $(function(){
   <% track_options.each do |k,v| %>
 	event_paras['<%= k.to_s%>'] = "<%= v%>";
   <% end -%>
-  FlurryAgent.logEvent(eventName, event_paras)
+  FlurryAgent.logEvent(event_name, event_paras)
 });
 </script>
