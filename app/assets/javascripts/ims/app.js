@@ -139,7 +139,7 @@ function resizeIos(img, max_width, max_height, orientation) {
   var mpImg = new MegaPixImage(img);
 
   if(browser.versions.ios || browser.versions.iPhone || browser.versions.iPad){
-    mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.6, orientation: orientation});
+    mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.8, orientation: orientation});
   }else{
     mpImg.render(canvas, { maxWidth: max_width, maxHeight: max_height, quality: 0.1, orientation: orientation});
   }
