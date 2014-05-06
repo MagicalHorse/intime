@@ -68,8 +68,10 @@ jQuery.validator.addMethod(
 jQuery.validator.addMethod(
   "more_than",
   function(value, element, param) {
+    origin_value = value
+    origin_end_value = $(param).val()
     value = parseInt(value)
-    end_value = parseInt($(param).val())
-    return value >= end_value
+    end_value = parseInt(origin_end_value)
+    return origin_value == "" || origin_end_value == "" || value >= end_value
   }, "必须大于"
 )
