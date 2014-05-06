@@ -52,6 +52,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
        :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
       redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
     else
+      logger = Logger.new("log/production.log")
+      logger.error(product["message"])
       redirect_to new_ims_store_product_path(:combo_id => @combo.try(:id))
     end
   end

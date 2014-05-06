@@ -202,6 +202,7 @@
 
     $("#product_form").on("submit", function(){
       error = '尺码不能为空'
+
       if(!$("#size_ids_wrapper").is(":hidden")){
         if($("input[name='size_ids[]']").length == 0){
             error_modal(error)
@@ -269,7 +270,8 @@
         },
         "unitprice": {
           required: true,
-          number: true
+          number: true,
+          more_than: "#price"
         },
         "category_id": {
           required: true
@@ -304,7 +306,8 @@
         },
         "unitprice": {
           required: "原价不能为空",
-          number: "原价只能是数字"
+          number: "原价只能是数字",
+          more_than: "微信价不能大于原价"
         },
         "category_id": {
           required: "分类不能为空"
