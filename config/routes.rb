@@ -457,6 +457,7 @@ IntimeService::Application.routes.draw do
         get 'menu',to: :verify
         post 'menu', to: :message
         get :access_token
+        post :access_token
       end
     end
   end
