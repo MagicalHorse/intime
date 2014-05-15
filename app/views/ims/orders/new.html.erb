@@ -82,17 +82,19 @@
                   <div class="modal-body">
                     <div class="module common-white">
                       <div class="row-fluid">
-                         <div class="span3">
-                             <div class="detail-imgbox">
-                              <img src="<%=Product.img_url(salecolors.first.try(:[], :resource))%>">
-                             </div>
-                         </div>
-                         <div class="span9">
-                             <div class="price-detail">
-                                 <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
-                                 <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
-                             </div>
-                         </div>
+                        <div class="span4">
+                             <!-- <div class="detail-imgbox"> -->
+                          <div class="orders_new_modal_img">
+                            <img src="<%=Product.img_url(salecolors.first.try(:[], :resource))%>">
+                          </div>
+                             <!-- </div> -->
+                        </div>
+                        <div class="span8">
+                          <div class="price-detail">
+                            <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
+                            <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="module-grey">
@@ -224,11 +226,11 @@
 <script>
   $(function(){
 
-    $(".ellipsis").on("click", function(){
-      setTimeout(function(){
-        format_img(".detail-imgbox")
-      }, 500)
-    })
+    // $(".ellipsis").on("click", function(){
+    //   setTimeout(function(){
+    //     format_img(".detail-imgbox")
+    //   }, 500)
+    // })
 
     $(".tb-reduce, .tb-increase").on("click", function(){
       index = $(this).parents(".modal").attr("index")
