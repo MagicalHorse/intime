@@ -6,8 +6,8 @@
     <% if salecolors.present? %>
       <%= hidden_field_tag "order[products][][productid]", product[:id] %>
       <%= hidden_field_tag "order[products][][quantity]", 1 %>
-      <%= hidden_field_tag "order[products][][properties][sizevalueid]", nil, id: "sizevalueid#{index}" %>
-      <%= hidden_field_tag "order[products][][properties][colorvalueid]", salecolors.present? ? salecolors.first[:colorid] : nil, id: "colorvalueid#{index}" %>
+      <%= hidden_field_tag "order[products][][properties][sizevalueid]", '', id: "sizevalueid#{index}" %>
+      <%= hidden_field_tag "order[products][][properties][colorvalueid]", salecolors.present? ? salecolors.first[:colorid] : '', id: "colorvalueid#{index}" %>
 
       <%= hidden_field_tag "order[products][][desc]", product[:name] %>
       <%= hidden_field_tag "order[products][][properties][sizevaluename]", nil, id: "sizevaluename#{index}" %>
@@ -456,22 +456,26 @@
       var totalamount = $("#totalamount").val()
       var orderno = $("#orderno").val()
       if(orderno.length == 0){
-        if($("#new_order_form").valid()){
-          form.ajaxSubmit({
-            dataType: "json",
-            success: function(data){
-              if(data["status"] == true){
-                $("#loading-box").modal()
-                order_id = data["data"]["orderno"]
-                $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
-              }else{
-                error_modal("提交订单失败")
+        if($("input[name='order[products][][properties][sizevalueid]'][value='']").length == 0 && $("input[name='order[products][][properties][colorvalueid]'][value='']").length == 0){
+          if($("#new_order_form").valid()){
+            form.ajaxSubmit({
+              dataType: "json",
+              success: function(data){
+                if(data["status"] == true){
+                  $("#loading-box").modal()
+                  order_id = data["data"]["orderno"]
+                  $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
+                }else{
+                  error_modal("提交订单失败")
+                }
+              },
+              error: function(data){
+                error_modal("提交订单发生错误")
               }
-            },
-            error: function(data){
-              error_modal("提交订单发生错误")
-            }
-          })
+            })
+          }
+        }else{
+          error_modal("商品的颜色和尺码必填")
         }
       }else{
         $.post("/ims/orders/"+order_id+"/payments", {money: totalamount}, function(data){}, "script")
