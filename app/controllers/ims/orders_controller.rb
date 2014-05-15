@@ -13,7 +13,6 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def new
-
     @title = "商品购买"
     if params[:product_id].present?
       @product = API::Order.new(request, productid: params[:product_id])[:data]
