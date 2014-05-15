@@ -20,4 +20,8 @@ module Ims::ApplicationHelper
    abs_path
   end
 
+  def format_text(txt)
+    return txt.gsub(/\r\n/, "<br>")
+  end
+
 end

@@ -61,7 +61,7 @@
     </div>
     <% end %>
     <div class="p-title">
-      <h4><%= @remote_combo[:data][:desc] %></h4>
+      <h4><%=sanitize format_text(@remote_combo[:data][:desc]) %></h4>
       <div class="p-price1 clearfix">
         <p class="pull-left price-box">
               <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></span>
@@ -144,12 +144,12 @@
         var mySwiper = $('.swiper-container').swiper({
           mode:'horizontal',
           autoplay: 3000,
-          speed: 1000,
+          // speed: 2000,
           calculateHeight: true,
-          watchActiveIndex: true,
+          // watchActiveIndex: true,
           loop: true,
-          centeredSlides: true,
-          offsetPxBefore: 100
+          // centeredSlides: true,
+          // offsetPxBefore: 100
         });
 
         <% if @remote_combo[:data][:is_favored] %>
