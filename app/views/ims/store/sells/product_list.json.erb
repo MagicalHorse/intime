@@ -1,0 +1,1 @@
+{"status": true, "page": <%= @search_product[:data][:pageindex] %>, "per_page": <%= @search_product[:data][:pagesize] %>, "count": <%= @search_product[:data][:totalcount] %>, "html": <%=raw render("product_list.html.erb", products: @products).to_json %> }
