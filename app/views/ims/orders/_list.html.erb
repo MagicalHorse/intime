@@ -20,8 +20,8 @@
                    <h3 class="one-line"><%= product["name"] %></h3>
                    <p class="txt3 clearfix">
                      <span class="pull-left">微信价：<em>￥<%= product["price"] %></em></span>
-                     <% if nil %>
-                     <span class="pull-right">数量：<%= product["quantity"] %></span>
+                     <% if product["unitprice"].present? %>
+                       <span class="pull-right">原价：￥<%= product["unitprice"] %></span>
                      <% end %>
                    </p>
                    <p class="txt3 clearfix">

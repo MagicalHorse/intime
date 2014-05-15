@@ -20,7 +20,12 @@
            <div class="span9">
                <div class="price-detail">
                    <h3 class="one-line"><%= link_to product["productname"], ims_store_product_path(product["productid"]) %></h3>
-                   <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+                   <div class="row-fluid">
+                   <p class="txt3 pull-left">微信价：<em>￥<%= product["price"] %></em></p>
+                   <% if product["unitprice"].present? %>
+                      <p class="txt3 pull-right">原价：￥<%= product["unitprice"] %></p>
+                   <% end %>
+                   </div>
                    <p class="txt3 clearfix">
                      <span class="pull-left"><%= product["productdesc"] %></span>
                    </p>

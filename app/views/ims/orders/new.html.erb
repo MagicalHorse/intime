@@ -52,6 +52,9 @@
              <div class="price-detail">
                 <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
                 <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+                <% if product["unitprice"].present? %>
+                <p class="txt3">原价：￥<%= product["unitprice"] %></p>
+                <% end %>
              </div>
          </div>
      </div>
@@ -93,6 +96,9 @@
                           <div class="price-detail">
                             <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
                             <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+                            <% if product["unitprice"].present? %>
+                            <p class="txt3">原价：￥<%= product["unitprice"] %></p>
+                            <% end %>
                           </div>
                         </div>
                       </div>
