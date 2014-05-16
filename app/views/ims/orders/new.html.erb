@@ -455,8 +455,17 @@
       var form = $("#new_order_form")
       var totalamount = $("#totalamount").val()
       var orderno = $("#orderno").val()
+
+      is_blank_sizevalueid = $.inArray('', $("input[name='order[products][][properties][sizevalueid]']").map(function(){
+        return $(this).val()
+      }).get()) == -1
+
+      is_blank_colorvalueid = $.inArray('', $("input[name='order[products][][properties][colorvalueid]']").map(function(){
+        return $(this).val()
+      }).get()) == -1
+
       if(orderno.length == 0){
-        if($("input[name='order[products][][properties][sizevalueid]'][value='']").length == 0 && $("input[name='order[products][][properties][colorvalueid]'][value='']").length == 0){
+        if(is_blank_sizevalueid && is_blank_colorvalueid){
           if($("#new_order_form").valid()){
             form.ajaxSubmit({
               dataType: "json",
