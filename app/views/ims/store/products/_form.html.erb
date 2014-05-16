@@ -1,9 +1,12 @@
 <br/>
 <div class="wrap-inner back-wrap-inner">
 <div class="module module-bg-white2">
+
   <div class="module-title2">
     <div class="row-fluid">
-      <div class="span6"><h3>上传图片</h3></div>
+      <div class="span6">
+      <h3><i class="fa fa-heart"></i>商品图片</h3>
+      </div>
       <div class="span6">
           <div class="text-right">
             <%#= link_to_icon "fa fa-angle-right", "上传教程", tutorials_ims_store_products_path, class: "title-link" %>
@@ -11,6 +14,47 @@
       </div>
     </div>
   </div>
+
+  <% images = @product.try(:[], :images) || [] %>
+
+    <div class="module-pull">
+       <div class="row-fluid">
+           <div class="span2">&nbsp;</div>
+           <div class="span8">
+              <div class="<%= images.present? ? 'show-imgbox-yes' : 'show-imgbox-no' %>" id="default_img"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
+                <% if images.present? %>
+                  <img src="<%= images.last[:url] %>">
+                <% else %>
+                  <%= image_tag 'ims/no-image.jpg' %>
+                <% end %>
+              </div>
+           </div>
+           <div class="span2">&nbsp;</div>
+       </div>
+    </div>
+    <div class="mini-imgbox">
+        <ul class="inline clearfix" id="img_box">
+          <% images.each do |image| %>
+            <li>
+              <i id="img_<%= image[:id] -%>" data="<%= image[:id] -%>"><%= image_tag 'ims/delate.png' %></i>
+              <span class="img-spa">
+                <img src="<%= image[:url] %>" >
+              </span>
+            </li>
+          <% end %>
+          <% if images.size < 5 %>
+            <li class="add-link" id="add_img">
+              <span class="img-spa"><%= image_tag "ims/add-img.png" %></span>
+            </li>
+          <% end %>
+          <div style="height: 0px;width: 0px; overflow:hidden;">
+            <input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera">
+          </div>
+        </ul>
+    </div>
+
+
+  <% if nil %>
   <div class="module-pull module-uploadimg">
      <div class="row-fluid">
          <div class="span8">
@@ -29,7 +73,10 @@
          </div>
      </div>
   </div>
+  <% end %>
 </div>
+
+
 
 <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-defined" do %>
 <div class="module module-bg-white2">
@@ -40,7 +87,11 @@
           <%= file_field_tag "image", id: "input", accept: "image/*", capture: "camera" %>
         </div>
         <%= hidden_field_tag "id", @product.try(:[], :id) %>
-        <%= hidden_field_tag :image_id, @product.try(:[], :image_id) %>
+        <% if (image_ids = @product.try(:[], :image_ids)).present? %>
+          <% image_ids.each do |image_id| %>
+            <%= hidden_field_tag "image_ids[]", image_id %>
+          <% end %>
+        <% end %>
         <% if @combo_id.present? %>
           <%= hidden_field_tag :combo_id, @combo_id %>
         <% end %>
@@ -192,14 +243,41 @@
             dataType: 'json',
             type: 'post',
             data: {"img": resized},
+            beforeSend: function(){
+              $("#add_img").hide();
+            },
             success: function(data){
               $("#loading-box").modal('hide');
               if(data['status'] == 1){
                 setTimeout(function(){
+                  <% if nil %>
                    $("#image_id").attr("value", data["id"])
                    img = "<img src='"+data["img_url"]+"'/>"
                    $("#result").html(img)
                    format_img("#result")
+                  <% end %>
+                  hidden_image_field = '<input type="hidden" value="'+data["id"]+'" name="image_ids[]">'
+                  insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'><img src='/assets/ims/delate.png'></i><span class='img-spa'><img src='"+data['img_url']+"'></span></li>";
+                  if($("#img_box li[class!='add-link']").length >0 ){
+                    $($("#img_box li[class!='add-link']:last")).after(insert_html);
+                  }else{
+                    $("#img_box").prepend(insert_html);
+                  };
+                  $("#product_form").append(hidden_image_field)
+
+                  $("#default_img").addClass("show-imgbox-yes");
+                  $("#default_img").removeClass("show-imgbox-no");
+                  $("#default_img").html("<img src='"+data['img_url']+"'>");
+                  img_size = $("#img_box li[class!='add-link']").length;
+                  if(img_size == 5){
+                    $("#add_img").hide();
+                  }else{
+                    $("#add_img").show();
+                  }
+                  format_img(".show-imgbox-no");
+                  format_img(".img-spa");
+                  format_img(".show-imgbox-yes");
+
                  }, 800);
                }else{
                  error_modal("网络错误，请稍后重试");
@@ -207,6 +285,7 @@
             },
             error: function(data){
               $("#loading-box").modal('hide');
+              $("#add_img").show();
               error_modal("上传发生错误，请稍后重试");
             }
           });
@@ -214,6 +293,26 @@
       )
     };
 
+    $(document).on("click", "#img_box li i", function(){
+      if(confirm("确定要删除该图片？")){
+        mid = $(this).attr("data")
+        $("#img_"+mid).parent().remove()
+        $("input[name='image_ids[]'][value="+mid+"]").remove()
+        img_size = $("#img_box li[class!='add-link']").length
+        if(img_size < 5 && img_size > 0){
+          $("#add_img").show()
+          $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] span img")[0].src+"'>")
+        }else{
+          $("#add_img").show()
+          $("#default_img").html('<%= image_tag "ims/no-image.jpg" %>')
+        }
+        format_img(".show-imgbox-no")
+        format_img(".img-spa")
+        format_img(".show-imgbox-yes")
+
+      }
+
+    })
 
 
     $("#submit_product").click(function(){
@@ -395,6 +494,16 @@
     <% if params[:action] == "new" %>
       $("#category_id").trigger("change")
     <% end %>
+
+    $("#add_img").click(function(){
+       img_size = $("#img_box li[class!='add-link']").length
+       if(img_size < 5){
+         document.getElementById("input").click()
+       }else{
+        error_modal("上传商品图片不能超过5个")
+       }
+    })
+
 
   })
 </script>

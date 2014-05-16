@@ -34,15 +34,16 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def create
     @combo = ::Combo.find_by_id(params[:combo_id])
     product = Ims::Product.create(request, {
-      image_id: params["image_id"],
       brand_id: params["brand_id"],
       sales_code: params["sales_code"],
       sku_code: params["sku_code"],
       price: params["price"],
       unitprice: params["unitprice"],
       category_id: params["category_id"],
-      size_str: params["size_str"],
-      size_ids: params["size_ids"]
+      image_ids: params["image_ids"],
+      sizes: params["sizes"],
+      color_str: params["color_str"],
+      desc: params["desc"]
     })
 
     if product["isSuccessful"]
