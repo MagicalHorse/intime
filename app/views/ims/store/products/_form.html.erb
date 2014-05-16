@@ -217,14 +217,27 @@
 
 
     $("#submit_product").click(function(){
-      $("#product_form").submit();
+
+      is_blank_size_name = $.inArray('', $("input[name='sizes[][name]']").map(function(){
+        return $(this).val()
+      }).get()) == -1
+
+      is_blank_size_inventory = $.inArray('', $("input[name='sizes[][inventory]']").map(function(){
+        return $(this).val()
+      }).get()) == -1
+
+
+      if($("#product_form").valid()){
+
+        if( is_blank_size_name && is_blank_size_inventory){
+          $("#loading-box").modal();
+          $("#product_form").submit();
+        }else{
+          error_modal("尺码和库存必填")
+        }
+      }
     });
 
-    $("#product_form").on("submit", function(){
-     if($("#product_form").valid()){
-        $("#loading-box").modal();
-      }
-    })
 
     $("#input").on("change", function(){
       if($(this).val().length != ""){
