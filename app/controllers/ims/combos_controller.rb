@@ -35,4 +35,9 @@ class Ims::CombosController < Ims::BaseController
     end
     render :json => json
   end
+
+
+  def ajax
+    @product = API::Order.new(request, productid: params[:id])[:data]
+  end
 end

@@ -24,11 +24,9 @@
                   <div class="combos-product">
                     <% img_url =  product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
-                    <a href="javascript:void(0);" value="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>" class="payment_product">
-                    <span class="img-spa">
+                    <span class="img-spa" data="<%=product[:id]%>">
                       <img src="<%= img_url %>">
                     </span>
-                    </a>
                     <% else %>
                     <span class="img-spa">
                     <img src="<%= img_url %>">
@@ -137,6 +135,10 @@
 
   </div>
 
+  <div class="modal hide fade p-modal" tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="true" id="p_pop" >
+  </div>
+
+
   <% content_for :javascripts do %>
     <script>
     $(function(){
@@ -202,6 +204,23 @@
 
         format_img(".img-spa");
 
+        $(".combos-product span").on('click', function(){
+           var id = $(this).attr('data');
+           $.ajax({
+            url: '/ims/combos/ajax?id='+id
+           })
+        });
+
+        $("#p_pop").on('show', function(){
+          setTimeout(function(){
+          $("#p-swiper").swiper({
+            mode:'horizontal',
+            autoplay: 3000,
+            calculateHeight: true,
+            loop: true,
+          });
+         }, 300);
+        });
     })
     </script>
   <% end %>
@@ -217,6 +236,6 @@
   <% end %>
   WxEnv.shareImgUrl = "<%= @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle %>";
   WxEnv.shareName = "我给您分享了一组搭配，希望您喜欢。";
-  WxEnv.shareDes = "<%= @remote_combo[:data][:desc] %>";
+  WxEnv.shareDes = "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>";
 
 </script>
