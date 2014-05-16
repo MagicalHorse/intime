@@ -1,0 +1,20 @@
+<div class="controls-defined defined-small size_input">
+  <%= hidden_field_tag "sizes[][id]", size.try(:[], :id) %>
+  <label class="col-2 text-left">尺码：</label>
+  <div class="col-3">
+    <%= text_field_tag "sizes[][name]", size.try(:[], :name) %>
+  </div>
+  <label class="col-2 text-right">库存：</label>
+  <div class="col-3">
+    <%= text_field_tag "sizes[][inventory]", size.try(:[], :inventory) || 1 %>
+  </div>
+  <div class="col-2 text-center">
+    <span>
+      <% if action == "add" %>
+        <%= link_to '添加', "javascript:void(0);", class: 'txt8 add_size' %>
+      <% else %>
+        <%= link_to '删除', "javascript:void(0);", class: 'txt8 remove_size' %>
+      <% end %>
+    </span>
+  </div>
+</div>

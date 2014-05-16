@@ -28,7 +28,6 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def edit
     @title = "商品编辑"
     @product = Ims::Product.find(request, {id: params[:id]})["data"]
-    @sizes = Tag.es_search(category_id: @product[:category_id])[:data].try(:first).try(:sizes)
     product_relation_data
   end
 
@@ -125,6 +124,10 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       json = {"status" => 0}.to_json
     end
     render :json => json
+  end
+
+  def add_size
+    render "size.json.erb"
   end
 
 
