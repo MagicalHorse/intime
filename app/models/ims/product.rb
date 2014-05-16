@@ -8,7 +8,7 @@ class Ims::Product < Ims::Base
     end
 
     def create(req, params={})
-      post(req, params.merge(path: 'product/create'))
+      post(req, params.merge(path: 'product/create', content_type: :json))
     end
 
     def update(req, params={})

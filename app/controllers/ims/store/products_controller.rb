@@ -43,7 +43,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       image_ids: params["image_ids"],
       sizes: params["sizes"],
       color_str: params["color_str"],
-      desc: params["desc"]
+      desc: params["desc"],
+      createcombo: params["createcombo"] == "1"
     })
 
     if product["isSuccessful"]
@@ -52,7 +53,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
          :price => product[:data][:price], :combo_id => @combo.try(:id),
          :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
         redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
-      elsif params["is_create_combo"] == "1"
+      elsif (combo_id = product["data"].try(:[], :combo_id)).present?
+        redirect_to new_ims_store_combo_path(:combo_id => combo_id, t: Time.now.to_i)
       else
         redirect_to ims_store_products_path
       end
