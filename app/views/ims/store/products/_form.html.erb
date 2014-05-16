@@ -83,6 +83,7 @@
     <div class="form-box">
 
 
+        <%= hidden_field_tag "is_create_combo", request.referer.blank? ? "1" : nil %>
         <div style="height: 0px;width: 0px; overflow:hidden;">
           <%= file_field_tag "image", id: "input", accept: "image/*", capture: "camera" %>
         </div>

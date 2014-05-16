@@ -47,10 +47,15 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     })
 
     if product["isSuccessful"]
-      ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
-       :price => product[:data][:price], :combo_id => @combo.try(:id),
-       :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
-      redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
+      if @combo.present?
+        ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
+         :price => product[:data][:price], :combo_id => @combo.try(:id),
+         :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
+        redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
+      elsif params["is_create_combo"] == "1"
+      else
+        redirect_to ims_store_products_path
+      end
     else
       logger = Logger.new("log/production.log")
       logger.error(product["message"])
