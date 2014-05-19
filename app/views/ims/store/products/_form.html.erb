@@ -22,7 +22,7 @@
            <div class="span2">&nbsp;</div>
            <div class="span8">
               <div class="<%= images.present? ? 'show-imgbox-yes' : 'show-imgbox-no' %>" id="default_img"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
-                <% if images.present? %>
+                <% if images.present? && params[:action] == "edit" %>
                   <img src="<%= images.last[:url] %>">
                 <% else %>
                   <%= image_tag 'ims/no-image.jpg' %>
@@ -41,7 +41,7 @@
                 <img src="<%= image[:url] %>" >
               </span>
             </li>
-          <% end %>
+          <% end if params[:action] == "edit" %>
           <% if images.size < 5 %>
             <li class="add-link" id="add_img">
               <span class="img-spa"><%= image_tag "ims/add-img.png" %></span>
@@ -67,7 +67,7 @@
           <%= file_field_tag "image", id: "input", accept: "image/*", capture: "camera" %>
         </div>
         <%= hidden_field_tag "id", @product.try(:[], :id) %>
-        <% if (images = @product.try(:[], :images)).present? %>
+        <% if (images = @product.try(:[], :images)).present? && params[:action] == "edit" %>
           <% images.each do |image| %>
             <%= hidden_field_tag "image_ids[]", image["id"] %>
           <% end %>
@@ -143,12 +143,12 @@
       </div>
     </div>
 
-    <% if params[:action] == "new" %>
-      <%= render "size", size: nil, action: "add" %>
-    <% elsif (sizes = @product.try(:[], :sizes)).present? && sizes.is_a?(Array) %>
+    <% if (sizes = @product.try(:[], :sizes)).present? && sizes.is_a?(Array) %>
       <% sizes.each_with_index do |size, index| %>
         <%= render "size", size: size, action: index.zero? ? "add" : "remove" %>
       <% end %>
+    <% else %>
+      <%= render "size", size: nil, action: "add" %>
     <% end %>
 
 </div>
@@ -196,8 +196,6 @@
   </div>
 </div>
 </div>
-
-
 
 <%= content_for :javascripts do -%>
 <script type="text/javascript">

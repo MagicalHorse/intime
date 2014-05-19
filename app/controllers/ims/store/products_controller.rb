@@ -22,6 +22,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def new
     @title = "商品上传"
     @combo_id = params[:combo_id]
+    @product = Ims::Product.find(request, {id: params[:product_id]})["data"] if params[:product_id].present?
     product_relation_data
   end
 
