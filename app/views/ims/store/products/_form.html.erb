@@ -484,6 +484,11 @@
        }
     })
 
+    $(document).on('click', "#img_box li[class!='add-link'] span", function(){
+         src = $(this).find("img")[0].src;
+         $("#default_img").html("<img src='"+src+"'>");
+         format_img(".show-imgbox-yes");
+    });
 
   })
 </script>
