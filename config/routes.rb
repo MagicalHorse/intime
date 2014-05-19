@@ -339,12 +339,15 @@ IntimeService::Application.routes.draw do
         get   :change_password
         get   :set_id_page
         post  :set_id
+        get   :test
       end
     end
     resources :cards, only: [:index] do
       collection do
         get     :recharge
         get     :give_page
+        get     :accept
+        get     :accepted_page
         get     :give
         get     :refuse
         get     :agreement
