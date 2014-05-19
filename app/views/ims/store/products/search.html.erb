@@ -103,6 +103,19 @@
 <script type="text/javascript">
   $(function(){
 
+    $(document).on("click", ".add_to_combo", function(){
+      this_ele = $(this)
+      product_id = this_ele.attr("product_id")
+      product_type = "1"
+      combo_id = "<%= @combo.try(:id) %>"
+      link = '<a product_id="' + product_id + '" class="btn btn-grey btn-mini btn-block" href="javascript:void(0);">已选择</a>'
+      $.get("/ims/store/products/" + product_id + "/add_to_combo", {product_type: product_type, combo_id: combo_id}, function(data){
+        if(data["status"] == true){
+          this_ele.replaceWith(link)
+        }
+      })
+    })
+
     // $("#search").validate({
     //   rules: {
     //     "keywords": {
