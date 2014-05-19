@@ -1,0 +1,49 @@
+
+  <div class="module module-white module-user-card">
+    <h1>恭喜您，商品购买成功！</h1>
+    <div class="module-table-box">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td>订单金额</td>
+            <td>￥<%= @order[:totalamount] %></td>
+          </tr>
+          <tr>
+            <td>订单编号</td>
+            <td><%= @order[:orderno] %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="module-wrapper module-btn text-center">
+      <button class="btn btn-large btn-danger btn-block" id="follow_button" value="javascript:void(0);">关注银泰百货北京分公司</button>
+    </div>
+    <div class="module-btn text-center">
+      <button class="btn btn-large btn-danger btn-block" id="show_button" value="<%= ims_order_path(@order[:orderno]) %>">查看订单详情</button>
+    </div>
+    <div class="module module-notice">
+      <h4><i class="fa fa-exclamation-circle"></i> 温馨提示</h4>
+      <ol>
+        <li>如果您还未关注我们的公众号，后期将无法查看订单信息，请务必点击以下链接关注我们。</li>
+        <li>非常感谢您订购银泰百货商品，我们将尽快为您发货，祝您购物愉快！</li>
+        <li>为了确保您所购买的商品库存充足，我们的工作人员将会尽快和您确认订单信息，由此给您带来不便，敬请谅解。</li>
+      </ol>
+    </div>
+  </div>
+
+
+
+  <% content_for :javascripts do %>
+    <script>
+      $(function(){
+
+        $(document).on("click", "#follow_button, #show_button", function(){
+          url = $(this).attr("value")
+          $("#loading-box").modal()
+          setTimeout(function(){
+            window.location.href = url
+          }, 1)
+        })
+      })
+    </script>
+  <% end %>
