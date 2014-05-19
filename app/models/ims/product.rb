@@ -12,7 +12,7 @@ class Ims::Product < Ims::Base
     end
 
     def update(req, params={})
-      post(req, params.merge(path: 'product/update'))
+      post(req, params.merge(path: 'product/update', content_type: :json))
     end
 
     def find(req, params = {})

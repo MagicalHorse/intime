@@ -68,15 +68,16 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def update
     product = Ims::Product.update(request, {
       id: params[:id],
-      image_id: params["image_id"],
       brand_id: params["brand_id"],
       sales_code: params["sales_code"],
       sku_code: params["sku_code"],
       unitprice: params["unitprice"],
       price: params["price"],
       category_id: params["category_id"],
-      size_str: params["size_str"],
-      size_ids: params["size_ids"]
+      image_ids: params["image_ids"],
+      sizes: params["sizes"],
+      color_str: params["color_str"],
+      desc: params["desc"]
     })
     if product["isSuccessful"]
       redirect_to ims_store_products_path
