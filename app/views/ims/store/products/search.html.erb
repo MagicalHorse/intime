@@ -69,6 +69,25 @@
 <% end %>
 </div>
 
+<div id="selected_products" class="bottom-box" style="display: block;">
+  <div class="row-fluid">
+    <div class="span8 bottom-mini-imgbox">
+            <ul id="img_box" class="inline clearfix">
+              <% @combo.combo_products.each do |product| %>
+              <li id="add_img" class="add-link">
+                <span class="img-spa">
+                  <img src="<%= product.img_url %>">
+                </span>
+              </li>
+              <% end %>
+            </ul>
+    </div>
+    <div class="span4">
+      <button id="combo_submit" type="button" class="btn btn-small btn-danger text-center">确定</button>
+    </div>
+  </div>
+</div>
+
 <%= hidden_field_tag "count", @search[:count], id: "hidden_count" %>
 <%= hidden_field_tag "page", @search[:page], id: "hidden_page" %>
 <%= hidden_field_tag "per_page", @search[:per_page], id: "hidden_per_page" %>
