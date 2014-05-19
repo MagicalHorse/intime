@@ -8,8 +8,7 @@ module Cacheable
     if Rails.env.production?
         dc = Memcached.new("#{Settings.elasticache.host}:#{Settings.elasticache.port}",
                         :credentials=>[Settings.elasticache.username,Settings.elasticache.password], 
-                        :prefix_key => "i.intime.com.cn", 
-                        :default_ttl => expires.to_i)
+                        :prefix_key => "i.intime.com.cn")
         cache_item = dc.get(key) 
     else
       cache_item = block.call
@@ -17,7 +16,7 @@ module Cacheable
     cache_item
   rescue Memcached::NotFound
     cache_value = block.call
-    dc.set(key,cache_value)
+    dc.set(key,cache_value,expires.to_i)
     retry
   end
 end
