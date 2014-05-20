@@ -9,6 +9,7 @@
 </div>
 
 
+<% if @combo.present? %>
 <div id="selected_products" class="bottom-box" style="<%= @combo.combo_products.count.zero? ? 'display:none;' : 'display: block;' %>">
   <div class="row-fluid">
     <div class="span8 bottom-mini-imgbox">
@@ -28,6 +29,7 @@
     </div>
   </div>
 </div>
+<% end %>
 
 <%= hidden_field_tag "count", @search[:data][:totalcount] %>
 <%= hidden_field_tag "page", @search[:data][:pageindex] %>
