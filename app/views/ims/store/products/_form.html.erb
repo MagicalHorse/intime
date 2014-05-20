@@ -309,7 +309,9 @@
 
         if( is_blank_size_name && is_blank_size_inventory){
           $("#loading-box").modal();
-          $("#product_form").submit();
+          setTimeout(function(){
+            $("#product_form").submit();
+          }, 1)
         }else{
           error_modal("尺码和库存必填")
         }
