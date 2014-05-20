@@ -82,6 +82,12 @@
 <script>
   $(function(){
 
+    tab = "<%= params[:tab].to_s %>"
+    if(tab.length > 0){
+      $("#myTab a[href='#"+tab+"']").tab('show')
+    }
+
+
     $(document).on("click", "#new_combo", function(){
       url = $(this).attr("value")
       $("#loading-box").modal()

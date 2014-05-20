@@ -57,7 +57,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       elsif (combo_id = product["data"].try(:[], :combo_id)).present?
         redirect_to ims_store_combo_path(combo_id)
       else
-        redirect_to ims_store_products_path
+        redirect_to ims_store_sells_path(tab: "products")
       end
     else
       logger = Logger.new("log/production.log")
