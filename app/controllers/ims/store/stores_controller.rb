@@ -102,7 +102,17 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def theme
+    @store = Ims::Store.my(request)
+    @title = "更换主题"
+  end
 
+  def change_theme
+    @status = Ims::Store.change_theme(request, {templateId: params[:id]})
+    if @status[:isSuccessful]
+      render :json => {"status" => 200}.to_json
+    else
+      render :json => {"status" => 500}.to_json
+    end
   end
 
   private

@@ -4,7 +4,7 @@
   <div class="module-card">
     <h1 class="text-center">恭喜您，成功领取<%= @card[:from] %>的银泰礼品卡</h1>
     <p class="txt1 text-center txt-money">礼品卡金额：<%= @card[:amount] %>元</p>
-    <img src="<%=Settings.fileserver_host%>/images/ims/card-self.png">
+    <%= image_tag "ims/card-self.png" %>
   </div>
 </div>  
 <div class="bottom-button">

@@ -11,7 +11,7 @@ class Ims::WeixinsController < ApiBaseController
   
   def access_token
     render :json=>{
-      token:Ims::Weixin.acess_token
+      token:Ims::Weixin.access_token
     }
   end
 end

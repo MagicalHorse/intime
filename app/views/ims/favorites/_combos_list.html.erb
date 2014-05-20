@@ -3,7 +3,11 @@
   <div class="module common-white favorite_link" value="<%= ims_combo_path(combo["id"], t: Time.now.to_i) %>">
     <div class="txt-block detail-contact">
       <div class="row-fluid">
-        <div class="span3"><span class="img-spa"><img class="img-rounded" src="<%= combo["image"] %>"></span></div>
+        <div class="span3">
+          <span class="img-spa">
+            <img src="<%=combo["image"]%>" class="img-rounded">
+          </span>
+        </div>
         <div class="span9">
           <div class="collection-p collection-pbox">
             <p class="txt2 one-line"><%= combo["name"] %></p>

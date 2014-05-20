@@ -5,7 +5,9 @@
           <div class="row-fluid">
           <div class="span8"><span class="txt2 shop-title">修改店铺LOGO</span></div>
           <div class="span3 text-right">
-            <a class="shop-logo" href="#" id="logo"><img src="<%= @store[:data][:logo] %>"></a>
+            <a class="shop-logo" href="#" id="logo">
+              <img src="<%=@store[:data][:logo]%>" class="face-img">
+            </a>
             <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera"></div>
           </div>
           </div>
@@ -25,14 +27,13 @@
         </div>
       <% end %>
     </div>
-
-    <div class="bottom-button">
+    <div class="common-white">
         <div class="form-defined">
           <div class="controls-defined defined-large">
             <div class="col-12"><button class="btn btn-danger btn-large btn-block" type="button" id="store_submit">修改</button></div>
           </div>
         </div>
-    </div>
+    </div>    
   </div>
 </div>
 
@@ -47,6 +48,10 @@
     });
 
     $("#store_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
       rules: {
         "name": {
           required: true
@@ -81,32 +86,6 @@
        document.getElementById("upfile").click();
     });
 
-    // $('#upfile').fileupload({
-    //   url: "<%= change_logo_ims_store_stores_path %>",
-    //   type: 'post',
-    //   dataType: 'json',
-    //   beforeSend: function(){
-    //     $("#loading-box").modal();
-    //   },
-    //   fileuploadfail: function(e, data){
-    //     error_modal(e);
-    //   },
-    //   fileuploadchunkfail: function(e, data){
-    //     error_modal(e);
-    //   },
-    //   done: function(e, data){
-    //     $("#loading-box").modal('hide');
-    //     if(data.result['status'] == 1){
-    //       setTimeout(function(){
-    //         $("#logo").html("<img src="+data.result['img']+" class='img-rounded'/>")
-    //       }, 500);
-    //     }else{
-    //       error_modal("网络错误，请稍后重试");
-    //     }
-
-    //   }
-    //  });
-
     document.getElementById('upfile').onchange = function (e) {
       $("#loading-box").modal();
       var orientation ;
@@ -136,9 +115,9 @@
                 }
               }
           });
-         } 
+         }
       );
-     }        
+     }
 
 
 

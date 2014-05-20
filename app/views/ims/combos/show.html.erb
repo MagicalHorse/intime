@@ -8,7 +8,7 @@
                 <% if @remote_combo[:data][:images].present? %>
                 <% @remote_combo[:data][:images].each_with_index do |img, i| %>
                  <div class="swiper-slide">
-                   <img src="<%= img["name"] %>">
+                  <img src="<%= img["name"] %>">
                  </div>
                  <% end %>
                  <% end %>
@@ -22,15 +22,16 @@
 
                 <div class="span4">
                   <div class="combos-product">
+                    <% img_url =  product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>
                     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
                     <a href="javascript:void(0);" value="<%= ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>" class="payment_product">
                     <span class="img-spa">
-                    <img src="<%= product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>">
+                      <img src="<%= img_url %>">
                     </span>
                     </a>
                     <% else %>
                     <span class="img-spa">
-                    <img src="<%= product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>">
+                    <img src="<%= img_url %>">
                     </span>
                     <% end %>
                     <p><span class="txt3">￥<%= product[:price] %></span></p>
@@ -90,7 +91,9 @@
           </p>
       </div>
     </div>
-    <div class="intime-btm"><img src="<%=Settings.fileserver_host%>/images/ims/intime-btm.png"></div>
+    <div class="intime-btm">
+     <%= image_tag 'ims/intime-btm.png' %>
+    </div>
     <% if current_user.id != @remote_combo[:data][:owner_id] %>
     <p class="text-center shopping-icon-box">
     <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-small btn-danger-defult" value="/ims/stores/<%=@remote_combo[:data][:store_id]%>/<%=Time.now.to_i%>" >
@@ -207,8 +210,12 @@
   if (typeof WxEnv == 'undefined') {
     WxEnv = {};
   }
-  WxEnv.shareUrl = "<%= request.url %>";
-  WxEnv.shareImgUrl = "<%= @remote_combo[:data][:images].first['name'] %>";
+  <% if @private_to.present? %>
+  WxEnv.shareUrl = "<%= ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i, :private_to => 'true') %>";
+  <% else %>
+  WxEnv.shareUrl = "<%= ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i) %>";
+  <% end %>
+  WxEnv.shareImgUrl = "<%= @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle %>";
   WxEnv.shareName = "我给您分享了一组搭配，希望您喜欢。";
   WxEnv.shareDes = "<%= @remote_combo[:data][:desc] %>";
 

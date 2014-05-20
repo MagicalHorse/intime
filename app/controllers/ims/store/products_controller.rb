@@ -37,9 +37,10 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     product = Ims::Product.create(request, {
       image_id: params["image_id"],
       brand_id: params["brand_id"],
-      sales_code: params["coding_id"],
+      sales_code: params["sales_code"],
       sku_code: params["sku_code"],
       price: params["price"],
+      unitprice: params["unitprice"],
       category_id: params["category_id"],
       size_str: params["size_str"],
       size_ids: params["size_ids"]
@@ -51,6 +52,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
        :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
       redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
     else
+      logger = Logger.new("log/production.log")
+      logger.error(product["message"])
       redirect_to new_ims_store_product_path(:combo_id => @combo.try(:id))
     end
   end
@@ -60,8 +63,9 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       id: params[:id],
       image_id: params["image_id"],
       brand_id: params["brand_id"],
-      sales_code: params["coding_id"],
+      sales_code: params["sales_code"],
       sku_code: params["sku_code"],
+      unitprice: params["unitprice"],
       price: params["price"],
       category_id: params["category_id"],
       size_str: params["size_str"],
@@ -81,6 +85,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     @combo = ::Combo.find(params[:combo_id])
 
     product = params[:product_type] == "2" ? Ims::Product.find(request, {:id => params[:id]}) : ::Product.fetch_product(params[:id])
+
     ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image],
       :product_type => params[:product_type], :price => product[:data][:price], :combo_id => @combo.id,
       :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})

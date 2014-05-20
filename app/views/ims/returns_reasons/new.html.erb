@@ -22,6 +22,10 @@
   $(function(){
 
     $("#returns_reason_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
       rules: {
         "reason_id": {
           required: true

@@ -16,9 +16,9 @@
          <div class="span8">
             <div id="result" class="show-imgbox-no"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
               <% if @product.blank? %>
-                <%= image_tag "#{Settings.fileserver_host}/images/ims/upload-image.jpg", alt: "img-name", id: "img" %>
+                <%= image_tag "ims/upload-image.jpg", alt: "img-name", id: "img" %>
               <% else %>
-                <%= image_tag @product[:image], alt: "img-name", id: "img" %>
+                <img src="<%=@product[:image]%>" alt="img-name" id="img" />
               <% end %>
               <!-- 400px * 400px 没有上传图片时显示默认图片no-image.jpg-->
             </div>
@@ -53,7 +53,7 @@
           <div class="controls-defined defined-small">
               <label class="col-4 text-left"><abbr class="txt-red">*</abbr>销售编码：</label>
               <div class="col-5">
-                  <%= select_tag "coding_id", options_for_select(@codings, @product.try(:[], :sales_code)), prompt: "请选择" %>
+                  <%= select_tag "sales_code", options_for_select(@codings, @product.try(:[], :sales_code)), prompt: "请选择" %>
               </div>
               <div class="col-3 text-center">
               <span>
@@ -66,6 +66,13 @@
               <div class="col-8">
                 <%= text_field_tag "sku_code", @product.try(:[], :sku_code) %>
 
+              </div>
+          </div>
+
+          <div class="controls-defined defined-small">
+              <label class="col-4 text-left"><abbr class="txt-red">*</abbr>原价：</label>
+              <div class="col-8">
+              <%= text_field_tag "unitprice", @product.try(:[], :unitprice) %>
               </div>
           </div>
 
@@ -169,21 +176,6 @@
               $("#loading-box").modal('hide');
               if(data['status'] == 1){
                 setTimeout(function(){
-                   // insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'><img src='<%=Settings.fileserver_host%>/images/ims/delate.png'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
-                   // if($("#img_box li[class!='add-link']").length >0 ){
-                   //   $($("#img_box li[class!='add-link']:last")).after(insert_html);
-                   // }else{
-                   //   $("#img_box").prepend(insert_html);
-                   // };
-
-                   // $("#default_img").addClass("show-imgbox-yes");
-                   // $("#default_img").removeClass("show-imgbox-no");
-                   // $("#default_img").html("<img src='"+data['img']+"'>");
-                   // img_size = $("#img_box li[class!='add-link']").length;
-                   // if(img_size == 5){$("#add_img").hide();}else{$("#add_img").show();}
-                   // format_img(".show-imgbox-no");
-                   // format_img(".img-spa");
-                   // format_img(".show-imgbox-yes");
                    $("#image_id").attr("value", data["id"])
                    img = "<img src='"+data["img_url"]+"'/>"
                    $("#result").html(img)
@@ -210,6 +202,7 @@
 
     $("#product_form").on("submit", function(){
       error = '尺码不能为空'
+
       if(!$("#size_ids_wrapper").is(":hidden")){
         if($("input[name='size_ids[]']").length == 0){
             error_modal(error)
@@ -235,11 +228,11 @@
         $.post("/ims/store/sales_codes", {coding: coding}, function(data){
           if(data["status"] == true){
             // $("#new_coding_form").modal("hide")
-            $("#coding_id").html("")
+            $("#sales_code").html("")
             $.each(data["data"], function(index, value){
-              $("#coding_id").append("<option value='"+value+"'>"+value+"</option>")
+              $("#sales_code").append("<option value='"+value+"'>"+value+"</option>")
             })
-            $("#coding_id option:last").attr("selected", true)
+            $("#sales_code option:last").attr("selected", true)
           }else{
             error_modal("销售编码添加失败")
           }
@@ -263,7 +256,7 @@
         "brand_id": {
           required: true
         },
-        "coding_id": {
+        "sales_code": {
           required: true
         },
         "sku_code": {
@@ -274,6 +267,11 @@
         "price": {
           required: true,
           number: true
+        },
+        "unitprice": {
+          required: true,
+          number: true,
+          more_than: "#price"
         },
         "category_id": {
           required: true
@@ -294,7 +292,7 @@
         "brand_id": {
           required: "品牌不能为空"
         },
-        "coding_id": {
+        "sales_code": {
           required: "销售编码不能为空"
         },
         "sku_code": {
@@ -305,6 +303,11 @@
         "price": {
           required: "微信价不能为空",
           number: "微信价只能是数字"
+        },
+        "unitprice": {
+          required: "原价不能为空",
+          number: "原价只能是数字",
+          more_than: "微信价不能大于原价"
         },
         "category_id": {
           required: "分类不能为空"
@@ -391,19 +394,6 @@
     <% if params[:action] == "new" %>
       $("#category_id").trigger("change")
     <% end %>
-
-    // function readFile(){
-    //   var file = this.files[0];
-    //   if(!/image\/\w+/.test(file.type)){
-    //     error_modal("文件必须为图片！");
-    //     return false;
-    //   }
-    //   var reader = new FileReader();
-    //   reader.readAsDataURL(file);
-    //   reader.onload = function(e){
-    //     result.innerHTML = '<img src="'+this.result+'"/>'
-    //   }
-    // }
 
   })
 </script>

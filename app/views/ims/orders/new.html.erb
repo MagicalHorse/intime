@@ -45,7 +45,7 @@
      <div class="row-fluid">
          <div class="span3">
              <div class="detail-imgbox">
-                <%= image_tag Product.img_url(salecolors.first.try(:[], :resource)) %>
+              <img src="<%=Product.img_url(salecolors.first.try(:[], :resource)) %>">
              </div>
          </div>
          <div class="span9">
@@ -84,7 +84,7 @@
                       <div class="row-fluid">
                          <div class="span3">
                              <div class="detail-imgbox">
-                                 <%= image_tag Product.img_url(salecolors.first.try(:[], :resource)) %>
+                              <img src="<%=Product.img_url(salecolors.first.try(:[], :resource))%>">
                              </div>
                          </div>
                          <div class="span9">
@@ -227,7 +227,7 @@
     $(".ellipsis").on("click", function(){
       setTimeout(function(){
         format_img(".detail-imgbox")
-      }, 200)
+      }, 500)
     })
 
     $(".tb-reduce, .tb-increase").on("click", function(){
@@ -373,6 +373,10 @@
     <% end %>
 
     var validator = $("#new_order_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
       ignore: "",
       rules: {
         "order[products][][productid]": {

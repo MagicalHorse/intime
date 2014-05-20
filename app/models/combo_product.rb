@@ -1,6 +1,6 @@
 # encoding: utf-8
 class ComboProduct < ActiveRecord::Base
-  attr_accessible :remote_id, :combo_id, :img_url, :product_type, :price, :brand_name, :category_name
+  attr_accessible :remote_id, :combo_id, :img_url, :product_type, :price, :brand_name, :category_name, :unitprice
 
   belongs_to :combo
 
