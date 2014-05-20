@@ -458,6 +458,7 @@ IntimeService::Application.routes.draw do
         post 'menu', to: :message
         get :access_token
         post :access_token
+        post :renew
       end
     end
   end
