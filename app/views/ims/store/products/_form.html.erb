@@ -63,6 +63,7 @@
 
 
         <%= hidden_field_tag "createcombo", request.referer.blank? ? "1" : nil %>
+        <%= hidden_field_tag "redirect_url", request.referer %>
         <div style="height: 0px;width: 0px; overflow:hidden;">
           <%= file_field_tag "image", id: "input", accept: "image/*", capture: "camera" %>
         </div>
