@@ -26,9 +26,14 @@
           <%= link_to edit_ims_store_product_path(product["id"]) do %>
             <button class="btn btn-mini btn-danger">编 辑</button>
           <% end %>
-            <button class="btn btn-mini btn-danger button-select">
-            <a href="<%= add_to_combo_ims_store_product_path(:id => product["id"], :combo_id => combo.try(:id), :product_type => "2") %>">选 择</a>
-            </button>
+
+          <% if combo.combo_products.pluck(:remote_id).include?(product["id"]) %>
+          <%= link_to "已选", "javascript:void(0);", class: "btn btn-grey btn-mini btn-select button-select", product_id: product["id"] %>
+          <% else %>
+          <%= link_to "选择", "javascript:void(0);", class: "btn btn-danger btn-mini button-select add_to_combo", product_id: product["id"] %>
+          <% end %>
+
+
         </div>
        </div>
      </div>
@@ -38,6 +43,11 @@
   <% end %>
 
 </div>
-<script>
+
+<% content_for :javascripts do -%>
+<script type="text/javascript">
+  $(function(){
     format_img(".p-pic");
+  })
 </script>
+<% end %>
