@@ -22,7 +22,12 @@ class Ims::BaseController < ApplicationController
   end
 
   def wx_auth!
+    # 提供测试环境下的mockup访问
+    if request.host == "114.215.179.76" || request.headers["HTTP_USER_AGENT"].include?("Firefox") || request.headers["HTTP_USER_AGENT"].include?("Chromium") || request.headers["HTTP_USER_AGENT"].include?("Chrome")
+      get_token_from_api(request) unless session[:user_token]
+    else
       raise Ims::Unauthorized if cookies[:user_token].blank? || cookies[:user_access_token].blank?
+    end
   end
   
   def track_options
