@@ -55,7 +55,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
          :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
         redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
       elsif (combo_id = product["data"].try(:[], :combo_id)).present?
-        redirect_to ims_store_combo_path(combo_id)
+        redirect_to ims_combo_path(combo_id, :private_to => true, :t => Time.now.to_i)
       else
         redirect_to ims_store_sells_path(tab: "products")
       end
