@@ -2,8 +2,9 @@
 require 'auth/authenticate_system'
 class ApplicationController < ActionController::Base
   before_filter :parse_params, :only=>[:list,:search]
+  after_filter :set_no_cache
   helper_method :middle_pic_url, :href_of_avatar_url, :default_product_pic_url
-
+  
   # def default_url_options
   #   Settings.default_url_options.to_hash
   # end
@@ -129,5 +130,9 @@ class ApplicationController < ActionController::Base
 
   def default_product_pic_url
     Settings.default_image_url.product.middle
+  end
+  
+  def set_no_cache
+    expires_now
   end
 end

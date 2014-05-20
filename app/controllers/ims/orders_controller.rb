@@ -69,7 +69,7 @@ class Ims::OrdersController < Ims::BaseController
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
     @out_trade_no = @orderno
     @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
-    @notify_url = "http://#{Settings.wx.backdomain}/ims/payment/notify"
+    @notify_url = "http://#{Settings.wx.notifydomain}/ims/payment/notify"
     @time_val = Time.now
 
     package = {

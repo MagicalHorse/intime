@@ -1,18 +1,22 @@
 # encoding: utf-8
-require 'dalli'
+require 'memcached'
+
 module Cacheable
   def cache_get(key,expires,&block)
     dc = nil;
     cache_item = nil;
     if Rails.env.production?
-      dc = Dalli::Client.new("#{Settings.elasticache.host}:#{Settings.elasticache.port}" \
-                    , { :namespace => "i.intime.com.cn", :compress => true ,:expires_in => expires})
-      cache_item = dc.fetch(key) do
-        block.call 
-      end
+        dc = Memcached.new("#{Settings.elasticache.host}:#{Settings.elasticache.port}",
+                        :credentials=>[Settings.elasticache.username,Settings.elasticache.password], 
+                        :prefix_key => "i.intime.com.cn")
+        cache_item = dc.get(key) 
     else
       cache_item = block.call
     end
     cache_item
+  rescue Memcached::NotFound
+    cache_value = block.call
+    dc.set(key,cache_value,expires.to_i)
+    retry
   end
 end
