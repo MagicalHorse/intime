@@ -1,12 +1,12 @@
 <div class="controls-defined defined-small size_input">
   <%= hidden_field_tag "sizes[][id]", size.try(:[], :id) %>
-  <label class="col-2 text-left">尺码：</label>
-  <div class="col-3">
-    <%= text_field_tag "sizes[][name]", size.try(:[], :name) %>
+  <!-- <label class="col-2 text-left">尺码：</label> -->
+  <div class="col-5">
+    <%= text_field_tag "sizes[][name]", size.try(:[], :name), placeholder: "尺码" %>
   </div>
-  <label class="col-2 text-right">库存：</label>
-  <div class="col-3">
-    <%= text_field_tag "sizes[][inventory]", size.try(:[], :inventory) || 1 %>
+  <!-- <label class="col-2 text-right">库存：</label> -->
+  <div class="col-5">
+    <%= text_field_tag "sizes[][inventory]", size.try(:[], :inventory) || 1, placeholder: "库存" %>
   </div>
   <div class="col-2 text-center">
     <span>
