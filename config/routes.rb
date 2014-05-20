@@ -318,6 +318,7 @@ IntimeService::Application.routes.draw do
     resources :combos, only: [:show, :destroy] do
       collection do
         post 'upload'
+        get 'ajax'
       end
     end
     resources :accounts, only: [:new, :create] do

@@ -15,7 +15,7 @@
 /tmp
 .elasticbeanstalk/
 
-#config/database.yml
+config/database.yml
 .ruby-version
 .ruby-gemset
 .rvmrc
@@ -29,8 +29,11 @@ public/assets
 config/settings.local.yml
 config/settings/*.local.yml
 config/environments/*.local.yml
-config/database.yml
+config/aws.yml
+config/settings/production.yml
 
+config/database.yml
 Gemfile.lock
 config/settings/development.yml
 db/schema.rb
+

@@ -51,4 +51,4 @@ module ISAwsSqs
   end
 end
 
-ISAwsSqs.start unless Rails.env.development?
+#ISAwsSqs.start unless Rails.env.development?

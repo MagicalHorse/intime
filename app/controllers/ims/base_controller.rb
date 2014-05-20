@@ -2,7 +2,7 @@
 class Ims::BaseController < ApplicationController
   layout 'ims'
   before_filter :wx_auth!
-  helper_method :current_user
+  helper_method [:current_user,:track_options]
 
   rescue_from Ims::Unauthorized do
     redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: Settings.wx.appid, redirect_uri: URI.escape("http://#{Settings.wx.backdomain}/ims/auth"), response_type: 'code', scope: 'snsapi_base', state: "STATE"}.to_param, 'wechat_redirect']).to_s)
@@ -22,14 +22,17 @@ class Ims::BaseController < ApplicationController
   end
 
   def wx_auth!
-    # TODO 上线前，去掉下列判断，只保留抛异常的部分
-    if request.host != "114.215.179.76" || request.headers["HTTP_USER_AGENT"].include?("Firefox") || request.headers["HTTP_USER_AGENT"].include?("Chromium") || request.headers["HTTP_USER_AGENT"].include?("Chrome")
+    # 提供测试环境下的mockup访问
+    if ENV["RAILS_ENV"] == "development"
       get_token_from_api(request) unless session[:user_token]
     else
       raise Ims::Unauthorized if cookies[:user_token].blank? || cookies[:user_access_token].blank?
     end
   end
-
+  
+  def track_options
+    params||{}
+  end
   private
 
   def get_token_from_api(request)

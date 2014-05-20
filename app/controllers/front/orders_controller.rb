@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Front::OrdersController < Front::BaseController
-  # before_filter :authenticate!
+  before_filter :authenticate!
 
   def index
     options = {

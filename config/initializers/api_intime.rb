@@ -2,8 +2,8 @@
 RestClient.log = 'log/restclient.log'
 PAGE_ALL_SIZE = 1000
 if Rails.env.production?
-  API_HOST ="http://iapi.intime.com.cn/api"
-  IMS_HOST = "http://iapi.intime.com.cn/ims"
+  API_HOST = Settings.api.apis
+  IMS_HOST = Settings.api.imsapi
   CLIENT_VERSION = '3.0'
   API_KEY = '4030D3A6-07FD-4BF4-93D8-564B950CC4A7'
   IMS_KEY = '4030D3A6-07FD-4BF4-93D8-564B950CC4A7'
