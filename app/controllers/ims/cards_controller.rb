@@ -49,6 +49,24 @@ class Ims::CardsController < Ims::BaseController
     current_user.other_phone = @card[:phone]
   end
 
+  # 接受礼品卡
+  def accept
+    # TODO，需要接口accept
+    @result = Ims::Giftcard.accept(request, charge_no: params[:charge_no], comment: params[:comment], phone: phone, from: params[:from], trans_id: @trans_id)
+    return redirect_to accepted_page_ims_cards_path(charge_no: params[:charge_no], rans_id: @result[:data][:trans_id])
+  end
+
+  # 已经接受的礼品卡页面
+  def accepted_page
+    @charge_no = params[:charge_no]
+    @trans_id = params[:trans_id]
+    if @trans_id.to_i != 0
+      @card = Ims::Giftcard.trans_detail2(request, trans_id: @trans_id)["data"] || {}
+    else
+      @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"] || {}
+    end
+  end
+
   # 赠送页面
   def give_page
     @title = "赠送礼品卡"
