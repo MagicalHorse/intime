@@ -1,5 +1,4 @@
-    <div class=""><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div>
-    <div class="xclose clearfix"></div>
+    <div class="xclose clearfix"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button></div>
     <div class="modal-content">
       <div class="p-modal-body">
 
@@ -16,8 +15,8 @@
         </div>
 
         <div class="p-modal-desc">
-          <h4><%= product[:name] %></h4>
-          <p><span class="txt3">微信价： ￥<%= product[:price] %></span><span class="txt4">￥<%= product[:originprice] %></span></p>
+          <p class="txt3"><%= product[:name] %></p>
+          <p><span class="txt2">微信价： <i class="txt-red">￥<%= product[:price] %></i></span><span class="txt5">￥<%= product[:originprice] %></span></p>
           <p class="text-center"><%= link_to "点击购买", 'javascript:void(0);', class: "btn btn-danger btn-small loading-box", value: ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %></p>
         </div>
       </div>
