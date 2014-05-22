@@ -90,13 +90,16 @@ class Ims::CardsController < Ims::BaseController
     @trans_id = params[:trans_id].to_i || 0
     @notice = "请输入您的姓名" if params[:from].blank?
     if @notice
-      return redirect_to "#{give_page_ims_cards_path(charge_no: @charge_no, comment: params[:comment], from: params[:from])}", notice: @notice
+      redirect_to :back, notice: @notice
     else
       # API_NEED: 赠送礼品卡接口
       @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: params[:comment], phone: "", from: params[:from], trans_id: @trans_id)
-      Rails.logger.debug(@result.to_s)
-      flash[:page_type] = "give_show_page"
-      return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@result[:data][:trans_id]}"
+      if @result["isSuccessful"]
+        flash[:page_type] = "give_show_page"
+        return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@result[:data][:trans_id]}"
+      else
+        redirect_to :back, notice: @result["message"]
+      end
     end
   end
 
