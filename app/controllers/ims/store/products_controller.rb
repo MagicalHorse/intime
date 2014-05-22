@@ -79,9 +79,10 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       color_str: params["color_str"],
       desc: params["desc"]
     })
+
     if product["isSuccessful"]
-      if params[:redirect_url].present?
-        redirect_to params[:redirect_url]
+      if (redirect_url = params[:redirect_url]).present? && !redirect_url.include?("ims/store/sells")
+        redirect_to redirect_url
       else
         redirect_to ims_store_sells_path(tab: "products")
       end
