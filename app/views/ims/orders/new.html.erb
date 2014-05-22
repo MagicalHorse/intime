@@ -50,11 +50,13 @@
          </div>
          <div class="span9">
              <div class="price-detail">
-                <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
-                <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+                <h3><%= truncate (product['brandname'].to_s + product["skucode"].to_s), length: 40 %></h3>
+                <p class="txt3">
+                微信价：<em>￥<%= product["price"] %></em>
                 <% if product["originprice"].present? %>
-                <p class="txt3">原价：￥<%= product["originprice"] %></p>
+                  <span class="middle-line">￥<%= product["originprice"] %></span>
                 <% end %>
+                </p>
              </div>
          </div>
      </div>
