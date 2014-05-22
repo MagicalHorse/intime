@@ -75,7 +75,6 @@
       <ul id="img_box" class="inline clearfix">
         <% @combo.combo_products.each do |combo_product| %>
         <li class="add-link" combo_product_id="<%= combo_product.id %>" product_id="<%= combo_product.remote_id %>">
-          <i><img src="/assets/ims/delate.png" alt="Delate"></i>
           <span class="img-spa">
             <img src="<%= combo_product.img_url %>">
           </span>
@@ -123,7 +122,7 @@
       link = '<a product_id="' + product_id + '" class="btn btn-grey btn-mini btn-block" href="javascript:void(0);">已选择</a>'
       $.get("/ims/store/products/" + product_id + "/add_to_combo", {product_type: product_type, combo_id: combo_id}, function(data){
         if(data["status"] == true){
-          li = "<li class='add-link' combo_product_id='"+data["id"]+"' product_id='"+product_id+"'><i><img alt='Delate' src='/assets/ims/delate.png'></i><span class='img-spa'><img src='"+src+"'></span></li>"
+          li = "<li class='add-link' combo_product_id='"+data["id"]+"' product_id='"+product_id+"'><span class='img-spa'><img src='"+src+"'></span></li>"
           $("#selected_products").show()
           this_ele.replaceWith(link)
           $("#selected_products ul").append(li)
@@ -137,7 +136,7 @@
     format_img(".img-spa");
 
 
-    $(document).on("click", "#img_box li i", function(){
+    $(document).on("click", "#img_box li .img-spa", function(){
       if(confirm("确定删除商品吗？")){
         this_ele = $(this)
         li = this_ele.parents("li")

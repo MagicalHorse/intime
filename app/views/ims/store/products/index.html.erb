@@ -58,7 +58,7 @@
         link = '<a product_id="' + product_id + '" class="btn btn-grey btn-mini btn-select button-select" href="javascript:void(0);">已选</a>'
         $.get("/ims/store/products/" + product_id + "/add_to_combo", {product_type: product_type, combo_id: combo_id}, function(data){
           if(data["status"] == true){
-            li = "<li class='add-link' combo_product_id='"+data["id"]+"' product_id='"+product_id+"'><i><img alt='Delate' src='/assets/ims/delate.png'></i><span class='img-spa'><img src='"+src+"'></span></li>"
+            li = "<li class='add-link' combo_product_id='"+data["id"]+"' product_id='"+product_id+"'><span class='img-spa'><img src='"+src+"'></span></li>"
             $("#selected_products").show()
             this_ele.replaceWith(link)
             $("#selected_products ul").append(li)
