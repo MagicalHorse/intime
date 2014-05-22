@@ -60,8 +60,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
         redirect_to ims_store_sells_path(tab: "products")
       end
     else
-      logger = Logger.new("log/production.log")
-      logger.error(product["message"])
+      $logger.error(product["message"])
       redirect_to new_ims_store_product_path(:combo_id => @combo.try(:id))
     end
   end
