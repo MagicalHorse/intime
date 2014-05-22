@@ -7,10 +7,19 @@
           <div class="swiper-wrapper">
             <% product = @product %>
             <% salecolors = product[:salecolors] %>
-            <% img_url = Product.img_url(salecolors.first.try(:[], :resource)) %>
+            <% if salecolors.present? %>
+            <% salecolors.each do |color| %>
+            <% img_url = Product.img_url(color.try(:[], :resource)) %>
              <div class="swiper-slide">
               <img src="<%= img_url %>">
              </div>
+             <% end %>
+             <% else %>
+             <% img_url = Product.img_url(nil.try(:[], :resource)) %>
+              <div class="swiper-slide">
+              <img src="<%= img_url %>">
+             </div>
+             <% end %>
           </div>
         
         </div>
