@@ -22,7 +22,7 @@
 
 
 .bottom-mini-imgbox ul{margin: 0; list-style: none; width: 100%；}
-.bottom-mini-imgbox ul li{ position: relative; float: left; margin:0 5px 5px 0; padding: 0; font-size: 1px; width: 14%; text-align: center; margin-left: 20px;}
+.bottom-mini-imgbox ul li{ position: relative; float: left; margin:0 5px 5px 5px; padding: 0; font-size: 1px; width: 14%; text-align: center;}
 .bottom-mini-imgbox ul li:last-child{ margin-right: 0;}
 .bottom-mini-imgbox ul li .img-spa{ font-size: 1px; overflow: hidden; text-align: center;}
 .bottom-mini-imgbox ul li i{ position: absolute;left: -4%; top: -20%;display:block; width: 28px; height: 28px; background-position: center center; background-repeat: no-repeat; background-size: 24px auto;}
@@ -116,9 +116,10 @@
 .p-dp-price { text-decoration:line-through; font-size: 15px; margin-left: 50px;}
 .p-price1 {width: 100%;margin: 10px 0 24px;}
 .p-price1 span {padding-right: 30px;}
+.p-list span{padding-right: 0}
 .p-price1 .txt-red {padding-right: 30px;}
 .p-price1 span em{font-style: normal;}
-.p-price1 .p-wx-price{padding-right: 0}
+.p-list span{padding-right: 0}
 .button-select {margin-left: 25px;}
 .txt-block .middle-line, .p-price1 .middle-line{text-decoration: line-through; margin-left: 10px;}
 /*combos show*/
