@@ -88,6 +88,8 @@ class Ims::AccountsController < Ims::BaseController
       else
         redirect_to mine_ims_accounts_path
       end
+    else
+      Rails.logger.debug("bind_phone_error #{params[:phone]} #{result.to_s}")
     end
   end
 
