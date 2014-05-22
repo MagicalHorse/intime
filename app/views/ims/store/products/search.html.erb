@@ -83,7 +83,7 @@
       </ul>
     </div>
     <div class="span4">
-      <button id="combo_submit" type="button" class="btn btn-small btn-danger text-center" value="<%= new_ims_store_combo_path(combo_id: @combo.try(:id)) %>">确定</button>
+      <button id="combo_submit" type="button" class="btn btn-small btn-danger text-center fixed-button" value="<%= new_ims_store_combo_path(combo_id: @combo.try(:id)) %>">确定</button>
     </div>
   </div>
 </div>
@@ -102,6 +102,8 @@
 <% content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+
+    $(".fixed-button").attr("style", "right:10px;")
 
     $("#combo_submit").on("click", function(){
       $("#loading-box").modal()
