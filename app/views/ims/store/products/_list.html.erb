@@ -10,17 +10,18 @@
       </div>
       <div class="span8">
         <div class="p-title">
-          <h3 class="one-line">
-            <%= product["name"] %>
+          <h3>
+            <%= truncate product["name"], length: 40 %>
           </h3>
         </div>
-        <% if product["unitprice"].present? %>
+
         <div class="p-price1 clearfix">
-          <span class="txt4">原价：￥<%= product["unitprice"] %></span>
-        </div>
-        <% end %>
-        <div class="p-price1 clearfix">
-          <span class="txt4">微信价：<span class="p-wx-price">￥<%= product["price"] %></span></span>
+          <span class="txt4">
+            微信价：<span class="p-wx-price">￥<%= product["price"] %></span>
+            <% if (unitprice = product["unitprice"]).present? %>
+              <span class="middle-line">￥<%= unitprice %></span>
+            <% end %>
+          </span>
         </div>
         <div class="buttons">
           <%= link_to edit_ims_store_product_path(product["id"]) do %>
