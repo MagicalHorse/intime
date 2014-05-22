@@ -65,8 +65,7 @@
               <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></span>
           </p>
         <p class="pull-left price-box">
-          <% if @remote_combo[:data][:is_online] %>
-          <% if  @remote_combo[:data]["expire_in"].present? %>
+          <% if @remote_combo[:data][:is_online] && @remote_combo[:data]["expire_in"].present? %>
               <span class="pull-left countdown">
                   <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
               </span>
@@ -79,9 +78,8 @@
                         </script>
           <% else %>
             <span class="pull-left countdown">
-               长期有效
-            </span>
-          <% end %>
+                  <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
+              </span>
           <% end %>
 
           <span class="txt4 pull-right txt-red" id="unfavor_combo"><a href="javascript:void(0)"><i class="fa fa-star"></i> 已收藏</a></span>
