@@ -28,7 +28,7 @@
                       <img src="<%= img_url %>">
                     </span>
                     <% else %>
-                    <span class="img-spa">
+                    <span class="img-spa" data="<%=product[:id]%>">
                     <img src="<%= img_url %>">
                     </span>
                     <% end %>
@@ -209,7 +209,7 @@
         $(".combos-product span").on('click', function(){
            var id = $(this).attr('data');
            $.ajax({
-            url: '/ims/combos/ajax?id='+id
+            url: '/ims/combos/ajax?combo_id='+'<%=@remote_combo[:data][:id]%>'+'&id='+id
            })
         });
 
