@@ -57,9 +57,13 @@
   </div>
   <% end %>
 
-<script type="text/javascript">
-    $(".detail-imgbox").each(function(){
-        $(this).css("height", $(this).width())
-        $(this).css("line-height", $(this).height()+"px")
-    });
-</script>
+  <% content_for :javascripts do %>
+    <script>
+      $(function(){
+        $(".detail-imgbox").each(function(){
+            $(this).css("height", $(this).width())
+            $(this).css("line-height", $(this).height()+"px")
+        });
+      })
+    </script>
+<% end %>
