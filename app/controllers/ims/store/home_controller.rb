@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Ims::Store::HomeController < Ims::Store::BaseController
   skip_filter :authenticate
-  before_filter :go_store
+  # before_filter :go_store
   
 
   def index
@@ -27,8 +27,9 @@ class Ims::Store::HomeController < Ims::Store::BaseController
       })
       session[:current_wx_user] = user
       redirect_to my_ims_store_store_path(:id => user.store_id, :t => Time.now.to_i)
-    elsif @status[:message].include?("用户已经")
+    elsif @status[:statusCode].to_i==401
       session[:user_token] = nil
+      cookies[:user_token] = nil
       redirect_to check_ims_store_stores_path
     else  
       @error = true
