@@ -13,7 +13,7 @@
             <p class="txt2 one-line"><%= product["name"] %></p>
             <p class="txt2">
               <span class="txt-red">微信价：￥<%= product["price"] %></span>
-              <span class="middle-line"><%= product["unitprice"] %></span>
+              <span class="middle-line">￥<%= product["unitprice"] %></span>
             </p>
             <div class="shelves">
               <%= link_to "复制", "javascript:void(0);", value: new_ims_store_product_path(product_id: product["id"]), class: "btn btn-success btn-small product_copy" %>
