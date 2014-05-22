@@ -118,6 +118,7 @@
 .p-price1 span {padding-right: 30px;}
 .p-price1 .txt-red {padding-right: 30px;}
 .p-price1 span em{font-style: normal;}
+.p-price1 .p-wx-price{padding-right: 0}
 .button-select {margin-left: 25px;}
 .txt-block .middle-line, .p-price1 .middle-line{text-decoration: line-through; margin-left: 10px;}
 /*combos show*/
