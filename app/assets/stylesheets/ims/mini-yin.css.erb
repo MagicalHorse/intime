@@ -537,13 +537,13 @@ h6 small {font-size: 10px; line-height: 16px;}
 }
 /*--combos/show modal---*/
   .p-modal {
-    top:0% !important;
+    top:3%;
     padding: 0 !important;
     margin: 0;
-    border: none;
+    border: none !important;
     background: none !important;
-    overflow: scroll;
     width: 100% !important;
+    box-shadow: none;
   }
   .p-modal-body {
     position: relative;
@@ -562,6 +562,13 @@ h6 small {font-size: 10px; line-height: 16px;}
   .p-modal-desc {
     text-align: left;
     color: #fff;
+    position: relative;
+    background-color: #9e9b9b;
+    opacity: 0.9;
+    width: 99%;
+    top: -90;
+    z-index: 9;
+    padding: 5px 3px;
   }
   .p-modal-desc p span:last-child {
     padding-left: 8px;
@@ -569,11 +576,13 @@ h6 small {font-size: 10px; line-height: 16px;}
   }
   .p-modal-body .swiper-container {
     background-color: #fff;
+    border: none;
   }
-  .p-modal-body .swiper-slide img {
-    height: 270px; 
+  .p-modal-body .swiper-container .swiper-slide img {
+    width: 100%;
   }
-  .p-modal-body .txt2, .p-modal-body .txt3, .p-modal-body .txt4, .p-modal-body .txt5 {color: #fff;}
+  
+  .p-modal-body .txt1, .p-modal-body .txt3 {color: #fff;}
 
 
 /*-------------------------------Css Bootm btn---------------------------------*/
