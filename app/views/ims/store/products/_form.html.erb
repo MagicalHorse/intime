@@ -58,7 +58,12 @@
 
 
 <%= form_tag url, method: method, multipart: true, id: "product_form", class: "form-defined" do %>
-<div class="module module-bg-white2">
+    <div class="module module-bg-white2">
+    <div class="module-title2">
+      <div class="row-fluid">
+        <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>商品信息</h3></div>
+      </div>
+    </div>
     <div class="form-box">
 
 
@@ -118,7 +123,7 @@
           <div class="controls-defined defined-small">
               <label class="col-4 text-left"><abbr class="txt-red">*</abbr>颜色：</label>
               <div class="col-8">
-              <%= text_field_tag "color_str", params[:action] == "new" ? "均色" : @product.try(:[], :color_str) %>
+              <%= text_field_tag "color_str", @product.try(:[], :color_str) %>
               </div>
           </div>
 
@@ -137,7 +142,7 @@
 
     <div class="module-title2">
       <div class="row-fluid">
-        <div class="span4"></div>
+        <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>商品规格</h3></div>
         <div class="span8">
           <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 至少填写一项尺码和库存</small></div>
         </div>
@@ -174,7 +179,7 @@
 <div class="module module-bg-white2">
     <div class="module-title2">
         <div class="row-fluid">
-            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>产品描述</h3></div>
+            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>商品描述</h3></div>
             <div class="span8">
                 <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多500个字符</small></div>
             </div>
