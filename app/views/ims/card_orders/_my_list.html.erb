@@ -6,7 +6,7 @@
       <p>金额：<%= item[:amount] %>元</p>
       <p class="txt-green btn-line">
         状态：<%= card_orders_status item[:status_i] %>
-        <% if !item[:recharged] and item[:status_i] == 5 %>
+        <% if item[:status_i] == 7 %>
         <%= link_to "补发赠送通知", "/ims/cards/gift_page/#{item[:card_no]}-#{Time.now.to_i}-#{item[:trans_id]}", class: "btn btn-danger btn-small list-right"  %>
         <div class="clearfix"></div>
         <% flash[:page_type] = "give_show_page" %>
@@ -16,7 +16,6 @@
       <p>充值时间：<%= item[:charge_date] %></p>
       <% elsif item[:status_i] == 5 %>
       <p>赠送时间：<%= item[:send_date] %></p>
-      <p>赠送对象：<%= item[:verify_phone] %></p>
       <% else %>
       <p>购买时间：<%= item[:purchase_date] %></p>
       <% end %>

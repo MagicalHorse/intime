@@ -52,7 +52,7 @@ class Ims::CardsController < Ims::BaseController
   def accept
     @result = Ims::Giftcard.receive(request, charge_no: params[:charge_no], trans_id: @trans_id)
     if @result["isSuccessful"]
-      redirect_to accepted_page_ims_cards_path(charge_no: params[:charge_no], trans_id: @result[:data][:trans_id])
+      redirect_to accepted_page_ims_cards_path(charge_no: params[:charge_no])
     else
       redirect_to :back, notice: @result["message"]
     end

@@ -1,7 +1,7 @@
 <!--  如果已经处理了  -->
 <div class="module module-white">
   <div class="module-card">
-    <h1 class="text-center">您已经接收好友赠送的银泰礼品卡！</h1>
+    <h1 class="text-center">您已成功接收好友赠送的银泰礼品卡！</h1>
     <p class="txt1 text-center txt-money">礼品卡金额：<%= @card[:amount] %>元</p>
     <%= image_tag "ims/card-self.png" %>
   </div>
@@ -13,7 +13,7 @@
         <button class="btn btn-danger btn-large btn-block" id="button_recharge">充值自用</button>
       </div>
       <div class="col-4">
-        <button class="btn btn-grey btn-large btn-block" id="button_give">赠送好友</button>
+        <button class="btn btn-danger btn-large btn-block" id="button_give">赠送好友</button>
       </div>
       <div class="col-4">
         <a href="<%= mine_ims_accounts_path %>" class="btn btn-danger btn-large btn-block">进入首页</a>
