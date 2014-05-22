@@ -91,15 +91,15 @@
      <%= image_tag 'ims/intime-btm.png' %>
     </div>
     <% if current_user.id != @remote_combo[:data][:owner_id] %>
-    <p class="text-center shopping-icon-box">
-    <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-small btn-danger-defult" value="/ims/stores/<%=@remote_combo[:data][:store_id]%>/<%=Time.now.to_i%>" >
-    <i class="shop-icon0"></i>进店铺逛逛
+    <div class="text-center shopping-icon-box">
+    <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-danger-defult" value="/ims/stores/<%=@remote_combo[:data][:store_id]%>/<%=Time.now.to_i%>" >
+    <i class="shop-icon0"></i><span>进店铺逛逛</span>
     </a>
-    </p>
+    </div>
     <% else %>
     <p class="text-center shopping-icon-box">
-    <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-small btn-danger-defult" value="/ims/store/stores/<%=@remote_combo[:data][:store_id]%>/my/<%=Time.now.to_i%>" >
-    <i class="shop-icon0"></i>进店铺逛逛
+    <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-danger-defult" value="/ims/store/stores/<%=@remote_combo[:data][:store_id]%>/my/<%=Time.now.to_i%>" >
+    <i class="shop-icon0"></i><span>进店铺逛逛</span>
     </a>
     </p>
     <% end %>
@@ -134,6 +134,10 @@
   </div>
 
   <div class="modal hide fade p-modal" tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="true" id="p_pop" >
+    <div class="row-fluid">
+      <div class="span12" id="p_modal_content">
+      </div>  
+    </div>  
   </div>
 
 
@@ -217,7 +221,29 @@
             calculateHeight: true,
             loop: true,
           });
-         }, 300);
+          $("#p-swiper .swiper-wrapper img").on('click', function(){
+            var ele = $("#p-modal-desc");
+            if(ele.hasClass('h')){
+              ele.show('slow');
+              ele.removeClass('h');
+            }else{
+              ele.hide('slow');
+              ele.addClass('h');
+            }
+          }); 
+          var clientHeight = document.body.clientHeight ;
+          if(clientHeight >= 600){
+            $("#p_pop").css('top', '4%');
+          }else if(clientHeight < 600 && clientHeight >= 500){
+            $("#p_pop").css('top', '3%');
+          }else if(clientHeight < 500 && clientHeight >= 400){
+            $("#p_pop").css('top', '0%'); 
+            $(".p-modal-body .swiper-container .swiper-slide img").css('width', "90%");
+          }else if(clientHeight < 400){
+            $("#p_pop").css('top', '0%'); 
+            $(".p-modal-body .swiper-container .swiper-slide img").css('width', "80%");
+          }
+         }, 500);
         });
     })
     </script>
