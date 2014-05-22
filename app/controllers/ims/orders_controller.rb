@@ -2,7 +2,7 @@
 
 class Ims::OrdersController < Ims::BaseController
 
-  layout "ims/user", only: :notice_success
+  layout :set_layout
 
   def index
     @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 10)
@@ -116,5 +116,11 @@ class Ims::OrdersController < Ims::BaseController
   def notice_success
     @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
     @title = "购买成功"
+  end
+
+  protected
+
+  def set_layout
+    params[:action] == "notice_success" ? "ims/user" : "ims"
   end
 end
