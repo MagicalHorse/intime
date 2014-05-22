@@ -14,4 +14,9 @@ class Ims::WeixinsController < ApiBaseController
       token:Ims::Weixin.access_token
     }
   end
+  def renew
+    render :json=>{
+      token:Ims::Weixin.renew
+    }
+  end
 end
