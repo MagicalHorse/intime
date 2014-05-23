@@ -188,14 +188,14 @@
     <div class="goods-describe">
       <%= text_area_tag "desc", @product.try(:[], :desc), rows: 4 %>
     </div>
+
+    <div class="text-center">
+      <button class="btn btn-small btn-danger" id="submit_product">提交</button>
+    </div>
 </div>
 
 <% end %>
 
-
-<div class="bottom-btnbox">
-  <button class="btn btn-small btn-danger" id="submit_product">提交</button>
-</div>
 
 
 <div id="new_coding_form" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
