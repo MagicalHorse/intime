@@ -233,6 +233,7 @@
             }
           }); 
           var clientHeight = document.body.clientHeight ;
+          $(".p-modal-body .swiper-container .swiper-slide img").css('max-height', clientHeight*0.8+"px");
           if(clientHeight >= 600){
             $("#p_pop").css('top', '4%');
           }else if(clientHeight < 600 && clientHeight >= 500){
