@@ -32,6 +32,10 @@ class Ims::Store::HomeController < Ims::Store::BaseController
       cookies[:user_token] = nil
       redirect_to check_ims_store_stores_path
     else  
+      if @status["message"] == "邀请码已绑定！"
+        session[:user_token] = nil
+        cookies[:user_token] = nil  
+      end
       @error = true
       render :action => :index
     end
