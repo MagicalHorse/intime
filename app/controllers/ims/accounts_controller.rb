@@ -109,7 +109,7 @@ class Ims::AccountsController < Ims::BaseController
       redirect_to current_user.back_url || mine_ims_accounts_path
     else
       # 如果不成功，跳回密码页面
-      redirect_to new_ims_account_path, notice: result[:message]
+      redirect_to new_ims_account_path, notice: (result[:message] || "创建新用户失败")
     end
   end
 
