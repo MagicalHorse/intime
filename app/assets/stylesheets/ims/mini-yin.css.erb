@@ -537,7 +537,6 @@ h6 small {font-size: 10px; line-height: 16px;}
 }
 /*--combos/show modal---*/
   .p-modal {
-    top:3%;
     padding: 0 !important;
     margin: 0;
     border: none !important;
@@ -547,8 +546,7 @@ h6 small {font-size: 10px; line-height: 16px;}
   }
   .p-modal-body {
     position: relative;
-    padding: 3px;
-    width: 98%;
+    width: 100%;
     text-align: center;
   }
   .xclose {
@@ -562,13 +560,14 @@ h6 small {font-size: 10px; line-height: 16px;}
   .p-modal-desc {
     text-align: left;
     color: #fff;
-    position: relative;
+    position: fixed;
+    bottom: 0;
     background-color: #9e9b9b;
     opacity: 0.9;
-    width: 99%;
-    top: -90;
+    width: 98%;
     z-index: 9;
     padding: 5px 3px;
+
   }
   .p-modal-desc p span:last-child {
     padding-left: 8px;
@@ -577,13 +576,14 @@ h6 small {font-size: 10px; line-height: 16px;}
   .p-modal-body .swiper-container {
     background-color: #fff;
     border: none;
+    overflow: scroll;
   }
 
   .p-modal-body .swiper-container .swiper-slide img {
     width: 100%;
   }
 
-  .p-modal-body .txt1, .p-modal-body .txt3 {color: #fff;}
+  .p-modal-desc .txt1, .p-modal-desc .txt3 {color: #fff;}
 
 
 /*-------------------------------Css Bootm btn---------------------------------*/

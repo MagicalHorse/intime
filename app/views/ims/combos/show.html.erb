@@ -219,8 +219,11 @@
           $("#p-swiper").swiper({
             mode:'horizontal',
             autoplay: 3000,
+            speed: 2000,
             calculateHeight: true,
             loop: true,
+            centeredSlides: true,
+            offsetPxBefore: 100
           });
           $("#p-swiper .swiper-wrapper img").on('click', function(){
             var ele = $("#p-modal-desc");
@@ -233,16 +236,14 @@
             }
           }); 
           var clientHeight = document.body.clientHeight ;
+          $("#p-swiper").css('max-height', clientHeight*0.9+"px");
+
           if(clientHeight >= 600){
-            $("#p_pop").css('top', '4%');
+            $("#p_pop").css('top', '1%');
           }else if(clientHeight < 600 && clientHeight >= 500){
-            $("#p_pop").css('top', '3%');
-          }else if(clientHeight < 500 && clientHeight >= 400){
-            $("#p_pop").css('top', '0%'); 
-            $(".p-modal-body .swiper-container .swiper-slide img").css('width', "90%");
-          }else if(clientHeight < 400){
-            $("#p_pop").css('top', '0%'); 
-            $(".p-modal-body .swiper-container .swiper-slide img").css('width', "80%");
+            $("#p_pop").css('top', '1%');
+          }else if(clientHeight < 500){
+             $("#p_pop").css('top', '0%'); 
           }
          }, 500);
         });
