@@ -412,7 +412,8 @@
           maxlength: 500
         },
         "sizes[][inventory]": {
-          min: 1
+          min: 1,
+          max: 999
         },
         "sizes[][name]": {
           required: true
@@ -454,7 +455,8 @@
           maxlength: "描述最多128个字符"
         },
         "sizes[][inventory]": {
-          min: "库存至少为1"
+          min: "库存至少为1",
+          max: "库存最大为999"
         },
         "sizes[][name]": {
           required: "尺码不能为空"
