@@ -25,12 +25,12 @@
         
       </div>
   </div>
-
+  <div class="clearfix"></div>
   <div class="p-modal-desc" id="p-modal-desc">
           <p class="txt1"><%= product[:name] %></p>
           <p class="txt3"><%= product["description"] %></p>
           <div class="desc-txt"><p class='pull-left'><span class="txt1">微信价： <i class="txt-red">￥<%= product[:price] %></i></span><span class="txt3"><%= "￥#{product[:unitprice]}" if product[:unitprice] %></span></p><p class="pull-right">
-            <% if @combo[:is_online] && product[:is_online] %><%= link_to "点击购买", 'javascript:void(0);', class: "btn btn-danger btn-small loading-box", value: ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>
+            <% if @combo[:is_online] && product[:is4sale] %><%= link_to "点击购买", 'javascript:void(0);', class: "btn btn-danger btn-small loading-box", value: ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>
             <% end %>
           </p></div>
           <div class="clearfix"></div>
