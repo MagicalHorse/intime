@@ -172,7 +172,7 @@
       </div>
     </div>
 
-
+    <p style="color:#B7BBC2;">请确保商品规格和库存准确，及时同步商品库存。 </p>
 
 </div>
 
@@ -186,7 +186,7 @@
         </div>
     </div>
     <div class="goods-describe">
-      <%= text_area_tag "desc", @product.try(:[], :desc), rows: 4, placeholder: "描述商品的风格、特色和卖点等信息，让用户更加了解您的商品，提高您的销售" %>
+      <%= text_area_tag "desc", @product.try(:[], :desc), rows: 4, placeholder: "请在此描述商品的风格、特色和卖点等信息" %>
     </div>
 
     <div class="text-center" style="padding: 15px 30px;">
