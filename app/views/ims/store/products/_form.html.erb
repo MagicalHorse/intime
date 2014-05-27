@@ -363,7 +363,7 @@
             })
             $("#sales_code option:last").attr("selected", true)
           }else{
-            error_modal("销售编码添加失败")
+            error_modal(data["message"])
           }
         }, "json")
       }else{
