@@ -186,7 +186,7 @@
         </div>
     </div>
     <div class="goods-describe">
-      <%= text_area_tag "desc", @product.try(:[], :desc), rows: 4 %>
+      <%= text_area_tag "desc", @product.try(:[], :desc), rows: 4, placeholder: "描述商品的风格、特色和卖点等信息，让用户更加了解您的商品，提高您的销售" %>
     </div>
 
     <div class="text-center" style="padding: 15px 30px;">
