@@ -3,13 +3,14 @@
   <tr>
     <td>
       <p>礼品卡编号：<span class="tel-nun"><%= item[:card_no] %></span></p>
-      <p>金额：<%= item[:amount] %>元</p>
-      <p class="txt-green btn-line">
-        状态：<%= card_orders_status item[:status_i] %>
+      <p>
+        金额：<%= item[:amount] %>元
         <% if item[:status_i] == 7 %>
         <%= link_to "补发赠送通知", resend_gift_ims_cards_path(url: "/ims/cards/gift_page/#{item[:card_no]}-#{Time.now.to_i}-#{item[:trans_id]}"), class: "btn btn-danger btn-small list-right"  %>
-        <div class="clearfix"></div>
         <% end %>
+      </p>
+      <p class="txt-green btn-line">
+        状态：<%= card_orders_status item[:status_i] %>
       </p>
       <% if item[:status_i] == 4 %>
       <p>充值时间：<%= item[:charge_date] %></p>
