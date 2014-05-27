@@ -149,12 +149,12 @@
         var mySwiper = $('.swiper-container').swiper({
           mode:'horizontal',
           autoplay: 3000,
-          // speed: 2000,
+          speed: 1000,
           calculateHeight: true,
           // watchActiveIndex: true,
           loop: true,
-          // centeredSlides: true,
-          // offsetPxBefore: 100
+          centeredSlides: true,
+          offsetPxBefore: 100
         });
 
         <% if @remote_combo[:data][:is_favored] %>
@@ -219,11 +219,11 @@
           $("#p-swiper").swiper({
             mode:'horizontal',
             autoplay: 3000,
-            speed: 2000,
+            speed: 1000,
             calculateHeight: true,
             loop: true,
-            centeredSlides: true,
-            offsetPxBefore: 100
+            // centeredSlides: true,
+            // offsetPxBefore: 100
           });
           $("#p-swiper .swiper-wrapper img").on('click', function(){
             var ele = $("#p-modal-desc");
