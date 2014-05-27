@@ -39,6 +39,7 @@ class Ims::CombosController < Ims::BaseController
 
   def ajax
     @combo = Ims::Combo.show(request, {:id => params[:combo_id]})[:data]
-    @product = API::Order.new(request, productid: params[:id])[:data]
+    # @product = API::Order.new(request, productid: params[:id])[:data]
+    @product = ::Product.get_by_id({id: params[:id]})[:data]
   end
 end
