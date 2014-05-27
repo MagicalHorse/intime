@@ -105,7 +105,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
     respond_to do |format|
       format.html{redirect_to new_ims_store_combo_path(:combo_id => @combo.id, t: Time.now.to_i)}
-      format.json{render json: {status: combo_product.valid?, message: combo_product.errors.full_messages.join(", "), id: combo_product.try(:id)}.to_json}
+      format.json{render json: {status: combo_product.valid?, message: combo_product.errors.messages.values.flatten.join(", "), id: combo_product.try(:id)}.to_json}
     end
 
   end
