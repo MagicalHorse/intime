@@ -32,6 +32,12 @@ class Ims::CardsController < Ims::BaseController
     end
   end
 
+  # 重新赠送礼品卡页面
+  def resend_gift
+    flash[:page_type] = "give_show_page"
+    redirect_to params[:url]
+  end
+
   # 获赠礼品卡
   def gift_page
     @can_share = true

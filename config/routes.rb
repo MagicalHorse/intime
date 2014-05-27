@@ -340,6 +340,7 @@ IntimeService::Application.routes.draw do
     resources :cards, only: [:index] do
       collection do
         get     :recharge
+        get     :resend_gift
         get     :give_page
         get     :accept
         get     :accepted_page
