@@ -6,8 +6,8 @@
     <% if salecolors.present? %>
       <%= hidden_field_tag "order[products][][productid]", product[:id] %>
       <%= hidden_field_tag "order[products][][quantity]", 1 %>
-      <%= hidden_field_tag "order[products][][properties][sizevalueid]", nil, id: "sizevalueid#{index}" %>
-      <%= hidden_field_tag "order[products][][properties][colorvalueid]", salecolors.present? ? salecolors.first[:colorid] : nil, id: "colorvalueid#{index}" %>
+      <%= hidden_field_tag "order[products][][properties][sizevalueid]", '', id: "sizevalueid#{index}" %>
+      <%= hidden_field_tag "order[products][][properties][colorvalueid]", salecolors.present? ? salecolors.first[:colorid] : '', id: "colorvalueid#{index}" %>
 
       <%= hidden_field_tag "order[products][][desc]", product[:name] %>
       <%= hidden_field_tag "order[products][][properties][sizevaluename]", nil, id: "sizevaluename#{index}" %>
@@ -41,6 +41,7 @@
   <% @products.each_with_index do |product, index| %>
   <% salecolors = product[:salecolors] %>
   <% sizes = salecolors.first.try(:[], :sizes) || [] %>
+  <% name = product['brandname'].to_s + product["skucode"].to_s %>
   <div class="module common-white">
      <div class="row-fluid">
          <div class="span3">
@@ -50,8 +51,13 @@
          </div>
          <div class="span9">
              <div class="price-detail">
-                <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
-                <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
+                <h3><%= truncate name, length: 40 %></h3>
+                <p class="txt3">
+                微信价：<em>￥<%= product["price"] %></em>
+                <% if product["originprice"].present? %>
+                  <span class="middle-line">￥<%= product["originprice"] %></span>
+                <% end %>
+                </p>
              </div>
          </div>
      </div>
@@ -82,17 +88,24 @@
                   <div class="modal-body">
                     <div class="module common-white">
                       <div class="row-fluid">
-                         <div class="span3">
-                             <div class="detail-imgbox">
-                              <img src="<%=Product.img_url(salecolors.first.try(:[], :resource))%>">
-                             </div>
-                         </div>
-                         <div class="span9">
-                             <div class="price-detail">
-                                 <h3><%= product['brandname'] %> <%= product["skucode"] %></h3>
-                                 <p class="txt3">微信价：<em>￥<%= product["price"] %></em></p>
-                             </div>
-                         </div>
+                        <div class="span4">
+                             <!-- <div class="detail-imgbox"> -->
+                          <div class="orders_new_modal_img">
+                            <img src="<%=Product.img_url(salecolors.first.try(:[], :resource))%>">
+                          </div>
+                             <!-- </div> -->
+                        </div>
+                        <div class="span8">
+                          <div class="price-detail">
+                            <h3><%= truncate name, length: 40 %></h3>
+                            <p class="txt3">
+                              微信价：<em>￥<%= product["price"] %></em>
+                              <% if product["originprice"].present? %>
+                                <span class="middle-line">￥<%= product["originprice"] %></span>
+                              <% end %>
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="module-grey">
@@ -224,11 +237,11 @@
 <script>
   $(function(){
 
-    $(".ellipsis").on("click", function(){
-      setTimeout(function(){
-        format_img(".detail-imgbox")
-      }, 500)
-    })
+    // $(".ellipsis").on("click", function(){
+    //   setTimeout(function(){
+    //     format_img(".detail-imgbox")
+    //   }, 500)
+    // })
 
     $(".tb-reduce, .tb-increase").on("click", function(){
       index = $(this).parents(".modal").attr("index")
@@ -447,23 +460,36 @@
       var form = $("#new_order_form")
       var totalamount = $("#totalamount").val()
       var orderno = $("#orderno").val()
+
+      is_blank_sizevalueid = $.inArray('', $("input[name='order[products][][properties][sizevalueid]']").map(function(){
+        return $(this).val()
+      }).get()) == -1
+
+      is_blank_colorvalueid = $.inArray('', $("input[name='order[products][][properties][colorvalueid]']").map(function(){
+        return $(this).val()
+      }).get()) == -1
+
       if(orderno.length == 0){
-        if($("#new_order_form").valid()){
-          form.ajaxSubmit({
-            dataType: "json",
-            success: function(data){
-              if(data["status"] == true){
-                $("#loading-box").modal()
-                order_id = data["data"]["orderno"]
-                $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
-              }else{
-                error_modal("提交订单失败")
+        if(is_blank_sizevalueid && is_blank_colorvalueid){
+          if($("#new_order_form").valid()){
+            form.ajaxSubmit({
+              dataType: "json",
+              success: function(data){
+                if(data["status"] == true){
+                  $("#loading-box").modal()
+                  order_id = data["data"]["orderno"]
+                  $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
+                }else{
+                  error_modal("提交订单失败")
+                }
+              },
+              error: function(data){
+                error_modal("提交订单发生错误")
               }
-            },
-            error: function(data){
-              error_modal("提交订单发生错误")
-            }
-          })
+            })
+          }
+        }else{
+          error_modal("商品的颜色和尺码必填")
         }
       }else{
         $.post("/ims/orders/"+order_id+"/payments", {money: totalamount}, function(data){}, "script")

@@ -36,16 +36,7 @@
 <!--  如果已经处理了  -->
 <div class="module module-white">
   <div class="module-card">
-    <% if @card[:status].to_i == 3 %>
-    <!--  如果已经转赠  -->
-    <h1 class="text-center">您已将好友赠送的银泰礼品卡转赠给您的其他好友！</h1>
-    <% elsif @card[:status].to_i == 1 %>
-    <!--  如果已经收取  -->
-    <h1 class="text-center">您已经接收好友赠送的银泰礼品卡！</h1>
-    <% elsif @card[:status].to_i == 2 %>
-    <!--  如果已经拒绝  -->
-    <h1 class="text-center">您已拒绝好友赠送的银泰礼品卡！</h1>
-    <% end %>
+    <h1 class="text-center">此卡已被成功领取！</h1>
     <p class="txt1 text-center txt-money">礼品卡金额：<%= @card[:amount] %>元</p>
     <%= image_tag "ims/card-self.png" %>
   </div>
@@ -54,10 +45,10 @@
   <div class="form-defined">
     <div class="controls-defined defined-large">
       <div class="col-6">
-        <a href="<%= mine_ims_accounts_path %>" class="btn btn-danger btn-large btn-block">进入首页</a>
+        <a href="<%= "#{ims_card_orders_pay_path}?showwxpaytitle=1" %>" class="btn btn-danger btn-large btn-block">我要购卡 </a>
       </div>
       <div class="col-6">
-        <a href="<%= "#{ims_card_orders_pay_path}?showwxpaytitle=1" %>" class="btn btn-grey btn-large btn-block">我要购卡 </a>
+        <a href="<%= mine_ims_accounts_path %>" class="btn btn-danger btn-large btn-block">进入首页</a>
       </div>
     </div>
   </div>
@@ -78,8 +69,9 @@
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
-      <div class="col-6"><button class="btn btn-danger btn-large btn-block" id="button_accept">接受礼品卡</button></div>
-      <div class="col-6"><button class="btn btn-grey btn-large btn-block" id="button_give">转赠好友</button></div>
+      <div class="col-2">&nbsp</div>
+      <div class="col-8"><button class="btn btn-danger btn-large btn-block" id="button_accept">接受礼品卡</button></div>
+      <div class="col-2">&nbsp</div>
     </div>
   </div>
 </div>
@@ -100,7 +92,7 @@
     })
 
     $("#button_accept").click(function(){
-      window.location.href = "<%= recharge_ims_cards_path(charge_no: @charge_no, trans_id: @trans_id, charge_type: 'giftcard') %>";
+      window.location.href = "<%= accept_ims_cards_path(charge_no: @charge_no, trans_id: @trans_id) %>";
     })
 
   });

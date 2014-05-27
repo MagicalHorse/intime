@@ -6,6 +6,10 @@ class Ims::AccountsController < Ims::BaseController
   before_filter :validate_sms!, only: [:reset_password]
   before_filter :isbindcard!, only: [:phone_page, :verify_identify_phone]
   layout "ims/user"
+  def test
+    binding.pry
+  end
+
   # 我的资金账号
   def mine
     @title = "我的礼品卡"

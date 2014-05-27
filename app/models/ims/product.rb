@@ -8,11 +8,11 @@ class Ims::Product < Ims::Base
     end
 
     def create(req, params={})
-      post(req, params.merge(path: 'product/create'))
+      post(req, params.merge(path: 'product/create', content_type: :json))
     end
 
     def update(req, params={})
-      post(req, params.merge(path: 'product/update'))
+      post(req, params.merge(path: 'product/update', content_type: :json))
     end
 
     def find(req, params = {})

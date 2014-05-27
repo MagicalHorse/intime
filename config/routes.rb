@@ -318,6 +318,7 @@ IntimeService::Application.routes.draw do
     resources :combos, only: [:show, :destroy] do
       collection do
         post 'upload'
+        get 'ajax'
       end
     end
     resources :accounts, only: [:new, :create] do
@@ -339,12 +340,15 @@ IntimeService::Application.routes.draw do
         get   :change_password
         get   :set_id_page
         post  :set_id
+        get   :test
       end
     end
     resources :cards, only: [:index] do
       collection do
         get     :recharge
         get     :give_page
+        get     :accept
+        get     :accepted_page
         get     :give
         get     :refuse
         get     :agreement
@@ -376,6 +380,7 @@ IntimeService::Application.routes.draw do
       member do
         put :change_state
         post :payments
+        get :notice_success
       end
 
       collection do
@@ -412,6 +417,7 @@ IntimeService::Application.routes.draw do
           post :upload
           get :tutorials
           get :search
+          get :add_size
         end
       end
       resources :combos do
@@ -440,11 +446,6 @@ IntimeService::Application.routes.draw do
       resources :incomes, only: [:index, :new, :create] do
         collection do
           get :my, :list, :frozen, :tips
-        end
-      end
-      resources :dicts, only: [] do
-        collection do
-          get :product_sizes
         end
       end
 

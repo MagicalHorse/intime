@@ -22,38 +22,45 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def new
     @title = "商品上传"
     @combo_id = params[:combo_id]
+    @product = Ims::Product.find(request, {id: params[:product_id]})["data"] if params[:product_id].present?
     product_relation_data
   end
 
   def edit
     @title = "商品编辑"
     @product = Ims::Product.find(request, {id: params[:id]})["data"]
-    @sizes = Tag.es_search(category_id: @product[:category_id])[:data].try(:first).try(:sizes)
     product_relation_data
   end
 
   def create
     @combo = ::Combo.find_by_id(params[:combo_id])
     product = Ims::Product.create(request, {
-      image_id: params["image_id"],
       brand_id: params["brand_id"],
       sales_code: params["sales_code"],
       sku_code: params["sku_code"],
       price: params["price"],
       unitprice: params["unitprice"],
       category_id: params["category_id"],
-      size_str: params["size_str"],
-      size_ids: params["size_ids"]
+      image_ids: params["image_ids"],
+      sizes: params["sizes"],
+      color_str: params["color_str"],
+      desc: params["desc"],
+      createcombo: params["createcombo"] == "1"
     })
 
     if product["isSuccessful"]
-      ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
-       :price => product[:data][:price], :combo_id => @combo.try(:id),
-       :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
-      redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
+      if @combo.present?
+        ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
+         :price => product[:data][:price], :combo_id => @combo.try(:id),
+         :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
+        redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
+      elsif (combo_id = product["data"].try(:[], :combo_id)).present?
+        redirect_to ims_combo_path(combo_id, :private_to => true, :t => Time.now.to_i)
+      else
+        redirect_to ims_store_sells_path(tab: "products")
+      end
     else
-      logger = Logger.new("log/production.log")
-      logger.error(product["message"])
+      $logger.error(product["message"])
       redirect_to new_ims_store_product_path(:combo_id => @combo.try(:id))
     end
   end
@@ -61,18 +68,24 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def update
     product = Ims::Product.update(request, {
       id: params[:id],
-      image_id: params["image_id"],
       brand_id: params["brand_id"],
       sales_code: params["sales_code"],
       sku_code: params["sku_code"],
       unitprice: params["unitprice"],
       price: params["price"],
       category_id: params["category_id"],
-      size_str: params["size_str"],
-      size_ids: params["size_ids"]
+      image_ids: params["image_ids"],
+      sizes: params["sizes"],
+      color_str: params["color_str"],
+      desc: params["desc"]
     })
+
     if product["isSuccessful"]
-      redirect_to ims_store_products_path
+      if (redirect_url = params[:redirect_url]).present? && !redirect_url.include?("ims/store/sells")
+        redirect_to redirect_url
+      else
+        redirect_to ims_store_sells_path(tab: "products")
+      end
     else
       redirect_to edit_ims_store_product_path(params[:id])
     end
@@ -86,11 +99,15 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
     product = params[:product_type] == "2" ? Ims::Product.find(request, {:id => params[:id]}) : ::Product.fetch_product(params[:id])
 
-    ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image],
+    combo_product = ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image],
       :product_type => params[:product_type], :price => product[:data][:price], :combo_id => @combo.id,
       :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
 
-    redirect_to new_ims_store_combo_path(:combo_id => @combo.id, t: Time.now.to_i)
+    respond_to do |format|
+      format.html{redirect_to new_ims_store_combo_path(:combo_id => @combo.id, t: Time.now.to_i)}
+      format.json{render json: {status: combo_product.valid?, message: combo_product.errors.full_messages.join(", "), id: combo_product.try(:id)}.to_json}
+    end
+
   end
 
   def search
@@ -125,6 +142,10 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       json = {"status" => 0}.to_json
     end
     render :json => json
+  end
+
+  def add_size
+    render "size.json.erb"
   end
 
 

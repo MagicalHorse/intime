@@ -1,6 +1,9 @@
 # encoding: utf-8
 
 class Ims::OrdersController < Ims::BaseController
+
+  layout :set_layout
+
   def index
     @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 10)
     @orders = @search["data"]["items"]
@@ -13,7 +16,6 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def new
-
     @title = "商品购买"
     if params[:product_id].present?
       @product = API::Order.new(request, productid: params[:product_id])[:data]
@@ -109,5 +111,16 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def cancel
+  end
+
+  def notice_success
+    @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
+    @title = "购买成功"
+  end
+
+  protected
+
+  def set_layout
+    params[:action] == "notice_success" ? "ims/user" : "ims"
   end
 end

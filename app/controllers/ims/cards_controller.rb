@@ -1,7 +1,6 @@
 # encoding: utf-8
 class Ims::CardsController < Ims::BaseController
   before_filter :user_account_info, only: [:gift_page]
-  before_filter :validate_sms!, only: [:give, :refuse, :recharge]
   layout "ims/user"
 
   # 礼品卡列表页
@@ -49,6 +48,27 @@ class Ims::CardsController < Ims::BaseController
     current_user.other_phone = @card[:phone]
   end
 
+  # 接受礼品卡
+  def accept
+    @result = Ims::Giftcard.receive(request, charge_no: params[:charge_no], trans_id: @trans_id)
+    if @result["isSuccessful"]
+      redirect_to accepted_page_ims_cards_path(charge_no: params[:charge_no])
+    else
+      redirect_to :back, notice: @result["message"]
+    end
+  end
+
+  # 已经接受的礼品卡页面
+  def accepted_page
+    @charge_no = params[:charge_no]
+    @trans_id = params[:trans_id]
+    if @trans_id.to_i != 0
+      @card = Ims::Giftcard.trans_detail2(request, trans_id: @trans_id)["data"] || {}
+    else
+      @card = Ims::Giftcard.transfer_detail(request, charge_no: @charge_no)["data"] || {}
+    end
+  end
+
   # 赠送页面
   def give_page
     @title = "赠送礼品卡"
@@ -68,17 +88,18 @@ class Ims::CardsController < Ims::BaseController
   def give
     @charge_no = params[:charge_no]
     @trans_id = params[:trans_id].to_i || 0
-    phone = params[:phone].gsub("-", "")
-    @notice = "请输入对方正确的手机号" unless phone[/^\d{11}$/]
     @notice = "请输入您的姓名" if params[:from].blank?
     if @notice
-      return redirect_to "#{give_page_ims_cards_path(charge_no: @charge_no, phone: phone, comment: params[:comment], from: params[:from])}", notice: @notice
+      redirect_to :back, notice: @notice
     else
       # API_NEED: 赠送礼品卡接口
-      @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: params[:comment], phone: phone, from: params[:from], trans_id: @trans_id)
-      Rails.logger.debug(@result.to_s)
-      flash[:page_type] = "give_show_page"
-      return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@result[:data][:trans_id]}"
+      @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: params[:comment], phone: "", from: params[:from], trans_id: @trans_id)
+      if @result["isSuccessful"]
+        flash[:page_type] = "give_show_page"
+        return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@result[:data][:trans_id]}"
+      else
+        redirect_to :back, notice: @result["message"]
+      end
     end
   end
 

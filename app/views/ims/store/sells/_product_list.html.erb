@@ -1,0 +1,45 @@
+<% products.each do |product| %>
+  <%= link_to "javascript:void(0);", value: edit_ims_store_product_path(product["id"]), class: "product_edit" do %>
+  <div class="module common-white product_paginate-content" id="product_content_<%=product["id"]%>">
+    <div class="txt-block detail-contact">
+        <div class="row-fluid">
+          <div class="span3">
+            <span class="img-spa">
+              <% img_url = product["image"].present? ? product["image"] : Settings.default_image_url.product.small %>
+              <img src="<%=img_url%>" >
+            </span>
+          </div>
+          <div class="span9 collection-p">
+            <p class="txt2"><%= truncate product["name"], length: 40 %></p>
+            <p class="txt2">
+              <span class="txt-red">微信价：￥<%= product["price"] %></span>
+              <% if (unitprice = product["unitprice"]).present? %>
+                <span class="middle-line">￥<%= unitprice %></span>
+              <% end %>
+            </p>
+            <div class="shelves">
+              <%= link_to "复制", "javascript:void(0);", value: new_ims_store_product_path(product_id: product["id"]), class: "btn btn-success btn-small product_copy" %>
+              <%= link_to '编 辑', 'javascript:void(0);', value: edit_ims_store_product_path(product["id"]), class: "btn btn-danger btn-small product_edit" %>
+            </div>
+
+          </div>
+
+        </div>
+    </div>
+  </div>
+  <% end %>
+<% end %>
+<script>
+$(function(){
+  format_img(".img-spa");
+
+  $(document).on("click", ".product_edit, .product_copy, #new_product", function(){
+    url = $(this).attr("value")
+    $("#loading-box").modal()
+    setTimeout(function(){
+      window.location.href = url
+    }, 1)
+  })
+
+})
+</script>

@@ -20,9 +20,6 @@
                    <h3 class="one-line"><%= product["name"] %></h3>
                    <p class="txt3 clearfix">
                      <span class="pull-left">微信价：<em>￥<%= product["price"] %></em></span>
-                     <% if nil %>
-                     <span class="pull-right">数量：<%= product["quantity"] %></span>
-                     <% end %>
                    </p>
                    <p class="txt3 clearfix">
                      <span class="pull-left"><%= product["productdesc"] %></span>
@@ -60,9 +57,13 @@
   </div>
   <% end %>
 
-<script type="text/javascript">
-    $(".detail-imgbox").each(function(){
-        $(this).css("height", $(this).width())
-        $(this).css("line-height", $(this).height()+"px")
-    });
-</script>
+  <% content_for :javascripts do %>
+    <script>
+      $(function(){
+        $(".detail-imgbox").each(function(){
+            $(this).css("height", $(this).width())
+            $(this).css("line-height", $(this).height()+"px")
+        });
+      })
+    </script>
+<% end %>

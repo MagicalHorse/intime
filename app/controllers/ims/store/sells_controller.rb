@@ -6,12 +6,15 @@ class Ims::Store::SellsController < Ims::Store::BaseController
     @gift_cards = @search_gift_card["data"]["items"]
     @search_combo = Ims::Combo.list(request, page: params[:combo_page], pagesize: params[:combo_per_page] || 10)
     @combos = @search_combo["data"]["items"]
+    @search_product = Ims::Product.list(request, page: params[:product_page], pagesize: params[:product_per_page] || 10)
+    @products = @search_product["data"]["items"]
     @combo = params[:combo]
     @online_num = Ims::Combo.online_num(request)[:data][:total_count] rescue 0
     @title = "商品管理"
+
     respond_to do |format|
       format.html{}
-      format.json{render params[:gift_card_page].present? ? "gift_card_list" : "combo_list" }
+      format.json{render params[:gift_card_page].present? ? "gift_card_list" : (params[:product_page] ? "product_list" : "combo_list") }
     end
   end
 

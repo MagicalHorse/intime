@@ -1,9 +1,10 @@
 <div class="wrap-content">
   <div class="module module-white min-height">
-    <div class="module-tab0 module-tab2 module-product tabs-fixed">
+    <div class="module-tab0 module-tab2 module-tab3 module-product tabs-fixed">
       <ul id="myTab" class="nav nav-tabs">
         <li class="active"><a href="#combos">商品搭配</a></li>
-        <li class=""><a href="#gift_cards">礼品卡</a></li>
+        <li class=""><a href="#products">自拍商品</a></li>
+        <li class="last_li"><a href="#gift_cards">礼品卡</a></li>
       </ul>
 
       <div class="tab-content">
@@ -21,6 +22,26 @@
           <div class="module-table-box module-record">
             <% if @combos.present? %>
             <%= render "combo_list", combos: @combos %>
+            <% else %>
+            <%= render "ims/shared/empty" %>
+            <% end %>
+          </div>
+        </div>
+
+        <div id="products" class="tab-pane">
+          <div class="bottom-button">
+            <div class="form-defined">
+              <div class="controls-defined defined-large">
+                <div class="col-12">
+                  <%= link_to '添加商品', "javascript:void(0);", value: new_ims_store_product_path, class: "btn btn-danger btn-large btn-block", id: "new_product" %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="module-table-box module-record">
+            <% if @products.present? %>
+            <%= render "product_list", products: @products %>
             <% else %>
             <%= render "ims/shared/empty" %>
             <% end %>
@@ -52,10 +73,20 @@
 <%= hidden_field_tag "combo_page", @search_combo[:data][:pageindex] %>
 <%= hidden_field_tag "combo_per_page", @search_combo[:data][:pagesize] %>
 
+<%= hidden_field_tag "product_count", @search_product[:data][:totalcount] %>
+<%= hidden_field_tag "product_page", @search_product[:data][:pageindex] %>
+<%= hidden_field_tag "product_per_page", @search_product[:data][:pagesize] %>
+
 
 <% content_for :javascripts do %>
 <script>
   $(function(){
+
+    tab = "<%= params[:tab].to_s %>"
+    if(tab.length > 0){
+      $("#myTab a[href='#"+tab+"']").tab('show')
+    }
+
 
     $(document).on("click", "#new_combo", function(){
       url = $(this).attr("value")
@@ -107,6 +138,22 @@
               }
             }, "json")
           }
+        }else if($("#products").attr("class").indexOf("active") >= 0){
+          var count = parseInt($("#product_count").attr("value"))
+          var page = parseInt($("#product_page").attr("value"))
+          var per_page = parseInt($("#product_per_page").attr("value"))
+          if(page * per_page < count){
+            $("#bottom-loading-box").modal();
+            $.get("/ims/store/sells", {product_page: page + 1, product_per_page: per_page}, function(data){
+              if(data["status"] == true){
+                $("#bottom-loading-box").modal('hide');
+                $(".product_paginate-content:last").after(data["html"])
+                $("#product_count").attr("value", data["count"])
+                $("#product_page").attr("value", data["page"])
+                $("#product_per_page").attr("value", data["per_page"])
+              }
+            }, "json")
+          }
         }
 
       }
@@ -144,7 +191,7 @@
           }else{
             online_num += 1;
             this_ele.removeClass("btn-danger");
-            this_ele.addClass("btn-success");             
+            this_ele.addClass("btn-success");
           }
         }else{
           error_modal(data["message"]);

@@ -1,0 +1,20 @@
+<div class="controls-defined defined-small size_input">
+  <%= hidden_field_tag "sizes[][id]", size.try(:[], :id) %>
+  <label class="col-2 text-left"><abbr class="txt-red">*</abbr>规格：</label>
+  <div class="col-3">
+    <%= text_field_tag "sizes[][name]", size.try(:[], :name) %>
+  </div>
+  <label class="col-2 text-right"><abbr class="txt-red">*</abbr>库存：</label>
+  <div class="col-3">
+    <%= text_field_tag "sizes[][inventory]", size.try(:[], :inventory) || 1 %>
+  </div>
+  <div class="col-2 text-center">
+    <% if action == "remove" %>
+    <span class="remove_size">
+      <%= link_to "javascript:void(0);", class: 'txt8 remove_size' do %>
+        <%= image_tag "ims/delate.png", class: "img-responsive" %>
+      <% end %>
+    </span>
+    <% end %>
+  </div>
+</div>

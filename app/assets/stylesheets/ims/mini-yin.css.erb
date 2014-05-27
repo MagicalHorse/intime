@@ -206,7 +206,7 @@ font-family: "microsoft yahei";
   width: auto;
   margin: 0 6px 0 0;
   height: 34px;
-  line-height:normal; 
+  line-height:normal;
 }
 label[class*="col-"]{
   padding-left:0;
@@ -237,7 +237,7 @@ label[class*="col-"]{
 .defined-large [class*="col-"] input[type="checkbox"],
 .defined-large [class*="col-"] input[type="radio"]{
   height: 74px;
-  line-height:normal; 
+  line-height:normal;
 }
 .defined-large [class*="col-"] .btn-large{
   padding: 26px 30px;
@@ -270,7 +270,7 @@ label[class*="col-"]{
 .defined-small [class*="col-"] input[type="checkbox"],
 .defined-small [class*="col-"] input[type="radio"]{
   height: 60px;
-  line-height:normal; 
+  line-height:normal;
 }
 .defined-small [class*="col-"] .btn-small{
   padding: 18px 12px;
@@ -303,7 +303,7 @@ label[class*="col-"]{
 .defined-mini [class*="col-"] input[type="checkbox"],
 .defined-mini [class*="col-"] input[type="radio"]{
   height: 42px;
-  line-height:normal; 
+  line-height:normal;
 }
 .defined-mini [class*="col-"] .btn-mini{
   padding: 10px 20px;
@@ -345,7 +345,7 @@ label[class*="col-"]{
 .defined-large [class*="col-"] input[type="radio"]{
   margin: 0 8px 0 0;
   height: 42px;
-  line-height:normal; 
+  line-height:normal;
 }
 .defined-large label[class*="col-"]{
   line-height:42px;
@@ -380,7 +380,7 @@ label[class*="col-"]{
 .defined-small [class*="col-"] input[type="checkbox"],
 .defined-small [class*="col-"] input[type="radio"]{
   height: 34px;
-  line-height:normal; 
+  line-height:normal;
 }
 .defined-small label[class*="col-"]{
   line-height:34px;
@@ -415,7 +415,7 @@ label[class*="col-"]{
 .defined-mini [class*="col-"] input[type="checkbox"],
 .defined-mini [class*="col-"] input[type="radio"]{
   height: 24px;
-  line-height:normal; 
+  line-height:normal;
 }
 .defined-mini label[class*="col-"]{
   line-height:24px;
@@ -490,7 +490,7 @@ h6 small {font-size: 10px; line-height: 16px;}
 }
 
 
-.modal-grey{ 
+.modal-grey{
   border:0 !important;
   background-color: rgba(0, 0, 0, 0) !important;
   -webkit-box-shadow: 0 0 0 #000 !important;
@@ -535,11 +535,71 @@ h6 small {font-size: 10px; line-height: 16px;}
     border: 0 solid rgba(0, 0, 0, 0.3);
     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
 }
+/*--combos/show modal---*/
+  .p-modal {
+    padding: 0 !important;
+    margin: 0;
+    border: none !important;
+    background: none !important;
+    width: 100% !important;
+    box-shadow: none;
+  }
+  .p-modal-body {
+    position: relative;
+    width: 100%;
+    text-align: center;
+  }
+  .xclose {
+    padding-right: 10px;
+  }
+  .xclose .fa {
+    color: #fff;
+    font-size: 28px;
+  }
 
+  .p-modal-desc {
+    text-align: left;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.9;
+    width: 98%;
+    z-index: 9;
+    padding: 5px 3px;
+
+}
+  .p-modal-desc p span:last-child {
+    padding-left: 8px;
+    text-decoration:line-through;
+  }
+  .p-modal-desc .desc-txt p {
+     line-height: 30px;
+     height: 30px;
+     margin-bottom: 0px;
+  }
+  
+  .p-modal-body .swiper-container {
+    background-color: #fff;
+    border: none;
+    overflow: scroll;
+  }
+
+  .p-modal-body .swiper-container .swiper-slide img {
+    width: 100%;
+  }
+
+  .p-modal-desc .txt1, .p-modal-desc .txt3 {color: #fff;}
 
 
 /*-------------------------------Css Bootm btn---------------------------------*/
 .bottom-btnbox{ position: fixed; bottom: 0; width: 640px; padding: 20px 0; text-align: center; border-left: 0; border-right: 0; z-index: 1000;}
+.bottom-box{ position: fixed; bottom: 0; width: 640px; padding: 5px 0 0; text-align: center; border-left: 0; border-right: 0; z-index: 1000;}
+.bottom-box .btn-small{
+   padding: 6px 22px;
+   font-size: 15px;
+   margin-top: 10px;
+ }
 .bottom-btnbox .btn{ margin-right: 20px; width: 42%;}
 .bottom-btnbox .btn-block{ width: 90%;}
 .bottom-btnbox .btn:last-child{ margin-right: 0;}
@@ -679,6 +739,13 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
   -moz-box-sizing:border-box; /* Firefox */
   -webkit-box-sizing:border-box; /* Safari */
 }
+
+.module-tab3 .nav-tabs li{
+  width: 33.3%;
+}
+.module-tab3 .nav-tabs li.last_li{
+  width: 33.4%;
+}
 .module-tab .btn-line{margin-bottom: 10px;}
 .module-tab .btn-line .btn{margin-right: 5px;}
 
@@ -759,7 +826,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 
 @media screen and (max-width: 580px) {
 #loading-box{ width: 120px !important; margin: 0 auto 0 -60px !important;}
-.intime-btm{ margin: 20px 0 20px;}
+.intime-btm{ margin: 0 0 20px;}
 .intime-btm-index{margin-top: 40px;}
 .shopping-icon-box{padding-bottom: 10px;}
 
@@ -776,7 +843,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .collection-pbox{margin-top: 30px;}
 .collection-pbox p{ font-size: 26px;}
 /*----------------------------------------Shop Browerse-------------------------------------------*/
-.price-box .btn-small{padding: 8px 12px;} 
+.price-box .btn-small{padding: 8px 12px;}
 .price-box em{font-size: 22px;}
 
 /*-------------------------------------------------Empty--------------------------------------------*/
@@ -852,3 +919,54 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 }
 
 
+.orders_new_modal_img{
+  height: 85px;
+  width: 85px;
+  overflow: hidden;
+}
+
+.module-wrapper {
+  margin-bottom: 20px;
+}
+
+
+.module-information-content{
+  margin: 10px 0;
+}
+
+.edite-add-block{
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.edite-add-block a {
+  background-color: #F7F8FA;
+  border: 2px dashed #E8EAEF;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.08) inset;
+  color: #B6BDC9;
+  font-family: "Microsoft YaHei";
+  font-size: 18px;
+  padding: 10px 12px 10px;
+  text-align: center;
+  text-shadow: 0 0 0 rgba(0, 0, 0, 0.15);
+}
+
+.edite-add-block a:hover, .edite-add-block a:focus {
+  color: #C5C5C5;
+  background-color: #F7F8FA;
+}
+
+.btn-block {
+  display: block;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+}
+
+.size_input [class*="col-"]{
+  padding-right: 0;
+}
+
+.fixed-button{
+  position: fixed;
+}

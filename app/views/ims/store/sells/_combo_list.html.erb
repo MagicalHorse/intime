@@ -10,11 +10,11 @@
             </span>
           </div>
           <div class="span9 collection-p">
-            <p class="txt2 one-line"><%= combo["desc"] %></p>
+            <p class="txt2"><%= truncate combo["desc"], length: 40 %></p>
             <p class="txt2 txt-red">打包价：￥<%= combo["price"] %></p>
             <div class="shelves">
               <% if combo["is_online"] %>
-                <%= link_to "点击下架", "javascript:void(0);", class: "btn btn-danger btn-small card_or_combo", item_id: combo["id"], item_type: 2 %>  
+                <%= link_to "点击下架", "javascript:void(0);", class: "btn btn-danger btn-small card_or_combo", item_id: combo["id"], item_type: 2 %>
               <% else %>
                 <%= link_to "点击上架", "javascript:void(0);", class: "btn btn-success btn-small card_or_combo", item_id: combo["id"], item_type: 2 %>
               <% end %>

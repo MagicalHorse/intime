@@ -11,7 +11,7 @@
 .show-imgbox-no img{height: auto;}
 .show-imgbox-yes{ overflow: hidden;text-align: center;}
 
-.mini-imgbox {margin-top: 50px;} 
+.mini-imgbox {margin-top: 50px;}
 .mini-imgbox ul{margin: 0; list-style: none; width: 100%；}
 .mini-imgbox ul li{ position: relative; float: left; margin:0 5px 5px 0; padding: 0; font-size: 1px; width: 18%; text-align: center;}
 .mini-imgbox ul li:last-child{ margin-right: 0;}
@@ -20,7 +20,17 @@
 .mini-imgbox ul li img{ width: auto; height: auto;}
 .mini-imgbox ul li.add-link a{ display: block;}
 
-.upload-img {margin-top: 30px;} 
+
+.bottom-mini-imgbox ul{margin: 0; list-style: none; width: 100%；}
+.bottom-mini-imgbox ul li{ position: relative; float: left; margin:0 5px 5px 5px; padding: 0; font-size: 1px; width: 14%; text-align: center;}
+.bottom-mini-imgbox ul li:last-child{ margin-right: 0;}
+.bottom-mini-imgbox ul li .img-spa{ font-size: 1px; overflow: hidden; text-align: center;}
+.bottom-mini-imgbox ul li i{ position: absolute;left: -4%; top: -20%;display:block; width: 28px; height: 28px; background-position: center center; background-repeat: no-repeat; background-size: 24px auto;}
+.bottom-mini-imgbox ul li img{ width: auto; height: auto;}
+.bottom-mini-imgbox ul li.add-link a{ display: block;}
+
+
+.upload-img {margin-top: 30px;}
 .upload-img ul{margin: 0; list-style: none; width: 100%；}
 .upload-img ul li{ float: left; position: relative; margin:0 5px 5px 0; padding: 4px; border-radius: 5px; text-align: center; width: 30%;}
 .upload-img ul li:focus,
@@ -106,10 +116,12 @@
 .p-dp-price { text-decoration:line-through; font-size: 15px; margin-left: 50px;}
 .p-price1 {width: 100%;margin: 10px 0 24px;}
 .p-price1 span {padding-right: 30px;}
+.p-list span{padding-right: 0}
 .p-price1 .txt-red {padding-right: 30px;}
 .p-price1 span em{font-style: normal;}
+.p-list span{padding-right: 0}
 .button-select {margin-left: 25px;}
-
+.txt-block .middle-line, .p-price1 .middle-line, .price-detail .middle-line{text-decoration: line-through; margin-left: 10px;}
 /*combos show*/
 .module-show{ padding: 0 30px 30px;}
 .module-common {padding: 20px;}
@@ -155,7 +167,7 @@
 .modal-buy .module-grey p{ margin-bottom: 0;  padding-bottom: 10px; text-indent: 0;}
 .modal-buy .product-detail {margin: 0;}
 .modal-buy .product-detail ul{ margin: 30px 0 0;}
-.modal-buy .product-detail li {float: left;}
+.modal-buy .product-detail li {float: left; margin-bottom: 5px;}
 .modal-buy .product-detail li a{display: inline-block; padding: 14px 14px; border-radius: 5px;font-size:28px;}
 .modal-buy .modal-color{margin-bottom: 30px;}
 .tb-stock span{ margin-right: 10px; float: left; font-size: 28px; }
@@ -169,3 +181,5 @@
 .common-opacity div,
 .common-opacity h3,
 .common-opacity .txt8{ opacity: 0.8;}
+
+.wrap-inner .module-title2{margin-bottom: 3px;}

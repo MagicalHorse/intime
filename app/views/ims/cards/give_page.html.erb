@@ -21,12 +21,6 @@
         <%= text_area_tag :comment, params[:comment], rows: 3, placeholder: "说点什么吧..." %>
       </div>
     </div>
-    <div class="controls-defined defined-small">
-      <label class="col-5 text-left"><i class="fa fa-phone"></i>好友联系方式</label>
-      <div class="col-7">
-        <%= text_field_tag :phone, params[:phone], type: "number", placeholder: "请输入11位手机号码" %>
-      </div>
-    </div>
     <button type="button" class="btn btn-danger btn-large btn-block" id="submit_button">确认赠送</button>
     <% end %>
     <p class="card-notice txt3">
@@ -58,15 +52,10 @@
       rules: {
         "from": {
           required: true
-        },
-        "phone": {
-          required: true,
-          number: true
         }
       },
       messages:{
-        "from": {required: '请输入您的姓名'},
-        "phone": {required: '请输入对方正确的手机号'}
+        "from": {required: '请输入您的姓名'}
       },
       showErrors: function (errorMap, errorList) {
         $.each(this.successList, function (index, value) {

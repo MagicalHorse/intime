@@ -1,0 +1,6 @@
+<% if @product.present? %>
+$("#p_modal_content").html("<%=j render 'ajax'%>");
+$("#p_pop").modal();
+<% else %>
+ error_modal("暂无产品信息");
+<%end %>
