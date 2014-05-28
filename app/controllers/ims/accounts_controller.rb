@@ -112,6 +112,8 @@ class Ims::AccountsController < Ims::BaseController
       current_user.isbindcard = true
       redirect_to current_user.back_url || mine_ims_accounts_path
     else
+      Rails.logger.debug("current_user_will_charge_no: #{current_user.will_charge_no}")
+      Rails.logger.debug("message: #{result[:message]}")
       # 如果不成功，跳回密码页面
       redirect_to new_ims_account_path, notice: (result[:message] || "创建新用户失败")
     end
