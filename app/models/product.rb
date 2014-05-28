@@ -371,7 +371,7 @@ class Product < ActiveRecord::Base
               match :id,pid
             end
           end
-    return render :json=>error_500 if prod.total<=0
+    return error_500 if prod.total<=0
     next_gt_pid = nil
     next_lt_pid = nil
     next_gt_prod = Product.search :per_page=>1,:page=>1 do
