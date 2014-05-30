@@ -27,7 +27,7 @@
   WxEnv.shareUrl = "<%= request.url %>";
   WxEnv.shareImgUrl = '<%= image_url "ims/card-self.png" %>';
   WxEnv.shareName = "<%= @card[:sender] %>给您送的银泰礼品卡";
-  WxEnv.shareDes = "<%= @card[:comment] %>";
+  WxEnv.shareDes = "我给你发了一张银泰礼品卡，赶快领取！祝：<%= @card[:comment] %>";
 </script>
 <% end %>
 
