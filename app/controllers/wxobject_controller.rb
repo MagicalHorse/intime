@@ -25,7 +25,7 @@ class WxobjectController < ApplicationController
     input = params[:xml]
     # choose response action based on params xml
     response_action = find_action_by_xml input
-    return if response_action.nil?
+    return render :text=>'' if response_action.nil?
     # trigger action
     response = response_action.call input
     return render :xml=>response.to_xml2 if response.is_a? WxBaseResponse
