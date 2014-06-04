@@ -25,6 +25,7 @@ class WxobjectController < ApplicationController
     input = params[:xml]
     # choose response action based on params xml
     response_action = find_action_by_xml input
+    return render :text=>'' if response_action.nil?
     # trigger action
     response = response_action.call input
     return render :xml=>response.to_xml2 if response.is_a? WxBaseResponse
@@ -65,9 +66,7 @@ class WxobjectController < ApplicationController
           } 
       end
       # check if baoming activity is available
-      if is_custom_activity_avail(input_text)
-        return method(:action_custom_activity)
-      end
+      
       if input_text == 'Hello2BizUser'
         return method(:action_say_hello)
       elsif [t(:commandjf),'jd'].include? input_text
@@ -86,7 +85,7 @@ class WxobjectController < ApplicationController
         return method(:action_point_nb)
       else
          #return method(:action_list_product_ft)
-         return method(:action_forward2_tt)
+         return nil
       end
     when 'location' then
       return method(:action_list_promotion_ft)
@@ -101,7 +100,7 @@ class WxobjectController < ApplicationController
     #    end
     #  end
     else
-      method(:action_forward2_tt)
+      return nil
     end
   end
   #action to perform custom activity

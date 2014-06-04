@@ -16,7 +16,7 @@
   <div class="module-btn text-center">
     <button class="btn btn-danger" id="rechage_button">充值自用</button>
     <button class="btn btn-danger" id="give_button">赠送好友</button>
-    <button class="btn btn-danger" id="rechage_button">返回首页</button>
+    <button class="btn btn-danger" id="return_home_button">返回首页</button>
   </div>
   <br />
 
@@ -36,6 +36,10 @@
 
     $("#give_button").click(function(){
       window.location.href = "<%= give_page_ims_cards_path %>?charge_no=<%= @charge_no %>";
+    })
+
+    $("#return_home_button").click(function(){
+      window.location.href = "<%= mine_ims_accounts_path %>";
     })
 
   });

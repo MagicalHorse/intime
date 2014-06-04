@@ -6,8 +6,8 @@ end
 
 if Rails.env.production?
   ES_DEFAULT_INDEX = 'intimep'
-  PIC_DOMAIN = 'http://irss.oss.aliyuncs.com/fileupload/img/' 
-  AUDIO_DOMAIN = 'http://irss.oss.aliyuncs.com/fileupload/audio/' 
+  PIC_DOMAIN = 'http://irss.intime.com.cn/fileupload/img/' 
+  AUDIO_DOMAIN = 'http://irss.intime.com.cn/fileupload/audio/' 
 
 elsif Rails.env.stage?
   ES_DEFAULT_INDEX = 'intime'

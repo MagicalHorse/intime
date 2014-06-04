@@ -10,6 +10,7 @@ module Ims::ApplicationHelper
     when 5 then "已赠送"
     when 6 then "已拒收" # 被动拒绝
     when 7 then "赠出中"
+    when 8 then "已领取"
     end
   end
 
