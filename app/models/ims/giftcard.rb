@@ -9,7 +9,7 @@ class Ims::Giftcard < Ims::Base
     post(req, params.merge(path: "assistant/gift_cards"))
   end
 
-  # 普通用户-已绑定卡的礼品卡概述
+  # 普通用户-已绑定卡的礼品卡概述（在API部门是否绑定）
   def self.my(req, params = {})
     post(req, params.merge(path: 'giftcard/my'))
   end
@@ -19,7 +19,7 @@ class Ims::Giftcard < Ims::Base
     post(req, params.merge(path: 'giftcard/bind'))
   end
 
-  # 判断手机号是否已经绑定
+  # 判断手机号是否已经绑定（在集团信息部是否绑定）
   def self.isbind(req, params = {})
     post(req, params.merge(path: 'giftcard/isbind'))
   end

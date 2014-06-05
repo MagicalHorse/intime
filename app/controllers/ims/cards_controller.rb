@@ -58,7 +58,7 @@ class Ims::CardsController < Ims::BaseController
   def accept
     @result = Ims::Giftcard.receive(request, charge_no: params[:charge_no], trans_id: @trans_id)
     if @result["isSuccessful"]
-      redirect_to accepted_page_ims_cards_path(charge_no: params[:charge_no])
+      redirect_to accepted_page_ims_cards_path(charge_no: params[:charge_no], trans_id: @result[:data][:trans_id])
     else
       redirect_to :back, notice: @result["message"]
     end
@@ -99,7 +99,7 @@ class Ims::CardsController < Ims::BaseController
       redirect_to :back, notice: @notice
     else
       # API_NEED: 赠送礼品卡接口
-      @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: params[:comment], phone: "", from: params[:from], trans_id: @trans_id)
+      @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: (params[:comment] || "恭喜发财，大吉大利！"), phone: "", from: params[:from], trans_id: @trans_id)
       if @result["isSuccessful"]
         flash[:page_type] = "give_show_page"
         return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@result[:data][:trans_id]}"

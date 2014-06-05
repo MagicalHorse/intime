@@ -24,9 +24,9 @@ default_url_options:
 
 default_image_url:
   product:
-    small: http://irss.oss.aliyuncs.com/fileupload/img/product/default/default_120x0.gif
-    middle: http://irss.oss.aliyuncs.com/fileupload/img/product/default/default_320x0.gif
-  user: http://irss.oss.aliyuncs.com/fileupload/img/user-logo-default.gif
+    small: http://irss.intime.com.cn/fileupload/img/product/default/default_120x0.gif
+    middle: http://irss.intime.com.cn/fileupload/img/product/default/default_320x0.gif
+  user: http://irss.intime.com.cn/fileupload/img/user-logo-default.gif
 
 
 payment_code:
@@ -50,7 +50,7 @@ elasticache:
   
 
 elasticsearch_url: "http://10.161.218.70:9200"
-fileserver_host: "http://irss.oss.aliyuncs.com/ims"
+fileserver_host: "http://irss.intime.com.cn/ims"
 wx:
   appid: wx4b1d3b7765ce45d1
   appsecret: cc8219601137db20d7cf2fa94efc8fd6
