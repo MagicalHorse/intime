@@ -50,16 +50,16 @@ class Ims::CardOrdersController < Ims::BaseController
       out_trade_no: @out_trade_no,
       partner: Settings.wx.parterid,
       spbill_create_ip: request.remote_ip,
-      total_fee: (price.to_f * 100).to_i
+      total_fee: (BigDecimal(price) * 100).to_i
     }
     string1 = ""; package.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
     sign_value = Digest::MD5.hexdigest("#{string1}&key=#{Settings.wx.parterkey}").upcase
     @package_val = "#{package.to_param}&sign=#{sign_value}"
 
     pay_sign = {
-      appid: Settings.wx.appid, 
+      appid: Settings.wx.appid,
       appkey: Settings.wx.paysignkey,
-      noncestr: @noncestr_val, 
+      noncestr: @noncestr_val,
       package: @package_val,
       timestamp: @time_val.to_i
     }
