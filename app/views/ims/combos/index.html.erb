@@ -1,0 +1,86 @@
+<%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
+<%= javascript_include_tag 'ims/slidernav' %>
+<div class="wrap-content">
+  <div class="module module-white">
+    <div class="module-tab0 module-tab2 module-product tabs-fixed">
+      <ul id="myTab" class="nav nav-tabs" style="z-index: 100;">
+        <li style="border-right: 3px #f16498 solid; position: relative">
+          <a href="javascript:void(0)" id="store_selcet">门店 <i class="fa fa-chevron-down"></i></a>
+        </li>
+        <li style="border-right: 3px #f16498 solid; position: relative">
+          <a href="javascript:void(0)" id="brand_selcet">品牌 <i class="fa fa-chevron-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="wrap-inner" style="margin-top: 30px;" id="content">
+  <%= render 'ims/shared/countdown' %>
+  <%= render 'content' %>
+</div>
+
+<div class="">
+  <div id="store_slider" style="margin-top: 30px; display:none">
+    <div class="slider-content">
+      <ul style="margin: 0;">
+        <% ('a'..'z').each do |char| %>
+        <li id="<%= char %>"><a name="<%= char %>" class="title"><%= char.upcase %></a>
+          <ul>
+            <% @stores_ordered[char].each do |store| %>
+            <li><a href="javascript:void(0)" onclick="redirectTo('<%= "/ims/combos?store_id=#{store.id}" %>')"><%= store.name %></a></li>
+            <% end %>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div id="brand_slider" style="margin-top: 30px; display:none">
+    <div class="slider-content">
+      <ul style="margin: 0;">
+        <% ('a'..'z').each do |char| %>
+        <li id="<%= char %>"><a name="<%= char %>" class="title"><%= char.upcase %></a>
+          <ul>
+            <% @brands_ordered[char].each do |brand| %>
+            <li><a href="javascript:void(0)" onclick="redirectTo('<%= "/ims/combos?brand_id=#{brand.id}" %>')"><%= brand.name %></a></li>
+            <% end %>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  function redirectTo(url){
+    $("#loading-box").modal();
+    setTimeout(function(){
+      window.location.href = url;
+    }, 1)
+  }
+
+  // 独立页面式
+  $("#store_selcet").click(function(){
+    $("#content").hide();
+    $("#brand_slider").hide();
+    $("#store_slider").show();
+  })
+
+  $("#brand_selcet").click(function(){
+    $("#content").hide();
+    $("#store_slider").hide();
+    $("#brand_slider").show();
+  })
+
+  $(document).ready(function(){
+    var height = document.body.offsetHeight - 30;
+    if(height < 565){ height = 565; }
+    $('#store_slider').sliderNav({arrows: false, height: height});
+    $('#brand_slider').sliderNav({arrows: false, height: height});
+  });
+
+</script>

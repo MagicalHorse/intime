@@ -62,6 +62,7 @@ gem "omniauth-qq-connect", "~> 0.2.0"
 gem 'omniauth-wechat'
 gem 'rest-client'
 gem 'rake', '>= 10.1.0'
+gem 'chinese_pinyin'
 
 gem 'rails_config'
 gem 'kaminari'
