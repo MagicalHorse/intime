@@ -87,8 +87,7 @@
       $("#myTab a[href='#"+tab+"']").tab('show')
     }
 
-
-    $(document).on("click", "#new_combo", function(){
+    $(document).on("click", ".combo_show, #new_combo, .product_edit, .product_copy, #new_product", function(){
       url = $(this).attr("value")
       $("#loading-box").modal()
       setTimeout(function(){

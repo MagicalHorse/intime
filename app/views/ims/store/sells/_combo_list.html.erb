@@ -33,14 +33,6 @@
 $(function(){
   format_img(".img-spa");
 
-  $(document).on("click", ".combo_show, #new_combo", function(){
-    url = $(this).attr("value")
-    $("#loading-box").modal()
-    setTimeout(function(){
-      window.location.href = url
-    }, 1)
-  })
-
   $(".delete-combo").click(function(){
     if(confirm("确定要删除该搭配？")){
       var combo_id = $(this).attr('data');

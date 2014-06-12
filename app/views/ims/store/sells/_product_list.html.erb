@@ -33,13 +33,5 @@
 $(function(){
   format_img(".img-spa");
 
-  $(document).on("click", ".product_edit, .product_copy, #new_product", function(){
-    url = $(this).attr("value")
-    $("#loading-box").modal()
-    setTimeout(function(){
-      window.location.href = url
-    }, 1)
-  })
-
 })
 </script>
