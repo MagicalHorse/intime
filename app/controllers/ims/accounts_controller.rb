@@ -7,7 +7,6 @@ class Ims::AccountsController < Ims::BaseController
   before_filter :isbindcard!, only: [:phone_page, :verify_identify_phone]
   layout "ims/user"
   def test
-    binding.pry
   end
 
   # 我的资金账号
@@ -46,7 +45,7 @@ class Ims::AccountsController < Ims::BaseController
         redirect_to phone_page_ims_accounts_path, notice: "目前只允许老用户进行绑定"
         return
       end
-    end 
+    end
     generate_sms @phone
     @path = verify_identify_sms_code_ims_accounts_path
     render :verify_phone
@@ -193,7 +192,7 @@ class Ims::AccountsController < Ims::BaseController
 
   # 修改身份证号
   def set_id_page
-    
+
   end
 
   # 设置身份证
@@ -212,12 +211,12 @@ class Ims::AccountsController < Ims::BaseController
 
   # 如果没有认证的手机号，则跳回认证手机号页面
   def validate_verified_phone!
-    redirect_to phone_page_ims_accounts_path if current_user.verified_phone.blank? 
+    redirect_to phone_page_ims_accounts_path if current_user.verified_phone.blank?
   end
 
   # 如果没有身份证号，则跳回填写身份证号页面
   def validate_identity_no!
-    redirect_to set_identity_no_page_ims_accounts_path if current_user.identity_no.blank? 
+    redirect_to set_identity_no_page_ims_accounts_path if current_user.identity_no.blank?
   end
 
 end
