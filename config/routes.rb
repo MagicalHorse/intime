@@ -309,7 +309,7 @@ IntimeService::Application.routes.draw do
   namespace :ims do
     resource :auth
     resources :stores, only: [:show]
-    resources :combos, only: [:show, :destroy, :index] do
+    resources :combos, only: [:show, :destroy] do
       collection do
         post 'upload'
         get 'ajax'

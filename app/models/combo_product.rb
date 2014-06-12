@@ -7,7 +7,6 @@ class ComboProduct < ActiveRecord::Base
   after_create :recount_combo_price
   before_destroy :recount_combo_price
   validate :verify_product_count, on: :create
-  validates :remote_id, uniqueness: {scope: :combo_id, message: "该商品已经添加"}
 
   def recount_combo_price
   	combo.update_attribute(:price, combo.combo_products.sum(&:price))

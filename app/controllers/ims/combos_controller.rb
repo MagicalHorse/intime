@@ -12,21 +12,6 @@ class Ims::CombosController < Ims::BaseController
     session[:store_id] = @remote_combo[:data][:store_id]
   end
 
-  def index
-    @title = "搭配列表-用户首页"
-    options = {}
-    options[:brand_id] = params[:brand_id] if params[:brand_id].present?
-    options[:store_id] = params[:store_id] if params[:store_id].present?
-    @combos = ::Combo.es_search(options)
-    @stores, @stores_ordered = ::Store.es_search, {}
-    @brands, @brands_ordered = ::Brand.es_search, {}
-    ('a'..'z').each do |char|
-      @stores_ordered[char], @brands_ordered[char] = [], []
-      @stores.each{ |s| @stores_ordered[char] << s if Pinyin.t(s.name)[0] == char }
-      @brands.each{ |s| @brands_ordered[char] << s if Pinyin.t(s.name)[0] == char }
-    end
-  end
-
   def upload
   	imagedata = params[:img].split(',')[1]
     @combo = ::Combo.find(params[:id])

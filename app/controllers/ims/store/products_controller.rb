@@ -105,7 +105,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
     respond_to do |format|
       format.html{redirect_to new_ims_store_combo_path(:combo_id => @combo.id, t: Time.now.to_i)}
-      format.json{render json: {status: combo_product.valid?, message: combo_product.errors.messages.values.flatten.join(", "), id: combo_product.try(:id)}.to_json}
+      format.json{render json: {status: combo_product.valid?, message: combo_product.errors.full_messages.join(", "), id: combo_product.try(:id)}.to_json}
     end
 
   end
@@ -113,9 +113,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def search
     @title = "商品搜索"
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
-    @search = ::Product.es_search(per_page: params[:per_page] || 12, page: params[:page], from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"])
-    @products = @search[:data]
-    # @products = @search[:data].group_by{|obj| obj["createdDate"].to_date}.values
+    @search = ::Product.es_search(per_page: params[:per_page] || 9, page: params[:page], from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"])
+    @products = @search[:data].group_by{|obj| obj["createdDate"].to_date}.values
     @brands = Brand.es_search
     respond_to do |format|
       format.html{}

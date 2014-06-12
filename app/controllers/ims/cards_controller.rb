@@ -95,12 +95,11 @@ class Ims::CardsController < Ims::BaseController
     @charge_no = params[:charge_no]
     @trans_id = params[:trans_id].to_i || 0
     @notice = "请输入您的姓名" if params[:from].blank?
-    comment = params[:comment].present? ? params[:comment] : "恭喜发财，大吉大利！"
     if @notice
       redirect_to :back, notice: @notice
     else
       # API_NEED: 赠送礼品卡接口
-      @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: comment, phone: "", from: params[:from], trans_id: @trans_id)
+      @result = Ims::Giftcard.sendex(request, charge_no: params[:charge_no], comment: (params[:comment] || "恭喜发财，大吉大利！"), phone: "", from: params[:from], trans_id: @trans_id)
       if @result["isSuccessful"]
         flash[:page_type] = "give_show_page"
         return redirect_to "/ims/cards/gift_page/#{@charge_no}-#{Time.now.to_i}-#{@result[:data][:trans_id]}"

@@ -57,9 +57,9 @@ class Ims::CardOrdersController < Ims::BaseController
     @package_val = "#{package.to_param}&sign=#{sign_value}"
 
     pay_sign = {
-      appid: Settings.wx.appid,
+      appid: Settings.wx.appid, 
       appkey: Settings.wx.paysignkey,
-      noncestr: @noncestr_val,
+      noncestr: @noncestr_val, 
       package: @package_val,
       timestamp: @time_val.to_i
     }
