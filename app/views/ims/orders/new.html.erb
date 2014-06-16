@@ -216,6 +216,27 @@
              </div>
          </div>
       </div>
+
+
+      <div class="module common-white">
+      <div class="module-title2">
+          <div class="row-fluid">
+              <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>订单备注</h3></div>
+              <div class="span8">
+                  <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多200个字符</small></div>
+              </div>
+          </div>
+      </div>
+      <div class="goods-describe">
+        <%= text_area_tag "memo", nil, rows: 4, placeholder: "请在此填写备注信息" %>
+      </div>
+
+      </div>
+
+
+
+
+
       <% if @products.any?{|p| p[:salecolors].present?} %>
         <p class="wx-payment">
         <button type="button" class="btn btn-danger btn-large btn-block" id="save_order">
@@ -429,6 +450,9 @@
         },
         "order[needinvoice]": {
           required: true
+        },
+        "order[memo]": {
+          maxlength: 200
         }
       },
       messages: {
@@ -440,6 +464,9 @@
         },
         "order[shippingaddress[shippingaddress]]": {
           required: "请选择地址"
+        },
+        "order[memo]": {
+          maxlength: "订单备注不能超过200个字符"
         }
       },
       showErrors: function(errorMap, errorList) {
@@ -460,6 +487,9 @@
       var form = $("#new_order_form")
       var totalamount = $("#totalamount").val()
       var orderno = $("#orderno").val()
+      var memo = $("#memo").val()
+
+      $("#order_memo").val(memo)
 
       is_blank_sizevalueid = $.inArray('', $("input[name='order[products][][properties][sizevalueid]']").map(function(){
         return $(this).val()
