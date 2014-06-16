@@ -77,13 +77,14 @@
                        <i class="fa fa-money"></i><b>支付方式：</b><i><%= @order["paymentname"] %></i>
                      </span>
                      </p>
-                     <% if nil %>
-                     <p class="txt4"><span><i class="fa fa-asterisk"></i><b>订单备注：<%= @order["memo"] %></b></span></p>
+                     <% if (memo = @order["memo"]).present? %>
+                     <p class="txt4"><span><i class="fa fa-asterisk"></i><b>订单备注：<%= memo %></b></span></p>
                      <% end %>
                  </div>
              </div>
          </div>
       </div>
+
 
       <% if @order[:rmas].is_a?(Array) && @order[:rmas].length > 0 %>
       <div class="module module-grey return-information">
