@@ -36,7 +36,6 @@
 
 <% end %>
 
-
 <div class="wrap-inner back-wrap-inner">
   <% @products.each_with_index do |product, index| %>
   <% salecolors = product[:salecolors] %>
@@ -142,16 +141,17 @@
                         </div>
                       </div>
                     <% end %>
-                      <% if nil %>
-                      <div class="modal-num">
-                        <span class="tb-stock clearfix">
-                            <span>购买数量</span>
-                            <a class="tb-reduce" hidefocus="" href="javascript:void(0);">-</a>
-                            <input type="text" placeholder="1" class="txt8 tb-text" id="count<%= index %>">
-                            <a class="tb-increase" href="javascript:void(0);">+</a>
-                        </span>
-                      </div>
-                      <% end %>
+
+                    <% if nil %>
+                    <div class="modal-num">
+                      <span class="tb-stock clearfix">
+                        <span>购买数量</span>
+                        <a class="tb-reduce" hidefocus="" href="javascript:void(0);">-</a>
+                        <input type="text" placeholder="1" class="txt8 tb-text" id="count<%= index %>">
+                        <a class="tb-increase" href="javascript:void(0);">+</a>
+                      </span>
+                    </div>
+                    <% end %>
 
                     </div>
                   </div>
@@ -268,13 +268,15 @@
       index = $(this).parents(".modal").attr("index")
       this_class = $(this).attr("class")
       count_doc = $("#count"+index)
-      value = parseInt(count_doc.val())
+      value = parseInt(count_doc.attr("placeholder"))
       if(this_class.indexOf("tb-reduce") >= 0){
         if(value > 1){
-          count_doc.val(value - 1)
+          count_doc.attr("placeholder", value - 1)
         }
       }else{
-        count_doc.val(value + 1)
+        if(value < 50){
+          count_doc.attr("placeholder", value + 1)
+        }
       }
     })
 
