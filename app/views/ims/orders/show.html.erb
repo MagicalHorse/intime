@@ -180,8 +180,9 @@
     </div>
     <div class="modal-body">
 
+      <%= hidden_field_tag "promotion[orderno]", @order["orderno"] %>
       <% @order[:products].each do |product| %>
-      <%= hidden_field_tag "productid", product[:productid] %>
+      <%= hidden_field_tag "promotion[items][][productid]", product[:productid] %>
 
       <div class="module common-white">
         <div class="row-fluid">
@@ -194,7 +195,7 @@
             <div class="price-detail">
               <h3><%= product[:productname] %></h3>
               <p class="txt3">
-                <%= text_field_tag "sales_code", product[:sales_code], class: "input-block-level small-block", placeholder: "请输入销售码" %>
+                <%= text_field_tag "promotion[items][][sales_code]", product[:sales_code], class: "input-block-level small-block", placeholder: "请输入销售码" %>
               </p>
             </div>
           </div>
@@ -208,7 +209,7 @@
           <div class="product-detail">
             <ul class="inline clearfix" >
               <div class="goods-describe">
-                <%= text_area_tag "promotiondesc", @order[:promotion_desc], rows: 3, cols: 40, placeholder: "最多500个字符" %>
+                <%= text_area_tag "promotion[promotiondesc]", @order[:promotion_desc], rows: 3, cols: 40, placeholder: "最多500个字符" %>
               </div>
             </ul>
           </div>
@@ -219,42 +220,17 @@
           <div class="product-detail">
             <ul class="inline clearfix" >
               <div class="goods-describe">
-                <%= text_area_tag "promotionrules", @order[:promotion_rules], rows: 3, cols: 40, placeholder: "最多1000个字符" %>
+                <%= text_area_tag "promotion[promotionrules]", @order[:promotion_rules], rows: 3, cols: 40, placeholder: "最多1000个字符" %>
               </div>
             </ul>
           </div>
         </div>
-
-        <% if nil %>
-        <div class="modal-color">
-          <p class="txt8">销售码</p>
-          <div class="product-detail">
-            <ul class="inline clearfix" >
-              <div class="goods-describe">
-                <% @order[:products].each do |product| %>
-                <div class="controls-defined defined-small">
-                  <label class="col-4 text-left"><abbr class="txt-red">*</abbr><%= product[:productname] %>:</label>
-                  <div class="col-8">
-                  <input type="text" name="color_str" id="color_str">
-                  </div>
-                </div>
-                <% end %>
-              </div>
-            </ul>
-          </div>
-        </div>
-        <% end %>
-
-        <% @order[:products].each do |product| %>
-          <% product[:productname] %>
-          <% product[:productid] %>
-          <% product[:sales_code] %>
-        <% end if nil %>
 
       </div>
     </div>
      <div class="modal-footer">
-      <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a>
+      <!-- <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a> -->
+      <%= submit_tag "确 定", class: "btn btn-danger btn-large btn-block save_button" %>
     </div>
   <% end %>
 </div>
