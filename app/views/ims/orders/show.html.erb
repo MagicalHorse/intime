@@ -52,8 +52,7 @@
         </div>
       </div>
 
-      <% #if current_user.shopping_guide? && @order[:has_promotion] %>
-      <% if true %>
+      <% if current_user.shopping_guide? && @order[:has_promotion] %>
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
@@ -77,12 +76,12 @@
              <div class="module-information-content">
                <div class="edite-add-block add_size">
                  <% if @order[:promotion_desc].present? %>
-                   <a href="javascript:void(0)" class="btn-block">
+                   <a href="#promotion_form" data-toggle="modal" class="btn-block">
                      <i class="fa fa-edit"></i>
                      编辑促销规则
                    </a>
                  <% else %>
-                   <a href="javascript:void(0)" class="btn-block">
+                   <a href="#promotion_form" data-toggle="modal" class="btn-block">
                      <i class="fa fa-plus"></i>
                      添加促销规则
                    </a>
@@ -170,6 +169,94 @@
         </div>
       </div>
       <% end %>
+</div>
+
+
+<div id="promotion_form" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" >
+  <%= form_tag update_promotion_ims_order_path(@order["orderno"]), method: "put" do %>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">&nbsp;</h3>
+    </div>
+    <div class="modal-body">
+
+      <% @order[:products].each do |product| %>
+      <%= hidden_field_tag "productid", product[:productid] %>
+
+      <div class="module common-white">
+        <div class="row-fluid">
+          <div class="span4">
+            <div class="orders_show_modal_img">
+              <%= image_tag Product.img_url(product["resource"]) %>
+            </div>
+          </div>
+          <div class="span8">
+            <div class="price-detail">
+              <h3><%= product[:productname] %></h3>
+              <p class="txt3">
+                <%= text_field_tag "sales_code", product[:sales_code], class: "input-block-level small-block", placeholder: "请输入销售码" %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+      <div class="common-white">
+        <div class="modal-color">
+          <p class="txt8">促销主题</p>
+          <div class="product-detail">
+            <ul class="inline clearfix" >
+              <div class="goods-describe">
+                <%= text_area_tag "promotiondesc", @order[:promotion_desc], rows: 3, cols: 40, placeholder: "最多500个字符" %>
+              </div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="modal-color">
+          <p class="txt8">促销规则</p>
+          <div class="product-detail">
+            <ul class="inline clearfix" >
+              <div class="goods-describe">
+                <%= text_area_tag "promotionrules", @order[:promotion_rules], rows: 3, cols: 40, placeholder: "最多1000个字符" %>
+              </div>
+            </ul>
+          </div>
+        </div>
+
+        <% if nil %>
+        <div class="modal-color">
+          <p class="txt8">销售码</p>
+          <div class="product-detail">
+            <ul class="inline clearfix" >
+              <div class="goods-describe">
+                <% @order[:products].each do |product| %>
+                <div class="controls-defined defined-small">
+                  <label class="col-4 text-left"><abbr class="txt-red">*</abbr><%= product[:productname] %>:</label>
+                  <div class="col-8">
+                  <input type="text" name="color_str" id="color_str">
+                  </div>
+                </div>
+                <% end %>
+              </div>
+            </ul>
+          </div>
+        </div>
+        <% end %>
+
+        <% @order[:products].each do |product| %>
+          <% product[:productname] %>
+          <% product[:productid] %>
+          <% product[:sales_code] %>
+        <% end if nil %>
+
+      </div>
+    </div>
+     <div class="modal-footer">
+      <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a>
+    </div>
+  <% end %>
 </div>
 
 

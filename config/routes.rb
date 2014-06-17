@@ -376,6 +376,7 @@ IntimeService::Application.routes.draw do
         put :change_state
         post :payments
         get :notice_success
+        put :update_promotion
       end
 
       collection do

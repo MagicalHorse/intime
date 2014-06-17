@@ -118,6 +118,16 @@ class Ims::OrdersController < Ims::BaseController
     @title = "购买成功"
   end
 
+  def update_promotion
+    @order = Ims::Order.update_promotion(request, {
+      orderno: params[:id],
+      promotiondesc: params[:promotiondesc],
+      promotionrules: params[:promotionrules],
+      items: params[:items]
+    })
+    render json: {status: order[:isSuccessful]}.to_json
+  end
+
   protected
 
   def set_layout
