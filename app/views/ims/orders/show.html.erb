@@ -52,21 +52,22 @@
         </div>
       </div>
 
-      <% if current_user.shopping_guide? && @order[:has_promotion] %>
+      <% if @order[:statust] == 1 && @order[:statust] == 11 && current_user.shopping_guide? && @order[:has_promotion] %>
+      <%# if current_user.shopping_guide? && @order[:has_promotion] %>
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
                  <div class="detail-block detail-contact-bd">
-                     <% if (promotion_desc = @order[:promotion_desc]).present? %>
-                     <p class="txt4 clearfix">
-                     <span class="pull-left">
-                       <i class="fa fa-money"></i><b>促销主题：</b><i><%= promotion_desc %></i>
-                     </span>
+                     <p class="txt4 clearfix promotion_info" style="<%= 'display: none;' if (promotion_desc = @order[:promotion_desc]).blank? %>">
+                       <span class="pull-left">
+                         <i class="fa fa-money"></i><b>促销主题：</b><i class="promotion_info_desc"><%= promotion_desc %></i>
+                       </span>
                      </p>
-                     <% end %>
-                     <% if (promotion_rules = @order[:promotion_rules]).present? %>
-                     <p class="txt4"><span><i class="fa fa-asterisk"></i><b>促销规则：<%= promotion_rules %></b></span></p>
-                     <% end %>
+                     <p class="txt4 promotion_info" style="<%= 'display: none;' if (promotion_rules = @order[:promotion_rules]).blank? %>">
+                       <span>
+                       <i class="fa fa-asterisk"></i><b>促销规则：<span class="promotion_info_rules"><%= promotion_rules %></span></b>
+                       </span>
+                     </p>
                  </div>
              </div>
          </div>
@@ -76,12 +77,12 @@
              <div class="module-information-content">
                <div class="edite-add-block add_size">
                  <% if @order[:promotion_desc].present? %>
-                   <a href="#promotion_form" data-toggle="modal" class="btn-block">
+                   <a href="#promotion_form_div" data-toggle="modal" class="btn-block">
                      <i class="fa fa-edit"></i>
                      编辑促销规则
                    </a>
                  <% else %>
-                   <a href="#promotion_form" data-toggle="modal" class="btn-block">
+                   <a href="#promotion_form_div" data-toggle="modal" class="btn-block">
                      <i class="fa fa-plus"></i>
                      添加促销规则
                    </a>
@@ -172,8 +173,8 @@
 </div>
 
 
-<div id="promotion_form" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" >
-  <%= form_tag update_promotion_ims_order_path(@order["orderno"]), method: "put" do %>
+<div id="promotion_form_div" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" >
+  <%= form_tag update_promotion_ims_order_path(@order["orderno"]), method: "put", id: "promotion_form" do %>
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
       <h3 id="myModalLabel">&nbsp;</h3>
@@ -229,8 +230,8 @@
       </div>
     </div>
      <div class="modal-footer">
-      <!-- <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a> -->
-      <%= submit_tag "确 定", class: "btn btn-danger btn-large btn-block save_button" %>
+      <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a>
+      <%#= submit_tag "确 定", class: "btn btn-danger btn-large btn-block save_button" %>
     </div>
   <% end %>
 </div>
@@ -239,6 +240,73 @@
 <% content_for :javascripts do %>
   <script>
     $(function(){
+
+      var validator = $("#promotion_form").validate({
+        onsubmit: true,
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        rules: {
+          "promotion[promotiondesc]": {
+            required: true,
+            maxlength: 500
+          },
+          "promotion[promotionrules]": {
+            required: true,
+            maxlength: 1000
+          },
+          "promotion[items][][sales_code]": {
+            required: true
+          }
+        },
+        messages: {
+          "promotion[promotiondesc]": {
+            required: "促销主题必填",
+            maxlength: "促销主题最多500个字符"
+          },
+          "promotion[promotionrules]": {
+            required: "促销规则必填",
+            maxlength: "促销规则最多500个字符"
+          },
+          "promotion[items][][sales_code]": {
+            required: "销售码必填"
+          }
+        },
+        showErrors: function(errorMap, errorList) {
+          var msg = "";
+          $.each(errorList, function(i,v){
+            msg += (v.message+"\r\n");
+          });
+          if(msg!="") error_modal(msg);
+        },
+        errorPlacement:function(error, element){
+          element.after(error)
+        }
+
+      })
+
+      $("#promotion_form .save_button").on("click", function(){
+        form = $("#promotion_form")
+        if($("#promotion_form").valid()){
+          form.ajaxSubmit({
+            dataType: "json",
+            success: function(data){
+              if(data["status"] == true){
+                $("#promotion_form_div").modal("hide")
+                $(".promotion_info_desc").text(data["promotiondesc"])
+                $(".promotion_info_rules").text(data["promotionrules"])
+                $("a[href='#promotion_form_div']").text("编辑促销规则")
+                $(".promotion_info").show()
+              }else{
+                error_modal("保存促销规则失败")
+              }
+            },
+            error: function(data){
+              error_modal("提交表单发生错误")
+            }
+          })
+        }
+      })
 
       $("#payment").on("click", function(){
         $("#loading-box").modal()
