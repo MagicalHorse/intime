@@ -29,6 +29,7 @@
   <%= hidden_field_tag "order[invoicedetail]", nil %>
   <%= hidden_field_tag "order[memo]", nil %>
   <%= hidden_field_tag "order[storeid]", session[:store_id] %>
+  <%= hidden_field_tag "order[comboid]", params[:combo_id] %>
   <%= hidden_field_tag "open_id", session[:wx_openid] %>
   <%= link_to "请点击选择地址", "javascript:void(0);" %>
   <%= submit_tag "提交表单" %>
