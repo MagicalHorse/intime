@@ -288,6 +288,7 @@
       $("#promotion_form .save_button").on("click", function(){
         form = $("#promotion_form")
         if($("#promotion_form").valid()){
+          $("#loading-box").modal()
           form.ajaxSubmit({
             dataType: "json",
             success: function(data){
@@ -300,9 +301,11 @@
               }else{
                 error_modal("保存促销规则失败")
               }
+              $("#loading-box").modal("hide")
             },
             error: function(data){
               error_modal("提交表单发生错误")
+              $("#loading-box").modal("hide")
             }
           })
         }
