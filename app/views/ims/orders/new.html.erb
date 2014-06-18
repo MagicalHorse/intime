@@ -542,6 +542,9 @@
       var totalamount = $("#totalamount").val()
       var orderno = $("#orderno").val()
       var memo = $("#memo").val()
+      var invoicetitle = $("#invoicetitle").val()
+      var company_name = $.trim($("#company_name").val())
+      var invoicedetail = $("#invoicedetail").val()
 
       $("#order_memo").val(memo)
 
@@ -555,22 +558,41 @@
 
       if(orderno.length == 0){
         if(is_blank_sizevalueid && is_blank_colorvalueid){
-          if($("#new_order_form").valid()){
-            form.ajaxSubmit({
-              dataType: "json",
-              success: function(data){
-                if(data["status"] == true){
-                  $("#loading-box").modal()
-                  order_id = data["data"]["orderno"]
-                  $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
-                }else{
-                  error_modal("提交订单失败")
-                }
-              },
-              error: function(data){
-                error_modal("提交订单发生错误")
+          if(invoicetitle == "公司" && company_name == ""){
+            error_modal("发票抬头选择公司时，公司名称必填。")
+          }else{
+            if($("#new_order_form").valid()){
+
+              if(invoicetitle == "无"){
+                $("#order_needinvoice").val("false")
+                $("#order_invoicetitle").val("")
+                $("#order_invoicedetail").val("")
+              }else if(invoicetitle == "公司"){
+                $("#order_needinvoice").val("true")
+                $("#order_invoicetitle").val(company_name)
+                $("#order_invoicedetail").val(invoicedetail)
+              }else if(invoicetitle == "个人"){
+                $("#order_needinvoice").val("true")
+                $("#order_invoicetitle").val(invoicetitle)
+                $("#order_invoicedetail").val(invoicedetail)
               }
-            })
+
+              form.ajaxSubmit({
+                dataType: "json",
+                success: function(data){
+                  if(data["status"] == true){
+                    $("#loading-box").modal()
+                    order_id = data["data"]["orderno"]
+                    $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
+                  }else{
+                    error_modal("提交订单失败")
+                  }
+                },
+                error: function(data){
+                  error_modal("提交订单发生错误")
+                }
+              })
+            }
           }
         }else{
           error_modal("商品的颜色和尺码必填")
