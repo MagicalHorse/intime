@@ -21,10 +21,10 @@
   <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", @contact["contact_phone"], id: "contact" %>
   <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", @contact["zip_code"], id: "zipcode" %>
   <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", @contact["full_address"], id: "address" %>
+
+
+
   <%= hidden_field_tag "order[needinvoice]", false %>
-
-
-
   <%= hidden_field_tag "order[invoicetitle]", nil %>
   <%= hidden_field_tag "order[invoicedetail]", nil %>
   <%= hidden_field_tag "order[memo]", nil %>
@@ -219,24 +219,60 @@
       </div>
 
 
-      <div class="module common-white">
-      <div class="module-title2">
+
+
+      <div class="module common-white form-defined">
+        <div class="module-title2">
           <div class="row-fluid">
-              <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>订单备注</h3></div>
-              <div class="span8">
-                  <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多200个字符</small></div>
-              </div>
+            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>发票</h3></div>
+            <div class="span8">
+            </div>
           </div>
+        </div>
+        <div class="form-box">
+          <div class="controls-defined defined-small">
+          <label class="col-4 text-left">发票抬头：</label>
+          <div class="col-8">
+            <%= select_tag "invoicetitle", options_for_select([["无", "无"], ["个人", "个人"], ["公司", "公司"]]) %>
+          </div>
+          </div>
+        </div>
+
+        <div class="form-box" id="invoice_company_name" style="display: none;">
+          <div class="controls-defined defined-small">
+          <label class="col-4 text-left"><abbr class="txt-red">*</abbr>公司名称：</label>
+          <div class="col-8">
+            <%= text_field_tag "company_name" %>
+          </div>
+          </div>
+        </div>
+
+        <div class="form-box" id="invoice_detail" style="display: none;">
+          <div class="controls-defined defined-small">
+          <label class="col-4 text-left"><abbr class="txt-red">*</abbr>发票明细：</label>
+          <div class="col-8">
+            <%= select_tag "invoicedetail", options_for_select([["礼品", "礼品"], ["日用品", "日用品"], ["买什么开什么", "买什么开什么"]]) %>
+          </div>
+          </div>
+        </div>
       </div>
-      <div class="goods-describe">
-        <%= text_area_tag "memo", nil, rows: 4, placeholder: "请在此填写备注信息" %>
+
+
+
+
+      <div class="module common-white">
+        <div class="module-title2">
+          <div class="row-fluid">
+            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>订单备注</h3></div>
+            <div class="span8">
+              <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多200个字符</small></div>
+            </div>
+          </div>
+        </div>
+        <div class="goods-describe">
+          <%= text_area_tag "memo", nil, rows: 4, placeholder: "请在此填写备注信息" %>
+        </div>
       </div>
-
-      </div>
-
-
-
-
 
       <% if @products.any?{|p| p[:salecolors].present?} %>
         <p class="wx-payment">
@@ -264,6 +300,21 @@
     //     format_img(".detail-imgbox")
     //   }, 500)
     // })
+
+    $("#invoicetitle").on("change", function(){
+      invoicetitle = $(this).val()
+      if(invoicetitle == "无"){
+        $("#invoice_company_name").hide()
+        $("#invoice_detail").hide()
+      }else if(invoicetitle == "个人"){
+        $("#invoice_company_name").hide()
+        $("#invoice_detail").show()
+      }else{
+        $("#invoice_company_name").show()
+        $("#invoice_detail").show()
+      }
+
+    }).trigger("change")
 
     $(".tb-reduce, .tb-increase").on("click", function(){
       index = $(this).parents(".modal").attr("index")
