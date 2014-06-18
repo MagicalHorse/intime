@@ -84,6 +84,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     if product["isSuccessful"]
       if (redirect_url = params[:redirect_url]).present? && !redirect_url.include?("ims/store/sells")
         redirect_to redirect_url
+      elsif (combo_id = product["data"].try(:[], :combo_id)).present?
+        redirect_to ims_combo_path(combo_id, :private_to => true, :t => Time.now.to_i)
       else
         redirect_to ims_store_sells_path(tab: "products")
       end
