@@ -67,7 +67,6 @@
     <div class="form-box">
 
 
-        <%= hidden_field_tag "createcombo", request.referer.blank? ? "1" : nil %>
         <%= hidden_field_tag "redirect_url", request.referer %>
         <div style="height: 0px;width: 0px; overflow:hidden;">
           <%= file_field_tag "image", id: "input", accept: "image/*", capture: "camera" %>
@@ -189,9 +188,31 @@
       <%= text_area_tag "desc", @product.try(:[], :desc), rows: 4, placeholder: "请在此描述商品的风格、特色和卖点等信息" %>
     </div>
 
-    <div class="text-center" style="padding: 15px 30px;">
-      <button class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
+</div>
+
+<div class="module module-bg-white2">
+  <% referer = request.referer.to_s %>
+  <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.include?("ims/store/products") && params[:action] == "edit") %>
+  <div class="module-title2">
+    <div class="row-fluid">
+      <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>发布搭配</h3></div>
+      <div class="span8">
+        <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 选择后将自动生成一份搭配</small></div>
+      </div>
     </div>
+  </div>
+
+  <div class="controls-defined defined-small">
+    <label class="col-4 text-left">发布搭配：</label>
+    <div class="col-8">
+      <%= check_box_tag "createcombo", '1', referer.blank? %>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="text-center" style="padding: 15px 30px;">
+    <button class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
+  </div>
 </div>
 
 <% end %>

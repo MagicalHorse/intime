@@ -77,7 +77,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       image_ids: params["image_ids"],
       sizes: params["sizes"],
       color_str: params["color_str"],
-      desc: params["desc"]
+      desc: params["desc"],
+      createcombo: params["createcombo"] == "1"
     })
 
     if product["isSuccessful"]
