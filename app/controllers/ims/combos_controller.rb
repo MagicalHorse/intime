@@ -13,7 +13,7 @@ class Ims::CombosController < Ims::BaseController
   end
 
   def index
-    @title = "搭配列表-用户首页"
+    @title = "组合列表-用户首页"
     options = {}
     options[:brand_id] = params[:brand_id] if params[:brand_id].present?
     options[:store_id] = params[:store_id] if params[:store_id].present?
