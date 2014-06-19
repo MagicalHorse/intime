@@ -33,6 +33,12 @@ class Ims::AddressesController < Ims::BaseController
   end
 
   def update
+    @address = API::Address.update(request, params[:address])
+    if @address[:isSuccessful]
+      redirect_to ims_addresses_path
+    else
+      redirect_to edit_ims_address_path(params[:id])
+    end
   end
 
   def destroy

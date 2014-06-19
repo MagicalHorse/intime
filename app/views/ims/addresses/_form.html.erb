@@ -2,6 +2,9 @@
 <div class="back-wrap-inner">
 
 <%= form_tag url, method: method, class: "form-defined", id: "address_form" do %>
+  <% if params[:action] == "edit" %>
+    <%= hidden_field_tag "address[id]", @address.try(:[], :id) %>
+  <% end %>
   <%= hidden_field_tag "address[shippingprovince]", @address.try(:[], :shippingprovince) %>
   <%= hidden_field_tag "address[shippingcity]", @address.try(:[], :shippingcity) %>
   <%= hidden_field_tag "address[shippingdistrict]", @address.try(:[], :shippingdistrict) %>
