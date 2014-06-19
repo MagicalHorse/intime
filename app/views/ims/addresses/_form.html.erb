@@ -1,7 +1,7 @@
 <br/>
 <div class="back-wrap-inner">
 
-<%= form_tag url: url, method: method, class: "form-defined", id: "address_form" do %>
+<%= form_tag url, method: method, class: "form-defined", id: "address_form" do %>
   <%= hidden_field_tag "address[shippingprovince]", @address.try(:[], :shippingprovince) %>
   <%= hidden_field_tag "address[shippingcity]", @address.try(:[], :shippingcity) %>
   <%= hidden_field_tag "address[shippingdistrict]", @address.try(:[], :shippingdistrict) %>
@@ -10,7 +10,7 @@
 
     <div class="module-title2">
       <div class="row-fluid">
-        <div class="span6"><h3><i class="fa fa-pencil-square-o"></i><% params[:action] == "new" ? "添加" : "编辑" %>地址信息</h3></div>
+        <div class="span6"><h3><i class="fa fa-pencil-square-o"></i><%= params[:action] == "new" ? "添加" : "编辑" %>地址信息</h3></div>
         <div class="span6">
           <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 全部必填</small></div>
         </div>
@@ -47,7 +47,7 @@
         <%= select_tag "address[shippingcityid]", params[:action] == "new" ? options_for_select([])  : options_for_select(@cities, @address[:shippingcityid]), prompt: "城市" %>
       </div>
       <div class="col-3">
-        <%= select_tag "address[shippingdistrictid]", params[:action] == "new" ? options_for_select([]) : options_for_select(@districts, @address[:shippingdistrictid]), prompt: "地区" %>
+        <%= select_tag "address[shippingdistrictid]", params[:action] == "new" ? options_for_select([]) : options_for_select(@districts, @address[:shippingdistrictid]), prompt: "区/县" %>
       </div>
     </div>
 
@@ -97,7 +97,7 @@
       $("#address_shippingcity").val(city_name)
       $.get("<%= list_ims_addresses_path %>", {city_id: city_id}, function(data){
         $("#address_shippingdistrictid").html("")
-        $("#address_shippingdistrictid").append('<option value="">地区</option>')
+        $("#address_shippingdistrictid").append('<option value="">区/县</option>')
         $.each(data["data"], function(index, element){
           $("#address_shippingdistrictid").append('<option value="'+element['districtid']+'">'+element['districtname']+'</option>')
         })
@@ -156,7 +156,7 @@
           required: "城市不能为空"
         },
         "address[shippingdistrictid]": {
-          required: "地区不能为空"
+          required: "区/县不能为空"
         },
         "address[shippingzipcode]": {
           required: "邮编不能为空"
