@@ -1,0 +1,74 @@
+<div class="wrap-inner back-wrap-inner">
+  <% if @addresses.present? %>
+    <%= render "list", addresses: @addresses %>
+  <% else %>
+    <%= render 'ims/shared/empty' %>
+  <% end %>
+
+  <div class="bottom-button">
+    <div class="form-defined">
+      <div class="controls-defined defined-large">
+        <div class="col-6">
+          <a value="<%= new_ims_address_path %>" class="btn btn-danger btn-large btn-block loading_box_link" href="javascript:void(0);">添加地址</a>
+        </div>
+
+        <div class="col-6">
+          <a value="/ims/store/products/new" class="btn btn-danger btn-large btn-block" href="javascript:void(0);">微信地址</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading" class="text-center">
+  </div>
+</div>
+
+
+
+<%= hidden_field_tag "count", @search[:data][:totalcount] %>
+<%= hidden_field_tag "page", @search[:data][:pageindex] %>
+<%= hidden_field_tag "per_page", @search[:data][:pagesize] %>
+
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+
+      $(".loading_box_link").on("click", function(){
+        $("#loading-box").modal()
+        url = $(this).attr("value")
+        setTimeout(function(){
+          window.location.href = url
+        }, 1)
+      })
+
+
+      $(window).scroll(function(){
+        var htmlHeight=document.body.scrollHeight
+        var clientHeight=document.body.clientHeight
+        var scrollTop=document.body.scrollTop
+
+        var count = parseInt($("#count").attr("value"))
+        var page = parseInt($("#page").attr("value"))
+        var per_page = parseInt($("#per_page").attr("value"))
+
+
+        if(scrollTop+clientHeight == htmlHeight){
+          if(page * per_page < count){
+            $("#loading").html('<%= image_tag "ims/loading.gif" %>');
+            $.get("<%= ims_addresses_path %>", {page: page + 1, per_page: per_page}, function(data){
+              if(data["status"] == true){
+                $(".paginate-content:last").after(data["html"])
+                $("#count").attr("value", data["count"])
+                $("#page").attr("value", data["page"])
+                $("#per_page").attr("value", data["per_page"])
+                $("#loading").html("");
+              }
+            }, "json")
+          }
+        }
+
+      })
+    })
+  </script>
+<% end %>

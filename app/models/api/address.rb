@@ -19,6 +19,10 @@ module API
       def destroy(req, params = {})
         post(req, params.merge(path: 'address/delete'))
       end
+
+      def detail(req, params = {})
+        post(req, params.merge(path: 'address/details'))
+      end
     end
   end
 end

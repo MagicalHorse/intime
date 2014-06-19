@@ -307,6 +307,11 @@ IntimeService::Application.routes.draw do
   end
 
   namespace :ims do
+    resources :addresses, except: :show do
+      collection do
+        get "list"
+      end
+    end
     resource :auth
     resources :stores, only: [:show]
     resources :combos, only: [:show, :destroy, :index] do

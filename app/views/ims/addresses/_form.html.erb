@@ -1,0 +1,189 @@
+<br/>
+<div class="back-wrap-inner">
+
+<%= form_tag url: url, method: method, class: "form-defined", id: "address_form" do %>
+  <%= hidden_field_tag "address[shippingprovince]", @address.try(:[], :shippingprovince) %>
+  <%= hidden_field_tag "address[shippingcity]", @address.try(:[], :shippingcity) %>
+  <%= hidden_field_tag "address[shippingdistrict]", @address.try(:[], :shippingdistrict) %>
+
+  <div class="module module-bg-white2">
+
+    <div class="module-title2">
+      <div class="row-fluid">
+        <div class="span6"><h3><i class="fa fa-pencil-square-o"></i><% params[:action] == "new" ? "添加" : "编辑" %>地址信息</h3></div>
+        <div class="span6">
+          <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 全部必填</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small">
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>联系人：</label>
+      <div class="col-9">
+      <%= text_field_tag "address[shippingcontactperson]", @address.try(:[], :shippingperson) %>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small">
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>联系电话：</label>
+      <div class="col-9">
+      <%= text_field_tag "address[shippingcontactphone]", @address.try(:[], :shippingphone) %>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small">
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>邮编：</label>
+      <div class="col-9">
+      <%= text_field_tag "address[shippingzipcode]", @address.try(:[], :shippingzipcode) %>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small size_input">
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>地区：</label>
+      <div class="col-3">
+        <%= select_tag "address[shippingprovinceid]", options_for_select(@provinces.collect{|province| [province[:provincename], province[:provinceid]]}, @address.try(:[], :shippingprovinceid)), prompt: "省份" %>
+      </div>
+      <div class="col-3">
+        <%= select_tag "address[shippingcityid]", params[:action] == "new" ? options_for_select([])  : options_for_select(@cities, @address[:shippingcityid]), prompt: "城市" %>
+      </div>
+      <div class="col-3">
+        <%= select_tag "address[shippingdistrictid]", params[:action] == "new" ? options_for_select([]) : options_for_select(@districts, @address[:shippingdistrictid]), prompt: "地区" %>
+      </div>
+    </div>
+
+
+    <div class="controls-defined defined-small">
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>详细地址：</label>
+      <div class="col-9">
+      <%= text_field_tag "address[shippingaddress]", @address.try(:[], :shippingaddress) %>
+      </div>
+    </div>
+
+    <div style="padding: 15px 30px;" class="text-center">
+      <button id="submit_address" class="btn btn-large btn-danger btn-block">提交</button>
+    </div>
+
+
+  </div>
+
+<% end %>
+
+
+</div>
+
+
+<%= content_for :javascripts do -%>
+<script type="text/javascript">
+  $(function(){
+
+    $("#address_shippingprovinceid").on("change", function(){
+      var province_id = $(this).val()
+      var province_name = $("#address_shippingprovinceid option[value='" + province_id + "']").text()
+      $("#address_shippingprovince").val(province_name)
+      $.get("<%= list_ims_addresses_path %>", {province_id: province_id}, function(data){
+        $("#address_shippingcityid").html("")
+        $("#address_shippingcityid").append('<option value="">城市</option>')
+        $.each(data["data"], function(index, element){
+          $("#address_shippingcityid").append('<option value="'+element['cityid']+'">'+element['cityname']+'</option>')
+        })
+      }, "json")
+    })
+
+
+    $("#address_shippingcityid").on("change", function(){
+      var province_id = $(this).val()
+      var city_id = $(this).val()
+      var city_name = $("#address_shippingcityid option[value='" + city_id + "']").text()
+      $("#address_shippingcity").val(city_name)
+      $.get("<%= list_ims_addresses_path %>", {city_id: city_id}, function(data){
+        $("#address_shippingdistrictid").html("")
+        $("#address_shippingdistrictid").append('<option value="">地区</option>')
+        $.each(data["data"], function(index, element){
+          $("#address_shippingdistrictid").append('<option value="'+element['districtid']+'">'+element['districtname']+'</option>')
+        })
+      }, "json")
+    })
+
+    $("#address_shippingdistrictid").on("change", function(){
+      var district_id = $(this).val()
+      var district_name = $("#address_shippingdistrictid option[value='" + district_id + "']").text()
+      $("#address_shippingdistrict").val(district_name)
+    })
+
+    $("#address_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
+      rules: {
+        "address[shippingcontactperson]": {
+          required: true
+        },
+        "address[shippingcontactphone]": {
+          required: true
+        },
+        "address[shippingaddress]": {
+          required: true
+        },
+        "address[shippingprovinceid]": {
+          required: true
+        },
+        "address[shippingcityid]": {
+          required: true
+        },
+        "address[shippingdistrictid]": {
+          required: true
+        },
+        "address[shippingzipcode]": {
+          required: true
+        }
+
+      },
+      messages: {
+        "address[shippingcontactperson]": {
+          required: "联系人不能为空"
+        },
+        "address[shippingcontactphone]": {
+          required: "联系电话不能为空"
+        },
+        "address[shippingaddress]": {
+          required: "详细地址不能为空"
+        },
+        "address[shippingprovinceid]": {
+          required: "省份不能为空"
+        },
+        "address[shippingcityid]": {
+          required: "城市不能为空"
+        },
+        "address[shippingdistrictid]": {
+          required: "地区不能为空"
+        },
+        "address[shippingzipcode]": {
+          required: "邮编不能为空"
+        }
+      },
+      showErrors: function(errorMap, errorList) {
+        var messages = errorList.map(function(i, v) {
+          return i.message
+        })
+        msg = messages.join(", ")
+        if(msg != ""){
+          error_modal(msg);
+        }
+      }
+
+    })
+
+    $("#submit_address").click(function(){
+
+      if($("#address_form").valid()){
+        $("#loading-box").modal();
+        setTimeout(function(){
+          $("#addresst_form").submit();
+        }, 1)
+      }
+    })
+
+  })
+</script>
+<% end %>

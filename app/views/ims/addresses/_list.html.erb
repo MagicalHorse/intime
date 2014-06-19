@@ -1,0 +1,32 @@
+<div class="module module-bg-white clearfix paginate-content">
+  <% addresses.each do |address| %>
+    <!-- list start -->
+    <div class="p-list p-list-first clearfix">
+      <div class="row-fluid">
+      <div class="span12">
+        <div class="p-title">
+          <h3>
+          l..............................
+          </h3>
+        </div>
+
+        <div class="p-price1 clearfix">
+          <span class="txt4">
+            微信价：<span class="p-wx-price">￥123</span>
+            <span class="middle-line">￥121212</span>
+          </span>
+        </div>
+        <div class="buttons">
+          <%= link_to "javascript:void(0);" do %>
+            <button class="btn btn-mini btn-danger">编 辑</button>
+          <% end %>
+          <%= link_to "已选", "javascript:void(0);", class: "btn btn-grey btn-mini btn-select button-select" %>
+        </div>
+       </div>
+     </div>
+    </div>
+    <!-- list end -->
+
+  <% end %>
+
+</div>
