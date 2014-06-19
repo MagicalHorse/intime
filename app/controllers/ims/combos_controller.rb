@@ -6,7 +6,7 @@ class Ims::CombosController < Ims::BaseController
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
     @private_to = params[:private_to]
     @store_id = params[:store_id]
-    @title = "搭配展示"
+    @title = "组合展示"
     @can_share = true if @remote_combo[:data][:is_online]
     @template_id = @remote_combo[:data][:template_id]
     session[:store_id] = @remote_combo[:data][:store_id]

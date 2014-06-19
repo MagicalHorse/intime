@@ -261,7 +261,7 @@
   WxEnv.shareUrl = "<%= ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i) %>";
   <% end %>
   WxEnv.shareImgUrl = "<%= @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle %>";
-  WxEnv.shareName = "我给您分享了一组搭配，希望您喜欢。";
+  WxEnv.shareName = "我给您分享了一组组合，希望您喜欢。";
   WxEnv.shareDes = "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>";
 
 </script>

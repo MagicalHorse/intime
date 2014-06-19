@@ -3,9 +3,9 @@
 <div class="module module-bg-white">
     <div class="module-title2">
         <div class="row-fluid">
-            <div class="span6"><h3><i class="fa fa-heart"></i>搭配组合照</h3></div>
+            <div class="span6"><h3><i class="fa fa-heart"></i>组合组合照</h3></div>
             <div class="span6 text-right">
-              <%#= link_to '商品搭配教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_combos_path, class: "title-link" %>
+              <%#= link_to '商品组合教程<i class="fa fa-angle-right"></i>'.html_safe, tutorials_ims_store_combos_path, class: "title-link" %>
             </div>
         </div>
     </div>
@@ -46,7 +46,7 @@
 <div class="module module-bg-white">
     <div class="module-title2">
         <div class="row-fluid">
-            <div class="span12"><h3><i class="fa fa-heart"></i>搭配商品上传</h3></div>
+            <div class="span12"><h3><i class="fa fa-heart"></i>组合商品上传</h3></div>
         </div>
     </div>
     <div class="upload-img">
@@ -60,7 +60,7 @@
               <% end %>
             </span></li>
           <% end %>
-          <% if @combo.combo_products.size < 3 %>
+          <% if @combo.combo_products.size < 6 %>
           <li class="add-link" id="add_product"><a href="javascript:void(0);"><span class="img-spa"><%= image_tag "ims/add-img.png" %></span></a></li>
           <% else %>
           <li class="add-link" id="add_product" style="display:none;"><a href="javascript:void(0);"><span class="img-spa"><%= image_tag "ims/add-img.png" %></span></a></li>
@@ -72,7 +72,7 @@
 <div class="module module-bg-white">
     <div class="module-title2">
         <div class="row-fluid">
-            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>搭配描述</h3></div>
+            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>组合描述</h3></div>
             <div class="span8">
                 <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多500，最少10个字符</small></div>
             </div>
@@ -131,7 +131,7 @@ var check_form = function(){
       verify_image1 = image_fields.length < 1;
       verify_image2 = image_fields.length > 5;
       verify_product1 = product_image_fields.length < 2;
-      verify_product2 = product_image_fields.length > 4;
+      verify_product2 = product_image_fields.length > 7;
       var desc_length = $("#combo_desc").val().length;
       var status = true;
 
@@ -144,11 +144,11 @@ var check_form = function(){
         status = false;
       }
       if(verify_product1){
-        error_modal("商品搭配至少要由1个组成");
+        error_modal("商品组合至少要由1个组成");
         status = false;
       }
       if(verify_product2){
-        error_modal("商品搭配最多由3个组成");
+        error_modal("商品组合最多由6个组成");
         status = false;
       }
       if(verify_image1 || verify_image2){
@@ -215,20 +215,18 @@ var check_form = function(){
 
     document.getElementById('upfile').onchange = function (e) {
       $("#loading-box").modal();
-      var orientation ;
-      loadImage.parseMetaData(
-        e.target.files[0],
-        function(data){
-          if(data.exif)
-          orientation = data.exif.get('Orientation');
-        }
-      );
-
-      loadImage(
-        e.target.files[0],
-        function(img){
-          var resized = resizeIos(img, 640, 640, orientation);
-          $.ajax({
+      var options = {maxWidth: 640,canvas: true};
+      options.maxWidth = 640;
+      var file = e.target.files[0];
+      loadImage.parseMetaData(file, function (data) {
+                if (data.exif) {
+                    options.orientation = data.exif.get('Orientation');
+                }
+        loadImage(
+                    file,
+                    function(img){
+            var resized = img.toDataURL('image/jpeg');
+            $.ajax({
               url: "/ims/combos/upload",
               dataType: 'json',
               type: 'post',
@@ -261,12 +259,13 @@ var check_form = function(){
                  }
               }
             });
-        }
-      )
 
-
-};
-
+          },
+                    options
+                );
+            });
+    
+  };
 
      $(document).on('click', "#img_box li[class!='add-link'] span", function(){
           src = $(this).find("img")[0].src;
@@ -300,11 +299,11 @@ var check_form = function(){
 
      $("#add_product").click(function(){
        var p_size = $("#p_box li[class!='add-link']").length;
-       if(p_size < 3){
+       if(p_size < 6){
         $("#buttons").hide();
          $("#pop-menu").show();
        }else{
-        error_modal('最多只能搭配3个商品');
+        error_modal('最多只能组合6个商品');
        }
      });
 
@@ -322,7 +321,7 @@ var check_form = function(){
             $("#p_"+mid).parent().remove();
             var p_size = $("#p_box li[class!='add-link']").length;
             console.log(p_size);
-            if(p_size < 3){
+            if(p_size < 6){
               $("#add_product").show();
               format_img(".img-spa");
             }
