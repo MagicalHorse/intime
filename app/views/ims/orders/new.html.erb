@@ -43,6 +43,7 @@
   <% sizes = salecolors.first.try(:[], :sizes) || [] %>
   <% name = product['brandname'].to_s + product["skucode"].to_s %>
   <div class="module common-white">
+
      <div class="row-fluid">
          <div class="span3">
              <div class="detail-imgbox">
@@ -170,6 +171,13 @@
 
   <% end %>
       <div class="module common-white" id="address_doc" value="<%= ims_addresses_path(redirect_url: request.fullpath, origin_address_id: params[:address_id]) %>">
+         <div class="module-title2">
+           <div class="row-fluid">
+             <div class="span4"><h3>地址信息</h3></div>
+             <div class="span8"></div>
+           </div>
+         </div>
+
          <div class="row-fluid txt-block">
              <div class="span12">
 
@@ -199,31 +207,11 @@
              </div>
          </div>
       </div>
-      <div class="module common-white">
-         <div class="row-fluid">
-             <div class="span12">
-                 <div class="detail-block detail-contact-bd">
-                     <p class="txt8 txt-bd clearfix">
-                       <span class="pull-left">
-                         <i class="fa fa-truck"></i>运费：<%= (totalfee = @order[:totalfee]).zero? ? "免运费" : totalfee %>
-                       </span>
-                       <span class="pull-right"><b>实付：</b><i>￥<%= @order[:totalamount] %></i></span>
-                     </p>
-                     <p class="txt8 txt0">
-                       <i class="fa fa-exclamation-circle"></i>提交订单后，请在1小时内完成支付，过时订单将会自动取消
-                     </p>
-                 </div>
-             </div>
-         </div>
-      </div>
-
-
-
 
       <div class="module common-white form-defined">
         <div class="module-title2">
           <div class="row-fluid">
-            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>发票</h3></div>
+            <div class="span4"><h3>发票</h3></div>
             <div class="span8">
             </div>
           </div>
@@ -256,13 +244,10 @@
         </div>
       </div>
 
-
-
-
       <div class="module common-white">
         <div class="module-title2">
           <div class="row-fluid">
-            <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>订单备注</h3></div>
+            <div class="span4"><h3>订单备注</h3></div>
             <div class="span8">
               <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多200个字符</small></div>
             </div>
@@ -271,6 +256,30 @@
         <div class="goods-describe">
           <%= text_area_tag "memo", nil, rows: 4, placeholder: "请在此填写备注信息" %>
         </div>
+      </div>
+
+      <div class="module common-white">
+         <div class="module-title2">
+           <div class="row-fluid">
+             <div class="span4"><h3>费用信息</h3></div>
+             <div class="span8"></div>
+           </div>
+         </div>
+         <div class="row-fluid">
+             <div class="span12">
+                 <div class="detail-block detail-contact-bd">
+                     <p class="txt8 txt-bd clearfix">
+                       <span class="pull-left">
+                         <i class="fa fa-truck"></i>运费：<%= (totalfee = @order[:totalfee]).zero? ? "免运费" : totalfee %>
+                       </span>
+                       <span class="pull-right"><b>实付：</b><i>￥<%= @order[:totalamount] %></i></span>
+                     </p>
+                     <p class="txt8 txt0">
+                       <i class="fa fa-exclamation-circle"></i>提交订单后，请在1小时内完成支付，过时订单将会自动取消
+                     </p>
+                 </div>
+             </div>
+         </div>
       </div>
 
       <% if @products.any?{|p| p[:salecolors].present?} %>
