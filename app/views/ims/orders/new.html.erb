@@ -17,10 +17,11 @@
 
   <%= hidden_field_tag "order[payment[paymentcode]]", Settings.payment_code.imswxpay %>
   <%= hidden_field_tag "order[payment[paymentname]]", "微信支付" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", @contact["contact_person"], id: "name" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", @contact["contact_phone"], id: "contact" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", @contact["zip_code"], id: "zipcode" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", @contact["full_address"], id: "address" %>
+
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", @address.present? ? @address["shippingperson"] : @contact.try(:[], :contact_person), id: "name" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", @address.present? ? @address["shippingphone"] : @contact.try(:[], :contact_phone), id: "contact" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", @address.present? ? @address["shippingzipcode"] : @contact.try(:[], :zip_code), id: "zipcode" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", @address.present? ? @address["displayaddress"] : @contact.try(:[], :full_address), id: "address" %>
 
 
 
@@ -191,16 +192,16 @@
                  <div id="contact_wrapper" class="detail-block detail-contact" style="<%= @contact.present? ? 'display: inline;' : 'display: none;' %>">
                      <p class="txt8">
                        <span>
-                         <i class="fa fa-user"></i><span id="weixin_name"><%= @contact["contact_person"] %></span>
+                         <i class="fa fa-user"></i><span id="weixin_name"><%= @address.present? ? @address["shippingperson"] : @contact.try(:[], :contact_person) %></span>
                        </span>
                        &nbsp;
                        <span>
-                       <i class="fa fa-phone"></i><span id="weixin_contact"><%= @contact["contact_phone"] %></span>
+                       <i class="fa fa-phone"></i><span id="weixin_contact"><%= @address.present? ? @address["shippingphone"] : @contact.try(:[], :contact_phone) %></span>
                        </span>
                      </p>
                      <p class="txt8">
                        <span>
-                       <i class="fa fa-map-marker"></i><span id="weixin_address"><%= @contact["full_address"] %></span>
+                       <i class="fa fa-map-marker"></i><span id="weixin_address"><%= @address.present? ? @address["displayaddress"] : @contact.try(:[], :full_address) %></span>
                        </span>
                      </p>
                  </div>

@@ -9,6 +9,20 @@ class Ims::OrdersController < Ims::BaseController
     @orders = @search["data"]["items"]
     @title = "我的订单"
 
+
+    @timeStamp_val = Time.now.to_i
+    @nonceStr_val = ("a".."z").to_a.sample(9).join('')
+    access_token  = cookies[:user_access_token]
+    sign = {
+      accesstoken: access_token,
+      appid: Settings.wx.appid,
+      noncestr: @nonceStr_val,
+      timestamp: @timeStamp_val,
+      url: request.original_url
+    }
+    string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    @addrSign_val = Digest::SHA1.hexdigest(string1)
+
     respond_to do |format|
       format.html{}
       format.json{render "list"}
@@ -28,8 +42,10 @@ class Ims::OrdersController < Ims::BaseController
       @order = Ims::Order::computeamount(request, combo_id: params["combo_id"], quantity: 1)[:data]
     end
 
+    @address = API::Address.detail(request, {id: params[:address_id]})[:data] if params[:address_id].present?
     @contact = Ims::User.latest_address(request, params)[:data]
 
+    if nil
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     access_token  = cookies[:user_access_token]
@@ -42,6 +58,7 @@ class Ims::OrdersController < Ims::BaseController
     }
     string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
     @addrSign_val = Digest::SHA1.hexdigest(string1)
+    end
   end
 
   def show
