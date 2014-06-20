@@ -51,7 +51,8 @@ class Ims::Store::CombosController < Ims::Store::BaseController
       @combo = ::Combo.find(params[:combo_id])
     else
       @combo = ::Combo.create({:desc => @remote_combo[:data][:desc], :private_to => @remote_combo[:data][:private_desc],
-       :combo_type => @remote_combo[:data][:combo_type], :remote_id => @remote_combo[:data][:id]})
+       :combo_type => @remote_combo[:data][:combo_type], :remote_id => @remote_combo[:data][:id],
+       :discount => @remote_combo[:data][:discount], :has_discount => @remote_combo[:data][:discount] > 0 ? true : false, :is_public => @remote_combo[:data][:is_public]})
 
       @remote_combo[:data][:products].each do |product|
         if product[:product_type].blank? || product[:product_type] == 1

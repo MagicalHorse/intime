@@ -2,7 +2,7 @@
 class Combo < ActiveRecord::Base
   DOCUMENT_TYPE = "escombos"
 
-  attr_accessible :desc, :remote_id, :combo_type, :private_to
+  attr_accessible :desc, :remote_id, :combo_type, :private_to, :has_discount, :discount, :is_public
 
   has_many :combo_pics
   has_many :combo_products
@@ -13,7 +13,10 @@ class Combo < ActiveRecord::Base
   	 	:private_to => private_to,
   	 	:productids => combo_products.map(&:remote_id).uniq.compact,
   	 	:image_ids => combo_pics.map(&:remote_id).uniq.compact,
-  	 	:product_type => combo_products.first.product_type
+  	 	:product_type => combo_products.first.product_type,
+      :has_discount => has_discount,
+      :discount => discount,
+      :is_public => is_public
   	 }
   end
 
