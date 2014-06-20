@@ -176,3 +176,12 @@ function resizeAndroid(img, max_width, max_height) {
 
   return canvas.toDataURL("image/jpeg", 0.5); // get the data from canvas as 70% JPG (can be also PNG, etc.)
 }
+
+function isIPhone() {
+ if (!window.navigator || !window.navigator.platform ||
+             !(/iP(hone|od|ad)/).test(window.navigator.platform)) {
+        return false;
+    }
+  return true;
+}
+

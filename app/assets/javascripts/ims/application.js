@@ -32,5 +32,7 @@
 //= require ims/load-image-orientation.js
 //= require ims/load-image-exif.js
 //= require ims/flurry.js
+//= require ims/canvas-to-blob.js
+//= require ims/jpeg_encoder.js
 //= require_self
 

@@ -254,14 +254,23 @@ var check_form = function(){
                     options.orientation = data.exif.get('Orientation');
                 }
         loadImage(
-                    file,
-                    function(img){
-            var resized = img.toDataURL('image/jpeg');
+          file,
+          function(img){
+            var img_data;
+            if (isIPhone()) {
+              img_data = img.toDataURL('image/jpeg',85);
+            } else {
+              var encoder = new JPEGEncoder();
+              var ctx = img.getContext('2d');
+              var rawImageData = ctx.getImageData(0, 0, img.width, img.height);
+                img_data = encoder.encode(rawImageData,85);
+            }
+
             $.ajax({
               url: "/ims/combos/upload",
               dataType: 'json',
               type: 'post',
-              data: {"img": resized, "id": "<%= @combo.id %>"},
+              data: {"img": img_data, "id": "<%= @combo.id %>"},
               beforeSend: function(){
                 $("#add_img").hide();
               },
