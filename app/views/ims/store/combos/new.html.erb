@@ -52,7 +52,7 @@
     <div class="upload-img">
         <ul class="inline clearfix" id="p_box">
           <% @combo.combo_products.each do |product| %>
-            <li><i id="p_<%=product.id%>" data="<%=product.id%>"><%= image_tag 'ims/delate.png' %></i><span class="img-spa">
+            <li><i id="p_<%=product.id%>" data="<%=product.id%>"><%= image_tag 'ims/delate.png' %></i><span class="img-spa <%= 'product-link' if product.product_type == "2" %>" value='/ims/store/products/<%=product.remote_id%>/edit'>
               <% if product.img_url.present? %>
               <img src="<%=product.img_url%>">
               <% else %>
@@ -352,6 +352,14 @@ var check_form = function(){
      format_img(".show-imgbox-no");
      format_img(".img-spa");
      format_img(".show-imgbox-yes");
+
+     $(document).on("click", ".product-link", function(){
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
 
   });
 </script>
