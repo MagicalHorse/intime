@@ -95,21 +95,21 @@
       是否全网公开：<%= f.radio_button :is_public, class: 'input-block-level small-block' %>无<%= f.radio_button :has_discount, class: 'input-block-level small-block' %>有
     </div> -->
     <div class="controls-defined defined-small">
-              <label class="col-4 text-left">促销活动：</label>
-              <div class="col-8">
+              <label class="col-3 text-left">促销活动：</label>
+              <div class="col-9">
                 <%= f.radio_button :has_discount, false %>无 &nbsp;&nbsp;&nbsp;&nbsp; <%= f.radio_button :has_discount, true %>有
               </div>
           </div>
     <div id="promotion" style="<%= @combo.has_discount? ? 'display:block' : 'display:none'  %>">
     <div class="controls-defined defined-small">
-              <label class="col-4 text-left">直减金额：</label>
-              <div class="col-8">
+              <label class="col-3 text-left">直减金额：</label>
+              <div class="col-9">
                 <input class="input-block-level small-block" id="combo_discount" name="combo[discount]" value="<%= @combo.discount %>"  placeholder="请输入直减金额" size="30" type="number" pattern="[0-9]+([\.|,][0-9]+)?" step="0.1">（元）
               </div>
           </div>
     <div class="controls-defined defined-small">
-              <label class="col-4 text-left">全网公开：</label>
-              <div class="col-8">
+              <label class="col-3 text-left">全网公开：</label>
+              <div class="col-9">
                 <%= f.radio_button :is_public, true %>YES&nbsp;&nbsp;&nbsp;&nbsp;  
                 <%= f.radio_button :is_public, false %>NO
               </div>
