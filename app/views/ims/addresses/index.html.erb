@@ -1,6 +1,7 @@
+<% redirect_url = params[:redirect_url].to_s.gsub(/&address_id=\d+/, '') %>
 <div class="wrap-inner back-wrap-inner">
   <% if @addresses.present? %>
-    <%= render "list", addresses: @addresses %>
+    <%= render "list", addresses: @addresses, redirect_url: redirect_url %>
   <% else %>
     <%= render 'ims/shared/empty' %>
   <% end %>
@@ -30,13 +31,12 @@
 <%= hidden_field_tag "page", @search[:data][:pageindex] %>
 <%= hidden_field_tag "per_page", @search[:data][:pagesize] %>
 
-
 <% content_for :javascripts do %>
   <script>
     $(function(){
 
 
-      <% if (redirect_url = params[:redirect_url]).present? %>
+      <% if redirect_url.present? %>
         $("input[name='address[id]']").on("change", function(){
           select_address($(this))
         })
