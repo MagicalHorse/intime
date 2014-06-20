@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-4">
-          <a value="/ims/store/products/new" class="btn btn-danger btn-large btn-block" href="javascript:void(0);">微信地址</a>
+          <a class="btn btn-danger btn-large btn-block" href="javascript:void(0);" id: "weixin_address">微信地址</a>
         </div>
       </div>
     </div>
@@ -34,6 +34,41 @@
 <% content_for :javascripts do %>
   <script>
     $(function(){
+
+      $("#weixin_address").on("click", function(){
+        load_address()
+      })
+
+      var load_address = function(){
+        WeixinJSBridge.invoke('editAddress',{
+        appId: "<%= Settings.wx.appid %>",
+        scope: "jsapi_address",
+        signType: "sha1",
+        addrSign: "<%= raw @addrSign_val %>",
+        timeStamp: "<%= @timeStamp_val %>",
+        nonceStr: "<%= @nonceStr_val %>"
+        },function(res){
+        //若 res 中所带的返回值不为空，则表示用户选择该返回值作为收货地址。否则若返回空，则表示用户取消了这一次编辑收货地址。
+          if(res.err_msg == "edit_address:ok"){
+            name = res.userName
+            zipcode = res.addressPostalCode
+            address = [res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.addressDetailInfo].join(" ")
+            contact = res.telNumber
+            $("#name").attr("value", name)
+            $("#weixin_name").text(name)
+            $("#zipcode").attr("value", zipcode)
+            $("#address").attr("value", address)
+            $("#weixin_address").text(address)
+            $("#contact").attr("value", contact)
+            $("#weixin_contact").text(contact)
+
+            $("#contact_select_wrapper").hide()
+            $("#contact_wrapper").show()
+          }else{
+
+          }
+        })
+      }
 
 
       <% if redirect_url.present? %>
