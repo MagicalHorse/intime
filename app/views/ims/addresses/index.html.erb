@@ -8,11 +8,14 @@
   <div class="bottom-button">
     <div class="form-defined">
       <div class="controls-defined defined-large">
-        <div class="col-6">
+        <div class="col-4">
+          <a value="javascript:void(0);" class="btn btn-danger btn-large btn-block loading_box_link" href="javascript:void(0);">确认</a>
+        </div>
+        <div class="col-4">
           <a value="<%= new_ims_address_path %>" class="btn btn-danger btn-large btn-block loading_box_link" href="javascript:void(0);">添加地址</a>
         </div>
 
-        <div class="col-6">
+        <div class="col-4">
           <a value="/ims/store/products/new" class="btn btn-danger btn-large btn-block" href="javascript:void(0);">微信地址</a>
         </div>
       </div>
@@ -41,6 +44,13 @@
           window.location.href = url
         }, 1)
       })
+
+      $("input[name='address[id]']").on("change", function(){
+        var id = $(this).val()
+        $(".address_div").removeClass("active")
+        $(this).parents(".address_div").addClass("active")
+      }).filter(':checked').trigger("change")
+
 
 
       $(window).scroll(function(){

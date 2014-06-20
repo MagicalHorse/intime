@@ -1,29 +1,45 @@
-<div class="module module-bg-white clearfix paginate-content">
-  <% addresses.each do |address| %>
+<div class="module module-bg-white clearfix paginate-content address">
+  <% addresses.each_with_index do |address, index| %>
     <!-- list start -->
     <div class="p-list p-list-first clearfix">
-      <div class="row-fluid">
-      <div class="span12">
-        <div class="p-title">
-          <h3>
-          l..............................
-          </h3>
+      <div class="row-fluid address_div <%= 'active' if index.zero? %>">
+        <div class="span1 text-center select_address">
+          <%= radio_button_tag 'address[id]', address[:id], index.zero? %>
+        </div>
+        <div class="span9">
+          <div class="p-title">
+            <div class="row-fluid">
+              <div class="span5">
+                <h3>
+                姓名： <%= address[:shippingperson] %>
+                </h3>
+              </div>
+              <div class="span7 text-right">
+                <h3>
+                电话： <%= address[:shippingphone] %>
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="info clearfix">
+            <span class="txt4">
+              邮编： <%= address[:shippingzipcode] %>
+            </span>
+          </div>
+
+          <div class="info clearfix address_info">
+            <span class="txt4">
+              <%= "#{address[:shippingprovince]} #{address[:shippingcity]} #{address[:shippingdistrict]} #{address[:shippingaddress]}" %>
+            </span>
+          </div>
+
         </div>
 
-        <div class="p-price1 clearfix">
-          <span class="txt4">
-            微信价：<span class="p-wx-price">￥123</span>
-            <span class="middle-line">￥121212</span>
-          </span>
+        <div class="span2 text-center edit_link ">
+          <%= link_to_icon "fa fa-edit", "", "javascript:void(0);", value: edit_ims_address_path(address[:id]), class: "loading_box_link" %>
         </div>
-        <div class="buttons">
-          <%= link_to "javascript:void(0);" do %>
-            <button class="btn btn-mini btn-danger">编 辑</button>
-          <% end %>
-          <%= link_to "已选", "javascript:void(0);", class: "btn btn-grey btn-mini btn-select button-select" %>
-        </div>
-       </div>
-     </div>
+      </div>
     </div>
     <!-- list end -->
 

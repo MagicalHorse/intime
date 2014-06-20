@@ -7,7 +7,6 @@ class Ims::AddressesController < Ims::BaseController
   def index
     @search = API::Address.index(request, page: params[:page], pagesize: params[:per_page] || 10)
     @addresses = @search["data"]["items"]
-    @addresses = [{id: 1, shippingperson: '张先生', shippingphone: "13581575435", shippingprovince: "山西", shippingcity: "吕梁", shippingdistrict: "文水", shippingaddress: "××街道××房间", shippingzipcode: "100025"}]
     @title = "我的地址"
   end
 
