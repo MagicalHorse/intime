@@ -195,15 +195,15 @@
   <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.include?("ims/store/products") && params[:action] == "edit") %>
   <div class="module-title2">
     <div class="row-fluid">
-      <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>发布搭配</h3></div>
+      <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>发布组合</h3></div>
       <div class="span8">
-        <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 选择后将自动生成一份搭配</small></div>
+        <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 选择后将自动生成一份组合</small></div>
       </div>
     </div>
   </div>
 
   <div class="controls-defined defined-small">
-    <label class="col-4 text-left">发布搭配：</label>
+    <label class="col-4 text-left">发布组合：</label>
     <div class="col-8">
       <%= check_box_tag "createcombo", '1', referer.blank? %>
     </div>

@@ -2,10 +2,10 @@
 class Ims::Store::CombosController < Ims::Store::BaseController
   before_filter :goto_combo, only: [:edit]
 
-  #新建搭配
+  #新建组合
   def new
     @combo = ::Combo.find_by_id(params[:combo_id]) || @combo = ::Combo.create
-    @title = "新建搭配"
+    @title = "新建组合"
   end
 
   def create
@@ -22,7 +22,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
     render :json => json
   end
 
-  #查看搭配
+  #查看组合
   def show
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
   end
@@ -40,18 +40,19 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   #预览
   def preview
     @combo = ::Combo.find(params[:id])
-    @title = "搭配预览"
+    @title = "组合预览"
   end
 
   def edit
     @remote_id = @remote_combo[:data][:id]
-    @title = "修改搭配"
+    @title = "修改组合"
 
     if params[:combo_id].present?
       @combo = ::Combo.find(params[:combo_id])
     else
       @combo = ::Combo.create({:desc => @remote_combo[:data][:desc], :private_to => @remote_combo[:data][:private_desc],
-       :combo_type => @remote_combo[:data][:combo_type], :remote_id => @remote_combo[:data][:id]})
+       :combo_type => @remote_combo[:data][:combo_type], :remote_id => @remote_combo[:data][:id],
+       :discount => @remote_combo[:data][:discount], :has_discount => @remote_combo[:data][:discount] > 0 ? true : false, :is_public => @remote_combo[:data][:is_public]})
 
       @remote_combo[:data][:products].each do |product|
         if product[:product_type].blank? || product[:product_type] == 1
