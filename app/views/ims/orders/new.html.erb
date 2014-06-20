@@ -169,8 +169,8 @@
 
 
   <% end %>
-      <div class="module common-white" id="address_doc">
-         <div class="row-fluid">
+      <div class="module common-white" id="address_doc" value="<%= ims_addresses_path(redirect_url: request.fullpath, origin_address_id: params[:address_id]) %>">
+         <div class="row-fluid txt-block">
              <div class="span12">
 
                  <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: block;' %>">
@@ -180,7 +180,6 @@
                        </span>
                      </p>
                  </div>
-
                  <div id="contact_wrapper" class="detail-block detail-contact" style="<%= @contact.present? ? 'display: inline;' : 'display: none;' %>">
                      <p class="txt8">
                        <span>
@@ -300,6 +299,13 @@
     //     format_img(".detail-imgbox")
     //   }, 500)
     // })
+    $("#address_doc").on("click", function(){
+      $("#loading-box").modal()
+      url = $(this).attr("value")
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
 
     $("#invoicetitle").on("change", function(){
       invoicetitle = $(this).val()
@@ -605,12 +611,12 @@
 
     // 获取送货地址、送货人等
 
+    <% if nil %>
     <% if @contact.blank? %>
     document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
       load_address()
     })
     <% end %>
-
 
 
     $("#address_doc").on("click", function(){
@@ -648,6 +654,7 @@
         }
       })
     }
+    <% end %>
 
     format_img(".detail-imgbox");
 

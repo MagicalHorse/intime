@@ -25,18 +25,18 @@ class Ims::AddressesController < Ims::BaseController
   def create
     @address = API::Address.create(request, params[:address])
     if @address[:isSuccessful]
-      redirect_to ims_addresses_path
+      redirect_to ims_addresses_path(redirect_url: params[:redirect_url])
     else
-      redirect_to new_ims_address_path
+      redirect_to new_ims_address_path(redirect_url: params[:redirect_url])
     end
   end
 
   def update
     @address = API::Address.update(request, params[:address])
     if @address[:isSuccessful]
-      redirect_to ims_addresses_path
+      redirect_to ims_addresses_path(redirect_url: params[:redirect_url])
     else
-      redirect_to edit_ims_address_path(params[:id])
+      redirect_to edit_ims_address_path(params[:id], redirect_url: params[:redirect_url])
     end
   end
 

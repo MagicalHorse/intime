@@ -1,12 +1,14 @@
 <div class="module module-bg-white clearfix paginate-content address">
   <% addresses.each_with_index do |address, index| %>
     <!-- list start -->
-    <div class="p-list p-list-first clearfix">
-      <div class="row-fluid address_div <%= 'active' if index.zero? %>">
+    <div class="p-list p-list-first clearfix" value="<%= address[:id] %>">
+      <div class="row-fluid <%= 'active' if (is_equal = address[:id].to_s == params[:origin_address_id]) %>">
+        <% if (redirect_url = params[:redirect_url]).present? %>
         <div class="span1 text-center select_address">
-          <%= radio_button_tag 'address[id]', address[:id], index.zero? %>
+          <%= radio_button_tag 'address[id]', address[:id], is_equal %>
         </div>
-        <div class="span9">
+        <% end %>
+        <div class="<%= redirect_url.present? ? 'span9' : "span10" %> address_div ">
           <div class="p-title">
             <div class="row-fluid">
               <div class="span5">
@@ -22,12 +24,6 @@
             </div>
           </div>
 
-          <div class="info clearfix">
-            <span class="txt4">
-              邮编： <%= address[:shippingzipcode] %>
-            </span>
-          </div>
-
           <div class="info clearfix address_info">
             <span class="txt4">
               <%= "#{address[:shippingprovince]} #{address[:shippingcity]} #{address[:shippingdistrict]} #{address[:shippingaddress]}" %>
@@ -36,8 +32,8 @@
 
         </div>
 
-        <div class="span2 text-center edit_link ">
-          <%= link_to_icon "fa fa-edit", "", "javascript:void(0);", value: edit_ims_address_path(address[:id]), class: "loading_box_link" %>
+        <div class="span2 text-right edit_link ">
+          <%= link_to_icon "fa fa-edit", "", "javascript:void(0);", value: edit_ims_address_path(address[:id], redirect_url: params[:redirect_url]), class: "loading_box_link" %>
         </div>
       </div>
     </div>

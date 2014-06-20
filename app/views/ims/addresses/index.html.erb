@@ -8,11 +8,9 @@
   <div class="bottom-button">
     <div class="form-defined">
       <div class="controls-defined defined-large">
-        <div class="col-4">
-          <a value="javascript:void(0);" class="btn btn-danger btn-large btn-block loading_box_link" href="javascript:void(0);">确认</a>
-        </div>
-        <div class="col-4">
-          <a value="<%= new_ims_address_path %>" class="btn btn-danger btn-large btn-block loading_box_link" href="javascript:void(0);">添加地址</a>
+
+        <div class="col-8">
+          <a value="<%= new_ims_address_path(redirect_url: params[:redirect_url]) %>" class="btn btn-danger btn-large btn-block loading_box_link" href="javascript:void(0);">添加地址</a>
         </div>
 
         <div class="col-4">
@@ -37,6 +35,29 @@
   <script>
     $(function(){
 
+
+      <% if (redirect_url = params[:redirect_url]).present? %>
+        $("input[name='address[id]']").on("change", function(){
+          select_address($(this))
+        })
+
+        $(".address_div").on("click", function(){
+          select_address($(this))
+        })
+
+
+        var select_address = function(this_ele){
+          $(".address_div").parents(".row-fluid").removeClass("active")
+          this_ele.parents(".row-fluid").addClass("active")
+          $("#loading-box").modal()
+          url = "<%= redirect_url %>"
+          address_id = this_ele.parents(".p-list").attr("value")
+          setTimeout(function(){
+            window.location.href = url+"&address_id="+address_id
+          }, 1)
+        }
+      <% end %>
+
       $(".loading_box_link").on("click", function(){
         $("#loading-box").modal()
         url = $(this).attr("value")
@@ -45,12 +66,13 @@
         }, 1)
       })
 
+      <% if nil %>
       $("input[name='address[id]']").on("change", function(){
         var id = $(this).val()
         $(".address_div").removeClass("active")
         $(this).parents(".address_div").addClass("active")
       }).filter(':checked').trigger("change")
-
+      <% end %>
 
 
       $(window).scroll(function(){
