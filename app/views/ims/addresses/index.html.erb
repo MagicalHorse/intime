@@ -112,7 +112,7 @@
         if(scrollTop+clientHeight == htmlHeight){
           if(page * per_page < count){
             $("#loading").html('<%= image_tag "ims/loading.gif" %>');
-            $.get("<%= ims_addresses_path %>", {page: page + 1, per_page: per_page}, function(data){
+            $.get("<%= ims_addresses_path %>", {page: page + 1, per_page: per_page, redirect_url: "<%= redirect_url %>"}, function(data){
               if(data["status"] == true){
                 $(".paginate-content:last").after(data["html"])
                 $("#count").attr("value", data["count"])

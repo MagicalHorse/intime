@@ -22,26 +22,48 @@
     </div>
 
     <div class="controls-defined defined-small">
-      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>联系人：</label>
-      <div class="col-9">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>联系人：</label>
+      <div class="col-8">
       <%= text_field_tag "address[shippingcontactperson]", @address.try(:[], :shippingperson) %>
       </div>
     </div>
 
     <div class="controls-defined defined-small">
-      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>联系电话：</label>
-      <div class="col-9">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>联系电话：</label>
+      <div class="col-8">
       <%= text_field_tag "address[shippingcontactphone]", @address.try(:[], :shippingphone) %>
       </div>
     </div>
 
     <div class="controls-defined defined-small">
-      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>邮编：</label>
-      <div class="col-9">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>邮编：</label>
+      <div class="col-8">
       <%= text_field_tag "address[shippingzipcode]", @address.try(:[], :shippingzipcode) %>
       </div>
     </div>
 
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>选择省份：</label>
+      <div class="col-8">
+      <%= select_tag "address[shippingprovinceid]", options_for_select(@provinces.collect{|province| [province[:provincename], province[:provinceid]]}, @address.try(:[], :shippingprovinceid)), prompt: "省份" %>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>选择城市：</label>
+      <div class="col-8">
+      <%= select_tag "address[shippingcityid]", params[:action] == "new" ? options_for_select([])  : options_for_select(@cities, @address[:shippingcityid]), prompt: "城市" %>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>选择区/县：</label>
+      <div class="col-8">
+      <%= select_tag "address[shippingdistrictid]", params[:action] == "new" ? options_for_select([]) : options_for_select(@districts, @address[:shippingdistrictid]), prompt: "区/县" %>
+      </div>
+    </div>
+
+    <% if nil %>
     <div class="controls-defined defined-small size_input">
       <label class="col-3 text-left"><abbr class="txt-red">*</abbr>地区：</label>
       <div class="col-3">
@@ -54,11 +76,12 @@
         <%= select_tag "address[shippingdistrictid]", params[:action] == "new" ? options_for_select([]) : options_for_select(@districts, @address[:shippingdistrictid]), prompt: "区/县" %>
       </div>
     </div>
+    <% end %>
 
 
     <div class="controls-defined defined-small">
-      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>详细地址：</label>
-      <div class="col-9">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>详细地址：</label>
+      <div class="col-8">
       <%= text_field_tag "address[shippingaddress]", @address.try(:[], :shippingaddress) %>
       </div>
     </div>

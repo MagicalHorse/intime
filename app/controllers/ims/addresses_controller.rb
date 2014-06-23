@@ -7,7 +7,12 @@ class Ims::AddressesController < Ims::BaseController
   def index
     @search = API::Address.index(request, page: params[:page], pagesize: params[:per_page] || 10)
     @addresses = @search["data"]["items"]
+    @redirect_url = params[:redirect_url]
     @title = "我的地址"
+    respond_to do |format|
+      format.html{}
+      format.json{render "list"}
+    end
   end
 
   def new
