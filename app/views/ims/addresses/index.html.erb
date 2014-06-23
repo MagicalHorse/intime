@@ -82,8 +82,8 @@
 
 
         var select_address = function(this_ele){
-          $(".address_div").parents(".row-fluid").removeClass("active")
-          this_ele.parents(".row-fluid").addClass("active")
+          $(".address_div").parents(".p-list").removeClass("active")
+          this_ele.parents(".p-list").addClass("active")
           $("#loading-box").modal()
           url = "<%= redirect_url %>"
           address_id = this_ele.parents(".p-list").attr("value")

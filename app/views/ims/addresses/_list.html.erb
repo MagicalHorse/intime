@@ -1,8 +1,8 @@
 <div class="module module-bg-white clearfix paginate-content address">
   <% addresses.each_with_index do |address, index| %>
     <!-- list start -->
-    <div class="p-list p-list-first clearfix" value="<%= address[:id] %>">
-      <div class="row-fluid <%= 'active' if (is_equal = address[:id].to_s == params[:origin_address_id]) %>">
+    <div class="p-list p-list-first clearfix <%= 'active' if (is_equal = address[:id].to_s == params[:origin_address_id]) %>" value="<%= address[:id] %>">
+      <div class="row-fluid">
         <% if redirect_url.present? %>
         <div class="span1 text-center select_address">
           <%= radio_button_tag 'address[id]', address[:id], is_equal %>
