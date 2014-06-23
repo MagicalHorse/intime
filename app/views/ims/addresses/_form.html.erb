@@ -9,6 +9,7 @@
   <%= hidden_field_tag "address[shippingprovince]", @address.try(:[], :shippingprovince) %>
   <%= hidden_field_tag "address[shippingcity]", @address.try(:[], :shippingcity) %>
   <%= hidden_field_tag "address[shippingdistrict]", @address.try(:[], :shippingdistrict) %>
+  <%= hidden_field_tag "address[shippingzipcode]", 100000 %>
 
   <div class="module module-bg-white2">
 
@@ -32,13 +33,6 @@
       <label class="col-4 text-left"><abbr class="txt-red">*</abbr>联系电话：</label>
       <div class="col-8">
       <%= text_field_tag "address[shippingcontactphone]", @address.try(:[], :shippingphone) %>
-      </div>
-    </div>
-
-    <div class="controls-defined defined-small">
-      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>邮编：</label>
-      <div class="col-8">
-      <%= text_field_tag "address[shippingzipcode]", @address.try(:[], :shippingzipcode) %>
       </div>
     </div>
 
