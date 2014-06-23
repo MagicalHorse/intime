@@ -11,7 +11,7 @@
       <div class="controls-defined defined-large">
 
         <div class="<%= redirect_url.present? ? 'col-7' : 'col-12' %>">
-          <a value="<%= new_ims_address_path(redirect_url: params[:redirect_url]) %>" class="btn btn-danger btn-large btn-block loading_box_link" href="javascript:void(0);">添加地址</a>
+          <a value="<%= new_ims_address_path(redirect_url: params[:redirect_url]) %>" class="btn <%= @search["data"]["totalcount"] < 8 ? 'btn-danger' : 'btn-grey' %> btn-large btn-block" href="javascript:void(0);" id="new_address">添加地址</a>
         </div>
         <% if redirect_url.present? %>
         <div class="col-5">
@@ -22,15 +22,18 @@
     </div>
   </div>
 
-  <div id="loading" class="text-center">
-  </div>
+  <% if nil %>
+    <div id="loading" class="text-center">
+    </div>
+  <% end %>
 </div>
 
 
-
+<% if nil %>
 <%= hidden_field_tag "count", @search[:data][:totalcount] %>
 <%= hidden_field_tag "page", @search[:data][:pageindex] %>
 <%= hidden_field_tag "per_page", @search[:data][:pagesize] %>
+<% end %>
 
 <% content_for :javascripts do %>
   <script>
@@ -90,6 +93,18 @@
         }
       <% end %>
 
+      $("#new_address").on("click", function(){
+        <% if @search["data"]["totalcount"] < 8 %>
+          $("#loading-box").modal()
+          url = $(this).attr("value")
+          setTimeout(function(){
+            window.location.href = url
+          }, 1)
+        <% else %>
+          error_modal("最多添加8个地址");
+        <% end %>
+      })
+
       $(".loading_box_link").on("click", function(){
         $("#loading-box").modal()
         url = $(this).attr("value")
@@ -98,7 +113,7 @@
         }, 1)
       })
 
-
+      <% if nil %>
       $(window).scroll(function(){
         var htmlHeight=document.body.scrollHeight
         var clientHeight=document.body.clientHeight
@@ -125,6 +140,7 @@
         }
 
       })
+      <% end %>
     })
   </script>
 <% end %>
