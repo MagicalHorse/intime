@@ -213,11 +213,19 @@ var check_form = function(){
     <% if @combo.desc.blank?  %>
     $("#combo_desc").val("<%= @combo.product_desc %>")
     <% end %>
+  
 
     $("#combo_desc").blur(function(){
       $.ajax({
         url: "/ims/store/combos/<%= @combo.id %>/update_desc",
-        data: {"desc": $("#combo_desc").val()}
+        data: {"desc": $("#combo_desc").val(), "has_discount": $("input[name='combo[has_discount]']:checked").val(), "discount": $("#combo_discount").val(), "is_public": $("input[name='combo[is_public]']:checked").val()}
+      })
+    })
+
+    $("#combo_discount").blur(function(){
+      $.ajax({
+        url: "/ims/store/combos/<%= @combo.id %>/update_desc",
+        data: {"desc": $("#combo_desc").val(), "has_discount": $("input[name='combo[has_discount]']:checked").val(), "discount": $("#combo_discount").val(), "is_public": $("input[name='combo[is_public]']:checked").val()}
       })
     })
 
@@ -378,7 +386,7 @@ var check_form = function(){
            $.ajax({
              url: "<%=update_desc_ims_store_combo_path(@combo)%>",
              method: 'put',
-             data: {"desc": desc, "private_to": private_to},
+             data: {"desc": $("#combo_desc").val(), "has_discount": $("input[name='combo[has_discount]']:checked").val(), "discount": $("#combo_discount").val(), "is_public": $("input[name='combo[is_public]']:checked").val()},
              beforeSend: function(){
               $("#loading-box").modal();
              },
