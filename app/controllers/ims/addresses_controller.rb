@@ -26,6 +26,7 @@ class Ims::AddressesController < Ims::BaseController
     cities = @provinces.find{|province| province[:provinceid] == @address[:shippingprovinceid]}[:items]
     @cities = cities.collect{|city| [city[:cityname], city[:cityid]]}
     @districts = cities.find{|city| city[:cityid] == @address[:shippingcityid]}[:items].collect{|district| [district[:districtname], district[:districtid]]}
+    @title = "编辑地址"
   end
 
   def create
@@ -47,6 +48,8 @@ class Ims::AddressesController < Ims::BaseController
   end
 
   def destroy
+    @address = API::Address.destroy(request, {id: params[:id]})
+    render json: {status: @address[:isSuccessful]}
   end
 
   def list

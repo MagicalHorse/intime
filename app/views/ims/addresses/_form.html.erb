@@ -13,75 +13,62 @@
 
   <div class="module module-bg-white2">
 
-    <div class="module-title2">
-      <div class="row-fluid">
-        <div class="span6"><h3><i class="fa fa-pencil-square-o"></i><%= params[:action] == "new" ? "添加" : "编辑" %>地址信息</h3></div>
-        <div class="span6">
-          <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 全部必填</small></div>
-        </div>
+
+
+    <div class="controls-defined defined-small">
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>收货人：</label>
+      <div class="col-9">
+      <%= text_field_tag "address[shippingcontactperson]", @address.try(:[], :shippingperson), placeholder: "姓名" %>
       </div>
     </div>
 
     <div class="controls-defined defined-small">
-      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>联系人：</label>
-      <div class="col-8">
-      <%= text_field_tag "address[shippingcontactperson]", @address.try(:[], :shippingperson) %>
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>手机号：</label>
+      <div class="col-9">
+      <%= text_field_tag "address[shippingcontactphone]", @address.try(:[], :shippingphone), placeholder: "手机号码" %>
+      </div>
+    </div>
+    <hr class="address_hr">
+    <div class="controls-defined defined-small">
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>省份：</label>
+      <div class="col-9">
+      <%= select_tag "address[shippingprovinceid]", options_for_select(@provinces.collect{|province| [province[:provincename], province[:provinceid]]}, @address.try(:[], :shippingprovinceid)), prompt: "--选择省份--" %>
       </div>
     </div>
 
     <div class="controls-defined defined-small">
-      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>联系电话：</label>
-      <div class="col-8">
-      <%= text_field_tag "address[shippingcontactphone]", @address.try(:[], :shippingphone) %>
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>市：</label>
+      <div class="col-9">
+      <%= select_tag "address[shippingcityid]", params[:action] == "new" ? options_for_select([])  : options_for_select(@cities, @address[:shippingcityid]), prompt: "--选择城市--" %>
       </div>
     </div>
 
     <div class="controls-defined defined-small">
-      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>选择省份：</label>
-      <div class="col-8">
-      <%= select_tag "address[shippingprovinceid]", options_for_select(@provinces.collect{|province| [province[:provincename], province[:provinceid]]}, @address.try(:[], :shippingprovinceid)), prompt: "省份" %>
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>区/县：</label>
+      <div class="col-9">
+      <%= select_tag "address[shippingdistrictid]", params[:action] == "new" ? options_for_select([]) : options_for_select(@districts, @address[:shippingdistrictid]), prompt: "--选择区/县--" %>
       </div>
     </div>
-
-    <div class="controls-defined defined-small">
-      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>选择城市：</label>
-      <div class="col-8">
-      <%= select_tag "address[shippingcityid]", params[:action] == "new" ? options_for_select([])  : options_for_select(@cities, @address[:shippingcityid]), prompt: "城市" %>
-      </div>
-    </div>
-
-    <div class="controls-defined defined-small">
-      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>选择区/县：</label>
-      <div class="col-8">
-      <%= select_tag "address[shippingdistrictid]", params[:action] == "new" ? options_for_select([]) : options_for_select(@districts, @address[:shippingdistrictid]), prompt: "区/县" %>
-      </div>
-    </div>
-
-    <% if nil %>
-    <div class="controls-defined defined-small size_input">
-      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>地区：</label>
-      <div class="col-3">
-        <%= select_tag "address[shippingprovinceid]", options_for_select(@provinces.collect{|province| [province[:provincename], province[:provinceid]]}, @address.try(:[], :shippingprovinceid)), prompt: "省份" %>
-      </div>
-      <div class="col-3">
-        <%= select_tag "address[shippingcityid]", params[:action] == "new" ? options_for_select([])  : options_for_select(@cities, @address[:shippingcityid]), prompt: "城市" %>
-      </div>
-      <div class="col-3">
-        <%= select_tag "address[shippingdistrictid]", params[:action] == "new" ? options_for_select([]) : options_for_select(@districts, @address[:shippingdistrictid]), prompt: "区/县" %>
-      </div>
-    </div>
-    <% end %>
 
 
     <div class="controls-defined defined-small">
-      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>详细地址：</label>
-      <div class="col-8">
-      <%= text_field_tag "address[shippingaddress]", @address.try(:[], :shippingaddress) %>
+      <label class="col-3 text-left"><abbr class="txt-red">*</abbr>地址：</label>
+      <div class="col-9">
+      <%= text_area_tag "address[shippingaddress]", @address.try(:[], :shippingaddress), rows: 3, placeholder: "详细地址" %>
       </div>
     </div>
 
     <div style="padding: 15px 30px;" class="text-center">
-      <button id="submit_address" class="btn btn-large btn-danger btn-block">提交</button>
+      <span class="row-fluid">
+        <span class="<%= params[:action] == "new" ? 'col-12' : 'col-8' %>">
+          <button id="submit_address" class="btn btn-large btn-danger btn-block">提交</button>
+        </span>
+        <% if params[:action] == "edit" %>
+          <span class="col-4">
+            <button id="delete_address" class="btn btn-large btn-danger btn-block">删除</button>
+          </span>
+        <% end %>
+      </span>
     </div>
 
 
@@ -92,10 +79,23 @@
 
 </div>
 
-
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+
+    $("#delete_address").on("click", function(){
+      if(confirm("确定删除吗?")){
+        $("#loading-box").modal()
+        address_id = "<%= @address[:id] %>"
+        setTimeout(function(){
+          $.post("/ims/addresses/"+address_id, {_method: "delete"}, function(data){
+            if(data['status'] == true){
+              window.location.href = "<%= ims_addresses_path %>"
+            }
+          })
+        }, 1)
+      }
+    })
 
     $("#address_shippingprovinceid").on("change", function(){
       var province_id = $(this).val()
@@ -103,7 +103,7 @@
       $("#address_shippingprovince").val(province_name)
       $.get("<%= list_ims_addresses_path %>", {province_id: province_id}, function(data){
         $("#address_shippingcityid").html("")
-        $("#address_shippingcityid").append('<option value="">城市</option>')
+        $("#address_shippingcityid").append('<option value="">--选择城市--</option>')
         $.each(data["data"], function(index, element){
           $("#address_shippingcityid").append('<option value="'+element['cityid']+'">'+element['cityname']+'</option>')
         })
@@ -118,7 +118,7 @@
       $("#address_shippingcity").val(city_name)
       $.get("<%= list_ims_addresses_path %>", {city_id: city_id}, function(data){
         $("#address_shippingdistrictid").html("")
-        $("#address_shippingdistrictid").append('<option value="">区/县</option>')
+        $("#address_shippingdistrictid").append('<option value="">--选择区/县--</option>')
         $.each(data["data"], function(index, element){
           $("#address_shippingdistrictid").append('<option value="'+element['districtid']+'">'+element['districtname']+'</option>')
         })
