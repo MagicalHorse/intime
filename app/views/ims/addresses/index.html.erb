@@ -77,12 +77,16 @@
         })
 
         $(".address_div").on("click", function(){
-          select_address($(this))
+          var radio_button = $(this).parents(".p-list").find("input[name='address[id]']")
+          radio_button.attr("checked", true)
+          radio_button.trigger("change")
         })
 
 
         var select_address = function(this_ele){
-          $(".address_div").parents(".p-list").removeClass("active")
+          var p_list = $(".address_div").parents(".p-list")
+          p_list.removeClass("active")
+
           this_ele.parents(".p-list").addClass("active")
           $("#loading-box").modal()
           url = "<%= redirect_url %>"
