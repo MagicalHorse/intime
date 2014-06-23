@@ -18,10 +18,10 @@
   <%= hidden_field_tag "order[payment[paymentcode]]", Settings.payment_code.imswxpay %>
   <%= hidden_field_tag "order[payment[paymentname]]", "微信支付" %>
 
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", @address.present? ? @address["shippingperson"] : @contact.try(:[], :contact_person), id: "name" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", @address.present? ? @address["shippingphone"] : @contact.try(:[], :contact_phone), id: "contact" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", @address.present? ? @address["shippingzipcode"] : @contact.try(:[], :zip_code), id: "zipcode" %>
-  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", @address.present? ? @address["displayaddress"] : @contact.try(:[], :full_address), id: "address" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", params[:shippingcontactperson].present? ? params[:shippingcontactperson] : (@address.present? ? @address["shippingperson"] : @contact.try(:[], :contact_person)), id: "name" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", params[:shippingcontactphone].present? ? params[:shippingcontactphone] : (@address.present? ? @address["shippingphone"] : @contact.try(:[], :contact_phone)), id: "contact" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingzipcode]]", params[:shippingzipcode].present? ? params[:shippingzipcode] : (@address.present? ? @address["shippingzipcode"] : @contact.try(:[], :zip_code)), id: "zipcode" %>
+  <%= hidden_field_tag "order[shippingaddress[shippingaddress]]", params[:shippingaddress].present? ? params[:shippingaddress] : (@address.present? ? @address["displayaddress"] : @contact.try(:[], :full_address)), id: "address" %>
 
 
 
@@ -174,7 +174,7 @@
       <div class="module common-white" id="address_doc" value="<%= ims_addresses_path(redirect_url: request.fullpath, origin_address_id: params[:address_id]) %>">
          <div class="module-title2">
            <div class="row-fluid">
-             <div class="span4"><h3>地址信息</h3></div>
+             <div class="span4"><h3>地址</h3></div>
              <div class="span8"></div>
            </div>
          </div>
@@ -185,23 +185,23 @@
                  <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: block;' %>">
                      <p class="txt8">
                        <span>
-                       <i class="fa fa-map-marker"></i>正在选择地址
+                       <i class="fa fa-map-marker"></i>请选择地址
                        </span>
                      </p>
                  </div>
                  <div id="contact_wrapper" class="detail-block detail-contact" style="<%= @contact.present? ? 'display: inline;' : 'display: none;' %>">
                      <p class="txt8">
                        <span>
-                         <i class="fa fa-user"></i><span id="weixin_name"><%= @address.present? ? @address["shippingperson"] : @contact.try(:[], :contact_person) %></span>
+                         <i class="fa fa-user"></i><span id="weixin_name"><%= params[:shippingcontactperson].present? ? params[:shippingcontactperson] : (@address.present? ? @address["shippingperson"] : @contact.try(:[], :contact_person)) %></span>
                        </span>
                        &nbsp;
                        <span>
-                       <i class="fa fa-phone"></i><span id="weixin_contact"><%= @address.present? ? @address["shippingphone"] : @contact.try(:[], :contact_phone) %></span>
+                       <i class="fa fa-phone"></i><span id="weixin_contact"><%= params[:shippingcontactphone].present? ? params[:shippingcontactphone] : (@address.present? ? @address["shippingphone"] : @contact.try(:[], :contact_phone)) %></span>
                        </span>
                      </p>
                      <p class="txt8">
                        <span>
-                       <i class="fa fa-map-marker"></i><span id="weixin_address"><%= @address.present? ? @address["displayaddress"] : @contact.try(:[], :full_address) %></span>
+                       <i class="fa fa-map-marker"></i><span id="weixin_address"><%= params[:shippingaddress].present? ? params[:shippingaddress] : (@address.present? ? @address["displayaddress"] : @contact.try(:[], :full_address)) %></span>
                        </span>
                      </p>
                  </div>
@@ -255,17 +255,11 @@
           </div>
         </div>
         <div class="goods-describe">
-          <%= text_area_tag "memo", nil, rows: 4, placeholder: "请在此填写备注信息" %>
+          <%= text_area_tag "memo", nil, rows: 2, placeholder: "请在此填写备注信息" %>
         </div>
       </div>
 
       <div class="module common-white">
-         <div class="module-title2">
-           <div class="row-fluid">
-             <div class="span4"><h3>费用信息</h3></div>
-             <div class="span8"></div>
-           </div>
-         </div>
          <div class="row-fluid">
              <div class="span12">
                  <div class="detail-block detail-contact-bd">
@@ -286,7 +280,7 @@
       <% if @products.any?{|p| p[:salecolors].present?} %>
         <p class="wx-payment">
         <button type="button" class="btn btn-danger btn-large btn-block" id="save_order">
-          <i class="fa fa-share-square-o"></i>微信安全支付
+          提交订单
         </button>
         </p>
       <% else %>

@@ -10,13 +10,14 @@
     <div class="form-defined">
       <div class="controls-defined defined-large">
 
-        <div class="col-8">
+        <div class="<%= redirect_url.present? ? 'col-7' : 'col-12' %>">
           <a value="<%= new_ims_address_path(redirect_url: params[:redirect_url]) %>" class="btn btn-danger btn-large btn-block loading_box_link" href="javascript:void(0);">添加地址</a>
         </div>
-
-        <div class="col-4">
+        <% if redirect_url.present? %>
+        <div class="col-5">
           <a class="btn btn-danger btn-large btn-block" href="javascript:void(0);" id="weixin_address">微信地址</a>
         </div>
+        <% end %>
       </div>
     </div>
   </div>
@@ -35,6 +36,7 @@
   <script>
     $(function(){
 
+      <% if redirect_url.present? %>
       $("#weixin_address").on("click", function(){
         load_address()
       })
@@ -71,7 +73,6 @@
       }
 
 
-      <% if redirect_url.present? %>
         $("input[name='address[id]']").on("change", function(){
           select_address($(this))
         })
@@ -104,14 +105,6 @@
           window.location.href = url
         }, 1)
       })
-
-      <% if nil %>
-      $("input[name='address[id]']").on("change", function(){
-        var id = $(this).val()
-        $(".address_div").removeClass("active")
-        $(this).parents(".address_div").addClass("active")
-      }).filter(':checked').trigger("change")
-      <% end %>
 
 
       $(window).scroll(function(){
