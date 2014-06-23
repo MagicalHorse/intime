@@ -171,7 +171,7 @@
       </div>
     </div>
 
-    <p style="color:#B7BBC2;font-size:12px;">请确保商品规格和库存准确，及时同步商品库存。 </p>
+    <p style="color:#B7BBC2;font-size:12px;" class="text-center">请确保商品规格和库存准确，及时同步商品库存。 </p>
 
 </div>
 
@@ -191,28 +191,35 @@
 </div>
 
 <div class="module module-bg-white2">
-  <% referer = request.referer.to_s %>
-  <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.include?("ims/store/products") && params[:action] == "edit") %>
-  <div class="module-title2">
-    <div class="row-fluid">
-      <div class="span4"><h3><i class="fa fa-pencil-square-o"></i>发布组合</h3></div>
-      <div class="span8">
-        <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 选择后将自动生成一份组合</small></div>
+
+
+    <% referer = request.referer.to_s %>
+    <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.include?("ims/store/products") && params[:action] == "edit") %>
+  <div class="row-fluid">
+    <div class="col-4">
+      <div class="controls-defined defined-small" style="padding: 22px 0px;">
+        <div class="col-12">
+          <%= check_box_tag "createcombo", '1', referer.blank? %>
+          快速发布
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="text-center" style="padding: 15px 30px;">
+        <button class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
       </div>
     </div>
   </div>
-
-  <div class="controls-defined defined-small">
-    <label class="col-4 text-left">发布组合：</label>
-    <div class="col-8">
-      <%= check_box_tag "createcombo", '1', referer.blank? %>
+  <p style="color:#B7BBC2;font-size:12px;" class="text-center">选择快速发布，提交成功后即可分享给好友。 </p>
+  <% else %>
+  <div class="row-fluid">
+  <div class="col-12">
+    <div class="text-center" style="padding: 15px 30px;">
+      <button class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
     </div>
   </div>
-  <% end %>
-
-  <div class="text-center" style="padding: 15px 30px;">
-    <button class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
   </div>
+  <% end %>
 </div>
 
 <% end %>

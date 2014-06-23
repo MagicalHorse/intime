@@ -179,8 +179,8 @@
            </div>
          </div>
 
-         <div class="row-fluid txt-block">
-             <div class="span12">
+         <div class="row-fluid">
+             <div class="span12 txt-block">
 
                  <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: block;' %>">
                      <p class="txt8">
@@ -219,7 +219,7 @@
         </div>
         <div class="form-box">
           <div class="controls-defined defined-small">
-          <label class="col-4 text-left">发票抬头：</label>
+          <label class="col-4 text-left"><abbr class="txt-red">*</abbr>发票抬头：</label>
           <div class="col-8">
             <%= select_tag "invoicetitle", options_for_select([["无", "无"], ["个人", "个人"], ["公司", "公司"]]) %>
           </div>
@@ -255,7 +255,7 @@
           </div>
         </div>
         <div class="goods-describe">
-          <%= text_area_tag "memo", nil, rows: 2, placeholder: "请在此填写备注信息" %>
+          <%= text_area_tag "memo", nil, rows: 2, placeholder: "请在此填写备注信息，例： 会员卡号" %>
         </div>
       </div>
 
@@ -270,7 +270,7 @@
                        <span class="pull-right"><b>实付：</b><i>￥<%= @order[:totalamount] %></i></span>
                      </p>
                      <p class="txt8 txt0">
-                       <i class="fa fa-exclamation-circle"></i>提交订单后，请在1小时内完成支付，过时订单将会自动取消
+                       <i class="fa fa-exclamation-circle"></i>提交订单后，请在30分钟内完成支付，过时订单将会自动取消
                      </p>
                  </div>
              </div>
