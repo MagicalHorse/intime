@@ -82,40 +82,62 @@ class Ims::OrdersController < Ims::BaseController
 
   def payments
     @orderno = params[:id]
+    @order = Ims::Order.detail(request, {orderno: @orderno})["data"]
     @from_page = params[:from_page]
     # price = 0.01
     price = params[:money]
+    @notify_url = "http://#{Settings.wx.notifydomain}/ims/payment/notify"
     # @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
-    @out_trade_no = @orderno
-    @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
-    @notify_url = "http://#{Settings.wx.notifydomain}/ims/payment/notify"
-    @time_val = Time.now
 
-    package = {
-      bank_type: "WX",
-      body: @orderno,
-      fee_type: "1",
-      input_charset: 'GBK',
-      notify_url: @notify_url,
-      out_trade_no: @out_trade_no,
-      partner: Settings.wx.parterid,
-      spbill_create_ip: request.remote_ip,
-      total_fee:  (BigDecimal(price) * 100).to_i
-    }
-    string1 = ""; package.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
-    sign_value = Digest::MD5.hexdigest("#{string1}&key=#{Settings.wx.parterkey}").upcase
-    @package_val = "#{package.to_param}&sign=#{sign_value}"
+    if @order[:paymentcode] == "270"
+      @out_trade_no = @orderno
+      @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
+      @time_val = Time.now
 
-    pay_sign = {
-      appid: Settings.wx.appid,
-      appkey: Settings.wx.paysignkey,
-      noncestr: @noncestr_val,
-      package: @package_val,
-      timestamp: @time_val.to_i
-    }
-    string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
-    @paySign_val = Digest::SHA1.hexdigest(string1)
+      package = {
+        bank_type: "WX",
+        body: @orderno,
+        fee_type: "1",
+        input_charset: 'GBK',
+        notify_url: @notify_url,
+        out_trade_no: @out_trade_no,
+        partner: Settings.wx.parterid,
+        spbill_create_ip: request.remote_ip,
+        total_fee:  (BigDecimal(price) * 100).to_i
+      }
+      string1 = ""; package.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+      sign_value = Digest::MD5.hexdigest("#{string1}&key=#{Settings.wx.parterkey}").upcase
+      @package_val = "#{package.to_param}&sign=#{sign_value}"
+
+      pay_sign = {
+        appid: Settings.wx.appid,
+        appkey: Settings.wx.paysignkey,
+        noncestr: @noncestr_val,
+        package: @package_val,
+        timestamp: @time_val.to_i
+      }
+      string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+      @paySign_val = Digest::SHA1.hexdigest(string1)
+    elsif @order[:paymentcode] == "272"
+      if @from_page == "orders_new"
+        call_back_url = "/ims/orders/"+@orderno+"/notice_success"
+      else
+        call_back_url = "/ims/orders/"+@orderno
+      end
+      call_back_url
+      out_trade_no = @orderno
+      req_data = {
+        subject:        '商品',
+        out_trade_no:   out_trade_no,
+        total_fee:      price,
+        out_user:       current_user.id,
+        call_back_url:  "http://#{Settings.default_url_options.host}#{call_back_url}" ,
+        notify_url:     @notify_url,
+        seller_account_name: Settings.mini_alipay.seller_account
+      }
+      @url = Alipay::Services::Direct::Payment::Wap.url({partner: Settings.mini_alipay.partner_id, req_data: req_data}, Settings.mini_alipay.md5_key)
+    end
 
   end
 
