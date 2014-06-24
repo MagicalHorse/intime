@@ -14,12 +14,20 @@ class Store < ActiveRecord::Base
   document_type DOCUMENT_TYPE
 
   def self.es_search(options={})
+    store_id = options[:store_id]
     query = Jbuilder.encode do |json|
       json.filter do
         json.and do
           json.child! do
             json.term do
               json.status 1
+            end
+          end
+          if store_id.present?
+            json.child! do
+              json.term do
+                json.id store_id
+              end
             end
           end
         end
