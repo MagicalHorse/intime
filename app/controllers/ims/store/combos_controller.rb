@@ -113,7 +113,8 @@ class Ims::Store::CombosController < Ims::Store::BaseController
 
   def update_desc
     @combo = ::Combo.find(params[:id])
-    @combo.update_attributes(desc: params[:desc], private_to: params[:private_to])
+    @combo.update_attributes(desc: params[:desc], private_to: params[:private_to], has_discount: params[:has_discount],
+     discount: params[:discount], is_public: params[:is_public])
 
     render :json => {status: "200"}.to_json
   end
