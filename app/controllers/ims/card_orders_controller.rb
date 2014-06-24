@@ -68,7 +68,7 @@ class Ims::CardOrdersController < Ims::BaseController
       @paySign_val = Digest::SHA1.hexdigest(string1)
     else
       out_trade_no = "#{Time.now.to_i}#{rand(99).to_s.rjust(2,"0")}-#{@card_id}-#{current_user.id}"
-      out_trade_no = "#{@out_trade_no}-#{params[:store_id]}" if params[:store_id].present?
+      out_trade_no = "#{out_trade_no}-#{params[:store_id]}" if params[:store_id].present?
       req_data = {
         subject:        '礼品卡',
         out_trade_no:   out_trade_no,
