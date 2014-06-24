@@ -163,6 +163,11 @@ class Ims::OrdersController < Ims::BaseController
     # render json: {status: true, promotiondesc: params[:promotion][:promotiondesc], promotionrules: params[:promotion][:promotionrules]}.to_json
   end
 
+  def totalamount
+    @order = API::Order::computeamount(request, productid: params[:product_id], quantity: params[:quantity])[:data]
+    render json: {status: true, totalamount: @order[:totalamount], totalquantity: @order[:totalquantity]}.to_json
+  end
+
   protected
 
   def set_layout

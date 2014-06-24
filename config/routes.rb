@@ -385,6 +385,7 @@ IntimeService::Application.routes.draw do
       end
 
       collection do
+        get :totalamount
         get :check_status
       end
       resources :returns_reasons, only: [:new, :create] do
