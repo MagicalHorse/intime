@@ -18,18 +18,22 @@
 
             <div class="module module-white module-show">
               <% products = @remote_combo[:data][:products][0..2] %>
+              <% if products.present? %>
               <div class="row-fluid">
                 <% products.each do |product| %>
                   <%= render partial: "product", locals: {:product => product} %>
                 <% end %>
               </div>
+              <% end %>
               
               <% products = @remote_combo[:data][:products][3..5] %>
+              <% if products.present? %>
               <div class="row-fluid">
                 <% products.each do |product| %>
                   <%= render partial: "product", locals: {:product => product} %>
                 <% end %>
               </div>
+              <% end %>
 
             </div>
         </div>
