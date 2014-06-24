@@ -83,6 +83,7 @@
 <script type="text/javascript">
   $(function(){
 
+    <% if params[:action] == "edit" %>
     $("#delete_address").on("click", function(){
       if(confirm("确定删除吗?")){
         $("#loading-box").modal()
@@ -96,6 +97,7 @@
         }, 1)
       }
     })
+    <% end %>
 
     $("#address_shippingprovinceid").on("change", function(){
       var province_id = $(this).val()
