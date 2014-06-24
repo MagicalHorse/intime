@@ -71,26 +71,6 @@
              </div>
          </div>
 
-         <div id="add_form">
-           <div class="module-information-box">
-             <div class="module-information-content">
-               <div class="edite-add-block add_size">
-                 <% if @order[:promotion_desc].present? %>
-                   <a href="#promotion_form_div" data-toggle="modal" class="btn-block">
-                     <i class="fa fa-edit"></i>
-                     编辑促销规则
-                   </a>
-                 <% else %>
-                   <a href="#promotion_form_div" data-toggle="modal" class="btn-block">
-                     <i class="fa fa-plus"></i>
-                     添加促销规则
-                   </a>
-                 <% end %>
-               </div>
-             </div>
-           </div>
-         </div>
-
       </div>
       <% end %>
 
@@ -211,7 +191,10 @@
             <div class="price-detail">
               <h3><%= product[:productname] %></h3>
               <p class="txt3">
-                <%= text_field_tag "promotion[items][][sales_code]", product[:sales_code], class: "input-block-level small-block", placeholder: "请输入销售码" %>
+                <span class="span5 txt4">销售编码：</span>
+                <span class="span7">
+                <%= text_field_tag "promotion[items][][sales_code]", product[:sales_code], class: "input-block-level small-block", placeholder: "请输入销售编码、前缀销售编码、数量" %>
+                </span>
               </p>
             </div>
           </div>
@@ -221,22 +204,22 @@
 
       <div class="common-white">
         <div class="modal-color">
-          <p class="txt8">促销主题</p>
+          <p class="txt8">促销活动描述</p>
           <div class="product-detail">
             <ul class="inline clearfix" >
               <div class="goods-describe">
-                <%= text_area_tag "promotion[promotiondesc]", @order[:promotion_desc], rows: 3, cols: 40, placeholder: "最多500个字符" %>
+                <%= text_area_tag "promotion[promotiondesc]", @order[:promotion_desc], rows: 3, cols: 40, placeholder: "例：满1000元送20元" %>
               </div>
             </ul>
           </div>
         </div>
 
         <div class="modal-color">
-          <p class="txt8">促销规则</p>
+          <p class="txt8">促销入收银方式描述</p>
           <div class="product-detail">
             <ul class="inline clearfix" >
               <div class="goods-describe">
-                <%= text_area_tag "promotion[promotionrules]", @order[:promotion_rules], rows: 3, cols: 40, placeholder: "最多1000个字符" %>
+                <%= text_area_tag "promotion[promotionrules]", @order[:promotion_rules], rows: 3, cols: 40, placeholder: "请输入子订单促销入收银的详细方式" %>
               </div>
             </ul>
           </div>
