@@ -60,3 +60,7 @@ wx:
   backdomain: "i.intime.com.cn"
   notifydomain: "42.120.63.90"
   open_id: ""
+mini_alipay:
+  seller_account: 'ytmini@intime.com.cn'
+  partner_id: 2088101568358171
+  md5_key: uxt01uurwxvstkxpmleeok76ezicp8k4
