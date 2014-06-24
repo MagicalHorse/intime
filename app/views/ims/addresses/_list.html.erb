@@ -5,7 +5,7 @@
       <div class="row-fluid">
         <% if redirect_url.present? %>
         <div class="span1 text-center select_address">
-          <%= radio_button_tag 'address[id]', address[:id], is_equal %>
+          <%= radio_button_tag 'address[id]', address[:id], is_equal, class: "address_radio" %>
         </div>
         <% end %>
         <div class="<%= redirect_url.present? ? 'span9' : "span10" %> address_div ">
