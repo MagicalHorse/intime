@@ -15,9 +15,11 @@ class Ims::CombosController < Ims::BaseController
   def index
     @title = "组合列表-用户首页"
     options = {}
+    store_id = params[:default_store_id] || params[:store_id]
     options[:brand_id] = params[:brand_id] if params[:brand_id].present?
-    options[:store_id] = params[:store_id] if params[:store_id].present?
+    options[:store_id] = store_id if store_id.present?
     @combos = ::Combo.es_search(options)
+    @store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id]
     @stores, @stores_ordered = ::Store.es_search, {}
     @brands, @brands_ordered = ::Brand.es_search, {}
     ('a'..'z').each do |char|
@@ -33,8 +35,8 @@ class Ims::CombosController < Ims::BaseController
 
     FileUtils.mkdir("#{Rails.root}/public/uploads") if !File.exist?("#{Rails.root}/public/uploads")
 
-  	filename = 'uploads/'+ Time.now.to_i.to_s + '.jpg'
-  	File.open('public/'+filename, 'wb') do|f|
+    filename = 'uploads/'+ Time.now.to_i.to_s + '.jpg'
+    File.open('public/'+filename, 'wb') do|f|
       f.write(Base64.decode64(imagedata))
     end
 
