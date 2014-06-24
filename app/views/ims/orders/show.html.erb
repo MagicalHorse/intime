@@ -24,7 +24,12 @@
                    <p class="txt4 pull-left">微信价：<em>￥<%= product["price"] %></em></p>
                    </div>
                    <p class="txt4 clearfix">
-                     <span class="pull-left"><%= product["productdesc"] %></span>
+                     <span class="pull-left">
+                       <%= product["productdesc"] %>
+                     </span>
+                     <span class="pull-right">
+                       数量： <%= product["quantity"] %>
+                     </span>
                    </p>
                </div>
            </div>

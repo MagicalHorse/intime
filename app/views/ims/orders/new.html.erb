@@ -145,7 +145,7 @@
                       </div>
                     <% end %>
 
-                    <% if nil %>
+                    <% if params[:product_id].present? %>
                     <div class="modal-num">
                       <span class="tb-stock clearfix">
                         <span>购买数量</span>
@@ -292,7 +292,7 @@
                        <span class="pull-left">
                          <i class="fa fa-truck"></i>运费：<%= (totalfee = @order[:totalfee]).zero? ? "免运费" : totalfee %>
                        </span>
-                       <span class="pull-right"><b>实付：</b><i>￥<%= @order[:totalamount] %></i></span>
+                       <span class="pull-right" id="totalamount_text"><b>实付：</b><i>￥<%= @order[:totalamount] %></i></span>
                      </p>
                      <p class="txt8 txt0">
                        <i class="fa fa-exclamation-circle"></i>提交订单后，请在30分钟内完成支付，过时订单将会自动取消
@@ -395,6 +395,19 @@
           un_select_doc.text("请选择颜色，尺码 ")
           selected_doc.hide()
         }
+        <% if (product_id = params[:product_id]).present? %>
+          var product_id = "<%= product_id %>"
+          quantity = $("#count0").attr("placeholder")
+          if(quantity != "1"){
+            $.get("<%= totalamount_ims_orders_path %>", {quantity: quantity, product_id: product_id}, function(data){
+              if(data["status"] == true){
+                $("#totalamount").val(data["totalamount"])
+                $("input[name='order[products][][quantity]']").val(data["totalquantity"])
+                $("#totalamount_text i").text("￥"+data["totalamount"])
+              }
+            }, "json")
+          }
+        <% end %>
       }else{
         error_modal("尺码和颜色必选")
       }
@@ -630,7 +643,7 @@
                     order_id = data["data"]["orderno"]
                     $.post("/ims/orders/"+order_id+"/payments", {money: totalamount, from_page: "orders_new"}, function(data){}, "script")
                   }else{
-                    error_modal("提交订单失败")
+                    error_modal(data["message"])
                   }
                 },
                 error: function(data){
