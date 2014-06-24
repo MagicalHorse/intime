@@ -34,6 +34,13 @@ class Combo < ActiveRecord::Base
     brand_id = options[:brand_id]
     store_id = options[:store_id]
     query = Jbuilder.encode do |json|
+      json.query do
+        json.range do
+          json.expireDate do
+            json.gt Time.now.strftime('%Y-%m-%d')
+          end
+        end
+      end
       json.filter do
         json.and do
           json.child! do
