@@ -78,6 +78,8 @@ class Ims::CardOrdersController < Ims::BaseController
         notify_url:     "http://#{Settings.wx.notifydomain}/ims/payment/notify_giftcard_from_ali",
         seller_account_name: Settings.mini_alipay.seller_account
       }
+      p "*"*20 + "notifydomain" + "*"*20
+      p "http://#{Settings.wx.notifydomain}/ims/payment/notify_giftcard_from_ali"
       @url = Alipay::Services::Direct::Payment::Wap.url({partner: Settings.mini_alipay.partner_id, req_data: req_data}, Settings.mini_alipay.md5_key)
     end
 
