@@ -196,15 +196,15 @@
     <% referer = request.referer.to_s %>
     <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.include?("ims/store/products") && params[:action] == "edit") %>
   <div class="row-fluid">
-    <div class="col-4">
-      <div class="controls-defined defined-small" style="padding: 10px 0px;">
+    <div class="col-5">
+      <div class="controls-defined defined-small" style="padding: 22px 0 0 0;">
         <div class="col-12">
-          <%= check_box_tag "createcombo", '1', referer.blank?, class: "createcombo_checkbox" %>
-          <span id="quick_publish_label">快速发布</span>
+          <%= check_box_tag "createcombo", '1', referer.blank?, class: "createcombo_checkbox", style: "margin-right: 0px;padding-right: 0px;" %>
+          <span id="quick_publish_label" style="margin-left: 0px;padding-left: 0px;">快速发布</span>
         </div>
       </div>
     </div>
-    <div class="col-8">
+    <div class="col-7">
       <div class="text-center" style="padding: 15px 30px;">
         <button class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
       </div>
