@@ -156,7 +156,7 @@ var check_form = function(){
       verify_product1 = product_image_fields.length < 2;
       verify_product2 = product_image_fields.length > 7;
       var desc_length = $("#combo_desc").val().length;
-      has_discount = $("#combo_has_discount").val();
+      has_discount = $("input[name='combo[has_discount]']:checked").val();
       discount = $("#combo_discount").val();
 
       var status = true;
@@ -188,8 +188,8 @@ var check_form = function(){
         error_modal("商品描述最多500个字");
         status = false;
       }
-      if(has_discount == "true" && discount == ""){
-        error_modal("促销活动直减金额不能为空");
+      if(has_discount == "true" && parseFloat(discount) <= 0 ){
+        error_modal("促销活动直减金额必须大于0");
         status = false; 
       }
       return status;
