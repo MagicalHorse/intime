@@ -18,18 +18,22 @@
 
             <div class="module module-white module-show">
               <% products = @remote_combo[:data][:products][0..2] %>
+              <% if products.present? %>
               <div class="row-fluid">
                 <% products.each do |product| %>
                   <%= render partial: "product", locals: {:product => product} %>
                 <% end %>
               </div>
+              <% end %>
               
               <% products = @remote_combo[:data][:products][3..5] %>
+              <% if products.present? %>
               <div class="row-fluid">
                 <% products.each do |product| %>
                   <%= render partial: "product", locals: {:product => product} %>
                 <% end %>
               </div>
+              <% end %>
 
             </div>
         </div>
@@ -50,9 +54,16 @@
     <div class="p-title">
       <h4><%=sanitize format_text(@remote_combo[:data][:desc]) %></h4>
       <div class="p-price1 clearfix">
+        <% if @remote_combo[:data][:isInPromotion] %>
         <p class="pull-left price-box">
-              <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></span>
+              <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] -  @remote_combo[:data][:discount]  %></em></span>
+              <span class="price-span-orignal">原价：￥<%= @remote_combo[:data][:price] %></span>
           </p>
+          <% else %>
+            <p class="pull-left price-box">
+              <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
+            </p>  
+          <% end %>
         <p class="pull-left price-box">
           <% if @remote_combo[:data][:is_online] && @remote_combo[:data]["expire_in"].present? %>
               <span class="pull-left countdown">

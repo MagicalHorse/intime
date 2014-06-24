@@ -1,5 +1,7 @@
 $("#loading-box").modal("hide")
 
+<% if @order[:paymentcode] == "270" %>
+
 WeixinJSBridge.invoke('getBrandWCPayRequest', {
 "appId" : "<%= Settings.wx.appid %>", //公众号名称，由商户传入
 "timeStamp" : "<%= @time_val.to_i %>", //时间戳
@@ -82,3 +84,10 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
 // WeixinJSBridge.log(res.err_msg);
 // alert(res.err_code+res.err_desc);
 });
+
+
+<% else %>
+
+window.location.href = "<%= raw @url %>";
+
+<% end %>
