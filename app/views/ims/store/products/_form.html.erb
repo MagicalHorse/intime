@@ -197,10 +197,10 @@
     <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.include?("ims/store/products") && params[:action] == "edit") %>
   <div class="row-fluid">
     <div class="col-4">
-      <div class="controls-defined defined-small" style="padding: 22px 0px;">
+      <div class="controls-defined defined-small" style="padding: 10px 0px;">
         <div class="col-12">
-          <%= check_box_tag "createcombo", '1', referer.blank? %>
-          快速发布
+          <%= check_box_tag "createcombo", '1', referer.blank?, class: "createcombo_checkbox" %>
+          <span id="quick_publish_label">快速发布</span>
         </div>
       </div>
     </div>
@@ -251,6 +251,10 @@
 <%= content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+
+    $("#quick_publish_label").on("click", function(){
+      $("input[name='createcombo']").prop("checked", !$("input[name='createcombo']").prop("checked"))
+    })
 
     format_img(".show-imgbox-no");
     format_img(".img-spa");
