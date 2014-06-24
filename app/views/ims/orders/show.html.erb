@@ -52,8 +52,7 @@
         </div>
       </div>
 
-      <% if @order[:statust] == 1 && @order[:statust] == 11 && current_user.shopping_guide? && @order[:has_promotion] %>
-      <%# if current_user.shopping_guide? && @order[:has_promotion] %>
+      <% if (is_show_promotion = @order[:statust] == 1 && @order[:statust] == 11 && current_user.shopping_guide? && @order[:has_promotion]) %>
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
@@ -147,6 +146,22 @@
         <% end %>
       </div>
       <% end %>
+
+      <% if is_show_promotion %>
+      <div class="bottom-button indent-btn">
+        <div class="form-defined">
+          <div class="controls-defined defined-large">
+
+            <div class="col-12">
+              <%= link_to @order[:promotion_desc].present? ? "编辑促销规则" : "添加促销规则", "#promotion_form_div", class: "btn btn-danger btn-large btn-block", "data-toggle" => "modal" %>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <% end %>
+
 <!-- 当前用户不是导购 -->
       <% if @order[:is_owner] && (@order[:statust].zero? || @order[:canvoid] || @order[:canrma] || @current_rmas.present?) %>
       <div class="bottom-button indent-btn">
