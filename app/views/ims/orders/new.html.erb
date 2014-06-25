@@ -542,17 +542,6 @@
         "order[payment[paymentname]]": {
           required: true
         },
-        <% if nil %>
-        "order[shippingaddress[shippingcontactperson]]": {
-          required: true
-        },
-        "order[shippingaddress[shippingcontactphone]]": {
-          required: true
-        },
-        "order[shippingaddress[shippingzipcode]]": {
-          required: true
-        },
-        <% end %>
         "order[shippingaddress[shippingaddress]]": {
           required: true
         },
@@ -564,6 +553,12 @@
         }
       },
       messages: {
+        "order[products][][productid]": {
+          required: "商品不能为空"
+        },
+        "order[products][][quantity]": {
+          required: "商品数量必选"
+        },
         "order[products][][properties][sizevalueid]": {
           required: "请选择尺码"
         },
