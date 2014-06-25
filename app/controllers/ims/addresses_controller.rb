@@ -10,14 +10,28 @@ class Ims::AddressesController < Ims::BaseController
     @addresses = @search["data"]["items"]
     @redirect_url = params[:redirect_url]
     @title = "我的地址"
-    # respond_to do |format|
-    #   format.html{}
-    #   format.json{render "list"}
-    # end
+    respond_to do |format|
+      format.html{
+        @is_ajax = false
+      }
+      format.json{
+        @is_ajax = true
+        render "index"
+      }
+    end
   end
 
   def new
     @title = "添加地址"
+    respond_to do |format|
+      format.html{
+        @is_ajax = false
+      }
+      format.json{
+        @is_ajax = true
+        render "new"
+      }
+    end
   end
 
   def edit
@@ -27,14 +41,35 @@ class Ims::AddressesController < Ims::BaseController
     @cities = cities.collect{|city| [city[:cityname], city[:cityid]]}
     @districts = cities.find{|city| city[:cityid] == @address[:shippingcityid]}[:items].collect{|district| [district[:districtname], district[:districtid]]}
     @title = "编辑地址"
+    respond_to do |format|
+      format.html{
+        @is_ajax = false
+      }
+      format.json{
+        @is_ajax = true
+        render "edit"
+      }
+    end
+  end
+
+  def show
+    @address = API::Address.detail(request, {id: params[:id]})[:data]
+    render json: {status: true, name: @address[:shippingperson], zipcode: @address[:shippingzipcode], phone: @address[:shippingphone], detail_address: @address[:displayaddress]}
   end
 
   def create
     @address = API::Address.create(request, params[:address])
-    if @address[:isSuccessful]
-      redirect_to ims_addresses_path(redirect_url: params[:redirect_url])
-    else
-      redirect_to new_ims_address_path(redirect_url: params[:redirect_url])
+    respond_to do |format|
+      format.html{
+        if @address[:isSuccessful]
+          redirect_to ims_addresses_path
+        else
+          redirect_to new_ims_address_path
+        end
+      }
+      format.json{
+        render json: {status: @address[:isSuccessful], message: @address[:message]}
+      }
     end
   end
 

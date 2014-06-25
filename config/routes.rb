@@ -307,7 +307,7 @@ IntimeService::Application.routes.draw do
   end
 
   namespace :ims do
-    resources :addresses, except: :show do
+    resources :addresses do
       collection do
         get "list"
       end

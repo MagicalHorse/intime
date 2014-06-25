@@ -79,15 +79,14 @@
 
 </div>
 
-<%= content_for :javascripts do -%>
+
 <script type="text/javascript">
   $(function(){
 
-    <% if params[:action] == "edit" %>
-    $("#delete_address").on("click", function(){
+    $(document).on("click", "#delete_address", function(){
       if(confirm("确定删除吗?")){
         $("#loading-box").modal()
-        address_id = "<%= @address[:id] %>"
+        address_id = "<%= @address.try(:[], :id) %>"
         setTimeout(function(){
           $.post("/ims/addresses/"+address_id, {_method: "delete"}, function(data){
             if(data['status'] == true){
@@ -97,7 +96,6 @@
         }, 1)
       }
     })
-    <% end %>
 
     $("#address_shippingprovinceid").on("change", function(){
       var province_id = $(this).val()
@@ -198,15 +196,38 @@
     })
 
     $("#submit_address").click(function(){
-
+      form = $("#address_form")
       if($("#address_form").valid()){
         $("#loading-box").modal();
         setTimeout(function(){
-          $("#addresst_form").submit();
+          <% if is_ajax %>
+          form.ajaxSubmit({
+            dataType: "json",
+            success: function(data){
+              if(data["status"] == true){
+                $.get("<%= ims_addresses_path %>", {}, function(data){
+                  $("#new_order_page").hide()
+                  $("#address_page").html(data["html"])
+                  exec_js(data["html"])
+                  $("#address_page").show()
+                }, "json")
+              }else{
+                error_modal("保存地址失败")
+              }
+              $("#loading-box").modal("hide")
+            },
+            error: function(data){
+              error_modal("提交表单发生错误")
+              $("#loading-box").modal("hide")
+            }
+          })
+
+          <% else %>
+            form.submit();
+          <% end %>
         }, 1)
       }
     })
 
   })
 </script>
-<% end %>

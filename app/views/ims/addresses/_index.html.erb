@@ -1,0 +1,82 @@
+
+<div class="wrap-inner back-wrap-inner">
+  <% if @addresses.present? %>
+    <%= render "list.html.erb", addresses: addresses, is_ajax: is_ajax %>
+  <% else %>
+    <%= render 'ims/shared/empty.html.erb' %>
+  <% end %>
+
+  <div class="bottom-button">
+    <div class="form-defined">
+      <div class="controls-defined defined-large">
+
+        <div class="<%= is_ajax ? 'col-7' : 'col-12' %>">
+          <a value="<%= new_ims_address_path %>" class="btn <%= @search["data"]["totalcount"] < 8 ? 'btn-danger' : 'btn-grey' %> btn-large btn-block" href="javascript:void(0);" id="new_address">添加地址</a>
+        </div>
+        <% if is_ajax.present? %>
+        <div class="col-5">
+          <a class="btn btn-danger btn-large btn-block" href="javascript:void(0);" id="weixin_address">微信地址</a>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <% if nil %>
+    <div id="loading" class="text-center">
+    </div>
+  <% end %>
+</div>
+
+
+<% if nil %>
+<%= hidden_field_tag "count", @search[:data][:totalcount] %>
+<%= hidden_field_tag "page", @search[:data][:pageindex] %>
+<%= hidden_field_tag "per_page", @search[:data][:pagesize] %>
+<% end %>
+
+<script>
+  $(function(){
+
+    $("#new_address").on("click", function(){
+      <% if @search["data"]["totalcount"] < 8 %>
+        $("#loading-box").modal()
+        <% if is_ajax %>
+          $.get("<%= new_ims_address_path %>", {}, function(data){
+            hide_order_page(data["html"])
+          }, "json")
+        <% else %>
+          url = $(this).attr("value")
+          setTimeout(function(){
+            window.location.href = url
+          }, 1)
+        <% end %>
+      <% else %>
+        error_modal("最多添加8个地址");
+      <% end %>
+    })
+
+    var hide_order_page = function(html){
+      $("#new_order_page").hide()
+      $("#address_page").html(html)
+      exec_js(html)
+      $("#address_page").show()
+    }
+
+
+
+
+
+
+
+    $(".loading_box_link").on("click", function(){
+      $("#loading-box").modal()
+      url = $(this).attr("value")
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+
+
+  })
+</script>
