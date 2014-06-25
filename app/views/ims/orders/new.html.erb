@@ -71,7 +71,7 @@
               <% if salecolors.blank? %>
                 已售罄
               <% else %>
-                  请选择颜色，尺码
+                请选择颜色，尺码
               <% end %>
             </div>
           </div>
@@ -375,6 +375,7 @@
     $(".save_button").on("click", function(){
       modal_doc = $(this).parents(".modal")
       var index = modal_doc.attr("index")
+      selected_doc = $("#selected_color_size"+index)
       if(modal_doc.find(".salecolors li.active").length > 0 && modal_doc.find(".sizes li.active").length > 0){
         modal_doc.modal("hide")
         change_color_value(modal_doc, index)
@@ -386,7 +387,6 @@
           size_text = size.length > 0 ? "\""+size+"\"" : ""
           text = jQuery.trim([color_text, size_text].join(" "))
           un_select_doc = $("#un_select_color_size"+index)
-          selected_doc = $("#selected_color_size"+index)
           un_select_doc.hide()
           selected_doc.show()
           selected_doc.text("已选：" + text)
@@ -407,6 +407,7 @@
               }
             }, "json")
           }
+          selected_doc.append("<span class='pull-right'>数量: "+quantity+"</span>")
         <% end %>
       }else{
         error_modal("尺码和颜色必选")
