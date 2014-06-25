@@ -13,13 +13,13 @@ class Ims::CombosController < Ims::BaseController
   end
 
   def index
-    @title = "组合列表-用户首页"
+    @title = "商品组合列表"
     options = {}
     store_id = params[:default_store_id] || params[:store_id]
     options[:brand_id] = params[:brand_id] if params[:brand_id].present?
     options[:store_id] = store_id if store_id.present?
     @combos = ::Combo.es_search(options)
-    @store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id]
+    @store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id].present?
     @stores, @stores_ordered = ::Store.es_search, {}
     @brands, @brands_ordered = ::Brand.es_search, {}
     ('a'..'z').each do |char|
