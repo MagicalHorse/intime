@@ -54,7 +54,7 @@
     <div class="p-title">
       <h4><%=sanitize format_text(@remote_combo[:data][:desc]) %></h4>
       <div class="p-price1 clearfix">
-        <% if @remote_combo[:data][:isInPromotion] %>
+        <% if @remote_combo[:data][:discount] > 0 %>
         <p class="pull-left price-box">
               <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] -  @remote_combo[:data][:discount]  %></em></span>
               <span class="price-span-orignal">原价：￥<%= @remote_combo[:data][:price] %></span>
