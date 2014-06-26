@@ -86,7 +86,6 @@ class Ims::OrdersController < Ims::BaseController
     @from_page = params[:from_page]
     # price = 0.01
     price = params[:money]
-    @notify_url = "http://#{Settings.wx.notifydomain}/ims/payment/notify"
     # @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
 
@@ -100,7 +99,7 @@ class Ims::OrdersController < Ims::BaseController
         body: @orderno,
         fee_type: "1",
         input_charset: 'GBK',
-        notify_url: @notify_url,
+        notify_url: "http://#{Settings.wx.notifydomain}/ims/payment/notify",
         out_trade_no: @out_trade_no,
         partner: Settings.wx.parterid,
         spbill_create_ip: request.remote_ip,
@@ -133,7 +132,7 @@ class Ims::OrdersController < Ims::BaseController
         total_fee:      price,
         out_user:       current_user.id,
         call_back_url:  "http://#{Settings.default_url_options.host}#{call_back_url}" ,
-        notify_url:     @notify_url,
+        notify_url:     "http://#{Settings.default_url_options.host}/ims/payment/notify_from_ali",
         seller_account_name: Settings.mini_alipay.seller_account
       }
       @url = Alipay::Services::Direct::Payment::Wap.url({partner: Settings.mini_alipay.partner_id, req_data: req_data}, Settings.mini_alipay.md5_key)
