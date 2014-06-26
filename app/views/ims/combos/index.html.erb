@@ -12,7 +12,7 @@
           <a href="javascript:void(0)" id="store_selcet">门店 &nbsp&nbsp<i class="fa fa-chevron-down"></i></a>
           <% end %>
         </li>
-        <li style="border-right: 3px #f16498 solid; position: relative">
+        <li style="position: relative">
           <a href="javascript:void(0)" id="brand_selcet">品牌 &nbsp&nbsp<i class="fa fa-chevron-down"></i></a>
         </li>
       </ul>
@@ -66,7 +66,12 @@
     setTimeout(function(){
       window.location.href = url;
     }, 1)
-  }
+  } 
+
+  $("#store").click(function(){
+    $("#content").show();
+    $("#brand_slider").hide();
+  })
 
   $("#store").change(function(){
     window.location.href = "/ims/combos?store_id=" + $(this).val();
