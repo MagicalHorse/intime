@@ -4,12 +4,12 @@
     <!-- list start -->
     <div class="p-list p-list-first clearfix <%= 'active' if (is_equal = address[:id].to_s == params[:origin_address_id]) %>" value="<%= address[:id] %>">
       <div class="row-fluid">
-        <% if is_ajax %>
+        <% if request.xhr? %>
         <div class="span1 text-center select_address">
           <%= radio_button_tag 'address[id]', address[:id], is_equal, class: "address_radio" %>
         </div>
         <% end %>
-        <div class="<%= is_ajax ? 'span9' : "span10" %> address_div ">
+        <div class="<%= request.xhr? ? 'span9' : "span10" %> address_div ">
           <div class="p-title">
             <div class="row-fluid">
               <div class="span12 detail-address-block">

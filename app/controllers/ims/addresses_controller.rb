@@ -10,27 +10,31 @@ class Ims::AddressesController < Ims::BaseController
     @addresses = @search["data"]["items"]
     @redirect_url = params[:redirect_url]
     @title = "我的地址"
+
+    @timeStamp_val = Time.now.to_i
+    @nonceStr_val = ("a".."z").to_a.sample(9).join('')
+    access_token  = cookies[:user_access_token]
+    sign = {
+      accesstoken: access_token,
+      appid: Settings.wx.appid,
+      noncestr: @nonceStr_val,
+      timestamp: @timeStamp_val,
+      url: request.original_url
+    }
+    string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    @addrSign_val = Digest::SHA1.hexdigest(string1)
+
     respond_to do |format|
-      format.html{
-        @is_ajax = false
-      }
-      format.json{
-        @is_ajax = true
-        render "index"
-      }
+      format.html{}
+      format.json{render "index"}
     end
   end
 
   def new
     @title = "添加地址"
     respond_to do |format|
-      format.html{
-        @is_ajax = false
-      }
-      format.json{
-        @is_ajax = true
-        render "new"
-      }
+      format.html{}
+      format.json{render "new"}
     end
   end
 
@@ -42,13 +46,8 @@ class Ims::AddressesController < Ims::BaseController
     @districts = cities.find{|city| city[:cityid] == @address[:shippingcityid]}[:items].collect{|district| [district[:districtname], district[:districtid]]}
     @title = "编辑地址"
     respond_to do |format|
-      format.html{
-        @is_ajax = false
-      }
-      format.json{
-        @is_ajax = true
-        render "edit"
-      }
+      format.html{}
+      format.json{render "edit"}
     end
   end
 
@@ -75,16 +74,30 @@ class Ims::AddressesController < Ims::BaseController
 
   def update
     @address = API::Address.update(request, params[:address])
-    if @address[:isSuccessful]
-      redirect_to ims_addresses_path(redirect_url: params[:redirect_url])
-    else
-      redirect_to edit_ims_address_path(params[:id], redirect_url: params[:redirect_url])
+    respond_to do |format|
+      format.html{
+        if @address[:isSuccessful]
+          redirect_to ims_addresses_path
+        else
+          redirect_to edit_ims_address_path(params[:id])
+        end
+      }
+      format.json{
+        render json: {status: @address[:isSuccessful], message: @address[:message]}
+      }
     end
   end
 
   def destroy
     @address = API::Address.destroy(request, {id: params[:id]})
-    render json: {status: @address[:isSuccessful]}
+    respond_to do |format|
+      format.html{
+        redirect_to ims_addresses_path
+      }
+      format.json{
+        render json: {status: @address[:isSuccessful]}
+      }
+    end
   end
 
   def list

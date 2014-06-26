@@ -1,7 +1,6 @@
-
 <div class="wrap-inner back-wrap-inner">
   <% if @addresses.present? %>
-    <%= render "list.html.erb", addresses: addresses, is_ajax: is_ajax %>
+    <%= render "list.html.erb", addresses: addresses %>
   <% else %>
     <%= render 'ims/shared/empty.html.erb' %>
   <% end %>
@@ -10,10 +9,10 @@
     <div class="form-defined">
       <div class="controls-defined defined-large">
 
-        <div class="<%= is_ajax ? 'col-7' : 'col-12' %>">
+        <div class="<%= request.xhr? ? 'col-7' : 'col-12' %>">
           <a value="<%= new_ims_address_path %>" class="btn <%= @search["data"]["totalcount"] < 8 ? 'btn-danger' : 'btn-grey' %> btn-large btn-block" href="javascript:void(0);" id="new_address">添加地址</a>
         </div>
-        <% if is_ajax.present? %>
+        <% if request.xhr?.present? %>
         <div class="col-5">
           <a class="btn btn-danger btn-large btn-block" href="javascript:void(0);" id="weixin_address">微信地址</a>
         </div>
@@ -38,10 +37,90 @@
 <script>
   $(function(){
 
+    $("input[name='address[id]']").on("change", function(){
+      select_address($(this))
+    })
+
+    $(".address_div").on("click", function(){
+      var radio_button = $(this).parents(".p-list").find("input[name='address[id]']")
+      radio_button.attr("checked", true)
+      radio_button.trigger("change")
+    })
+
+    var select_address = function(this_ele){
+      var p_list = $(".address_div").parents(".p-list")
+      p_list.removeClass("active")
+
+      this_ele.parents(".p-list").addClass("active")
+      $("#loading-box").modal()
+      address_id = this_ele.parents(".p-list").attr("value")
+      setTimeout(function(){
+        $.get("/ims/addresses/"+address_id, {}, function(data){
+          name = data["name"]
+          zipcode = data["zipcode"]
+          address = data["detail_address"]
+          contact = data["phone"]
+          $("#name").attr("value", name)
+          $("#weixin_name").text(name)
+          $("#zipcode").attr("value", zipcode)
+          $("#address").attr("value", address)
+          $("#weixin_address").text(address)
+          $("#contact").attr("value", contact)
+          $("#weixin_contact").text(contact)
+          $("#new_order_page").show()
+          $("#address_page").hide()
+          $("#loading-box").modal("hide")
+        }, "json")
+      }, 1)
+    }
+
+
+
+    $("#weixin_address").on("click", function(){
+      load_address()
+    })
+
+    var load_address = function(){
+      WeixinJSBridge.invoke('editAddress',{
+      appId: "<%= Settings.wx.appid %>",
+      scope: "jsapi_address",
+      signType: "sha1",
+      addrSign: "<%= raw @addrSign_val %>",
+      timeStamp: "<%= @timeStamp_val %>",
+      nonceStr: "<%= @nonceStr_val %>"
+      },function(res){
+      //若 res 中所带的返回值不为空，则表示用户选择该返回值作为收货地址。否则若返回空，则表示用户取消了这一次编辑收货地址。
+        if(res.err_msg == "edit_address:ok"){
+          name = res.userName
+          zipcode = res.addressPostalCode
+          address = [res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.addressDetailInfo].join(" ")
+          contact = res.telNumber
+          $("#name").attr("value", name)
+          $("#weixin_name").text(name)
+          $("#zipcode").attr("value", zipcode)
+          $("#address").attr("value", address)
+          $("#weixin_address").text(address)
+          $("#contact").attr("value", contact)
+          $("#weixin_contact").text(contact)
+          show_order_page()
+          $("#loading-box").modal("hide")
+        }else{
+
+        }
+      })
+    }
+
+    var show_order_page = function(){
+      $("#new_order_page").show()
+      $("#address_page").hide()
+    }
+
+
+
     $("#new_address").on("click", function(){
       <% if @search["data"]["totalcount"] < 8 %>
         $("#loading-box").modal()
-        <% if is_ajax %>
+        <% if request.xhr? %>
           $.get("<%= new_ims_address_path %>", {}, function(data){
             hide_order_page(data["html"])
           }, "json")
@@ -59,22 +138,24 @@
     var hide_order_page = function(html){
       $("#new_order_page").hide()
       $("#address_page").html(html)
-      exec_js(html)
       $("#address_page").show()
+      $("#loading-box").modal("hide")
     }
-
-
-
-
-
 
 
     $(".loading_box_link").on("click", function(){
       $("#loading-box").modal()
-      url = $(this).attr("value")
-      setTimeout(function(){
-        window.location.href = url
-      }, 1)
+      <% if request.xhr? %>
+        id = $(this).parents(".p-list").attr("value")
+        $.get("/ims/addresses/"+id+"/edit", {}, function(data){
+          hide_order_page(data["html"])
+        }, "json")
+      <% else %>
+        url = $(this).attr("value")
+        setTimeout(function(){
+          window.location.href = url
+        }, 1)
+      <% end %>
     })
 
 

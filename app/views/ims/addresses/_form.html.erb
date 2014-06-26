@@ -61,11 +61,11 @@
     <div style="padding: 15px 30px;" class="text-center">
       <span class="row-fluid">
         <span class="<%= params[:action] == "new" ? 'col-12' : 'col-8' %>">
-          <button id="submit_address" class="btn btn-large btn-danger btn-block">提交</button>
+          <button type="button" id="submit_address" class="btn btn-large btn-danger btn-block">提交</button>
         </span>
         <% if params[:action] == "edit" %>
           <span class="col-4">
-            <button id="delete_address" class="btn btn-large btn-grey btn-block">删除</button>
+            <button type="button" id="delete_address" class="btn btn-large btn-grey btn-block">删除</button>
           </span>
         <% end %>
       </span>
@@ -83,16 +83,24 @@
 <script type="text/javascript">
   $(function(){
 
-    $(document).on("click", "#delete_address", function(){
+    $("#delete_address").on("click", function(){
       if(confirm("确定删除吗?")){
         $("#loading-box").modal()
         address_id = "<%= @address.try(:[], :id) %>"
         setTimeout(function(){
           $.post("/ims/addresses/"+address_id, {_method: "delete"}, function(data){
             if(data['status'] == true){
-              window.location.href = "<%= ims_addresses_path %>"
+              <% if request.xhr? %>
+                $.get("/ims/addresses", {}, function(data){
+                  $("#address_page").html(data["html"])
+                  $("#loading-box").modal("hide")
+                }, "json")
+                $("#loading-box").modal("hide")
+              <% else %>
+                window.location.href = "<%= ims_addresses_path %>"
+              <% end %>
             }
-          })
+          }, "json")
         }, 1)
       }
     })
@@ -195,12 +203,13 @@
 
     })
 
+
     $("#submit_address").click(function(){
       form = $("#address_form")
       if($("#address_form").valid()){
         $("#loading-box").modal();
         setTimeout(function(){
-          <% if is_ajax %>
+          <% if request.xhr? %>
           form.ajaxSubmit({
             dataType: "json",
             success: function(data){
@@ -208,7 +217,6 @@
                 $.get("<%= ims_addresses_path %>", {}, function(data){
                   $("#new_order_page").hide()
                   $("#address_page").html(data["html"])
-                  exec_js(data["html"])
                   $("#address_page").show()
                 }, "json")
               }else{
@@ -228,6 +236,7 @@
         }, 1)
       }
     })
+
 
   })
 </script>

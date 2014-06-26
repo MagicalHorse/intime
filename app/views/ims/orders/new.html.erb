@@ -324,85 +324,7 @@
 <script>
   $(function(){
 
-    $(document).on("change", "input[name='address[id]']", function(){
-      select_address($(this))
-    })
 
-    $(document).on("click", ".address_div", function(){
-      var radio_button = $(this).parents(".p-list").find("input[name='address[id]']")
-      radio_button.attr("checked", true)
-      radio_button.trigger("change")
-    })
-
-    var select_address = function(this_ele){
-      var p_list = $(".address_div").parents(".p-list")
-      p_list.removeClass("active")
-
-      this_ele.parents(".p-list").addClass("active")
-      $("#loading-box").modal()
-      address_id = this_ele.parents(".p-list").attr("value")
-      setTimeout(function(){
-        $.get("/ims/addresses/"+address_id, {}, function(data){
-          name = data["name"]
-          zipcode = data["zipcode"]
-          address = data["detail_address"]
-          contact = data["phone"]
-          $("#name").attr("value", name)
-          $("#weixin_name").text(name)
-          $("#zipcode").attr("value", zipcode)
-          $("#address").attr("value", address)
-          $("#weixin_address").text(address)
-          $("#contact").attr("value", contact)
-          $("#weixin_contact").text(contact)
-          $("#new_order_page").show()
-          $("#address_page").hide()
-          $("#loading-box").modal("hide")
-        }, "json")
-      }, 1)
-    }
-
-
-
-    $(document).on("click", "#weixin_address", function(){
-      load_address()
-    })
-
-    var load_address = function(){
-      WeixinJSBridge.invoke('editAddress',{
-      appId: "<%= Settings.wx.appid %>",
-      scope: "jsapi_address",
-      signType: "sha1",
-      addrSign: "<%= raw @addrSign_val %>",
-      timeStamp: "<%= @timeStamp_val %>",
-      nonceStr: "<%= @nonceStr_val %>"
-      },function(res){
-      //若 res 中所带的返回值不为空，则表示用户选择该返回值作为收货地址。否则若返回空，则表示用户取消了这一次编辑收货地址。
-        if(res.err_msg == "edit_address:ok"){
-          name = res.userName
-          zipcode = res.addressPostalCode
-          address = [res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.addressDetailInfo].join(" ")
-          contact = res.telNumber
-          $("#name").attr("value", name)
-          $("#weixin_name").text(name)
-          $("#zipcode").attr("value", zipcode)
-          $("#address").attr("value", address)
-          $("#weixin_address").text(address)
-          $("#contact").attr("value", contact)
-          $("#weixin_contact").text(contact)
-          show_order_page()
-          $("#loading-box").modal("hide")
-        }else{
-
-        }
-      })
-    }
-
-
-
-    var show_order_page = function(){
-      $("#new_order_page").show()
-      $("#address_page").hide()
-    }
 
 
 
@@ -565,48 +487,6 @@
       }
     })
 
-
-    <% if nil %>
-    $(document).on("click", ".salecolors li a", function(){
-      this_li = $(this).parents("li")
-      class_name = this_li.attr("class") || ""
-      salecolor_id = $(this).attr("valueid")
-      salecolor_name = $(this).attr("valuename")
-      this_salecolors = $(this).parents(".salecolors")
-      index = this_salecolors.attr("index")
-      this_salecolors.find("li").removeClass("active")
-
-      if(class_name.indexOf('active') >= 0){
-        $("#colorvalueid"+index).attr("value", '')
-        $("#colorvaluename"+index).attr("value", '')
-        this_li.removeClass("active")
-      }else{
-        $("#colorvalueid"+index).attr("value", salecolor_id)
-        $("#colorvaluename"+index).attr("value", salecolor_name)
-        this_li.addClass("active")
-      }
-    })
-
-    $(document).on("click", ".sizes li a", function(){
-      this_li = $(this).parents("li")
-      class_name = this_li.attr("class") || ""
-      size_id = $(this).attr("valueid")
-      size_name = $(this).attr("valuename")
-      this_sizes = $(this).parents(".sizes")
-      index = this_sizes.attr("index")
-      this_sizes.find("li").removeClass("active")
-      if(class_name.indexOf('active') >= 0){
-        $("#sizevalueid"+index).attr("value", '')
-        $("#sizevaluename"+index).attr("value", '')
-        this_li.removeClass("active")
-      }else{
-        $("#sizevalueid"+index).attr("value", size_id)
-        $("#sizevaluename"+index).attr("value", size_name)
-        this_li.addClass("active")
-      }
-    })
-
-    <% end %>
 
     var validator = $("#new_order_form").validate({
       onsubmit: true,
