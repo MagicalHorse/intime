@@ -96,6 +96,7 @@
              </div>
          </div>
       </div>
+
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
@@ -112,6 +113,27 @@
              </div>
          </div>
       </div>
+
+      <% if @order["needinvoice"] %>
+      <div class="module common-white">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="detail-block detail-contact-bd">
+              <p class="txt4 clearfix">
+                <span class="pull-left">
+                <b>发票抬头:</b><i><%= @order["invoicetitle"] %></i>
+                </span>
+              </p>
+              <p class="txt4">
+                <span>
+                <b>发票明细: <%= @order["invoicedetail"] %></b>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
 
 
       <% if @order[:rmas].is_a?(Array) && @order[:rmas].length > 0 %>
