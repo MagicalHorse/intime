@@ -146,7 +146,8 @@
       onclick: false,
       rules: {
         "address[shippingcontactperson]": {
-          required: true
+          required: true,
+          maxlength: 10
         },
         "address[shippingcontactphone]": {
           required: true
@@ -170,7 +171,8 @@
       },
       messages: {
         "address[shippingcontactperson]": {
-          required: "联系人不能为空"
+          required: "联系人不能为空",
+          maxlength: "收货人名称不能超过10个字符"
         },
         "address[shippingcontactphone]": {
           required: "联系电话不能为空"
