@@ -400,7 +400,7 @@
 
     $("#coding_button").on("click", function(){
       coding = $("#coding").val()
-      if(coding.length > 0){
+      if(coding.length > 1 && coding.length <= 20){
         $.post("/ims/store/sales_codes", {coding: coding}, function(data){
           if(data["status"] == true){
             $("#sales_code").html("")
@@ -413,7 +413,9 @@
           }
         }, "json")
       }else{
-        error_modal("销售编码不能为空")
+        if(coding.length == 0){
+          error_modal("销售编码长度不能少于2并且不能大于20")
+        }
       }
     })
 
