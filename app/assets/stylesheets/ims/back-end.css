@@ -174,7 +174,7 @@
 .tb-stock span{ margin-right: 10px; float: left; font-size: 28px; }
 .tb-stock a,
 .tb-stock input{ float: left; font-size: 28px;}
-.tb-stock input{ padding: 0 10px; border-radius: 0; border-width: 2px 0; text-align: center; height: 40px;  line-height: 40px;width: 80px;}
+.tb-stock input{ padding: 0 10px; border-radius: 0; border-width: 0px 0; text-align: center; height: 40px;  line-height: 40px;width: 80px;}
 .tb-stock a{ display: inline-block; height: 40px; width: 40px; text-align: center; font-weight: bold;}
 .modal-num{ padding-top: 20px; margin-top: 20px;}
 
