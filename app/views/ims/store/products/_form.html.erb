@@ -193,8 +193,8 @@
 <div class="module module-bg-white2">
 
 
-    <% referer = request.referer.to_s %>
-    <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.include?("ims/store/products") && params[:action] == "edit") %>
+  <% referer = request.referer.to_s %>
+  <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.match(/\/ims\/store\/combos\/\d+\/edit/).to_s.present? || referer.include?("ims/store/products") && params[:action] == "edit") %>
   <div class="row-fluid">
     <div class="col-5">
       <div class="controls-defined defined-small" style="padding: 22px 0 0 0;">
