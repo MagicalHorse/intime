@@ -261,25 +261,37 @@
     format_img(".show-imgbox-yes");
 
     document.getElementById('input').onchange = function (e) {
+
       $("#loading-box").modal();
-      var orientation ;
-      loadImage.parseMetaData(
-        e.target.files[0],
-        function(data){
-          if(data.exif)
-          orientation = data.exif.get('Orientation');
-        }
-      );
+      var options = {maxWidth: 640,canvas: true};
+      options.maxWidth = 640;
+      var file = e.target.files[0];
+      loadImage.parseMetaData(file, function (data) {
+
+
+      if (data.exif) {
+        options.orientation = data.exif.get('Orientation');
+      }
 
       loadImage(
-        e.target.files[0],
+        file,
         function(img){
-          var resized = resizeIos(img, 640, 640, orientation);
+
+          var img_data;
+          if (isIPhone()) {
+            img_data = img.toDataURL('image/jpeg',85);
+          } else {
+            var encoder = new JPEGEncoder();
+            var ctx = img.getContext('2d');
+            var rawImageData = ctx.getImageData(0, 0, img.width, img.height);
+              img_data = encoder.encode(rawImageData,85);
+          }
+
           $.ajax({
             url: "/ims/store/products/upload",
             dataType: 'json',
             type: 'post',
-            data: {"img": resized},
+            data: {"img": img_data},
             beforeSend: function(){
               $("#add_img").hide();
             },
@@ -326,10 +338,10 @@
               error_modal("上传发生错误，请稍后重试");
             }
           });
-        }
+        }, options
       )
-    };
-
+      })
+    }
     $(document).on("click", "#img_box li i", function(){
       if(confirm("确定要删除该图片？")){
         mid = $(this).attr("data")

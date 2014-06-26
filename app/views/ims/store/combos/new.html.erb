@@ -1,5 +1,6 @@
 <div class="wrap-inner back-wrap-inner bottom-distance">
-  <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera">
+  <div style="height: 0px;width: 0px; overflow:hidden;">
+  <input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera">
             </div>
 <%= form_for [:ims, :store, @combo], remote: true, html: {class: 'form-defined goods-describe', id: 'combo_form'} do |f| %>
 <div class="module module-bg-white">
@@ -17,7 +18,7 @@
            <div class="span8">
                <div class="<%= @combo.combo_pics.present? ? 'show-imgbox-yes' : 'show-imgbox-no' %>" id="default_img"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
                 <% if @combo.combo_pics.present? %>
-                 <img src="<%=@combo.combo_pics.last.url%>"> 
+                 <img src="<%=@combo.combo_pics.last.url%>">
                 <% else %>
                  <%= image_tag 'ims/no-image.jpg' %>
                 <% end %>
@@ -38,7 +39,7 @@
             <% if @combo.combo_pics.size < 5 %>
             <li class="add-link" id="add_img"><span class="img-spa"><%= image_tag "ims/add-img.png" %></span></li>
             <% end %>
-            
+
         </ul>
     </div>
 </div>
@@ -113,8 +114,8 @@
               <div class="col-9">
                 <%= f.radio_button :is_public, true %>YES&nbsp;&nbsp;&nbsp;&nbsp;<%= f.radio_button :is_public, false %>NO
               </div>
-          </div>           
-    </div>            
+          </div>
+    </div>
 
 </div>
 <% if @remote_id.present? %>
@@ -191,7 +192,7 @@ var check_form = function(){
       }
       if(has_discount == "true" && parseFloat(discount) <= 0 ){
         error_modal("促销活动直减金额必须大于0");
-        status = false; 
+        status = false;
       }
       return status;
     }
@@ -220,7 +221,7 @@ var check_form = function(){
         data: {"desc": $("#combo_desc").val(), "has_discount": $("input[name='combo[has_discount]']:checked").val(), "discount": $("#combo_discount").val(), "is_public": $("input[name='combo[is_public]']:checked").val()}
       });
     }
-  
+
 
     $("#combo_desc").blur(function(){
       update_desc();
@@ -236,7 +237,7 @@ var check_form = function(){
       if(status){
         $("#combo_form").ajaxSubmit();
         $("#loading-box").modal();
-      }  
+      }
     });
 
 
@@ -260,9 +261,9 @@ var check_form = function(){
       options.maxWidth = 640;
       var file = e.target.files[0];
       loadImage.parseMetaData(file, function (data) {
-                if (data.exif) {
-                    options.orientation = data.exif.get('Orientation');
-                }
+        if (data.exif) {
+            options.orientation = data.exif.get('Orientation');
+        }
         loadImage(
           file,
           function(img){
@@ -311,10 +312,10 @@ var check_form = function(){
             });
 
           },
-                    options
-                );
-            });
-    
+          ，    options
+          );
+      });
+
   };
 
      $(document).on('click', "#img_box li[class!='add-link'] span", function(){
