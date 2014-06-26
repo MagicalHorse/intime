@@ -1,4 +1,6 @@
 <div class="wrap-inner back-wrap-inner bottom-distance">
+  <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera">
+            </div>
 <%= form_for [:ims, :store, @combo], remote: true, html: {class: 'form-defined goods-describe', id: 'combo_form'} do |f| %>
 <div class="module module-bg-white">
     <div class="module-title2">
@@ -36,8 +38,7 @@
             <% if @combo.combo_pics.size < 5 %>
             <li class="add-link" id="add_img"><span class="img-spa"><%= image_tag "ims/add-img.png" %></span></li>
             <% end %>
-            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera">
-            </div>
+            
         </ul>
     </div>
 </div>
