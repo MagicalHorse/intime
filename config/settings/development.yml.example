@@ -7,10 +7,33 @@ default_image_url:
   user: http://itoo.yintai.com/fileupload/img/user-logo-default.gif
 payment_code:
   alipay: 25
-  wxpay:  28
+  wxpay: 28
+  imswxpay: 270
+  imsalipay: 272
 alipay_notify_url: http://111.207.166.195/api/payment/notify
+# wx:
+#   appid: wxb8c4b4da1b713ed9
+#   appsecret: 87b961708e8562e65227f1cff4cb8acc
+#   paysignkey: 5fYYsQSHaEsZbcbf76GKyim7loJUxSPKRUqUbgC7jAFzDtslhiWF44tzXiNrv9QzhI9Yl0IPE7QVUuuODU8v0qsKAAgaHNwbuW1MoPicV1z1xg85rxNAYo0BcsYBt5NE
+#   parterid: 1218686401
+#   parterkey: a8d319ce4a9c358293b97b1df51d531e
+#   backdomain: "intime.ngrok.com"
+#   open_id: "owOkGuIU5BqXieNoBELLUIIbBSeI"
+
 wx:
-  appid: "wx69c8e957bfd6d041"
-  appsecret: "3ce01d91e45c244151ec5c27dc94ed6a"
-  backdomain: "freebird.ngork.com"
-  token: "cnjobs"
+  appid: wx4b1d3b7765ce45d1
+  appsecret: cc8219601137db20d7cf2fa94efc8fd6
+  paysignkey: 5fYYsQSHaEsZbcbf76GKyim7loJUxSPKRUqUbgC7jAFzDtslhiWF44tzXiNrv9QzhI9Yl0IPE7QVUuuODU8v0qsKAAgaHNwbuW1MoPicV1z1xg85rxNAYo0BcsYBt5NE
+  parterid: 1218686401
+  parterkey: a8d319ce4a9c358293b97b1df51d531e
+  backdomain: "intime.ngrok.com"
+  open_id: "o7z1PtwbXHBzWAYtF0FLYyz50NyY"
+
+
+elasticsearch_url: "http://218.244.139.79:9200"
+
+
+mini_alipay:
+  seller_account: 'maoym@intime.com.cn'
+  partner_id: 2088011888580823
+  md5_key: n4q74v8r3bnhzsbthx0yf3g1ama9mntm
