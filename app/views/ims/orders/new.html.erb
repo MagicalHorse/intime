@@ -113,9 +113,10 @@
                     <div class="module-grey">
                     <% if salecolors.present?  %>
                       <div class="modal-color salecolors" index="<%= index %>">
-                        <p class="txt8">颜色</p>
                         <div class="product-detail">
-                           <ul class="inline clearfix" >
+                          <div class="row-fluid">
+                          <span class="order_product_label col-2">颜色:</span></li>
+                          <ul class="inline clearfix col-10" >
                           <% salecolors.each_with_index do |salecolor, index| %>
                             <li class="<%= 'active' if salecolors.present? && index.zero? %>">
                               <a href="javascript:void(0);" valueid='<%= salecolor['colorid'] %>' valuename='<%= salecolor['colorname'] %>'>
@@ -123,16 +124,18 @@
                               </a>
                             </li>
                           <% end %>
-                        </ul>
+                          </ul>
+                          </div>
                         </div>
                       </div>
                     <% end %>
 
                     <% if sizes.present? %>
                       <div class="modal-size sizes" index="<%= index %>">
-                        <p class="txt8">尺码</p>
                         <div class="product-detail">
-                           <ul class="inline clearfix">
+                          <div class="row-fluid">
+                          <span class="order_product_label col-2">尺码:</span>
+                          <ul class="inline clearfix col-10">
                           <% sizes.each do |size| %>
                             <li>
                               <a href="javascript:void(0);" valueid='<%= size['sizeid'] %>' valuename='<%= size['sizename'] %>'>
@@ -140,7 +143,9 @@
                               </a>
                             </li>
                           <% end %>
-                        </ul>
+
+                          </ul>
+                          </div>
                         </div>
                       </div>
                     <% end %>
