@@ -132,7 +132,7 @@ class Ims::OrdersController < Ims::BaseController
         total_fee:      price,
         out_user:       current_user.id,
         call_back_url:  "http://#{Settings.default_url_options.host}#{call_back_url}" ,
-        notify_url:     "http://#{Settings.default_url_options.host}/ims/payment/notify_from_ali",
+        notify_url:     "http://#{Settings.wx.notifydomain}/ims/payment/notify_from_ali",
         seller_account_name: Settings.mini_alipay.seller_account
       }
       @url = Alipay::Services::Direct::Payment::Wap.url({partner: Settings.mini_alipay.partner_id, req_data: req_data}, Settings.mini_alipay.md5_key)
