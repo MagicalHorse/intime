@@ -206,7 +206,7 @@
     </div>
     <div class="col-7">
       <div class="text-center" style="padding: 15px 30px;">
-        <button class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
+        <button type="button" class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
       </div>
     </div>
   </div>
@@ -215,7 +215,7 @@
   <div class="row-fluid">
   <div class="col-12">
     <div class="text-center" style="padding: 15px 30px;">
-      <button class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
+      <button type="button" class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
     </div>
   </div>
   </div>
@@ -375,18 +375,33 @@
       }).get()) == -1
 
       image_size = $("input[name='image_ids[]']").length
+      form = $("#product_form")
 
-
-      if($("#product_form").valid()){
+      if(form.valid()){
         if(image_size > 0){
           if( is_blank_size_name && is_blank_size_inventory){
             $("#loading-box").modal();
             clear_file()
             setTimeout(function(){
-              $("#product_form").submit();
+
+              form.ajaxSubmit({
+                dataType: "json",
+                success: function(data){
+                  if(data["status"] == true){
+                    window.location.href = data["url"]
+                  }else{
+                    error_modal(data["message"])
+                  }
+                },
+                error: function(data){
+                  error_modal("保存商品信息发生错误")
+                }
+              })
+              $("#loading-box").modal("hide")
+
             }, 1)
           }else{
-            error_modal("尺码和库存必填")
+            error_modal("规格和库存必填")
           }
         }else{
           error_modal("图片不能为空")
@@ -509,7 +524,7 @@
           max: "库存最大为999"
         },
         "sizes[][name]": {
-          required: "尺码不能为空"
+          required: "规格不能为空"
         }
       },
       showErrors: function(errorMap, errorList) {
