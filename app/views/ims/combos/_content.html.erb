@@ -30,7 +30,9 @@
 
     <div class="clearfix countdown-browser">
       <p class="pull-left price-box">
-        <span class="txt3 price price-span">打包价：<em>¥<%= combo["price"] %></em></span>
+        <span class="txt3 price price-span">
+          打包价：<em>¥<%= BigDecimal(combo["price"].to_s) - BigDecimal(combo["discountAmount"].to_s) %></em>
+        </span>
       </p>
       <p class="pull-left price-box">
         <% expired_in = DateTime.parse(combo["expireDate"]).to_i - Time.now.to_i
