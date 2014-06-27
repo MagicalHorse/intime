@@ -33,7 +33,7 @@
                 <div class="clearfix countdown-browser">
                     <p class="pull-left price-box">
                         <span class="price txt3 price-span">打包价：<em>¥<%= combo["price"] %></em></span>
-                        <% if combo["ExpiredIn"].present? %>
+                        <% if combo["expire_in"].present? %>
                         <span class="pull-right countdown">
                             <em id="d<%=combo['id']%>">00</em><span>天</span><em id="h<%=combo['id']%>">00</em>:<em id="m<%=combo['id']%>">00</em>:<em id="s<%=combo['id']%>">00</em><span>后下架</span>
                         </span>
@@ -57,7 +57,7 @@
                         <span class="txt3 price price-span">打包价：<em>¥<%= combo["price"] %></em></span>
                     </p>
                     <p class="pull-left price-box">
-                        <% if combo["ExpiredIn"].present? %>
+                        <% if combo["expire_in"].present? %>
                         <span class="pull-left countdown">
                             <em id="d<%=combo['id']%>">0</em><span>天</span><em id="h<%=combo['id']%>">00</em>:<em id="m<%=combo['id']%>">00</em>:<em id="s<%=combo['id']%>">00</em><span>后下架</span>
                         </span>
