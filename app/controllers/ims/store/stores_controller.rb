@@ -68,7 +68,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
     if @image[:isSuccessful]
       File.delete("#{Rails.root}/public/#{filename}")
-      json = {"status" => 1, "img" => @image[:data][:logo_full]}.to_json  
+      json = {"status" => 1, "img" => @image[:data][:logo_full]}.to_json
     else
       json = {"status" => 0}.to_json
     end
