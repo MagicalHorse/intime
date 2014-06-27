@@ -16,7 +16,7 @@
               combo['resources'].each do |resource|
                 img_url = [PIC_DOMAIN, resource['name'], "_640X0.jpg"].join('') if resource['name'].scan(/combo/).any?
               end
-              img_url = img_url.present? ? img_url : Settings.default_image_url.product.middle 
+              img_url = img_url.present? ? img_url : Settings.default_image_url.product.middle
               %>
               <img src="<%= img_url %>">
               <%= image_tag("ims/jingpin.png", class: "mark-img") %>
@@ -33,7 +33,7 @@
         <span class="txt3 price price-span">打包价：<em>¥<%= combo["price"] %></em></span>
       </p>
       <p class="pull-left price-box">
-        <% expired_in = DateTime.parse(combo["expireDate"]).to_i - Time.now.to_i 
+        <% expired_in = DateTime.parse(combo["expireDate"]).to_i - Time.now.to_i
         expired_in = expired_in > 0 ? expired_in : nil %>
         <% if expired_in.present? %>
         <span class="pull-left countdown">

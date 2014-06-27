@@ -25,7 +25,7 @@
                 <% end %>
               </div>
               <% end %>
-              
+
               <% products = @remote_combo[:data][:products][3..5] %>
               <% if products.present? %>
               <div class="row-fluid">
@@ -54,16 +54,12 @@
     <div class="p-title">
       <h4><%=sanitize format_text(@remote_combo[:data][:desc]) %></h4>
       <div class="p-price1 clearfix">
-        <% if @remote_combo[:data][:discount] > 0 %>
-        <p class="pull-left price-box">
-              <span class="price-span">打包价：<em>￥<%= (BigDecimal(@remote_combo[:data][:price].to_s) -  BigDecimal(@remote_combo[:data][:discount].to_s)).to_f  %></em></span>
-              <span class="price-span-orignal">原价：￥<%= @remote_combo[:data][:price] %></span>
+          <p class="pull-left price-box">
+            <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
+            <% if @remote_combo[:data][:discount] > 0 %>
+              <span class="price-span-orignal">原价：￥<%= @remote_combo[:data][:unit_price] %></span>
+            <% end %>
           </p>
-          <% else %>
-            <p class="pull-left price-box">
-              <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
-            </p>  
-          <% end %>
         <p class="pull-left price-box">
           <% if @remote_combo[:data][:is_online] && @remote_combo[:data]["expire_in"].present? %>
               <span class="pull-left countdown">
@@ -107,7 +103,7 @@
 
     <% if @remote_combo[:data][:is_online] %>
     <div class="bottom-btnbox">
-    
+
     <button class="btn btn-small btn-danger">
       <% if current_user.id == @remote_combo[:data][:owner_id] %>
         <%= link_to '编 辑', "javascript:void(0);", id: "edit_combo", value: edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>
@@ -137,8 +133,8 @@
   <div class="modal hide fade p-modal" tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="true" id="p_pop" >
     <div class="row-fluid">
       <div class="" id="p_modal_content">
-      </div>  
-    </div>  
+      </div>
+    </div>
   </div>
 
 
@@ -234,7 +230,7 @@
               ele.hide('slow');
               ele.addClass('h');
             }
-          }); 
+          });
           var clientHeight = document.body.clientHeight ;
           $("#p-swiper").css('max-height', clientHeight*0.9+"px");
 
@@ -243,7 +239,7 @@
           }else if(clientHeight < 600 && clientHeight >= 500){
             $("#p_pop").css('top', '1%');
           }else if(clientHeight < 500){
-             $("#p_pop").css('top', '0%'); 
+             $("#p_pop").css('top', '0%');
           }
          }, 500);
         });

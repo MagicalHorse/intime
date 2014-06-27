@@ -46,7 +46,7 @@ class Ims::CombosController < Ims::BaseController
     if @image[:isSuccessful]
       image = ComboPic.create({remote_id: @image[:data][:id], url: @image[:data][:url], :combo_id => @combo.id})
       File.delete("#{Rails.root}/public/#{filename}")
-      json = {"status" => 1, "img" => @image[:data][:url], "id" => image.id}.to_json  
+      json = {"status" => 1, "img" => @image[:data][:url], "id" => image.id}.to_json
     else
       json = {"status" => 0}.to_json
     end
