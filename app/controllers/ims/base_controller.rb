@@ -29,7 +29,7 @@ class Ims::BaseController < ApplicationController
       raise Ims::Unauthorized if cookies[:user_token].blank? || cookies[:user_access_token].blank?
     end
   end
-  
+
   def track_options
     params||{}
   end

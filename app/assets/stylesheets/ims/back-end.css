@@ -170,7 +170,7 @@
 .modal-buy .product-detail ul{ margin: 0 0 0;}
 .modal-buy .product-detail li {float: left; margin-bottom: 5px;}
 .modal-buy .product-detail li a{display: inline-block; padding: 14px 14px; border-radius: 5px;font-size:28px;}
-.modal-buy .modal-color{margin-bottom: 15px;}
+.modal-buy .modal-color{margin-bottom: 10px;}
 .tb-stock span{ margin-right: 10px; float: left; font-size: 28px; }
 .tb-stock a,
 .tb-stock input{ float: left; font-size: 28px;}
@@ -184,3 +184,5 @@
 .common-opacity .txt8{ opacity: 0.8;}
 
 .wrap-inner .module-title2{margin-bottom: 3px;}
+
+
