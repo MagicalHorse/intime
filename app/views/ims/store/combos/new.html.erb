@@ -192,7 +192,7 @@
         error_modal("商品描述最多500个字");
         status = false;
       }
-      if(has_discount == "true" && !(parseFloat(discount) >= 0 && parseFloat(discount) < combo_price) ){
+      if(has_discount == "true" && !(parseFloat(discount) > 0 && parseFloat(discount) < combo_price) ){
         error_modal("促销活动直减金额必须大于0并且小于"+combo_price);
         status = false;
       }
