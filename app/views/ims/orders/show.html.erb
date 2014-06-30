@@ -58,17 +58,17 @@
       </div>
 
       <%# if (is_show_promotion = @order[:statust] == 1 && @order[:statust] == 11 && current_user.shopping_guide? && @order[:has_promotion]) %>
-      <% if @order[:canEditPro] %>
+      <% if @order[:canEditPro] && ((promotion_desc = @order[:promotion_desc]).present? || (promotion_rules = @order[:promotion_rules]).present?) %>
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
                  <div class="detail-block detail-contact-bd">
-                     <p class="txt4 clearfix promotion_info" style="<%= 'display: none;' if (promotion_desc = @order[:promotion_desc]).blank? %>">
+                     <p class="txt4 clearfix promotion_info" style="<%= 'display: none;' if promotion_desc.blank? %>">
                        <span class="pull-left">
                          <i class="fa fa-money"></i><b>促销主题：</b><i class="promotion_info_desc"><%= promotion_desc %></i>
                        </span>
                      </p>
-                     <p class="txt4 promotion_info" style="<%= 'display: none;' if (promotion_rules = @order[:promotion_rules]).blank? %>">
+                     <p class="txt4 promotion_info" style="<%= 'display: none;' if promotion_rules.blank? %>">
                        <span>
                        <i class="fa fa-asterisk"></i><b>促销规则：<span class="promotion_info_rules"><%= promotion_rules %></span></b>
                        </span>
