@@ -234,7 +234,7 @@ var check_form = function(){
 
     $("#combo_submit").click(function(){
       var status = check_form();
-      if(status){
+      if(status && $("#combo_form").valid()){
         $("#combo_form").ajaxSubmit();
         $("#loading-box").modal();
       }
@@ -418,6 +418,52 @@ var check_form = function(){
          $("#promotion").slideUp();
        }
      });
+
+
+     $("#combo_form").validate({
+       onsubmit: true,
+       onfocusout: false,
+       onkeyup: false,
+       onclick: false,
+       rules: {
+         "combo[desc]": {
+           minlength: 10,
+           maxlength: 500
+         },
+         "combo[discount]": {
+           required: true,
+           max: "<%= @combo[:price] %>"
+         }
+       },
+       messages: {
+         "combo[desc]": {
+           minlength: "组合描述至少10个字符",
+           maxlength: "组合描述至多500个字符"
+         },
+         "combo[discount]": {
+           required: "直减金额不能为空",
+           max: "直减金额不能超过"+"<%= @combo[:price] %>"+"元"
+         }
+       },
+       showErrors: function(errorMap, errorList) {
+         var messages = errorList.map(function(i, v) {
+           return i.message
+         })
+         msg = messages.join(", ")
+         if(msg != ""){
+           error_modal(msg);
+         }
+       },
+       errorPlacement:function(error, element){
+         if(element.attr("id") == "input"){
+           $("#img_error_notice").html(error)
+         }else{
+           element.after(error)
+         }
+       }
+
+
+     })
 
   });
 </script>
