@@ -28,7 +28,7 @@
         </span>
       </p>
       <p class="pull-left price-box">
-        <% expired_in = DateTime.parse(combo["expireDate"]).to_i - Time.now.to_i
+        <% expired_in = (combo["expireDate"].to_time - 8.hour).to_i - Time.now.to_i
         expired_in = expired_in > 0 ? expired_in : nil %>
         <% if expired_in.present? %>
         <span class="pull-left countdown">
