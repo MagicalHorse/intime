@@ -12,13 +12,7 @@
         <div class="span12">
           <div class="suit-left">
             <a class="img-box img-posi add_loading" href="javascript:void(0);" value="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
-              <% img_url = nil
-              combo['resources'].each do |resource|
-                img_url = [PIC_DOMAIN, resource['name'], "_640X0.jpg"].join('') if resource['name'].scan(/combo/).any?
-              end
-              img_url = img_url.present? ? img_url : Settings.default_image_url.product.middle
-              %>
-              <img src="<%= img_url %>">
+              <%= image_tag Combo.img_url(combo) %>
               <%= image_tag("ims/jingpin.png", class: "mark-img") %>
             </a>
 

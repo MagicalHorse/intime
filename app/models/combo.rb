@@ -24,6 +24,17 @@ class Combo < ActiveRecord::Base
     combo_products.map {|x| "#{x.brand_name}#{x.category_name}"}.uniq.compact.join(",")
   end
 
+  def self.img_url(combo)
+    resource = combo['resources'].find do |resource|
+      resource.try(:[], :name).present?
+    end
+    if resource.present?
+      img_url = [PIC_DOMAIN, resource['name'], "_640X0.jpg"].join('')
+    else
+      Settings.default_image_url.product.middle
+    end
+  end
+
   include Tire::Model::Search
   extend Searchable
   index_name ES_DEFAULT_INDEX
