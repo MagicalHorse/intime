@@ -20,7 +20,6 @@
                           <a class="img-box img-posi add_loading" href="javascript:void(0);" value="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
                                     <% img_url = combo['image'].present? ? combo['image'] : Settings.default_image_url.product.middle %>
                                     <img src="<%= img_url %>">
-                                    <%= image_tag("ims/jingpin.png", class: "mark-img") %>
                                 </a>
 
                                     <p><a href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>"><%= sanitize format_text(combo["desc"]) %></a></p>
