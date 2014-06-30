@@ -23,7 +23,7 @@ class Ims::BaseController < ApplicationController
   def wx_auth!
     session[:back_url] = request.url
     # 提供测试环境下的mockup访问
-    if ENV["RAILS_ENV"] == "development"
+    if Rails.env == "development"
       get_token_from_api(request) unless session[:user_token]
     else
       raise Ims::Unauthorized if cookies[:user_token].blank? || cookies[:user_access_token].blank?
