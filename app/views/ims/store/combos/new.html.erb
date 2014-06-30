@@ -150,7 +150,8 @@
 </div>
 </div>
 <script type="text/javascript">
-var check_form = function(){
+  var combo_price = "<%= params[:action] == 'new' ? @combo[:price] : @remote_combo[:data][:price] %>"
+  var check_form = function(){
       var image_fields = $("#img_box li[class!='add-link']");
       var product_image_fields = $("#p_box li");
       verify_image1 = image_fields.length < 1;
@@ -190,13 +191,13 @@ var check_form = function(){
         error_modal("商品描述最多500个字");
         status = false;
       }
-      if(has_discount == "true" && parseFloat(discount) <= 0 ){
-        error_modal("促销活动直减金额必须大于0");
+      if(has_discount == "true" && !(parseFloat(discount) >= 0 && parseFloat(discount) < combo_price) ){
+        error_modal("促销活动直减金额必须大于0并且小于"+combo_price);
         status = false;
       }
       return status;
     }
-    </script>
+</script>
 <%= content_for :javascripts do -%>
 <script type="text/javascript" charset="utf-8">
 
@@ -381,9 +382,9 @@ var check_form = function(){
 
      $(".preview").click(function(){
          status = check_form();
-           desc = $("#combo_desc").val();
-           private_to = $("#combo_private_to").val();
-           console.log(private_to);
+         desc = $("#combo_desc").val();
+         private_to = $("#combo_private_to").val();
+         console.log(private_to);
          if(status != "false"){
            $.ajax({
              url: "<%=update_desc_ims_store_combo_path(@combo)%>",
@@ -419,7 +420,6 @@ var check_form = function(){
        }
      })
 
-     var combo_price = "<%= params[:action] == 'new' ? @combo[:price] : @remote_combo[:data][:price] %>"
      $("#combo_form").validate({
        onsubmit: true,
        onfocusout: false,
@@ -429,20 +429,12 @@ var check_form = function(){
          "combo[desc]": {
            minlength: 10,
            maxlength: 500
-         },
-         "combo[discount]": {
-           required: true,
-           max: combo_price
          }
        },
        messages: {
          "combo[desc]": {
            minlength: "组合描述至少10个字符",
            maxlength: "组合描述至多500个字符"
-         },
-         "combo[discount]": {
-           required: "直减金额不能为空",
-           max: "直减金额不能超过"+combo_price+"元"
          }
        },
        showErrors: function(errorMap, errorList) {
