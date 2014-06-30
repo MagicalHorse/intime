@@ -57,7 +57,8 @@
         </div>
       </div>
 
-      <% if (is_show_promotion = @order[:statust] == 1 && @order[:statust] == 11 && current_user.shopping_guide? && @order[:has_promotion]) %>
+      <%# if (is_show_promotion = @order[:statust] == 1 && @order[:statust] == 11 && current_user.shopping_guide? && @order[:has_promotion]) %>
+      <% if @order[:canEditPro] %>
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
@@ -154,7 +155,7 @@
       </div>
       <% end %>
 
-      <% if is_show_promotion %>
+      <% if @order[:canEditPro] %>
       <div class="bottom-button indent-btn">
         <div class="form-defined">
           <div class="controls-defined defined-large">
