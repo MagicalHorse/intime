@@ -112,7 +112,7 @@
     <div class="controls-defined defined-small">
               <label class="col-3 text-left">全网公开：</label>
               <div class="col-9">
-                <%= f.radio_button :is_public, true %>YES&nbsp;&nbsp;&nbsp;&nbsp;<%= f.radio_button :is_public, false %>NO
+                <%= f.radio_button :is_public, true %>是&nbsp;&nbsp;&nbsp;&nbsp;<%= f.radio_button :is_public, false %>否
               </div>
           </div>
     </div>
@@ -417,7 +417,7 @@ var check_form = function(){
        }else{
          $("#promotion").slideUp();
        }
-     });
+     }).trigger("click")
 
      var combo_price = "<%= params[:action] == 'new' ? @combo[:price] : @remote_combo[:data][:price] %>"
      $("#combo_form").validate({
