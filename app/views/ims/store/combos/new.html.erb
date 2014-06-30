@@ -417,7 +417,7 @@ var check_form = function(){
        }else{
          $("#promotion").slideUp();
        }
-     }).trigger("click")
+     })
 
      var combo_price = "<%= params[:action] == 'new' ? @combo[:price] : @remote_combo[:data][:price] %>"
      $("#combo_form").validate({
