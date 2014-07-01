@@ -1,5 +1,8 @@
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
+
+
+<% if nil %>
 <div class="wrap-content">
   <div class="module module-white">
     <div class="module-tab0 module-tab2 module-product tabs-fixed">
@@ -19,12 +22,37 @@
     </div>
   </div>
 </div>
+<% end %>
 
-<div class="wrap-inner" style="margin-top: 30px;" id="content">
+<div class="wrap-inner" id="content">
+
+  <div class="module module-searchinput">
+    <div class="row-fluid">
+      <div class="span12">
+        <%= form_tag ims_combos_path, class: "search-form-defined", id: "search_combo_form", method: "get" do %>
+          <div class="controls-defined defined-small">
+            <div class="col-3">
+              <%= select_tag "store_id", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}, params["store_id"]), prompt: "选择店铺" %>
+            </div>
+
+            <div class="col-7">
+              <%= text_field_tag "keywords", params["keywords"], placeholder: "输入品牌、店铺昵称" %>
+            </div>
+
+            <div class="col-2">
+              <button class="btn btn-danger btn-small btn-block search_combo_button" type="button">搜索</button>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
   <%= render 'ims/shared/countdown' %>
   <%= render 'content' %>
 </div>
 
+<% if nil %>
 <div class="">
   <div id="store_slider" style="margin-top: 30px; display:none">
     <div class="slider-content">
@@ -58,15 +86,23 @@
     </div>
   </div>
 </div>
+<% end %>
 
 <script type="text/javascript">
+
+  $(".search_combo_button").on("click", function(data){
+    $("#loading-box").modal();
+    setTimeout(function(){
+      $("#search_combo_form").submit()
+    }, 1)
+  })
 
   function redirectTo(url){
     $("#loading-box").modal();
     setTimeout(function(){
       window.location.href = url;
     }, 1)
-  } 
+  }
 
   $("#store").click(function(){
     $("#content").show();

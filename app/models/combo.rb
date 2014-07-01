@@ -42,30 +42,65 @@ class Combo < ActiveRecord::Base
 
   def self.es_search(options={})
     size = options[:size] || 10000000
-    brand_id = options[:brand_id]
+    keywords = options[:keywords] || "JAGGY"
     store_id = options[:store_id]
     query = Jbuilder.encode do |json|
-      json.query do
-        json.range do
-          json.expireDate do
-            json.gt Time.now.strftime('%Y-%m-%d')
+
+      if keywords.present?
+        json.query do
+          json.bool do
+            json.should do
+
+              json.child! do
+                json.wildcard do
+                  json.associateName "*"+keywords+"*"
+                end
+              end
+
+              json.child! do
+                json.match do
+                  json.associateName keywords
+                end
+              end
+
+              json.child! do
+                json.wildcard do
+                  json.set! "brands.name", "*"+keywords+"*"
+                end
+              end
+
+              json.child! do
+                json.match do
+                  json.set! "brands.name", keywords
+                end
+              end
+
+            end
+
+
+            json.minimum_number_should_match 1
+            json.boost 1.0
           end
         end
       end
+
       json.filter do
         json.and do
+          json.child! do
+            json.range do
+              json.expireDate do
+                json.gt Time.now.strftime('%Y-%m-%d')
+              end
+            end
+          end
+
           json.child! do
             json.term do
               json.status 1
             end
           end
-          if brand_id.present?
-            json.child! do
-              json.term do
-                json.set! "brands.id", brand_id
-              end
-            end
-          end
+
+
           if store_id.present?
             json.child! do
               json.term do
@@ -75,9 +110,11 @@ class Combo < ActiveRecord::Base
           end
         end
       end
+
       json.sort do
         json.createDate "desc"
       end
+
     end
     result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: size, body: query
     mash = Hashie::Mash.new result
