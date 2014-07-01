@@ -198,3 +198,7 @@
 .search_combo_wrap_inner{
   padding-top: 90px;
 }
+
+.module-searchinput .col-10{
+  padding-right: 4px;
+}

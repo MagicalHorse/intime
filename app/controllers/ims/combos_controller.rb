@@ -33,7 +33,7 @@ class Ims::CombosController < Ims::BaseController
       @store = ::Store.es_search(store_id: params[:store_id]).first if params[:store_id].present?
       @default_store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id].present?
     end
-    @title = @store.present? ? @store["name"] : "商品组合列表"
+    @title = @default_store.present? ? @default_store["name"] : (@store.present? ? @store["name"] : "商品组合列表")
   end
 
   def upload
