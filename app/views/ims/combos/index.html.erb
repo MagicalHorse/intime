@@ -32,7 +32,7 @@
         <%= form_tag ims_combos_path, class: "search-form-defined", id: "search_combo_form", method: "get" do %>
           <div class="controls-defined defined-small">
             <div class="col-3">
-              <%= select_tag "store_id", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}, params["store_id"]), prompt: "选择店铺" %>
+              <%= select_tag "store_id", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}, @store.present? ? @store['id'] : params["store_id"]), prompt: "选择店铺" %>
             </div>
 
             <div class="col-7">
@@ -89,6 +89,13 @@
 <% end %>
 
 <script type="text/javascript">
+
+  $("#store_id").on("change", function(data){
+    $("#loading-box").modal();
+    setTimeout(function(){
+      $("#search_combo_form").submit()
+    }, 1)
+  })
 
   $(".search_combo_button").on("click", function(data){
     $("#loading-box").modal();

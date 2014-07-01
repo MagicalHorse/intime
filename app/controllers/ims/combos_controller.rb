@@ -29,9 +29,9 @@ class Ims::CombosController < Ims::BaseController
         @brands.each{ |s| @brands_ordered[char] << s if Pinyin.t(s.name)[0] == char }
       end
     else
-      # binding.pry
       @combos = ::Combo.es_search(store_id: params[:store_id], keywords: params[:keywords])
       @stores = ::Store.es_search
+      @store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id].present?
     end
   end
 
