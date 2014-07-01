@@ -13,7 +13,6 @@ class Ims::CombosController < Ims::BaseController
   end
 
   def index
-    @title = "商品组合列表"
     if nil
       options = {}
       store_id = params[:default_store_id] || params[:store_id]
@@ -31,8 +30,11 @@ class Ims::CombosController < Ims::BaseController
     else
       @combos = ::Combo.es_search(store_id: params[:store_id], keywords: params[:keywords])
       @stores = ::Store.es_search
-      @store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id].present?
+      if (store_id = [params[:default_store_id], params[:store_id]].find{|store_id| store_id.present?}).present?
+        @store = ::Store.es_search(store_id: store_id).first
+      end
     end
+    @title = @store.present? ? @store["name"] : "商品组合列表"
   end
 
   def upload
