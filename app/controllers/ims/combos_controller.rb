@@ -28,11 +28,10 @@ class Ims::CombosController < Ims::BaseController
         @brands.each{ |s| @brands_ordered[char] << s if Pinyin.t(s.name)[0] == char }
       end
     else
-      @combos = ::Combo.es_search(store_id: params[:store_id], keywords: params[:keywords])
+      @combos = ::Combo.es_search(store_id: [params[:store_id], params[:default_store_id]].find{|store_id| store_id.present?}, keywords: params[:keywords])
       @stores = ::Store.es_search
-      if (store_id = [params[:default_store_id], params[:store_id]].find{|store_id| store_id.present?}).present?
-        @store = ::Store.es_search(store_id: store_id).first
-      end
+      @store = ::Store.es_search(store_id: params[:store_id]).first if params[:store_id].present?
+      @default_store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id].present?
     end
     @title = @store.present? ? @store["name"] : "商品组合列表"
   end
