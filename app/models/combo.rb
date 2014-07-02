@@ -36,7 +36,7 @@ class Combo < ActiveRecord::Base
   end
 
   def can_edit_pro?
-    combo_products.any?{|product| product.product_type == "1"}
+    combo_products.all?{|product| product.product_type == "2"}
   end
 
   include Tire::Model::Search
