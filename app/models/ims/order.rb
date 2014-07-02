@@ -21,7 +21,7 @@ class Ims::Order < Ims::Base
     end
 
     def update_promotion(req, params = {})
-      post(req, params.merge(path: 'order/fill_pro'))
+      post(req, params.merge(path: 'order/fill_pro', content_type: :json))
     end
 
   end

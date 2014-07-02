@@ -327,7 +327,7 @@
                 $("a[href='#promotion_form_div']").text("编辑促销规则")
                 $(".promotion_info").show()
               }else{
-                error_modal("保存促销规则失败")
+                error_modal(data["message"])
               }
               $("#loading-box").modal("hide")
             },

@@ -158,7 +158,7 @@ class Ims::OrdersController < Ims::BaseController
 
   def update_promotion
     @order = Ims::Order.update_promotion(request, params[:promotion])
-    render json: {status: @order[:isSuccessful], promotiondesc: params[:promotion][:promotiondesc], promotionrules: params[:promotion][:promotionrules]}.to_json
+    render json: {status: @order[:isSuccessful], message: @order["message"], promotiondesc: params[:promotion][:promotiondesc], promotionrules: params[:promotion][:promotionrules]}.to_json
     # render json: {status: true, promotiondesc: params[:promotion][:promotiondesc], promotionrules: params[:promotion][:promotionrules]}.to_json
   end
 
