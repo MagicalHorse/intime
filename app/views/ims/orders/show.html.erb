@@ -220,14 +220,14 @@
           </div>
           <div class="span9">
             <div class="price-detail">
-              <h3><%= product[:productname] %></h3>
               <p class="txt3">
                 <span class="span5 txt4">销售编码：</span>
                 <span class="span7">
                 <%= hidden_field_tag "promotion[items][][productid]", product[:productid] %>
-                <%= text_field_tag "promotion[items][][sales_code]", product[:sales_code], class: "input-block-level small-block product_sales_code", placeholder: "销售编码", style: "font-size: 8px;" %>
+                <%= text_field_tag "promotion[items][][sales_code]", product[:sales_code], class: "input-block-level small-block product_sales_code", placeholder: "销售编码", style: "font-size: 12px;" %>
                 </span>
               </p>
+              <h3><%= product[:productname] %></h3>
             </div>
           </div>
         </div>
