@@ -7,7 +7,6 @@
   </div>
   <% end %>
 
-
   <div class="module common-white">
     <% @order["products"].each do |product| %>
       <div class="indent-head">
@@ -22,6 +21,9 @@
                    <h3 class="one-line"><%= link_to product["productname"], ims_store_product_path(product["productid"]) %></h3>
                    <div class="row-fluid">
                    <p class="txt4 pull-left">微信价：<em>￥<%= product["price"] %></em></p>
+                   </div>
+                   <div class="row-fluid">
+                   <p class="txt4 pull-left">销售编码：<span id="sales_code_<%= product['productid'] %>"><%= product["sales_code"] %></span></p>
                    </div>
                    <p class="txt4 clearfix">
                      <span class="pull-left">
@@ -66,7 +68,7 @@
                  <div class="detail-block detail-contact-bd">
                      <p class="txt4 clearfix promotion_info" style="<%= 'display: none;' if promotion_desc.blank? %>">
                        <span class="pull-left">
-                         <i class="fa fa-money"></i><b>促销主题：</b><i class="promotion_info_desc"><%= promotion_desc %></i>
+                         <i class="fa fa-money"></i><b>促销活动：</b><i class="promotion_info_desc"><%= promotion_desc %></i>
                        </span>
                      </p>
                      <p class="txt4 promotion_info" style="<%= 'display: none;' if promotion_rules.blank? %>">
@@ -208,7 +210,6 @@
 
       <%= hidden_field_tag "promotion[orderno]", @order["orderno"] %>
       <% @order[:products].each do |product| %>
-      <%= hidden_field_tag "promotion[items][][productid]", product[:productid] %>
 
       <div class="module common-white">
         <div class="row-fluid">
@@ -223,6 +224,7 @@
               <p class="txt3">
                 <span class="span5 txt">销售编码：</span>
                 <span class="span7">
+                <%= hidden_field_tag "promotion[items][][productid]", product[:productid] %>
                 <%= text_field_tag "promotion[items][][sales_code]", product[:sales_code], class: "input-block-level small-block product_sales_code", placeholder: "输入销售编码、前缀销售编码、数量", style: "font-size: 8px;" %>
                 </span>
               </p>
@@ -325,6 +327,11 @@
                 $(".promotion_info_desc").text(data["promotiondesc"])
                 $(".promotion_info_rules").text(data["promotionrules"])
                 $("a[href='#promotion_form_div']").text("编辑促销规则")
+                $.each(data['products'], function(index, product){
+                  sales_code = product["sales_code"]
+                  product_id = product["productid"]
+                  $("#sales_code_"+product_id).text(sales_code)
+                })
                 $("#promotion_info").show()
                 $(".promotion_info").show()
               }else{
