@@ -392,12 +392,13 @@
                   }else{
                     error_modal(data["message"])
                   }
+                  $("#loading-box").modal("hide")
                 },
                 error: function(data){
                   error_modal("保存商品信息发生错误")
+                  $("#loading-box").modal("hide")
                 }
               })
-              $("#loading-box").modal("hide")
 
             }, 1)
           }else{
