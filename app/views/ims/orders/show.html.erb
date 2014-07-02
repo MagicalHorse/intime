@@ -52,7 +52,9 @@
               </span>
               </p>
               <p class="txt4 clearfix"><span class="pull-left"><b>下单时间：<%= l @order["createdate"].to_time %></b></span></p>
+              <% if nil %>
               <p class="txt4 txt-bd clearfix"><span><b>赠送积点：<%= @order["totalpoints"] %>点</b></span></p>
+              <% end %>
               <p class="txt4 clearfix"><span class="pull-left"><b>快递费：￥<%= @order["totalfee"] %></b></span><span class="pull-right"><b>需付款：</b><i>￥<%= @order["totalamount"] %></i></span></p>
             </div>
           </div>
