@@ -222,7 +222,7 @@
             <div class="price-detail">
               <h3><%= product[:productname] %></h3>
               <p class="txt3">
-                <span class="span5 txt">销售编码：</span>
+                <span class="span5 txt4">销售编码：</span>
                 <span class="span7">
                 <%= hidden_field_tag "promotion[items][][productid]", product[:productid] %>
                 <%= text_field_tag "promotion[items][][sales_code]", product[:sales_code], class: "input-block-level small-block product_sales_code", placeholder: "输入销售编码、前缀销售编码、数量", style: "font-size: 8px;" %>
