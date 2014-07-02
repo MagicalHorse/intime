@@ -58,8 +58,9 @@
       </div>
 
       <%# if (is_show_promotion = @order[:statust] == 1 && @order[:statust] == 11 && current_user.shopping_guide? && @order[:has_promotion]) %>
-      <% if @order[:canEditPro] && ((promotion_desc = @order[:promotion_desc]).present? || (promotion_rules = @order[:promotion_rules]).present?) %>
-      <div class="module common-white">
+      <% promotion_desc = @order[:promotion_desc]; promotion_rules = @order[:promotion_rules]; is_show_pro = @order[:canEditPro] && (promotion_desc.present? || promotion_rules.present?) %>
+
+      <div id="promotion_info" class="module common-white" style="<%= 'display: none;' if !is_show_pro %>">
          <div class="row-fluid">
              <div class="span12">
                  <div class="detail-block detail-contact-bd">
@@ -78,7 +79,6 @@
          </div>
 
       </div>
-      <% end %>
 
       <div class="module common-white">
          <div class="row-fluid">
@@ -325,6 +325,7 @@
                 $(".promotion_info_desc").text(data["promotiondesc"])
                 $(".promotion_info_rules").text(data["promotionrules"])
                 $("a[href='#promotion_form_div']").text("编辑促销规则")
+                $("#promotion_info").show()
                 $(".promotion_info").show()
               }else{
                 error_modal(data["message"])
