@@ -35,6 +35,10 @@ class Combo < ActiveRecord::Base
     end
   end
 
+  def can_edit_pro?
+    combo_products.any?{|product| product.product_type == "1"}
+  end
+
   include Tire::Model::Search
   extend Searchable
   index_name ES_DEFAULT_INDEX

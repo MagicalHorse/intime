@@ -18,9 +18,9 @@
            <div class="span8">
                <div class="<%= @combo.combo_pics.present? ? 'show-imgbox-yes' : 'show-imgbox-no' %>" id="default_img"><!-- 没有上传图片时class="show-imgbox-no" ;有上传后的图片时class="show-imgbox-yes" -->
                 <% if @combo.combo_pics.present? %>
-                 <img src="<%=@combo.combo_pics.last.url%>">
+                  <img src="<%=@combo.combo_pics.last.url%>">
                 <% else %>
-                 <%= image_tag 'ims/no-image.jpg' %>
+                  <%= image_tag 'ims/no-image.jpg' %>
                 <% end %>
                </div>
            </div>
@@ -84,7 +84,7 @@
       <%= f.text_area :desc, :rows => 4 %>
     </div>
 </div>
-
+<% if @combo.can_edit_pro? %>
 <div class="module module-bg-white">
     <div class="module-title2">
         <div class="row-fluid">
@@ -118,6 +118,7 @@
     </div>
 
 </div>
+<% end %>
 <% if @remote_id.present? %>
   <%= hidden_field_tag :remote_id, @remote_id %>
 <% end %>
