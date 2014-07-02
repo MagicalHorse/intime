@@ -247,18 +247,47 @@
     </script>
   <% end %>
 
-<script type="text/javascript">
-  if (typeof WxEnv == 'undefined') {
-    WxEnv = {};
-  }
-  <% if @private_to.present? %>
-  WxEnv.shareUrl = "<%= ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i, :private_to => 'true') %>";
-  <% else %>
-  WxEnv.shareUrl = "<%= ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i) %>";
-  <% end %>
-  WxEnv.shareImgUrl = "<%= @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle %>";
-  // WxEnv.shareName = "我给您分享了一组组合，希望您喜欢。";
-  WxEnv.shareName = "";
-  WxEnv.shareDes = "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>";
+<% share_url = @private_to.present? ? ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i, :private_to => 'true') : ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i) %>
+<% img_url = @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle %>
 
+<script type="text/javascript">
+  // if (typeof WxEnv == 'undefined') {
+  //   WxEnv = {};
+  // }
+  // <% if @private_to.present? %>
+  // WxEnv.shareUrl = "<%= ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i, :private_to => 'true') %>";
+  // <% else %>
+  // WxEnv.shareUrl = "<%= ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i) %>";
+  // <% end %>
+  // WxEnv.shareImgUrl = "<%= @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle %>";
+  // // WxEnv.shareName = "我给您分享了一组组合，希望您喜欢。";
+  // WxEnv.shareName = "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>";
+  // WxEnv.shareDes = "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>";
+
+
+  document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+      // 发送给好友
+      WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+          WeixinJSBridge.invoke('sendAppMessage', {
+              "img_url": "<%= img_url %>",
+              "link": "<%= share_url %>",
+              "desc":  "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>",
+              "title": "我给您分享了一组组合，希望您喜欢。"
+          }, function (res) {
+              _report('send_msg', res.err_msg);
+          })
+      });
+
+      // 分享到朋友圈
+      WeixinJSBridge.on('menu:share:timeline', function (argv) {
+          WeixinJSBridge.invoke('shareTimeline', {
+              "img_url": "<%= img_url %>",
+              "link": "<%= share_url %>",
+              "desc":  "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>",
+              "title": "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>"
+          }, function (res) {
+              _report('timeline', res.err_msg);
+          });
+      });
+  }, false)
 </script>
