@@ -2,7 +2,7 @@
 class Ims::Store::HomeController < Ims::Store::BaseController
   skip_filter :authenticate
   before_filter :go_store
-  
+
 
   def index
   end
@@ -31,10 +31,10 @@ class Ims::Store::HomeController < Ims::Store::BaseController
       session[:user_token] = nil
       cookies[:user_token] = nil
       redirect_to check_ims_store_stores_path
-    else  
+    else
       if @status["message"] == "邀请码已绑定！"
         session[:user_token] = nil
-        cookies[:user_token] = nil  
+        cookies[:user_token] = nil
       end
       @error = true
       render :action => :index
@@ -49,7 +49,11 @@ class Ims::Store::HomeController < Ims::Store::BaseController
   private
   def go_store
     if current_user.store_id.present?
-      redirect_to my_ims_store_store_path(:id => current_user.store_id, :t => Time.now.to_i)
+      if params[:itpm].present?
+        redirect_to my_ims_store_store_path(:id => current_user.store_id, :t => Time.now.to_i, itpm: params[:itpm])
+      else
+        redirect_to my_ims_store_store_path(:id => current_user.store_id, :t => Time.now.to_i)
+      end
     end
   end
 
