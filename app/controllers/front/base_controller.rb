@@ -16,7 +16,7 @@ class Front::BaseController < ApplicationController
 
     auth_path = login_path
     auth_path = oauth_path('wechat') if wechat_request?
-
+    if request.xhr?
       session[:return_to] = request.referrer
       render js: "window.location='#{auth_path}?return_to=#{Rack::Utils.escape(request.referrer)}'"
 
