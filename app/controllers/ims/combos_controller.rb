@@ -32,6 +32,11 @@ class Ims::CombosController < Ims::BaseController
       @stores = ::Store.es_search
       @store = ::Store.es_search(store_id: params[:store_id]).first if params[:store_id].present?
       @default_store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id].present?
+      @can_share = true
+      store_name = (store = [@default_store, @store].find{|store| store.present?}).present? ? store["name"] : "银泰百货"
+      @share_title = store_name + "商品推荐"
+      @share_desc = store_name + "有新商品上架了，赶快过来看看~"
+      @share_img_url = Combo.img_url(@combos.first) if @combos.first.present?
     end
     @title = @default_store.present? ? @default_store["name"] : (@store.present? ? @store["name"] : "商品组合列表")
   end
