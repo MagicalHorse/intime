@@ -266,7 +266,7 @@
       var file = e.target.files[0];
       loadImage.parseMetaData(file, function (data) {
         if (data.exif) {
-            options.orientation = data.exif.get('Orientation');
+          options.orientation = data.exif.get('Orientation');
         }
         loadImage(
           file,

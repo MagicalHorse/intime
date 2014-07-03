@@ -33,7 +33,7 @@
             <div class="col-12"><button class="btn btn-danger btn-large btn-block" type="button" id="store_submit">修改</button></div>
           </div>
         </div>
-    </div>    
+    </div>
   </div>
 </div>
 
@@ -88,35 +88,55 @@
 
     document.getElementById('upfile').onchange = function (e) {
       $("#loading-box").modal();
+
+      var options = {maxWidth: 640,canvas: true};
+      options.maxWidth = 640;
+      var file = e.target.files[0];
+
+
       var orientation ;
       loadImage.parseMetaData(
-        e.target.files[0],
+        file,
         function(data){
-          if(data.exif)
-          orientation = data.exif.get('Orientation');
+          if(data.exif){
+            options.orientation = data.exif.get('Orientation');
+          }
+
+          loadImage(
+            file,
+            function(img){
+
+              var img_data;
+              if (isIPhone()) {
+                img_data = img.toDataURL('image/jpeg',85);
+              } else {
+                var encoder = new JPEGEncoder();
+                var ctx = img.getContext('2d');
+                var rawImageData = ctx.getImageData(0, 0, img.width, img.height);
+                  img_data = encoder.encode(rawImageData,85);
+              }
+
+
+              $.ajax({
+                  url: "<%= change_logo_ims_store_stores_path %>",
+                  dataType: 'json',
+                  type: 'post',
+                  data: {"img": img_data},
+                  success: function(data){
+                    $("#loading-box").modal('hide');
+                    if(data['status'] == 1){
+                      setTimeout(function(){
+                        $("#logo").html("<img src="+data['img']+" class='img-rounded'/>")
+                      }, 500);
+                    }
+                  }
+              });
+             }, options);
+
         }
       );
 
-      loadImage(
-        e.target.files[0],
-        function(img){
-          var resized = resizeIos(img, 640, 640, orientation);
-          $.ajax({
-              url: "<%= change_logo_ims_store_stores_path %>",
-              dataType: 'json',
-              type: 'post',
-              data: {"img": resized},
-              success: function(data){
-                $("#loading-box").modal('hide');
-                if(data['status'] == 1){
-                  setTimeout(function(){
-                    $("#logo").html("<img src="+data['img']+" class='img-rounded'/>")
-                  }, 500);
-                }
-              }
-          });
-         }
-      );
+
      }
 
 
