@@ -18,9 +18,12 @@
       <label class="radio" class="radio" for="alipay">
         <input id="alipay" name="pay_type" type="radio" value="alipay" class="valid" checked="true">支付宝
       </label>
+
+      <% if session[:itpm] != "1" %>
       <label class="radio" class="radio" for="wechat">
         <input id="wechat" name="pay_type" type="radio" value="wechat" class="valid">微信支付
       </label>
+      <% end %>
       <hr />
     </div>
 

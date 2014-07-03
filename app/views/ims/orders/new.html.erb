@@ -233,9 +233,11 @@
                      <p class="txt8">
                        <%= radio_button_tag "payment_name", "支付宝", true, paymentcode: Settings.payment_code.imsalipay %>  <span class="payment_text">支付宝</span>
                      </p>
+                     <% if session[:itpm] != "1" %>
                      <p class="txt8">
                        <%= radio_button_tag "payment_name", "微信", false, paymentcode: Settings.payment_code.imswxpay %>  <span class="payment_text">微信</span>
                      </p>
+                     <% end %>
                  </div>
              </div>
          </div>

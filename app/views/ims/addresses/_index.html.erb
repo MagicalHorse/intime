@@ -9,10 +9,10 @@
     <div class="form-defined">
       <div class="controls-defined defined-large">
 
-        <div class="<%= request.xhr? ? 'col-7' : 'col-12' %>">
+        <div class="<%= request.xhr? && session[:itpm] != "1" ? 'col-7' : 'col-12' %>">
           <a value="<%= new_ims_address_path %>" class="btn <%= @search["data"]["totalcount"] < 8 ? 'btn-danger' : 'btn-grey' %> btn-large btn-block" href="javascript:void(0);" id="new_address">添加地址</a>
         </div>
-        <% if request.xhr?.present? %>
+        <% if request.xhr? && session[:itpm] != "1" %>
         <div class="col-5">
           <a class="btn btn-danger btn-large btn-block" href="javascript:void(0);" id="weixin_address">微信地址</a>
         </div>
