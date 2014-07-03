@@ -27,7 +27,9 @@ wx:
   parterid: 1218686401
   parterkey: a8d319ce4a9c358293b97b1df51d531e
   backdomain: "intime.ngrok.com"
-  open_id: "o7z1PtwbXHBzWAYtF0FLYyz50NyY"
+  notifydomain: "111.207.166.195"
+  open_id: "o7pMWuJfjQXETuN0eN38k6xwJw_4"
+  # open_id: "o7z1PtwbXHBzWAYtF0FLYyz50NyY"
 
 
 elasticsearch_url: "http://218.244.139.79:9200"
