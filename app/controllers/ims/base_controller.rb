@@ -37,7 +37,11 @@ class Ims::BaseController < ApplicationController
   private
 
   def setup_payment_type
-    session[:itpm] ||= params[:itpm]
+    if request.referer.blank?
+      session[:itpm] = params[:itpm]
+    else
+      session[:itpm] ||= params[:itpm]
+    end
   end
 
   def get_token_from_api(request)
