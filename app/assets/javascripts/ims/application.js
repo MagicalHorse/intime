@@ -25,12 +25,13 @@
 //= require ims/jquery-barcode.js
 //= require ims/idangerous.swiper.js
 //= require ims/app.js
-//= require ims/megapix-image.js
 //= require ims/load-image.js
 //= require ims/load-image-meta.js
 //= require ims/load-image-ios.js
 //= require ims/load-image-orientation.js
 //= require ims/load-image-exif.js
 //= require ims/flurry.js
+//= require ims/canvas-to-blob.js
+//= require ims/jpeg_encoder.js
 //= require_self
 

@@ -307,6 +307,11 @@ IntimeService::Application.routes.draw do
   end
 
   namespace :ims do
+    resources :addresses do
+      collection do
+        get "list"
+      end
+    end
     resource :auth
     resources :stores, only: [:show]
     resources :combos, only: [:show, :destroy] do
@@ -376,9 +381,11 @@ IntimeService::Application.routes.draw do
         put :change_state
         post :payments
         get :notice_success
+        put :update_promotion
       end
 
       collection do
+        get :totalamount
         get :check_status
       end
       resources :returns_reasons, only: [:new, :create] do

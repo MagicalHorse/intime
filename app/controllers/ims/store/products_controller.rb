@@ -53,15 +53,16 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
         ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
          :price => product[:data][:price], :combo_id => @combo.try(:id),
          :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
-        redirect_to new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
+        url = new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
       elsif (combo_id = product["data"].try(:[], :combo_id)).present?
-        redirect_to ims_combo_path(combo_id, :private_to => true, :t => Time.now.to_i)
+        url = ims_combo_path(combo_id, :private_to => true, :t => Time.now.to_i)
       else
-        redirect_to ims_store_sells_path(tab: "products")
+        url = ims_store_sells_path(tab: "products")
       end
+      render json: {status: true, url: url}.to_json
     else
       $logger.error(product["message"])
-      redirect_to new_ims_store_product_path(:combo_id => @combo.try(:id))
+      render json: {status: false, message: product["message"]}.to_json
     end
   end
 
@@ -77,17 +78,21 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       image_ids: params["image_ids"],
       sizes: params["sizes"],
       color_str: params["color_str"],
-      desc: params["desc"]
+      desc: params["desc"],
+      createcombo: params["createcombo"] == "1"
     })
 
     if product["isSuccessful"]
       if (redirect_url = params[:redirect_url]).present? && !redirect_url.include?("ims/store/sells")
-        redirect_to redirect_url
+        url = redirect_url
+      elsif (combo_id = product["data"].try(:[], :combo_id)).present?
+        url = ims_combo_path(combo_id, :private_to => true, :t => Time.now.to_i)
       else
-        redirect_to ims_store_sells_path(tab: "products")
+        url = ims_store_sells_path(tab: "products")
       end
+      render json: {status: true, url: url}.to_json
     else
-      redirect_to edit_ims_store_product_path(params[:id])
+      render json: {status: false, message: product["message"]}.to_json
     end
   end
 

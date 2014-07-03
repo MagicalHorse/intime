@@ -8,12 +8,25 @@
       <% @cards.each do |card| %>
       <label class="radio" class="radio" for="money_<%= card["unit_price"] %>">
         <input id="money_<%= card["unit_price"] %>" name="money" type="radio" value="<%= "#{card["id"]},#{card["price"]}" %>" class="valid"><%= card["unit_price"] %>元（售价<%= card["price"] %>元）
-      </label> 
+      </label>
       <% end %>
       <label class="checkbox" for="is_accept">
         <input id="is_accept" name="is_accept" type="checkbox" value="1" class="valid" checked="true">我已阅读并同意<%= link_to "《银泰礼品卡服务协议》", agreement_ims_cards_path %>
       </label>
-    </div> 
+      <hr />
+      <span class="txt1">支付方式</span>
+
+      <% if @is_weixin %>
+      <label class="radio" class="radio" for="wechat">
+        <%= radio_button_tag "pay_type", "wechat", true, id: "wechat" %>微信支付
+      </label>
+      <% end %>
+      <label class="radio" class="radio" for="alipay">
+        <%= radio_button_tag "pay_type", "alipay", @is_weixin ? false : true, id: "alipay" %>支付宝
+      </label>
+      <hr />
+    </div>
+
     <% end %>
     <div class="module-btn text-center">
       <%= button_tag "确认购买", class: "btn btn-large btn-danger btn-block", id: "submit_card_orders" %>
@@ -28,7 +41,7 @@
     </div>
   </div>
 
-</div> 
+</div>
 <%= content_for :javascripts do %>
 <script>
   $(function(){
@@ -41,6 +54,18 @@
         $("#card_orders_form").submit();
       }
     })
+
+    <% if params[:card_id] %>
+    setInterval(function(){
+      $.get("<%= check_status_ims_card_orders_path %>", {"giftcardid" : "<%= params[:card_id] %>", "timestamp" : "<%= params[:time_val] %>"}, function(r){
+        var result = r.result
+        if(result.data){
+          window.location.href = "/ims/card_orders/" + result.data.charge_no;
+        }
+      }, "json");
+    },1000)
+    <% end %>
+
   });
 </script>
 <% end %>

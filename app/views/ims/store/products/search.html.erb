@@ -148,7 +148,7 @@
           url: "/ims/store/combos/remove_product?product_id="+combo_product_id,
           success: function(response){
             li.remove()
-            link = '<a product_id="' + product_id + '" class="btn btn-danger btn-mini btn-block add_to_combo" href="javascript:void(0);">选择搭配</a>'
+            link = '<a product_id="' + product_id + '" class="btn btn-danger btn-mini btn-block add_to_combo" href="javascript:void(0);">选择组合</a>'
             $(".goods-text a[product_id='"+product_id+"']").replaceWith(link)
             if($("#selected_products .img-spa").length == 0){
               $("#selected_products").hide()

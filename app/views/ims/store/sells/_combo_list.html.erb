@@ -32,32 +32,5 @@
 <script>
 $(function(){
   format_img(".img-spa");
-
-  $(document).on("click", ".combo_show, #new_combo", function(){
-    url = $(this).attr("value")
-    $("#loading-box").modal()
-    setTimeout(function(){
-      window.location.href = url
-    }, 1)
-  })
-
-  $(".delete-combo").click(function(){
-    if(confirm("确定要删除该搭配？")){
-      var combo_id = $(this).attr('data');
-      var ele = $(this);
-      $.ajax({
-        url: '/ims/store/combos/'+combo_id,
-        type: 'delete',
-        success: function(res){
-          if(res["status"] == 1){
-            success_modal("删除成功");
-            $("#combo_content_"+combo_id).remove();
-          }else{
-            error_modal(res["message"]);
-          }
-        }
-      });
-    }
-  });
 });
 </script>

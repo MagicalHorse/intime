@@ -9,6 +9,20 @@ class Ims::OrdersController < Ims::BaseController
     @orders = @search["data"]["items"]
     @title = "我的订单"
 
+
+    @timeStamp_val = Time.now.to_i
+    @nonceStr_val = ("a".."z").to_a.sample(9).join('')
+    access_token  = cookies[:user_access_token]
+    sign = {
+      accesstoken: access_token,
+      appid: Settings.wx.appid,
+      noncestr: @nonceStr_val,
+      timestamp: @timeStamp_val,
+      url: request.original_url
+    }
+    string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    @addrSign_val = Digest::SHA1.hexdigest(string1)
+
     respond_to do |format|
       format.html{}
       format.json{render "list"}
@@ -28,8 +42,10 @@ class Ims::OrdersController < Ims::BaseController
       @order = Ims::Order::computeamount(request, combo_id: params["combo_id"], quantity: 1)[:data]
     end
 
+    @address = API::Address.detail(request, {id: params[:address_id]})[:data] if params[:address_id].present?
     @contact = Ims::User.latest_address(request, params)[:data]
-
+    @is_weixin = session[:itpm] != "1"
+    if nil
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     access_token  = cookies[:user_access_token]
@@ -42,6 +58,7 @@ class Ims::OrdersController < Ims::BaseController
     }
     string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
     @addrSign_val = Digest::SHA1.hexdigest(string1)
+    end
   end
 
   def show
@@ -65,40 +82,61 @@ class Ims::OrdersController < Ims::BaseController
 
   def payments
     @orderno = params[:id]
+    @order = Ims::Order.detail(request, {orderno: @orderno})["data"]
     @from_page = params[:from_page]
     # price = 0.01
     price = params[:money]
     # @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
-    @out_trade_no = @orderno
-    @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
-    @notify_url = "http://#{Settings.wx.notifydomain}/ims/payment/notify"
-    @time_val = Time.now
 
-    package = {
-      bank_type: "WX",
-      body: @orderno,
-      fee_type: "1",
-      input_charset: 'GBK',
-      notify_url: @notify_url,
-      out_trade_no: @out_trade_no,
-      partner: Settings.wx.parterid,
-      spbill_create_ip: request.remote_ip,
-      total_fee: (BigDecimal(price) * 100).to_i
-    }
-    string1 = ""; package.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
-    sign_value = Digest::MD5.hexdigest("#{string1}&key=#{Settings.wx.parterkey}").upcase
-    @package_val = "#{package.to_param}&sign=#{sign_value}"
+    if @order[:paymentcode] == "270"
+      @out_trade_no = @orderno
+      @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
+      @time_val = Time.now
 
-    pay_sign = {
-      appid: Settings.wx.appid,
-      appkey: Settings.wx.paysignkey,
-      noncestr: @noncestr_val,
-      package: @package_val,
-      timestamp: @time_val.to_i
-    }
-    string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
-    @paySign_val = Digest::SHA1.hexdigest(string1)
+      package = {
+        bank_type: "WX",
+        body: @orderno,
+        fee_type: "1",
+        input_charset: 'GBK',
+        notify_url: "http://#{Settings.wx.notifydomain}/ims/payment/notify",
+        out_trade_no: @out_trade_no,
+        partner: Settings.wx.parterid,
+        spbill_create_ip: request.remote_ip,
+        total_fee:  (BigDecimal(price) * 100).to_i
+      }
+      string1 = ""; package.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+      sign_value = Digest::MD5.hexdigest("#{string1}&key=#{Settings.wx.parterkey}").upcase
+      @package_val = "#{package.to_param}&sign=#{sign_value}"
+
+      pay_sign = {
+        appid: Settings.wx.appid,
+        appkey: Settings.wx.paysignkey,
+        noncestr: @noncestr_val,
+        package: @package_val,
+        timestamp: @time_val.to_i
+      }
+      string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+      @paySign_val = Digest::SHA1.hexdigest(string1)
+    elsif @order[:paymentcode] == "272"
+      if @from_page == "orders_new"
+        call_back_url = "/ims/orders/"+@orderno+"/notice_success"
+      else
+        call_back_url = "/ims/orders/"+@orderno
+      end
+      call_back_url
+      out_trade_no = @orderno
+      req_data = {
+        subject:        '商品',
+        out_trade_no:   out_trade_no,
+        total_fee:      price,
+        out_user:       current_user.id,
+        call_back_url:  "http://#{Settings.default_url_options.host}#{call_back_url}" ,
+        notify_url:     "http://#{Settings.wx.notifydomain}/ims/payment/notify_from_ali",
+        seller_account_name: Settings.mini_alipay.seller_account
+      }
+      @url = Alipay::Services::Direct::Payment::Wap.url({partner: Settings.mini_alipay.partner_id, req_data: req_data}, Settings.mini_alipay.md5_key)
+    end
 
   end
 
@@ -116,6 +154,17 @@ class Ims::OrdersController < Ims::BaseController
   def notice_success
     @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
     @title = "购买成功"
+  end
+
+  def update_promotion
+    @order = Ims::Order.update_promotion(request, params[:promotion])
+    render json: {status: @order[:isSuccessful], message: @order["message"], promotiondesc: params[:promotion][:promotiondesc], promotionrules: params[:promotion][:promotionrules], products: params["promotion"]["items"]}.to_json
+    # render json: {status: true, promotiondesc: params[:promotion][:promotiondesc], promotionrules: params[:promotion][:promotionrules]}.to_json
+  end
+
+  def totalamount
+    @order = API::Order::computeamount(request, productid: params[:product_id], quantity: params[:quantity])[:data]
+    render json: {status: true, totalamount: @order[:totalamount], totalquantity: @order[:totalquantity]}.to_json
   end
 
   protected

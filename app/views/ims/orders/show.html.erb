@@ -2,11 +2,10 @@
   <% if @order[:statust].zero? %>
   <div class="order-notice" id="order-notice">
     <h4 class="text-center">
-      <i class="fa fa-exclamation-circle"></i> 请在1小时内完成支付，过时订单将会自动取消！
+      <i class="fa fa-exclamation-circle"></i> 请在30分钟内完成支付，过时订单将会自动取消！
     </h4>
   </div>
   <% end %>
-
 
   <div class="module common-white">
     <% @order["products"].each do |product| %>
@@ -14,17 +13,26 @@
         <div class="row-fluid">
            <div class="span3">
                <div class="detail-imgbox">
-                <img src="<%=Product.img_url(product["resource"])%>">
+                <img src="<%= Product.img_url(product["resource"]) %>">
                </div>
            </div>
            <div class="span9">
                <div class="price-detail">
                    <h3 class="one-line"><%= link_to product["productname"], ims_store_product_path(product["productid"]) %></h3>
                    <div class="row-fluid">
-                   <p class="txt3 pull-left">微信价：<em>￥<%= product["price"] %></em></p>
+
+                   <p class="txt7 pull-left">微信价：<em>￥<%= product["price"] %></em></p>
                    </div>
-                   <p class="txt3 clearfix">
-                     <span class="pull-left"><%= product["productdesc"] %></span>
+                   <div class="row-fluid">
+                   <p class="txt7 pull-left">销售编码：<span id="sales_code_<%= product['productid'] %>"><%= product["sales_code"] %></span></p>
+                   </div>
+                   <p class="txt7 clearfix">
+                     <span class="pull-left">
+                       <%= product["productdesc"] %>
+                     </span>
+                     <span class="pull-right">
+                       数量： <%= product["quantity"] %>
+                     </span>
                    </p>
                </div>
            </div>
@@ -45,12 +53,38 @@
               </span>
               </p>
               <p class="txt4 clearfix"><span class="pull-left"><b>下单时间：<%= l @order["createdate"].to_time %></b></span></p>
+              <% if nil %>
               <p class="txt4 txt-bd clearfix"><span><b>赠送积点：<%= @order["totalpoints"] %>点</b></span></p>
+              <% end %>
               <p class="txt4 clearfix"><span class="pull-left"><b>快递费：￥<%= @order["totalfee"] %></b></span><span class="pull-right"><b>需付款：</b><i>￥<%= @order["totalamount"] %></i></span></p>
             </div>
           </div>
         </div>
       </div>
+
+      <%# if (is_show_promotion = @order[:statust] == 1 && @order[:statust] == 11 && current_user.shopping_guide? && @order[:has_promotion]) %>
+      <% promotion_desc = @order[:promotion_desc]; promotion_rules = @order[:promotion_rules]; is_show_pro = @order[:canEditPro] && (promotion_desc.present? || promotion_rules.present?) %>
+
+      <div id="promotion_info" class="module common-white" style="<%= 'display: none;' if !is_show_pro %>">
+         <div class="row-fluid">
+             <div class="span12">
+                 <div class="detail-block detail-contact-bd">
+                     <p class="txt4 clearfix promotion_info" style="<%= 'display: none;' if promotion_desc.blank? %>">
+                       <span class="pull-left">
+                         <i class="fa fa-money"></i><b>促销活动：</b><i class="promotion_info_desc"><%= promotion_desc %></i>
+                       </span>
+                     </p>
+                     <p class="txt4 promotion_info" style="<%= 'display: none;' if promotion_rules.blank? %>">
+                       <span>
+                       <i class="fa fa-asterisk"></i><b>促销规则：<span class="promotion_info_rules"><%= promotion_rules %></span></b>
+                       </span>
+                     </p>
+                 </div>
+             </div>
+         </div>
+
+      </div>
+
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
@@ -68,6 +102,7 @@
              </div>
          </div>
       </div>
+
       <div class="module common-white">
          <div class="row-fluid">
              <div class="span12">
@@ -77,13 +112,35 @@
                        <i class="fa fa-money"></i><b>支付方式：</b><i><%= @order["paymentname"] %></i>
                      </span>
                      </p>
-                     <% if nil %>
-                     <p class="txt4"><span><i class="fa fa-asterisk"></i><b>订单备注：<%= @order["memo"] %></b></span></p>
+                     <% if (memo = @order["memo"]).present? %>
+                     <p class="txt4"><span><i class="fa fa-asterisk"></i><b>订单备注：<%= memo %></b></span></p>
                      <% end %>
                  </div>
              </div>
          </div>
       </div>
+
+      <% if @order["needinvoice"] %>
+      <div class="module common-white">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="detail-block detail-contact-bd">
+              <p class="txt4 clearfix">
+                <span class="pull-left">
+                <b>发票抬头：</b><i><%= @order["invoicetitle"] %></i>
+                </span>
+              </p>
+              <p class="txt4">
+                <span>
+                <b>发票明细：</b><i><%= @order["invoicedetail"] %></i>
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
 
       <% if @order[:rmas].is_a?(Array) && @order[:rmas].length > 0 %>
       <div class="module module-grey return-information">
@@ -102,6 +159,22 @@
         <% end %>
       </div>
       <% end %>
+
+      <% if @order[:canEditPro] %>
+      <div class="bottom-button indent-btn">
+        <div class="form-defined">
+          <div class="controls-defined defined-large">
+
+            <div class="col-12">
+              <%= link_to @order[:promotion_desc].present? ? "编辑促销规则" : "添加促销规则", "#promotion_form_div", class: "btn btn-danger btn-large btn-block", "data-toggle" => "modal" %>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <% end %>
+
 <!-- 当前用户不是导购 -->
       <% if @order[:is_owner] && (@order[:statust].zero? || @order[:canvoid] || @order[:canrma] || @current_rmas.present?) %>
       <div class="bottom-button indent-btn">
@@ -113,6 +186,7 @@
             <div class="col-6" style="<%= @order[:canvoid] ? "display: inline;" : "display: none;" %>">
               <%= link_to '取消订单', "javascript:void(0);", id: "cancel_order", value: @order["orderno"], class: "btn btn-grey btn-large btn-block" %>
             </div>
+            <% if nil %>
             <div class="col-12" style="<%= @order[:canrma] ? "display: inline;" : "display: none;" %>">
               <%= link_to '申请退货', new_ims_order_returns_reason_path(@order["orderno"]), class: "btn btn-danger btn-large btn-block", id: "rmas" %>
             </div>
@@ -120,6 +194,7 @@
             <div class="col-12" style="<%= @current_rmas.present? ? "display: inline;" : "display: none;" %>">
               <%= link_to '取消申请退货', "javascript:void(0);", id: "cancel_rmas", class: "btn btn-grey btn-large btn-block", value: @current_rmas.try(:[], :rmano) %>
             </div>
+            <% end %>
 
           </div>
         </div>
@@ -128,9 +203,152 @@
 </div>
 
 
+<div id="promotion_form_div" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" >
+  <%= form_tag update_promotion_ims_order_path(@order["orderno"]), method: "put", id: "promotion_form" do %>
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="myModalLabel">&nbsp;</h3>
+    </div>
+    <div class="modal-body">
+
+      <%= hidden_field_tag "promotion[orderno]", @order["orderno"] %>
+      <% @order[:products].each do |product| %>
+
+      <div class="module common-white">
+        <div class="row-fluid">
+          <div class="span3">
+            <div class="orders_show_modal_img">
+              <%= image_tag Product.img_url(product["resource"]) %>
+            </div>
+          </div>
+          <div class="span9">
+            <div class="price-detail">
+              <p class="txt3">
+                <span class="span5 txt4">销售编码：</span>
+                <span class="span7">
+                <%= hidden_field_tag "promotion[items][][productid]", product[:productid] %>
+                <%= text_field_tag "promotion[items][][sales_code]", product[:sales_code], class: "input-block-level small-block product_sales_code", placeholder: "销售编码", style: "font-size: 12px;" %>
+                </span>
+              </p>
+              <h3><%= product[:productname] %></h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+      <div class="common-white">
+        <div class="modal-color">
+          <p class="txt8">促销活动描述</p>
+          <div class="product-detail">
+            <ul class="inline clearfix" >
+              <div class="goods-describe">
+                <%= text_area_tag "promotion[promotiondesc]", @order[:promotion_desc], rows: 2, cols: 40, placeholder: "例：满1000元送20元" %>
+              </div>
+            </ul>
+          </div>
+        </div>
+
+        <div class="modal-color">
+          <p class="txt8">促销入收银方式描述</p>
+          <div class="product-detail">
+            <ul class="inline clearfix" >
+              <div class="goods-describe">
+                <%= text_area_tag "promotion[promotionrules]", @order[:promotion_rules], rows: 2, cols: 40, placeholder: "请输入此订单促销入收银的详细方式" %>
+              </div>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+     <div class="modal-footer">
+      <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a>
+      <%#= submit_tag "确 定", class: "btn btn-danger btn-large btn-block save_button" %>
+    </div>
+  <% end %>
+</div>
+
+
 <% content_for :javascripts do %>
   <script>
     $(function(){
+
+      var validator = $("#promotion_form").validate({
+        onsubmit: true,
+        onfocusout: false,
+        onkeyup: false,
+        onclick: false,
+        rules: {
+          "promotion[promotiondesc]": {
+            required: true,
+            maxlength: 500
+          },
+          "promotion[promotionrules]": {
+            required: true,
+            maxlength: 1000
+          },
+          "promotion[items][][sales_code]": {
+            required: true
+          }
+        },
+        messages: {
+          "promotion[promotiondesc]": {
+            required: "促销主题必填",
+            maxlength: "促销主题最多500个字符"
+          },
+          "promotion[promotionrules]": {
+            required: "促销规则必填",
+            maxlength: "促销规则最多500个字符"
+          },
+          "promotion[items][][sales_code]": {
+            required: "销售码必填"
+          }
+        },
+        showErrors: function(errorMap, errorList) {
+          var msg = "";
+          $.each(errorList, function(i,v){
+            msg += (v.message+"\r\n");
+          });
+          if(msg!="") error_modal(msg);
+        },
+        errorPlacement:function(error, element){
+          element.after(error)
+        }
+
+      })
+
+      $("#promotion_form .save_button").on("click", function(){
+        form = $("#promotion_form")
+        if($("#promotion_form").valid()){
+          $("#loading-box").modal()
+          form.ajaxSubmit({
+            dataType: "json",
+            success: function(data){
+              if(data["status"] == true){
+                $("#promotion_form_div").modal("hide")
+                $(".promotion_info_desc").text(data["promotiondesc"])
+                $(".promotion_info_rules").text(data["promotionrules"])
+                $("a[href='#promotion_form_div']").text("编辑促销规则")
+                $.each(data['products'], function(index, product){
+                  sales_code = product["sales_code"]
+                  product_id = product["productid"]
+                  $("#sales_code_"+product_id).text(sales_code)
+                })
+                $("#promotion_info").show()
+                $(".promotion_info").show()
+              }else{
+                error_modal(data["message"])
+              }
+              $("#loading-box").modal("hide")
+            },
+            error: function(data){
+              error_modal("提交表单发生错误")
+              $("#loading-box").modal("hide")
+            }
+          })
+        }
+      })
 
       $("#payment").on("click", function(){
         $("#loading-box").modal()

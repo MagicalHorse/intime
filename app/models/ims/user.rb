@@ -35,6 +35,10 @@ class Ims::User < Ims::Base
     post(req, params.merge(path: "user/latest_address"))
   end
 
+  def shopping_guide?
+    level == 4
+  end
+
   protected
 
   def assign_attributes(attributes = {})

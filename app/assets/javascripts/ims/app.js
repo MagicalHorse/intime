@@ -1,20 +1,20 @@
-var browser={  
-    versions:function(){  
-    var u = navigator.userAgent, app = navigator.appVersion;  
-    return {  
-    trident: u.indexOf('Trident') > -1,  //IE内核  
-    presto: u.indexOf('Presto') > -1,  //opera内核  
-    webKit: u.indexOf('AppleWebKit') > -1,  //苹果、谷歌内核  
-    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,  //火狐内核  
-    mobile: !!u.match(/AppleWebKit.*Mobile.*/)||!!u.match(/AppleWebKit/),  //是否为移动终端  
-    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),  //ios终端  
-    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,  //android终端或者uc浏览器  
-    iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1,  //是否为iPhone或者QQHD浏览器  
-    iPad: u.indexOf('iPad') > -1,  //是否iPad  
-    webApp: u.indexOf('Safari') == -1  //是否web应该程序，没有头部与底部  
-    };  
-    }()  
-}  
+var browser={
+    versions:function(){
+    var u = navigator.userAgent, app = navigator.appVersion;
+    return {
+    trident: u.indexOf('Trident') > -1,  //IE内核
+    presto: u.indexOf('Presto') > -1,  //opera内核
+    webKit: u.indexOf('AppleWebKit') > -1,  //苹果、谷歌内核
+    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,  //火狐内核
+    mobile: !!u.match(/AppleWebKit.*Mobile.*/)||!!u.match(/AppleWebKit/),  //是否为移动终端
+    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),  //ios终端
+    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1,  //android终端或者uc浏览器
+    iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1,  //是否为iPhone或者QQHD浏览器
+    iPad: u.indexOf('iPad') > -1,  //是否iPad
+    webApp: u.indexOf('Safari') == -1  //是否web应该程序，没有头部与底部
+    };
+    }()
+}
 
 var NewBlob = function(data, datatype)
 {
@@ -40,7 +40,7 @@ var NewBlob = function(data, datatype)
             out = new Blob([data], {type: datatype});
         }
         else {
-            // We're screwed, blob constructor unsupported entirely   
+            // We're screwed, blob constructor unsupported entirely
         }
     }
     return out;
@@ -175,4 +175,40 @@ function resizeAndroid(img, max_width, max_height) {
   ctx.drawImage(img, 0, 0, width, height);
 
   return canvas.toDataURL("image/jpeg", 0.5); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+}
+
+function isIPhone() {
+ if (!window.navigator || !window.navigator.platform ||
+             !(/iP(hone|od|ad)/).test(window.navigator.platform)) {
+        return false;
+    }
+  return true;
+}
+
+function exec_js(html){
+
+  var regDetectJs = /<script(.|\n)*?>(.|\n|\r\n)*?<\/script>/ig;
+  var jsContained = html.match(regDetectJs);
+
+  // 第二步：如果包含js，则一段一段的取出js再加载执行
+  if(jsContained) {
+    // 分段取出js正则
+    var regGetJS = /<script(.|\n)*?>((.|\n|\r\n)*)?<\/script>/im;
+
+    // 按顺序分段执行js
+    var jsNums = jsContained.length;
+    for (var i=0; i<jsNums; i++) {
+      var jsSection = jsContained[i].match(regGetJS);
+
+      if(jsSection[2]) {
+        if(window.execScript) {
+          // 给IE的特殊待遇
+          window.execScript(jsSection[2]);
+        } else {
+          // 给其他大部分浏览器用的
+          window.eval(jsSection[2]);
+        }
+      }
+    }
+  }
 }

@@ -13,6 +13,6 @@ class ComboProduct < ActiveRecord::Base
   end
 
   def verify_product_count
-    errors.add(:base, "一个搭配最多添加3个商品") if ComboProduct.where(combo_id: combo_id).count >= 3
+    errors.add(:base, "一个组合最多添加6个商品") if ComboProduct.where(combo_id: combo_id).count >= 6
   end
 end

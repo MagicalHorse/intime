@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Ims::BaseController < ApplicationController
   layout 'ims'
-  before_filter :wx_auth!
+  before_filter :setup_payment_type, :wx_auth!
   helper_method [:current_user,:track_options]
 
   rescue_from Ims::Unauthorized do
@@ -23,17 +23,26 @@ class Ims::BaseController < ApplicationController
   def wx_auth!
     session[:back_url] = request.url
     # 提供测试环境下的mockup访问
-    if ENV["RAILS_ENV"] == "development"
+    if Rails.env == "development"
       get_token_from_api(request) unless session[:user_token]
     else
       raise Ims::Unauthorized if cookies[:user_token].blank? || cookies[:user_access_token].blank?
     end
   end
-  
+
   def track_options
     params||{}
   end
+
   private
+
+  def setup_payment_type
+    if request.referer.blank?
+      session[:itpm] = params[:itpm]
+    else
+      session[:itpm] ||= params[:itpm]
+    end
+  end
 
   def get_token_from_api(request)
     user_hash = API::LoginRequest.post(request, {

@@ -166,14 +166,14 @@
 .modal-buy .module-grey{ padding: 30px;}
 .modal-buy .module-grey p{ margin-bottom: 0;  padding-bottom: 10px; text-indent: 0;}
 .modal-buy .product-detail {margin: 0;}
-.modal-buy .product-detail ul{ margin: 30px 0 0;}
+.modal-buy .product-detail ul{ margin: 0 0 0;}
 .modal-buy .product-detail li {float: left; margin-bottom: 5px;}
 .modal-buy .product-detail li a{display: inline-block; padding: 14px 14px; border-radius: 5px;font-size:28px;}
-.modal-buy .modal-color{margin-bottom: 30px;}
+.modal-buy .modal-color{margin-bottom: 10px;}
 .tb-stock span{ margin-right: 10px; float: left; font-size: 28px; }
 .tb-stock a,
 .tb-stock input{ float: left; font-size: 28px;}
-.tb-stock input{ padding: 0 10px; border-radius: 0; border-width: 2px 0; text-align: center; height: 40px;  line-height: 40px;width: 80px;}
+.tb-stock input{ padding: 0 10px; border-radius: 0; border-width: 0px 0; text-align: center; height: 30px;  line-height: 30px;width: 80px;}
 .tb-stock a{ display: inline-block; height: 40px; width: 40px; text-align: center; font-weight: bold;}
 .modal-num{ padding-top: 20px; margin-top: 20px;}
 
@@ -183,3 +183,22 @@
 .common-opacity .txt8{ opacity: 0.8;}
 
 .wrap-inner .module-title2{margin-bottom: 3px;}
+
+
+.module-searchinput .search-form-defined input{ margin-bottom: 0; font: 14px/1.4em "microsoft yahei"; }
+
+#search_combo {
+  position: fixed;
+  top: 0;
+  width: 580px;
+  z-index: 1000;
+}
+
+.search_combo_wrap_inner{
+  padding-top: 90px;
+}
+
+.module-searchinput .col-10{
+  padding-right: 4px;
+}
+

@@ -67,7 +67,6 @@
     <div class="form-box">
 
 
-        <%= hidden_field_tag "createcombo", request.referer.blank? ? "1" : nil %>
         <%= hidden_field_tag "redirect_url", request.referer %>
         <div style="height: 0px;width: 0px; overflow:hidden;">
           <%= file_field_tag "image", id: "input", accept: "image/*", capture: "camera" %>
@@ -172,7 +171,7 @@
       </div>
     </div>
 
-    <p style="color:#B7BBC2;font-size:12px;">请确保商品规格和库存准确，及时同步商品库存。 </p>
+    <p style="color:#B7BBC2;font-size:12px;" class="text-center">请确保商品规格和库存准确，及时同步商品库存。 </p>
 
 </div>
 
@@ -189,9 +188,38 @@
       <%= text_area_tag "desc", @product.try(:[], :desc), rows: 4, placeholder: "请在此描述商品的风格、特色和卖点等信息" %>
     </div>
 
-    <div class="text-center" style="padding: 15px 30px;">
-      <button class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
+</div>
+
+<div class="module module-bg-white2">
+
+
+  <% referer = request.referer.to_s %>
+  <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.match(/\/ims\/store\/combos\/\d+\/edit/).to_s.present? || referer.include?("ims/store/products") && params[:action] == "edit") %>
+  <div class="row-fluid">
+    <div class="col-5">
+      <div class="controls-defined defined-small" style="padding: 22px 0 0 0;">
+        <div class="col-12">
+          <%= check_box_tag "createcombo", '1', referer.blank?, class: "createcombo_checkbox", style: "margin-right: 0px;padding-right: 0px;" %>
+          <span id="quick_publish_label" style="margin-left: 0px;padding-left: 0px;">快速发布</span>
+        </div>
+      </div>
     </div>
+    <div class="col-7">
+      <div class="text-center" style="padding: 15px 30px;">
+        <button type="button" class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
+      </div>
+    </div>
+  </div>
+  <p style="color:#B7BBC2;font-size:12px;" class="text-center">选择快速发布，提交成功后即可分享给好友。 </p>
+  <% else %>
+  <div class="row-fluid">
+  <div class="col-12">
+    <div class="text-center" style="padding: 15px 30px;">
+      <button type="button" class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
+    </div>
+  </div>
+  </div>
+  <% end %>
 </div>
 
 <% end %>
@@ -224,30 +252,46 @@
 <script type="text/javascript">
   $(function(){
 
+    $("#quick_publish_label").on("click", function(){
+      $("input[name='createcombo']").prop("checked", !$("input[name='createcombo']").prop("checked"))
+    })
+
     format_img(".show-imgbox-no");
     format_img(".img-spa");
     format_img(".show-imgbox-yes");
 
     document.getElementById('input').onchange = function (e) {
+
       $("#loading-box").modal();
-      var orientation ;
-      loadImage.parseMetaData(
-        e.target.files[0],
-        function(data){
-          if(data.exif)
-          orientation = data.exif.get('Orientation');
-        }
-      );
+      var options = {maxWidth: 640,canvas: true};
+      options.maxWidth = 640;
+      var file = e.target.files[0];
+      loadImage.parseMetaData(file, function (data) {
+
+
+      if (data.exif) {
+        options.orientation = data.exif.get('Orientation');
+      }
 
       loadImage(
-        e.target.files[0],
+        file,
         function(img){
-          var resized = resizeIos(img, 640, 640, orientation);
+
+          var img_data;
+          if (isIPhone()) {
+            img_data = img.toDataURL('image/jpeg',85);
+          } else {
+            var encoder = new JPEGEncoder();
+            var ctx = img.getContext('2d');
+            var rawImageData = ctx.getImageData(0, 0, img.width, img.height);
+              img_data = encoder.encode(rawImageData,85);
+          }
+
           $.ajax({
             url: "/ims/store/products/upload",
             dataType: 'json',
             type: 'post',
-            data: {"img": resized},
+            data: {"img": img_data},
             beforeSend: function(){
               $("#add_img").hide();
             },
@@ -294,10 +338,10 @@
               error_modal("上传发生错误，请稍后重试");
             }
           });
-        }
+        }, options
       )
-    };
-
+      })
+    }
     $(document).on("click", "#img_box li i", function(){
       if(confirm("确定要删除该图片？")){
         mid = $(this).attr("data")
@@ -331,13 +375,36 @@
       }).get()) == -1
 
 
-      if($("#product_form").valid()){
+      image_size = $("input[name='image_ids[]']").length
+      form = $("#product_form")
 
-        if( is_blank_size_name && is_blank_size_inventory){
-          $("#loading-box").modal();
-          setTimeout(function(){
-            $("#product_form").submit();
-          }, 1)
+      if(form.valid()){
+        if(image_size > 0){
+          if( is_blank_size_name && is_blank_size_inventory){
+            $("#loading-box").modal();
+            clear_file()
+            setTimeout(function(){
+
+              form.ajaxSubmit({
+                dataType: "json",
+                success: function(data){
+                  if(data["status"] == true){
+                    window.location.href = data["url"]
+                  }else{
+                    error_modal(data["message"])
+                  }
+                  $("#loading-box").modal("hide")
+                },
+                error: function(data){
+                  error_modal("保存商品信息发生错误")
+                  $("#loading-box").modal("hide")
+                }
+              })
+
+            }, 1)
+          }else{
+            error_modal("规格和库存必填")
+          }
         }else{
           error_modal("尺码和库存必填")
         }
@@ -354,7 +421,7 @@
 
     $("#coding_button").on("click", function(){
       coding = $("#coding").val()
-      if(coding.length > 0){
+      if(coding.length > 1 && coding.length <= 20){
         $.post("/ims/store/sales_codes", {coding: coding}, function(data){
           if(data["status"] == true){
             $("#sales_code").html("")
@@ -367,7 +434,9 @@
           }
         }, "json")
       }else{
-        error_modal("销售编码不能为空")
+        if(coding.length == 0){
+          error_modal("销售编码长度不能少于2并且不能大于20")
+        }
       }
     })
 
@@ -459,7 +528,7 @@
           max: "库存最大为999"
         },
         "sizes[][name]": {
-          required: "尺码不能为空"
+          required: "规格不能为空"
         }
       },
       showErrors: function(errorMap, errorList) {

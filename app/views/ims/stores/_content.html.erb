@@ -1,12 +1,12 @@
 <% if @store[:data][:gift_card].blank? && @store[:data][:combos].blank? %>
       <%= render 'ims/shared/empty' %>
     <% else %>
-    
+
 
         <% if @store[:data][:combos].present? %>
         <div class="module module-ele">
             <div class="module-title">
-                <h3>精品搭配</h3>
+                <h3>精品组合</h3>
             </div>
         </div>
 
@@ -17,13 +17,12 @@
                     <div class="row-fluid">
                       <div class="span12">
                         <div class="suit-left">
-                          <a class="img-box img-posi add_loading" href="javascript:void(0);" value="<%= ims_combo_path(id: combo["Id"], t: Time.now.to_i) %>">
-                                    <% img_url = combo['Image'].present? ? combo['Image'] : Settings.default_image_url.product.middle %>
+                          <a class="img-box img-posi add_loading" href="javascript:void(0);" value="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
+                                    <% img_url = combo['image'].present? ? combo['image'] : Settings.default_image_url.product.middle %>
                                     <img src="<%= img_url %>">
-                                    <%= image_tag("ims/jingpin.png", class: "mark-img") %>
                                 </a>
 
-                                    <p><a href="<%= ims_combo_path(id: combo["Id"], t: Time.now.to_i) %>"><%= sanitize format_text(combo["Desc"]) %></a></p>
+                                    <p><a href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>"><%= sanitize format_text(combo["desc"]) %></a></p>
                         </div>
                       </div>
                     </div>
@@ -32,17 +31,17 @@
                 <% if @store[:data][:is_owner] %>
                 <div class="clearfix countdown-browser">
                     <p class="pull-left price-box">
-                        <span class="price txt3 price-span">打包价：<em>¥<%= combo["Price"] %></em></span>
-                        <% if combo["ExpiredIn"].present? %>
+                        <span class="price txt3 price-span">打包价：<em>¥<%= combo["price"] %></em></span>
+                        <% if combo["expire_in"].present? %>
                         <span class="pull-right countdown">
-                            <em id="d<%=combo['Id']%>">00</em><span>天</span><em id="h<%=combo['Id']%>">00</em>:<em id="m<%=combo['Id']%>">00</em>:<em id="s<%=combo['Id']%>">00</em><span>后下架</span>
+                            <em id="d<%=combo['id']%>">00</em><span>天</span><em id="h<%=combo['id']%>">00</em>:<em id="m<%=combo['id']%>">00</em>:<em id="s<%=combo['id']%>">00</em><span>后下架</span>
                         </span>
                         <script type="text/javascript">
-                          tms[tms.length] = "<%=combo['ExpiredIn'] %>";
-                          day[day.length] = "d<%=combo['Id']%>";
-                          hour[hour.length] = "h<%=combo['Id']%>";
-                          minute[minute.length] = "m<%=combo['Id']%>";
-                          second[second.length] = "s<%=combo['Id']%>";
+                          tms[tms.length] = "<%=combo['expire_in'] %>";
+                          day[day.length] = "d<%=combo['id']%>";
+                          hour[hour.length] = "h<%=combo['id']%>";
+                          minute[minute.length] = "m<%=combo['id']%>";
+                          second[second.length] = "s<%=combo['id']%>";
                         </script>
                         <% else %>
                         <span class="pull-right countdown">
@@ -54,19 +53,19 @@
                 <% else %>
                 <div class="clearfix countdown-browser">
                     <p class="pull-left price-box">
-                        <span class="txt3 price price-span">打包价：<em>¥<%= combo["Price"] %></em></span>
+                        <span class="txt3 price price-span">打包价：<em>¥<%= combo["price"] %></em></span>
                     </p>
                     <p class="pull-left price-box">
-                        <% if combo["ExpiredIn"].present? %>
+                        <% if combo["expire_in"].present? %>
                         <span class="pull-left countdown">
-                            <em id="d<%=combo['Id']%>">0</em><span>天</span><em id="h<%=combo['Id']%>">00</em>:<em id="m<%=combo['Id']%>">00</em>:<em id="s<%=combo['Id']%>">00</em><span>后下架</span>
+                            <em id="d<%=combo['id']%>">0</em><span>天</span><em id="h<%=combo['id']%>">00</em>:<em id="m<%=combo['id']%>">00</em>:<em id="s<%=combo['id']%>">00</em><span>后下架</span>
                         </span>
                         <script type="text/javascript">
-                          tms[tms.length] = "<%=combo['ExpiredIn'] %>";
-                          day[day.length] = "d<%=combo['Id']%>";
-                          hour[hour.length] = "h<%=combo['Id']%>";
-                          minute[minute.length] = "m<%=combo['Id']%>";
-                          second[second.length] = "s<%=combo['Id']%>";
+                          tms[tms.length] = "<%=combo['expire_in'] %>";
+                          day[day.length] = "d<%=combo['id']%>";
+                          hour[hour.length] = "h<%=combo['id']%>";
+                          minute[minute.length] = "m<%=combo['id']%>";
+                          second[second.length] = "s<%=combo['id']%>";
                         </script>
                         <% else %>
                         <span class="pull-left countdown">
@@ -74,7 +73,7 @@
                         </span>
                         <% end %>
                         <span class="pull-right">
-                        <a class="btn btn-danger btn-small add_loading" href="javascript:void(0);" value="<%= ims_orders_new_path(:combo_id => combo['Id'])%>">点击购买</a>
+                        <a class="btn btn-danger btn-small add_loading" href="javascript:void(0);" value="<%= ims_orders_new_path(:combo_id => combo['id'])%>">点击购买</a>
                         </span>
                     </p>
                 </div>
@@ -93,10 +92,10 @@
             <div class="module-content module-content-card">
                 <div class="img-box">
                 <a href="javascript:void(0);" value="<%= ims_cards_path(store_id: @store[:data][:id]) %>" class="add_loading">
-                    <img src="<%= card["Image"] %>">
+                    <img src="<%= card["image"] %>">
                 </a>
                 </div>
-                <p><a href="#"><%= card["Desc"] %></a></p>
+                <p><a href="#"><%= card["desc"] %></a></p>
                 <div class="clearfix">
                     <% unless @store[:data][:is_owner] %>
                     <p class="pull-right price-box text-center price-card">
@@ -109,7 +108,7 @@
         </div>
         <% end %>
 
-        
+
         <% end %>
 <div class="intime-btm intime-btm-index">
     <%= image_tag "ims/intime-btm.png" %>

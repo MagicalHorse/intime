@@ -1,0 +1,62 @@
+<% if @combos.count == 0 %>
+
+<%= render 'ims/shared/empty' %>
+
+<% else %>
+
+<% @combos.each do |combo| %>
+<div class="module module-ele">
+  <div class="module-content module-content-img">
+    <div class="suit-box clearfix">
+      <div class="row-fluid">
+        <div class="span12">
+          <div class="suit-left">
+            <a class="img-box img-posi add_loading" href="javascript:void(0);" value="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
+              <%= image_tag Combo.img_url(combo) %>
+            </a>
+
+            <p><a href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>"><%= sanitize format_text(combo["desc"]) %></a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix countdown-browser">
+      <p class="pull-left price-box">
+        <span class="txt3 price price-span">
+          打包价：<em>¥<%= BigDecimal(combo["price"].to_s) - BigDecimal(combo["discountAmount"].to_s) %></em>
+        </span>
+      </p>
+      <p class="pull-left price-box">
+        <% expired_in = (combo["expireDate"].to_time - 8.hour).to_i - Time.now.to_i
+        expired_in = expired_in > 0 ? expired_in : nil %>
+        <% if expired_in.present? %>
+        <span class="pull-left countdown">
+          <em id="d<%=combo['id']%>">0</em><span>天</span><em id="h<%=combo['id']%>">00</em>:<em id="m<%=combo['id']%>">00</em>:<em id="s<%=combo['id']%>">00</em><span>后下架</span>
+        </span>
+        <script type="text/javascript">
+          tms[tms.length] = "<%=expired_in %>";
+          day[day.length] = "d<%=combo['id']%>";
+          hour[hour.length] = "h<%=combo['id']%>";
+          minute[minute.length] = "m<%=combo['id']%>";
+          second[second.length] = "s<%=combo['id']%>";
+        </script>
+        <% else %>
+        <span class="pull-left countdown">
+          长期有效
+        </span>
+        <% end %>
+        <span class="pull-right">
+          <a class="btn btn-danger btn-small add_loading" href="javascript:void(0);" value="<%= ims_orders_new_path(:combo_id => combo['id'])%>">点击购买</a>
+        </span>
+      </p>
+    </div>
+
+  </div>
+</div>
+<% end %>
+
+<% end %>
+<div class="intime-btm intime-btm-index">
+  <%= image_tag "ims/intime-btm.png" %>
+</div>
