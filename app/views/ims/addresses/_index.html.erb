@@ -14,7 +14,7 @@
         </div>
         <% if request.xhr? && session[:itpm] != "1" %>
         <div class="col-5">
-          <a class="btn btn-danger btn-large btn-block" href="javascript:void(0);" id="weixin_address">微信地址</a>
+          <a class="btn btn-danger btn-large btn-block" href="javascript:void(0);" id="weixin_address_button">微信地址</a>
         </div>
         <% end %>
       </div>
@@ -79,7 +79,7 @@
 
 
 
-    $("#weixin_address").on("click", function(){
+    $("#weixin_address_button").on("click", function(){
       load_address()
     })
 
