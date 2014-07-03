@@ -15,8 +15,8 @@
     <% end %>
   <% end %>
 
-  <%= hidden_field_tag "order[payment[paymentcode]]", Settings.payment_code.imsalipay %>
-  <%= hidden_field_tag "order[payment[paymentname]]", "支付宝" %>
+  <%= hidden_field_tag "order[payment[paymentcode]]", @is_weixin ? Settings.payment_code.imswxpay : Settings.payment_code.imsalipay %>
+  <%= hidden_field_tag "order[payment[paymentname]]", @is_weixin ? "微信支付" : "支付宝" %>
 
   <%= hidden_field_tag "order[shippingaddress[shippingcontactperson]]", params[:shippingcontactperson].present? ? params[:shippingcontactperson] : (@address.present? ? @address["shippingperson"] : @contact.try(:[], :contact_person)), id: "name" %>
   <%= hidden_field_tag "order[shippingaddress[shippingcontactphone]]", params[:shippingcontactphone].present? ? params[:shippingcontactphone] : (@address.present? ? @address["shippingphone"] : @contact.try(:[], :contact_phone)), id: "contact" %>
@@ -230,14 +230,14 @@
 
 
                  <div id="contact_wrapper" class="detail-address-block">
+                     <% if @is_weixin %>
                      <p class="txt8">
-                       <%= radio_button_tag "payment_name", "支付宝", true, paymentcode: Settings.payment_code.imsalipay %>  <span class="payment_text">支付宝</span>
-                     </p>
-                     <% if session[:itpm] != "1" %>
-                     <p class="txt8">
-                       <%= radio_button_tag "payment_name", "微信", false, paymentcode: Settings.payment_code.imswxpay %>  <span class="payment_text">微信</span>
+                       <%= radio_button_tag "payment_name", "微信", true, paymentcode: Settings.payment_code.imswxpay %>  <span class="payment_text">微信</span>
                      </p>
                      <% end %>
+                     <p class="txt8">
+                       <%= radio_button_tag "payment_name", "支付宝", @is_weixin ? false : true, paymentcode: Settings.payment_code.imsalipay %>  <span class="payment_text">支付宝</span>
+                     </p>
                  </div>
              </div>
          </div>

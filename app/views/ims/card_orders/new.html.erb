@@ -15,15 +15,15 @@
       </label>
       <hr />
       <span class="txt1">支付方式</span>
-      <label class="radio" class="radio" for="alipay">
-        <input id="alipay" name="pay_type" type="radio" value="alipay" class="valid" checked="true">支付宝
-      </label>
 
-      <% if session[:itpm] != "1" %>
+      <% if @is_weixin %>
       <label class="radio" class="radio" for="wechat">
-        <input id="wechat" name="pay_type" type="radio" value="wechat" class="valid">微信支付
+        <%= radio_button_tag "pay_type", "wechat", true, id: "wechat" %>微信支付
       </label>
       <% end %>
+      <label class="radio" class="radio" for="alipay">
+        <%= radio_button_tag "pay_type", "alipay", @is_weixin ? false : true, id: "alipay" %>支付宝
+      </label>
       <hr />
     </div>
 

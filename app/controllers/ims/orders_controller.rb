@@ -44,7 +44,7 @@ class Ims::OrdersController < Ims::BaseController
 
     @address = API::Address.detail(request, {id: params[:address_id]})[:data] if params[:address_id].present?
     @contact = Ims::User.latest_address(request, params)[:data]
-
+    @is_weixin = session[:itpm] != "1"
     if nil
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')

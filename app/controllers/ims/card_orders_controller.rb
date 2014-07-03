@@ -4,6 +4,7 @@ class Ims::CardOrdersController < Ims::BaseController
 
   def new
     @cards = Ims::Giftcard.items(request, {id: Ims::Giftcard::DEFAULT_ID})["data"]["items"]
+    @is_weixin = session[:itpm] != "1"
   end
 
   def list
@@ -74,11 +75,11 @@ class Ims::CardOrdersController < Ims::BaseController
         out_trade_no:   out_trade_no,
         total_fee:      price,
         out_user:       current_user.id,
-        call_back_url:  "http://#{Settings.default_url_options.host}#{ims_card_orders_pay_path( card_id: @card_id, time_val: Time.now.to_i )}" , 
+        call_back_url:  "http://#{Settings.default_url_options.host}#{ims_card_orders_pay_path( card_id: @card_id, time_val: Time.now.to_i )}" ,
         notify_url:     "http://#{Settings.wx.notifydomain}/ims/payment/notify_giftcard_from_ali",
         seller_account_name: Settings.mini_alipay.seller_account
       }
-      Alipay.logger.debug("-----> #{Time.now.strftime('%y-%m-%d %H:%M:%S')} notify http://#{Settings.wx.notifydomain}/ims/payment/notify_giftcard_from_ali") 
+      Alipay.logger.debug("-----> #{Time.now.strftime('%y-%m-%d %H:%M:%S')} notify http://#{Settings.wx.notifydomain}/ims/payment/notify_giftcard_from_ali")
       @url = Alipay::Services::Direct::Payment::Wap.url({partner: Settings.mini_alipay.partner_id, req_data: req_data}, Settings.mini_alipay.md5_key)
     end
 
