@@ -314,7 +314,7 @@ IntimeService::Application.routes.draw do
     end
     resource :auth
     resources :stores, only: [:show]
-    resources :combos, only: [:show, :destroy] do
+    resources :combos, only: [:show, :destroy, :index] do
       collection do
         post 'upload'
         get 'ajax'
