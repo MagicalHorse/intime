@@ -63,7 +63,8 @@
 .goods-box .imgs img{ height: auto;}
 .goods-box .goods-text { padding: 10px;}
 .goods-box .goods-text > a{ overflow: hidden; display: inline-block; margin-bottom: 10px; font-size: 21px;}
-.goods-price{ position: absolute; bottom: 0; left: 0; width: 100%; line-height: 40px; font-size: 24px; text-indent: 10px;}
+.goods-price{ position: absolute; bottom: 0; left: 0; width: 100%; line-height: 40px; font-size: 15px; }
+.goods-price .unit_price{font-size:11px;margin-left:3px;text-decoration:line-through;}
 .goods-text .btn {font-size: 21px;}
 
 /*-------------------------------Css Goods Search---------------------------------*/
@@ -201,4 +202,3 @@
 .module-searchinput .col-10{
   padding-right: 4px;
 }
-

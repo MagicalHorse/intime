@@ -83,7 +83,6 @@ class Ims::CardOrdersController < Ims::BaseController
       @url = Alipay::Services::Direct::Payment::Wap.url({partner: Settings.mini_alipay.partner_id, req_data: req_data}, Settings.mini_alipay.md5_key)
     end
 
-
   end
 
   # 查询是否充值成功

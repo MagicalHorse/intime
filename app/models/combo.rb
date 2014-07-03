@@ -4,7 +4,6 @@ class Combo < ActiveRecord::Base
 
   attr_accessible :desc, :remote_id, :combo_type, :private_to, :has_discount, :discount, :is_public
 
-
   has_many :combo_pics
   has_many :combo_products
 
@@ -24,7 +23,6 @@ class Combo < ActiveRecord::Base
   def product_desc
     combo_products.map {|x| "#{x.brand_name}#{x.category_name}"}.uniq.compact.join(",")
   end
-
 
   def self.img_url(combo)
     resource = combo['resources'].find do |resource|

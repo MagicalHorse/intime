@@ -12,7 +12,6 @@ class Ims::CombosController < Ims::BaseController
     session[:store_id] = @remote_combo[:data][:store_id]
   end
 
-
   def index
     if nil
       options = {}

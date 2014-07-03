@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Store < ActiveRecord::Base
   DOCUMENT_TYPE = "esstores"
-  
+
   belongs_to :company
   belongs_to :region
   has_many :products
@@ -11,7 +11,6 @@ class Store < ActiveRecord::Base
   extend Searchable
   include Tire::Model::Search
   index_name ES_DEFAULT_INDEX
-
   document_type DOCUMENT_TYPE
 
   def self.es_search(options={})
@@ -38,7 +37,6 @@ class Store < ActiveRecord::Base
     mash = Hashie::Mash.new result
     mash.hits.hits.collect(&:_source)
   end
-
   
   class<<self
     def to_store_with_distace(store_info,from)

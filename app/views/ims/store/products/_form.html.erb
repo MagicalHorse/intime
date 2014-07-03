@@ -106,7 +106,7 @@
           </div>
 
           <div class="controls-defined defined-small">
-              <label class="col-4 text-left"><abbr class="txt-red">*</abbr>原价：</label>
+              <label class="col-4 text-left"><abbr class="txt-red">*</abbr>吊牌价：</label>
               <div class="col-8">
               <%= text_field_tag "unitprice", @product.try(:[], :unitprice) %>
               </div>
@@ -374,7 +374,6 @@
         return $(this).val()
       }).get()) == -1
 
-
       image_size = $("input[name='image_ids[]']").length
       form = $("#product_form")
 
@@ -406,13 +405,21 @@
             error_modal("规格和库存必填")
           }
         }else{
-          error_modal("尺码和库存必填")
+          error_modal("图片不能为空")
         }
       }
     });
 
+    var clear_file = function(){
+      $("#input").val("")
+      // file = $("#input")
+      // input = '<input id="input" type="file" name="image" capture="camera" accept="image/*">'
+      // file.after(input)
+      // file.remove()
+    }
 
-    $("#input").on("change", function(){
+
+    $(document).on("change", "#input", function(){
       if($(this).val().length != ""){
         $("#img_error_notice").html('')
       }
@@ -446,11 +453,6 @@
       onkeyup: false,
       onclick: false,
       rules: {
-        <% if params[:action] == "new" %>
-        "image": {
-          required: true
-        },
-        <% end %>
         "brand_id": {
           required: true
         },
@@ -489,11 +491,6 @@
         }
       },
       messages: {
-        <% if params[:action] == "new" %>
-        "image": {
-          required: "图片不能为空"
-        },
-        <% end %>
         "brand_id": {
           required: "品牌不能为空"
         },
@@ -512,7 +509,7 @@
         "unitprice": {
           required: "原价不能为空",
           number: "原价只能是数字",
-          more_than: "微信价不能大于原价"
+          more_than: "微信价不能大于吊牌价"
         },
         "category_id": {
           required: "分类不能为空"

@@ -1,0 +1,35 @@
+<%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
+<%= javascript_include_tag 'ims/slidernav' %>
+<div class="wrap-content">
+  <div class="module module-white">
+    <div class="module-tab0 module-tab2 module-product tabs-fixed">
+      <ul id="myTab" class="nav nav-tabs" style="z-index: 100;">
+        <li style="border-right: 3px #f16498 solid; position: relative">
+          <%= select_tag "store", options_from_collection_for_select(@stores, "id", "name"), style: "opacity: 0.01; position: absolute; left: 0; top: 0; width: 100%; height: 100%;" %>
+          <a href="javascript:void(0)" id="store_selcet">门店 <i class="fa fa-chevron-down"></i></a>
+        </li>
+        <li style="border-right: 3px #f16498 solid; position: relative">
+          <%= select_tag "brand", options_from_collection_for_select(@brands, "id", "name"), style: "opacity: 0.01; position: absolute; left: 0; top: 0; width: 100%; height: 100%;" %>
+          <a href="javascript:void(0)" id="brand_selcet">品牌 <i class="fa fa-chevron-down"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="wrap-inner" style="margin-top: 30px;" id="content">
+  <%= render 'ims/shared/countdown' %>
+  <%= render 'content' %>
+</div>
+
+<script type="text/javascript">
+
+  $("#store").change(function(){
+    window.location.href = "/ims/combos?store_id=" + $(this).val();
+  })
+
+  $("#brand").change(function(){
+    window.location.href = "/ims/combos?brand_id=" + $(this).val();
+  })
+
+</script>
