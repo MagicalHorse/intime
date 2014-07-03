@@ -82,7 +82,7 @@
             </div>
             <% end %>
               <div id="myModal<%=index%>" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" index="<%= index %>">
-                <form>
+                <form class="order_product_form">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                   <h3 id="myModalLabel">&nbsp;</h3>
@@ -156,7 +156,7 @@
                         <span>购买数量</span>
                         <span class="product_count">
                         <a class="tb-reduce" hidefocus="" href="javascript:void(0);">-</a>
-                        <input type="text" placeholder="1" class="txt8 tb-text" id="count<%= index %>">
+                        <input name="count" type="text" value="1" class="txt8 tb-text" id="count<%= index %>">
                         <a class="tb-increase" href="javascript:void(0);">+</a>
                         </span>
                       </span>
@@ -383,14 +383,14 @@
       index = $(this).parents(".modal").attr("index")
       this_class = $(this).attr("class")
       count_doc = $("#count"+index)
-      value = parseInt(count_doc.attr("placeholder"))
+      value = parseInt(count_doc.val())
       if(this_class.indexOf("tb-reduce") >= 0){
         if(value > 1){
-          count_doc.attr("placeholder", value - 1)
+          count_doc.val(value - 1)
         }
       }else{
         if(value < 50){
-          count_doc.attr("placeholder", value + 1)
+          count_doc.val(value + 1)
         }
       }
     })
@@ -399,41 +399,43 @@
       modal_doc = $(this).parents(".modal")
       var index = modal_doc.attr("index")
       selected_doc = $("#selected_color_size"+index)
-      if(modal_doc.find(".salecolors li.active").length > 0 && modal_doc.find(".sizes li.active").length > 0){
-        modal_doc.modal("hide")
-        change_color_value(modal_doc, index)
-        change_size_value(modal_doc, index)
-        var color = jQuery.trim($("#colorvaluename"+index).val())
-        var size = jQuery.trim($("#sizevaluename"+index).val())
-        if(color.length > 0 || size.length > 0){
-          color_text = color.length > 0 ? "\""+color+"\"" : ""
-          size_text = size.length > 0 ? "\""+size+"\"" : ""
-          text = jQuery.trim([color_text, size_text].join(" "))
-          un_select_doc = $("#un_select_color_size"+index)
-          un_select_doc.hide()
-          selected_doc.show()
-          selected_doc.text("已选：" + text)
-        }else{
-          un_select_doc.show()
-          un_select_doc.text("请选择颜色，尺码 ")
-          selected_doc.hide()
-        }
-        <% if (product_id = params[:product_id]).present? %>
-          var product_id = "<%= product_id %>"
-          quantity = $("#count0").attr("placeholder")
-          if(quantity != "1"){
-            $.get("<%= totalamount_ims_orders_path %>", {quantity: quantity, product_id: product_id}, function(data){
-              if(data["status"] == true){
-                $("#totalamount").val(data["totalamount"])
-                $("input[name='order[products][][quantity]']").val(data["totalquantity"])
-                $("#totalamount_text i").text("￥"+data["totalamount"])
-              }
-            }, "json")
+      if($(".order_product_form").valid()){
+        if(modal_doc.find(".salecolors li.active").length > 0 && modal_doc.find(".sizes li.active").length > 0){
+          modal_doc.modal("hide")
+          change_color_value(modal_doc, index)
+          change_size_value(modal_doc, index)
+          var color = jQuery.trim($("#colorvaluename"+index).val())
+          var size = jQuery.trim($("#sizevaluename"+index).val())
+          if(color.length > 0 || size.length > 0){
+            color_text = color.length > 0 ? "\""+color+"\"" : ""
+            size_text = size.length > 0 ? "\""+size+"\"" : ""
+            text = jQuery.trim([color_text, size_text].join(" "))
+            un_select_doc = $("#un_select_color_size"+index)
+            un_select_doc.hide()
+            selected_doc.show()
+            selected_doc.text("已选：" + text)
+          }else{
+            un_select_doc.show()
+            un_select_doc.text("请选择颜色，尺码 ")
+            selected_doc.hide()
           }
-          selected_doc.append("<span class='pull-right'>数量: "+quantity+"</span>")
-        <% end %>
-      }else{
-        error_modal("尺码和颜色必选")
+          <% if (product_id = params[:product_id]).present? %>
+            var product_id = "<%= product_id %>"
+            quantity = $("#count0").val()
+            if(quantity != "1"){
+              $.get("<%= totalamount_ims_orders_path %>", {quantity: quantity, product_id: product_id}, function(data){
+                if(data["status"] == true){
+                  $("#totalamount").val(data["totalamount"])
+                  $("input[name='order[products][][quantity]']").val(data["totalquantity"])
+                  $("#totalamount_text i").text("￥"+data["totalamount"])
+                }
+              }, "json")
+            }
+            selected_doc.append("<span class='pull-right'>数量: "+quantity+"</span>")
+          <% end %>
+        }else{
+          error_modal("尺码和颜色必选")
+        }
       }
 
       // modal_doc.find(".close").trigger("click")
@@ -491,6 +493,35 @@
         this_li.removeClass("active")
       }else{
         this_li.addClass("active")
+      }
+    })
+
+
+    $(".order_product_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
+      rules: {
+        "count": {
+          required: true,
+          max: 50,
+          min: 1
+        }
+      },
+      messages: {
+        "count": {
+          required: "数量不能为空",
+          max: "数量最多50",
+          min: "数量至少为1"
+        }
+      },
+      showErrors: function(errorMap, errorList) {
+        var msg = "";
+        $.each(errorList, function(i,v){
+          msg += (v.message+"\r\n");
+        });
+        if(msg!="") error_modal(msg);
       }
     })
 
