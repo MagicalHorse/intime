@@ -13,32 +13,22 @@ class Ims::CombosController < Ims::BaseController
   end
 
   def index
-    if nil
-      options = {}
-      store_id = params[:default_store_id] || params[:store_id]
-      options[:brand_id] = params[:brand_id] if params[:brand_id].present?
-      options[:store_id] = store_id if store_id.present?
-      @combos = ::Combo.es_search(options)
-      @store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id].present?
-      @stores, @stores_ordered = ::Store.es_search, {}
-      @brands, @brands_ordered = ::Brand.es_search, {}
-      ('a'..'z').each do |char|
-        @stores_ordered[char], @brands_ordered[char] = [], []
-        @stores.each{ |s| @stores_ordered[char] << s if Pinyin.t(s.name)[0] == char }
-        @brands.each{ |s| @brands_ordered[char] << s if Pinyin.t(s.name)[0] == char }
-      end
-    else
-      @combos = ::Combo.es_search(store_id: [params[:store_id], params[:default_store_id]].find{|store_id| store_id.present?}, keywords: params[:keywords])
-      @stores = ::Store.es_search
-      @store = ::Store.es_search(store_id: params[:store_id]).first if params[:store_id].present?
-      @default_store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id].present?
-      @can_share = true
-      store_name = (store = [@default_store, @store].find{|store| store.present?}).present? ? store["name"] : "银泰百货"
-      @share_title = store_name + "商品推荐"
-      @share_desc = store_name + "有新商品上架了，赶快过来看看~"
-      @share_img_url = Combo.img_url(@combos.first) if @combos.first.present?
-    end
+
+    @search = ::Combo.es_search(store_id: [params[:store_id], params[:default_store_id]].find{|store_id| store_id.present?}, keywords: params[:keywords], page: params[:page], per_page: params[:per_page])
+    @combos = @search[:data]
+    @stores = ::Store.es_search
+    @store = ::Store.es_search(store_id: params[:store_id]).first if params[:store_id].present?
+    @default_store = ::Store.es_search(store_id: params[:default_store_id]).first if params[:default_store_id].present?
+    @can_share = true
+    store_name = (store = [@default_store, @store].find{|store| store.present?}).present? ? store["name"] : "银泰百货"
+    @share_title = store_name + "商品推荐"
+    @share_desc = store_name + "有新商品上架了，赶快过来看看~"
+    @share_img_url = Combo.img_url(@combos.first) if @combos.first.present?
     @title = @default_store.present? ? @default_store["name"] : (@store.present? ? @store["name"] : "商品组合列表")
+    respond_to do |format|
+      format.html{}
+      format.json{render "list"}
+    end
   end
 
   def upload

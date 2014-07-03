@@ -53,7 +53,16 @@
   </div>
 
   <%= render 'ims/shared/countdown' %>
-  <%= render 'content' %>
+
+  <% if @combos.count == 0 %>
+  <%= render 'ims/shared/empty' %>
+  <% else %>
+  <%= render 'list' %>
+  <div id="loading" class="text-center"></div>
+  <% end %>
+  <div class="intime-btm intime-btm-index">
+    <%= image_tag "ims/intime-btm.png" %>
+  </div>
 </div>
 
 <% if nil %>
@@ -91,6 +100,11 @@
   </div>
 </div>
 <% end %>
+
+
+<%= hidden_field_tag "count", @search[:count] %>
+<%= hidden_field_tag "page", @search[:page] %>
+<%= hidden_field_tag "per_page", @search[:per_page] %>
 
 <script type="text/javascript">
 
@@ -146,6 +160,33 @@
     $('#store_slider').sliderNav({arrows: false, height: height});
     $('#brand_slider').sliderNav({arrows: false, height: height});
   });
+
+
+  $(window).scroll(function(){
+    var htmlHeight=document.body.scrollHeight
+    var clientHeight=document.body.clientHeight
+    var scrollTop=document.body.scrollTop
+    var count = parseInt($("#count").attr("value"))
+    var page = parseInt($("#page").attr("value"))
+    var per_page = parseInt($("#per_page").attr("value"))
+
+
+    if(scrollTop+clientHeight == htmlHeight){
+      if(page * per_page < count){
+        $("#loading").html('<%= image_tag "ims/loading.gif" %>');
+        $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
+          if(data["status"] == true){
+            $(".paginate-content:last").after(data["html"])
+            $("#count").attr("value", data["count"])
+            $("#page").attr("value", data["page"])
+            $("#per_page").attr("value", data["per_page"])
+            $("#loading").html("");
+          }
+        }, "json")
+      }
+    }
+
+  })
 
 </script>
 

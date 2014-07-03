@@ -1,11 +1,5 @@
-<% if @combos.count == 0 %>
-
-<%= render 'ims/shared/empty' %>
-
-<% else %>
-
 <% @combos.each do |combo| %>
-<div class="module module-ele">
+<div class="module module-ele paginate-content">
   <div class="module-content module-content-img">
     <div class="suit-box clearfix">
       <div class="row-fluid">
@@ -56,7 +50,4 @@
 </div>
 <% end %>
 
-<% end %>
-<div class="intime-btm intime-btm-index">
-  <%= image_tag "ims/intime-btm.png" %>
-</div>
+
