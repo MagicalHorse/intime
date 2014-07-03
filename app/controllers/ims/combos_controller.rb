@@ -37,7 +37,7 @@ class Ims::CombosController < Ims::BaseController
   end
 
   def upload
-  	imagedata = params[:img].split(',')[1]
+    imagedata = params[:img].split(',')[1]
     @combo = ::Combo.find(params[:id])
 
     FileUtils.mkdir("#{Rails.root}/public/uploads") if !File.exist?("#{Rails.root}/public/uploads")
@@ -55,7 +55,7 @@ class Ims::CombosController < Ims::BaseController
       File.delete("#{Rails.root}/public/#{filename}")
       json = {"status" => 1, "img" => @image[:data][:url], "id" => image.id}.to_json
     else
-      json = {"status" => 0}.to_json
+      json = {"status" => 0, message: @image["message"]}.to_json
     end
     render :json => json
   end
