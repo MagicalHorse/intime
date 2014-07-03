@@ -46,7 +46,7 @@ class Combo < ActiveRecord::Base
 
   def self.es_search(options={})
     size = options[:size] || 10000000
-    keywords = options[:keywords] || "JAGGY"
+    keywords = options[:keywords]
     store_id = options[:store_id]
     query = Jbuilder.encode do |json|
 
