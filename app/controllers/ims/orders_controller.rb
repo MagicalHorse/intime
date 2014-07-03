@@ -45,7 +45,7 @@ class Ims::OrdersController < Ims::BaseController
     @address = API::Address.detail(request, {id: params[:address_id]})[:data] if params[:address_id].present?
     @contact = Ims::User.latest_address(request, params)[:data]
     @is_weixin = session[:itpm] != "1"
-    if nil
+
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     access_token  = cookies[:user_access_token]
@@ -58,7 +58,7 @@ class Ims::OrdersController < Ims::BaseController
     }
     string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
     @addrSign_val = Digest::SHA1.hexdigest(string1)
-    end
+
   end
 
   def show
