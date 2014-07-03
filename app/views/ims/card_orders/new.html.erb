@@ -8,7 +8,7 @@
       <% @cards.each do |card| %>
       <label class="radio" class="radio" for="money_<%= card["unit_price"] %>">
         <input id="money_<%= card["unit_price"] %>" name="money" type="radio" value="<%= "#{card["id"]},#{card["price"]}" %>" class="valid"><%= card["unit_price"] %>元（售价<%= card["price"] %>元）
-      </label> 
+      </label>
       <% end %>
       <label class="checkbox" for="is_accept">
         <input id="is_accept" name="is_accept" type="checkbox" value="1" class="valid" checked="true">我已阅读并同意<%= link_to "《银泰礼品卡服务协议》", agreement_ims_cards_path %>
@@ -16,11 +16,11 @@
       <hr />
       <span class="txt1">支付方式</span>
       <label class="radio" class="radio" for="alipay">
-        <input id="alipay" name="pay_type" type="radio" value="alipay" class="valid">支付宝
-      </label> 
+        <input id="alipay" name="pay_type" type="radio" value="alipay" class="valid" checked="true">支付宝
+      </label>
       <label class="radio" class="radio" for="wechat">
-        <input id="wechat" name="pay_type" type="radio" value="wechat" class="valid" checked="true">微信支付
-      </label> 
+        <input id="wechat" name="pay_type" type="radio" value="wechat" class="valid">微信支付
+      </label>
       <hr />
     </div>
 
@@ -38,7 +38,7 @@
     </div>
   </div>
 
-</div> 
+</div>
 <%= content_for :javascripts do %>
 <script>
   $(function(){
