@@ -5,6 +5,7 @@ class Ims::AuthsController < ActionController::Base
   def show
     if (code = params[:code]).present?
       json_resp = get_access_token(code)
+      $logger.info("access_token: #{json_resp["access_token"]}")
       session[:wx_openid] = json_resp['openid']
       cookies[:user_access_token] = { value: json_resp["access_token"], expires: (json_resp["expires_in"] - 100).seconds.from_now.utc }
       get_token_from_api(request)
