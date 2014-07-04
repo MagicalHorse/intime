@@ -56,7 +56,7 @@
         },  3000);
       });
 
-      $(".add_loading").click(function(){
+      $(document).on("click", ".add_loading", function(){
         url = $(this).attr("value")
         $("#loading-box").modal();
         setTimeout(function(){
