@@ -286,9 +286,6 @@
           "promotion[promotionrules]": {
             required: true,
             maxlength: 1000
-          },
-          "promotion[items][][sales_code]": {
-            required: true
           }
         },
         messages: {
@@ -299,9 +296,6 @@
           "promotion[promotionrules]": {
             required: "促销规则必填",
             maxlength: "促销规则最多500个字符"
-          },
-          "promotion[items][][sales_code]": {
-            required: "销售码必填"
           }
         },
         showErrors: function(errorMap, errorList) {
@@ -319,33 +313,41 @@
 
       $("#promotion_form .save_button").on("click", function(){
         form = $("#promotion_form")
-        if($("#promotion_form").valid()){
-          $("#loading-box").modal()
-          form.ajaxSubmit({
-            dataType: "json",
-            success: function(data){
-              if(data["status"] == true){
-                $("#promotion_form_div").modal("hide")
-                $(".promotion_info_desc").text(data["promotiondesc"])
-                $(".promotion_info_rules").text(data["promotionrules"])
-                $("a[href='#promotion_form_div']").text("编辑促销规则")
-                $.each(data['products'], function(index, product){
-                  sales_code = product["sales_code"]
-                  product_id = product["productid"]
-                  $("#sales_code_"+product_id).text(sales_code)
-                })
-                $("#promotion_info").show()
-                $(".promotion_info").show()
-              }else{
-                error_modal(data["message"])
+        is_present_size_inventory = $.inArray('', $("input[name='promotion[items][][sales_code]']").map(function(){
+          return $(this).val()
+        }).get()) == -1
+
+        if(is_present_size_inventory){
+          if($("#promotion_form").valid()){
+            $("#loading-box").modal()
+            form.ajaxSubmit({
+              dataType: "json",
+              success: function(data){
+                if(data["status"] == true){
+                  $("#promotion_form_div").modal("hide")
+                  $(".promotion_info_desc").text(data["promotiondesc"])
+                  $(".promotion_info_rules").text(data["promotionrules"])
+                  $("a[href='#promotion_form_div']").text("编辑促销规则")
+                  $.each(data['products'], function(index, product){
+                    sales_code = product["sales_code"]
+                    product_id = product["productid"]
+                    $("#sales_code_"+product_id).text(sales_code)
+                  })
+                  $("#promotion_info").show()
+                  $(".promotion_info").show()
+                }else{
+                  error_modal(data["message"])
+                }
+                $("#loading-box").modal("hide")
+              },
+              error: function(data){
+                error_modal("提交表单发生错误")
+                $("#loading-box").modal("hide")
               }
-              $("#loading-box").modal("hide")
-            },
-            error: function(data){
-              error_modal("提交表单发生错误")
-              $("#loading-box").modal("hide")
-            }
-          })
+            })
+          }
+        }else{
+          error_modal("销售编码全部必填")
         }
       })
 
