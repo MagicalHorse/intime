@@ -123,6 +123,6 @@ class Combo < ActiveRecord::Base
     end
     result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1) * per_page, body: query
     mash = Hashie::Mash.new result
-    {count: mash.count, page: page, per_page: per_page, data: mash.hits.hits.collect(&:_source)}
+    {count: mash.hits.total, page: page, per_page: per_page, data: mash.hits.hits.collect(&:_source)}
   end
 end

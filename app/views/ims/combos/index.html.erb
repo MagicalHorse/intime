@@ -1,27 +1,6 @@
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
 
-<% if nil %>
-<div class="wrap-content">
-  <div class="module module-white">
-    <div class="module-tab0 module-tab2 module-product tabs-fixed">
-      <ul id="myTab" class="nav nav-tabs" style="z-index: 100;">
-        <li style="border-right: 3px #f16498 solid; position: relative">
-          <% if @store %>
-          <a href="javascript:void(0)"><%= @store["name"] %></a>
-          <% else %>
-          <%= select_tag "store", options_from_collection_for_select(@stores, "id", "name"), style: "opacity: 0.01; position: absolute; left: 0; top: 0; width: 100%; height: 100%;" %>
-          <a href="javascript:void(0)" id="store_selcet">门店 &nbsp&nbsp<i class="fa fa-chevron-down"></i></a>
-          <% end %>
-        </li>
-        <li style="position: relative">
-          <a href="javascript:void(0)" id="brand_selcet">品牌 &nbsp&nbsp<i class="fa fa-chevron-down"></i></a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-<% end %>
 
 <div class="wrap-inner search_combo_wrap_inner" id="content">
 
@@ -64,43 +43,6 @@
     <%= image_tag "ims/intime-btm.png" %>
   </div>
 </div>
-
-<% if nil %>
-<div class="">
-  <div id="store_slider" style="margin-top: 30px; display:none">
-    <div class="slider-content">
-      <ul style="margin: 0;">
-        <% ('a'..'z').each do |char| %>
-        <li id="<%= char %>"><a name="<%= char %>" class="title"><%= char.upcase %></a>
-          <ul>
-            <% @stores_ordered[char].each do |store| %>
-            <li><a href="javascript:void(0)" onclick="redirectTo('<%= "/ims/combos?store_id=#{store.id}" %>')"><%= store.name %></a></li>
-            <% end %>
-          </ul>
-        </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-
-  <div id="brand_slider" style="margin-top: 30px; display:none">
-    <div class="slider-content">
-      <ul style="margin: 0;">
-        <% ('a'..'z').each do |char| %>
-        <li id="<%= char %>"><a name="<%= char %>" class="title"><%= char.upcase %></a>
-          <ul>
-            <% @brands_ordered[char].each do |brand| %>
-            <li><a href="javascript:void(0)" onclick="redirectTo('<%= "/ims/combos?brand_id=#{brand.id}&default_store_id=#{params[:default_store_id]}" %>')"><%= brand.name %></a></li>
-            <% end %>
-          </ul>
-        </li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</div>
-<% end %>
-
 
 <%= hidden_field_tag "count", @search[:count] %>
 <%= hidden_field_tag "page", @search[:page] %>
