@@ -293,7 +293,8 @@
                 $("#loading-box").modal('hide');
                 if(data['status'] == 1){
                    setTimeout(function(){
-                     insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'><img src='/assets/ims/delate.png'></i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
+                     img = '<%= image_tag "ims/delate.png" %>'
+                     insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'>"+img+"</i><span class='img-spa'><img src='"+data['img']+"'></span></li>";
                      if($("#img_box li[class!='add-link']").length >0 ){
                        $($("#img_box li[class!='add-link']:last")).after(insert_html);
                      }else{
