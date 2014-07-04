@@ -306,7 +306,8 @@
                    format_img("#result")
                   <% end %>
                   hidden_image_field = '<input type="hidden" value="'+data["id"]+'" name="image_ids[]">'
-                  insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'><img src='/assets/ims/delate.png'></i><span class='img-spa'><img src='"+data['img_url']+"'></span></li>";
+                  delate_img = '<%= image_tag "ims/delate.png" %>'
+                  insert_html = "<li><i id='img_"+data['id']+"' data='"+data['id']+"'>"+delate_img+"</i><span class='img-spa'><img src='"+data['img_url']+"'></span></li>";
                   if($("#img_box li[class!='add-link']").length >0 ){
                     $($("#img_box li[class!='add-link']:last")).after(insert_html);
                   }else{
