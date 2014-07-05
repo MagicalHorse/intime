@@ -423,23 +423,21 @@
           <% if (product_id = params[:product_id]).present? %>
             var product_id = "<%= product_id %>"
             quantity = $("#count0").val()
-            if(quantity != "1"){
-              $("#loading-box").modal()
-              setTimeout(function(){
-                $.get("<%= totalamount_ims_orders_path %>", {quantity: quantity, product_id: product_id}, function(data){
-                  if(data["status"] == true){
-                    modal_doc.modal("hide")
-                    $("#loading-box").modal("hide")
-                    $("#totalamount").val(data["totalamount"])
-                    $("input[name='order[products][][quantity]']").val(data["totalquantity"])
-                    $("#totalamount_text i").text("￥"+data["totalamount"])
-                    // $("#loading-box").modal("hide")
-                  }else{
-                    modal_doc.modal("hide")
-                  }
-                }, "json")
-              }, 10)
-            }
+            $("#loading-box").modal()
+            setTimeout(function(){
+              $.get("<%= totalamount_ims_orders_path %>", {quantity: quantity, product_id: product_id}, function(data){
+                if(data["status"] == true){
+                  modal_doc.modal("hide")
+                  $("#loading-box").modal("hide")
+                  $("#totalamount").val(data["totalamount"])
+                  $("input[name='order[products][][quantity]']").val(data["totalquantity"])
+                  $("#totalamount_text i").text("￥"+data["totalamount"])
+                  // $("#loading-box").modal("hide")
+                }else{
+                  modal_doc.modal("hide")
+                }
+              }, "json")
+            }, 10)
             selected_doc.append("<span class='pull-right'>数量: "+quantity+"</span>")
           <% else %>
             modal_doc.modal("hide")
