@@ -37,7 +37,6 @@
   <%= render 'ims/shared/empty' %>
   <% else %>
   <%= render 'list' %>
-  <div id="loading" class="text-center"></div>
   <% end %>
   <div class="intime-btm intime-btm-index">
     <%= image_tag "ims/intime-btm.png" %>
@@ -115,6 +114,7 @@
 
     if(scrollTop+clientHeight == htmlHeight){
       if(page * per_page < count){
+        $("#bottom-loading-box").modal();
         $("#loading").html('<%= image_tag "ims/loading.gif" %>');
         $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
           if(data["status"] == true){
@@ -122,8 +122,8 @@
             $("#count").attr("value", data["count"])
             $("#page").attr("value", data["page"])
             $("#per_page").attr("value", data["per_page"])
-            $("#loading").html("");
           }
+          $("#bottom-loading-box").modal("hide");
         }, "json")
       }
     }

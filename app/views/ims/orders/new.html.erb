@@ -403,7 +403,6 @@
       selected_doc = $("#selected_color_size"+index)
       if($(".order_product_form").valid()){
         if(modal_doc.find(".salecolors li.active").length > 0 && modal_doc.find(".sizes li.active").length > 0){
-          modal_doc.modal("hide")
           change_color_value(modal_doc, index)
           change_size_value(modal_doc, index)
           var color = jQuery.trim($("#colorvaluename"+index).val())
@@ -424,22 +423,29 @@
           <% if (product_id = params[:product_id]).present? %>
             var product_id = "<%= product_id %>"
             quantity = $("#count0").val()
-            if(quantity != "1"){
+            $("#loading-box").modal()
+            setTimeout(function(){
               $.get("<%= totalamount_ims_orders_path %>", {quantity: quantity, product_id: product_id}, function(data){
                 if(data["status"] == true){
+                  modal_doc.modal("hide")
+                  $("#loading-box").modal("hide")
                   $("#totalamount").val(data["totalamount"])
                   $("input[name='order[products][][quantity]']").val(data["totalquantity"])
                   $("#totalamount_text i").text("￥"+data["totalamount"])
+                  // $("#loading-box").modal("hide")
+                }else{
+                  modal_doc.modal("hide")
                 }
               }, "json")
-            }
+            }, 10)
             selected_doc.append("<span class='pull-right'>数量: "+quantity+"</span>")
+          <% else %>
+            modal_doc.modal("hide")
           <% end %>
         }else{
           error_modal("尺码和颜色必选")
         }
       }
-
       // modal_doc.find(".close").trigger("click")
       // modal_doc.modal("hide")
     })

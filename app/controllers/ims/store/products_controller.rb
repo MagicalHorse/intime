@@ -119,7 +119,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     @title = "商品搜索"
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
     @search = ::Product.es_search(per_page: params[:per_page] || 9, page: params[:page], from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"])
-    @products = @search[:data].group_by{|obj| obj["createdDate"].to_date}.values
+    # @products = @search[:data].group_by{|obj| obj["createdDate"].to_date}.values
+    @products = @search[:data]
     @brands = Brand.es_search
     respond_to do |format|
       format.html{}
