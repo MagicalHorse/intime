@@ -47,7 +47,7 @@ IntimeService::Application.configure do
    config.action_controller.asset_host = "http://irss.intime.com.cn/ims"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-   config.assets.precompile += %w( ims/card.css ims/slidernav.css)
+   config.assets.precompile += %w( ims/card.css ims/slidernav.css ims/slidernav.js)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
