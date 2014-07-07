@@ -1,6 +1,7 @@
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
 
+<%= link_to_icon "fa fa-arrow-up", '', "#content", class: "return-top-link", style: "display:none;" %>
 
 <div class="wrap-inner search_combo_wrap_inner" id="content">
 
@@ -48,6 +49,19 @@
 <%= hidden_field_tag "per_page", @search[:per_page] %>
 
 <script type="text/javascript">
+
+  $(window).scroll(function () {
+    if ($(window).scrollTop() > 400) {
+      $(".return-top-link").fadeIn();
+    }
+    else if ($(window).scrollTop() == 0) {
+      $(".return-top-link").fadeOut();
+    }
+  })
+
+  $(".return-top-link").click(function () {
+    $(this).fadeOut();
+  })
 
   $(".select_store_id").on("click", function(){
     $("#store_id").trigger("click")
