@@ -96,7 +96,9 @@
     <div class="controls-defined defined-small">
       <label class="col-3 text-left">促销活动：</label>
       <div class="col-9">
-        <%= f.radio_button :has_discount, false %>无 &nbsp;&nbsp;&nbsp;&nbsp; <%= f.radio_button :has_discount, true %>有
+        <%= f.radio_button :has_discount, false %>无
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <%= f.radio_button :has_discount, true %>有
       </div>
     </div>
     <div id="promotion" style="<%= @combo.has_discount? ? 'display:block' : 'display:none'  %>">
@@ -112,7 +114,9 @@
     <div class="controls-defined defined-small">
       <label class="col-3 text-left">全网公开：</label>
       <div class="col-9">
-        <%= f.radio_button :is_public, false %>是&nbsp;&nbsp;&nbsp;&nbsp;<%= f.radio_button :is_public, true %>否
+        <%= f.radio_button :is_public, false %>是
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <%= f.radio_button :is_public, true %>否
       </div>
     </div>
 </div>
