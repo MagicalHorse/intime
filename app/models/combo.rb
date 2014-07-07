@@ -94,7 +94,7 @@ class Combo < ActiveRecord::Base
           json.child! do
             json.range do
               json.expireDate do
-                json.gt Time.now.strftime('%Y-%m-%d')
+                json.gt Time.now
               end
             end
           end
