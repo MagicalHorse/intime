@@ -1,11 +1,11 @@
-<% if (is_iphone = request.user_agent.downcase.include?("iphone")) %>
+<% if @is_iphone %>
 <style type="text/css">
 
 #wrapper {
   position: absolute;
   z-index: 1;
   top: 50px;
-  bottom: 48px;
+  bottom: 0px;
   overflow: hidden;
 }
 
@@ -141,7 +141,7 @@
 
 
 
-  <% if is_iphone %>
+  <% if @is_iphone %>
   var myScroll;
 
   function loaded () {
