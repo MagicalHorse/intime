@@ -114,9 +114,9 @@
     <div class="controls-defined defined-small">
       <label class="col-3 text-left">全网公开：</label>
       <div class="col-9" style="<%= 'margin-top: 6px;' if request_iphone %>">
-        <%= f.radio_button :is_public, false %>是
+        <%= f.radio_button :is_public, false %>否
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <%= f.radio_button :is_public, true %>否
+        <%= f.radio_button :is_public, true %>是
       </div>
     </div>
 </div>
@@ -228,6 +228,9 @@
       });
     }
 
+    $("input[name='combo[has_discount]'], input[name='combo[is_public]']").on("change", function(){
+      update_desc();
+    })
 
     $("#combo_desc").blur(function(){
       update_desc();

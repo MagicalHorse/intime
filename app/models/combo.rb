@@ -7,6 +7,8 @@ class Combo < ActiveRecord::Base
   has_many :combo_pics
   has_many :combo_products
 
+  default_value_for :is_public, false
+
   def api_attrs
   	 {
   	 	:desc => desc,
