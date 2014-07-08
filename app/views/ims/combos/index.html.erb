@@ -1,3 +1,17 @@
+<% if (is_iphone = request.user_agent.downcase.include?("iphone")) %>
+<style type="text/css">
+
+#wrapper {
+  position: absolute;
+  z-index: 1;
+  top: 50px;
+  bottom: 48px;
+  overflow: hidden;
+}
+
+</style>
+<% end %>
+
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
 
@@ -32,16 +46,24 @@
     </div>
   </div>
 
-  <%= render 'ims/shared/countdown' %>
 
-  <% if @combos.count == 0 %>
-  <%= render 'ims/shared/empty' %>
-  <% else %>
-  <%= render 'list' %>
-  <% end %>
-  <div class="intime-btm intime-btm-index">
-    <%= image_tag "ims/intime-btm.png" %>
+  <div id="wrapper">
+    <div id="scroller">
+
+    <%= render 'ims/shared/countdown' %>
+
+    <% if @combos.count == 0 %>
+    <%= render 'ims/shared/empty' %>
+    <% else %>
+    <%= render 'list' %>
+    <% end %>
+    <div class="intime-btm intime-btm-index">
+      <%= image_tag "ims/intime-btm.png" %>
+    </div>
+
+    </div>
   </div>
+
 </div>
 
 <%= hidden_field_tag "count", @search[:count] %>
@@ -175,3 +197,4 @@
       });
   }, false)
 </script>
+
