@@ -5,6 +5,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   #新建组合
   def new
     @combo = ::Combo.find_by_id(params[:combo_id]) || @combo = ::Combo.create
+    @request_iphone = request.user_agent.downcase.include?("iphone")
     @title = "新建组合"
   end
 

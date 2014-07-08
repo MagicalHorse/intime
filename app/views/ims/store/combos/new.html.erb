@@ -95,7 +95,7 @@
 
     <div class="controls-defined defined-small">
       <label class="col-3 text-left">促销活动：</label>
-      <div class="col-9" style="<%= 'margin-top: 6px;' if (request_iphone = request.user_agent.downcase.include?("iphone")) %>">
+      <div class="col-9" style="<%= 'margin-top: 6px;' if @request_iphone %>">
         <%= f.radio_button :has_discount, false %>无
         &nbsp;&nbsp;&nbsp;&nbsp;
         <%= f.radio_button :has_discount, true %>有
@@ -113,7 +113,7 @@
 
     <div class="controls-defined defined-small">
       <label class="col-3 text-left">全网公开：</label>
-      <div class="col-9" style="<%= 'margin-top: 6px;' if request_iphone %>">
+      <div class="col-9" style="<%= 'margin-top: 6px;' if @request_iphone %>">
         <%= f.radio_button :is_public, false %>否
         &nbsp;&nbsp;&nbsp;&nbsp;
         <%= f.radio_button :is_public, true %>是
