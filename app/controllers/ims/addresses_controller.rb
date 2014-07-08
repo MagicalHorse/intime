@@ -19,7 +19,7 @@ class Ims::AddressesController < Ims::BaseController
       appid: Settings.wx.appid,
       noncestr: @nonceStr_val,
       timestamp: @timeStamp_val,
-      url: request.original_url
+      url: request.referer || request.original_url
     }
     string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
     @addrSign_val = Digest::SHA1.hexdigest(string1)
