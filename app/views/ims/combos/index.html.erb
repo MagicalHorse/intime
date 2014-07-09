@@ -16,7 +16,7 @@
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
 
-<%= link_to_icon "fa fa-arrow-up", '', "#content", class: "return-top-link", style: "display:none;" %>
+<%= link_to_icon "fa fa-arrow-up", '', "#content", class: "return-top-link", style: "display: none;" %>
 
 <div class="wrap-inner search_combo_wrap_inner" id="content">
 
@@ -161,6 +161,12 @@
       mouseWheel: true
     });
     myScroll.on('scrollEnd', function() {
+      if (this.y <= -400) {
+        $(".return-top-link").fadeIn();
+      }
+      else if (this.y > -400) {
+        $(".return-top-link").fadeOut();
+      }
       if(this.y <= this.maxScrollY){
         load_combos(this)
       }
