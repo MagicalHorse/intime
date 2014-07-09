@@ -152,17 +152,12 @@
 
   <% if @is_iphone %>
 
-  function iScrollClick() {
-    if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) return true;
-  }
-
-
   var myScroll;
 
   function loaded () {
     myScroll = new IScroll('#wrapper', {
       probeType: 3,
-      click: iScrollClick(),
+      click: true,
       mouseWheel: true
     });
     myScroll.on('scrollEnd', function() {
