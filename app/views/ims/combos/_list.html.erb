@@ -18,7 +18,7 @@
     <div class="clearfix countdown-browser">
       <p class="pull-left price-box">
         <span class="txt3 price price-span">
-          打包价：<em>¥<%= BigDecimal(combo["price"].to_s) - BigDecimal(combo["discountAmount"].to_s) %></em>
+          打包价：<em>¥<%= combo["isInPromotion"] ? (BigDecimal(combo["price"].to_s) - BigDecimal(combo["discountAmount"].to_s)) : combo["price"] %></em>
         </span>
       </p>
       <p class="pull-left price-box">
