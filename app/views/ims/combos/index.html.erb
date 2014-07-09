@@ -141,12 +141,28 @@
 
 
 
+  $(document).on("click", ".add_loading", function(){
+    url = $(this).attr("value")
+    $("#loading-box").modal();
+    setTimeout(function(){
+      window.location.href = url
+    }, 1)
+  });
+
+
   <% if @is_iphone %>
+
+  function iScrollClick() {
+    if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)) return true;
+  }
+
+
   var myScroll;
 
   function loaded () {
     myScroll = new IScroll('#wrapper', {
       probeType: 3,
+      click: iScrollClick(),
       mouseWheel: true
     });
     myScroll.on('scrollEnd', function() {

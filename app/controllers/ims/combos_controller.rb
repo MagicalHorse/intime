@@ -13,7 +13,7 @@ class Ims::CombosController < Ims::BaseController
   end
 
   def index
-    @is_iphone = request.user_agent.downcase.include?("iphone")
+    @is_iphone = request.user_agent.match(/iphone|ipad|ipod/i).to_s.present?
     @search = ::Combo.es_search(store_id: [params[:store_id], params[:default_store_id]].find{|store_id| store_id.present?}, keywords: params[:keywords], page: params[:page], per_page: params[:per_page])
     @combos = @search[:data]
     @stores = ::Store.es_search
