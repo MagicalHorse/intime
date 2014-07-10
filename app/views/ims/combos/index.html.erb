@@ -74,6 +74,41 @@
 
 <script type="text/javascript">
 
+  <% if @is_iphone %>
+
+  var myScroll;
+
+  function loaded () {
+    myScroll = new IScroll('#wrapper', {
+      probeType: 3,
+      click: true,
+      mouseWheel: true
+    });
+    myScroll.on('scrollEnd', function() {
+      if (this.y <= -400) {
+        $(".return-top-link").fadeIn();
+      }
+      else if (this.y > -400) {
+        $(".return-top-link").fadeOut();
+      }
+      if(this.y <= this.maxScrollY){
+        load_combos(this)
+      }
+    });
+
+    $(".return-top-link").click(function() {
+      <% if @is_iphone %>
+        myScroll.scrollTo(0, 0)
+      <% end %>
+    })
+  }
+
+  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+  window.addEventListener("DOMContentLoaded",loaded,false);
+
+  <% end %>
+
   $(window).scroll(function () {
     if ($(window).scrollTop() > 400) {
       $(".return-top-link").fadeIn();
@@ -83,7 +118,7 @@
     }
   })
 
-  $(".return-top-link").click(function () {
+  $(".return-top-link").click(function() {
     $(this).fadeOut();
   })
 
@@ -149,36 +184,6 @@
       window.location.href = url
     }, 1)
   });
-
-
-  <% if @is_iphone %>
-
-  var myScroll;
-
-  function loaded () {
-    myScroll = new IScroll('#wrapper', {
-      probeType: 3,
-      click: true,
-      mouseWheel: true
-    });
-    myScroll.on('scrollEnd', function() {
-      if (this.y <= -400) {
-        $(".return-top-link").fadeIn();
-      }
-      else if (this.y > -400) {
-        $(".return-top-link").fadeOut();
-      }
-      if(this.y <= this.maxScrollY){
-        load_combos(this)
-      }
-    });
-  }
-
-  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-
-  window.addEventListener("DOMContentLoaded",loaded,false);
-
-  <% end %>
 
   $(window).scroll(function(){
     var htmlHeight=document.body.scrollHeight
