@@ -9,13 +9,15 @@
               <%= image_tag Combo.img_url(combo) %>
             </a>
 
-            <p><a href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>"><%= sanitize format_text(combo["desc"]) %></a></p>
+            <p class="combo_text">
+              <a href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>"><%= sanitize format_text(combo["desc"]) %></a>
+            </p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="clearfix countdown-browser">
+    <div class="clearfix countdown-browser combo_text">
       <p class="pull-left price-box">
         <span class="txt3 price price-span">
           打包价：<em>¥<%= combo["isInPromotion"] ? (BigDecimal(combo["price"].to_s) - BigDecimal(combo["discountAmount"].to_s)) : combo["price"] %></em>
