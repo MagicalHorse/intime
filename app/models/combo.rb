@@ -31,7 +31,7 @@ class Combo < ActiveRecord::Base
       resource.try(:[], :name).present?
     end
     if resource.present?
-      img_url = [PIC_DOMAIN, resource['name'], "_640x0.jpg"].join('')
+      img_url = [PIC_DOMAIN, resource['name'], "_320x0.jpg"].join('')
     else
       Settings.default_image_url.product.middle
     end
