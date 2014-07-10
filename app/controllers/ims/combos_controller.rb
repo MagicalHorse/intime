@@ -1,5 +1,6 @@
 # encoding: utf-8
 class Ims::CombosController < Ims::BaseController
+  skip_after_filter :set_no_cache, :only=>[:index]
   layout "store"
 
   def show
