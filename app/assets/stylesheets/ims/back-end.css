@@ -189,8 +189,6 @@
 .module-searchinput .search-form-defined input{ margin-bottom: 0; font: 14px/1.4em "microsoft yahei"; }
 
 #search_combo {
-  position: fixed;
-  top: 0;
   width: 580px;
   z-index: 1000;
 }
