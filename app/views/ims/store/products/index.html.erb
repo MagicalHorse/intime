@@ -63,6 +63,7 @@
   <script>
     $(function(){
 
+      <% if @combo.present? %>
       var myScroll;
 
       myScroll = new IScroll('#wrapper', {
@@ -82,7 +83,7 @@
 
       window.addEventListener("DOMContentLoaded",loaded,false);
 
-
+      <% end %>
 
 
       $("#combo_submit").on("click", function(){
