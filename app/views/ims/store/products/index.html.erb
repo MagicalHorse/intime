@@ -65,13 +65,15 @@
 
       var myScroll;
 
+      myScroll = new IScroll('#wrapper', {
+        click: true,
+        mouseWheel: true,
+        scrollX: true,
+        scrollY: false
+      });
+
       function loaded () {
-        myScroll = new IScroll('#wrapper', {
-          click: true,
-          mouseWheel: true,
-          scrollX: true,
-          scrollY: false
-        });
+        myScroll
       }
 
       // if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)){
@@ -106,6 +108,7 @@
             $("#selected_products").show()
             this_ele.replaceWith(link)
             $("#selected_products ul").append(li)
+            myScroll.refresh()
             // format_img(".img-spa");
           }else{
             error_modal(data["message"])
