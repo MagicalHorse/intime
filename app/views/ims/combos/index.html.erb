@@ -16,7 +16,7 @@
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
 
-<%= link_to_icon "fa fa-arrow-up", '', "#content", class: "return-top-link", style: "display: none;" %>
+<%= link_to_icon "fa fa-arrow-up", '', "javascript:void(0);", class: "return-top-link", style: "display: none;" %>
 
 <div class="wrap-inner " id="content">
 
@@ -96,6 +96,8 @@
     });
 
     $(".return-top-link").click(function() {
+      $('html,body').animate({scrollTop:0}, 500);
+      return false;
       <% if @is_iphone %>
         myScroll.scrollTo(0, 0)
       <% end %>
@@ -119,6 +121,8 @@
 
   $(".return-top-link").click(function() {
     $(this).fadeOut();
+    $('html,body').animate({scrollTop:0}, 500);
+    return false;
   })
 
   $(".select_store_id").on("click", function(){
