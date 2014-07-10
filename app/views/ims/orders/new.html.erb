@@ -178,7 +178,7 @@
 
 
   <% end %>
-      <div class="module common-white" id="address_doc" value="<%= ims_addresses_path(redirect_url: request.fullpath, origin_address_id: params[:address_id]) %>">
+      <div class="module common-white" id="address_doc" value="<%= ims_addresses_path(redirect_url: request.fullpath) %>">
          <div class="module-title2">
            <div class="row-fluid">
              <div class="span4"><h3>地址</h3></div>
@@ -355,9 +355,10 @@
 
 
     $("#address_doc").on("click", function(){
+      address_id = $(this).attr("address_id")
       $("#loading-box").modal()
       setTimeout(function(){
-        $.get("<%= ims_addresses_path %>", {}, function(data){
+        $.get("<%= ims_addresses_path %>", {address_id: address_id}, function(data){
           $("#new_order_page").hide()
           $("#address_page").html(data["html"])
           $("#address_page").show()

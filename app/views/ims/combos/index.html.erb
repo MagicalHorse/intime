@@ -1,3 +1,18 @@
+<% if @is_iphone %>
+<style type="text/css">
+
+#wrapper {
+  position: absolute;
+  z-index: 1;
+  top: 50px;
+  bottom: 0px;
+  overflow: hidden;
+}
+
+</style>
+<% end %>
+
+
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
 
@@ -32,16 +47,24 @@
     </div>
   </div>
 
-  <%= render 'ims/shared/countdown' %>
 
-  <% if @combos.count == 0 %>
-  <%= render 'ims/shared/empty' %>
-  <% else %>
-  <%= render 'list' %>
-  <% end %>
-  <div class="intime-btm intime-btm-index">
-    <%= image_tag "ims/intime-btm.png" %>
+  <div id="wrapper">
+    <div id="scroller">
+
+    <%= render 'ims/shared/countdown' %>
+
+    <% if @combos.count == 0 %>
+    <%= render 'ims/shared/empty' %>
+    <% else %>
+    <%= render 'list' %>
+    <% end %>
+    <div class="intime-btm intime-btm-index">
+      <%= image_tag "ims/intime-btm.png" %>
+    </div>
+
+    </div>
   </div>
+
 </div>
 
 <%= hidden_field_tag "count", @search[:count] %>
@@ -117,32 +140,60 @@
   });
 
 
+
+  <% if @is_iphone %>
+  var myScroll;
+
+  function loaded () {
+    myScroll = new IScroll('#wrapper', {
+      probeType: 3,
+      mouseWheel: true
+    });
+    myScroll.on('scrollEnd', function() {
+      if(this.y <= this.maxScrollY){
+        load_combos(this)
+      }
+    });
+  }
+
+  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+  window.addEventListener("DOMContentLoaded",loaded,false);
+
+  <% end %>
+
   $(window).scroll(function(){
     var htmlHeight=document.body.scrollHeight
-    var clientHeight=document.body.clientHeight
-    var scrollTop=document.body.scrollTop
+    var clientHeight=document.body.clientHeight  // 屏幕高度
+    var scrollTop=document.body.scrollTop   // 滚轮高度
+    if(scrollTop+clientHeight == htmlHeight){
+      load_combos("myScroll")
+    }
+
+  })
+
+  function load_combos(myScroll){
     var count = parseInt($("#count").attr("value"))
     var page = parseInt($("#page").attr("value"))
     var per_page = parseInt($("#per_page").attr("value"))
 
-
-    if(scrollTop+clientHeight == htmlHeight){
-      if(page * per_page < count){
-        $("#bottom-loading-box").modal();
-        $("#loading").html('<%= image_tag "ims/loading.gif" %>');
-        $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
-          if(data["status"] == true){
-            $(".paginate-content:last").after(data["html"])
-            $("#count").attr("value", data["count"])
-            $("#page").attr("value", data["page"])
-            $("#per_page").attr("value", data["per_page"])
+    if(page * per_page < count){
+      $("#bottom-loading-box").modal();
+      $("#loading").html('<%= image_tag "ims/loading.gif" %>');
+      $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
+        if(data["status"] == true){
+          $(".paginate-content:last").after(data["html"])
+          $("#count").attr("value", data["count"])
+          $("#page").attr("value", data["page"])
+          $("#per_page").attr("value", data["per_page"])
+          if($.type(myScroll) != "string"){
+            myScroll.refresh()
           }
-          $("#bottom-loading-box").modal("hide");
-        }, "json")
-      }
+        }
+        $("#bottom-loading-box").modal("hide");
+      }, "json")
     }
-
-  })
+  }
 
 </script>
 
@@ -175,3 +226,4 @@
       });
   }, false)
 </script>
+
