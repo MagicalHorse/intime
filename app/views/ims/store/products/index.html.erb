@@ -33,12 +33,12 @@
   <div class="row-fluid">
     <div class="span8 bottom-mini-imgbox">
     <div id="wrapper">
-      <div id="scroller">
+      <div id="scroller" class="bottom-box">
 
       <ul id="img_box" class="inline clearfix">
         <% @combo.combo_products.each do |combo_product| %>
         <li class="add-link" combo_product_id="<%= combo_product.id %>" product_id="<%= combo_product.remote_id %>">
-          <span class="img-spa" style="height: 70px; width: 70px;line-height: 70px;">
+          <span class="img-spa" style="height: 50px; width: 50px;line-height: 50px;">
             <img src="<%= combo_product.img_url %>">
           </span>
         </li>
@@ -49,7 +49,7 @@
 
     </div>
     <div class="span4">
-      <button id="combo_submit" type="button" class="btn btn-small btn-danger text-center fixed-button" value="<%= new_ims_store_combo_path(combo_id: @combo.try(:id)) %>" style="right:10px; bottom:35px;z-index: 2;">确定</button>
+      <button id="combo_submit" type="button" class="btn btn-small btn-danger text-center fixed-button" value="<%= new_ims_store_combo_path(combo_id: @combo.try(:id)) %>" style="right:10px; bottom:15px;z-index: 2;">确定</button>
     </div>
   </div>
 </div>
@@ -104,7 +104,7 @@
         link = '<a product_id="' + product_id + '" class="btn btn-grey btn-mini btn-select button-select" href="javascript:void(0);">已选</a>'
         $.get("/ims/store/products/" + product_id + "/add_to_combo", {product_type: product_type, combo_id: combo_id}, function(data){
           if(data["status"] == true){
-            li = "<li class='add-link' combo_product_id='"+data["id"]+"' product_id='"+product_id+"'><span class='img-spa' style='height: 70px; width: 70px;line-height: 70px;''><img src='"+src+"'></span></li>"
+            li = "<li class='add-link' combo_product_id='"+data["id"]+"' product_id='"+product_id+"'><span class='img-spa' style='height: 50px; width: 50px;line-height: 50px;''><img src='"+src+"'></span></li>"
             $("#selected_products").show()
             this_ele.replaceWith(link)
             $("#selected_products ul").append(li)
