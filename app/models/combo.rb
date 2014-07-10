@@ -65,7 +65,7 @@ class Combo < ActiveRecord::Base
               end
 
               json.child! do
-                json.term do
+                json.match do
                   json.associateName keywords
                 end
               end
@@ -77,7 +77,7 @@ class Combo < ActiveRecord::Base
               end
 
               json.child! do
-                json.term do
+                json.match do
                   json.set! "brands.name", keywords
                 end
               end
