@@ -22,7 +22,7 @@
 
 
 .bottom-mini-imgbox ul{margin: 0; list-style: none; width: 100%；}
-.bottom-mini-imgbox ul li{ position: relative; float: left; margin:0 5px 5px 5px; padding: 0; font-size: 1px; width: 14%; text-align: center;}
+.bottom-mini-imgbox ul li{ position: relative; float: left; margin:0 5px 5px 5px; padding: 0; font-size: 1px; width: 50px; text-align: center;}
 .bottom-mini-imgbox ul li:last-child{ margin-right: 0;}
 .bottom-mini-imgbox ul li .img-spa{ font-size: 1px; overflow: hidden; text-align: center;}
 .bottom-mini-imgbox ul li i{ position: absolute;left: -4%; top: -20%;display:block; width: 28px; height: 28px; background-position: center center; background-repeat: no-repeat; background-size: 24px auto;}
@@ -189,8 +189,6 @@
 .module-searchinput .search-form-defined input{ margin-bottom: 0; font: 14px/1.4em "microsoft yahei"; }
 
 #search_combo {
-  position: fixed;
-  top: 0;
   width: 580px;
   z-index: 1000;
 }

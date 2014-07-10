@@ -10,8 +10,6 @@
       </div>
     </div>
   </div>
-  <div id="loading" class="text-center">
-  </div>
 </div>
 
 <%= hidden_field_tag "count", @search[:data][:totalcount] %>
@@ -33,14 +31,14 @@
 
         if(scrollTop+clientHeight == htmlHeight){
           if(page * per_page < count){
-            $("#loading").html('<%= image_tag "ims/loading.gif" %>');
+            $("#bottom-loading-box").modal()
             $.get("/ims/store/incomes/frozen", {page: page + 1, per_page: per_page}, function(data){
               if(data["status"] == true){
                 $(".paginate-content:last").after(data["html"])
                 $("#count").attr("value", data["count"])
                 $("#page").attr("value", data["page"])
                 $("#per_page").attr("value", data["per_page"])
-                $("#loading").html("");
+                $("#bottom-loading-box").modal("hide")
               }
             }, "json")
           }

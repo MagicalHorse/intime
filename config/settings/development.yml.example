@@ -37,5 +37,7 @@ elasticsearch_url: "http://218.244.139.79:9200"
 
 mini_alipay:
   seller_account: 'maoym@intime.com.cn'
-  partner_id: 2088011888580823
-  md5_key: n4q74v8r3bnhzsbthx0yf3g1ama9mntm
+  # partner_id: 2088011888580823
+  # md5_key: n4q74v8r3bnhzsbthx0yf3g1ama9mntm
+  partner_id: 2088101568358171
+  md5_key: uxt01uurwxvstkxpmleeok76ezicp8k4

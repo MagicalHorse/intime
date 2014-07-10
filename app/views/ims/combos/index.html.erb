@@ -16,9 +16,9 @@
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
 
-<%= link_to_icon "fa fa-arrow-up", '', "#content", class: "return-top-link", style: "display:none;" %>
+<%= link_to_icon "fa fa-arrow-up", '', "javascript:void(0);", class: "return-top-link", style: "display: none;" %>
 
-<div class="wrap-inner search_combo_wrap_inner" id="content">
+<div class="wrap-inner " id="content">
 
   <div id="search_combo" class="module module-searchinput">
     <div class="row-fluid">
@@ -27,7 +27,7 @@
           <div class="controls-defined defined-small">
             <% if @default_store.blank? %>
               <div class="col-3">
-                <%= select_tag "store_id", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}, @store.try(:[], :id)), prompt: "选择店铺", style: "opacity: 0.01; position: absolute; left: 0; top: 0; width: 25%; height: 100%;" %>
+                <%= select_tag "store_id", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}, @store.try(:[], :id)), prompt: "选择店铺", style: "opacity: 0.01; position: absolute; left: 0; top: 0; width: 25%; " %>
                 <a href="javascript:void(0)" id="store_selcet" class="btn btn-danger btn-small btn-block">筛选</i></a>
               </div>
             <% else %>
@@ -73,6 +73,43 @@
 
 <script type="text/javascript">
 
+  <% if @is_iphone %>
+
+  var myScroll;
+
+  function loaded () {
+    myScroll = new IScroll('#wrapper', {
+      probeType: 3,
+      click: true,
+      mouseWheel: true
+    });
+    myScroll.on('scrollEnd', function() {
+      if (this.y <= -400) {
+        $(".return-top-link").fadeIn();
+      }
+      else if (this.y > -400) {
+        $(".return-top-link").fadeOut();
+      }
+      if(this.y <= this.maxScrollY){
+        load_combos(this)
+      }
+    });
+
+    $(".return-top-link").click(function() {
+      $('html,body').animate({scrollTop:0}, 500);
+      return false;
+      <% if @is_iphone %>
+        myScroll.scrollTo(0, 0)
+      <% end %>
+    })
+  }
+
+  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+
+  window.addEventListener("DOMContentLoaded",loaded,false);
+
+  <% end %>
+
   $(window).scroll(function () {
     if ($(window).scrollTop() > 400) {
       $(".return-top-link").fadeIn();
@@ -82,8 +119,10 @@
     }
   })
 
-  $(".return-top-link").click(function () {
+  $(".return-top-link").click(function() {
     $(this).fadeOut();
+    $('html,body').animate({scrollTop:0}, 500);
+    return false;
   })
 
   $(".select_store_id").on("click", function(){
@@ -141,26 +180,13 @@
 
 
 
-  <% if @is_iphone %>
-  var myScroll;
-
-  function loaded () {
-    myScroll = new IScroll('#wrapper', {
-      probeType: 3,
-      mouseWheel: true
-    });
-    myScroll.on('scrollEnd', function() {
-      if(this.y <= this.maxScrollY){
-        load_combos(this)
-      }
-    });
-  }
-
-  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-
-  window.addEventListener("DOMContentLoaded",loaded,false);
-
-  <% end %>
+  $(document).on("click", ".add_loading", function(){
+    url = $(this).attr("value")
+    $("#loading-box").modal();
+    setTimeout(function(){
+      window.location.href = url
+    }, 1)
+  });
 
   $(window).scroll(function(){
     var htmlHeight=document.body.scrollHeight
@@ -187,7 +213,9 @@
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
           if($.type(myScroll) != "string"){
-            myScroll.refresh()
+            setTimeout(function(){
+              myScroll.refresh()
+            }, 500);
           }
         }
         $("#bottom-loading-box").modal("hide");

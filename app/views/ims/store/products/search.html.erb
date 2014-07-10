@@ -1,3 +1,22 @@
+<style type="text/css">
+
+#wrapper {
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  top: -56px;
+  bottom: 0px;
+  overflow: hidden;
+}
+
+
+#scroller {
+  position: absolute;
+  min-width: 150%;
+}
+
+</style>
+
 
 <div class="wrap-inner back-wrap-inner">
 <div class="module module-searchinput">
@@ -72,18 +91,22 @@
 <div id="selected_products" class="bottom-box" style="<%= @combo.combo_products.count.zero? ? 'display:none;' : 'display: block;' %>">
   <div class="row-fluid">
     <div class="span8 bottom-mini-imgbox">
-      <ul id="img_box" class="inline clearfix">
-        <% @combo.combo_products.each do |combo_product| %>
-        <li class="add-link" combo_product_id="<%= combo_product.id %>" product_id="<%= combo_product.remote_id %>">
-          <span class="img-spa">
-            <img src="<%= combo_product.img_url %>">
-          </span>
-        </li>
-        <% end %>
-      </ul>
+      <div id="wrapper">
+        <div id="scroller" class="bottom-box">
+          <ul id="img_box" class="inline clearfix">
+            <% @combo.combo_products.each do |combo_product| %>
+            <li class="add-link" combo_product_id="<%= combo_product.id %>" product_id="<%= combo_product.remote_id %>">
+              <span class="img-spa" style="height: 50px; width: 50px;line-height: 50px;">
+                <img src="<%= combo_product.img_url %>">
+              </span>
+            </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="span4">
-      <button id="combo_submit" type="button" class="btn btn-small btn-danger text-center fixed-button" value="<%= new_ims_store_combo_path(combo_id: @combo.try(:id)) %>">确定</button>
+      <button id="combo_submit" type="button" class="btn btn-small btn-danger text-center fixed-button" value="<%= new_ims_store_combo_path(combo_id: @combo.try(:id)) %>" style="right:10px; bottom:15px;z-index: 2;">确定</button>
     </div>
   </div>
 </div>
@@ -103,7 +126,27 @@
 <script type="text/javascript">
   $(function(){
 
-    $(".fixed-button").attr("style", "right:10px;")
+
+    var myScroll;
+
+    myScroll = new IScroll('#wrapper', {
+      click: true,
+      mouseWheel: true,
+      scrollX: true,
+      scrollY: false
+    });
+
+    function loaded () {
+      myScroll
+    }
+
+    // if (/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)){
+    //   document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    // }
+
+    window.addEventListener("DOMContentLoaded",loaded,false);
+
+
 
     $("#combo_submit").on("click", function(){
       $("#loading-box").modal()
@@ -124,18 +167,19 @@
       link = '<a product_id="' + product_id + '" class="btn btn-grey btn-mini btn-block" href="javascript:void(0);">已选择</a>'
       $.get("/ims/store/products/" + product_id + "/add_to_combo", {product_type: product_type, combo_id: combo_id}, function(data){
         if(data["status"] == true){
-          li = "<li class='add-link' combo_product_id='"+data["id"]+"' product_id='"+product_id+"'><span class='img-spa'><img src='"+src+"'></span></li>"
+          li = "<li class='add-link' combo_product_id='"+data["id"]+"' product_id='"+product_id+"'><span class='img-spa'  style='height: 50px; width: 50px;line-height: 50px;'><img src='"+src+"'></span></li>"
           $("#selected_products").show()
           this_ele.replaceWith(link)
           $("#selected_products ul").append(li)
-          format_img(".img-spa");
+          myScroll.refresh()
+          // format_img(".img-spa");
         }else{
           error_modal(data["message"])
         }
       }, "json")
     })
 
-    format_img(".img-spa");
+    // format_img(".img-spa");
 
 
     $(document).on("click", "#img_box li .img-spa", function(){
