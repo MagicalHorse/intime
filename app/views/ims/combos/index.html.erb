@@ -61,6 +61,7 @@
     <div class="intime-btm intime-btm-index">
       <%= image_tag "ims/intime-btm.png" %>
     </div>
+    <div>&nbsp;</div>
 
     </div>
   </div>
@@ -204,7 +205,9 @@
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
           if($.type(myScroll) != "string"){
-            myScroll.refresh()
+            setTimeout(function(){
+              myScroll.refresh()
+            }, 100);
           }
         }
         $("#bottom-loading-box").modal("hide");
