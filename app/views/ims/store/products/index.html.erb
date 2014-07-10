@@ -20,8 +20,6 @@
 <div class="wrap-inner back-wrap-inner">
   <% if @products.present? %>
     <%= render "list", products: @products, combo: @combo %>
-    <div id="loading" class="text-center">
-    </div>
   <% else %>
     <%= render 'ims/shared/empty' %>
   <% end %>
@@ -153,14 +151,14 @@
 
         if(scrollTop+clientHeight == htmlHeight){
           if(page * per_page < count){
-            $("#loading").html('<%= image_tag "ims/loading.gif" %>');
+            $("#bottom-loading-box").modal()
             $.get("/ims/store/products", {combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
               if(data["status"] == true){
                 $(".paginate-content:last").after(data["html"])
                 $("#count").attr("value", data["count"])
                 $("#page").attr("value", data["page"])
                 $("#per_page").attr("value", data["per_page"])
-                $("#loading").html("");
+                $("#bottom-loading-box").modal("hide")
               }
             }, "json")
           }

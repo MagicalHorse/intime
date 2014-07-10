@@ -16,7 +16,6 @@
               <%= render 'ims/shared/empty' %>
               <% end %>
             </table>
-            <div id="loading" class="text-center"></div>
           </div>
         </div>
       </div>
@@ -37,12 +36,12 @@
       var page = parseInt($("#page").attr("value"))
 
       if(scrollTop+clientHeight == htmlHeight){
-        $("#loading").html('<%= image_tag "ims/loading.gif" %>');
+        $("#bottom-loading-box").modal()
         $.get("/ims/card_orders/my_list", {page: page + 1}, function(data){
           if(data["status"] == true){
             $(".paginate-content:last").after(data["html"])
             $("#page").attr("value", data["page"])
-            $("#loading").html("");
+            $("#bottom-loading-box").modal("hide")
           }
         }, "json")
       }
