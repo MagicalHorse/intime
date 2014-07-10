@@ -48,7 +48,7 @@ elasticache:
   port:  '11211'
   username: '26497daec78911e3'
   password: 'selinadu_123'
-  
+
 
 elasticsearch_url: "http://10.161.218.70:9200"
 fileserver_host: "http://irss.intime.com.cn/ims"
