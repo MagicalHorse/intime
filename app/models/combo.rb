@@ -59,6 +59,7 @@ class Combo < ActiveRecord::Base
             json.fields ['brands.name^2','associateName']
             json.query keywords
             json.use_dis_max true
+            json.minimum_should_match '75%'
           end
         end
       end
