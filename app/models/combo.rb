@@ -55,38 +55,10 @@ class Combo < ActiveRecord::Base
 
       if keywords.present?
         json.query do
-          json.bool do
-            json.should do
-
-              json.child! do
-                json.wildcard do
-                  json.associateName "*"+keywords+"*"
-                end
-              end
-
-              json.child! do
-                json.match do
-                  json.associateName keywords
-                end
-              end
-
-              json.child! do
-                json.wildcard do
-                  json.set! "brands.name", "*"+keywords+"*"
-                end
-              end
-
-              json.child! do
-                json.match do
-                  json.set! "brands.name", keywords
-                end
-              end
-
-            end
-
-
-            json.minimum_number_should_match 1
-            json.boost 1.0
+          json.query_string do
+            json.fields ['brands.name^2','associateName']
+            json.query keywords
+            json.use_dis_max true
           end
         end
       end
@@ -117,9 +89,10 @@ class Combo < ActiveRecord::Base
           end
         end
       end
-
-      json.sort do
-        json.createDate "desc"
+      if !keywords.present? 
+        json.sort do
+          json.createDate "desc"
+        end
       end
 
     end
