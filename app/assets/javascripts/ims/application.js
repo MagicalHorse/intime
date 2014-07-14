@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.ui.widget
 //= require bootstrap.min.js
+//= require ims/jquery.history.js
 //= require jquery.form.js
 //= require jquery.validate.js
 //= require jquery.metadata.js

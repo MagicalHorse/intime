@@ -1,18 +1,3 @@
-<% if @is_iphone %>
-<style type="text/css">
-
-#wrapper {
-  position: absolute;
-  z-index: 1;
-  top: 50px;
-  bottom: 0px;
-  overflow: hidden;
-}
-
-</style>
-<% end %>
-
-
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
 
@@ -73,9 +58,11 @@
 
 <script type="text/javascript">
 
-  <% if @is_iphone %>
-  	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-  <% end %>
+  var State = History.getState(),
+
+  if (State.data && State.data.content){
+    $(".paginate-content:last").after(State.data.content)
+  }
 
   $(window).scroll(function () {
     if ($(window).scrollTop() > 400) {
@@ -143,13 +130,13 @@
     if(height < 565){ height = 565; }
     $('#store_slider').sliderNav({arrows: false, height: height});
     $('#brand_slider').sliderNav({arrows: false, height: height});
-    
+
     $(window).scroll(function(){
     var htmlHeight=document.body.scrollHeight
     var clientHeight=document.body.clientHeight  // 屏幕高度
     var scrollTop=document.body.scrollTop   // 滚轮高度
     if(scrollTop+clientHeight == htmlHeight){
-      load_combos("myScroll")
+      load_combos()
     }
 
   })
@@ -165,9 +152,9 @@
     }, 1)
   });
 
-  
 
-  function load_combos(myScroll){
+
+  function load_combos(){
     var count = parseInt($("#count").attr("value"))
     var page = parseInt($("#page").attr("value"))
     var per_page = parseInt($("#per_page").attr("value"))
@@ -181,15 +168,17 @@
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
-          if($.type(myScroll) != "string"){
-            setTimeout(function(){
-              myScroll.refresh()
-            }, 500);
-          }
+          record_history(page, data["html"])
         }
         $("#bottom-loading-box").modal("hide");
       }, "json")
     }
+  }
+
+  function record_history(page, html){
+    $(".paginate-content:last").after(html)
+    var next_page = page+1;
+    History.replaceState({page:next_page,content:html}, "商品组合列表", "?page="+next_page.toString());
   }
 
 </script>
