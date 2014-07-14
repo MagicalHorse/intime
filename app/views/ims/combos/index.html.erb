@@ -138,7 +138,15 @@
     if(scrollTop+clientHeight == htmlHeight){
       load_combos()
     }
-
+	var originHref = $('.refresh-link').attr('href');
+	$('.refresh-link').attr('href','#');
+	$('.refresh-link').click(function(e){
+		e.preventDefault();
+		$("#loading-box").modal();
+	    setTimeout(function(){
+	      window.location.href = originHref
+	    }, 1)
+	});
     })
   });
 
