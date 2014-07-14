@@ -74,40 +74,7 @@
 <script type="text/javascript">
 
   <% if @is_iphone %>
-
-  var myScroll;
-
-  function loaded () {
-    myScroll = new IScroll('#wrapper', {
-      probeType: 3,
-      click: true,
-      mouseWheel: true
-    });
-    myScroll.on('scrollEnd', function() {
-      if (this.y <= -400) {
-        $(".return-top-link").fadeIn();
-      }
-      else if (this.y > -400) {
-        $(".return-top-link").fadeOut();
-      }
-      if(this.y <= this.maxScrollY){
-        load_combos(this)
-      }
-    });
-
-    $(".return-top-link").click(function() {
-      $('html,body').animate({scrollTop:0}, 500);
-      return false;
-      <% if @is_iphone %>
-        myScroll.scrollTo(0, 0)
-      <% end %>
-    })
-  }
-
-  document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-
-  window.addEventListener("DOMContentLoaded",loaded,false);
-
+  	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
   <% end %>
 
   $(window).scroll(function () {
@@ -176,6 +143,16 @@
     if(height < 565){ height = 565; }
     $('#store_slider').sliderNav({arrows: false, height: height});
     $('#brand_slider').sliderNav({arrows: false, height: height});
+    
+    $(window).scroll(function(){
+    var htmlHeight=document.body.scrollHeight
+    var clientHeight=document.body.clientHeight  // 屏幕高度
+    var scrollTop=document.body.scrollTop   // 滚轮高度
+    if(scrollTop+clientHeight == htmlHeight){
+      load_combos("myScroll")
+    }
+
+  })
   });
 
 
@@ -188,15 +165,7 @@
     }, 1)
   });
 
-  $(window).scroll(function(){
-    var htmlHeight=document.body.scrollHeight
-    var clientHeight=document.body.clientHeight  // 屏幕高度
-    var scrollTop=document.body.scrollTop   // 滚轮高度
-    if(scrollTop+clientHeight == htmlHeight){
-      load_combos("myScroll")
-    }
-
-  })
+  
 
   function load_combos(myScroll){
     var count = parseInt($("#count").attr("value"))

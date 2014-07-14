@@ -85,7 +85,7 @@ class WxobjectController < ApplicationController
         return method(:action_point_nb)
       else
          #return method(:action_list_product_ft)
-         return nil
+         return method(:action_forward2_tt)
       end
     when 'location' then
       return method(:action_list_promotion_ft)
@@ -100,7 +100,7 @@ class WxobjectController < ApplicationController
     #    end
     #  end
     else
-      return nil
+      return method(:action_forward2_tt)
     end
   end
   #action to perform custom activity
