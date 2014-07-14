@@ -58,10 +58,10 @@
 
 <script type="text/javascript">
 
-  var State = History.getState(),
+  var State = History.getState()
 
   if (State.data && State.data.content){
-    $(".paginate-content:last").after(State.data.content)
+    $("#scroller").html(State.data.content)
   }
 
   $(window).scroll(function () {
@@ -139,7 +139,7 @@
       load_combos()
     }
 
-  })
+    })
   });
 
 
@@ -176,9 +176,9 @@
   }
 
   function record_history(page, html){
-    $(".paginate-content:last").after(html)
+    html = $("#scroller").html()
     var next_page = page+1;
-    History.replaceState({page:next_page,content:html}, "商品组合列表", "?page="+next_page.toString());
+    History.replaceState({page: next_page, content: html}, "商品组合列表", "?page="+next_page.toString());
   }
 
 </script>
