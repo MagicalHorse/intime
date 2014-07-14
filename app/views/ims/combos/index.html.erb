@@ -72,7 +72,7 @@
 <%= hidden_field_tag "per_page", @search[:per_page] %>
 
 <script type="text/javascript">
-
+   var inLoading = false;
   <% if @is_iphone %>
   	document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
   <% end %>
@@ -148,7 +148,7 @@
     var htmlHeight=document.body.scrollHeight
     var clientHeight=document.body.clientHeight  // 屏幕高度
     var scrollTop=document.body.scrollTop   // 滚轮高度
-    if(scrollTop+clientHeight == htmlHeight){
+    if(scrollTop+clientHeight == htmlHeight && !inLoading){
       load_combos("myScroll")
     }
 
@@ -172,7 +172,8 @@
     var page = parseInt($("#page").attr("value"))
     var per_page = parseInt($("#per_page").attr("value"))
 
-    if(page * per_page < count){
+    if(page * per_page < count && !inLoading){
+    	inLoading = true;
       $("#bottom-loading-box").modal();
       $("#loading").html('<%= image_tag "ims/loading.gif" %>');
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
@@ -188,6 +189,7 @@
           }
         }
         $("#bottom-loading-box").modal("hide");
+        inLoading = false;
       }, "json")
     }
   }
