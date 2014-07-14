@@ -1,3 +1,5 @@
+<%= link_to_icon "fa fa-reply", '', "javascript:void(0);", class: "top-link return-previous-link", style: "display: none;" %>
+
 <div class="wrap-inner back-wrap-inner">
   <% if @addresses.present? %>
     <%= render "list.html.erb", addresses: addresses %>
@@ -27,6 +29,16 @@
 
 <script>
   $(function(){
+
+    $(".refresh-link").hide()
+
+    $(".return-previous-link").show()
+
+    $(".return-previous-link").on("click", function(){
+      $("#new_order_page").show()
+      $("#address_page").hide()
+      $(".refresh-link").show()
+    })
 
     $("input[name='address[id]']").on("change", function(){
       select_address($(this))
@@ -65,6 +77,8 @@
           $("#contact_wrapper").show()
 
           $("#address_doc").attr("address_id", address_id)
+
+          $(".refresh-link").show()
         }, "json")
       }, 1)
     }
@@ -131,9 +145,10 @@
     })
 
     var hide_order_page = function(html){
+      $("#address_page").hide()
       $("#new_order_page").hide()
-      $("#address_page").html(html)
-      $("#address_page").show()
+      $("#address_form_page").html(html)
+      $("#address_form_page").show()
       $("#loading-box").modal("hide")
     }
 

@@ -10,7 +10,7 @@ class Combo < ActiveRecord::Base
   default_value_for :is_public, false
 
   def api_attrs
-  	 {
+  	{
   	 	:desc => desc,
   	 	:private_to => private_to,
   	 	:productids => combo_products.map(&:remote_id).uniq.compact,
@@ -19,7 +19,7 @@ class Combo < ActiveRecord::Base
       :has_discount => has_discount,
       :discount => discount,
       :is_public => is_public
-  	 }
+  	}
   end
 
   def product_desc
@@ -90,7 +90,7 @@ class Combo < ActiveRecord::Base
           end
         end
       end
-      if !keywords.present? 
+      if !keywords.present?
         json.sort do
           json.createDate "desc"
         end

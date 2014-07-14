@@ -1,3 +1,5 @@
+<%= link_to_icon "fa fa-reply", '', "javascript:void(0);", class: "top-link return-previous-link", style: "display: none;" %>
+
 <br/>
 <div class="back-wrap-inner">
 
@@ -83,6 +85,15 @@
 <script type="text/javascript">
   $(function(){
 
+    $(".refresh-link").hide()
+
+    $(".return-previous-link").show()
+
+    $(".return-previous-link").on("click", function(){
+      $("#address_form_page").hide()
+      $("#address_page").show()
+    })
+
     $("#delete_address").on("click", function(){
       if(confirm("确定删除吗?")){
         $("#loading-box").modal()
@@ -92,7 +103,9 @@
             if(data['status'] == true){
               <% if request.xhr? %>
                 $.get("/ims/addresses", {}, function(data){
+                  $("#address_form_page").hide()
                   $("#address_page").html(data["html"])
+                  $("#address_page").show()
                   $("#loading-box").modal("hide")
                 }, "json")
                 $("#loading-box").modal("hide")
@@ -218,6 +231,7 @@
               if(data["status"] == true){
                 $.get("<%= ims_addresses_path %>", {}, function(data){
                   $("#new_order_page").hide()
+                  $("#address_form_page").hide()
                   $("#address_page").html(data["html"])
                   $("#address_page").show()
                 }, "json")
