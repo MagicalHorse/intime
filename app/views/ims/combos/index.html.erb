@@ -73,7 +73,8 @@
     }
   })
 
-  $(".return-top-link").click(function() {
+  $(".return-top-link").click(function(e) {
+    e.preventDefault();
     $(this).fadeOut();
     $('html,body').animate({scrollTop:0}, 500);
     return false;

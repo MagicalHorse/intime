@@ -89,7 +89,8 @@
 
     $(".return-previous-link").show()
 
-    $(".return-previous-link").on("click", function(){
+    $(".return-previous-link").on("click", function(e){
+      e.preventDefault()
       $("#address_form_page").hide()
       $("#address_page").show()
     })
