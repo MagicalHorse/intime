@@ -143,18 +143,18 @@
       }
     })
 
-    var originHref = $('.refresh-link').attr('href');
-  	$('.refresh-link').attr('href','#');
-    History.replaceState({content: ''}, "商品组合列表", '')
-  	$('.refresh-link').click(function(e){
+    var originHref = $('.refresh-link').attr('href')
+  	$('.refresh-link').attr('href','#')
+    $('.refresh-link').click(function(e){
+      History.replaceState({content: ''}, "商品组合列表", '')
   		e.preventDefault();
   		$("#loading-box").modal();
 	    setTimeout(function(){
 	      window.location.href = originHref
 	    }, 1)
 	    return false;
-  	});
-  });
+  	})
+  })
 
 
   $(document).on("click", ".add_loading", function(){
