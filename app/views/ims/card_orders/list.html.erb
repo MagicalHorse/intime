@@ -71,12 +71,12 @@
       var received_page = parseInt($("#received_page").attr("value"))
 
       if(scrollTop+clientHeight == htmlHeight && !inLoading){
-        inLoading = true
         if($("#my").attr("class").indexOf("active") >= 0){
-          var count = parseInt($("#gift_card_count").attr("value"))
-          var page = parseInt($("#gift_card_page").attr("value"))
-          var per_page = parseInt($("#gift_card_per_page").attr("value"))
-          if(page * per_page < count){
+          var count = parseInt($("#my_count").attr("value"))
+          var page = parseInt($("#my_page").attr("value"))
+          var per_page = parseInt($("#my_per_page").attr("value"))
+          if(page * per_page < count && !inLoading){
+            inLoading = true
             $("#bottom-loading-box").modal();
             $.get("/ims/card_orders/my_list", {page: my_page + 1}, function(data){
               if(data["status"] == true){
@@ -90,10 +90,11 @@
             }, "json")
           }
         }else{
-          var count = parseInt($("#gift_card_count").attr("value"))
-          var page = parseInt($("#gift_card_page").attr("value"))
-          var per_page = parseInt($("#gift_card_per_page").attr("value"))
-          if(page * per_page < count){
+          var count = parseInt($("#received_count").attr("value"))
+          var page = parseInt($("#received_page").attr("value"))
+          var per_page = parseInt($("#received_per_page").attr("value"))
+          if(page * per_page < count && !inLoading){
+            inLoading = true
             $("#bottom-loading-box").modal();
             $.get("/ims/card_orders/received_list", {page: received_page + 1}, function(data){
               if(data["status"] == true){
