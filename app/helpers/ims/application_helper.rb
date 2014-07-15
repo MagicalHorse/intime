@@ -26,4 +26,8 @@ module Ims::ApplicationHelper
     return txt.gsub(/\r\n/, "<br>")
   end
 
+  def current_pages?(*path)
+    path.any? { |path| current_page? path }
+  end
+
 end
