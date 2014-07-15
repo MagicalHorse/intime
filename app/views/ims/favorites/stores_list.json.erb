@@ -1,1 +1,1 @@
-{"status": true, "page": <%= params[:page] %>, "html": <%=raw render("stores_list.html.erb", stores_list: @stores).to_json %> }
+{"status": true, "page": <%= @search_store[:data][:pageindex] %>, "per_page": <%= @search_store[:data][:pagesize] %>, "count": <%= @search_store[:data][:totalcount] %>, "html": <%=raw render("stores_list.html.erb", stores_list: @stores).to_json %> }

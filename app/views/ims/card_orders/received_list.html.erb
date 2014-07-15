@@ -30,9 +30,10 @@
 <% if @received[:data].present? and @received[:data][:items].any? %>
 <% content_for :javascripts do %>
 <script>
-  var inLoading = false
 
   $(function(){
+    var inLoading = false
+
     $(window).scroll(function(){
       var htmlHeight=document.body.scrollHeight
       var clientHeight=document.body.clientHeight

@@ -1,22 +1,21 @@
-<div class="module-table-box module-record stores-list-paginate-content">
-  <% stores_list.each do |store| %>
-  <div class="module common-white favorite_link" value="<%= ims_store_path(store["id"], t: Time.now.to_i) %>">
-    <div class="txt-block detail-contact">
-      <div class="row-fluid">
-        <div class="span3"><span class="img-spa">
-          <img src="<%=store["image"]%>" class="img-rounded">
-        </span></div>
-        <div class="span9">
-            <div class="collection-p collection-pbox">
-              <p class="txt2 txt-red one-line"><%= store["name"] %></p>
-              <p class="txt2 tel-nun">电话：<%= store["phone"] %></p>
-            </div>
+<% stores_list.each do |store| %>
+<div class="module common-white favorite_link" value="<%= ims_store_path(store["id"], t: Time.now.to_i) %>">
+  <div class="txt-block detail-contact">
+    <div class="row-fluid">
+      <div class="span3"><span class="img-spa">
+        <img src="<%=store["image"]%>" class="img-rounded">
+      </span></div>
+      <div class="span9">
+          <div class="collection-p collection-pbox">
+            <p class="txt2 txt-red one-line"><%= store["name"] %></p>
+            <p class="txt2 tel-nun">电话：<%= store["phone"] %></p>
           </div>
         </div>
       </div>
-  </div>
-  <% end %>
+    </div>
 </div>
+<% end %>
+
 <script type="text/javascript">
   format_img(".img-spa");
 </script>

@@ -67,8 +67,6 @@
       var htmlHeight=document.body.scrollHeight
       var clientHeight=document.body.clientHeight
       var scrollTop=document.body.scrollTop
-      var my_page = parseInt($("#my_page").attr("value"))
-      var received_page = parseInt($("#received_page").attr("value"))
 
       if(scrollTop+clientHeight == htmlHeight && !inLoading){
         if($("#my").attr("class").indexOf("active") >= 0){
@@ -78,7 +76,7 @@
           if(page * per_page < count && !inLoading){
             inLoading = true
             $("#bottom-loading-box").modal();
-            $.get("/ims/card_orders/my_list", {page: my_page + 1}, function(data){
+            $.get("/ims/card_orders/my_list", {page: page + 1}, function(data){
               if(data["status"] == true){
                 $(".my-list-paginate-content:last").after(data["html"])
                 $("#my_count").attr("value", data["count"])
@@ -96,7 +94,7 @@
           if(page * per_page < count && !inLoading){
             inLoading = true
             $("#bottom-loading-box").modal();
-            $.get("/ims/card_orders/received_list", {page: received_page + 1}, function(data){
+            $.get("/ims/card_orders/received_list", {page: page + 1}, function(data){
               if(data["status"] == true){
                 $(".received-list-paginate-content:last").after(data["html"])
                 $("#received_count").attr("value", data["count"])
