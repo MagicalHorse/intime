@@ -143,6 +143,7 @@
 
     var originHref = $('.refresh-link').attr('href');
   	$('.refresh-link').attr('href','#');
+    History.replaceState({content: ''}, "商品组合列表", '')
   	$('.refresh-link').click(function(e){
   		e.preventDefault();
   		$("#loading-box").modal();
