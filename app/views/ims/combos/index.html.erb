@@ -13,7 +13,7 @@
             <% if @default_store.blank? %>
               <div class="col-3">
                 <%= select_tag "store_id", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}, @store.try(:[], :id)), prompt: "选择店铺", style: "opacity: 0.01; position: absolute; left: 0; top: 0; width: 25%; " %>
-                <a href="javascript:void(0)" id="store_selcet" class="btn btn-danger btn-small btn-block">筛选</i></a>
+                <a href="javascript:void(0)" id="store_selcet" class="btn btn-danger btn-small btn-block">门店</i></a>
               </div>
             <% else %>
               <%= hidden_field_tag "default_store_id", @default_store["id"] %>
