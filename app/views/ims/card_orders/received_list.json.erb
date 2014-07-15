@@ -1,1 +1,1 @@
-{"status": true, "page": <%= params[:page] %>, "html": <%=raw render("received_list.html.erb", received_list: @received).to_json %> }
+{"status": true, "page": <%= @received[:data][:totalcount] %>, "per_page": <%= @received[:data][:pagesize] %>, "count": <%= @received[:data][:totalcount] %>, "html": <%=raw render("received_list.html.erb", received_list: @received).to_json %> }

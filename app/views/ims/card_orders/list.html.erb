@@ -36,13 +36,22 @@
   </div>
 </div>
 
-<%= hidden_field_tag "my_page", 1 %>
-<%= hidden_field_tag "received_page", 1 %>
+
+
+<%= hidden_field_tag "my_count", @my[:data][:totalcount] %>
+<%= hidden_field_tag "my_page", @my[:data][:pageindex] %>
+<%= hidden_field_tag "my_per_page", @my[:data][:pagesize] %>
+
+<%= hidden_field_tag "received_count", @received[:data][:totalcount] %>
+<%= hidden_field_tag "received_page", @received[:data][:pageindex] %>
+<%= hidden_field_tag "received_per_page", @received[:data][:pagesize] %>
 
 
 <% content_for :javascripts do %>
 <script>
   $(function(){
+
+    var inLoading = false
 
     format_img(".img-spa");
 
@@ -61,24 +70,42 @@
       var my_page = parseInt($("#my_page").attr("value"))
       var received_page = parseInt($("#received_page").attr("value"))
 
-      if(scrollTop+clientHeight == htmlHeight){
-        $("#bottom-loading-box").modal();
+      if(scrollTop+clientHeight == htmlHeight && !inLoading){
+        inLoading = true
         if($("#my").attr("class").indexOf("active") >= 0){
-          $.get("/ims/card_orders/my_list", {page: my_page + 1}, function(data){
-            if(data["status"] == true){
-              $(".my-list-paginate-content:last").after(data["html"])
-              $("#my_page").attr("value", data["page"])
+          var count = parseInt($("#gift_card_count").attr("value"))
+          var page = parseInt($("#gift_card_page").attr("value"))
+          var per_page = parseInt($("#gift_card_per_page").attr("value"))
+          if(page * per_page < count){
+            $("#bottom-loading-box").modal();
+            $.get("/ims/card_orders/my_list", {page: my_page + 1}, function(data){
+              if(data["status"] == true){
+                $(".my-list-paginate-content:last").after(data["html"])
+                $("#my_count").attr("value", data["count"])
+                $("#my_per_page").attr("value", data["per_page"])
+                $("#my_page").attr("value", data["page"])
+              }
               $("#bottom-loading-box").modal('hide');
-            }
-          }, "json")
+              inLoading = false
+            }, "json")
+          }
         }else{
-          $.get("/ims/card_orders/received_list", {page: received_page + 1}, function(data){
-            if(data["status"] == true){
-              $(".received-list-paginate-content:last").after(data["html"])
-              $("#received_page").attr("value", data["page"])
+          var count = parseInt($("#gift_card_count").attr("value"))
+          var page = parseInt($("#gift_card_page").attr("value"))
+          var per_page = parseInt($("#gift_card_per_page").attr("value"))
+          if(page * per_page < count){
+            $("#bottom-loading-box").modal();
+            $.get("/ims/card_orders/received_list", {page: received_page + 1}, function(data){
+              if(data["status"] == true){
+                $(".received-list-paginate-content:last").after(data["html"])
+                $("#received_count").attr("value", data["count"])
+                $("#received_per_page").attr("value", data["per_page"])
+                $("#received_page").attr("value", data["page"])
+              }
               $("#bottom-loading-box").modal('hide');
-            }
-          }, "json")
+              inLoading = false;
+            }, "json")
+          }
         }
       }
 

@@ -58,7 +58,7 @@
 
 <script type="text/javascript">
 
-  var inLoading = false;
+  var inLoading = false
 
   var State = History.getState()
 
@@ -172,7 +172,7 @@
     var per_page = parseInt($("#per_page").attr("value"))
 
     if(page * per_page < count && !inLoading){
-    	inLoading = true;
+    	inLoading = true
       $("#bottom-loading-box").modal();
       $("#loading").html('<%= image_tag "ims/loading.gif" %>');
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
@@ -184,7 +184,7 @@
           record_history(page, data["html"])
         }
         $("#bottom-loading-box").modal("hide");
-        inLoading = false;
+        inLoading = false
       }, "json")
     }
   }
