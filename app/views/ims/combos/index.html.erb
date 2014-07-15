@@ -132,26 +132,25 @@
     $('#brand_slider').sliderNav({arrows: false, height: height});
 
     $(window).scroll(function(){
-    var htmlHeight=document.body.scrollHeight
-    var clientHeight=document.body.clientHeight  // 屏幕高度
-    var scrollTop=document.body.scrollTop   // 滚轮高度
-    if(scrollTop+clientHeight == htmlHeight){
-      load_combos()
-    }
+      var htmlHeight=document.body.scrollHeight
+      var clientHeight=document.body.clientHeight  // 屏幕高度
+      var scrollTop=document.body.scrollTop   // 滚轮高度
+      if(scrollTop+clientHeight == htmlHeight){
+        load_combos()
+      }
     })
-    
-   	var originHref = $('.refresh-link').attr('href');
-	$('.refresh-link').attr('href','#');
-	$('.refresh-link').click(function(e){
-		e.preventDefault();
-		$("#loading-box").modal();
+
+    var originHref = $('.refresh-link').attr('href');
+  	$('.refresh-link').attr('href','#');
+  	$('.refresh-link').click(function(e){
+  		e.preventDefault();
+  		$("#loading-box").modal();
 	    setTimeout(function(){
 	      window.location.href = originHref
 	    }, 1)
 	    return false;
-	});
+  	});
   });
-
 
 
   $(document).on("click", ".add_loading", function(){
@@ -161,7 +160,6 @@
       window.location.href = url
     }, 1)
   });
-
 
 
   function load_combos(){
@@ -188,7 +186,8 @@
   function record_history(page, html){
     html = $("#scroller").html()
     var next_page = page+1;
-    History.replaceState({page: next_page, content: html}, "商品组合列表", "?page="+next_page.toString());
+    // "?page="+next_page.toString()
+    History.replaceState({page: next_page, content: html}, "商品组合列表", '');
   }
 
 </script>
