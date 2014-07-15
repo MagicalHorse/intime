@@ -126,6 +126,8 @@
 <script type="text/javascript">
   $(function(){
 
+    var inLoading = false
+
 
     var myScroll;
 
@@ -291,12 +293,12 @@
       var keywords = $("#hidden_keywords").attr("value")
 
 
-      if(scrollTop+clientHeight == htmlHeight){
-        if(page * per_page < count){
+      if(scrollTop+clientHeight == htmlHeight && !inLoading){
+        if(page * per_page < count && !inLoading){
+          inLoading = true
           $("#bottom-loading-box").modal();
           $.get("/ims/store/products/search", {from_price: from_price, to_price: to_price, from_discount: from_discount, to_discount: to_discount, brand_id: brand_id, keywords: keywords, combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
             if(data["status"] == true){
-              $("#bottom-loading-box").modal('hide');
               $(".paginate-content:last").after(data["html"])
               $("#hidden_count").attr("value", data["count"])
               $("#hidden_page").attr("value", data["page"])
@@ -308,6 +310,8 @@
               $("#hidden_brand_id").attr("value", data["brand_id"])
               $("#hidden_keywords").attr("value", data["keywords"])
             }
+            $("#bottom-loading-box").modal('hide');
+            inLoading = false
           }, "json")
         }
       }
