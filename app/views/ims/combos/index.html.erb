@@ -61,9 +61,7 @@
   var inLoading = false
 
   var State = History.getState()
-  if (State){
-  	alert(State);
-  }
+  alert('each load')
   if (State.data && State.data.content){
     $("#scroller").html(State.data.content)
 
@@ -162,7 +160,7 @@
     html = $("#scroller").html()
     var count = $("#count").attr("value");
     var page = $("#page").attr("value")
-    History.replaceState({page: page,count: count, content: html}, "商品组合列表", '#page='+page);
+    History.replaceState({page: page,count: count, content: html}, "商品组合列表", '');
   }
 
 </script>
