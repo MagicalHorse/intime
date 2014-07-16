@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "ims/slidernav", :media => "all" %>
 <%= javascript_include_tag 'ims/slidernav' %>
 
-<%= link_to_icon "fa fa-arrow-up", '', "javascript:void(0);", class: "return-top-link", style: "display: none;" %>
+<%= link_to_icon "fa fa-arrow-up", '', "javascript:void(0);", class: "top-link return-top-link big_top_link", style: "display: none;" %>
 
 <div class="wrap-inner " id="content">
 
@@ -13,7 +13,7 @@
             <% if @default_store.blank? %>
               <div class="col-3">
                 <%= select_tag "store_id", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}, @store.try(:[], :id)), prompt: "选择店铺", style: "opacity: 0.01; position: absolute; left: 0; top: 0; width: 25%; " %>
-                <a href="javascript:void(0)" id="store_selcet" class="btn btn-danger btn-small btn-block">筛选</i></a>
+                <a href="javascript:void(0)" id="store_selcet" class="btn btn-danger btn-small btn-block">门店</i></a>
               </div>
             <% else %>
               <%= hidden_field_tag "default_store_id", @default_store["id"] %>
@@ -58,6 +58,8 @@
 
 <script type="text/javascript">
 
+  var inLoading = false
+
   var State = History.getState()
 
   if (State.data && State.data.content){
@@ -73,7 +75,8 @@
     }
   })
 
-  $(".return-top-link").click(function() {
+  $(".return-top-link").click(function(e) {
+    e.preventDefault();
     $(this).fadeOut();
     $('html,body').animate({scrollTop:0}, 500);
     return false;
@@ -132,27 +135,27 @@
     $('#brand_slider').sliderNav({arrows: false, height: height});
 
     $(window).scroll(function(){
-    var htmlHeight=document.body.scrollHeight
-    var clientHeight=document.body.clientHeight  // 屏幕高度
-    var scrollTop=document.body.scrollTop   // 滚轮高度
-    if(scrollTop+clientHeight == htmlHeight){
-      load_combos()
-    }
+      var htmlHeight=document.body.scrollHeight
+      var clientHeight=document.body.clientHeight  // 屏幕高度
+      var scrollTop=document.body.scrollTop   // 滚轮高度
+      if(scrollTop+clientHeight == htmlHeight && !inLoading){
+        load_combos()
+      }
     })
-    
-   	var originHref = $('.refresh-link').attr('href');
-	$('.refresh-link').attr('href','#');
-	$('.refresh-link').click(function(e){
-		e.preventDefault();
-		e.stopPropagation();
-		$("#loading-box").modal();
+
+    var originHref = $('.refresh-link').attr('href')
+  	$('.refresh-link').attr('href','#')
+    $('.refresh-link').click(function(e){
+      History.replaceState({content: ''}, "商品组合列表", '')
+  		e.preventDefault();
+  		e.stopPropagation();
+  		$("#loading-box").modal();
 	    setTimeout(function(){
 	      window.location.href = originHref
 	    }, 1)
 	    return false;
-	});
-  });
-
+  	})
+  })
 
 
   $(document).on("click", ".add_loading", function(){
@@ -164,13 +167,13 @@
   });
 
 
-
   function load_combos(){
     var count = parseInt($("#count").attr("value"))
     var page = parseInt($("#page").attr("value"))
     var per_page = parseInt($("#per_page").attr("value"))
 
-    if(page * per_page < count){
+    if(page * per_page < count && !inLoading){
+    	inLoading = true
       $("#bottom-loading-box").modal();
       $("#loading").html('<%= image_tag "ims/loading.gif" %>');
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
@@ -182,6 +185,7 @@
           record_history(page, data["html"])
         }
         $("#bottom-loading-box").modal("hide");
+        inLoading = false
       }, "json")
     }
   }
@@ -189,7 +193,8 @@
   function record_history(page, html){
     html = $("#scroller").html()
     var next_page = page+1;
-    History.replaceState({page: next_page, content: html}, "商品组合列表", "?page="+next_page.toString());
+    // "?page="+next_page.toString()
+    History.replaceState({page: next_page, content: html}, "商品组合列表", '');
   }
 
 </script>

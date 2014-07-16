@@ -10,7 +10,9 @@
         <div id="combos" class="tab-pane active">
           <div class="module-table-box module-record">
             <% if @stores.present? %>
-            <%= render "stores_list", stores_list: @stores %>
+              <div class="module-table-box module-record stores-list-paginate-content">
+                <%= render "stores_list", stores_list: @stores %>
+              </div>
             <% else %>
             <%= render "ims/shared/empty" %>
             <% end %>
@@ -20,9 +22,11 @@
         <div id="gift_cards" class="tab-pane">
           <div class="module-table-box module-record">
             <% if @combos.present? %>
-            <%= render "combos_list", combos_list: @combos %>
+              <div class="module-table-box module-record combos-list-paginate-content">
+                <%= render "combos_list", combos_list: @combos %>
+              </div>
             <% else %>
-            <%= render "ims/shared/empty" %>
+              <%= render "ims/shared/empty" %>
             <% end %>
           </div>
         </div>
@@ -32,13 +36,21 @@
   </div>
 </div>
 
-<%= hidden_field_tag "stores_page", 1 %>
-<%= hidden_field_tag "combos_page", 1 %>
+<%= hidden_field_tag "stores_count", @search_store[:data][:totalcount] %>
+<%= hidden_field_tag "stores_page", @search_store[:data][:pageindex] %>
+<%= hidden_field_tag "stores_per_page", @search_store[:data][:pagesize] %>
+
+<%= hidden_field_tag "combos_count", @search_combo[:data][:totalcount] %>
+<%= hidden_field_tag "combos_page", @search_combo[:data][:pageindex] %>
+<%= hidden_field_tag "combos_per_page", @search_combo[:data][:pagesize] %>
+
 
 
 <% content_for :javascripts do %>
 <script>
   $(function(){
+
+    var inLoading = false
 
     $(".favorite_link").on("click", function(){
       url = $(this).attr("value")
@@ -62,27 +74,43 @@
       var htmlHeight=document.body.scrollHeight
       var clientHeight=document.body.clientHeight
       var scrollTop=document.body.scrollTop
-      var stores_page = parseInt($("#stores_page").attr("value"))
-      var combos_page = parseInt($("#combos_page").attr("value"))
 
-      if(scrollTop+clientHeight == htmlHeight){
-        $("#bottom-loading-box").modal();
+      if(scrollTop+clientHeight == htmlHeight && !inLoading){
         if($("#stores").attr("class").indexOf("active") >= 0){
-          $.get("/ims/favorites/stores_list", {page: stores_page + 1}, function(data){
-            if(data["status"] == true){
-              $("#bottom-loading-box").modal('hide');
-              $(".stores-list-paginate-content:last").after(data["html"])
-              $("#stores_page").attr("value", data["page"])
-            }
-          }, "json")
+          var count = parseInt($("#stores_count").attr("value"))
+          var page = parseInt($("#stores_page").attr("value"))
+          var per_page = parseInt($("#stores_per_page").attr("value"))
+          if(page * per_page < count && !inLoading){
+            inLoading = true
+            $.get("/ims/favorites/stores_list", {page: page + 1}, function(data){
+              if(data["status"] == true){
+                $("#combos .favorite_link:last").after(data["html"])
+                $("#stores_count").attr("value", data["count"])
+                $("#stores_per_page").attr("value", data["per_page"])
+                $("#stores_page").attr("value", data["page"])
+              }
+              $("#bottom-loading-box").modal('hide')
+              inLoading = false
+            }, "json")
+          }
         }else{
-          $.get("/ims/favorites/combos_list", {page: combos_page + 1}, function(data){
-            if(data["status"] == true){
+          var count = parseInt($("#combos_count").attr("value"))
+          var page = parseInt($("#combos_page").attr("value"))
+          var per_page = parseInt($("#combos_per_page").attr("value"))
+          if(page * per_page < count && !inLoading){
+            inLoading = true
+            $("#bottom-loading-box").modal();
+            $.get("/ims/favorites/combos_list", {page: combos_page + 1}, function(data){
+              if(data["status"] == true){
+                $("#gift_cards .favorite_link:last").after(data["html"])
+                $("#combos_count").attr("value", data["count"])
+                $("#combos_per_page").attr("value", data["per_page"])
+                $("#combos_page").attr("value", data["page"])
+              }
               $("#bottom-loading-box").modal('hide');
-              $(".combos-list-paginate-content:last").after(data["html"])
-              $("#combos_page").attr("value", data["page"])
-            }
-          }, "json")
+              inLoading = false;
+            }, "json")
+          }
         }
       }
 

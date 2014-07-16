@@ -1,1 +1,1 @@
-{"status": true, "page": <%= params[:page] %>, "html": <%=raw render("combos_list.html.erb", combos_list: @combos).to_json %> }
+{"status": true, "page": <%= @search_combo[:data][:pageindex] %>, "per_page": <%= @search_combo[:data][:pagesize] %>, "count": <%= @search_combo[:data][:totalcount] %>, "html": <%=raw render("combos_list.html.erb", combos_list: @combos).to_json %> }

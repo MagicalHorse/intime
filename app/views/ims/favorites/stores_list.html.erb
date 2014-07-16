@@ -16,26 +16,40 @@
   </div>
 </div>
 
-<%= hidden_field_tag "page", 1 %>
+<%= hidden_field_tag "count", @search_store[:data][:totalcount] %>
+<%= hidden_field_tag "page", @search_store[:data][:pageindex] %>
+<%= hidden_field_tag "per_page", @search_store[:data][:pagesize] %>
 
 <% content_for :javascripts do %>
 <script>
   $(function(){
+
+    var inLoading = false
+
     $(window).scroll(function(){
       var htmlHeight=document.body.scrollHeight
       var clientHeight=document.body.clientHeight
       var scrollTop=document.body.scrollTop
-      var page = parseInt($("#page").attr("value"))
 
-      if(scrollTop+clientHeight == htmlHeight){
-        $("#bottom-loading-box").modal();
-        $.get("/ims/favorites/stores_list", {page: page + 1}, function(data){
-          if(data["status"] == true){
+      if(scrollTop+clientHeight == htmlHeight && !inLoading){
+        var count = parseInt($("#count").attr("value"))
+        var page = parseInt($("#page").attr("value"))
+        var per_page = parseInt($("#per_page").attr("value"))
+
+        if(page * per_page < count && !inLoading){
+          inLoading = true
+          $("#bottom-loading-box").modal();
+          $.get("/ims/favorites/stores_list", {page: page + 1}, function(data){
+            if(data["status"] == true){
+              $("#count").attr("value", data["count"])
+              $("#page").attr("value", data["page"])
+              $("#per_page").attr("value", data["per_page"])
+              $(".favorite_link:last").after(data["html"])
+            }
+            inLoading = false
             $("#bottom-loading-box").modal('hide');
-            $(".paginate-content:last").after(data["html"])
-            $("#page").attr("value", data["page"])
-          }
-        }, "json")
+          }, "json")
+        }
       }
 
     });

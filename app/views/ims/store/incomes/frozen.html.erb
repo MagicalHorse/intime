@@ -20,6 +20,8 @@
 <% content_for :javascripts do %>
   <script>
     $(function(){
+      var inLoading = false
+
       $(window).scroll(function(){
         var htmlHeight=document.body.scrollHeight
         var clientHeight=document.body.clientHeight
@@ -29,8 +31,9 @@
         var per_page = parseInt($("#per_page").attr("value"))
 
 
-        if(scrollTop+clientHeight == htmlHeight){
-          if(page * per_page < count){
+        if(scrollTop+clientHeight == htmlHeight && !inLoading){
+          if(page * per_page < count && !inLoading){
+            inLoading = true
             $("#bottom-loading-box").modal()
             $.get("/ims/store/incomes/frozen", {page: page + 1, per_page: per_page}, function(data){
               if(data["status"] == true){
@@ -38,8 +41,9 @@
                 $("#count").attr("value", data["count"])
                 $("#page").attr("value", data["page"])
                 $("#per_page").attr("value", data["per_page"])
-                $("#bottom-loading-box").modal("hide")
               }
+              $("#bottom-loading-box").modal("hide")
+              inLoading = false
             }, "json")
           }
         }

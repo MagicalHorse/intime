@@ -1,1 +1,1 @@
-{"status": true, "page": <%= params[:page] %>, "html": <%=raw render("my_list.html.erb", my_list: @my).to_json %> }
+{"status": true, "page": <%= @my[:data][:totalcount] %>, "per_page": <%= @my[:data][:pagesize] %>, "count": <%= @my[:data][:totalcount] %>, "html": <%=raw render("my_list.html.erb", my_list: @my).to_json %> }

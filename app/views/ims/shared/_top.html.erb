@@ -1,1 +1,1 @@
-<%= link_to_icon "fa fa-refresh", '', request.original_fullpath, class: "refresh-link top-link" %>
+<%= link_to_icon "fa fa-refresh", '', request.original_fullpath, class: "refresh-link top-link #{'big_top_link' if current_page?(ims_combos_path) || params[:controller] == 'ims/store/stores' && params[:action] == 'my' }" %>

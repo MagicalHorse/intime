@@ -80,6 +80,7 @@
 <script>
   $(function(){
 
+    var inLoading = false
 
     $(document).on("click", ".delete-combo", function(){
       if(confirm("确定要删除该组合？")){
@@ -121,54 +122,60 @@
       var clientHeight=document.body.clientHeight
       var scrollTop=document.body.scrollTop
 
-      if(scrollTop+clientHeight == htmlHeight){
+      if(scrollTop+clientHeight == htmlHeight && !inLoading){
 
         if($("#gift_cards").attr("class").indexOf("active") >= 0){
           var count = parseInt($("#gift_card_count").attr("value"))
           var page = parseInt($("#gift_card_page").attr("value"))
           var per_page = parseInt($("#gift_card_per_page").attr("value"))
-          if(page * per_page < count){
+          if(page * per_page < count && !inLoading){
+            inLoading = true
             $("#bottom-loading-box").modal();
             $.get("/ims/store/sells", {gift_card_page: page + 1, gift_card_per_page: per_page}, function(data){
               if(data["status"] == true){
-                $("#bottom-loading-box").modal('hide');
                 $(".gift_card_paginate-content:last").after(data["html"])
                 $("#gift_card_count").attr("value", data["count"])
                 $("#gift_card_page").attr("value", data["page"])
                 $("#gift_card_per_page").attr("value", data["per_page"])
               }
+              $("#bottom-loading-box").modal('hide');
+              inLoading = false
             }, "json")
           }
         }else if($("#combos").attr("class").indexOf("active") >= 0){
           var count = parseInt($("#combo_count").attr("value"))
           var page = parseInt($("#combo_page").attr("value"))
           var per_page = parseInt($("#combo_per_page").attr("value"))
-          if(page * per_page < count){
+          if(page * per_page < count && !inLoading){
+            inLoading = true
             $("#bottom-loading-box").modal();
             $.get("/ims/store/sells", {combo_page: page + 1, combo_per_page: per_page}, function(data){
               if(data["status"] == true){
-                $("#bottom-loading-box").modal('hide');
                 $(".combo_paginate-content:last").after(data["html"])
                 $("#combo_count").attr("value", data["count"])
                 $("#combo_page").attr("value", data["page"])
                 $("#combo_per_page").attr("value", data["per_page"])
               }
+              $("#bottom-loading-box").modal('hide');
+              inLoading = false
             }, "json")
           }
         }else if($("#products").attr("class").indexOf("active") >= 0){
           var count = parseInt($("#product_count").attr("value"))
           var page = parseInt($("#product_page").attr("value"))
           var per_page = parseInt($("#product_per_page").attr("value"))
-          if(page * per_page < count){
+          if(page * per_page < count && !inLoading){
+            inLoading = true
             $("#bottom-loading-box").modal();
             $.get("/ims/store/sells", {product_page: page + 1, product_per_page: per_page}, function(data){
               if(data["status"] == true){
-                $("#bottom-loading-box").modal('hide');
                 $(".product_paginate-content:last").after(data["html"])
                 $("#product_count").attr("value", data["count"])
                 $("#product_page").attr("value", data["page"])
                 $("#product_per_page").attr("value", data["per_page"])
               }
+              $("#bottom-loading-box").modal('hide');
+              inLoading = false
             }, "json")
           }
         }
