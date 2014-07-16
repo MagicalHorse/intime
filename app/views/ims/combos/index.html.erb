@@ -64,6 +64,8 @@
 
   if (State.data && State.data.content){
     $("#scroller").html(State.data.content)
+   	$("#count").attr("value", State.data.count)
+    $("#page").attr("value", State.data.page)
   }
 
   $(window).scroll(function () {
@@ -153,9 +155,9 @@
 
   function record_history(page, html){
     html = $("#scroller").html()
-    var next_page = page+1;
-    // "?page="+next_page.toString()
-    History.replaceState({page: next_page, content: html}, "商品组合列表", '#page='+next_page.toSring());
+    var count = $("#count").attr("value");
+    var page = $("#page").attr("value")
+    History.replaceState({page: page,count: count, content: html}, "商品组合列表", '#page='+page.toSring());
   }
 
 </script>
