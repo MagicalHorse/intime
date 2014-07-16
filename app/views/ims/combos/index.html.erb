@@ -61,12 +61,17 @@
   var inLoading = false
 
   var State = History.getState()
-
+  if (State){
+  	alert(State);
+  }
   if (State.data && State.data.content){
     $("#scroller").html(State.data.content)
-   	$("#count").attr("value", State.data.count)
+
+  }
+  if (State.data && State.data.page) {
+  	$("#count").attr("value", State.data.count)
     $("#page").attr("value", State.data.page)
-   alert('history page'+State.data.page);
+    alert('history page'+State.data.page);
   }
 
   $(window).scroll(function () {
@@ -135,7 +140,7 @@
     var count = parseInt($("#count").attr("value"))
     var page = parseInt($("#page").attr("value"))
     var per_page = parseInt($("#per_page").attr("value"))
-	alert('paging:'+page.toString());
+
     if(page * per_page < count && !inLoading){
     	inLoading = true
       $("#bottom-loading-box").modal();
