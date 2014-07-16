@@ -91,6 +91,7 @@
 
     $(".return-previous-link").on("click", function(e){
       e.preventDefault()
+      e.stopPropagation()
       $("#address_form_page").hide()
       $("#address_page").show()
     })

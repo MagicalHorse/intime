@@ -97,8 +97,8 @@
     }, 1)
   })
 
-  
-  
+
+
   var originHref = $('.refresh-link').attr('href')
   	$('.refresh-link').attr('href','#')
     $('.refresh-link').click(function(e){
@@ -123,7 +123,7 @@
       }
     })
 
-    
+
   })
 
 
@@ -136,14 +136,13 @@
     if(page * per_page < count && !inLoading){
     	inLoading = true
       $("#bottom-loading-box").modal();
-      $("#loading").html('<%= image_tag "ims/loading.gif" %>');
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
         if(data["status"] == true){
           $(".paginate-content:last").after(data["html"])
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
-          record_history(page, data["html"])
+          record_history(page)
         }
         $("#bottom-loading-box").modal("hide");
         inLoading = false
@@ -151,11 +150,10 @@
     }
   }
 
-  function record_history(page, html){
+  function record_history(page){
     html = $("#scroller").html()
     var next_page = page+1;
-    // "?page="+next_page.toString()
-    History.replaceState({page: next_page, content: html}, "商品组合列表", '#page='+next_page.toSring());
+    History.replaceState({page: next_page, content: html}, "商品组合列表", '#page='+next_page.toString());
   }
 
 </script>
