@@ -77,13 +77,10 @@
 
   $(".return-top-link").click(function(e) {
     e.preventDefault();
+    e.stopPropagation();
     $(this).fadeOut();
     $('html,body').animate({scrollTop:0}, 500);
     return false;
-  })
-
-  $(".select_store_id").on("click", function(){
-    $("#store_id").trigger("click")
   })
 
   $("#store_id").on("change", function(data){
@@ -100,39 +97,22 @@
     }, 1)
   })
 
-  function redirectTo(url){
-    $("#loading-box").modal();
-    setTimeout(function(){
-      window.location.href = url;
-    }, 1)
-  }
-
-  $("#store").click(function(){
-    $("#content").show();
-    $("#brand_slider").hide();
-  })
-
-  $("#store").change(function(){
-    window.location.href = "/ims/combos?store_id=" + $(this).val();
-  })
-
-  $("#brand_selcet").click(function(){
-    if($("#brand_slider").is(":hidden")){
-      $("#content").hide();
-      $("#store_slider").hide();
-      $("#brand_slider").show();
-    }else{
-      $("#content").show();
-      $("#brand_slider").hide();
-      $("#store_slider").hide();
-    }
-  })
+  
+  
+  var originHref = $('.refresh-link').attr('href')
+  	$('.refresh-link').attr('href','#')
+    $('.refresh-link').click(function(e){
+      History.replaceState({}, "商品组合列表", '')
+  		e.preventDefault();
+  		e.stopPropagation();
+  		$("#loading-box").modal();
+	    setTimeout(function(){
+	      window.location.href = originHref
+	    }, 1)
+	    return false;
+  	})
 
   $(document).ready(function(){
-    var height = document.body.offsetHeight - 30;
-    if(height < 565){ height = 565; }
-    $('#store_slider').sliderNav({arrows: false, height: height});
-    $('#brand_slider').sliderNav({arrows: false, height: height});
 
     $(window).scroll(function(){
       var htmlHeight=document.body.scrollHeight
@@ -143,28 +123,9 @@
       }
     })
 
-    var originHref = $('.refresh-link').attr('href')
-  	$('.refresh-link').attr('href','#')
-    $('.refresh-link').click(function(e){
-      History.replaceState({content: ''}, "商品组合列表", '')
-  		e.preventDefault();
-  		e.stopPropagation();
-  		$("#loading-box").modal();
-	    setTimeout(function(){
-	      window.location.href = originHref
-	    }, 1)
-	    return false;
-  	})
+    
   })
 
-
-  $(document).on("click", ".add_loading", function(){
-    url = $(this).attr("value")
-    $("#loading-box").modal();
-    setTimeout(function(){
-      window.location.href = url
-    }, 1)
-  });
 
 
   function load_combos(){
@@ -194,7 +155,7 @@
     html = $("#scroller").html()
     var next_page = page+1;
     // "?page="+next_page.toString()
-    History.replaceState({page: next_page, content: html}, "商品组合列表", '');
+    History.replaceState({page: next_page, content: html}, "商品组合列表", '#page='+next_page.toSring());
   }
 
 </script>
