@@ -144,6 +144,7 @@
 	$('.refresh-link').attr('href','#');
 	$('.refresh-link').click(function(e){
 		e.preventDefault();
+		e.stopPropagation();
 		$("#loading-box").modal();
 	    setTimeout(function(){
 	      window.location.href = originHref
