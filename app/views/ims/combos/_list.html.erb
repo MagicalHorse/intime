@@ -5,7 +5,7 @@
       <div class="row-fluid">
         <div class="span12">
           <div class="suit-left">
-            <a class="img-box img-posi add_loading" href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
+            <a class="img-box img-posi" href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
               <%= image_tag Combo.img_url(combo) %>
             </a>
 
@@ -43,7 +43,7 @@
         </span>
         <% end %>
         <span class="pull-right">
-          <a class="btn btn-danger btn-small add_loading" href="<%= ims_orders_new_path(:combo_id => combo['id'])%>">点击购买</a>
+          <a class="btn btn-danger btn-small" href="<%= ims_orders_new_path(:combo_id => combo['id'])%>">点击购买</a>
         </span>
       </p>
     </div>
