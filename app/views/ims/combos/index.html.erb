@@ -12,7 +12,7 @@
           <div class="controls-defined defined-small">
             <% if @default_store.blank? %>
               <div class="col-3">
-                <%= select_tag "store_id", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}, @store.try(:[], :id)), prompt: "选择店铺", style: "opacity: 0.01; position: absolute; left: 0; top: 0; width: 25%; " %>
+                <%= select_tag "store_id", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}, @store.try(:[], :id)), prompt: "选择店铺", style: "opacity: 0.01; position: absolute; left: 0; top: 12px; width: 25%; " %>
                 <a href="javascript:void(0)" id="store_selcet" class="btn btn-danger btn-small btn-block">门店</i></a>
               </div>
             <% else %>
@@ -99,8 +99,8 @@
     }, 1)
   })
 
-  
-  
+
+
   var originHref = $('.refresh-link').attr('href')
   	$('.refresh-link').attr('href','#')
     $('.refresh-link').click(function(e){
@@ -125,7 +125,7 @@
       }
     })
 
-    
+
   })
 
 
@@ -138,14 +138,13 @@
     if(page * per_page < count && !inLoading){
     	inLoading = true
       $("#bottom-loading-box").modal();
-      $("#loading").html('<%= image_tag "ims/loading.gif" %>');
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
         if(data["status"] == true){
           $(".paginate-content:last").after(data["html"])
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
-          record_history(page, data["html"])
+          record_history(page)
         }
         $("#bottom-loading-box").modal("hide");
         inLoading = false
@@ -153,7 +152,7 @@
     }
   }
 
-  function record_history(page, html){
+  function record_history(page){
     html = $("#scroller").html()
     var count = $("#count").attr("value");
     var page = $("#page").attr("value")
