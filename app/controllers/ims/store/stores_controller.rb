@@ -54,20 +54,12 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def change_logo
-    imagedata = params[:img].split(',')[1]
-
-    FileUtils.mkdir("#{Rails.root}/public/uploads") if !File.exist?("#{Rails.root}/public/uploads")
-
-    filename = 'uploads/'+ Time.now.to_i.to_s + '.jpg'
-    File.open('public/'+filename, 'wb') do|f|
-      f.write(Base64.decode64(imagedata))
-    end
-
-    img = File.new("#{Rails.root}/public/#{filename}", 'rb')
-    @image = Ims::Store.update_logo(request, {:image => img, :image_type => 15})
+    image_data = params[:img].split(',')[1]
+    image, file_name = upload_image(image_data)
+    @image = Ims::Store.update_logo(request, {:image => image, :image_type => 15})
 
     if @image[:isSuccessful]
-      File.delete("#{Rails.root}/public/#{filename}")
+      File.delete("#{Rails.root}/public/#{file_name}")
       json = {"status" => 1, "img" => @image[:data][:logo_full]}.to_json
     else
       json = {"status" => 0}.to_json

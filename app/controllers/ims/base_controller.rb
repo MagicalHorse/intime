@@ -101,4 +101,13 @@ class Ims::BaseController < ApplicationController
     end
   end
 
+  def upload_image(data)
+    FileUtils.mkdir("#{Rails.root}/public/uploads") if !File.exist?("#{Rails.root}/public/uploads")
+    file_name = 'uploads/' + Time.now.to_i.to_s + '.jpg'
+    File.open('public/' + file_name, 'wb') do|f|
+      f.write(Base64.decode64(data))
+    end
+    [File.new("#{Rails.root}/public/#{file_name}", 'rb'), file_name]
+  end
+
 end

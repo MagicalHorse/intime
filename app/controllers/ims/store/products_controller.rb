@@ -129,20 +129,12 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def upload
-    imagedata = params[:img].split(',')[1]
-
-    FileUtils.mkdir("#{Rails.root}/public/uploads") if !File.exist?("#{Rails.root}/public/uploads")
-
-    filename = 'uploads/'+ Time.now.to_i.to_s + '.jpg'
-    File.open('public/'+filename, 'wb') do|f|
-      f.write(Base64.decode64(imagedata))
-    end
-
-    img = File.new("#{Rails.root}/public/#{filename}", 'rb')
-    @image = Ims::Combo.upload_img(request, {:image => img, :image_type => 1})
+    image_data = params[:img].split(',')[1]
+    image, file_name = upload_image(image_data)
+    @image = Ims::Combo.upload_img(request, {:image => image, :image_type => 1})
 
     if @image[:isSuccessful]
-      File.delete("#{Rails.root}/public/#{filename}")
+      File.delete("#{Rails.root}/public/#{file_name}")
       json = {"status" => 1, "img_url" => @image[:data][:url], "id" => @image[:data][:id]}.to_json
     else
       json = {"status" => 0}.to_json
