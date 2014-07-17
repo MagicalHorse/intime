@@ -6,15 +6,15 @@
     <p class="txt1 text-center txt-money">礼品卡金额：<%= @card[:amount] %>元</p>
     <%= image_tag "ims/card-self.png" %>
   </div>
-</div>  
+</div>
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
       <div class="col-6">
-        <a href="<%= "#{ims_card_orders_pay_path}?showwxpaytitle=1" %>" class="btn btn-danger btn-large btn-block">我要购卡 </a>
+        <%= link_to '我要购卡', ims_card_orders_pay_path(showwxpaytitle: 1), class: "btn btn-danger btn-large btn-block" %>
       </div>
       <div class="col-6">
-        <a href="<%= mine_ims_accounts_path %>" class="btn btn-danger btn-large btn-block">进入首页</a>
+        <%= link_to '进入首页', mine_ims_accounts_path, class: "btn btn-danger btn-large btn-block" %>
       </div>
     </div>
   </div>
@@ -40,8 +40,9 @@
         <td>充值手机</td>
         <td><span class="disabled"><%= @card[:phone] %></span></td>
       </tr>
-    </tbody></table>
-    <a class="btn btn-large btn-danger btn-block" href="<%= mine_ims_accounts_path %>">进入首页</a>
+    </tbody>
+    </table>
+    <%= link_to '进入首页', mine_ims_accounts_path, class: "btn btn-large btn-danger btn-block" %>
   </div>
 </div>
 

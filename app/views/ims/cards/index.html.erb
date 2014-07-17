@@ -4,15 +4,20 @@
     <%= image_tag "ims/card-self.png" %>
     <p class="txt4 text-center posi-txt">银泰礼品卡是银泰百货（集团）发行的银泰电子消费卡，持卡人可在全国所有的银泰百货消费。此卡可作为个人、机关、企事业单位礼品或福利卡。送亲人、送好友，您的最佳选择！</p>
   </div>
-</div>  
+</div>
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
-      <div class="col-6"><a class="btn btn-danger btn-large btn-block" id="share_to_user_model">分享给好友</a></div>
-      <div class="col-6"><a class="btn btn-danger btn-large btn-block" href="<%= ims_card_orders_pay_path(store_id: params[:store_id], showwxpaytitle: 1) %>">立即购买</a></div>
+      <div class="col-6">
+        <%= link_to '分享给好友', "javascript:void(0);", class: "btn btn-danger btn-large btn-block", id: "share_to_user_model" %>
+      </div>
+      <div class="col-6">
+        <%= link_to '立即购买', ims_card_orders_pay_path(store_id: params[:store_id], showwxpaytitle: 1), class: "btn btn-danger btn-large btn-block" %>
+      </div>
     </div>
   </div>
 </div>
+
 <%= content_for :javascripts do %>
 <script>
   if (typeof WxEnv == 'undefined') {

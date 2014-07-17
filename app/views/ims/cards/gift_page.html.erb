@@ -6,29 +6,32 @@
     <%= image_tag "ims/card-self.png" %>
     <p class="txt4 text-center posi-txt">银泰礼品卡是银泰百货（集团）发行的银泰电子消费卡，持卡人可在全国所有的银泰百货消费。此卡可作为个人、机关、企事业单位礼品或福利卡。送亲人、送好友，您的最佳选择！</p>
   </div>
-</div>  
+</div>
+
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
-      <div class="col-12"><a class="btn btn-danger btn-large btn-block" id="share_to_user_model">分享给好友</a></div>
+      <div class="col-12">
+        <%= link_to '分享给好友', "javascript:void(0);", class: "btn btn-danger btn-large btn-block", id: "share_to_user_model" %>
+      </div>
     </div>
   </div>
 </div>
 
 <%= content_for :javascripts do %>
-<script>
-  $(function(){
-    $("#shareToUserModel").modal();
-  });
+  <script>
+    $(function(){
+      $("#shareToUserModel").modal();
+    });
 
-  if (typeof WxEnv == 'undefined') {
-    WxEnv = {};
-  }
-  WxEnv.shareUrl = "<%= request.url %>";
-  WxEnv.shareImgUrl = '<%= image_url "ims/card-self.png" %>';
-  WxEnv.shareName = "<%= @card[:sender] %>给您送的银泰礼品卡";
-  WxEnv.shareDes = "我给你发了一张银泰礼品卡，赶快领取！祝：<%= @card[:comment] %>";
-</script>
+    if (typeof WxEnv == 'undefined') {
+      WxEnv = {};
+    }
+    WxEnv.shareUrl = "<%= request.url %>";
+    WxEnv.shareImgUrl = '<%= image_url "ims/card-self.png" %>';
+    WxEnv.shareName = "<%= @card[:sender] %>给您送的银泰礼品卡";
+    WxEnv.shareDes = "我给你发了一张银泰礼品卡，赶快领取！祝：<%= @card[:comment] %>";
+  </script>
 <% end %>
 
 <% elsif @card[:status].to_i != 0 %>
@@ -40,15 +43,15 @@
     <p class="txt1 text-center txt-money">礼品卡金额：<%= @card[:amount] %>元</p>
     <%= image_tag "ims/card-self.png" %>
   </div>
-</div>  
+</div>
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">
       <div class="col-6">
-        <a href="<%= "#{ims_card_orders_pay_path}?showwxpaytitle=1" %>" class="btn btn-danger btn-large btn-block">我要购卡 </a>
+        <%= link_to '我要购卡', ims_card_orders_pay_path(showwxpaytitle: 1), class: "btn btn-danger btn-large btn-block" %>
       </div>
       <div class="col-6">
-        <a href="<%= mine_ims_accounts_path %>" class="btn btn-danger btn-large btn-block">进入首页</a>
+        <%= link_to '进入首页', mine_ims_accounts_path, class: "btn btn-danger btn-large btn-block" %>
       </div>
     </div>
   </div>
@@ -65,7 +68,7 @@
     </p>
     <%= image_tag "ims/card-self.png" %>
   </div>
-</div>  
+</div>
 <div class="bottom-button">
   <div class="form-defined">
     <div class="controls-defined defined-large">

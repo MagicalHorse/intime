@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class Ims::CardsController < Ims::BaseController
   before_filter :user_account_info, only: [:gift_page]
   layout "ims/user"
@@ -19,11 +20,10 @@ class Ims::CardsController < Ims::BaseController
         # 置空欲充值卡号
         current_user.will_charge_no = nil
         # API_NEED: 根据礼品卡号，获取礼品卡相关信息
-        @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"] || {}
       else
-        @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"] || {}
         Rails.logger.debug(@result.to_s)
       end
+      @card = Ims::Giftcard.detail(request, charge_no: @charge_no)["data"] || {}
     else
       # 如果未绑定，则跳至绑卡页面
       current_user.will_charge_no = current_user.will_charge_no || @charge_no
