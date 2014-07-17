@@ -33,19 +33,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def create
     @combo = ::Combo.find_by_id(params[:combo_id])
-    product = Ims::Product.create(request, {
-      brand_id: params["brand_id"],
-      sales_code: params["sales_code"],
-      sku_code: params["sku_code"],
-      price: params["price"],
-      unitprice: params["unitprice"],
-      category_id: params["category_id"],
-      image_ids: params["image_ids"],
-      sizes: params["sizes"],
-      color_str: params["color_str"],
-      desc: params["desc"],
-      createcombo: params["createcombo"] == "1"
-    })
+
+    product = Ims::Product.create(request, params[:product].merge({createcombo: params["createcombo"] == "1"}))
 
     if product["isSuccessful"]
       if @combo.present?
@@ -66,20 +55,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def update
-    product = Ims::Product.update(request, {
-      id: params[:id],
-      brand_id: params["brand_id"],
-      sales_code: params["sales_code"],
-      sku_code: params["sku_code"],
-      unitprice: params["unitprice"],
-      price: params["price"],
-      category_id: params["category_id"],
-      image_ids: params["image_ids"],
-      sizes: params["sizes"],
-      color_str: params["color_str"],
-      desc: params["desc"],
-      createcombo: params["createcombo"] == "1"
-    })
+    product = Ims::Product.update(request, params[:product].merge({createcombo: params["createcombo"] == "1"}))
 
     if product["isSuccessful"]
       if (redirect_url = params[:redirect_url]).present? && !redirect_url.include?("ims/store/sells")
