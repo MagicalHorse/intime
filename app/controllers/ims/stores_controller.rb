@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class Ims::StoresController < Ims::BaseController
   layout "ims/store"
 

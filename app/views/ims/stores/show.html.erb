@@ -1,50 +1,51 @@
 <%= render 'ims/shared/countdown' %>
+
 <header id="TOP">
-    <div class="header-box">
-        <div class="head-img">
-            <%= image_tag "ims/shop-browse#{@store[:data][:template_id] || 1}.jpg" %>
-        </div>
-        <div class="shop-head" id="head-menu">
-            <div class="shop-head-inner">
-                <div class="row-fluid">
-                    <div class="span12">
-                        <div class="row-fluid">
-                            <div class="span3">
-                                <span class="img-spa">
-                                  <% if @store[:data][:logo].present? %>
-                                  <img src="<%= @store[:data][:logo] %>" class='face-img' />
-                                  <% else %>
-                                  <%= image_tag("ims/logo-default.jpg", class: "face-img") %>
-                                  <% end %>
-                                </span>
-                            </div>
-                            <div class="span9">
-                                <h2 class="shop-name browerse-shop-name"><%= @store[:data][:name].present? ? @store[:data][:name] : "暂无店铺名称" %>&nbsp;</h2>
-                                <div class="browerse-icon">
-                                    <div class="row-fluid">
-                                        <div class="span4 text-center">
-                                            <a class="browerse-nav-link nav-link-fist" href="tel:<%= @store[:data][:mobile] %>"><i class="hd btn-tel"></i><span>联系店主</span></a>
-                                        </div>
-                                        <div class="span4 text-center">
-                                            <a class="browerse-nav-link" href="javascript:void(0)" id="favor_store"><i class="hd btn-star"></i><span>收藏</span></a>
-                                            <a class="browerse-nav-link" href="javascript:void(0)" id="unfavor_store"><i class="hd btn-star-active"></i><span>取消收藏</span></a>
-                                        </div>
-                                        <div class="span4 text-center">
-                                            <a class="browerse-nav-link" href="javascript:void(0);" id="share_to_user_model"><i class="hd btn-share"></i><span>分享好友</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="header-box">
+    <div class="head-img">
+      <%= image_tag "ims/shop-browse#{@store[:data][:template_id] || 1}.jpg" %>
     </div>
+    <div class="shop-head" id="head-menu">
+      <div class="shop-head-inner">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span3">
+                <span class="img-spa">
+                  <% if @store[:data][:logo].present? %>
+                    <%= image_tag @store[:data][:logo], class: "face-img" %>
+                  <% else %>
+                    <%= image_tag "ims/logo-default.jpg", class: "face-img" %>
+                  <% end %>
+                </span>
+              </div>
+              <div class="span9">
+                <h2 class="shop-name browerse-shop-name"><%= @store[:data][:name].present? ? @store[:data][:name] : "暂无店铺名称" %>&nbsp;</h2>
+                <div class="browerse-icon">
+                  <div class="row-fluid">
+                    <div class="span4 text-center">
+                      <a class="browerse-nav-link nav-link-fist" href="tel:<%= @store[:data][:mobile] %>"><i class="hd btn-tel"></i><span>联系店主</span></a>
+                    </div>
+                    <div class="span4 text-center">
+                      <a class="browerse-nav-link" href="javascript:void(0)" id="favor_store"><i class="hd btn-star"></i><span>收藏</span></a>
+                      <a class="browerse-nav-link" href="javascript:void(0)" id="unfavor_store"><i class="hd btn-star-active"></i><span>取消收藏</span></a>
+                    </div>
+                    <div class="span4 text-center">
+                      <a class="browerse-nav-link" href="javascript:void(0);" id="share_to_user_model"><i class="hd btn-share"></i><span>分享好友</span></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
 <div class="wrap-inner">
-    <%= render 'content' %>
-	</div>
+  <%= render 'content' %>
+</div>
 
 <%= content_for :javascripts do %>
 <script>
@@ -58,27 +59,27 @@
 
   $(function(){
     <% if @store[:data][:is_favored] %>
-    $("#favor_store").hide();
+      $("#favor_store").hide();
     <% else %>
-    $("#unfavor_store").hide();
+      $("#unfavor_store").hide();
     <% end %>
 
     $("#favor_store").click(function(){
-        $.post("/ims/favorites/favor", {
-            id: "<%= @store[:data][:id] %>",
-            type: "1"
-        },function(){});
-        $("#favor_store").hide();
-        $("#unfavor_store").show();
+      $.post("/ims/favorites/favor", {
+        id: "<%= @store[:data][:id] %>",
+        type: "1"
+      },function(){});
+      $("#favor_store").hide();
+      $("#unfavor_store").show();
     })
 
     $("#unfavor_store").click(function(){
-        $.post("/ims/favorites/unfavor", {
-            id: "<%= @store[:data][:id] %>",
-            type: "1"
-        },function(){});
-        $("#unfavor_store").hide();
-        $("#favor_store").show();
+      $.post("/ims/favorites/unfavor", {
+        id: "<%= @store[:data][:id] %>",
+        type: "1"
+      },function(){});
+      $("#unfavor_store").hide();
+      $("#favor_store").show();
     })
     format_img(".img-spa");
   });
