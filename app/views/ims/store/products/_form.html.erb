@@ -180,32 +180,28 @@
 </div>
 <div class="module module-bg-white2">
   <% referer = request.referer.to_s %>
-  <% if !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.match(/\/ims\/store\/combos\/\d+\/edit/).to_s.present? || referer.include?("ims/store/products") && params[:action] == "edit") %>
-    <div class="row-fluid">
-      <div class="col-5">
-        <div class="controls-defined defined-small" style="padding: 22px 0 0 0;">
-          <div class="col-12">
-            <%= check_box_tag "createcombo", '1', referer.blank?, class: "createcombo_checkbox", style: "margin-right: 0px;padding-right: 0px;" %>
-            <span id="quick_publish_label" style="margin-left: 0px;padding-left: 0px;">快速发布</span>
-          </div>
-        </div>
-      </div>
-      <div class="col-7">
-        <div class="text-center" style="padding: 15px 30px;">
-          <button type="button" class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
+  <% is_quick_publish = !(params[:action] == "new" && referer.include?("ims/store/combos/new") || referer.match(/\/ims\/store\/combos\/\d+\/edit/).to_s.present? || referer.include?("ims/store/products") && params[:action] == "edit") %>
+  <div class="row-fluid">
+    <% if is_quick_publish %>
+    <div class="col-5">
+      <div class="controls-defined defined-small" style="padding: 22px 0 0 0;">
+        <div class="col-12">
+          <%= check_box_tag "createcombo", '1', referer.blank?, class: "createcombo_checkbox", style: "margin-right: 0px;padding-right: 0px;" %>
+          <span id="quick_publish_label" style="margin-left: 0px;padding-left: 0px;">快速发布</span>
         </div>
       </div>
     </div>
+    <% end %>
+    <div class="<%= is_quick_publish ? 'col-7' : 'col-12' %>">
+      <div class="text-center" style="padding: 15px 30px;">
+        <button type="button" class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
+      </div>
+    </div>
+  </div>
+  <% if is_quick_publish %>
     <p style="color:#B7BBC2;font-size:12px;" class="text-center">选择快速发布，提交成功后即可分享给好友。 </p>
-  <% else %>
-    <div class="row-fluid">
-      <div class="col-12">
-        <div class="text-center" style="padding: 15px 30px;">
-          <button type="button" class="btn btn-large btn-danger btn-block" id="submit_product">提交</button>
-        </div>
-      </div>
-    </div>
   <% end %>
+
 </div>
 
 <% end %>
