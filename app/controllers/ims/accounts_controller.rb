@@ -1,13 +1,12 @@
 # encoding: utf-8
 class Ims::AccountsController < Ims::BaseController
+
   before_filter :user_account_info, only: [:mine, :barcode]
   before_filter :validate_verified_phone!, only: [:new, :create]
-  # before_filter :validate_identity_no!, only: [:new, :create]
   before_filter :validate_sms!, only: [:reset_password]
   before_filter :isbindcard!, only: [:phone_page, :verify_identify_phone]
+
   layout "ims/user"
-  def test
-  end
 
   # 我的资金账号
   def mine
@@ -214,9 +213,5 @@ class Ims::AccountsController < Ims::BaseController
     redirect_to phone_page_ims_accounts_path if current_user.verified_phone.blank?
   end
 
-  # 如果没有身份证号，则跳回填写身份证号页面
-  def validate_identity_no!
-    redirect_to set_identity_no_page_ims_accounts_path if current_user.identity_no.blank?
-  end
 
 end

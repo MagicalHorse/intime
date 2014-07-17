@@ -339,7 +339,6 @@ IntimeService::Application.routes.draw do
         get   :change_password
         get   :set_id_page
         post  :set_id
-        get   :test
       end
     end
     resources :cards, only: [:index] do
