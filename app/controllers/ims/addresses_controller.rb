@@ -2,10 +2,9 @@
 
 class Ims::AddressesController < Ims::BaseController
 
-  before_filter :provinces, only:[:new, :edit]
+  before_filter :provinces, only:[:new, :edit, :list]
 
   def index
-    # @search = API::Address.index(request, page: params[:page], pagesize: params[:per_page] || 10)
     @search = API::Address.index(request)
     @addresses = @search["data"]["items"]
     @redirect_url = params[:redirect_url]
@@ -13,9 +12,8 @@ class Ims::AddressesController < Ims::BaseController
 
     @timeStamp_val = Time.now.to_i
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
-    access_token  = cookies[:user_access_token]
     sign = {
-      accesstoken: access_token,
+      accesstoken: cookies[:user_access_token],
       appid: Settings.wx.appid,
       noncestr: @nonceStr_val,
       timestamp: @timeStamp_val,
@@ -40,7 +38,6 @@ class Ims::AddressesController < Ims::BaseController
 
   def edit
     @address = API::Address.detail(request, {id: params[:id]})[:data]
-    @provinces = API::Environment.supportshipments(request)[:data][:items]
     cities = @provinces.find{|province| province[:provinceid] == @address[:shippingprovinceid]}[:items]
     @cities = cities.collect{|city| [city[:cityname], city[:cityid]]}
     @districts = cities.find{|city| city[:cityid] == @address[:shippingcityid]}[:items].collect{|district| [district[:districtname], district[:districtid]]}
@@ -101,7 +98,6 @@ class Ims::AddressesController < Ims::BaseController
   end
 
   def list
-    @provinces = API::Environment.supportshipments(request)[:data][:items]
     if !(province_id = params[:province_id].to_i).zero?
       render json: {data: @provinces.find{|province| province[:provinceid] == province_id}[:items]}.to_json
     elsif !(city_id = params[:city_id].to_i).zero?
