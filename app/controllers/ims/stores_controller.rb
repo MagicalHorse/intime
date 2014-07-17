@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Ims::StoresController < Ims::BaseController
-  layout "store"
+  layout "ims/store"
 
   def show
     @store = Ims::Store.show(request, id: params[:id])

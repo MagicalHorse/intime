@@ -170,6 +170,6 @@ class Ims::OrdersController < Ims::BaseController
   protected
 
   def set_layout
-    params[:action] == "notice_success" ? "ims/user" : "ims"
+    params[:action] == "notice_success" ? "ims/user" : "ims/ims"
   end
 end

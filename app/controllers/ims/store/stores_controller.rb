@@ -34,7 +34,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     if current_user.store_id.to_i == params[:id].to_i
       @can_share = true
       @store = Ims::Store.my(request)
-      render :layout =>  'ims'
+      render :layout =>  'ims/ims'
     else
       redirect_to ims_store_path(:id => params[:id], t: Time.now.to_i)
     end

@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Ims::BaseController < ApplicationController
-  layout 'ims'
+  layout 'ims/ims'
   before_filter :setup_payment_type, :wx_auth!
   helper_method [:current_user,:track_options]
 

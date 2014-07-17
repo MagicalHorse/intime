@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Ims::Store::BaseController < Ims::BaseController
   before_filter :authenticate, :fetch_template
-  layout "store"
+  layout "ims/store"
 
   #检查是否是店铺导购
   def authenticate
