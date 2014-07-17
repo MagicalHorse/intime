@@ -9,7 +9,7 @@ class Ims::BaseController < ApplicationController
   end
 
   def backurl
-    session[:back_url]||ims_cards_path
+    session[:back_url] || ims_cards_path
   end
 
   def current_user_id

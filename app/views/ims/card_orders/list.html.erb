@@ -2,12 +2,12 @@
   <div class="module module-white min-height">
     <div class="module-tab0 module-tab2 module-product tabs-fixed">
       <ul id="myTab" class="nav nav-tabs">
-        <li class="active" id="my"><a href="#combos">自己购买</a></li>
-        <li class=""><a href="#gift_cards">好友赠送</a></li>
+        <li class="active" id="my"><a href="#my_cards">自己购买</a></li>
+        <li class=""><a href="#receive_cards">好友赠送</a></li>
       </ul>
 
       <div class="tab-content">
-        <div id="combos" class="tab-pane active">
+        <div id="my_cards" class="tab-pane active">
           <div class="module-table-box module-record">
             <table class="table table-bordered">
               <% if @my[:data].present? and @my[:data][:items].any? %>
@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <div id="gift_cards" class="tab-pane">
+        <div id="receive_cards" class="tab-pane">
           <div class="module-table-box module-record">
             <table class="table table-bordered">
               <% if @received[:data].present? and @received[:data][:items].any? %>
