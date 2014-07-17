@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Ims::Store::CombosController < Ims::Store::BaseController
-  before_filter :goto_combo, only: [:edit]
+  before_filter :goto_combo, only: :edit
 
   def new
     @combo = ::Combo.find_by_id(params[:combo_id]) || @combo = ::Combo.create
