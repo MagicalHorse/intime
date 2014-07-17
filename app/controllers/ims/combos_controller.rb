@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class Ims::CombosController < Ims::BaseController
   skip_after_filter :set_no_cache, :only=>[:index]
   layout "ims/store"
@@ -11,10 +12,11 @@ class Ims::CombosController < Ims::BaseController
     @can_share = true if @remote_combo[:data][:is_online]
     @template_id = @remote_combo[:data][:template_id]
     session[:store_id] = @remote_combo[:data][:store_id]
+    @share_url = @private_to.present? ? ims_combo_url(id: @remote_combo[:data][:id], t: Time.now.to_i, private_to: 'true') : ims_combo_url(id: @remote_combo[:data][:id], t: Time.now.to_i)
+    @img_url = @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle
   end
 
   def index
-    # @is_iphone = request.user_agent.match(/iphone|ipad|ipod/i).to_s.present? && false
     @search = ::Combo.es_search(store_id: [params[:store_id], params[:default_store_id]].find{|store_id| store_id.present?}, keywords: params[:keywords], page: params[:page], per_page: params[:per_page])
     @combos = @search[:data]
     @stores = ::Store.es_search
@@ -59,7 +61,6 @@ class Ims::CombosController < Ims::BaseController
 
   def ajax
     @combo = Ims::Combo.show(request, {:id => params[:combo_id]})[:data]
-    # @product = API::Order.new(request, productid: params[:id])[:data]
     @product = ::Product.get_by_id({id: params[:id]})[:data]
   end
 end

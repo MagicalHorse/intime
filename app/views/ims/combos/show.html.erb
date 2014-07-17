@@ -1,109 +1,98 @@
 <%= render 'ims/shared/countdown' %>
+
 <div class="wrap-inner back-wrap-inner bottom-distance">
-    <div class="module module-color-white clearfix">
-      <div class="row-fluid">
-        <div class="span12">
-            <div class="swiper-container">
-              <div class="swiper-wrapper">
-                <% if @remote_combo[:data][:images].present? %>
-                <% @remote_combo[:data][:images].each_with_index do |img, i| %>
-                 <div class="swiper-slide">
-                  <img src="<%= img["name"] %>">
-                 </div>
-                 <% end %>
-                 <% end %>
-              </div>
-            </div>
-
-
-            <div class="module module-white module-show">
-              <% products = @remote_combo[:data][:products][0..2] %>
-              <% if products.present? %>
-              <div class="row-fluid">
-                <% products.each do |product| %>
-                  <%= render partial: "product", locals: {:product => product} %>
-                <% end %>
-              </div>
+  <div class="module module-color-white clearfix">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <% if @remote_combo[:data][:images].present? %>
+              <% @remote_combo[:data][:images].each_with_index do |img, i| %>
+                <div class="swiper-slide">
+                  <%= image_tag img["name"] %>
+                </div>
               <% end %>
-
-              <% products = @remote_combo[:data][:products][3..5] %>
-              <% if products.present? %>
-              <div class="row-fluid">
-                <% products.each do |product| %>
-                  <%= render partial: "product", locals: {:product => product} %>
-                <% end %>
-              </div>
-              <% end %>
-
-            </div>
-        </div>
-      </div>
-    </div>
-    <% if params[:private_to].present? && @remote_combo[:data][:private_desc].present? %>
-    <div class="private-custom">
-      <div class="private-bg">
-        <div class="private-text">
-          <p class="txt4 txt-red"><%= @remote_combo[:data][:private_desc] %>亲:</p>
-          <p class="txt4">
-            希望你喜欢哦！
-          </p>
-        </div>
-      </div>
-    </div>
-    <% end %>
-    <div class="p-title">
-      <h4><%=sanitize format_text(@remote_combo[:data][:desc]) %></h4>
-      <div class="p-price1 clearfix">
-          <p class="pull-left price-box">
-            <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
-            <% if @remote_combo[:data][:discount] > 0 %>
-              <span class="price-span-orignal">￥<%= @remote_combo[:data][:unit_price] %></span>
             <% end %>
-          </p>
-        <p class="pull-left price-box">
-          <% if @remote_combo[:data][:is_online] && @remote_combo[:data]["expire_in"].present? %>
-              <span class="pull-left countdown">
-                  <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
-              </span>
-              <script type="text/javascript">
-                          tms[tms.length] = "<%=@remote_combo[:data]['expire_in'] %>";
-                          day[day.length] = "d<%=@remote_combo[:data][:id]%>";
-                          hour[hour.length] = "h<%=@remote_combo[:data][:id]%>";
-                          minute[minute.length] = "m<%=@remote_combo[:data][:id]%>";
-                          second[second.length] = "s<%=@remote_combo[:data][:id]%>";
-                        </script>
-          <% else %>
-            <span class="pull-left countdown">
-                  <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
-              </span>
+          </div>
+        </div>
+
+        <div class="module module-white module-show">
+          <% if (products = @remote_combo[:data][:products][0..2]).present? %>
+            <div class="row-fluid">
+              <% products.each do |product| %>
+                <%= render partial: "product", locals: {:product => product} %>
+              <% end %>
+            </div>
           <% end %>
 
-          <span class="txt4 pull-right txt-red" id="unfavor_combo"><a href="javascript:void(0)"><i class="fa fa-star"></i> 已收藏</a></span>
-          <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
-          </p>
+          <% if (products = @remote_combo[:data][:products][3..5]).present? %>
+            <div class="row-fluid">
+              <% products.each do |product| %>
+                <%= render partial: "product", locals: {:product => product} %>
+              <% end %>
+            </div>
+          <% end %>
+
+        </div>
       </div>
     </div>
-    <div class="intime-btm">
-     <%= image_tag 'ims/intime-btm.png' %>
+  </div>
+  <% if params[:private_to].present? && @remote_combo[:data][:private_desc].present? %>
+  <div class="private-custom">
+    <div class="private-bg">
+      <div class="private-text">
+        <p class="txt4 txt-red"><%= @remote_combo[:data][:private_desc] %>亲:</p>
+        <p class="txt4">
+          希望你喜欢哦！
+        </p>
+      </div>
     </div>
-    <% if current_user.id != @remote_combo[:data][:owner_id] %>
-    <div class="text-center shopping-icon-box">
-    <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-danger-defult" value="/ims/stores/<%=@remote_combo[:data][:store_id]%>/<%=Time.now.to_i%>" >
-    <i class="shop-icon0"></i><span>进店铺逛逛</span>
-    </a>
+  </div>
+  <% end %>
+  <div class="p-title">
+    <h4><%=sanitize format_text(@remote_combo[:data][:desc]) %></h4>
+    <div class="p-price1 clearfix">
+      <p class="pull-left price-box">
+        <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
+        <% if @remote_combo[:data][:discount] > 0 %>
+          <span class="price-span-orignal">￥<%= @remote_combo[:data][:unit_price] %></span>
+        <% end %>
+      </p>
+      <p class="pull-left price-box">
+        <% if @remote_combo[:data][:is_online] && @remote_combo[:data]["expire_in"].present? %>
+          <span class="pull-left countdown">
+            <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
+          </span>
+          <script type="text/javascript">
+            tms[tms.length] = "<%=@remote_combo[:data]['expire_in'] %>";
+            day[day.length] = "d<%=@remote_combo[:data][:id]%>";
+            hour[hour.length] = "h<%=@remote_combo[:data][:id]%>";
+            minute[minute.length] = "m<%=@remote_combo[:data][:id]%>";
+            second[second.length] = "s<%=@remote_combo[:data][:id]%>";
+          </script>
+        <% else %>
+          <span class="pull-left countdown">
+            <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
+          </span>
+        <% end %>
+
+        <span class="txt4 pull-right txt-red" id="unfavor_combo"><a href="javascript:void(0)"><i class="fa fa-star"></i> 已收藏</a></span>
+        <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
+        </p>
     </div>
-    <% else %>
-    <p class="text-center shopping-icon-box">
-    <a href="javascript:void(0);" id="store" type="button" class="btn btn-danger btn-danger-defult" value="/ims/store/stores/<%=@remote_combo[:data][:store_id]%>/my/<%=Time.now.to_i%>" >
-    <i class="shop-icon0"></i><span>进店铺逛逛</span>
-    </a>
-    </p>
+  </div>
+  <div class="intime-btm">
+   <%= image_tag 'ims/intime-btm.png' %>
+  </div>
+  <div class="text-center shopping-icon-box">
+    <%= link_to "javascript:void(0);", id: "store", type: "button", class: "btn btn-danger btn-danger-defult", value: current_user.id != @remote_combo[:data][:owner_id] ? ims_store_path(@remote_combo[:data][:store_id], Time.now.to_i) : my_ims_store_store_path(@remote_combo[:data][:store_id], Time.now.to_i) do %>
+      <i class="shop-icon0"></i><span>进店铺逛逛</span>
     <% end %>
+  </div>
 
 
-    <% if @remote_combo[:data][:is_online] %>
-    <div class="bottom-btnbox">
-
+<% if @remote_combo[:data][:is_online] %>
+  <div class="bottom-btnbox">
     <button class="btn btn-small btn-danger">
       <% if current_user.id == @remote_combo[:data][:owner_id] %>
         <%= link_to '编 辑', "javascript:void(0);", id: "edit_combo", value: edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>
@@ -113,181 +102,167 @@
     </button>
     <button class="btn btn-small btn-danger" id="share_to_user_model">分享好友</button>
   </div>
-  <% else %>
+<% else %>
   <% if current_user.id == @remote_combo[:data][:owner_id] %>
-   <div class="bottom-btnbox">
-    <button class="btn btn-small btn-grey">已下架</button>
-    <button class="btn btn-small btn-danger">
+    <div class="bottom-btnbox">
+      <button class="btn btn-small btn-grey">已下架</button>
+      <button class="btn btn-small btn-danger">
         <%= link_to '编 辑', "javascript:void(0);", id: "edit_combo", value: edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>
-    </button>
-  </div>
+      </button>
+    </div>
   <% else %>
-  <div class="bottom-btnbox">
-    <button class="btn btn-grey btn-small">已下架</button>
-  </div>
+    <div class="bottom-btnbox">
+      <button class="btn btn-grey btn-small">已下架</button>
+    </div>
   <% end %>
-  <% end %>
+<% end %>
 
-  </div>
+</div>
 
-  <div class="modal hide fade p-modal" tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="true" id="p_pop" >
-    <div class="row-fluid">
-      <div class="" id="p_modal_content">
-      </div>
+<div class="modal hide fade p-modal" tabindex="-1" aria-labelledby="myModalLabel" data-backdrop="true" id="p_pop" >
+  <div class="row-fluid">
+    <div class="" id="p_modal_content">
     </div>
   </div>
+</div>
 
 
-  <% content_for :javascripts do %>
-    <script>
-    $(function(){
+<% content_for :javascripts do %>
+  <script>
+  $(function(){
 
-        var mySwiper = $('.swiper-container').swiper({
+    var mySwiper = $('.swiper-container').swiper({
+      mode:'horizontal',
+      autoplay: 3000,
+      speed: 1000,
+      calculateHeight: true,
+      loop: true,
+      centeredSlides: true,
+      offsetPxBefore: 100
+    });
+
+    <% if @remote_combo[:data][:is_favored] %>
+      $("#favor_combo").hide();
+    <% else %>
+      $("#unfavor_combo").hide();
+    <% end %>
+
+    $("#favor_combo").click(function(){
+      $.post("/ims/favorites/favor", {
+        id: "<%= @remote_combo[:data][:id] %>",
+        type: "2"
+      },function(){});
+      $("#favor_combo").hide();
+      $("#unfavor_combo").show();
+    })
+
+    $("#unfavor_combo").click(function(){
+      $.post("/ims/favorites/unfavor", {
+        id: "<%= @remote_combo[:data][:id] %>",
+        type: "2"
+      },function(){});
+      $("#unfavor_combo").hide();
+      $("#favor_combo").show();
+    })
+
+    $(document).on("click", ".payment_product", function(){
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+
+    $("#edit_combo, #payment_combo").on("click", function(){
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+
+    $("#store").on("click", function(){
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+
+    format_img(".img-spa");
+
+    $(".combos-product span").on('click', function(){
+       var id = $(this).attr('data');
+       $.ajax({
+        url: '/ims/combos/ajax?combo_id='+'<%=@remote_combo[:data][:id]%>'+'&id='+id
+       })
+    });
+
+    $("#p_pop").on('show', function(){
+      setTimeout(function(){
+
+        $("#p-swiper").swiper({
           mode:'horizontal',
           autoplay: 3000,
           speed: 1000,
           calculateHeight: true,
-          // watchActiveIndex: true,
           loop: true,
-          centeredSlides: true,
-          offsetPxBefore: 100
         });
 
-        <% if @remote_combo[:data][:is_favored] %>
-        $("#favor_combo").hide();
-        <% else %>
-        $("#unfavor_combo").hide();
-        <% end %>
-
-        $("#favor_combo").click(function(){
-            $.post("/ims/favorites/favor", {
-                id: "<%= @remote_combo[:data][:id] %>",
-                type: "2"
-            },function(){});
-            $("#favor_combo").hide();
-            $("#unfavor_combo").show();
-        })
-
-        $("#unfavor_combo").click(function(){
-            $.post("/ims/favorites/unfavor", {
-                id: "<%= @remote_combo[:data][:id] %>",
-                type: "2"
-            },function(){});
-            $("#unfavor_combo").hide();
-            $("#favor_combo").show();
-        })
-
-        $(document).on("click", ".payment_product", function(){
-          url = $(this).attr("value")
-          $("#loading-box").modal()
-          setTimeout(function(){
-            window.location.href = url
-          }, 1)
-        })
-
-        $("#edit_combo, #payment_combo").on("click", function(){
-          url = $(this).attr("value")
-          $("#loading-box").modal()
-          setTimeout(function(){
-            window.location.href = url
-          }, 1)
-        })
-
-        $("#store").on("click", function(){
-          url = $(this).attr("value")
-          $("#loading-box").modal()
-          setTimeout(function(){
-            window.location.href = url
-          }, 1)
-        })
-
-        format_img(".img-spa");
-
-        $(".combos-product span").on('click', function(){
-           var id = $(this).attr('data');
-           $.ajax({
-            url: '/ims/combos/ajax?combo_id='+'<%=@remote_combo[:data][:id]%>'+'&id='+id
-           })
-        });
-
-        $("#p_pop").on('show', function(){
-          setTimeout(function(){
-          $("#p-swiper").swiper({
-            mode:'horizontal',
-            autoplay: 3000,
-            speed: 1000,
-            calculateHeight: true,
-            loop: true,
-            // centeredSlides: true,
-            // offsetPxBefore: 100
-          });
-          $("#p-swiper .swiper-wrapper img").on('click', function(){
-            var ele = $("#p-modal-desc");
-            if(ele.hasClass('h')){
-              ele.show('slow');
-              ele.removeClass('h');
-            }else{
-              ele.hide('slow');
-              ele.addClass('h');
-            }
-          });
-          var clientHeight = document.body.clientHeight ;
-          $("#p-swiper").css('max-height', clientHeight*0.9+"px");
-
-          if(clientHeight >= 600){
-            $("#p_pop").css('top', '1%');
-          }else if(clientHeight < 600 && clientHeight >= 500){
-            $("#p_pop").css('top', '1%');
-          }else if(clientHeight < 500){
-             $("#p_pop").css('top', '0%');
+        $("#p-swiper .swiper-wrapper img").on('click', function(){
+          var ele = $("#p-modal-desc");
+          if(ele.hasClass('h')){
+            ele.show('slow');
+            ele.removeClass('h');
+          }else{
+            ele.hide('slow');
+            ele.addClass('h');
           }
-         }, 500);
-        });
-    })
-    </script>
-  <% end %>
+        })
 
-<% share_url = @private_to.present? ? ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i, :private_to => 'true') : ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i) %>
-<% img_url = @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle %>
+        var clientHeight = document.body.clientHeight
+        $("#p-swiper").css('max-height', clientHeight*0.9+"px")
+
+        if(clientHeight >= 600){
+          $("#p_pop").css('top', '1%')
+        }else if(clientHeight < 600 && clientHeight >= 500){
+          $("#p_pop").css('top', '1%')
+        }else if(clientHeight < 500){
+           $("#p_pop").css('top', '0%')
+        }
+      }, 500)
+    })
+  })
+  </script>
+<% end %>
+
 
 <script type="text/javascript">
-  // if (typeof WxEnv == 'undefined') {
-  //   WxEnv = {};
-  // }
-  // <% if @private_to.present? %>
-  // WxEnv.shareUrl = "<%= ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i, :private_to => 'true') %>";
-  // <% else %>
-  // WxEnv.shareUrl = "<%= ims_combo_url(:id => @remote_combo[:data][:id], :t => Time.now.to_i) %>";
-  // <% end %>
-  // WxEnv.shareImgUrl = "<%= @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle %>";
-  // // WxEnv.shareName = "我给您分享了一组组合，希望您喜欢。";
-  // WxEnv.shareName = "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>";
-  // WxEnv.shareDes = "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>";
-
 
   document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-      // 发送给好友
-      WeixinJSBridge.on('menu:share:appmessage', function (argv) {
-          WeixinJSBridge.invoke('sendAppMessage', {
-              "img_url": "<%= img_url %>",
-              "link": "<%= share_url %>",
-              "desc":  "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>",
-              "title": "我给您分享了一组组合，希望您喜欢。"
-          }, function (res) {
-              _report('send_msg', res.err_msg);
-          })
-      });
+    // 发送给好友
+    WeixinJSBridge.on('menu:share:appmessage', function (argv) {
+      WeixinJSBridge.invoke('sendAppMessage', {
+        "img_url": "<%= @img_url %>",
+        "link": "<%= @share_url %>",
+        "desc":  "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>",
+        "title": "我给您分享了一组组合，希望您喜欢。"
+      }, function (res) {
+        _report('send_msg', res.err_msg)
+      })
+    })
 
-      // 分享到朋友圈
-      WeixinJSBridge.on('menu:share:timeline', function (argv) {
-          WeixinJSBridge.invoke('shareTimeline', {
-              "img_url": "<%= img_url %>",
-              "link": "<%= share_url %>",
-              "desc":  "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>",
-              "title": "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>"
-          }, function (res) {
-              _report('timeline', res.err_msg);
-          });
-      });
+    // 分享到朋友圈
+    WeixinJSBridge.on('menu:share:timeline', function (argv) {
+      WeixinJSBridge.invoke('shareTimeline', {
+        "img_url": "<%= @img_url %>",
+        "link": "<%= @share_url %>",
+        "desc":  "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>",
+        "title": "<%= @remote_combo[:data][:desc].gsub(/\r\n/,' ') %>"
+      }, function (res) {
+        _report('timeline', res.err_msg)
+      })
+    })
+
   }, false)
 </script>

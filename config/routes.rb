@@ -353,6 +353,7 @@ IntimeService::Application.routes.draw do
         get     :agreement
       end
     end
+    # 微信分享该页面，url的path相同但是参数不同会认为是同一个页面，所以只能把参数部分放到path
     get 'cards/gift_page/:charge_no', to: 'cards#gift_page'
     resources :card_orders, only: [:new, :create, :show] do
       collection do
