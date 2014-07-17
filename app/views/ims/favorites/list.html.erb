@@ -2,12 +2,12 @@
   <div class="module module-white min-height">
     <div class="module-tab0 module-tab2 module-product tabs-fixed">
       <ul id="myTab" class="nav nav-tabs">
-        <li class="active" id="stores"><a href="#combos">店铺收藏</a></li>
-        <li class=""><a href="#gift_cards">组合收藏</a></li>
+        <li class="active" id="stores"><a href="#favorite_stores">店铺收藏</a></li>
+        <li class=""><a href="#favorite_combos">组合收藏</a></li>
       </ul>
 
       <div class="tab-content">
-        <div id="combos" class="tab-pane active">
+        <div id="favorite_stores" class="tab-pane active">
           <div class="module-table-box module-record">
             <% if @stores.present? %>
               <div class="module-table-box module-record stores-list-paginate-content">
@@ -19,7 +19,7 @@
           </div>
         </div>
 
-        <div id="gift_cards" class="tab-pane">
+        <div id="favorite_combos" class="tab-pane">
           <div class="module-table-box module-record">
             <% if @combos.present? %>
               <div class="module-table-box module-record combos-list-paginate-content">
@@ -82,9 +82,10 @@
           var per_page = parseInt($("#stores_per_page").attr("value"))
           if(page * per_page < count && !inLoading){
             inLoading = true
+            $("#bottom-loading-box").modal();
             $.get("/ims/favorites/stores_list", {page: page + 1}, function(data){
               if(data["status"] == true){
-                $("#combos .favorite_link:last").after(data["html"])
+                $("#favorite_stores .favorite_link:last").after(data["html"])
                 $("#stores_count").attr("value", data["count"])
                 $("#stores_per_page").attr("value", data["per_page"])
                 $("#stores_page").attr("value", data["page"])
@@ -102,7 +103,7 @@
             $("#bottom-loading-box").modal();
             $.get("/ims/favorites/combos_list", {page: combos_page + 1}, function(data){
               if(data["status"] == true){
-                $("#gift_cards .favorite_link:last").after(data["html"])
+                $("#favorite_combos .favorite_link:last").after(data["html"])
                 $("#combos_count").attr("value", data["count"])
                 $("#combos_per_page").attr("value", data["per_page"])
                 $("#combos_page").attr("value", data["page"])
