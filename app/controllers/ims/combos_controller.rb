@@ -40,7 +40,7 @@ class Ims::CombosController < Ims::BaseController
 
     FileUtils.mkdir("#{Rails.root}/public/uploads") if !File.exist?("#{Rails.root}/public/uploads")
 
-    filename = 'uploads/'+ Time.now.to_i.to_s + '.jpg'
+    filename = 'uploads/' + Time.now.to_i.to_s + '.jpg'
     File.open('public/'+filename, 'wb') do|f|
       f.write(Base64.decode64(imagedata))
     end
