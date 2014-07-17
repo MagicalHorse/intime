@@ -1,9 +1,6 @@
 # encoding: utf-8
+
 class Ims::Store::IncomesController < Ims::Store::BaseController
-
-  def index
-
-  end
 
   def my
     @income = Ims::Income.my(request)
@@ -40,10 +37,5 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
       format.json{render "frozen"}
     end
   end
-
-  def tips
-
-  end
-
 
 end
