@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class Ims::Store::BaseController < Ims::BaseController
   before_filter :authenticate, :fetch_template
   layout "ims/store"
@@ -9,7 +10,7 @@ class Ims::Store::BaseController < Ims::BaseController
   end
 
   def fetch_template
-  	 store = Ims::Store.my(request)
-  	 @template_id = store[:data][:template_id] if store[:data].present?
+  	store = Ims::Store.my(request)
+  	@template_id = store[:data][:template_id] if store[:data].present?
   end
 end

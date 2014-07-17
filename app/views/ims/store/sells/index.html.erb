@@ -90,7 +90,7 @@
           url: '/ims/store/combos/'+combo_id,
           type: 'delete',
           success: function(res){
-            if(res["status"] == 1){
+            if(res["status"] == true){
               success_modal("删除成功");
               $("#combo_content_"+combo_id).remove();
             }else{

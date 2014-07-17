@@ -3,8 +3,6 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
-    # @search = ::Product.es_search(per_page: params[:per_page], page: params[:page])
-    # @products = @search[:data]
     @search = Ims::Product.list(request, page: params[:page], pagesize: params[:per_page] || 10)
     @products = @search["data"]["items"]
     @title = "已拍商品"
@@ -96,8 +94,6 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     end
   end
 
-  def tutorials
-  end
 
   def add_to_combo
     @combo = ::Combo.find(params[:combo_id])

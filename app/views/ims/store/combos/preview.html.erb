@@ -3,32 +3,32 @@
     <div class="module module-color-white clearfix">
       <div class="row-fluid">
         <div class="span12">
-            <div class="swiper-container">
-              <div class="swiper-wrapper">
-                <% @combo.combo_pics.each_with_index do |img, i| %>
-                 <div class="swiper-slide">
-                  <img src="<%=img.url%>">
-                 </div>
-                 <% end %>
+          <div class="swiper-container">
+            <div class="swiper-wrapper">
+              <% @combo.combo_pics.each_with_index do |img, i| %>
+              <div class="swiper-slide">
+                <%= image_tag img.url %>
               </div>
-            </div>
-            <div class="module module-white module-show">
-              <% @combo.combo_products.in_groups_of(3).each do |combo_products| %>
-                <div class="row-fluid">
-                <% combo_products.compact.each do |product| %>
-                    <div class="span4">
-                      <div class="combos-product">
-                        <span class="img-spa">
-                          <img src="<%=product.img_url%>" >
-                        </span>
-                        <p><span class="txt3">￥<%= product.price %></span></p>
-                        <a class="btn btn-danger btn-mini btn-block" href="javascrip:void(0);">点击购买</a>
-                      </div>
-                    </div>
-                <% end %>
-                </div>
               <% end %>
             </div>
+          </div>
+          <div class="module module-white module-show">
+            <% @combo.combo_products.in_groups_of(3).each do |combo_products| %>
+              <div class="row-fluid">
+              <% combo_products.compact.each do |product| %>
+                <div class="span4">
+                  <div class="combos-product">
+                    <span class="img-spa">
+                      <%= image_tag product.img_url %>
+                    </span>
+                    <p><span class="txt3">￥<%= product.price %></span></p>
+                    <a class="btn btn-danger btn-mini btn-block" href="javascrip:void(0);">点击购买</a>
+                  </div>
+                </div>
+              <% end %>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@
     <div class="private-custom">
       <div class="private-bg">
         <div class="private-text">
-            <p class="txt4 txt-red"><%= @combo.private_to %>亲:</p>
+          <p class="txt4 txt-red"><%= @combo.private_to %>亲:</p>
           <p class="txt4">
             希望你喜欢哦！
           </p>
@@ -48,19 +48,17 @@
       <h4><%= @combo.desc %></h4>
       <div class="p-price1 clearfix">
         <span class="txt3 pull-left">打包价：<em>￥<%= @combo.price %></em></span>
-        <!-- <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span>
-        <span class="txt4 pull-right txt-red" id="unfavor_combo"><i class="fa fa-star"></i> 已收藏</span> -->
       </div>
     </div>
-    <% end %>
+  <% end %>
 
-    <div class="bottom-btnbox">
-      <button class="btn btn-small btn-danger preview" type="button">
-        <%= link_to "返回", "javascript:void(0);", value: new_ims_store_combo_path(combo_id: @combo.id, t: Time.now.to_i), id: "return_url" %>
-      </button>
-      <button class="btn btn-small btn-danger" type="button" id="combo_submit" >提交发布</button>
-    </div>
+  <div class="bottom-btnbox">
+    <button class="btn btn-small btn-danger preview" type="button">
+      <%= link_to "返回", "javascript:void(0);", value: new_ims_store_combo_path(combo_id: @combo.id, t: Time.now.to_i), id: "return_url" %>
+    </button>
+    <button class="btn btn-small btn-danger" type="button" id="combo_submit" >提交发布</button>
   </div>
+</div>
 
 
 <script type="text/javascript">

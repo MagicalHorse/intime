@@ -416,7 +416,6 @@ IntimeService::Application.routes.draw do
         end
         collection do
           post :upload
-          get :tutorials
           get :search
           get :add_size
         end
@@ -429,7 +428,6 @@ IntimeService::Application.routes.draw do
           get 'update_desc'
         end
         collection do
-          get :tutorials
           get 'remove_img'
           get 'remove_product'
         end
