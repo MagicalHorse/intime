@@ -145,12 +145,6 @@ class Ims::OrdersController < Ims::BaseController
     render json: {status: order[:isSuccessful]}.to_json
   end
 
-  def check_status
-  end
-
-  def cancel
-  end
-
   def notice_success
     @order = Ims::Order.detail(request, {orderno: params["id"]})["data"]
     @title = "购买成功"
@@ -159,7 +153,6 @@ class Ims::OrdersController < Ims::BaseController
   def update_promotion
     @order = Ims::Order.update_promotion(request, params[:promotion])
     render json: {status: @order[:isSuccessful], message: @order["message"], promotiondesc: params[:promotion][:promotiondesc], promotionrules: params[:promotion][:promotionrules], products: params["promotion"]["items"]}.to_json
-    # render json: {status: true, promotiondesc: params[:promotion][:promotiondesc], promotionrules: params[:promotion][:promotionrules]}.to_json
   end
 
   def totalamount

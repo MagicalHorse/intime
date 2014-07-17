@@ -15,7 +15,6 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
   if(res.err_msg == "get_brand_wcpay_request:ok"){
       // get_brand_wcpay_request:ok 发送成功
     if(from_page == "orders_new"){
-      // window.location.href = "/ims/orders_show?id="+orderno
       window.location.href = "/ims/orders/"+orderno+"/notice_success"
     }else if(from_page == "orders_show" || from_page == "orders_list"){
       $.get("/ims/orders/"+orderno, {}, function(data){
@@ -57,14 +56,6 @@ WeixinJSBridge.invoke('getBrandWCPayRequest', {
       }, "json")
     }
 
-    // setInterval(function(){
-    //   $.get("<%= check_status_ims_orders_path %>", {"orderno" : "<%= @orderno %>", "timestamp" : "<%= @time_val.to_i %>"}, function(r){
-    //     var result = r.result
-    //     if(result.data){
-    //       window.location.href = "/ims/card_orders/" + result.data.charge_no;
-    //     }
-    //   }, "json");
-    // },1000)
 
   }else if(res.err_msg == "get_brand_wcpay_request:cancel"){
     if(from_page == "orders_new"){

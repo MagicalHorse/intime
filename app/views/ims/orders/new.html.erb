@@ -45,283 +45,280 @@
   <% name = product['brandname'].to_s + product["skucode"].to_s %>
   <div class="module common-white">
 
-     <div class="row-fluid">
-         <div class="span3">
-             <div class="detail-imgbox">
-              <img src="<%=Product.img_url(salecolors.first.try(:[], :resource)) %>">
-             </div>
-         </div>
-         <div class="span9">
-             <div class="price-detail">
-                <h3><%= truncate name, length: 40 %></h3>
-                <p class="txt3">
-                微信价：<em>￥<%= product["price"] %></em>
-                <% if product["originprice"].present? %>
-                  <span class="middle-line">￥<%= product["originprice"] %></span>
-                <% end %>
-                </p>
-             </div>
-         </div>
-     </div>
-     <div class="current-choose txt8">
-        <div class="row-fluid">
-          <div class="span10">
-            <div style="display: none;" id="selected_color_size<%= index %>">已选：“黑色” “S”</div>
-            <div id="un_select_color_size<%= index %>">
-              <% if salecolors.blank? %>
-                已售罄
-              <% else %>
-                请选择颜色，尺码
-              <% end %>
-            </div>
-          </div>
-          <div class="span2">
-            <% if salecolors.present? %>
-            <div class="text-right">
-              <a class="ellipsis" href="#myModal<%=index%>" data-toggle="modal">•••</a>
-            </div>
+    <div class="row-fluid">
+      <div class="span3">
+        <div class="detail-imgbox">
+          <img src="<%=Product.img_url(salecolors.first.try(:[], :resource)) %>">
+        </div>
+      </div>
+      <div class="span9">
+        <div class="price-detail">
+          <h3><%= truncate name, length: 40 %></h3>
+          <p class="txt3">
+          微信价：<em>￥<%= product["price"] %></em>
+          <% if product["originprice"].present? %>
+            <span class="middle-line">￥<%= product["originprice"] %></span>
+          <% end %>
+          </p>
+        </div>
+       </div>
+    </div>
+    <div class="current-choose txt8">
+      <div class="row-fluid">
+        <div class="span10">
+          <div style="display: none;" id="selected_color_size<%= index %>">已选：“黑色” “S”</div>
+          <div id="un_select_color_size<%= index %>">
+            <% if salecolors.blank? %>
+              已售罄
+            <% else %>
+              请选择颜色，尺码
             <% end %>
-              <div id="myModal<%=index%>" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" index="<%= index %>">
-                <form class="order_product_form">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h3 id="myModalLabel">&nbsp;</h3>
-                </div>
-                  <div class="modal-body">
-                    <div class="module common-white">
-                      <div class="row-fluid">
-                        <div class="span4">
-                             <!-- <div class="detail-imgbox"> -->
-                          <div class="orders_new_modal_img">
-                            <img src="<%=Product.img_url(salecolors.first.try(:[], :resource))%>">
-                          </div>
-                             <!-- </div> -->
+          </div>
+        </div>
+        <div class="span2">
+          <% if salecolors.present? %>
+          <div class="text-right">
+            <a class="ellipsis" href="#myModal<%=index%>" data-toggle="modal">•••</a>
+          </div>
+          <% end %>
+            <div id="myModal<%=index%>" class="modal hide fade modal-buy" aria-hidden="true" style="display: none;" index="<%= index %>">
+              <form class="order_product_form">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">&nbsp;</h3>
+              </div>
+                <div class="modal-body">
+                  <div class="module common-white">
+                    <div class="row-fluid">
+                      <div class="span4">
+                           <!-- <div class="detail-imgbox"> -->
+                        <div class="orders_new_modal_img">
+                          <%= image_tag Product.img_url(salecolors.first.try(:[], :resource)) %>
                         </div>
-                        <div class="span8">
-                          <div class="price-detail">
-                            <h3><%= truncate name, length: 40 %></h3>
-                            <p class="txt3">
-                              微信价：<em>￥<%= product["price"] %></em>
-                              <% if product["originprice"].present? %>
-                                <span class="middle-line">￥<%= product["originprice"] %></span>
-                              <% end %>
-                            </p>
-                          </div>
+                           <!-- </div> -->
+                      </div>
+                      <div class="span8">
+                        <div class="price-detail">
+                          <h3><%= truncate name, length: 40 %></h3>
+                          <p class="txt3">
+                            微信价：<em>￥<%= product["price"] %></em>
+                            <% if product["originprice"].present? %>
+                              <span class="middle-line">￥<%= product["originprice"] %></span>
+                            <% end %>
+                          </p>
                         </div>
                       </div>
                     </div>
-                    <div class="module-grey">
-                    <% if salecolors.present?  %>
-                      <div class="modal-color salecolors" index="<%= index %>">
-                        <div class="product-detail">
-                          <div class="row-fluid">
-                          <span class="order_product_label col-2">颜色:</span></li>
-                          <ul class="inline clearfix col-10" >
-                          <% salecolors.each_with_index do |salecolor, index| %>
-                            <li class="<%= 'active' if salecolors.present? && index.zero? %>">
-                              <a href="javascript:void(0);" valueid='<%= salecolor['colorid'] %>' valuename='<%= salecolor['colorname'] %>'>
-                                <%= salecolor['colorname'] %>
-                              </a>
-                            </li>
-                          <% end %>
-                          </ul>
-                          </div>
+                  </div>
+                  <div class="module-grey">
+                  <% if salecolors.present?  %>
+                    <div class="modal-color salecolors" index="<%= index %>">
+                      <div class="product-detail">
+                        <div class="row-fluid">
+                        <span class="order_product_label col-2">颜色:</span></li>
+                        <ul class="inline clearfix col-10" >
+                        <% salecolors.each_with_index do |salecolor, index| %>
+                          <li class="<%= 'active' if salecolors.present? && index.zero? %>">
+                            <a href="javascript:void(0);" valueid='<%= salecolor['colorid'] %>' valuename='<%= salecolor['colorname'] %>'>
+                              <%= salecolor['colorname'] %>
+                            </a>
+                          </li>
+                        <% end %>
+                        </ul>
                         </div>
                       </div>
-                    <% end %>
+                    </div>
+                  <% end %>
 
-                    <% if sizes.present? %>
-                      <div class="modal-size sizes" index="<%= index %>">
-                        <div class="product-detail">
-                          <div class="row-fluid">
-                          <span class="order_product_label col-2">尺码:</span>
-                          <ul class="inline clearfix col-10">
-                          <% sizes.each do |size| %>
-                            <li>
-                              <a href="javascript:void(0);" valueid='<%= size['sizeid'] %>' valuename='<%= size['sizename'] %>'>
-                                <%= size['sizename'] %>
-                              </a>
-                            </li>
-                          <% end %>
+                  <% if sizes.present? %>
+                    <div class="modal-size sizes" index="<%= index %>">
+                      <div class="product-detail">
+                        <div class="row-fluid">
+                        <span class="order_product_label col-2">尺码:</span>
+                        <ul class="inline clearfix col-10">
+                        <% sizes.each do |size| %>
+                          <li>
+                            <a href="javascript:void(0);" valueid='<%= size['sizeid'] %>' valuename='<%= size['sizename'] %>'>
+                              <%= size['sizename'] %>
+                            </a>
+                          </li>
+                        <% end %>
 
-                          </ul>
-                          </div>
+                        </ul>
                         </div>
                       </div>
-                    <% end %>
+                    </div>
+                  <% end %>
 
-                    <% if params[:product_id].present? %>
-                    <div class="modal-num">
-                      <span class="tb-stock clearfix">
-                        <span>购买数量</span>
-                        <span class="product_count">
+                  <% if params[:product_id].present? %>
+                  <div class="modal-num">
+                    <span class="tb-stock clearfix">
+                      <span>购买数量</span>
+                      <span class="product_count">
                         <a class="tb-reduce" hidefocus="" href="javascript:void(0);">-</a>
                         <input name="count" type="text" value="1" class="txt8 tb-text" id="count<%= index %>">
                         <a class="tb-increase" href="javascript:void(0);">+</a>
-                        </span>
                       </span>
-                    </div>
-                    <% end %>
+                    </span>
+                  </div>
+                  <% end %>
 
-                    </div>
                   </div>
-                   <div class="modal-footer">
-                    <!-- <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button" data-dismiss='modal' aria-hidden='true'>确 定</a> -->
-                    <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a>
-                  </div>
-                </form>
-              </div>
-          </div>
+                </div>
+                 <div class="modal-footer">
+                  <a href="javascript:void(0);" class="btn btn-danger btn-large btn-block save_button">确 定</a>
+                </div>
+              </form>
+            </div>
         </div>
       </div>
+    </div>
   </div>
 
 
   <% end %>
-      <div class="module common-white" id="address_doc" value="<%= ims_addresses_path(redirect_url: request.fullpath) %>">
-         <div class="module-title2">
-           <div class="row-fluid">
-             <div class="span4"><h3>地址</h3></div>
-             <div class="span8"></div>
-           </div>
-         </div>
-
-         <div class="row-fluid">
-             <div class="span12 txt-block">
-
-                 <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: block;' %>">
-                     <p class="txt8">
-                       <span>
-                       <i class="fa fa-map-marker"></i>请选择地址
-                       </span>
-                     </p>
-                 </div>
-                 <div id="contact_wrapper" class="detail-block detail-contact" style="<%= @contact.present? ? 'display: inline;' : 'display: none;' %>">
-                     <p class="txt8">
-                       <span>
-                         <i class="fa fa-user"></i><span id="weixin_name"><%= params[:shippingcontactperson].present? ? params[:shippingcontactperson] : (@address.present? ? @address["shippingperson"] : @contact.try(:[], :contact_person)) %></span>
-                       </span>
-                       &nbsp;
-                       <span>
-                       <i class="fa fa-phone"></i><span id="weixin_contact"><%= params[:shippingcontactphone].present? ? params[:shippingcontactphone] : (@address.present? ? @address["shippingphone"] : @contact.try(:[], :contact_phone)) %></span>
-                       </span>
-                     </p>
-                     <p class="txt8">
-                       <span>
-                       <i class="fa fa-map-marker"></i><span id="weixin_address"><%= params[:shippingaddress].present? ? params[:shippingaddress] : (@address.present? ? @address["displayaddress"] : @contact.try(:[], :full_address)) %></span>
-                       </span>
-                     </p>
-                 </div>
-             </div>
-         </div>
+  <div class="module common-white" id="address_doc" value="<%= ims_addresses_path(redirect_url: request.fullpath) %>">
+    <div class="module-title2">
+      <div class="row-fluid">
+        <div class="span4"><h3>地址</h3></div>
+        <div class="span8"></div>
       </div>
+    </div>
 
+    <div class="row-fluid">
+      <div class="span12 txt-block">
 
-      <div class="module common-white">
-         <div class="module-title2">
-           <div class="row-fluid">
-             <div class="span4"><h3>支付方式</h3></div>
-             <div class="span8"></div>
-           </div>
-         </div>
-
-         <div class="row-fluid">
-             <div class="span12">
-
-
-                 <div id="contact_wrapper" class="detail-address-block">
-                     <% if @is_weixin %>
-                     <p class="txt8">
-                       <%= radio_button_tag "payment_name", "微信", true, paymentcode: Settings.payment_code.imswxpay %>  <span class="payment_text">微信</span>
-                     </p>
-                     <% end %>
-                     <p class="txt8">
-                       <%= radio_button_tag "payment_name", "支付宝", @is_weixin ? false : true, paymentcode: Settings.payment_code.imsalipay %>  <span class="payment_text">支付宝</span>
-                     </p>
-                 </div>
-             </div>
-         </div>
-      </div>
-
-      <div class="module common-white form-defined">
-        <div class="module-title2">
-          <div class="row-fluid">
-            <div class="span4"><h3>发票</h3></div>
-            <div class="span8">
-            </div>
-          </div>
+        <div id="contact_select_wrapper" class="detail-block detail-contact"  style="<%= @contact.present? ? 'display: none;' : 'display: block;' %>">
+          <p class="txt8">
+            <span>
+            <i class="fa fa-map-marker"></i>请选择地址
+            </span>
+          </p>
         </div>
-        <div class="form-box">
-          <div class="controls-defined defined-small">
-          <label class="col-4 text-left"><abbr class="txt-red">*</abbr>发票抬头：</label>
-          <div class="col-8">
-            <%= select_tag "invoicetitle", options_for_select([["无", "无"], ["个人", "个人"], ["公司", "公司"]]) %>
-          </div>
-          </div>
-        </div>
-
-        <div class="form-box" id="invoice_company_name" style="display: none;">
-          <div class="controls-defined defined-small">
-          <label class="col-4 text-left"><abbr class="txt-red">*</abbr>公司名称：</label>
-          <div class="col-8">
-            <%= text_field_tag "company_name" %>
-          </div>
-          </div>
-        </div>
-
-        <div class="form-box" id="invoice_detail" style="display: none;">
-          <div class="controls-defined defined-small">
-          <label class="col-4 text-left"><abbr class="txt-red">*</abbr>发票明细：</label>
-          <div class="col-8">
-            <%= select_tag "invoicedetail", options_for_select([["礼品", "礼品"], ["日用品", "日用品"], ["买什么开什么", "买什么开什么"]]) %>
-          </div>
-          </div>
+        <div id="contact_wrapper" class="detail-block detail-contact" style="<%= @contact.present? ? 'display: inline;' : 'display: none;' %>">
+          <p class="txt8">
+            <span>
+              <i class="fa fa-user"></i><span id="weixin_name"><%= params[:shippingcontactperson].present? ? params[:shippingcontactperson] : (@address.present? ? @address["shippingperson"] : @contact.try(:[], :contact_person)) %></span>
+            </span>
+            &nbsp;
+            <span>
+              <i class="fa fa-phone"></i><span id="weixin_contact"><%= params[:shippingcontactphone].present? ? params[:shippingcontactphone] : (@address.present? ? @address["shippingphone"] : @contact.try(:[], :contact_phone)) %></span>
+            </span>
+          </p>
+          <p class="txt8">
+            <span>
+              <i class="fa fa-map-marker"></i><span id="weixin_address"><%= params[:shippingaddress].present? ? params[:shippingaddress] : (@address.present? ? @address["displayaddress"] : @contact.try(:[], :full_address)) %></span>
+            </span>
+          </p>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div class="module common-white">
-        <div class="module-title2">
-          <div class="row-fluid">
-            <div class="span4"><h3>订单备注</h3></div>
-            <div class="span8">
-              <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多200个字符</small></div>
-            </div>
-          </div>
-        </div>
-        <div class="goods-describe">
-          <%= text_area_tag "memo", nil, rows: 2, placeholder: "请在此填写备注信息，例： 会员卡号" %>
+
+  <div class="module common-white">
+    <div class="module-title2">
+      <div class="row-fluid">
+        <div class="span4"><h3>支付方式</h3></div>
+        <div class="span8"></div>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+        <div id="contact_wrapper" class="detail-address-block">
+          <% if @is_weixin %>
+          <p class="txt8">
+            <%= radio_button_tag "payment_name", "微信", true, paymentcode: Settings.payment_code.imswxpay %>  <span class="payment_text">微信</span>
+          </p>
+          <% end %>
+          <p class="txt8">
+            <%= radio_button_tag "payment_name", "支付宝", @is_weixin ? false : true, paymentcode: Settings.payment_code.imsalipay %>  <span class="payment_text">支付宝</span>
+          </p>
         </div>
       </div>
+     </div>
+  </div>
 
-      <div class="module common-white">
-         <div class="row-fluid">
-             <div class="span12">
-                 <div class="detail-block detail-contact-bd">
-                     <p class="txt8 txt-bd clearfix">
-                       <span class="pull-left">
-                         <i class="fa fa-truck"></i>运费：<%= (totalfee = @order[:totalfee]).zero? ? "免运费" : totalfee %>
-                       </span>
-                       <span class="pull-right" id="totalamount_text"><b>实付：</b><i>￥<%= @order[:totalamount] %></i></span>
-                     </p>
-                     <p class="txt8 txt0">
-                       <i class="fa fa-exclamation-circle"></i>提交订单后，请在30分钟内完成支付，过时订单将会自动取消
-                     </p>
-                 </div>
-             </div>
-         </div>
-      </div>
-
-      <% if @products.any?{|p| p[:salecolors].present?} %>
-        <p class="wx-payment">
-        <button type="button" class="btn btn-danger btn-large btn-block" id="save_order">
-          提交订单
-        </button>
-        </p>
-      <% else %>
-        <div style="display: inline;" class="col-12">
-          <a value="114041090567" id="cancel_order" class="btn btn-grey btn-large btn-block" href="javascript:void(0);">已售罄</a>
+  <div class="module common-white form-defined">
+    <div class="module-title2">
+      <div class="row-fluid">
+        <div class="span4"><h3>发票</h3></div>
+        <div class="span8">
         </div>
-      <% end %>
+      </div>
+    </div>
+    <div class="form-box">
+      <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>发票抬头：</label>
+      <div class="col-8">
+        <%= select_tag "invoicetitle", options_for_select([["无", "无"], ["个人", "个人"], ["公司", "公司"]]) %>
+      </div>
+      </div>
+    </div>
+
+    <div class="form-box" id="invoice_company_name" style="display: none;">
+      <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>公司名称：</label>
+      <div class="col-8">
+        <%= text_field_tag "company_name" %>
+      </div>
+      </div>
+    </div>
+
+    <div class="form-box" id="invoice_detail" style="display: none;">
+      <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>发票明细：</label>
+      <div class="col-8">
+        <%= select_tag "invoicedetail", options_for_select([["礼品", "礼品"], ["日用品", "日用品"], ["买什么开什么", "买什么开什么"]]) %>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="module common-white">
+    <div class="module-title2">
+      <div class="row-fluid">
+        <div class="span4"><h3>订单备注</h3></div>
+        <div class="span8">
+          <div class="text-right"><small><i class="fa fa-exclamation-circle"></i> 支持最多200个字符</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="goods-describe">
+      <%= text_area_tag "memo", nil, rows: 2, placeholder: "请在此填写备注信息，例： 会员卡号" %>
+    </div>
+  </div>
+
+  <div class="module common-white">
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="detail-block detail-contact-bd">
+          <p class="txt8 txt-bd clearfix">
+            <span class="pull-left">
+             <i class="fa fa-truck"></i>运费：<%= (totalfee = @order[:totalfee]).zero? ? "免运费" : totalfee %>
+            </span>
+            <span class="pull-right" id="totalamount_text"><b>实付：</b><i>￥<%= @order[:totalamount] %></i></span>
+          </p>
+          <p class="txt8 txt0">
+            <i class="fa fa-exclamation-circle"></i>提交订单后，请在30分钟内完成支付，过时订单将会自动取消
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if @products.any?{|p| p[:salecolors].present?} %>
+    <p class="wx-payment">
+    <button type="button" class="btn btn-danger btn-large btn-block" id="save_order">
+      提交订单
+    </button>
+    </p>
+  <% else %>
+    <div style="display: inline;" class="col-12">
+      <a value="114041090567" id="cancel_order" class="btn btn-grey btn-large btn-block" href="javascript:void(0);">已售罄</a>
+    </div>
+  <% end %>
 </div>
 
 <%= hidden_field_tag "totalamount", @order[:totalamount] %>
@@ -333,22 +330,6 @@
 <% content_for :javascripts do %>
 <script>
   $(function(){
-
-
-
-
-
-
-
-
-
-
-
-    // $(".ellipsis").on("click", function(){
-    //   setTimeout(function(){
-    //     format_img(".detail-imgbox")
-    //   }, 500)
-    // })
 
     $(".payment_text").on("click", function(){
       $(this).parents(".txt8").find("input[name='payment_name']").prop("checked", true)
@@ -448,8 +429,6 @@
           error_modal("尺码和颜色必选")
         }
       }
-      // modal_doc.find(".close").trigger("click")
-      // modal_doc.modal("hide")
     })
 
     var change_color_value = function(modal_doc, index){
@@ -546,9 +525,6 @@
         "order[products][][productid]": {
           required: true
         },
-        // "order[products][][desc]":{
-        //   required: true
-        // },
         "order[products][][quantity]": {
           required: true
         },
@@ -688,52 +664,6 @@
 
     })
 
-    // 获取送货地址、送货人等
-
-    <% if nil %>
-    <% if @contact.blank? %>
-    document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-      load_address()
-    })
-    <% end %>
-
-
-    $("#address_doc").on("click", function(){
-      load_address()
-    })
-
-
-    var load_address = function(){
-      WeixinJSBridge.invoke('editAddress',{
-      appId: "<%= Settings.wx.appid %>",
-      scope: "jsapi_address",
-      signType: "sha1",
-      addrSign: "<%= raw @addrSign_val %>",
-      timeStamp: "<%= @timeStamp_val %>",
-      nonceStr: "<%= @nonceStr_val %>"
-      },function(res){
-      //若 res 中所带的返回值不为空，则表示用户选择该返回值作为收货地址。否则若返回空，则表示用户取消了这一次编辑收货地址。
-        if(res.err_msg == "edit_address:ok"){
-          name = res.userName
-          zipcode = res.addressPostalCode
-          address = [res.proviceFirstStageName, res.addressCitySecondStageName, res.addressCountiesThirdStageName, res.addressDetailInfo].join(" ")
-          contact = res.telNumber
-          $("#name").attr("value", name)
-          $("#weixin_name").text(name)
-          $("#zipcode").attr("value", zipcode)
-          $("#address").attr("value", address)
-          $("#weixin_address").text(address)
-          $("#contact").attr("value", contact)
-          $("#weixin_contact").text(contact)
-
-          $("#contact_select_wrapper").hide()
-          $("#contact_wrapper").show()
-        }else{
-
-        }
-      })
-    }
-    <% end %>
 
     format_img(".detail-imgbox");
 
