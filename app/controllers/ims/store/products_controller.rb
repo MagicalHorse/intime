@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def index
@@ -49,8 +50,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     if product["isSuccessful"]
       if @combo.present?
         ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image], :product_type => "2",
-         :price => product[:data][:price], :combo_id => @combo.try(:id),
-         :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
+          :price => product[:data][:price], :combo_id => @combo.try(:id),
+          :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
         url = new_ims_store_combo_path(:combo_id => @combo.try(:id), t: Time.now.to_i)
       elsif (combo_id = product["data"].try(:[], :combo_id)).present?
         url = ims_combo_path(combo_id, :private_to => true, :t => Time.now.to_i)
@@ -84,7 +85,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
       if (redirect_url = params[:redirect_url]).present? && !redirect_url.include?("ims/store/sells")
         url = redirect_url
       elsif (combo_id = product["data"].try(:[], :combo_id)).present?
-        url = ims_combo_path(combo_id, :private_to => true, :t => Time.now.to_i)
+        url = ims_combo_path(combo_id, private_to: true, t: Time.now.to_i)
       else
         url = ims_store_sells_path(tab: "products")
       end
@@ -97,9 +98,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def add_to_combo
     @combo = ::Combo.find(params[:combo_id])
-
     product = params[:product_type] == "2" ? Ims::Product.find(request, {:id => params[:id]}) : ::Product.fetch_product(params[:id])
-
     combo_product = ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image],
       :product_type => params[:product_type], :price => product[:data][:price], :combo_id => @combo.id,
       :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})
@@ -115,7 +114,6 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     @title = "商品搜索"
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
     @search = ::Product.es_search(per_page: params[:per_page] || 9, page: params[:page], from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"])
-    # @products = @search[:data].group_by{|obj| obj["createdDate"].to_date}.values
     @products = @search[:data]
     @brands = Brand.es_search
     respond_to do |format|
@@ -147,7 +145,6 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def product_relation_data
     @brands = Ims::Assistant.brands(request)["data"]["items"]
-    # @categories = Ims::ProductCategory.list(request)["data"]["items"]
     @categories = Tag.es_search(per_page: 200000)[:data]
     @codings = Ims::ProductCoding.list(request)["data"]["items"]
   end
