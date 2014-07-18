@@ -409,7 +409,6 @@ IntimeService::Application.routes.draw do
         end
       end
       resources :suggesstions, only: [:new, :create]
-      resources :themes, only: [:index, :update]
       resources :products do
         member do
           get 'add_to_combo'

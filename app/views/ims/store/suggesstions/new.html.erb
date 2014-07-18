@@ -42,7 +42,7 @@
       $("#save_suggesstion").on("click", function(){
         if($("#new_suggesstion").valid()){
           content = $("#content").val()
-          $.post("/ims/store/suggesstions", {content: content}, function(data){
+          $.post("<%= ims_store_suggesstions_path %>", {content: content}, function(data){
             $("#loading-box").modal('hide');
             if(data["status"] == true){
               $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>意见反馈成功</div><a class='btn btn-danger btn-small btn-block btn-modal' data-dismiss='modal' aria-hidden='true'>OK</a></div>");
@@ -69,17 +69,17 @@
         errorPlacement:function(error, element){
           element.after(error)
         },
-       showErrors: function (errorMap, errorList) {
-            $.each(this.successList, function (index, value) {
-                $('#'+value.id+'').tooltip('destroy');
-            });
-            $.each(errorList, function (index, value) {
-                $('#'+value.element.id+'').attr('title',value.message).tooltip({
-                    placement: 'top',
-                    trigger: 'manual',
-                    delay: { show: 500, hide: 5000 }
-                }).tooltip('show');
-            });
+        showErrors: function (errorMap, errorList) {
+          $.each(this.successList, function (index, value) {
+            $('#'+value.id+'').tooltip('destroy');
+          });
+          $.each(errorList, function (index, value) {
+            $('#'+value.element.id+'').attr('title',value.message).tooltip({
+              placement: 'top',
+              trigger: 'manual',
+              delay: { show: 500, hide: 5000 }
+            }).tooltip('show');
+          });
         },
         submitHandler: function(form) {
           $("#loading-box").modal();
