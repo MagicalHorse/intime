@@ -1,31 +1,34 @@
 <%= render 'ims/shared/countdown' %>
+
 <div class="wrap-inner back-wrap-inner">
 <header id="TOP">
   <div class="header-box header-box-index">
-      <div class="head-img">
-        <%= image_tag "ims/shop-browse#{@store[:data][:template_id] || 1}.jpg" %>
-      </div>
-      <div class="shop-head" id="head-menu">
-          <div class="shop-head-inner">
-              <div class="row-fluid">
-                  <div class="span12">
-                      <div class="row-fluid">
-                          <div class="span3">
-                              <span class="img-spa">
-                                <img src="<%= @store[:data][:logo] %>" class='face-img' />
-                              </span>
-                          </div>
-                          <div class="span9">
-                              <h2 class="shop-name index-shop-name"><%= @store[:data][:name].present? ? @store[:data][:name] : "暂无店铺名称" %></h2>
-                              <div class="index-share text-right">
-                                  <button class="btn btn-small btn-danger btn-share0" id="share_to_user_model"><i class="fa fa-share-square-o"></i> 分享好友</button>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
+    <div class="head-img">
+      <%= image_tag "ims/shop-browse#{@store[:data][:template_id] || 1}.jpg" %>
+    </div>
+    <div class="shop-head" id="head-menu">
+      <div class="shop-head-inner">
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="row-fluid">
+              <div class="span3">
+                <span class="img-spa">
+                  <%= image_tag @store[:data][:logo], class: 'face-img' %>
+                </span>
               </div>
+              <div class="span9">
+                <h2 class="shop-name index-shop-name"><%= @store[:data][:name].present? ? @store[:data][:name] : "暂无店铺名称" %></h2>
+                <div class="index-share text-right">
+                  <button class="btn btn-small btn-danger btn-share0" id="share_to_user_model">
+                    <i class="fa fa-share-square-o"></i> 分享好友
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
+        </div>
       </div>
+    </div>
   </div>
 </header>
 
@@ -34,46 +37,47 @@
 </div>
 
 <footer>
-    <div class="footer-inner">
-      <div class="row-fluid">
-        <div class="span3 add_loading" value="/ims/store/sells">
-          <a class="nav1" href="javascript:void(0);">商品管理</a>
-        </div>
-        <div class="span3 add_loading" value="/ims/store/stores/records">
-          <a class="nav2" href="javascript:void(0);">交易记录</a>
-        </div>
-        <div class="span3 add_loading" value="/ims/store/incomes/my">
-          <a class="nav3" href="javascript:void(0);">我的收益</a>
-        </div>
-        <div class="span3">
-          <div class="btn-group dropup">
-            <a href="javascript:void(0);" class="btn btn-link dropdown-toggle nav4">更多</a>
-
-            <ul class="dropdown-menu pull-right bottom-caret" id="nav-menu">
-              <li class="nav-down1"><a href="/ims/store/stores/<%= @store[:data][:id] %>/edit">编辑资料</a></li>
-              <li class="nav-down2"><a href="/ims/store/stores/theme">更换主题</a></li>
-              <li class="nav-down3"><a href="/ims/store/suggesstions/new">意见反馈</a></li>
-              <li class="nav-caret"><b class="caret"></b></li>
-            </ul>
-          </div>
+  <div class="footer-inner">
+    <div class="row-fluid">
+      <div class="span3 add_loading" value="/ims/store/sells">
+        <a class="nav1" href="javascript:void(0);">商品管理</a>
+      </div>
+      <div class="span3 add_loading" value="/ims/store/stores/records">
+        <a class="nav2" href="javascript:void(0);">交易记录</a>
+      </div>
+      <div class="span3 add_loading" value="/ims/store/incomes/my">
+        <a class="nav3" href="javascript:void(0);">我的收益</a>
+      </div>
+      <div class="span3">
+        <div class="btn-group dropup">
+          <%= link_to "更多", "javascript:void(0);", class: "btn btn-link dropdown-toggle nav4" %>
+          <ul class="dropdown-menu pull-right bottom-caret" id="nav-menu">
+            <li class="nav-down1"><a href="/ims/store/stores/<%= @store[:data][:id] %>/edit">编辑资料</a></li>
+            <li class="nav-down2"><a href="/ims/store/stores/theme">更换主题</a></li>
+            <li class="nav-down3"><a href="/ims/store/suggesstions/new">意见反馈</a></li>
+            <li class="nav-caret"><b class="caret"></b></li>
+          </ul>
         </div>
       </div>
     </div>
-  </footer>
-  <script type="text/javascript">
+  </div>
+</footer>
+
+<script type="text/javascript">
   if (typeof WxEnv == 'undefined') {
     WxEnv = {};
   }
+
   WxEnv.shareUrl = "<%= ims_store_url(:id => @store[:data][:id], :t => Time.now.to_i) %>";
   WxEnv.shareImgUrl = "<%= @store[:data][:logo] %>";
   WxEnv.shareName = "欢迎您光临<%=@store[:data][:name]%>迷你店";
   WxEnv.shareDes = "希望您能找到自己喜欢的商品,谢谢光临!~~~ 欢迎您来看看哦！";
 
 
-   format_img(".shop-logo");
-   format_img(".img-spa");
+  format_img(".shop-logo");
+  format_img(".img-spa");
 
-   $(".dropdown-toggle").click(function(){
-      $("#nav-menu").toggle();
-   });
-  </script>
+  $(".dropdown-toggle").click(function(){
+    $("#nav-menu").toggle();
+  });
+</script>

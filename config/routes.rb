@@ -432,11 +432,10 @@ IntimeService::Application.routes.draw do
           get 'remove_product'
         end
       end
-      resources :stores, only: [:index, :show, :edit, :update] do
+      resources :stores, only: [:edit, :update] do
         collection do
           get 'records', 'manage', 'theme', 'check', 'change_theme'
           post 'change_logo'
-          post 'change_info'
         end
         member do
           get 'my'

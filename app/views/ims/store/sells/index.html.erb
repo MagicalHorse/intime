@@ -184,13 +184,12 @@
     })
 
     <% if @combo.present? %>
-    $('#myTab a[href="#combos"]').tab('show');
+      $('#myTab a[href="#combos"]').tab('show');
     <% end %>
 
     $('#myTab a').click(function (e) {
       e.preventDefault()
       $(this).tab('show');
-
       format_img(".img-spa");
     })
 

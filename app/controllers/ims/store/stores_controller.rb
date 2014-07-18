@@ -1,11 +1,8 @@
 # encoding: utf-8
+
 class Ims::Store::StoresController < Ims::Store::BaseController
   skip_filter :authenticate, only: [:my, :check]
   before_filter :is_my_store, only: [:edit, :update, :my]
-
-  def index
-
-  end
 
   def edit
   	@store = Ims::Store.show(request, {id: params[:id]})
@@ -16,10 +13,6 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     @store_id = params[:id]
     @store = Ims::Store.update_name(request, {id: params[:id], name: params[:name]})
     @store = Ims::Store.update_mobile(request, {id: params[:id], mobile: params[:mobile]}) if @store[:isSuccessful]
-  end
-
-  def show
-
   end
 
   def check
@@ -57,37 +50,15 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     image_data = params[:img].split(',')[1]
     image, file_name = upload_image(image_data)
     @image = Ims::Store.update_logo(request, {:image => image, :image_type => 15})
-
     if @image[:isSuccessful]
       File.delete("#{Rails.root}/public/#{file_name}")
       json = {"status" => 1, "img" => @image[:data][:logo_full]}.to_json
     else
       json = {"status" => 0}.to_json
     end
-
     render :json => json
   end
 
-  def change_info
-    if params[:name] == "store_name"
-      @store = Ims::Store.update_name(request, {id: params[:id], name: params[:value]})
-    end
-
-    if params[:name] == "store_phone"
-      @store = Ims::Store.update_mobile(request, {id: params[:id], mobile: params[:value]})
-    end
-
-    if @store[:isSuccessful]
-      json = {"status" => 1}.to_json
-    else
-      json = {"status" => 0}.to_json
-    end
-
-    render :json => json
-  end
-
-
- #店铺管理
   def manage
     @giftcards = Ims::Store.giftcards(request)
     @combos = Ims::Store.combos(request)
@@ -108,6 +79,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   private
+
   def is_my_store
     redirect_to ims_store_path(:id => params[:id]) unless current_user.store_id.to_i == params[:id].to_i
   end

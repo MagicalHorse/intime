@@ -6,9 +6,11 @@
           <div class="span8"><span class="txt2 shop-title">修改店铺LOGO</span></div>
           <div class="span3 text-right">
             <a class="shop-logo" href="#" id="logo">
-              <img src="<%=@store[:data][:logo]%>" class="face-img">
+              <%= image_tag @store[:data][:logo], class: "face-img" %>
             </a>
-            <div style="height: 0px;width: 0px; overflow:hidden;"><input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera"></div>
+            <div style="height: 0px;width: 0px; overflow:hidden;">
+              <input id="upfile" type="file" value="upload" name="img" accept="image/*" capture="camera">
+            </div>
           </div>
           </div>
       </div>
@@ -28,11 +30,13 @@
       <% end %>
     </div>
     <div class="common-white">
-        <div class="form-defined">
-          <div class="controls-defined defined-large">
-            <div class="col-12"><button class="btn btn-danger btn-large btn-block" type="button" id="store_submit">修改</button></div>
+      <div class="form-defined">
+        <div class="controls-defined defined-large">
+          <div class="col-12">
+            <button class="btn btn-danger btn-large btn-block" type="button" id="store_submit">修改</button>
           </div>
         </div>
+      </div>
     </div>
   </div>
 </div>
@@ -43,9 +47,10 @@
 <%= content_for :javascripts do -%>
   <script type="text/javascript">
    $(function(){
+
     $("#store_submit").click(function(){
-      $("#store_form").submit();
-    });
+      $("#store_form").submit()
+    })
 
     $("#store_form").validate({
       onsubmit: true,
@@ -66,24 +71,24 @@
       },
       showErrors: function (errorMap, errorList) {
         $.each(this.successList, function (index, value) {
-            $('#'+value.id+'').tooltip('destroy');
+          $('#'+value.id+'').tooltip('destroy');
         });
         $.each(errorList, function (index, value) {
-            $('#'+value.element.id+'').attr('title',value.message).tooltip({
-                placement: 'bottom',
-                trigger: 'manual',
-                delay: { show: 500, hide: 5000 }
-            }).tooltip('show');
+          $('#'+value.element.id+'').attr('title',value.message).tooltip({
+            placement: 'bottom',
+            trigger: 'manual',
+            delay: { show: 500, hide: 5000 }
+          }).tooltip('show')
         });
       },
       submitHandler: function(form) {
-        $("#loading-box").modal();
-        $(form).ajaxSubmit();
+        $("#loading-box").modal()
+        $(form).ajaxSubmit()
       }
-    });
+    })
 
     $(".shop-information").click(function(){
-       document.getElementById("upfile").click();
+      document.getElementById("upfile").click();
     });
 
     document.getElementById('upfile').onchange = function (e) {
@@ -92,7 +97,6 @@
       var options = {maxWidth: 640,canvas: true};
       options.maxWidth = 640;
       var file = e.target.files[0];
-
 
       var orientation ;
       loadImage.parseMetaData(
@@ -105,7 +109,6 @@
           loadImage(
             file,
             function(img){
-
               var img_data;
               if (isIPhone()) {
                 img_data = img.toDataURL('image/jpeg',85);
@@ -113,37 +116,29 @@
                 var encoder = new JPEGEncoder();
                 var ctx = img.getContext('2d');
                 var rawImageData = ctx.getImageData(0, 0, img.width, img.height);
-                  img_data = encoder.encode(rawImageData,85);
+                img_data = encoder.encode(rawImageData,85);
               }
 
-
               $.ajax({
-                  url: "<%= change_logo_ims_store_stores_path %>",
-                  dataType: 'json',
-                  type: 'post',
-                  data: {"img": img_data},
-                  success: function(data){
-                    $("#loading-box").modal('hide');
-                    if(data['status'] == 1){
-                      setTimeout(function(){
-                        $("#logo").html("<img src="+data['img']+" class='img-rounded'/>")
-                      }, 500);
-                    }
+                url: "<%= change_logo_ims_store_stores_path %>",
+                dataType: 'json',
+                type: 'post',
+                data: {"img": img_data},
+                success: function(data){
+                  $("#loading-box").modal('hide');
+                  if(data['status'] == 1){
+                    setTimeout(function(){
+                      $("#logo").html("<img src="+data['img']+" class='img-rounded'/>")
+                    }, 500);
                   }
-              });
-             }, options);
-
-        }
-      );
-
-
-     }
-
-
-
+                }
+              })
+            }, options)
+          }
+        )
+      }
     })
 
-    /*--------------------img----------------------------*/
     format_img(".shop-logo");
 
 
