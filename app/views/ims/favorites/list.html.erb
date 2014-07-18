@@ -40,7 +40,7 @@
 <script>
   $(function(){
 
-    $(".favorite_link").on("click", function(){
+    $(document).on("click", ".favorite_link", function(){
       url = $(this).attr("value")
       $("#loading-box").modal()
       setTimeout(function(){
