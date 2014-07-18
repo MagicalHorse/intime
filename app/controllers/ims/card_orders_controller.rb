@@ -9,6 +9,7 @@ class Ims::CardOrdersController < Ims::BaseController
   end
 
   def list
+    @title = "交易记录"
     @my = Ims::Giftcard.list(request, {type: 1, page: (params[:page] || 1), pagesize: 10})
     @received = Ims::Giftcard.list(request, {type: 2, page: (params[:page] || 1), pagesize: 10})
   end

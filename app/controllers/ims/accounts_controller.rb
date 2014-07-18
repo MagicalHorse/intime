@@ -191,6 +191,7 @@ class Ims::AccountsController < Ims::BaseController
 
   # 修改身份证号
   def set_id_page
+    @title = "修改身份证号"
 
   end
 

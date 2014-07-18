@@ -15,6 +15,7 @@ class Ims::Store::CombosController < Ims::Store::BaseController
   end
 
   def show
+    @title = "组合详情"
     @remote_combo = Ims::Combo.show(request, {:id => params[:id]})
   end
 
