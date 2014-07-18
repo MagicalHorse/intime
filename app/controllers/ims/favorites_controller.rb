@@ -2,6 +2,7 @@
 class Ims::FavoritesController < Ims::BaseController
 
   def list
+    @title = "我的收藏"
     @search_store = Ims::UserApi.favor_store(request, {page: (params[:page] || 1), pagesize: 10} )
     @stores = @search_store["data"]["items"]
     @search_combo = Ims::UserApi.favor_combo(request, {page: (params[:page] || 1), pagesize: 10} )
@@ -9,11 +10,13 @@ class Ims::FavoritesController < Ims::BaseController
   end
 
   def stores_list
+    @title = "我的收藏"
     @search_store = Ims::UserApi.favor_store(request, {page: (params[:page] || 1), pagesize: 10} )
     @stores = @search_store["data"]["items"]
   end
 
   def combos_list
+    @title = "我的收藏"
     @search_combo = Ims::UserApi.favor_combo(request, {page: (params[:page] || 1), pagesize: 10} )
     @combos = @search_combo["data"]["items"]
   end
