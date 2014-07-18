@@ -433,7 +433,7 @@ IntimeService::Application.routes.draw do
       end
       resources :stores, only: [:edit, :update] do
         collection do
-          get 'records', 'manage', 'theme', 'check', 'change_theme'
+          get 'records', 'theme', 'check', 'change_theme'
           post 'change_logo'
         end
         member do

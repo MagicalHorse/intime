@@ -59,11 +59,6 @@ class Ims::Store::StoresController < Ims::Store::BaseController
     render :json => json
   end
 
-  def manage
-    @giftcards = Ims::Store.giftcards(request)
-    @combos = Ims::Store.combos(request)
-  end
-
   def theme
     @store = Ims::Store.my(request)
     @title = "更换主题"
