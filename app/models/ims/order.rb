@@ -1,7 +1,7 @@
 # encoding: utf-8
 class Ims::Order < Ims::Base
 
- class << self
+  class << self
 
     def new(req, params = {})
       post(req, params.merge(path: 'combo/detail4p'))

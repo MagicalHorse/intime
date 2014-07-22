@@ -8,9 +8,10 @@ class Ims::Weixin
       ActiveSupport::JSON.decode(resp)['access_token']
     }
   end
-   def self.renew
-     client.delete 'wx_access_token'
-     access_token
-   end
+
+  def self.renew
+    client.delete 'wx_access_token'
+    access_token
+  end
 
 end
