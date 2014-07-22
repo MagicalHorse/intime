@@ -10,4 +10,5 @@ class Ims::StoresController < Ims::BaseController
     @template_id = @store[:data][:template_id]
     session[:store_id] = @store[:data][:id]
   end
+
 end

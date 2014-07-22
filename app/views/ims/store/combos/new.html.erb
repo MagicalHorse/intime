@@ -35,7 +35,7 @@
         <li>
           <i id="img_<%= pic.id -%>" data="<%= pic.id -%>"><%= image_tag 'ims/delate.png' %></i>
           <span class="img-spa">
-            <img src="<%=pic.url%>" >
+            <%= image_tag pic.url %>
           </span>
         </li>
         <% end %>

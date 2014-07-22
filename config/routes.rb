@@ -307,13 +307,14 @@ IntimeService::Application.routes.draw do
   end
 
   namespace :ims do
+    resources :sms_codes, only: :create
     resources :addresses do
       collection do
         get "list"
       end
     end
     resource :auth
-    resources :stores, only: [:show]
+    resources :stores, only: :show
     resources :combos, only: [:show, :destroy, :index] do
       collection do
         post 'upload'
@@ -402,6 +403,7 @@ IntimeService::Application.routes.draw do
       root :to => "home#index"
       post "login" => "home#login"
       get 'check_code' => 'home#check_code'
+      resources :invitation_codes, only: [:new, :create]
       resources :sales_codes, only: :create
       resources :sells, only: :index do
         member do
