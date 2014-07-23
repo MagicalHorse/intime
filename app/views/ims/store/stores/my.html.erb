@@ -52,6 +52,9 @@
         <div class="btn-group dropup">
           <%= link_to "更多", "javascript:void(0);", class: "btn btn-link dropdown-toggle nav4" %>
           <ul class="dropdown-menu pull-right bottom-caret" id="nav-menu">
+            <% if (current_user.operate_right & 4) != 4 %>
+              <li class="nav-down1"><%= link_to '升级店铺', new_ims_store_invitation_code_path %></li>
+            <% end %>
             <li class="nav-down1"><a href="/ims/store/stores/<%= @store[:data][:id] %>/edit">编辑资料</a></li>
             <li class="nav-down2"><a href="/ims/store/stores/theme">更换主题</a></li>
             <li class="nav-down3"><a href="/ims/store/suggesstions/new">意见反馈</a></li>
