@@ -129,6 +129,24 @@
         <%= select_tag "product[category_id]", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :category_id)), prompt: "请选择" %>
       </div>
     </div>
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>标签：</label>
+      <ul class="inline clearfix col-8 selection_box">
+        <li>
+          <a valuename="新品" valueid="171544" href="javascript:void(0);">
+            新品
+          </a>
+        </li>
+        <li>
+          <a valuename="爆款" valueid="171545" href="javascript:void(0);">
+            爆款
+          </a>
+        </li>
+
+      </ul>
+        <!-- "product[tag_ids][]" -->
+    </div>
+
   </div>
 </div>
 

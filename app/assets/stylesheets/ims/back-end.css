@@ -201,4 +201,22 @@
   padding-right: 4px;
 }
 
+ul.selection_box {
+  margin: 0;
+}
 
+ul.selection_box li {
+  float: left;
+  margin-bottom: 5px;
+}
+
+ul.selection_box li a {
+  border: 2px solid #dee1e7;
+  color: #c3c6cb;
+}
+ul.selection_box li a {
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 28px;
+  padding: 14px;
+}
