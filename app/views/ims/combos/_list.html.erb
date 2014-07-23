@@ -9,7 +9,7 @@
               <%= image_tag Combo.img_url(combo) %>
             </a>
 
-            <p class="combo_text">
+            <p class="combo_text combo_two_line_text">
               <a href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>"><%= sanitize format_text(combo["desc"]) %></a>
             </p>
           </div>
