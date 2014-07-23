@@ -132,19 +132,22 @@
     <div class="controls-defined defined-small">
       <label class="col-4 text-left"><abbr class="txt-red">*</abbr>标签：</label>
       <ul class="inline clearfix col-8 selection_box">
+
         <li>
-          <a valuename="新品" valueid="171544" href="javascript:void(0);">
+          <%#= hidden_field_tag "product['tag_ids'][]", '123' %>
+          <a value="171544" href="javascript:void(0);">
             新品
           </a>
         </li>
+
         <li>
-          <a valuename="爆款" valueid="171545" href="javascript:void(0);">
+          <a value="171545" href="javascript:void(0);">
             爆款
           </a>
         </li>
 
       </ul>
-        <!-- "product[tag_ids][]" -->
+
     </div>
 
   </div>
@@ -571,6 +574,24 @@
       $("#default_img").html("<img src='"+src+"'>");
       format_img(".show-imgbox-yes");
     });
+
+
+    $(document).on("click", ".selection_box li a", function(){
+      this_li = $(this).parents("li")
+      class_name = this_li.attr("class") || ""
+      this_sizes = $(this).parents(".selection_box")
+      index = this_sizes.attr("index")
+      tag_id = this_li.find("a").attr("value")
+      input = '<input type="hidden" name="product[tag_ids][]" value="'+tag_id+'">'
+
+      if(class_name.indexOf('active') >= 0){
+        this_li.removeClass("active")
+        this_li.find("input").remove()
+      }else{
+        this_li.addClass("active")
+        this_li.append(input)
+      }
+    })
 
   })
 </script>
