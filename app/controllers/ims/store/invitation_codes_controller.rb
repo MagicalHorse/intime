@@ -4,6 +4,7 @@ class Ims::Store::InvitationCodesController < Ims::Store::BaseController
 
   def new
     @title = "申请邀请码"
+    @stores = ::Store.es_search
   end
 
   def create

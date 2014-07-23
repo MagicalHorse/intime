@@ -7,7 +7,7 @@ class Store < ActiveRecord::Base
   has_many :products
   has_many :promotions
   attr_accessible :address, :desc, :gpsalt, :gpslatit, :gpslngit, :latit, :lngit, :name, :status, :telephone
-  
+
   extend Searchable
   include Tire::Model::Search
   index_name ES_DEFAULT_INDEX
@@ -37,12 +37,12 @@ class Store < ActiveRecord::Base
     mash = Hashie::Mash.new result
     mash.hits.hits.collect(&:_source)
   end
-  
+
   class<<self
     def to_store_with_distace(store_info,from)
       store_info.to_hash.merge(:distance=>Geocoder::Calculations.distance_between(from, [store_info[:location][:lat],store_info[:location][:lon]], :units => :km).round)
     end
-    
+
     def list_all
       prod = Store.search :per_page=>PAGE_ALL_SIZE do
           query do
@@ -50,7 +50,7 @@ class Store < ActiveRecord::Base
           end
     end
     # render request
-    prods_hash = []       
+    prods_hash = []
     prod.results.each {|p|
       prods_hash << {
         :id=>p[:id],
@@ -58,20 +58,20 @@ class Store < ActiveRecord::Base
         :location=>p[:address],
         :tel=>p[:tel],
         :lng=>p[:location][:lon],
-        :lat=>p[:location][:lat],       
+        :lat=>p[:location][:lat],
         :description=>p[:description]
       }
     }
     success do
       prods_hash
     end
-    
+
     end
-    
+
     def get_by_id(options={})
        store_id = options[:id]
       return error_500 if store_id.nil?
-      
+
       #find the store
       prod = Store.search :per_page=>1,:page=>1 do
             query do
@@ -104,7 +104,7 @@ class Store < ActiveRecord::Base
             :resources=>response_resource
         }
       end
-      
+
     end
   end
 end

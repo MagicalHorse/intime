@@ -75,3 +75,10 @@ jQuery.validator.addMethod(
     return origin_value == "" || origin_end_value == "" || value >= end_value
   }, "必须大于"
 )
+
+
+jQuery.validator.addMethod(
+  "mobile",
+  function(value, element ) {
+  return $.trim(value).length == 11 || this.optional(element)
+}, jQuery.format("手机号码格式错误"));

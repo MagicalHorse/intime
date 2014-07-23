@@ -3,6 +3,7 @@
 class Ims::StoresController < Ims::BaseController
   layout "ims/store"
 
+
   def show
     @store = Ims::Store.show(request, id: params[:id])
     @title = "店铺展示"

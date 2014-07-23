@@ -9,13 +9,13 @@
     <div class="controls-defined defined-small">
       <label class="col-4 text-left"><abbr class="txt-red">*</abbr>门店名称：</label>
       <div class="col-8">
-        <%= select_tag "invitation_code[storeid]", options_for_select( [["name", "id" ]]), prompt: "请选择" %>
+        <%= select_tag "invitation_code[storeid]", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}), prompt: "请选择" %>
       </div>
     </div>
     <div class="controls-defined defined-small">
       <label class="col-4 text-left"><abbr class="txt-red">*</abbr>营业部门：</label>
       <div class="col-8">
-        <%= select_tag "invitation_code[departid]", options_for_select([["name", "id" ]]), prompt: "请选择" %>
+        <%= select_tag "invitation_code[departid]", options_for_select([]), prompt: "请选择" %>
       </div>
     </div>
     <div class="controls-defined defined-small">
@@ -35,7 +35,7 @@
     <div class="controls-defined defined-small">
       <label class="col-4 text-left"><abbr class="txt-red">*</abbr>导购工号：</label>
       <div class="col-8">
-        <%= text_field_tag "invitation_code[sectioncode]" %>
+        <%= text_field_tag "invitation_code[operatorcode]" %>
       </div>
     </div>
 
@@ -102,16 +102,102 @@
 
   $(function(){
 
+    var validator = $("#invitation_code_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
+      rules: {
+        "invitation_code[storeid]": {
+          required: true
+        },
+        "invitation_code[departid]": {
+          required: true
+        },
+        "invitation_code[sectioncode]": {
+          required: true
+        },
+        "invitation_code[name]": {
+          required: true
+        },
+        "invitation_code[operatorcode]": {
+          required: true
+        },
+        "invitation_code[mobile]": {
+          required: true,
+          mobile: true
+        },
+        "sms_code": {
+          required: true
+        }
+      },
+      messages: {
+        "invitation_code[storeid]": {
+          required: "门店名称不能为空"
+        },
+        "invitation_code[departid]": {
+          required: "营业部门不能为空"
+        },
+        "invitation_code[sectioncode]": {
+          required: "专柜编码不能为空"
+        },
+        "invitation_code[name]": {
+          required: "导购姓名不能为空"
+        },
+        "invitation_code[operatorcode]": {
+          required: "导购工号不能为空"
+        },
+        "invitation_code[mobile]": {
+          required: "手机号不能为空",
+          mobile: "手机号码格式错误"
+        },
+        "sms_code": {
+          required: "验证码不能为空"
+        }
+      },
+      showErrors: function(errorMap, errorList) {
+        var messages = errorList.map(function(i, v) {
+          return i.message
+        })
+        msg = messages.join(", ")
+        if(msg != ""){
+          error_modal(msg);
+        }
+      }
+
+    })
+
+    $("select[name='invitation_code[storeid]']").on("change", function(){
+      store_id = $(this).val()
+      depart_doc = $("select[name='invitation_code[departid]']")
+      if(store_id.length > 0){
+        $.get("<%= ims_store_store_path('id') %>", {store_id: store_id}, function(data){
+          if(data["status"] == true){
+            depart_doc.html("")
+            depart_doc.append('<option value="">请选择</option>')
+            $.each(data["data"], function(index, element){
+              depart_doc.append('<option value="'+element['id']+'">'+element['name']+'</option>')
+            })
+          }
+        })
+      }
+    }).trigger("change")
+
     $("#resend").click(function(){
-      var mobile = $.trim($("input[name='invitation_code[mobile]']").val())
-      if(mobile.length > 0){
+      mobile_doc = $("input[name='invitation_code[mobile]']")
+      var mobile = $.trim(mobile_doc.val())
+      if(validator.element(mobile_doc)){
         $.post("<%= ims_sms_codes_path %>", {"phone": mobile},function(){
           $("#count_down").show();
           $("#resend").hide();
           interval_count_down = setInterval("count_down()", 1000);
         }, "text");
       }else{
-        error_modal("请输入手机号码")
+        if(mobile.length == 0){
+          error_modal("手机号码不能为空")
+        }else{
+          error_modal("手机号码格式错误")
+        }
       }
     })
 
@@ -141,70 +227,6 @@
         }, 1)
 
       }
-    })
-
-
-    $("#invitation_code_form").validate({
-      onsubmit: true,
-      onfocusout: false,
-      onkeyup: false,
-      onclick: false,
-      rules: {
-        "invitation_code[storeid]": {
-          required: true
-        },
-        "invitation_code[departid]": {
-          required: true
-        },
-        "invitation_code[sectioncode]": {
-          required: true
-        },
-        "invitation_code[name]": {
-          required: true
-        },
-        "invitation_code[sectioncode]": {
-          required: true
-        },
-        "invitation_code[mobile]": {
-          required: true
-        },
-        "sms_code": {
-          required: true
-        }
-      },
-      messages: {
-        "invitation_code[storeid]": {
-          required: "门店名称不能为空"
-        },
-        "invitation_code[departid]": {
-          required: "营业部门不能为空"
-        },
-        "invitation_code[sectioncode]": {
-          required: "专柜编码不能为空"
-        },
-        "invitation_code[name]": {
-          required: "导购姓名不能为空"
-        },
-        "invitation_code[sectioncode]": {
-          required: "导购工号不能为空"
-        },
-        "invitation_code[mobile]": {
-          required: "手机号不能为空"
-        },
-        "sms_code": {
-          required: "验证码不能为空"
-        }
-      },
-      showErrors: function(errorMap, errorList) {
-        var messages = errorList.map(function(i, v) {
-          return i.message
-        })
-        msg = messages.join(", ")
-        if(msg != ""){
-          error_modal(msg);
-        }
-      }
-
     })
 
 

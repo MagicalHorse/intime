@@ -4,6 +4,11 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   skip_filter :authenticate, only: [:my, :check]
   before_filter :is_my_store, only: [:edit, :update, :my]
 
+  def show
+    @store = ::Store.es_search(store_id: params[:store_id]).first
+    render json: {status: true, data: [{name: 'zcy', id: 1}]}
+  end
+
   def edit
   	@store = Ims::Store.show(request, {id: params[:id]})
     @title = "修改店铺信息"
