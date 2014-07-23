@@ -1,9 +1,11 @@
 <div class="wrap-content">
   <div class="module module-white min-height">
-    <div class="module-tab0 module-tab2 module-tab3 module-product tabs-fixed">
+    <div class="module-tab0 module-tab2 <%= 'module-tab3' if can_publish_product = ((current_user.operate_right & 4) == 4) %> module-product tabs-fixed">
       <ul id="myTab" class="nav nav-tabs">
         <li class="active"><a href="#combos">商品组合</a></li>
+        <% if can_publish_product %>
         <li class=""><a href="#products">自拍商品</a></li>
+        <% end %>
         <li class="last_li"><a href="#gift_cards">礼品卡</a></li>
       </ul>
 
