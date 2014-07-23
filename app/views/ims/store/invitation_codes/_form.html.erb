@@ -1,0 +1,235 @@
+<br/>
+<div class="back-wrap-inner">
+
+<%= form_tag ims_store_invitation_codes_path, method: :post, id: "invitation_code_form", class: "form-defined" do %>
+<div class="module module-bg-white2">
+
+  <div class="form-box">
+
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>门店名称：</label>
+      <div class="col-8">
+        <%= select_tag "invitation_code[storeid]", options_for_select(@stores.collect{|store| [store["name"], store["id"]]}), prompt: "请选择" %>
+      </div>
+    </div>
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>营业部门：</label>
+      <div class="col-8">
+        <%= select_tag "invitation_code[departid]", options_for_select([]), prompt: "请选择" %>
+      </div>
+    </div>
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>专柜编码：</label>
+      <div class="col-8">
+        <%= text_field_tag "invitation_code[sectioncode]" %>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>导购姓名：</label>
+      <div class="col-8">
+        <%= text_field_tag "invitation_code[name]" %>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>导购工号：</label>
+      <div class="col-8">
+        <%= text_field_tag "invitation_code[operatorcode]" %>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>手机号：</label>
+      <div class="col-8">
+        <%= text_field_tag "invitation_code[mobile]" %>
+      </div>
+    </div>
+
+    <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>验证码：</label>
+      <div class="col-4">
+        <%= text_field_tag "sms_code" %>
+      </div>
+      <div class="col-4">
+        <div class='btn btn-danger btn-small btn-block' id="count_down" style="display:none; margin-top: 0px;">
+          <span id="num">60</span>秒后重新发送
+        </div>
+        <div class='btn btn-danger btn-small btn-block' id="resend" style="margin-top: 0px;">获取验证码</div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+
+<div class="module module-bg-white2">
+  <div class="row-fluid">
+
+    <div class="col-12">
+      <div class="text-center" style="padding: 15px 30px;">
+        <button type="button" class="btn btn-large btn-danger btn-block" id="submit_invitation_code">提交</button>
+      </div>
+    </div>
+
+  </div>
+  <p id="requestcode" class="txt-small">
+    温馨提示：<br/>
+
+    1、确保所填写信息的正确性，便于快速通过审核。<br/>
+
+    2、在工作时间内请保持联系电话处于开机状态，好让我们的工作人员能及时联系到您。
+  </p>
+
+</div>
+
+<% end %>
+
+</div>
+
+<%= content_for :javascripts do -%>
+<script type="text/javascript">
+  function count_down(){
+    $("#num").text( parseInt($("#num").text()) - 1 );
+    if(parseInt($("#num").text()) == 0){
+      clearInterval(interval_count_down);
+      $("#num").text(60);
+      $("#count_down").hide();
+      $("#resend").show();
+    }
+  }
+
+  $(function(){
+
+    var validator = $("#invitation_code_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
+      rules: {
+        "invitation_code[storeid]": {
+          required: true
+        },
+        "invitation_code[departid]": {
+          required: true
+        },
+        "invitation_code[sectioncode]": {
+          required: true
+        },
+        "invitation_code[name]": {
+          required: true
+        },
+        "invitation_code[operatorcode]": {
+          required: true
+        },
+        "invitation_code[mobile]": {
+          required: true,
+          mobile: true
+        },
+        "sms_code": {
+          required: true
+        }
+      },
+      messages: {
+        "invitation_code[storeid]": {
+          required: "门店名称不能为空"
+        },
+        "invitation_code[departid]": {
+          required: "营业部门不能为空"
+        },
+        "invitation_code[sectioncode]": {
+          required: "专柜编码不能为空"
+        },
+        "invitation_code[name]": {
+          required: "导购姓名不能为空"
+        },
+        "invitation_code[operatorcode]": {
+          required: "导购工号不能为空"
+        },
+        "invitation_code[mobile]": {
+          required: "手机号不能为空",
+          mobile: "手机号码格式错误"
+        },
+        "sms_code": {
+          required: "验证码不能为空"
+        }
+      },
+      showErrors: function(errorMap, errorList) {
+        var messages = errorList.map(function(i, v) {
+          return i.message
+        })
+        msg = messages.join(", ")
+        if(msg != ""){
+          error_modal(msg);
+        }
+      }
+
+    })
+
+    $("select[name='invitation_code[storeid]']").on("change", function(){
+      store_id = $(this).val()
+      depart_doc = $("select[name='invitation_code[departid]']")
+      if(store_id.length > 0){
+        $.get("<%= ims_store_store_path('id') %>", {store_id: store_id}, function(data){
+          if(data["status"] == true){
+            depart_doc.html("")
+            depart_doc.append('<option value="">请选择</option>')
+            $.each(data["data"], function(index, element){
+              depart_doc.append('<option value="'+element['id']+'">'+element['name']+'</option>')
+            })
+          }
+        })
+      }
+    }).trigger("change")
+
+    $("#resend").click(function(){
+      mobile_doc = $("input[name='invitation_code[mobile]']")
+      var mobile = $.trim(mobile_doc.val())
+      if(validator.element(mobile_doc)){
+        $.post("<%= ims_sms_codes_path %>", {"phone": mobile},function(){
+          $("#count_down").show();
+          $("#resend").hide();
+          interval_count_down = setInterval("count_down()", 1000);
+        }, "text");
+      }else{
+        if(mobile.length == 0){
+          error_modal("手机号码不能为空")
+        }else{
+          error_modal("手机号码格式错误")
+        }
+      }
+    })
+
+    $("#submit_invitation_code").on("click", function(){
+      form = $("#invitation_code_form")
+      if(form.valid()){
+        $("#loading-box").modal();
+
+        setTimeout(function(){
+          form.ajaxSubmit({
+            dataType: "json",
+            success: function(data){
+              if(data["status"] == true){
+                $("#ex2").html("<div class='text-center'><div class='txt4 txt-red'>温馨提示</div><div class='txt4'>您提交的申请我们会尽快处理，请您耐心等待。</div><a class='btn btn-danger btn-small btn-block btn-modal' href='"+"<%= ims_store_root_path %>"+"'>确认</a></div>");
+                $("#ex2").modal();
+              }else{
+                error_modal(data["message"])
+              }
+              $("#loading-box").modal("hide")
+            },
+            error: function(data){
+              error_modal("申请邀请码发生错误")
+              $("#loading-box").modal("hide")
+            }
+          })
+
+        }, 1)
+
+      }
+    })
+
+
+  })
+</script>
+<% end %>

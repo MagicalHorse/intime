@@ -2,9 +2,10 @@
 
 class Ims::Store::InvitationCodesController < Ims::Store::BaseController
 
+  before_filter :stores
+
   def new
     @title = "申请邀请码"
-    @stores = ::Store.es_search
   end
 
   def create
@@ -14,6 +15,16 @@ class Ims::Store::InvitationCodesController < Ims::Store::BaseController
     else
       render json: {status: false, message: "手机验证码输入错误"}
     end
+  end
+
+  def upgrade
+    @title = "升级店铺"
+  end
+
+  protected
+
+  def stores
+    @stores = ::Store.es_search
   end
 
 end
