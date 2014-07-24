@@ -129,22 +129,20 @@
         <%= select_tag "product[category_id]", options_for_select(@categories.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :category_id)), prompt: "请选择" %>
       </div>
     </div>
+
     <div class="controls-defined defined-small">
       <label class="col-4 text-left"><abbr class="txt-red">*</abbr>标签：</label>
       <ul class="inline clearfix col-8 selection_box">
 
-        <li>
-          <%#= hidden_field_tag "product['tag_ids'][]", '123' %>
-          <a value="171544" href="javascript:void(0);">
-            新品
-          </a>
+        <% @tags.each do |tag| %>
+        <% is_include_tag = @product.present? && @product["tags"].collect{|tag| tag['id']}.include?(tag['id']) %>
+        <li class="<%= 'active' if is_include_tag %>">
+          <% if is_include_tag %>
+            <%= hidden_field_tag "product[tag_ids][]", tag["id"] %>
+          <% end %>
+          <%= link_to tag['name'], "javascript:void(0);", value: tag['id'] %>
         </li>
-
-        <li>
-          <a value="171545" href="javascript:void(0);">
-            爆款
-          </a>
-        </li>
+        <% end %>
 
       </ul>
 

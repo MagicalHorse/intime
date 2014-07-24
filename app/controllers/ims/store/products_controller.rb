@@ -2,6 +2,8 @@
 
 class Ims::Store::ProductsController < Ims::Store::BaseController
 
+  before_filter :tags, only: [:new, :edit]
+
   def index
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
     @search = Ims::Product.list(request, page: params[:page], pagesize: params[:per_page] || 10)
@@ -123,6 +125,10 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     @brands = Ims::Assistant.brands(request)["data"]["items"]
     @categories = Tag.es_search(per_page: 200000)[:data]
     @codings = Ims::ProductCoding.list(request)["data"]["items"]
+  end
+
+  def tags
+    @tags = Tag.es_search[:data]
   end
 
 end
