@@ -53,13 +53,25 @@
     <h4><%=sanitize format_text(@remote_combo[:data][:desc]) %></h4>
     <div class="p-price1 clearfix">
       <p class="pull-left price-box">
+        <span class="price-span">
+          <em><%= @brand_name %></em>
+        </span>
+
+        <% @tags.each_with_index do |tag, index| %>
+          <span class="tag tag<%= (index % 4)+1 %>">
+            <span class="tag_left tag_left_color"></span>
+            <span class="tag_middle tag_middle_color"><%= tag %></span>
+            <span class="tag_right tag_right_color"></span>
+            <span class="clear"></span>
+          </span>
+        <% end %>
+
+      </p>
+      <p class="pull-left price-box">
         <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
         <% if @remote_combo[:data][:discount] > 0 %>
           <span class="price-span-orignal">￥<%= @remote_combo[:data][:unit_price] %></span>
         <% end %>
-      </p>
-      <p class="pull-left price-box">
-        <span class="price-span">品牌：<em><%= @brand_name %></em></span>
       </p>
       <p class="pull-left price-box">
         <% if @remote_combo[:data][:is_online] && @remote_combo[:data]["expire_in"].present? %>

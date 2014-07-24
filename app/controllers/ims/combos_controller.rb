@@ -14,7 +14,8 @@ class Ims::CombosController < Ims::BaseController
     session[:store_id] = @remote_combo[:data][:store_id]
     @share_url = @private_to.present? ? ims_combo_url(id: @remote_combo[:data][:id], t: Time.now.to_i, private_to: 'true') : ims_combo_url(id: @remote_combo[:data][:id], t: Time.now.to_i)
     @img_url = @remote_combo[:data][:images].present? ? @remote_combo[:data][:images].first['name'] : Settings.default_image_url.product.middle
-    @brand_name = @remote_combo["data"]["products"].collect{|product| product["brand_name"]}.compact.join(", ")
+    @brand_name = @remote_combo["data"]["products"].collect{|product| product["brand_name"]}.compact.uniq.join(", ")
+    @tags = @remote_combo[:data][:products].collect{|product| product[:tags]}.flatten.uniq
   end
 
   def index

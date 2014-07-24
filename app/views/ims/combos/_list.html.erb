@@ -20,7 +20,7 @@
     <div class="clearfix countdown-browser combo_text">
       <p class="pull-left price-box">
         <span class="txt3 price price-span">
-          品牌：<em><%= combo["brands"].collect{|brand| brand["name"]}.join(", ") %></em>
+          品牌：<em><%= combo["brands"].collect{|brand| brand["name"]}.uniq.join(", ") %></em>
         </span>
       </p>
       <p class="pull-left price-box">
