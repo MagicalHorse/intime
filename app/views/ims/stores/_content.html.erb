@@ -10,6 +10,7 @@
   </div>
 </div>
 
+
 <% @store[:data][:combos].each do |combo| %>
 <div class="module module-ele">
   <div class="module-content module-content-img">
@@ -30,6 +31,23 @@
         </div>
       </div>
     </div>
+
+    <% if(tags = combo['tags'].to_a).present? %>
+    <div class="clearfix countdown-browser">
+      <p class="pull-left price-box">
+        <span class="price-span">
+          <% tags.each_with_index do |tag, index| %>
+            <span class="tag tag<%= (index % 4)+1 %>">
+              <span class="tag_left tag_left_color"></span>
+              <span class="tag_middle tag_middle_color"><%= tag %></span>
+              <span class="tag_right tag_right_color"></span>
+              <span class="clear"></span>
+            </span>
+          <% end %>
+        </span>
+      </p>
+    </div>
+    <% end %>
 
     <% if @store[:data][:is_owner] %>
     <div class="clearfix countdown-browser">
