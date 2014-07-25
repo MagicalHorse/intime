@@ -69,9 +69,9 @@
       </p>
       <p class="pull-left price-box">
         <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
-        <% if @remote_combo[:data][:discount] > 0 %>
-          <span class="price-span-orignal">￥<%= @remote_combo[:data][:unit_price] %></span>
-        <% end %>
+        <%# if @remote_combo[:data][:discount] > 0 %>
+          <span class="price-span price-span-orignal">￥<%= @remote_combo[:data][:origin_price] %></span>
+        <%# end %>
       </p>
       <p class="pull-left price-box">
         <% if @remote_combo[:data][:is_online] && @remote_combo[:data]["expire_in"].present? %>

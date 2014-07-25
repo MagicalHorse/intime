@@ -163,7 +163,7 @@
 
 <script type="text/javascript">
 
-  var combo_price = "<%= params[:action] == 'new' ? @combo[:price] : @remote_combo[:data][:unit_price] %>"
+  var combo_price = "<%= params[:action] == 'new' ? @combo[:price] : @remote_combo[:data][:origin_price] %>"
   var check_form = function(){
     var image_fields = $("#img_box li[class!='add-link']");
     var product_image_fields = $("#p_box li");
