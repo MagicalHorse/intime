@@ -38,7 +38,9 @@
       <% if @combos.count == 0 %>
         <%= render 'ims/shared/empty' %>
       <% else %>
-        <%= render 'list' %>
+        <div id="masonry" class="module module-ele">
+          <%= render 'list' %>
+        </div>
       <% end %>
 
       <div class="intime-btm intime-btm-index">
@@ -54,14 +56,27 @@
 <%= hidden_field_tag "page", @search[:page] %>
 <%= hidden_field_tag "per_page", @search[:per_page] %>
 
-<script type="text/javascript">
+
+<% content_for :javascripts do %>
+<script>
+  $(function(){
+
+  var $container = $('#masonry')
+
+  $container.imagesLoaded( function(){
+    $container.masonry({
+      itemSelector : '.combo_wrapper',
+      gutterWidth : 20,
+      isFitWidth: true,
+      isAnimated: true
+    })
+  })
 
   var inLoading = false
 
   var State = History.getState()
   if (State.data && State.data.content){
     $("#scroller").html(State.data.content)
-
   }
   if (State.data && State.data.page) {
   	$("#count").attr("value", State.data.count)
@@ -153,6 +168,8 @@
     History.replaceState({page: page,count: count, content: html}, "商品组合列表", '');
   }
 
+  })
+
 </script>
 
 
@@ -186,3 +203,4 @@
   }, false)
 </script>
 
+<% end %>

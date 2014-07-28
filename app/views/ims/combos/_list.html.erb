@@ -63,52 +63,52 @@
 <% end %>
 
 
-<div class="module module-ele paginate-content">
-  <% @combos.each do |combo| %>
-    <span class="col-6 combo_wrapper">
-      <a class="img-box img-posi" href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
-        <%= image_tag Combo.img_url(combo) %>
-      </a>
+<% @combos.each do |combo| %>
+  <span class="col-6 combo_wrapper paginate-content">
+    <a class="img-box img-posi" href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
+      <%= image_tag Combo.img_url(combo) %>
+    </a>
 
-      <div class="clearfix countdown-browser combo_text">
+    <div class="clearfix countdown-browser combo_text">
 
-        <p class="pull-left price-box combo_two_line_text">
-          <a href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>"><%= sanitize format_text(combo["desc"]) %></a>
-        </p>
+      <p class="pull-left price-box combo_two_line_text">
+        <a href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>"><%= sanitize format_text(combo["desc"]) %></a>
+      </p>
 
-        <p class="pull-left price-box">
-          <span class="price price-span">
-            打包价：<em>¥<%= combo["isInPromotion"] ? (BigDecimal(combo["price"].to_s) - BigDecimal(combo["discountAmount"].to_s)) : combo["price"] %></em>
+      <p class="pull-left price-box">
+        <span class="price price-span">
+          打包价：<em>¥<%= combo["isInPromotion"] ? (BigDecimal(combo["price"].to_s) - BigDecimal(combo["discountAmount"].to_s)) : combo["price"] %></em>
+        </span>
+        <% if (origin_price = combo["originPrice"]).present? %>
+        <span class="price-span price-span-orignal">￥<%= origin_price %></span>
+        <% end %>
+      </p>
+
+      <p class="pull-left price-box">
+        <% expired_in = (combo["expireDate"].to_time - 8.hour).to_i - Time.now.to_i
+        expired_in = expired_in > 0 ? expired_in : nil %>
+        <% if expired_in.present? %>
+          <span class="pull-left countdown">
+            <em id="d<%=combo['id']%>">0</em><span>天</span><em id="h<%=combo['id']%>">00</em>:<em id="m<%=combo['id']%>">00</em>:<em id="s<%=combo['id']%>">00</em><span>后下架</span>
           </span>
-          <% if (origin_price = combo["originPrice"]).present? %>
-          <span class="price-span price-span-orignal">￥<%= origin_price %></span>
-          <% end %>
-        </p>
+          <script type="text/javascript">
+            tms[tms.length] = "<%=expired_in %>";
+            day[day.length] = "d<%=combo['id']%>";
+            hour[hour.length] = "h<%=combo['id']%>";
+            minute[minute.length] = "m<%=combo['id']%>";
+            second[second.length] = "s<%=combo['id']%>";
+          </script>
+        <% else %>
+          <span class="pull-left countdown">
+            长期有效
+          </span>
+        <% end %>
+      </p>
 
-        <p class="pull-left price-box">
-          <% expired_in = (combo["expireDate"].to_time - 8.hour).to_i - Time.now.to_i
-          expired_in = expired_in > 0 ? expired_in : nil %>
-          <% if expired_in.present? %>
-            <span class="pull-left countdown">
-              <em id="d<%=combo['id']%>">0</em><span>天</span><em id="h<%=combo['id']%>">00</em>:<em id="m<%=combo['id']%>">00</em>:<em id="s<%=combo['id']%>">00</em><span>后下架</span>
-            </span>
-            <script type="text/javascript">
-              tms[tms.length] = "<%=expired_in %>";
-              day[day.length] = "d<%=combo['id']%>";
-              hour[hour.length] = "h<%=combo['id']%>";
-              minute[minute.length] = "m<%=combo['id']%>";
-              second[second.length] = "s<%=combo['id']%>";
-            </script>
-          <% else %>
-            <span class="pull-left countdown">
-              长期有效
-            </span>
-          <% end %>
-        </p>
+    </div>
 
-        <!-- <span class="txt4 pull-right" id="favor_combo"><a href="javascript:void(0)"><i class="fa fa-star-o"></i> 收藏</a></span> -->
-      </div>
+  </span>
+<% end %>
 
-    </span>
-  <% end %>
-</div>
+
+
