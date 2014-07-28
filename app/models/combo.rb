@@ -49,7 +49,7 @@ class Combo < ActiveRecord::Base
   def self.es_search(options={})
     keywords = options[:keywords]
     store_id = options[:store_id]
-    per_page = options[:per_page].present? ? options[:per_page].to_i : 5
+    per_page = options[:per_page].present? ? options[:per_page].to_i : 10
     page = options[:page].present? ? options[:page].to_i : 1
     query = Jbuilder.encode do |json|
 

@@ -643,7 +643,7 @@ h6 small {font-size: 10px; line-height: 16px;}
 .wrap-inner .module-ele:last-child .module-content{border:0;}
 .module-title h3{ padding: 0 20px; margin: 0 0 8px; font: 26px/60px "microsoft yahei";}
 .module-content p{margin: 20px 0 0;}
-.countdown-browser .price-box {line-height: 58px; margin-top: 0;}
+.countdown-browser .price-box {line-height: 16px; margin-top: 0;}
 .countdown-browser .price-box:first-child { line-height: normal; margin-top: 20px;}
 .module-content p a{font-size: 22px; line-height: 34px;}
 .share-link{display: inline-block; margin-right: 10px; float: right; width: 44px; height: 44px; text-align: center; line-height: 44px; vertical-align: middle; border-radius: 50%;}
@@ -653,13 +653,13 @@ h6 small {font-size: 10px; line-height: 16px;}
 .suit-right .img-box:last-child{margin-bottom: 0;}
 .suit-right .img-box img{width: auto; height: auto;}
 .img-posi{ position: relative; display: inline-block; width: 100%; text-align: center; overflow: hidden; background-color: white;}
-.img-posi img{ width: auto; height: auto;}
+.img-posi img{ width: auto; height: auto; border-bottom: solid 1px #ddd;}
 .img-posi img.mark-img{ width: auto; height: auto;}
 .mark-img{ position: absolute; left: 0; top: 0;}
 .price-box {width: 100%;}
 .price-box span{padding-right: 10px;}
-.price-box .price em {font: normal 30px/34px "microsoft yahei";}
-.price-box em{ font: normal 28px/1.4em "microsoft yahei";}
+.price-box .price em {font: normal 12px/14px "microsoft yahei";}
+.price-box em{ font: normal 12px/1.4em "microsoft yahei";}
 .module-content-card .price-box .btn-large {
     width: 30%;
     text-align: center;
@@ -785,11 +785,11 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .empty-box .btn-empty{ padding: 20px 80px;}
 
 /*-----------------------------------Countdown--------------------------------------*/
-.price-span{font-size: 28px; margin-left: 0; margin-top: 5px;}
+.price-span{font-size: 8px; margin-left: 0; margin-top: 0px;}
 .price-span-orignal { text-decoration: line-through; color: #c3c6cb;}
-.countdown{display: inline-block; font-size: 21px; font-style: normal;}
+.countdown{display: inline-block; font-size: 12px; font-style: normal;}
 .countdown em{ font-style: normal; font-family: arial; line-height: normal; padding: 0 4px; margin: 0 2px;}
-.price-box .countdown span{padding: 0 4px; line-height:1.4em}
+.price-box .countdown span{padding: 0 1px; line-height:1.4em}
 /*---------------------------------img-box--------------------------------------*/
 .img-spa{ display: block; text-align: center; font-size: 1px; overflow: hidden; border-radius: 0;}
 .detail-contact .img-spa{ display: block; text-align: center; font-size: 1px; overflow: hidden; border-radius: 6px; background-color: white;}
@@ -827,13 +827,13 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 }
 #bottom-loading-box img{ height: 32px; width: 32px;}
 .intime-btm{ margin: 40px 0 20px; text-align: center;}
-.intime-btm-index{margin-top: 40px;}
+.intime-btm-index{margin-top: 10px;}
 .shopping-icon-box{padding-bottom: 20px;}
 
 @media screen and (max-width: 580px) {
 #loading-box{ width: 120px !important; margin: 0 auto 0 -60px !important;}
 .intime-btm{ margin: 0 0 20px;}
-.intime-btm-index{margin-top: 40px;}
+.intime-btm-index{margin-top: 10px;}
 .shopping-icon-box{padding-bottom: 10px;}
 
 .module-user-card h1{ background-size: 30px auto; line-height: 30px; }
@@ -868,9 +868,9 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .price-box .countdown span{ padding: 0;}
 
 .countdown span{ padding: 0;}
-.countdown em{ font-size: 22px; font-style: normal; line-height: normal; padding: 0 2px; margin: 0 2px;}
+.countdown em{ font-size: 22px; font-style: normal; line-height: normal; padding: 0 1px; margin: 0 1px;}
 .countdown-browser .countdown span{ line-height: 22px;}
-.countdown-browser .price-box {line-height: 2.4em;}
+.countdown-browser .price-box {line-height: 12px;}
   /*-----------------------------------Css Modal------------------------------------*/
 .modal { width: 90%; padding: 15px; margin: 0 auto; left: 0; right: 0;}
 .modal-grey{ padding-top: 70px; width: 100% !important;}
@@ -900,9 +900,9 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 .browerse-icon .browerse-nav-link { font-size: 14px;}
 .shop-head{bottom: -26%;}
 .price-box .btn-small{padding: 4px 12px;}
-.price-span{font-size: 14px;}
-.price-box em{font-size: 14px;}
-.price-box .countdown{font-size: 14px;}
+.price-span{font-size: 8px;}
+.price-box em{font-size: 12px;}
+.price-box .countdown{font-size: 8px;}
 .countdown em{font-size: 14px;}
   .modal-grey{ padding-top: 0;}
   .browerse-icon { top: 26px;}
@@ -1062,6 +1062,7 @@ footer{ position: fixed; bottom:0; width: 640px; z-index: 1000;}
 
 .combo_text{
   padding-left: 5px;
+  background-color: #FFF;
 }
 
 #wrapper_product {
@@ -1191,3 +1192,12 @@ span.tag4 span.tag_right_color{
   background: url("../ims/tag_color_right4.png") no-repeat scroll left bottom rgba(0, 0, 0, 0);
 }
 
+.price-box a, .price-box a:hover{
+  color: #676767;
+  font-size: 9px;
+}
+
+.combo_wrapper{
+  border: 1px solid #e9e9e9;
+  margin-bottom: 6px;
+}
