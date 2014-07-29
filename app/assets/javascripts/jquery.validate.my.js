@@ -8,16 +8,15 @@ jQuery.validator.addMethod(
 )
 
 jQuery.validator.addMethod(
-  "verify_shengfenzheng_size",
-  function(value, element, params) {
-    var depend_text = $(params[0]).children("option:selected").text()
+  "id_card",
+  function(value, element) {
     value = $.trim(value.toUpperCase())
     // 15 位身份证号码验证
     isCard1=/^(\d{6})(\d{2})(\d{2})(\d{2})(\d{3})$/
     // 18 位身份证号码验证
     //isCard2=/^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/
     isCard2=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])(\d{3})([0-9]|X)$/;
-    return depend_text != params[1] || isCard1.test(value) || isCard2.test(value) || value.length == 0
+    return isCard1.test(value) || isCard2.test(value) || value.length == 0
   }, "身份证号码不正确"
 )
 

@@ -40,6 +40,12 @@
             <div class="col-8"><%= text_field_tag :bank_no, "#{@data[:bank_no]}" %></div>
           </div>
         </div>
+        <div class="module common-white">
+          <div class="controls-defined defined-small">
+            <label class="col-4"><abbr class="txt-red">*</abbr>身份证号:</label>
+            <div class="col-8"><%= text_field_tag :id_card, "#{@data[:id_card]}" %></div>
+          </div>
+        </div>
         <div class="module withdrawal-notice">
           <p class="txt3 txt-grey"><i class="fa fa-exclamation-circle txt-red"></i> 温馨提示</p>
           <ol class="txt3 txt-grey">
@@ -84,12 +90,28 @@
         },
         "user_name": {
           required: true
+        },
+        "id_card": {
+          required: true,
+          id_card: true
         }
       },
       messages:{
-        "amount": {required: '必须填写提取金额', number: '必须填写正确的数字', dontMorethan: '提现金额不够'},
-        "bank_no": {required: '必须填写银行卡号'},
-        "user_name": {required: '必须填写开户姓名'}
+        "amount": {
+          required: '必须填写提取金额',
+          number: '必须填写正确的数字',
+          dontMorethan: '提现金额不够'
+        },
+        "bank_no": {
+          required: '必须填写银行卡号'
+        },
+        "user_name": {
+          required: '必须填写开户姓名'
+        },
+        "id_card": {
+          required: "必须填写身份证号",
+          id_card: "身份证号格式不正确"
+        }
       },
       showErrors: function (errorMap, errorList) {
         $.each(this.successList, function (index, value) {
