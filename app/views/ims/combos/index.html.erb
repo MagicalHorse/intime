@@ -38,7 +38,7 @@
       <% if @combos.count == 0 %>
         <%= render 'ims/shared/empty' %>
       <% else %>
-        <div id="masonry" class="module module-ele">
+        <div id="container" class="module module-ele">
           <%= render 'list' %>
         </div>
       <% end %>
@@ -61,16 +61,21 @@
 <script>
   $(function(){
 
-  var $masonry = $('#masonry')
+  var demo = document.querySelector('#scroller');
 
-  $masonry.imagesLoaded( function(){
-    $masonry.masonry({
-      itemSelector : '.combo_wrapper',
-      gutterWidth : 20,
-      isFitWidth: true,
-      isAnimated: true
-    })
+  var $container = demo.querySelector('#container');
+
+  var options = {
+    itemSelector : '.combo_wrapper',
+    gutterWidth : 20,
+    isFitWidth: true,
+    isAnimated: true
+  }
+
+  $("#container").imagesLoaded(function(){
+    new Masonry($container, options);
   })
+
 
   var inLoading = false
 
@@ -127,16 +132,14 @@
     return false;
 	})
 
-  $(document).ready(function(){
 
-    $(window).scroll(function(){
-      var htmlHeight=document.body.scrollHeight
-      var clientHeight=document.body.clientHeight  // 屏幕高度
-      var scrollTop=document.body.scrollTop   // 滚轮高度
-      if(scrollTop+clientHeight == htmlHeight && !inLoading){
-        load_combos()
-      }
-    })
+  $(window).scroll(function(){
+    var htmlHeight=document.body.scrollHeight
+    var clientHeight=document.body.clientHeight  // 屏幕高度
+    var scrollTop=document.body.scrollTop   // 滚轮高度
+    if(scrollTop+clientHeight == htmlHeight && !inLoading){
+      load_combos()
+    }
   })
 
   function load_combos(){
@@ -150,6 +153,9 @@
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
         if(data["status"] == true){
           $(".paginate-content:last").after(data["html"])
+          $("#container").imagesLoaded(function(){
+            new Masonry($container, options);
+          })
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
