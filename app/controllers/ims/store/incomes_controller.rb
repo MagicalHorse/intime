@@ -2,9 +2,10 @@
 
 class Ims::Store::IncomesController < Ims::Store::BaseController
 
-  def my
-    @income = Ims::Income.my(request)
-    @title = "我的收益"
+  def index
+    @search = Ims::Income.index(request, page: params[:page] || 1, pagesize: params[:per_page] || 10)
+    @list = @search["data"]["items"]
+    @title = "佣金明细清单"
   end
 
   def new
@@ -16,6 +17,11 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
 
   def create
     @income = Ims::Income.apply(request, {bank_code: params[:bank_code], bank_no: params[:bank_no], amount: params[:amount], user_name: params[:user_name]})
+  end
+
+  def my
+    @income = Ims::Income.my(request)
+    @title = "我的收益"
   end
 
   def list
@@ -36,6 +42,12 @@ class Ims::Store::IncomesController < Ims::Store::BaseController
       format.html{}
       format.json{render "frozen"}
     end
+  end
+
+  def pending
+    @search = Ims::Income.pending(request, page: params[:page] || 1, pagesize: params[:per_page] || 10)
+    @list = @search["data"]["items"]
+    @title = "申请中的金额"
   end
 
 end

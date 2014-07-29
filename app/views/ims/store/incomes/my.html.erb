@@ -2,39 +2,44 @@
   <div class="row-fluid">
     <div clss="span12">
       <div class="income">
-        <div class="common-white text-center">
-           <h4>截至<%= Date.today.strftime("%Y年%m月%d日") %>号为止， 您已提现的总金额为</h4>
-           <h3><span>￥<%= @income[:data][:received_amount] %><span></h3>
+        <div class="header text-center">
+
+          <div class="row-fluid">
+            <div class="left_module">
+              <div class="title">
+                可体现金额
+              </div>
+              <div class="money">
+                ￥<%= @income[:data][:avail_amount] %>
+              </div>
+              <div class="link">
+                <%= link_to "提现历史记录", "javascript:void(0);", id: "income_list", value: list_ims_store_incomes_path %>
+              </div>
+            </div>
+            <div class="right_module">
+              <div class="title">
+                我的总收益
+              </div>
+              <div class="money">
+                ￥<%= @income[:data][:total_amount] %>
+              </div>
+              <div class="link">
+                <%= link_to "佣金明细清单", "javascript:void(0);", id: "income_index", value: ims_store_incomes_path %>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="common-white" id="income_list" value="/ims/store/incomes/list">
-          <a href="javascript:void(0);" class="income-menu1">
-            <i class="fa fa-bars"></i>
-            <span>提现记录</span>
-            <i class="fa fa-angle-right"></i>
-          </a>
-        </div>
 
-        <div class="common-white" id="frozen_list" value="/ims/store/incomes/frozen">
+        <div class="common-white" id="pending_list" value="<%= pending_ims_store_incomes_path %>">
           <a href="javascript:void(0);"  class="income-menu2">
-            <i class="fa fa-th-list"></i>
-            <span>待提现金额</span>
-            <i class="fa fa-angle-right"><span>￥<%= @income[:data][:frozen_amount] %></span></i>
+            <i class="fa fa-money"></i>
+            <span class="txt-grey">提现申请中的金额</span>
+            <i class="pull-right txt-grey"><span>￥<%= @income[:data][:request_amount] %></span></i>
           </a>
         </div>
         <div class="tips">
           <span><i class="fa fa-exclamation-circle"></i>成交7日并且没有发生退货才可提取！</span>
-        </div>
-
-        <div class="common-white">
-          <i class="fa fa-money"></i>
-          <span class="txt-grey">提现申请中的金额</span>
-          <i class="pull-right txt-grey"><span>￥<%= @income[:data][:request_amount] %></span></i>
-        </div>
-
-        <div class="common-white">
-          <i class="fa fa-jpy"></i>
-          <span class="txt-red">可提现金额：<em class="can-carry">￥<%= @income[:data][:avail_amount] %></em></span>
         </div>
 
         <div class="bottom-btnbox">
@@ -65,7 +70,7 @@
      }, 1)
    });
 
-   $("#frozen_list").click(function(){
+   $("#pending_list").click(function(){
      url = $(this).attr("value")
      $("#loading-box").modal()
      setTimeout(function(){

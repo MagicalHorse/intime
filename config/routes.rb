@@ -448,7 +448,7 @@ IntimeService::Application.routes.draw do
       end
       resources :incomes, only: [:index, :new, :create] do
         collection do
-          get :my, :list, :frozen, :tips
+          get :my, :list, :frozen, :tips, :pending
         end
       end
 

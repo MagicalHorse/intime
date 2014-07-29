@@ -1,0 +1,54 @@
+<div class="wrap-content">
+  <div class="row-fluid">
+    <div clss="span12">
+      <div class="income-list">
+        <% if @list.present? %>
+          <%= render "pending", list: @list %>
+        <% else %>
+          <%= render 'ims/shared/empty' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= hidden_field_tag "count", @search[:data][:totalcount] %>
+<%= hidden_field_tag "page", @search[:data][:pageindex] %>
+<%= hidden_field_tag "per_page", @search[:data][:pagesize] %>
+
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      var inLoading = false
+
+      $(window).scroll(function(){
+        var htmlHeight=document.body.scrollHeight
+        var clientHeight=document.body.clientHeight
+        var scrollTop=document.body.scrollTop
+        var count = parseInt($("#count").attr("value"))
+        var page = parseInt($("#page").attr("value"))
+        var per_page = parseInt($("#per_page").attr("value"))
+
+
+        if(scrollTop+clientHeight == htmlHeight && !inLoading){
+          if(page * per_page < count && !inLoading){
+            inLoading = true
+            $("#bottom-loading-box").modal()
+            $.get("<%= pending_ims_store_incomes_path %>", {page: page + 1, per_page: per_page}, function(data){
+              if(data["status"] == true){
+                $(".paginate-content:last").after(data["html"])
+                $("#count").attr("value", data["count"])
+                $("#page").attr("value", data["page"])
+                $("#per_page").attr("value", data["per_page"])
+              }
+              $("#bottom-loading-box").modal("hide")
+              inLoading = false
+            }, "json")
+          }
+        }
+
+      })
+    })
+  </script>
+<% end %>

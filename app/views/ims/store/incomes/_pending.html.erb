@@ -1,0 +1,8 @@
+<% list.each do |item| %>
+ <div class="common-white paginate-content">
+    <div class="txt2"><span>申请时间：<%= l item["create_date"].to_time %></span></div>
+    <div class="txt2"><span class="tel-nun">充值方式：<%= item["bank_name"] %></span></div>
+    <div class="txt2"><span>卡号：<%= item["card_no"] %></span></div>
+    <div class="txt2"><span class="income-money">订单佣金：<em>￥<%= item["amount"] %></em></span></div>
+ </div>
+ <% end %>
