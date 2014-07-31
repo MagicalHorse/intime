@@ -312,7 +312,9 @@ IntimeService::Application.routes.draw do
         get "list"
       end
     end
-    resource :auth
+    resource :auth, do
+      get 'forward'
+    end
     resources :stores, only: [:show]
     resources :combos, only: [:show, :destroy, :index] do
       collection do
