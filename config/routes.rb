@@ -313,8 +313,11 @@ IntimeService::Application.routes.draw do
         get "list"
       end
     end
-    resource :auth
-    resources :stores, only: :show
+
+    resource :auth do
+      get 'forward'
+    end
+    resources :stores, only: [:show]
     resources :combos, only: [:show, :destroy, :index] do
       collection do
         post 'upload'

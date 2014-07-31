@@ -14,7 +14,13 @@ class Ims::AuthsController < ActionController::Base
       render text: '需要授权'
     end
   end
-
+  def forward
+    raw_url = params[:raw_url]
+    if !raw_url.present?
+      render text: 'empty raw url'
+    end
+    redirect_to("#{raw_url}&#{request.query_string}")
+  end
   private
 
   def get_token_from_api(request)
