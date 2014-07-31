@@ -16,7 +16,7 @@ class Ims::AuthsController < ActionController::Base
   end
   def forward
     raw_url = params[:raw_url]
-    if !raw_url.presents?
+    if !raw_url.present?
       render text: 'empty raw url'
     end
     redirect_to("#{raw_url}&#{request.query_string}")
