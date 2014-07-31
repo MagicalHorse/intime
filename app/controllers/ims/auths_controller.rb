@@ -5,14 +5,34 @@ class Ims::AuthsController < ActionController::Base
   def show
     if (code = params[:code]).present?
       json_resp = get_access_token(code)
-      session[:wx_openid] = json_resp['openid']
-      cookies[:user_access_token] = { value: json_resp["access_token"], expires: (json_resp["expires_in"] - 100).seconds.from_now.utc }
-      get_token_from_api(request)
-      redirect_to (session[:back_url] || params[:back_url])
-      session.delete(:back_url)
+      open_id = json_resp['openid']
+      access_token = json_resp["access_token"]
+      expires_in = json_resp["expires_in"]
+      back_url = params[:back_url]
+      if params[:env] == "test"
+        redirect_to test_ims_auth_url(host: "114.215.179.76", open_id: open_id, access_token: access_token, expires_in: expires_in, back_url: back_url)
+      else
+        session[:wx_openid] = open_id
+        cookies[:user_access_token] = { value: access_token, expires: (expires_in - 100).seconds.from_now.utc }
+        get_token_from_api(request)
+        redirect_to (session[:back_url] || back_url)
+        session.delete(:back_url)
+      end
     else
       render text: '需要授权'
     end
+  end
+
+  def test
+    open_id = params[:open_id]
+    access_token = params[:access_token]
+    expires_in = params[:expires_in]
+    back_url = params[:back_url]
+    session[:wx_openid] = open_id
+    cookies[:user_access_token] = { value: access_token, expires: (expires_in.to_i - 100).seconds.from_now.utc }
+    get_token_from_api(request)
+    redirect_to (session[:back_url] || back_url)
+    session.delete(:back_url)
   end
 
   private
@@ -37,7 +57,7 @@ class Ims::AuthsController < ActionController::Base
       :token => user_hash[:data][:token],
       :store_id => user_hash[:data][:associate_id],
       :max_comboitems => user_hash[:data][:max_comboitems]
-      })
+    })
 
     session[:current_wx_user] = user
   end

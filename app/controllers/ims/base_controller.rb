@@ -5,7 +5,7 @@ class Ims::BaseController < ApplicationController
   helper_method [:current_user,:track_options]
 
   rescue_from Ims::Unauthorized do
-    redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: Settings.wx.appid, redirect_uri: URI.escape("http://#{Settings.wx.backdomain}/ims/auth?back_url=#{request.url}"), response_type: 'code', scope: 'snsapi_base', state: "STATE"}.to_param, 'wechat_redirect']).to_s)
+    redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: Settings.wx.appid, redirect_uri: URI.escape("http://i.intime.com.cn/ims/auth?back_url=#{request.url}&env=#{Rails.env}"), response_type: 'code', scope: 'snsapi_base', state: "STATE"}.to_param, 'wechat_redirect']).to_s)
   end
 
   def backurl
