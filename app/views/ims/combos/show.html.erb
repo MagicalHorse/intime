@@ -4,6 +4,7 @@
   <div class="module module-color-white clearfix">
     <div class="row-fluid">
       <div class="span12">
+        <% if false %>
         <div class="swiper-container">
           <div class="swiper-wrapper">
             <% if @remote_combo[:data][:images].present? %>
@@ -15,6 +16,17 @@
             <% end %>
           </div>
         </div>
+        <% else %>
+          <section id="picbox" class="royalSlider text-center">
+          <% if @remote_combo[:data][:images].present? %>
+            <% @remote_combo[:data][:images].each_with_index do |img, i| %>
+              <div class="rsContent">
+                <%= image_tag img["name"], class: "rsImg" %>
+              </div>
+            <% end %>
+          <% end %>
+          </section>
+        <% end %>
 
         <div class="module module-white module-show">
           <% if (products = @remote_combo[:data][:products][0..2]).present? %>
@@ -146,6 +158,7 @@
   <script>
   $(function(){
 
+    <% if false %>
     var mySwiper = $('.swiper-container').swiper({
       mode:'horizontal',
       autoplay: 3000,
@@ -155,6 +168,22 @@
       centeredSlides: true,
       offsetPxBefore: 100
     });
+    <% else %>
+      $('#picbox').royalSlider({
+        loop: true,
+        controlsInside: false,
+        autoHeight: true,
+        imageScaleMode: 'none',
+        imageAlignCenter:false,
+        arrowsNavAutoHide: true,//箭头导航是否自动隐藏  true或false
+        arrowsNavHideOnTouch: true,//箭头导航是否在触摸设备中隐藏 true或false
+        slidesSpacing: 0,
+        controlNavigation: 'bullets',
+        navigateByClick: true,
+        autoPlay: false,
+        transitionType:'move'
+      });
+    <% end %>
 
     <% if @remote_combo[:data][:is_favored] %>
       $("#favor_combo").hide();
