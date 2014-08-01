@@ -159,7 +159,7 @@
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
-          record_history(page)
+          record_history()
         }
         $("#bottom-loading-box").modal("hide");
         inLoading = false
@@ -167,7 +167,7 @@
     }
   }
 
-  function record_history(page2){
+  function record_history(){
     html = $("#scroller").html()
     var count = $("#count").attr("value");
     var page = $("#page").attr("value")
