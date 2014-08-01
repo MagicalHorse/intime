@@ -87,7 +87,7 @@
       </p>
       <p class="pull-left price-box">
         <% if @remote_combo[:data][:is_online] && @remote_combo[:data]["expire_in"].present? %>
-          <span class="pull-left countdown">
+          <span class="pull-left countdown" style="margin-top: 6px;">
             <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
           </span>
           <script type="text/javascript">
