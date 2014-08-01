@@ -23,7 +23,9 @@
               <div class="span4">
                 <div class="combos-product">
                   <%= image_tag product[:image] %>
-                  <p><span class="txt3">￥<%= product[:price] %></span></p>
+                  <p>
+                    <span class="txt3">￥<%= product[:price] %></span>
+                  </p>
                   <%= link_to "点击购买", ims_orders_new_path(:product_id => product[:id]), class: "btn btn-danger btn-mini btn-block" %>
                 </div>
               </div>

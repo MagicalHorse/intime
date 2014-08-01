@@ -128,7 +128,7 @@
 .module-common {padding: 20px;}
 .combos-product {background-color: #fff;padding: 10px; text-align: center;}
 .combos-product .img-spa{border:0;}
-.combos-product p {margin-top: 20px; text-align: left; padding-left: 7px; font-weight: normal;}
+.combos-product p {margin-top: 20px; text-align: center; padding-left: 0px; font-weight: normal;}
 .private-custom{ margin: 30px; background-repeat: no-repeat; background-position: center top; background-size: auto auto;}
 .private-bg{ background-repeat: no-repeat; background-position: center bottom; background-size: auto auto;}
 .private-text h2{ margin: 0;}

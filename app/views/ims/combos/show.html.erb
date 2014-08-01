@@ -1,6 +1,6 @@
 <%= render 'ims/shared/countdown' %>
 
-<div class="wrap-inner back-wrap-inner bottom-distance">
+<div class="wrap-inner back-wrap-inner bottom-distance combo_info">
   <div class="module module-color-white clearfix">
     <div class="row-fluid">
       <div class="span12">
@@ -30,7 +30,7 @@
 
         <div class="module module-white module-show">
           <% if (products = @remote_combo[:data][:products][0..2]).present? %>
-            <div class="row-fluid">
+            <div class="row-fluid top_products">
               <% products.each do |product| %>
                 <%= render partial: "product", locals: {:product => product} %>
               <% end %>
@@ -65,7 +65,7 @@
     <h4><%=sanitize format_text(@remote_combo[:data][:desc]) %></h4>
     <div class="p-price1 clearfix">
       <p class="pull-left price-box">
-        <span class="price-span" style="margin-top:8px;">
+        <span class="price-span brand_name" style="margin-top:8px;">
           <em><%= @brand_name %></em>
         </span>
 
@@ -87,7 +87,7 @@
       </p>
       <p class="pull-left price-box">
         <% if @remote_combo[:data][:is_online] && @remote_combo[:data]["expire_in"].present? %>
-          <span class="pull-left countdown" style="margin-top: 6px;">
+          <span class="pull-left countdown">
             <em id="d<%=@remote_combo[:data][:id]%>">00</em><span>天</span><em id="h<%=@remote_combo[:data][:id]%>">00</em>:<em id="m<%=@remote_combo[:data][:id]%>">00</em>:<em id="s<%=@remote_combo[:data][:id]%>">00</em><span>后下架</span>
           </span>
           <script type="text/javascript">

@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <% if(tags = combo['tags'].to_a).present? %>
+    <% if(tags = combo['tags'].to_a.uniq).present? %>
     <div class="clearfix countdown-browser">
       <p class="pull-left price-box">
         <span class="price-span">
