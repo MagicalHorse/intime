@@ -39,7 +39,7 @@
           <% tags.each_with_index do |tag, index| %>
             <span class="tag tag<%= (index % 4)+1 %>">
               <span class="tag_left tag_left_color"></span>
-              <span class="tag_middle tag_middle_color"><%= tag %></span>
+              <span class="tag_middle tag_middle_color"><%= tag[:name] %></span>
               <span class="tag_right tag_right_color"></span>
               <span class="clear"></span>
             </span>
