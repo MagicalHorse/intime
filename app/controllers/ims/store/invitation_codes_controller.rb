@@ -3,6 +3,7 @@
 class Ims::Store::InvitationCodesController < Ims::Store::BaseController
 
   before_filter :stores
+  before_filter :verify_can_apply_invitation_code, only: [:new, :create]
 
   def new
     @title = "申请邀请码"
@@ -25,6 +26,10 @@ class Ims::Store::InvitationCodesController < Ims::Store::BaseController
 
   def stores
     @stores = ::Store.es_search
+  end
+
+  def verify_can_apply_invitation_code
+    redirect_to ims_store_root_path if current_user.store_id.present?
   end
 
 end
