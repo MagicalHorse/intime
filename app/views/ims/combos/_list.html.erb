@@ -81,7 +81,7 @@
           <em>¥<%= combo["isInPromotion"] ? (BigDecimal(combo["price"].to_s) - BigDecimal(combo["discountAmount"].to_s)) : combo["price"] %></em>
         </span>
         <% if (origin_price = combo["originPrice"]).present? %>
-        <span class="price-span price-span-orignal">￥<%= origin_price %></span>
+        <span class="price-span-orignal">￥<%= origin_price %></span>
         <% end %>
       </p>
 
