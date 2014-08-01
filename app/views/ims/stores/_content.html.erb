@@ -116,7 +116,7 @@
           <%= image_tag card["image"] %>
         </a>
       </div>
-      <p><%= link_to "javascript:void(0);", card["desc"] %></p>
+      <p><%= link_to card["desc"], "javascript:void(0);" %></p>
       <div class="clearfix">
         <% unless @store[:data][:is_owner] %>
         <p class="pull-right price-box text-center price-card">
