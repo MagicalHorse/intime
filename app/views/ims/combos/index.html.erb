@@ -60,22 +60,24 @@
 <% content_for :javascripts do %>
 <script>
   $(function(){
+  var masonry = function(){
+    var demo = document.querySelector('#scroller');
 
-  var demo = document.querySelector('#scroller');
+    var $container = demo.querySelector('#container');
 
-  var $container = demo.querySelector('#container');
+    var options = {
+      itemSelector : '.combo_wrapper',
+      gutterWidth : 20,
+      isFitWidth: true,
+      isAnimated: true
+    }
 
-  var options = {
-    itemSelector : '.combo_wrapper',
-    gutterWidth : 20,
-    isFitWidth: true,
-    isAnimated: true
+    $("#container").imagesLoaded(function(){
+      new Masonry($container, options);
+    })
   }
 
-  $("#container").imagesLoaded(function(){
-    new Masonry($container, options);
-  })
-
+  masonry()
 
   var inLoading = false
 
@@ -153,13 +155,13 @@
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
         if(data["status"] == true){
           $(".paginate-content:last").after(data["html"])
-          $("#container").imagesLoaded(function(){
-            new Masonry($container, options);
-          })
+           masonry()
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
-          record_history()
+          setTimeout(function(){
+            record_history()
+          }, 500)
         }
         $("#bottom-loading-box").modal("hide");
         inLoading = false
