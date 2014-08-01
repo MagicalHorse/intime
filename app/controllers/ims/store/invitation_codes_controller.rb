@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class Ims::Store::InvitationCodesController < Ims::Store::BaseController
-
+  skip_before_filter :authenticate, only: [:new, :create]
   before_filter :stores
   before_filter :verify_can_apply_invitation_code, only: [:new, :create]
 
