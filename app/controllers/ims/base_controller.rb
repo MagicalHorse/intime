@@ -7,7 +7,7 @@ class Ims::BaseController < ApplicationController
 
   rescue_from Ims::Unauthorized do
     back_url = URI.escape("http://#{Settings.wx.backdomain}/ims/auth?back_url=#{request.url}")
-    if !Rails.env.production?
+    if request.host == "114.215.179.76"
       back_url = URI.escape(URI::HTTP.build([nil,'i.intime.com.cn',nil,"/ims/auth/forward",{raw_url:back_url}.to_param,nil]).to_s)
     end
     redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: Settings.wx.appid, redirect_uri: back_url, response_type: 'code', scope: 'snsapi_base', state: ""}.to_param, 'wechat_redirect']).to_s)

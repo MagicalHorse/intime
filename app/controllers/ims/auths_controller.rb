@@ -43,7 +43,7 @@ class Ims::AuthsController < ActionController::Base
       :token => user_hash[:data][:token],
       :store_id => user_hash[:data][:associate_id],
       :max_comboitems => user_hash[:data][:max_comboitems]
-      })
+    })
 
     session[:current_wx_user] = user
   end
