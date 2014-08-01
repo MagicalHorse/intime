@@ -79,8 +79,8 @@
         <% end %>
 
       </p>
-      <p class="pull-left price-box">
-        <span class="price-span">打包价：<em>￥<%= @remote_combo[:data][:price] %></em></span>
+      <p class="pull-left price-box" style="margin-bottom: 15px;">
+        <span class="price-span">打包价：<em class="combo_price">￥<%= @remote_combo[:data][:price] %></em></span>
         <%# if @remote_combo[:data][:discount] > 0 %>
           <span class="price-span price-span-orignal">￥<%= @remote_combo[:data][:origin_price] %></span>
         <%# end %>
@@ -109,7 +109,7 @@
     </div>
   </div>
   <div class="intime-btm">
-   <%= image_tag 'ims/intime-btm.png' %>
+    <%= image_tag 'ims/intime-btm.png' %>
   </div>
   <div class="text-center shopping-icon-box">
     <%= link_to "javascript:void(0);", id: "store", type: "button", class: "btn btn-danger btn-danger-defult", value: current_user.id != @remote_combo[:data][:owner_id] ? ims_store_path(@remote_combo[:data][:store_id], Time.now.to_i) : my_ims_store_store_path(@remote_combo[:data][:store_id], Time.now.to_i) do %>
