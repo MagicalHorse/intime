@@ -6,7 +6,7 @@ class Ims::Store::InvitationCodesController < Ims::Store::BaseController
   before_filter :verify_can_apply_invitation_code, only: [:new, :create]
 
   def new
-    @title = "申请邀请码"
+    @title = "开店申请"
   end
 
   def create
@@ -19,7 +19,7 @@ class Ims::Store::InvitationCodesController < Ims::Store::BaseController
   end
 
   def upgrade
-    @title = "升级店铺"
+    @title = "店铺升级申请"
   end
 
   protected
