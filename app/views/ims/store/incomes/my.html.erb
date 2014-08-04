@@ -1,4 +1,4 @@
-<div class="wrap-inner back-wrap-inner bottom-distance">
+<div class="wrap-inner back-wrap-inner bottom-distance" style="padding-top: 5px;">
   <div class="row-fluid">
     <div clss="span12">
       <div class="income">
@@ -7,7 +7,7 @@
           <div class="row-fluid">
             <div class="left_module">
               <div class="title">
-                可体现金额
+                可提现金额
               </div>
               <div class="money">
                 ￥<%= @income[:data][:avail_amount] %>
@@ -31,19 +31,20 @@
         </div>
 
 
-        <div class="common-white add_loading" value="<%= pending_ims_store_incomes_path %>">
+        <div class="common-white add_loading detail-block" value="<%= pending_ims_store_incomes_path %>">
           <a href="javascript:void(0);"  class="income-menu2">
             <i class="fa fa-money"></i>
             <span class="txt-grey">提现申请中的金额</span>
-            <i class="pull-right txt-grey"><span>￥<%= @income[:data][:request_amount] %></span></i>
+            <span class="applying_money">(￥<%= @income[:data][:request_amount] %>)</span>
           </a>
         </div>
         <div class="tips">
-          <span><i class="fa fa-exclamation-circle"></i>成交7日并且没有发生退货才可提取！</span>
+          <div class="row-fluid notice_title"><i class="fa fa-exclamation-circle"></i>注意事项</div>
+          <div class="row-fluid">成交7日并且没有退货才能提取佣金！</div>
         </div>
 
         <div class="bottom-btnbox">
-          <button class="btn btn-small btn-danger add_loading" value="/ims/store/incomes/new">
+          <button class="btn btn-block btn-danger add_loading" value="/ims/store/incomes/new" style="margin: 0 auto;">
             <a href="javascript:void(0);">申请提现</a>
           </button>
         </div>
