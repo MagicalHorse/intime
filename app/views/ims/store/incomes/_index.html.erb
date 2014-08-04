@@ -5,7 +5,7 @@
       <div><span>订单号：<%= item[:order_no] %>  </span></div>
       <div><span class="tel-nun">订单金额：￥<%= item[:income_amount] %></span></div>
       <div><span>状态：<%= item[:status_show] %></span></div>
-      <div><span><%= l item[:create_date].to_time %> <div class="pull-right"><span>提现金额：<span class='txt-red'>￥<%= item[:amount] %></span></span></div></span></div>
+      <div><span><%= l item[:create_date].to_time %> <div class="pull-right"><span>佣金：<span class='txt-red'>￥<%= item[:amount] %></span></span></div></span></div>
     </div>
   </div>
 </div>

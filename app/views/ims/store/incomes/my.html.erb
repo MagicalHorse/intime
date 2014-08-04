@@ -31,13 +31,14 @@
         </div>
 
 
-        <div class="common-white add_loading detail-block" value="<%= pending_ims_store_incomes_path %>">
-          <a href="javascript:void(0);"  class="income-menu2">
-            <i class="fa fa-money"></i>
-            <span class="txt-grey">提现申请中的金额</span>
-            <span class="applying_money">(￥<%= @income[:data][:request_amount] %>)</span>
-          </a>
+        <%= link_to "javascript:void(0);", class: "income-menu2 add_loading", value: pending_ims_store_incomes_path do %>
+        <div class="common-white detail-block">
+          <i class="fa fa-money"></i>
+          <span class="txt-grey">提现申请中的金额</span>
+          <span class="applying_money">(￥<%= @income[:data][:request_amount] %>)</span>
         </div>
+        <% end %>
+
         <div class="tips">
           <div class="row-fluid notice_title"><i class="fa fa-exclamation-circle"></i>注意事项</div>
           <div class="row-fluid">成交7日并且没有退货才能提取佣金！</div>
