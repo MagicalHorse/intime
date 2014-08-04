@@ -39,6 +39,11 @@ class Ims::User < Ims::Base
     level == 4
   end
 
+  def can_modify_product?
+    (current_user.operate_right & 4) == 4
+  end
+
+
   protected
 
   def assign_attributes(attributes = {})

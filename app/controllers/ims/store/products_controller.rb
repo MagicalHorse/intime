@@ -3,6 +3,7 @@
 class Ims::Store::ProductsController < Ims::Store::BaseController
 
   before_filter :tags, only: [:new, :edit]
+  before_filter :verify_can_modify_product, only: [:new, :edit, :create, :update]
 
   def index
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
@@ -129,6 +130,12 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def tags
     @tags = Tag.es_imstags_search[:data]
+  end
+
+  def verify_can_modify_product
+    if !current_user.can_modify_product?
+      redirect_to ims_store_root_path
+    end
   end
 
 end
