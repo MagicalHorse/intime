@@ -128,7 +128,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def tags
-    @tags = Tag.es_search[:data]
+    @tags = Tag.es_imstags_search[:data]
   end
 
 end

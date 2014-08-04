@@ -53,6 +53,39 @@ class Tag < ActiveRecord::Base
     {count: count, page: page, per_page: per_page, data: mash.hits.hits.collect(&:_source)}
   end
 
+
+  def self.es_imstags_search(options={})
+
+    per_page = [options[:per_page], 10000].find{|obj| obj.present?}.to_i
+    page = [options[:page], 1].find{|obj| obj.present?}.to_i
+
+    query = Jbuilder.encode do |json|
+
+      json.filter do
+
+        json.and do
+
+          json.child! do
+            json.term do
+              json.status 1
+            end
+          end
+
+        end
+
+      end
+
+      json.sort do
+        json.sortOrder "asc"
+      end
+    end
+
+    result = $client.search index: ES_DEFAULT_INDEX, type: "esimstags", size: per_page, from: (page-1)*per_page, body: query
+    mash = Hashie::Mash.new result
+    count = mash["hits"]["total"]
+    {count: count, page: page, per_page: per_page, data: mash.hits.hits.collect(&:_source)}
+  end
+
   def self.list_all()
     prod = Tag.search :per_page=>PAGE_ALL_SIZE do
           query do
