@@ -64,7 +64,7 @@
 
 
 <% @combos.each do |combo| %>
-  <span class="col-6 combo_wrapper paginate-content">
+  <span class="combo_wrapper paginate-content">
     <a class="img-box img-posi" href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
       <%= image_tag Combo.img_url(combo) %>
     </a>
