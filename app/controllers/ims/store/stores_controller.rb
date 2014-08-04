@@ -6,7 +6,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
 
   def show
     @store = ::Store.es_search(store_id: params[:store_id]).first
-    render json: {status: true, data: [{name: 'zcy', id: 1}]}
+    render json: {status: true, data: @store[:departments]}
   end
 
   def edit
