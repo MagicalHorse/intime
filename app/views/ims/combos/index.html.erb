@@ -60,7 +60,7 @@
 <% content_for :javascripts do %>
 <script>
   $(function(){
-  var masonry = function(){
+  var masonry = function(postLayoutChanged){
     var demo = document.querySelector('#scroller');
 
     var $container = demo.querySelector('#container');
@@ -74,6 +74,8 @@
 
     $("#container").imagesLoaded(function(){
       new Masonry($container, options);
+      if (postLayoutChanged)
+         postLayoutChanged();
     })
   }
 
@@ -157,13 +159,11 @@
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
         if(data["status"] == true){
           $(".paginate-content:last").after(data["html"])
-           masonry()
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
-          setTimeout(function(){
-            record_history()
-          }, 500)
+           masonry(record_history);
+
         }
         $("#bottom-loading-box").modal("hide");
         inLoading = false
