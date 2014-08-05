@@ -133,7 +133,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def verify_can_modify_product
-    if !current_user.can_modify_product?
+    if (current_user.operate_right & 4) != 4
       redirect_to ims_store_root_path
     end
   end
