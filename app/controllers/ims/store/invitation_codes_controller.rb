@@ -36,6 +36,9 @@ class Ims::Store::InvitationCodesController < Ims::Store::BaseController
 
   def stores
     @stores = ::Store.es_search
+    @departments = {}
+    @stores.each{|store| @departments[store["id"]] = store["departments"].collect{|department| {'id' => department[:id], 'name' => department[:name]}}}
+    @departments = @departments.to_json
   end
 
   def verify_can_apply_invitation_code

@@ -1,6 +1,5 @@
 <br/>
 <div class="back-wrap-inner">
-
 <%= form_tag path, method: method, id: "invitation_code_form", class: "form-defined" do %>
 <div class="module module-bg-white2">
 
@@ -170,15 +169,21 @@
     $("select[name='invitation_code[storeid]']").on("change", function(){
       store_id = $(this).val()
       depart_doc = $("select[name='invitation_code[departid]']")
+      departments = jQuery.parseJSON('<%=raw @departments %>')
       if(store_id.length > 0){
-        $.get("<%= ims_store_store_path('id') %>", {store_id: store_id}, function(data){
-          if(data["status"] == true){
-            depart_doc.html("")
-            depart_doc.append('<option value="">请选择</option>')
-            $.each(data["data"], function(index, element){
-              depart_doc.append('<option value="'+element['id']+'">'+element['name']+'</option>')
-            })
-          }
+        // $.get("<%= ims_store_store_path('id') %>", {store_id: store_id}, function(data){
+        //   if(data["status"] == true){
+        //     depart_doc.html("")
+        //     depart_doc.append('<option value="">请选择</option>')
+        //     $.each(data["data"], function(index, element){
+        //       depart_doc.append('<option value="'+element['id']+'">'+element['name']+'</option>')
+        //     })
+        //   }
+        // })
+        depart_doc.html("")
+        depart_doc.append('<option value="">请选择</option>')
+        $.each(departments[store_id], function(index, element){
+          depart_doc.append('<option value="'+element['id']+'">'+element['name']+'</option>')
         })
       }
     }).trigger("change")
