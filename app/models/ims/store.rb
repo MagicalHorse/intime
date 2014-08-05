@@ -56,6 +56,10 @@ class Ims::Store < Ims::Base
      post(req, params.merge(path: 'store/requestcode_dg'))
    end
 
+   def requestcode_upgrade(req, params = {})
+     post(req, params.merge(path: 'store/requestcode_upgrade'))
+   end
+
  end
 
 end

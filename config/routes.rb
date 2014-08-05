@@ -406,7 +406,7 @@ IntimeService::Application.routes.draw do
       root :to => "home#index"
       post "login" => "home#login"
       get 'check_code' => 'home#check_code'
-      resources :invitation_codes, only: [:new, :create] do
+      resources :invitation_codes, only: [:new, :create, :update] do
         collection do
           get :upgrade
         end
