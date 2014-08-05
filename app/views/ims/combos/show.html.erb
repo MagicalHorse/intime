@@ -220,7 +220,7 @@
     $("#edit_combo").on("click", function(){
       url = $(this).attr("value")
       if($(this).parents("button").attr("class").indexOf("disabled") >= 0){
-        error_modal("您没有权限添加新的商品")
+        error_modal("您没有权限编辑此组合商品")
       }else{
         $("#loading-box").modal()
         setTimeout(function(){
