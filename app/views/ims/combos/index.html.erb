@@ -77,13 +77,15 @@
     })
   }
 
-  masonry()
+
 
   var inLoading = false
 
   var State = History.getState()
   if (State.data && State.data.content){
     $("#scroller").html(State.data.content)
+  } else {
+  	  masonry()
   }
   if (State.data && State.data.page) {
   	$("#count").attr("value", State.data.count)
