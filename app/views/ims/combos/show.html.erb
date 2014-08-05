@@ -117,10 +117,10 @@
     <% end %>
   </div>
 
-
+<% can_not_edit = current_user.shopping_guide? && (current_user.operate_right & 4) != 4 && @remote_combo[:data][:products].any?{|p| p["product_type"] == 2} %>
 <% if @remote_combo[:data][:is_online] %>
   <div class="bottom-btnbox">
-    <button class="btn btn-small btn-danger">
+    <button class="btn btn-small btn-danger <%= 'disabled' if can_not_edit %>">
       <% if current_user.id == @remote_combo[:data][:owner_id] %>
         <%= link_to '编 辑', "javascript:void(0);", id: "edit_combo", value: edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>
       <% else %>
@@ -133,7 +133,7 @@
   <% if current_user.id == @remote_combo[:data][:owner_id] %>
     <div class="bottom-btnbox">
       <button class="btn btn-small btn-grey">已下架</button>
-      <button class="btn btn-small btn-danger">
+      <button class="btn btn-small btn-danger <%= 'disabled' if can_not_edit %>">
         <%= link_to '编 辑', "javascript:void(0);", id: "edit_combo", value: edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>
       </button>
     </div>
@@ -217,7 +217,20 @@
       }, 1)
     })
 
-    $("#edit_combo, #payment_combo").on("click", function(){
+    $("#edit_combo").on("click", function(){
+      url = $(this).attr("value")
+      if($(this).parents("button").attr("class").indexOf("disabled") >= 0){
+        error_modal("您没有权限添加新的商品")
+      }else{
+        $("#loading-box").modal()
+        setTimeout(function(){
+          window.location.href = url
+        }, 1)
+      }
+    })
+
+
+    $("#payment_combo").on("click", function(){
       url = $(this).attr("value")
       $("#loading-box").modal()
       setTimeout(function(){
