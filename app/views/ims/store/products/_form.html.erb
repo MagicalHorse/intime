@@ -135,7 +135,7 @@
       <ul class="inline clearfix col-8 selection_box">
 
         <% @tags.each do |tag| %>
-        <% is_include_tag = @product.present? && @product["tags"].collect{|tag| tag['id']}.include?(tag['id']) %>
+        <% is_include_tag = @product.present? && @product["tags"].include?(tag['id']) %>
         <li class="<%= 'active' if is_include_tag %>">
           <% if is_include_tag %>
             <%= hidden_field_tag "product[tag_ids][]", tag["id"] %>
