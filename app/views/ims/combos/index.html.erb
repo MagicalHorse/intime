@@ -52,6 +52,10 @@
 
 </div>
 
+<div id="server_content" style="display: none;">
+
+</div>
+
 <%= hidden_field_tag "count", @search[:count] %>
 <%= hidden_field_tag "page", @search[:page] %>
 <%= hidden_field_tag "per_page", @search[:per_page] %>
@@ -60,26 +64,13 @@
 <% content_for :javascripts do %>
 <script>
   $(function(){
-  var masonry = function(postLayoutChanged){
-    var demo = document.querySelector('#scroller');
 
-    var $container = demo.querySelector('#container');
-
-    var options = {
-      itemSelector : '.combo_wrapper',
-      gutterWidth : 20,
-      isFitWidth: true,
-      isAnimated: true
-    }
-
-    $("#container").imagesLoaded(function(){
-      new Masonry($container, options);
-      if (postLayoutChanged)
-         postLayoutChanged();
-    })
+  var options = {
+    itemSelector : '.combo_wrapper',
+    gutterWidth : 20,
+    isFitWidth: true,
+    isAnimated: true
   }
-
-
 
   var inLoading = false
 
@@ -87,7 +78,10 @@
   if (State.data && State.data.content){
     $("#scroller").html(State.data.content)
   } else {
-  	  masonry()
+
+    var demo = document.querySelector('#scroller');
+    var container = demo.querySelector('#container');
+    var msnry = new Masonry(container, options);
   }
   if (State.data && State.data.page) {
   	$("#count").attr("value", State.data.count)
@@ -158,11 +152,24 @@
       $("#bottom-loading-box").modal();
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
         if(data["status"] == true){
-          $(".paginate-content:last").after(data["html"])
+          $("#server_content").html(data["html"])
+          elems = []
+          var fragment = document.createDocumentFragment();
+          $("#server_content .combo_wrapper").each(function(index, elem){
+            fragment.appendChild( elem );
+            elems.push( elem );
+          })
+          container.appendChild( fragment );
+
+          imagesLoaded(container, function(){
+            msnry.appended( elems );
+            record_history()
+          })
+
+          // $(".paginate-content:last").after(data["html"])
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
-           masonry(record_history);
 
         }
         $("#bottom-loading-box").modal("hide");
@@ -184,24 +191,19 @@
   // 判断屏幕是否旋转
 
   // function orientationChange() {
-  //   switch(window.orientation) {
-
-  // 　　case 0:
-  //       masonry()
-  //       break;
-  // 　　case -90:
-  //       masonry()
-  //       break;
-  // 　　case 90:
-  //       masonry()
-  //       break;
-  // 　　case 180:
-  //       masonry()
-  //   　　break;
+  //   orientation = window.orientation
+  //   if(orientation == 0 || orientation == -90 || orientation == 90 || orientation == 180){
+  //     setTimeout(function(){
+  //       var demo1 = document.querySelector('#scroller');
+  //       var container = demo1.querySelector('#container');
+  //       imagesLoaded(container, function(){
+  //         var msnry = new Masonry(container, options);
+  //       })
+  //     }, 100)
   //   }
   // }
 
-  // // 添加事件监听
+  // // // 添加事件监听
 
   // addEventListener('load', function(){
   //   orientationChange();
@@ -246,3 +248,4 @@
 </script>
 
 <% end %>
+
