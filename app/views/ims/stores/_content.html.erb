@@ -32,11 +32,11 @@
       </div>
     </div>
 
-    <% if @brand_name.present? %>
+    <% if (brand_name = combo[:brands].collect{|b| b[:Name]}.flatten.uniq.join(", ")).present? %>
     <div class="clearfix countdown-browser">
       <p class="pull-left price-box">
         <span class="price-span">
-          <em><%= @brand_name %></em>
+          <em><%= brand_name %></em>
         </span>
       </p>
     </div>

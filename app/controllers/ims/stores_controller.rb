@@ -6,7 +6,6 @@ class Ims::StoresController < Ims::BaseController
 
   def show
     @store = Ims::Store.show(request, id: params[:id])
-    @brand_name = @store[:data][:combos].collect{|combo| combo[:brands].collect{|b| b[:Name]}}.flatten.uniq.join(", ")
     @title = "店铺展示"
     @can_share = true
     @template_id = @store[:data][:template_id]
