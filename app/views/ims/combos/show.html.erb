@@ -117,7 +117,7 @@
     <% end %>
   </div>
 
-<% can_not_edit = current_user.shopping_guide? && (current_user.operate_right & 4) != 4 && @remote_combo[:data][:products].any?{|p| p["product_type"] == 2} %>
+<% can_not_edit = current_user.shopping_guide? && !current_user.shopping_guide_operate? && @remote_combo[:data][:products].any?{|p| p["product_type"] == 2} %>
 <% if @remote_combo[:data][:is_online] %>
   <div class="bottom-btnbox">
     <button class="btn btn-small btn-danger <%= 'disabled' if can_not_edit %>">
