@@ -2,35 +2,37 @@
   <%= link_to "javascript:void(0);", value: ims_combo_path(combo["id"], :private_to => true, :t => Time.now.to_i), class: "combo_show" do %>
   <div class="module common-white combo_paginate-content" id="combo_content_<%=combo["id"]%>">
     <div class="txt-block detail-contact">
-        <div class="row-fluid">
-          <div class="span3">
-            <span class="img-spa">
-              <% img_url = combo["image"].present? ? combo["image"] : Settings.default_image_url.product.small %>
-              <img src="<%=img_url%>" >
-            </span>
-          </div>
-          <div class="span9 collection-p">
-            <p class="txt2"><%= truncate combo["desc"], length: 40 %></p>
-            <p class="txt2 txt-red">打包价：￥<%= combo["price"] %></p>
-            <div class="shelves">
-              <% if combo["is_online"] %>
-                <%= link_to "点击下架", "javascript:void(0);", class: "btn btn-danger btn-small card_or_combo", item_id: combo["id"], item_type: 2 %>
-              <% else %>
-                <%= link_to "点击上架", "javascript:void(0);", class: "btn btn-success btn-small card_or_combo", item_id: combo["id"], item_type: 2 %>
-              <% end %>
+      <div class="row-fluid">
+        <div class="span3">
+          <span class="img-spa">
+            <% img_url = combo["image"].present? ? combo["image"] : Settings.default_image_url.product.small %>
+            <%= image_tag img_url %>
+          </span>
+        </div>
+        <div class="span9 collection-p">
+          <p class="txt2"><%= truncate combo["desc"], length: 40 %></p>
+          <p class="txt2 txt-red">打包价：￥<%= combo["price"] %></p>
+          <div class="shelves">
+            <% can_not_edit = (current_user.operate_right & 4) != 4 && combo["contain_self_product"] %>
+            <% if combo["is_online"] %>
+              <%= link_to "点击下架", "javascript:void(0);", class: "btn #{can_not_edit ? 'disabled' : 'btn-danger'} btn-small card_or_combo", item_id: combo["id"], item_type: 2 %>
+            <% else %>
+              <%= link_to "点击上架", "javascript:void(0);", class: "btn #{can_not_edit ? 'disabled' : 'btn-success'} btn-small card_or_combo", item_id: combo["id"], item_type: 2 %>
+            <% end %>
 
-              <a href="javascript:void(0);" class="btn btn-gray btn-small delete-combo" data="<%=combo["id"]%>" >删 除</a>
-            </div>
-
+            <%= link_to '删 除', "javascript:void(0);", class: "btn btn-gray btn-small delete-combo", data: combo["id"] %>
           </div>
 
         </div>
+
+      </div>
     </div>
   </div>
   <% end %>
 <% end %>
+
 <script>
-$(function(){
-  format_img(".img-spa");
-});
+  $(function(){
+    format_img(".img-spa")
+  })
 </script>

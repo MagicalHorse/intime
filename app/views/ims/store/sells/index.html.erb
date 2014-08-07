@@ -206,22 +206,27 @@
       is_online = text.indexOf("上") >= 0 ? true : false
       click_text = is_online ? "点击上架" : "点击下架"
 
-      $.post("/ims/store/sells/id/update_is_online", {_method: "put", item_id: item_id, item_type: item_type, is_online: is_online}, function(data){
-        if(data["status"] == true){
-          this_ele.text(is_online ? "点击下架" : "点击上架")
-          if(is_online){
-            online_num -= 1;
-            this_ele.removeClass("btn-success");
-            this_ele.addClass("btn-danger");
+      if(this_ele.attr("class").indexOf("disabled") >= 0){
+        error_modal("没有权限上下架该搭配，请升级您的账户")
+      }else{
+        $.post("/ims/store/sells/id/update_is_online", {_method: "put", item_id: item_id, item_type: item_type, is_online: is_online}, function(data){
+          if(data["status"] == true){
+            this_ele.text(is_online ? "点击下架" : "点击上架")
+            if(is_online){
+              online_num -= 1;
+              this_ele.removeClass("btn-success");
+              this_ele.addClass("btn-danger");
+            }else{
+              online_num += 1;
+              this_ele.removeClass("btn-danger");
+              this_ele.addClass("btn-success");
+            }
           }else{
-            online_num += 1;
-            this_ele.removeClass("btn-danger");
-            this_ele.addClass("btn-success");
+            error_modal(data["message"]);
           }
-        }else{
-          error_modal(data["message"]);
-        }
-      })
+        })
+      }
+
 
     })
 
