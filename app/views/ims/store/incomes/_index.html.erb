@@ -1,12 +1,16 @@
 <% list.each do |item| %>
-<div class="common-white paginate-content clearfix">
+
+<%= link_to ims_orders_show_path(id: item[:order_no]) do %>
+<div class="common-white paginate-content clearfix order_link add_loading">
   <div class="row-fluid">
     <div class="span12 txt2">
-      <div><span>订单号：<%= item[:order_no] %>  </span></div>
+      <div><span>订单号：<%= item[:order_no] %></span></div>
       <div><span class="tel-nun">订单金额：￥<%= item[:amount] %></span></div>
       <div><span>状态：<%= item[:status_show] %></span></div>
       <div><span><%= l item[:create_date].to_time %> <div class="pull-right"><span>佣金：<span class='txt-red'>￥<%= item[:income_amount] %></span></span></div></span></div>
     </div>
   </div>
 </div>
+<% end %>
+
 <% end %>
