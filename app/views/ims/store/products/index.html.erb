@@ -1,6 +1,8 @@
 <div class="wrap-inner back-wrap-inner">
   <% if @products.present? %>
-    <%= render "list", products: @products, combo: @combo %>
+    <div class="module module-bg-white clearfix">
+      <%= render "list", products: @products, combo: @combo %>
+    </div>
   <% else %>
     <%= render 'ims/shared/empty' %>
   <% end %>
@@ -17,7 +19,7 @@
             <% @combo.combo_products.each do |combo_product| %>
             <li class="add-link" combo_product_id="<%= combo_product.id %>" product_id="<%= combo_product.remote_id %>">
               <span class="img-spa" style="height: 50px; width: 50px;line-height: 50px;">
-                <img src="<%= combo_product.img_url %>">
+                <%= image_tag combo_product.img_url %>
               </span>
             </li>
             <% end %>
