@@ -338,60 +338,59 @@
           },options);
       });
 
-  };
+    };
 
-     $(document).on('click', "#img_box li[class!='add-link'] span", function(){
-          src = $(this).find("img")[0].src;
-          $("#default_img").html("<img src='"+src+"'>");
-          format_img(".show-imgbox-yes");
-     });
+    $(document).on('click', "#img_box li[class!='add-link'] span", function(){
+      src = $(this).find("img")[0].src;
+      $("#default_img").html("<img src='"+src+"'>");
+      format_img(".show-imgbox-yes");
+    });
 
-     $(document).on("click", "#img_box li i", function(){
-       if(confirm("确定要删除该图片？")){
-         mid = $(this).attr("data");
-         $.ajax({
-          url: "/ims/store/combos/remove_img?img_id="+mid,
-          success: function(response){
-              $("#img_"+mid).parent().remove();
-              img_size = $("#img_box li[class!='add-link']").length;
-              if(img_size < 5 && img_size > 0){
-                $("#add_img").show();
-                $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] span img")[0].src+"'>");
-              }else{
-                $("#add_img").show();
-                $("#default_img").html('<%= image_tag "ims/no-image.jpg" %>');
-              }
-              format_img(".show-imgbox-no");
-              format_img(".img-spa");
-              format_img(".show-imgbox-yes");
+    $(document).on("click", "#img_box li i", function(){
+
+      mid = $(this).attr("data");
+      $.ajax({
+        url: "/ims/store/combos/remove_img?img_id="+mid,
+        success: function(response){
+          $("#img_"+mid).parent().remove();
+          img_size = $("#img_box li[class!='add-link']").length;
+          if(img_size < 5 && img_size > 0){
+            $("#add_img").show();
+            $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] span img")[0].src+"'>");
+          }else{
+            $("#add_img").show();
+            $("#default_img").html('<%= image_tag "ims/no-image.jpg" %>');
           }
-         });
-      }
+          format_img(".show-imgbox-no");
+          format_img(".img-spa");
+          format_img(".show-imgbox-yes");
+        }
+      });
+    });
 
-     });
-
-     $("#add_product").click(function(){
-       update_desc();
-       var p_size = $("#p_box li[class!='add-link']").length;
-       if(p_size < 6){
+    $("#add_product").click(function(){
+      update_desc();
+      var p_size = $("#p_box li[class!='add-link']").length;
+      if(p_size < 6){
         $("#buttons").hide();
         $("#pop-menu").show();
-       }else{
+      }else{
         error_modal('最多只能组合6个商品');
-       }
-     });
+      }
+    });
 
-     $("#btn-cancel").click(function(){
-       $("#pop-menu").hide();
-       $("#buttons").show();
-       $("#loading-box").modal('hide');
-     });
+    $("#btn-cancel").click(function(){
+      $("#pop-menu").hide();
+      $("#buttons").show();
+      $("#loading-box").modal('hide');
+    });
 
-     $(document).on("click", "#p_box li i", function(){
-       mid = $(this).attr("data");
-       $.ajax({
-        url: "/ims/store/combos/remove_product?product_id="+mid,
-        success: function(response){
+    $(document).on("click", "#p_box li i", function(){
+      if(confirm("确定要删除该图片？")){
+        mid = $(this).attr("data");
+        $.ajax({
+          url: "/ims/store/combos/remove_product?product_id="+mid,
+          success: function(response){
             $("#p_"+mid).parent().remove();
             var p_size = $("#p_box li[class!='add-link']").length;
             console.log(p_size);
@@ -399,35 +398,36 @@
               $("#add_product").show();
               format_img(".img-spa");
             }
-        }
-       });
-     });
+          }
+        });
+      }
+    });
 
-     $(".preview").click(function(){
-         status = check_form();
-         desc = $("#combo_desc").val();
-         private_to = $("#combo_private_to").val();
-         console.log(private_to);
-         if(status != "false"){
-           $.ajax({
-             url: "<%=update_desc_ims_store_combo_path(@combo)%>",
-             method: 'put',
-             data: {"desc": $("#combo_desc").val(), "has_discount": $("input[name='combo[has_discount]']:checked").val(), "discount": $("#combo_discount").val(), "is_public": $("input[name='combo[is_public]']:checked").val()},
-             beforeSend: function(){
-              $("#loading-box").modal();
-             },
-             success: function(response){
-               self.location="/ims/store/combos/<%=@combo.id%>/preview";
-             }
-           });
-         }
-       })
+    $(".preview").click(function(){
+      status = check_form();
+      desc = $("#combo_desc").val();
+      private_to = $("#combo_private_to").val();
+      console.log(private_to);
+      if(status != "false"){
+        $.ajax({
+          url: "<%=update_desc_ims_store_combo_path(@combo)%>",
+          method: 'put',
+          data: {"desc": $("#combo_desc").val(), "has_discount": $("input[name='combo[has_discount]']:checked").val(), "discount": $("#combo_discount").val(), "is_public": $("input[name='combo[is_public]']:checked").val()},
+          beforeSend: function(){
+            $("#loading-box").modal();
+          },
+          success: function(response){
+            self.location="/ims/store/combos/<%=@combo.id%>/preview";
+          }
+        });
+      }
+    })
 
-     format_img(".show-imgbox-no");
-     format_img(".img-spa");
-     format_img(".show-imgbox-yes");
+    format_img(".show-imgbox-no");
+    format_img(".img-spa");
+    format_img(".show-imgbox-yes");
 
-     $(document).on("click", ".product-link", function(){
+    $(document).on("click", ".product-link", function(){
       url = $(this).attr("value")
       $("#loading-box").modal()
       setTimeout(function(){
@@ -435,50 +435,50 @@
       }, 1)
     });
 
-     $("[name='combo[has_discount]']").click(function(){
-       if($(this).val() == "true"){
-         $("#promotion").slideDown();
-       }else{
-         $("#promotion").slideUp();
-       }
-     })
+    $("[name='combo[has_discount]']").click(function(){
+      if($(this).val() == "true"){
+        $("#promotion").slideDown();
+      }else{
+        $("#promotion").slideUp();
+      }
+    })
 
-     $("#combo_form").validate({
-       onsubmit: true,
-       onfocusout: false,
-       onkeyup: false,
-       onclick: false,
-       rules: {
-         "combo[desc]": {
-           minlength: 10,
-           maxlength: 500
-         }
-       },
-       messages: {
-         "combo[desc]": {
-           minlength: "组合描述至少10个字符",
-           maxlength: "组合描述至多500个字符"
-         }
-       },
-       showErrors: function(errorMap, errorList) {
-         var messages = errorList.map(function(i, v) {
-           return i.message
-         })
-         msg = messages.join(", ")
-         if(msg != ""){
-           error_modal(msg);
-         }
-       },
-       errorPlacement:function(error, element){
-         if(element.attr("id") == "input"){
-           $("#img_error_notice").html(error)
-         }else{
-           element.after(error)
-         }
-       }
+    $("#combo_form").validate({
+      onsubmit: true,
+      onfocusout: false,
+      onkeyup: false,
+      onclick: false,
+      rules: {
+        "combo[desc]": {
+          minlength: 10,
+          maxlength: 500
+        }
+      },
+      messages: {
+        "combo[desc]": {
+          minlength: "组合描述至少10个字符",
+          maxlength: "组合描述至多500个字符"
+        }
+      },
+      showErrors: function(errorMap, errorList) {
+        var messages = errorList.map(function(i, v) {
+          return i.message
+        })
+        msg = messages.join(", ")
+        if(msg != ""){
+          error_modal(msg);
+        }
+      },
+      errorPlacement:function(error, element){
+        if(element.attr("id") == "input"){
+          $("#img_error_notice").html(error)
+        }else{
+          element.after(error)
+        }
+      }
 
 
-     })
+    })
 
   });
 </script>
