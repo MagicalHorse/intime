@@ -32,6 +32,7 @@
       </div>
     </div>
 
+    <% if @brand_name.present? %>
     <div class="clearfix countdown-browser">
       <p class="pull-left price-box">
         <span class="price-span">
@@ -39,6 +40,7 @@
         </span>
       </p>
     </div>
+    <% end %>
 
     <% if(tags = combo['tags'].to_a.uniq).present? %>
     <div class="clearfix countdown-browser">
@@ -86,7 +88,7 @@
       </p>
       <p class="pull-left price-box">
         <% if combo["expire_in"].present? %>
-        <span class="pull-left countdown">
+        <span class="pull-left countdown" style="margin-top: 5px;">
           <em id="d<%=combo['id']%>">0</em><span>天</span><em id="h<%=combo['id']%>">00</em>:<em id="m<%=combo['id']%>">00</em>:<em id="s<%=combo['id']%>">00</em><span>后下架</span>
         </span>
         <script type="text/javascript">
@@ -97,7 +99,7 @@
           second[second.length] = "s<%=combo['id']%>";
         </script>
         <% else %>
-          <span class="pull-left countdown">
+          <span class="pull-left countdown" style="margin-top: 5px;">
             长期有效
           </span>
         <% end %>

@@ -64,21 +64,29 @@
   <div class="p-title">
     <h4><%=sanitize format_text(@remote_combo[:data][:desc]) %></h4>
     <div class="p-price1 clearfix">
+      <% if @brand_name.present? %>
       <p class="pull-left price-box">
         <span class="price-span brand_name" style="margin-top:8px;">
           <em><%= @brand_name %></em>
         </span>
-
-        <% @tags.each_with_index do |tag, index| %>
-          <span class="tag tag<%= (index % 4)+1 %>">
-            <span class="tag_left tag_left_color"></span>
-            <span class="tag_middle tag_middle_color"><%= tag[:name] %></span>
-            <span class="tag_right tag_right_color"></span>
-            <span class="clear"></span>
-          </span>
-        <% end %>
-
       </p>
+      <% end %>
+
+      <% if @tags.present? %>
+        <p class="pull-left price-box">
+          <span class="price-span">
+            <% @tags.each_with_index do |tag, index| %>
+              <span class="tag tag<%= (index % 4)+1 %>">
+                <span class="tag_left tag_left_color"></span>
+                <span class="tag_middle tag_middle_color"><%= tag[:name] %></span>
+                <span class="tag_right tag_right_color"></span>
+                <span class="clear"></span>
+              </span>
+            <% end %>
+          </span>
+        </p>
+      <% end %>
+
       <p class="pull-left price-box" style="margin-bottom: 15px;">
         <span class="price-span">打包价：<em class="combo_price">￥<%= @remote_combo[:data][:price] %></em></span>
         <%# if @remote_combo[:data][:discount] > 0 %>
