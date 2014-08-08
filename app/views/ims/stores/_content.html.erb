@@ -22,7 +22,7 @@
               <% img_url = combo['image'].present? ? combo['image'] : Settings.default_image_url.product.middle %>
               <%= image_tag img_url %>
             </a>
-            <p class="combo_two_line_text">
+            <p class="combo_two_line_text" style="max-height: 39px;">
               <a href="<%= ims_combo_path(id: combo["id"], t: Time.now.to_i) %>">
                 <%= sanitize format_text(combo["desc"]) %>
               </a>
