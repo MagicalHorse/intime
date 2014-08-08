@@ -70,19 +70,22 @@
     isAnimated: true
   }
 
-  var inLoading = false
-	var demo = document.querySelector('#scroller');
-    var container = demo.querySelector('#container');
-    var msnry = new Masonry(container, options);
+  var inLoading = false;
+  var msnryInit = false;
+  var msnry ;
+  var demo = document.querySelector('#scroller');
+  var container = demo.querySelector('#container');
   var State = History.getState()
   if (State.data && State.data.content){
     $("#scroller").html(State.data.content)
-  } 
-  if (State.data && State.data.page) {
-  	$("#count").attr("value", State.data.count)
-    $("#page").attr("value", State.data.page)
+    container = demo.querySelector('#container');
+  } else
+  {
+  	imagesLoaded(container, function(){
+  		msnry = new Masonry(container, options);
+  		msnryInit = true;
+  	});
   }
-
   $(window).scroll(function () {
     if ($(window).scrollTop() > 400) {
       $(".return-top-link").fadeIn();
@@ -148,6 +151,9 @@
       $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
         if(data["status"] == true){
           $("#server_content").html(data["html"])
+          $("#count").attr("value", data["count"])
+          $("#page").attr("value", data["page"])
+          $("#per_page").attr("value", data["per_page"])
           elems = []
           var fragment = document.createDocumentFragment();
           $("#server_content .combo_wrapper").each(function(index, elem){
@@ -157,14 +163,14 @@
           container.appendChild( fragment );
 
           imagesLoaded(container, function(){
-            msnry.appended( elems );
+          	if (!msnryInit) {
+          		msnryInit =true;
+          		msnry = new Masonry(container, options);
+          	} else {
+            	msnry.appended( elems );
+           }
             record_history()
           })
-
-          // $(".paginate-content:last").after(data["html"])
-          $("#count").attr("value", data["count"])
-          $("#page").attr("value", data["page"])
-          $("#per_page").attr("value", data["per_page"])
 
         }
         $("#bottom-loading-box").modal("hide");
@@ -179,31 +185,6 @@
     var page = $("#page").attr("value")
     History.replaceState({page: page,count: count, content: html}, "商品组合列表", '');
   }
-
-
-
-
-  // 判断屏幕是否旋转
-
-  // function orientationChange() {
-  //   orientation = window.orientation
-  //   if(orientation == 0 || orientation == -90 || orientation == 90 || orientation == 180){
-  //     setTimeout(function(){
-  //       var demo1 = document.querySelector('#scroller');
-  //       var container = demo1.querySelector('#container');
-  //       imagesLoaded(container, function(){
-  //         var msnry = new Masonry(container, options);
-  //       })
-  //     }, 100)
-  //   }
-  // }
-
-  // // // 添加事件监听
-
-  // addEventListener('load', function(){
-  //   orientationChange();
-  //   window.onorientationchange = orientationChange;
-  // });
 
 
 
