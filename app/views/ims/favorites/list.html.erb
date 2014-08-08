@@ -102,7 +102,7 @@
           if(page * per_page < count && !inLoading){
             inLoading = true
             $("#bottom-loading-box").modal();
-            $.get("/ims/favorites/combos_list", {page: combos_page + 1}, function(data){
+            $.get("/ims/favorites/combos_list", {page: page + 1}, function(data){
               if(data["status"] == true){
                 $("#favorite_combos .favorite_link:last").after(data["html"])
                 $("#combos_count").attr("value", data["count"])
