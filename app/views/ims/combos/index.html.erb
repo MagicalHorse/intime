@@ -71,16 +71,13 @@
   }
 
   var inLoading = false
-
+	var demo = document.querySelector('#scroller');
+    var container = demo.querySelector('#container');
+    var msnry = new Masonry(container, options);
   var State = History.getState()
   if (State.data && State.data.content){
     $("#scroller").html(State.data.content)
-  } else {
-
-    var demo = document.querySelector('#scroller');
-    var container = demo.querySelector('#container');
-    var msnry = new Masonry(container, options);
-  }
+  } 
   if (State.data && State.data.page) {
   	$("#count").attr("value", State.data.count)
     $("#page").attr("value", State.data.page)
