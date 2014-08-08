@@ -336,22 +336,20 @@
     }
 
     $(document).on("click", "#img_box li i", function(){
-      if(confirm("确定要删除该图片？")){
-        mid = $(this).attr("data")
-        $("#img_"+mid).parent().remove()
-        $("input[name='product[image_ids][]'][value="+mid+"]").remove()
-        img_size = $("#img_box li[class!='add-link']").length
-        if(img_size < 5 && img_size > 0){
-          $("#add_img").show()
-          $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] span img")[0].src+"'>")
-        }else{
-          $("#add_img").show()
-          $("#default_img").html('<%= image_tag "ims/no-image.jpg" %>')
-        }
-        format_img(".show-imgbox-no")
-        format_img(".img-spa")
-        format_img(".show-imgbox-yes")
+      mid = $(this).attr("data")
+      $("#img_"+mid).parent().remove()
+      $("input[name='product[image_ids][]'][value="+mid+"]").remove()
+      img_size = $("#img_box li[class!='add-link']").length
+      if(img_size < 5 && img_size > 0){
+        $("#add_img").show()
+        $("#default_img").html("<img src='"+$("#img_box li[class!='add-link'] span img")[0].src+"'>")
+      }else{
+        $("#add_img").show()
+        $("#default_img").html('<%= image_tag "ims/no-image.jpg" %>')
       }
+      format_img(".show-imgbox-no")
+      format_img(".img-spa")
+      format_img(".show-imgbox-yes")
     })
 
 

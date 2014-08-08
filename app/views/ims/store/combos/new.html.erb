@@ -386,7 +386,7 @@
     });
 
     $(document).on("click", "#p_box li i", function(){
-      if(confirm("确定要删除该图片？")){
+      if(confirm("确定要删除该商品？")){
         mid = $(this).attr("data");
         $.ajax({
           url: "/ims/store/combos/remove_product?product_id="+mid,
