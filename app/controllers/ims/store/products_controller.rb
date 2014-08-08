@@ -4,6 +4,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   before_filter :tags, only: [:new, :edit]
   before_filter :verify_can_modify_product, only: [:new, :edit, :create, :update]
+  before_filter :setup_param_size, only: [:create, :update]
 
   def index
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
@@ -136,6 +137,16 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
     if !current_user.shopping_guide_operate?
       redirect_to ims_store_root_path
     end
+  end
+
+  def setup_param_size
+    sizes = params[:product][:sizes]
+    n = []
+    sizes[:id].each_with_index do |size, index|
+      n << {id: sizes[:id][index], name: sizes[:name][index], inventory: sizes[:inventory][index]}
+    end
+    params[:product][:sizes] = n
+
   end
 
 end
