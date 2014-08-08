@@ -6,37 +6,47 @@ IntimeService::Application.configure do
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
-  config.cache_classes = false
+  config.cache_classes = true
 
-  # Log error messages when you accidentally call methods on nil.
+  # Configure static asset server for tests with Cache-Control for performance
+  config.serve_static_assets = true
+  config.static_cache_control = "public, max-age=3600"
+
+  # Log error messages when you accidentally call methods on nil
   config.whiny_nils = true
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
-  #config.action_controller.show_full_error_reports = false
 
-  # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  # Raise exceptions instead of rendering exception templates
+  config.action_dispatch.show_exceptions = true
 
-  # Print deprecation notices to the Rails logger
-  config.active_support.deprecation = :log
+  # Disable request forgery protection in test environment
+  config.action_controller.allow_forgery_protection    = false
 
-  # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
+  # Tell Action Mailer not to deliver emails to the real world.
+  # The :test delivery method accumulates sent emails in the
+  # ActionMailer::Base.deliveries array.
+  config.action_mailer.delivery_method = :test
 
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
 
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-  config.active_record.auto_explain_threshold_in_seconds = 0.5
+  # Print deprecation notices to the stderr
+  config.active_support.deprecation = :stderr
+  
+    # Disable Rails's static asset server (Apache or nginx will already do this)
+  config.serve_static_assets = false
 
-  # Expands the lines which load the assets
-  config.assets.debug = true
+  # Compress JavaScripts and CSS
+  config.assets.compress = true
 
-  config.active_record.logger = Logger.new(STDOUT)
-  config.active_resource.logger = Logger.new(STDOUT)
+  # Don't fallback to assets pipeline if a precompiled asset is missed
+  config.assets.compile = false
+
+  # Generate digests for assets URLs
+  config.assets.digest = true
 end
 CARD_INFO_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryinfo"
 CARD_POINT_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryscore"
