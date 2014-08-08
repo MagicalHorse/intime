@@ -42,9 +42,9 @@ class Tag < ActiveRecord::Base
       end
 
 
-      json.sort do
-        json.sortOrder "asc"
-      end
+      # json.sort do
+      #   json.sortOrder "asc"
+      # end
     end
 
     result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1)*per_page, body: query
@@ -75,9 +75,9 @@ class Tag < ActiveRecord::Base
 
       end
 
-      json.sort do
-        json.sortOrder "asc"
-      end
+      # json.sort do
+      #   json.sortOrder "asc"
+      # end
     end
 
     result = $client.search index: ES_DEFAULT_INDEX, type: "esimstags", size: per_page, from: (page-1)*per_page, body: query
