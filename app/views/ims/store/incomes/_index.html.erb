@@ -1,7 +1,6 @@
 <% list.each do |item| %>
 
-<%= link_to ims_orders_show_path(id: item[:order_no]) do %>
-<div class="common-white paginate-content clearfix order_link add_loading">
+<div class="common-white paginate-content clearfix order_link add_loading" value="<%= ims_orders_show_path(id: item[:order_no]) %>">
   <div class="row-fluid">
     <div class="span12 txt2">
       <div><span>订单号：<%= item[:order_no] %></span></div>
@@ -11,6 +10,5 @@
     </div>
   </div>
 </div>
-<% end %>
 
 <% end %>
