@@ -22,9 +22,11 @@
               <div class="row-fluid">
                 <p class="txt7 pull-left">微信价：<em>￥<%= product["price"] %></em></p>
               </div>
+              <% if !@order["is_owner"] %>
               <div class="row-fluid">
                 <p class="txt7 pull-left">销售编码：<span id="sales_code_<%= product['productid'] %>"><%= product["sales_code"] %></span></p>
               </div>
+              <% end %>
               <p class="txt7 clearfix">
                 <span class="pull-left">
                   <%= product["productdesc"] %>

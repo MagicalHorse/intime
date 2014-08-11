@@ -21,15 +21,15 @@ class Ims::Income < Ims::Base
     end
 
     def banks(req, params = {})
-    	 post(req, params.merge(path: 'assistant/avail_banks'))
+      post(req, params.merge(path: 'assistant/avail_banks'))
     end
 
     def apply(req, params = {})
-       post(req, params.merge(path: 'assistant/income_request'))
+      post(req, params.merge(path: 'assistant/income_request'))
     end
 
     def pending(req, params = {})
-    	 post(req, params.merge(path: 'assistant/income_requesting'))
+      post(req, params.merge(path: 'assistant/income_requesting'))
     end
 
     def latest_bank(req, params = {})
