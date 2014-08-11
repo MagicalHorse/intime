@@ -1,0 +1,85 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+ welcome: "幸会！我是银妹儿，很高兴认识您哦，您可以：
+
+
+1、回复“卡号空格密码”查询VIP积分，（密码为办卡时登记的身份证后6位）， 例如：1833111620516 080808
+
+
+2、回复“促销”了解银泰实时促销资讯，享更多优惠！
+
+
+3、回复“兑换”了解银泰积分兑换活动
+
+"
+ commonhelp: "当前您可以：
+
+
+1、回复“卡号空格密码” 查询VIP积分
+
+
+2、回复“促销”实时了解商场促销资讯
+
+
+3、回复“兑换”实时了解积分兑换活动
+
+
+
+ 亲，您还希望我们提供什么服务呢，谢谢
+
+"
+ wrongpwd: "卡号或密码不正确：
+
+
+ 1、身份证信息有误，可咨询办卡门店客服
+
+
+ 2、身份证最后位为字母的，请大写哦
+
+
+ 3、亲，是否卡号输入有误？卡号及密码中间只要一个空格哦，[惊讶]
+"
+ successmsgtemplate: "您的VIP卡级别为：[level]，积分：[point]。"
+ successmsgtemplate2: "您的VIP卡积分：[point]。输入 卡号@密码 获取最新VIP卡级别。"
+ successmsgnotbindtemplate: "VIP卡级别:[level]，积分：[point]
+回复“绑定”或“bd”，可将VIP卡和微信号绑定，以后可直接查询
+"
+ card_level_repl: "普卡"
+ card_level_repl_to: "会员卡"
+ commandbd: "绑定"
+ commandjf: "积分"
+ commandhelp: "帮助"
+ commandpromotion: "优惠"
+ commandpromotion2: "促销"
+ commanddh: "兑换"
+ commandpg: "苹果"
+ notbindinghelp: "您还没有绑定，请使用卡号密码查询后绑定。"
+ bindingfail: "绑定失败，请使用卡号+空格+密码查询"
+ bindingsuccess: "绑定成功，您以后可回复“积分”或“jf”，进行查询"
+ locationnotfound: "没有检测到位置信息，请发送当前位置给喜欢银泰，我们将会提供您附近的促销信息哦。"
+ noproductsearchhistory: "请重新回复需要查找的内容，然后再回复m"
+ hasmoreresulttemp: "共[totalcount]条信息，已浏览[currentcount]条，回复m获取更多。"
+ To: "至"
+ commonerror: "您的请求无法正常被处理，请退回重新尝试！"
+ exchangeruletemplate: "[minpoints]起兑，每[unitperpoints]为单位，不同级别积分按不同的比例领取礼券。"
+ msg_dh: "银泰浙北区兑积分啦
+
+"
+ msg_pg: "苹果手机的亲
+
+"
+ scc_cardnotmatch: "会员卡不匹配！"
+ scc_codehasused: "代金券已使用！"
+ scc_codenotused: "礼券还未使用！"
+ scc_codenotexist: "代金券不存在！"
+ scc_codeexpiredornotstart: "代金券已过期或未开始！"
+ scc_amount_notmatch: "代金券金额不匹配！"
+ vc_islatest: "目前版本已是最新."
+ vc_newupdatemsg: "发现新版本."
+ prov_publiccode: "优惠码："
+ scc_p_codenotexist: "优惠码不存在！"
+ scc_p_codeexpiredornotstart: "优惠码已过期或未开始！"
+ scc_p_codehasused: "优惠码已使用！"
+ notsupportvoice: "语音评论，请下载IPHONE App"

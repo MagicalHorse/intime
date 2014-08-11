@@ -32,7 +32,7 @@ class Card < ActiveRecord::Base
       return Card.new(:no=>encry_cardno,
         :point=>card_score_hash["Point"].to_i,
         :validatedate=>Time.now+60*60*6,
-        :level=>card_info_hash["Lvl"].sub(t(:card_level_repl),t(:card_level_repl_to)),
+        :level=>card_info_hash["Lvl"].sub(I18n.t(:card_level_repl),I18n.t(:card_level_repl_to)),
         :isbinded=>false)
        
     end
