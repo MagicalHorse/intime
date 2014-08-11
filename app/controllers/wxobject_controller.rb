@@ -69,7 +69,7 @@ class WxobjectController < ApplicationController
       
       if input_text == 'Hello2BizUser'
         return method(:action_say_hello)
-      elsif [t(:commandjf),'jd'].include? input_text
+      elsif [t(:commandjf),'jf'].include? input_text
         return method(:action_point_bd)
       elsif [t(:commandbd),'bd'].include? input_text
         return method(:action_card_bd)
@@ -271,7 +271,7 @@ class WxobjectController < ApplicationController
       request.lastaction = RequestAction::ACTION_JF_SEARCH_BD
       }
     return build_response_text_temp {|msg|
-      msg.Content = t(:successmsgtemplate).sub('[level]',card_info[:level]).sub('[point]',card_info['point'].to_s)
+      msg.Content = t(:successmsgtemplate2).sub('[point]',card_info['point'].to_s)
      } if !card_info.nil?
 
     return build_response_text_temp {|msg|
