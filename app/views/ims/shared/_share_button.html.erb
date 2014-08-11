@@ -59,10 +59,12 @@
 
     $(document).on("click", ".add_loading", function(){
       url = $(this).attr("value")
-      $("#loading-box").modal();
-      setTimeout(function(){
-        window.location.href = url
-      }, 1)
+      if(url.length > 0){
+        $("#loading-box").modal();
+        setTimeout(function(){
+          window.location.href = url
+        }, 1)
+      }
     });
   });
 </script>

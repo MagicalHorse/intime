@@ -1,6 +1,6 @@
 <% list.each do |item| %>
-<%= link_to "javascript:void(0);", value: ims_orders_show_path(id: item[:order_no]), class: "add_loading" do %>
-<div class="common-white paginate-content clearfix order_link">
+<%= link_to "javascript:void(0);", value: item[:order_type] != 1 ? ims_orders_show_path(id: item[:order_no]) : '', class: "add_loading" do %>
+<div class="common-white paginate-content clearfix <%= 'order_link' if item[:order_type] != 1 %>">
   <div class="row-fluid">
     <div class="span12 txt2">
       <div><span>订单号：<%= item[:order_no] %></span></div>
