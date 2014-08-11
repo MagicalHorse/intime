@@ -81,10 +81,12 @@
     container = demo.querySelector('#container');
   } else
   {
-  	imagesLoaded(container, function(){
-  		msnry = new Masonry(container, options);
-  		msnryInit = true;
-  	});
+    if(!jQuery.isEmptyObject(container)){
+    	imagesLoaded(container, function(){
+    		msnry = new Masonry(container, options);
+    		msnryInit = true;
+    	});
+    }
   }
   $(window).scroll(function () {
     if ($(window).scrollTop() > 400) {
