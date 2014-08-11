@@ -3,11 +3,11 @@
     <% img_url =  product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>
     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
     <span class="img-spa" data="<%=product[:id]%>">
-      <img src="<%= img_url %>">
+      <%= image_tag img_url %>
     </span>
     <% else %>
     <span class="img-spa" data="<%=product[:id]%>">
-    <img src="<%= img_url %>">
+      <%= image_tag img_url %>
     </span>
     <% end %>
     <p>
