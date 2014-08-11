@@ -42,6 +42,7 @@ en:
  3、亲，是否卡号输入有误？卡号及密码中间只要一个空格哦，[惊讶]
 "
  successmsgtemplate: "您的VIP卡级别为：[level]，积分：[point]。"
+ successmsgtemplate2: "您的VIP卡积分：[point]。输入 卡号@密码 获取最新VIP卡级别。"
  successmsgnotbindtemplate: "VIP卡级别:[level]，积分：[point]
 回复“绑定”或“bd”，可将VIP卡和微信号绑定，以后可直接查询
 "
