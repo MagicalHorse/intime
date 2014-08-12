@@ -162,13 +162,13 @@
             fragment.appendChild( elem );
             elems.push( elem );
           })
-          container.appendChild( fragment );
 
           imagesLoaded(container, function(){
-          	if (!msnryInit) {
-          		msnryInit = true;
-          		msnry = new Masonry(container, options);
-          	} else {
+            if (!msnryInit) {
+              msnryInit = true;
+              msnry = new Masonry(container, options);
+            } else {
+              container.appendChild( fragment );
             	msnry.appended( elems );
             }
             record_history()
