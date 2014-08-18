@@ -540,9 +540,29 @@
     })
 
     $(".add_size").on("click", function(){
-      $.get("/ims/store/products/add_size", {}, function(data){
-        $(".size_input:last").after(data["html"])
-      }, "json")
+      html = ''
+      html += '<div class="controls-defined defined-small size_input">'
+      html += '<input type="hidden" name="product[sizes[id]][]" id="product_sizes_id_">'
+      html += '<label class="col-2 text-left"><abbr class="txt-red">*</abbr>规格：</label>'
+      html += '<div class="col-3">'
+      html += '<input type="text" name="product[sizes[name]][]" id="product_sizes_name_">'
+      html += '</div>'
+      html += '<label class="col-2 text-right"><abbr class="txt-red">*</abbr>库存：</label>'
+      html += '<div class="col-3">'
+      html += '<input type="text" value="1" name="product[sizes[inventory]][]" id="product_sizes_inventory_">'
+      html += '</div>'
+      html += '<div class="col-2 text-center">'
+      html += '<span class="remove_size">'
+      html += '<a class="txt8 remove_size" href="javascript:void(0);">'
+      html += '<img src="/assets/ims/delate.png" class="img-responsive" alt="Delate">'
+      html += '</a>'
+      html += '</span>'
+      html += '</div>'
+      html += '</div>'
+      $(".size_input:last").after(html)
+      // $.get("/ims/store/products/add_size", {}, function(data){
+      //   $(".size_input:last").after(data["html"])
+      // }, "json")
     })
 
     $(document).on("click", ".remove_size", function(){
