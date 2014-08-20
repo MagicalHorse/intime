@@ -40,8 +40,8 @@ alipay_pc_notify_url: http://42.120.63.90/api/payment/notify2
 
 api:
   stage: 'http://localhost'
-  apis: 'http://42.120.63.90/api'
-  imsapi: 'http://42.120.63.90/ims'
+  apis: 'http://10.242.172.193/api'
+  imsapi: 'http://10.242.172.193/ims'
 domain: 'intime.com.cn'
 elasticache:
   host: '26497daec78911e3.m.cnhzalicm10pub001.ocs.aliyuncs.com'
