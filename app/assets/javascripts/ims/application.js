@@ -35,7 +35,7 @@
 //= require ims/load-image-exif.js
 //= require ims/flurry.js
 //= require ims/jpeg_encoder.js
-//= require ims/masonry.pkgd.js
+//= require masonry.pkgd.min.js
 //= require ims/imagesloaded.pkgd.js
 //= require_self
 
