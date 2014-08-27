@@ -8,6 +8,8 @@ class Ims::AuthsController < ActionController::Base
       session[:wx_openid] = json_resp['openid']
       cookies[:user_access_token] = { value: json_resp["access_token"], expires: (json_resp["expires_in"] - 100).seconds.from_now.utc }
       get_token_from_api(request)
+      logger.info(cookies[:user_token])
+       logger.info(cookies[:user_access_token])
       redirect_to (session[:back_url] || params[:back_url])
       session.delete(:back_url)
     else
@@ -30,7 +32,7 @@ class Ims::AuthsController < ActionController::Base
       :outsitetoken     => Ims::Weixin.access_token
     })
     session[:user_token] = user_hash[:data][:token]
-    cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 19.minutes }
+    cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now + 19.minutes }
     user = Ims::User.new({
       :id => user_hash[:data][:id],
       :email => user_hash[:data][:email],

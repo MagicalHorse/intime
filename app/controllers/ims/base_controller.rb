@@ -33,7 +33,8 @@ class Ims::BaseController < ApplicationController
     if Rails.env == "development"
       get_token_from_api(request) unless session[:user_token]
     else
-      $logger.info("access_token: #{cookies[:user_access_token]}")
+      logger.info("access_token: #{cookies[:user_access_token]}")
+      logger.info("user_token #{cookies[:user_token]}")
       raise Ims::Unauthorized if cookies[:user_token].blank? || cookies[:user_access_token].blank?
     end
   end
