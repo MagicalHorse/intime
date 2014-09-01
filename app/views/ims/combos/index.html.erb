@@ -155,15 +155,15 @@
 
           items = $("#server_content .combo_wrapper")
           items.hide()
-          items.imagesLoaded().progress( function( imgLoad, image ) {
+          items.imagesLoaded( function( ) {
             if (!msnryInit) {
               msnryInit = true;
               container = $('#container').masonry(options);
             } else {
               container.append(items)
-              var $item = $( image.img ).parents('.combo_wrapper');
-              $item.show();
-              container.masonry( 'appended', $item );
+              // var $item = $( image.img ).parents('.combo_wrapper');
+              items.show();
+              container.masonry( 'appended', items );
             }
             record_history()
 
