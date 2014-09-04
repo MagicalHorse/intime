@@ -412,7 +412,7 @@
 
 
     $("#coding_button").on("click", function(){
-      coding = $("#coding").val()
+      coding = $.trim($("#coding").val())
       if(coding.length > 1 && coding.length <= 20){
         $.post("/ims/store/sales_codes", {coding: coding}, function(data){
           if(data["status"] == true){
@@ -422,7 +422,12 @@
             })
             $("#product_sales_code option:last").attr("selected", true)
           }else{
-            error_modal(data["message"])
+            coding_ele = $("#product_sales_code option[value='"+coding+"']")
+            if(coding_ele.length){
+              $("#product_sales_code option[value='"+coding+"']").attr("selected", true)
+            }else{
+              error_modal(data["message"])
+            }
           }
         }, "json")
       }else{
