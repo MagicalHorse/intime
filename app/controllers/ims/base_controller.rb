@@ -2,7 +2,7 @@
 
 class Ims::BaseController < ApplicationController
   layout 'ims/ims'
-  before_filter :setup_payment_type, :wx_auth!
+  before_filter :setup_payment_type, :wx_auth!, :setup_group_id
   helper_method [:current_user, :track_options]
 
   rescue_from Ims::Unauthorized do
@@ -43,6 +43,10 @@ class Ims::BaseController < ApplicationController
   end
 
   private
+
+  def setup_group_id
+    current_user.group_id ||= params[:group_id]
+  end
 
   def setup_payment_type
     if request.referer.blank?
