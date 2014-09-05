@@ -19,7 +19,7 @@ class Ims::CombosController < Ims::BaseController
   end
 
   def index
-    @search = ::Combo.es_search(store_id: [params[:store_id], params[:default_store_id]].find{|store_id| store_id.present?}, keywords: params[:keywords], page: params[:page], per_page: params[:per_page])
+    @search = ::Combo.es_search(store_id: [params[:store_id], params[:default_store_id]].find{|store_id| store_id.present?}, keywords: params[:keywords], page: params[:page], per_page: params[:per_page], group_id: params[:group_id])
     @combos = @search[:data]
     @stores = ::Store.es_search
     @store = ::Store.es_search(store_id: params[:store_id]).first if params[:store_id].present?

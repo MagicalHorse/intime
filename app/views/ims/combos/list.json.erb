@@ -1,1 +1,1 @@
-{"status": true, "page": <%= @search[:page] %>, "per_page": <%= @search[:per_page] %>, "count": <%= @search[:count] %>, "html": <%=raw render("list.html.erb").to_json %> }
+{"status": true, "page": <%= @search[:page] %>, "per_page": <%= @search[:per_page] %>, "count": <%= @search[:count] %>, "group_id": "<%= @search[:group_id] %>", "html": <%=raw render("list.html.erb").to_json %> }
