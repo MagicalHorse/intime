@@ -114,7 +114,7 @@
 <% end %>
 <% end %>
 
-<% if @store[:data][:gift_card].present? %>
+<% if @store[:data][:is_support_giftcard] && @store[:data][:gift_card].present? %>
   <div class="module">
     <div class="module-title">
       <h3>礼品卡</h3>
