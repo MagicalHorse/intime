@@ -13,7 +13,7 @@ class Ims::BaseController < ApplicationController
       back_url = URI::HTTP.build([nil,'i.intime.com.cn',nil,"/ims/auth/forward",{raw_url:back_url}.to_param,nil]).to_s
     end
     weixin_key
-    redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: @weixin_key[:appid], redirect_uri: back_url, response_type: 'code', scope: 'snsapi_base', state: ""}.to_param, 'wechat_redirect']).to_s)
+    redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: @weixin_key[:app_id], redirect_uri: back_url, response_type: 'code', scope: 'snsapi_base', state: ""}.to_param, 'wechat_redirect']).to_s)
   end
 
   def backurl
