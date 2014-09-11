@@ -96,7 +96,7 @@
 
     var load_address = function(){
       WeixinJSBridge.invoke('editAddress',{
-      appId: "<%= Settings.wx.appid %>",
+      appId: "<%= @weixin_key[:app_id] %>",
       scope: "jsapi_address",
       signType: "sha1",
       addrSign: "<%= raw @addrSign_val %>",

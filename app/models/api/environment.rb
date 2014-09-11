@@ -24,13 +24,26 @@ module API
           post(req, params.merge(path: 'environment/supportshipvias'))
         }
       end
-      
+
       # support invoice details
-       def supportinvoicedetails(req, params = {})
-         cache_get('env_invoicedetails',1.day) {
-            post(req, params.merge(path: 'environment/supportinvoicedetails'))
+      def supportinvoicedetails(req, params = {})
+        cache_get('env_invoicedetails',1.day) {
+          post(req, params.merge(path: 'environment/supportinvoicedetails'))
         }
       end
+
+      def getalipaykey(req, params = {})
+        cache_get('env_getalipaykey', 30.minutes) {
+          post(req, params.merge(path: 'environment/getalipaykey'))
+        }
+      end
+
+      def getweixinkey(req, params = {})
+        cache_get('env_getweixinkey', 30.minutes) {
+          post(req, params.merge(path: 'environment/getweixinkey'))
+        }
+      end
+
     end
   end
 end

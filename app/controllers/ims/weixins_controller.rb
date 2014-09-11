@@ -13,7 +13,7 @@ class Ims::WeixinsController < ApiBaseController
 
   def access_token
     render :json=>{
-      token:Ims::Weixin.access_token
+      token:Ims::Weixin.access_token(current_user.group_id)
     }
   end
   def renew

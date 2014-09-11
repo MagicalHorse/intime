@@ -3,6 +3,7 @@
 class Ims::AddressesController < Ims::BaseController
 
   before_filter :provinces, only:[:new, :edit, :list]
+  before_filter :weixin_key, only: :index
 
   def index
     @search = API::Address.index(request)
@@ -14,7 +15,7 @@ class Ims::AddressesController < Ims::BaseController
     @nonceStr_val = ("a".."z").to_a.sample(9).join('')
     sign = {
       accesstoken: cookies[:user_access_token],
-      appid: Settings.wx.appid,
+      appid: @weixin_key[:app_id],
       noncestr: @nonceStr_val,
       timestamp: @timeStamp_val,
       url: request.referer || request.original_url

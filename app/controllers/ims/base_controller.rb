@@ -2,7 +2,7 @@
 
 class Ims::BaseController < ApplicationController
   layout 'ims/ims'
-  before_filter :setup_payment_type, :wx_auth!, :setup_group_id
+  before_filter :setup_group_id, :setup_payment_type, :wx_auth!
   helper_method [:current_user, :track_options]
 
   rescue_from Ims::Unauthorized do
@@ -12,7 +12,8 @@ class Ims::BaseController < ApplicationController
     else
       back_url = URI::HTTP.build([nil,'i.intime.com.cn',nil,"/ims/auth/forward",{raw_url:back_url}.to_param,nil]).to_s
     end
-    redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: Settings.wx.appid, redirect_uri: back_url, response_type: 'code', scope: 'snsapi_base', state: ""}.to_param, 'wechat_redirect']).to_s)
+    weixin_key
+    redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: @weixin_key[:appid], redirect_uri: back_url, response_type: 'code', scope: 'snsapi_base', state: ""}.to_param, 'wechat_redirect']).to_s)
   end
 
   def backurl
@@ -44,8 +45,18 @@ class Ims::BaseController < ApplicationController
 
   private
 
+  def alipay_key
+    @alipay_key = API::Environment.getalipaykey(request, groupid: current_user.group_id)[:data]
+  end
+
+  def weixin_key
+    @weixin_key = API::Environment.getweixinkey(request, groupid: current_user.group_id)[:data]
+  end
+
   def setup_group_id
-    current_user.group_id ||= params[:group_id]
+    if params[:group_id]
+      current_user.group_id = params[:group_id]
+    end
   end
 
   def setup_payment_type
@@ -60,7 +71,7 @@ class Ims::BaseController < ApplicationController
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => Settings.wx.open_id,
       :outsitetype      => 4,
-      :outsitetoken     => Ims::Weixin.access_token
+      :outsitetoken     => Ims::Weixin.access_token(current_user.group_id)
     })
     session[:user_token] = user_hash[:data][:token]
     user = Ims::User.new({
