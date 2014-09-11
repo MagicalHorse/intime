@@ -46,16 +46,18 @@ class Ims::BaseController < ApplicationController
   private
 
   def alipay_key
-    @alipay_key = API::Environment.getalipaykey(request, groupid: current_user.group_id)[:data]
+    @alipay_key = API::Environment.getalipaykey(request, groupid: session[:group_id])[:data]
   end
 
   def weixin_key
-    @weixin_key = API::Environment.getweixinkey(request, groupid: current_user.group_id)[:data]
+    @weixin_key = API::Environment.getweixinkey(request, groupid: session[:group_id])[:data]
   end
 
   def setup_group_id
     if params[:group_id]
-      current_user.group_id = params[:group_id]
+      session[:group_id] = params[:group_id]
+    elsif session[:group_id].nil?
+      session[:group_id] = 1
     end
   end
 
@@ -71,7 +73,7 @@ class Ims::BaseController < ApplicationController
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => Settings.wx.open_id,
       :outsitetype      => 4,
-      :outsitetoken     => Ims::Weixin.access_token(current_user.group_id)
+      :outsitetoken     => Ims::Weixin.access_token(request, session[:group_id])
     })
     session[:user_token] = user_hash[:data][:token]
     user = Ims::User.new({

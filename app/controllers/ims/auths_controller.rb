@@ -4,7 +4,7 @@ class Ims::AuthsController < ActionController::Base
   # 在微信端验证后，客户端的响应页面
   def show
     if (code = params[:code]).present?
-      json_resp = get_access_token(code, current_user.group_id)
+      json_resp = get_access_token(code, session[:group_id])
       session[:wx_openid] = json_resp['openid']
       cookies[:user_access_token] = { value: json_resp["access_token"], expires: (json_resp["expires_in"] - 100).seconds.from_now.utc }
       get_token_from_api(request)
@@ -27,7 +27,7 @@ class Ims::AuthsController < ActionController::Base
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => session[:wx_openid],
       :outsitetype      => 4,
-      :outsitetoken     => Ims::Weixin.access_token(current_user.group_id)
+      :outsitetoken     => Ims::Weixin.access_token(request, session[:group_id])
     })
     session[:user_token] = user_hash[:data][:token]
     cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 19.minutes }

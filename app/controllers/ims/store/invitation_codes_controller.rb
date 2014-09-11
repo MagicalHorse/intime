@@ -35,7 +35,7 @@ class Ims::Store::InvitationCodesController < Ims::Store::BaseController
   protected
 
   def stores
-    @stores = ::Store.es_search(group_id: current_user.group_id)
+    @stores = ::Store.es_search(group_id: session[:group_id])
     @departments = {}
     @stores.each{|store| @departments[store["id"]] = store["departments"].collect{|department| {'id' => department[:id], 'name' => department[:name]}}}
     @departments = @departments.to_json
