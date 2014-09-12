@@ -76,6 +76,12 @@
       <%= hidden_field_tag :combo_id, @combo_id %>
     <% end %>
     <div class="controls-defined defined-small">
+      <label class="col-4 text-left"><abbr class="txt-red">*</abbr>名称：</label>
+      <div class="col-8">
+        <%= text_field_tag "product[name]", @product.try(:[], :name) %>
+      </div>
+    </div>
+    <div class="controls-defined defined-small">
       <label class="col-4 text-left"><abbr class="txt-red">*</abbr>品牌：</label>
       <div class="col-8">
         <%= select_tag "product[brand_id]", options_for_select(@brands.collect{|obj| [obj["name"], obj["id"]]}, @product.try(:[], :brand_id)), prompt: "请选择" %>
@@ -365,6 +371,13 @@
 
       image_size = $("input[name='product[image_ids][]']").length
       form = $("#product_form")
+      if(validator.element($("#product_brand_id")) && validator.element($("#product_category_id")) && validator.element($("#product_sku_code"))){
+        brand = $("#product_brand_id option:selected").text()
+        category = $("#product_category_id option:selected").text()
+        sku_code = $.trim($("#product_sku_code").val())
+        name = (brand + category + sku_code).substring(0,20)
+        $("#product_name").val(name)
+      }
 
       if(form.valid()){
         if(image_size > 0){
@@ -437,12 +450,16 @@
       }
     })
 
-    $("#product_form").validate({
+    var validator = $("#product_form").validate({
       onsubmit: true,
       onfocusout: false,
       onkeyup: false,
       onclick: false,
       rules: {
+        "product[name]": {
+          required: true,
+          maxlength: 20
+        },
         "product[brand_id]": {
           required: true
         },
@@ -481,6 +498,10 @@
         }
       },
       messages: {
+        "product[name]": {
+          required: "商品名称不能为空",
+          maxlength: "商品名称不能超过20个字符"
+        },
         "product[brand_id]": {
           required: "品牌不能为空"
         },
