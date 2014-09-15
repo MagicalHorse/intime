@@ -24,7 +24,7 @@ class Ims::AuthsController < ActionController::Base
 
   def get_user_token
     get_token_from_api(request)
-    redirect_to redirect_to (session[:back_url] || params[:back_url])
+    redirect_to (session[:back_url] || params[:back_url])
     session.delete(:back_url)
   end
 

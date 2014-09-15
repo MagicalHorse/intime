@@ -83,7 +83,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   def is_my_store
     unless current_user.store_id.to_i == params[:id].to_i
       cookies.delete(:user_token)
-      redirect_to ims_store_path(:id => params[:id],t: Time.now.to_i)
+      redirect_to ims_store_path(id: params[:id], t: Time.now.to_i)
     end
   end
 
