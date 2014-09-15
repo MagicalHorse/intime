@@ -7,13 +7,13 @@ class Ims::AuthsController < ActionController::Base
       json_resp = get_access_token(code, session[:group_id])
       session[:wx_openid] = json_resp['openid']
       cookies[:user_access_token] = { value: json_resp["access_token"], expires: (json_resp["expires_in"] - 100).seconds.from_now.utc }
-      get_token_from_api(request)
       redirect_to (session[:back_url] || params[:back_url])
       session.delete(:back_url)
     else
       render text: '需要授权'
     end
   end
+
   def forward
     raw_url = params[:raw_url]
     if !raw_url.present?
@@ -21,6 +21,13 @@ class Ims::AuthsController < ActionController::Base
     end
     redirect_to("#{raw_url}&#{request.query_string}")
   end
+
+  def get_user_token
+    get_token_from_api(request)
+    redirect_to redirect_to (session[:back_url] || params[:back_url])
+    session.delete(:back_url)
+  end
+
   private
 
   def get_token_from_api(request)
@@ -30,7 +37,7 @@ class Ims::AuthsController < ActionController::Base
       :outsitetoken     => Ims::Weixin.access_token(request, session[:group_id])
     })
     session[:user_token] = user_hash[:data][:token]
-    cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 19.minutes }
+    cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 24.hours - 1.minutes }
     user = Ims::User.new({
       :id => user_hash[:data][:id],
       :email => user_hash[:data][:email],

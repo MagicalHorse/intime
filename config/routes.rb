@@ -316,6 +316,7 @@ IntimeService::Application.routes.draw do
 
     resource :auth do
       get 'forward'
+      get 'get_user_token'
     end
     resources :stores, only: [:show]
     resources :combos, only: [:show, :destroy, :index] do
