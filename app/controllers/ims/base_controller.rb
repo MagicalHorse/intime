@@ -74,7 +74,7 @@ class Ims::BaseController < ApplicationController
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => Settings.wx.open_id,
       :outsitetype      => 4,
-      :outsitetoken     => Ims::Weixin.access_token(request, session[:group_id])
+      :outsitetoken     => Ims::Weixin.access_token(weixin_key)
     })
     session[:user_token] = user_hash[:data][:token]
     user = Ims::User.new({

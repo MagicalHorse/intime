@@ -34,7 +34,7 @@ class Ims::AuthsController < ActionController::Base
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => session[:wx_openid],
       :outsitetype      => 4,
-      :outsitetoken     => Ims::Weixin.access_token(request, session[:group_id])
+      :outsitetoken     => Ims::Weixin.access_token(weixin_key)
     })
     session[:user_token] = user_hash[:data][:token]
     cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 24.hours - 1.minutes }

@@ -33,13 +33,13 @@ module API
       end
 
       def getalipaykey(req, params = {})
-        cache_get('env_getalipaykey', 30.minutes) {
+        cache_get("env_getalipaykey_#{params[:group_id]}", 30.minutes) {
           post(req, params.merge(path: 'environment/getalipaykey'))
         }
       end
 
       def getweixinkey(req, params = {})
-        cache_get('env_getweixinkey', 30.minutes) {
+        cache_get("env_getweixinkey_#{params[:group_id]}", 30.minutes) {
           post(req, params.merge(path: 'environment/getweixinkey'))
         }
       end
