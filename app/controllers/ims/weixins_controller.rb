@@ -15,6 +15,7 @@ class Ims::WeixinsController < Ims::BaseController
   end
 
   def login
+    @title = "微信登录"
     if session[:login_key].blank? || (@img_url = begin; $memcached.get(session[:login_key]); rescue Memcached::NotFound; nil; end ).blank?
       session[:login_key] ||= rand(100000).to_s
       @img_url = Ims::Weixin.qr_url(weixin_key, session[:login_key])
