@@ -37,5 +37,6 @@
 //= require ims/jpeg_encoder.js
 //= require masonry.pkgd.min.js
 //= require ims/imagesloaded.pkgd.js
+//= require ims/tracker.js
 //= require_self
 

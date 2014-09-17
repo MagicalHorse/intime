@@ -1,0 +1,1469 @@
+var IMS = IMS || {
+
+	items: {},
+	config: {
+		ns: 'owa_',
+		baseUrl: '<%= Settings.tracker.log_end_point%>',
+	},
+	state: {},
+	setSetting: function(name, value) {
+		return this.setOption(name, value);
+	},
+
+	getSetting: function(name) {
+		return this.getOption(name);
+	},
+	
+	setOption: function(name, value) {
+		this.config[name] = value;
+	},
+	
+	getOption: function(name) {
+		return this.config[name];
+	},
+	
+	initializeStateManager: function() {
+		
+		if ( ! this.state.hasOwnProperty('init') ) {
+			
+			IMS.debug('initializing state manager...');
+			this.state = new IMS.stateManager();
+		}
+	},
+	
+	registerStateStore : function ( name, expiration, length, format ) {
+		this.initializeStateManager();
+		return this.state.registerStore(name, expiration, length, format);
+	},
+	
+	
+	setState : function(store_name, key, value, is_perminant,format, expiration_days) {
+	
+		this.initializeStateManager();
+		return this.state.set(store_name, key, value, is_perminant,format, expiration_days);	
+	},
+	
+	
+	getStateFromCookie : function(store_name) {
+	
+		this.initializeStateManager();
+		return this.state.getStateFromCookie(store_name);
+	},
+	
+	getState : function(store_name, key) {
+		
+		this.initializeStateManager();
+		return this.state.get(store_name, key);
+	},
+	
+	clearState : function(store_name, key) {
+	
+		this.initializeStateManager();
+		return this.state.clear(store_name, key);
+	},
+	
+	getStateStoreFormat: function(store_name) {
+	
+		this.initializeStateManager();
+		return this.state.getStoreFormat(store_name);
+	},
+	
+	setStateStoreFormat: function(store_name, format) {
+	
+		this.initializeStateManager();
+		return this.state.setStoreFormat(store_name, format);
+	},
+	
+	debug: function() {
+		
+		var debugging = IMS.getSetting('debug') || false; // or true
+		
+		if ( debugging ) {
+		
+			if( window.console ) {
+				
+				if (console.log.apply) {
+				
+					if (window.console.firebug) { 
+				 		console.log.apply(this, arguments);
+					} else {
+						console.log.apply(console, arguments);
+					}
+				}
+			}
+		}
+	},
+	
+}
+
+IMS.stateManager = function() {
+	
+	this.cookies = IMS.util.readAllCookies();
+	this.init = true;
+};
+
+IMS.stateManager.prototype = {
+	
+	init: false,
+	cookies: '',
+	stores: {},
+	storeFormats: {},
+	storeMeta: {},
+	
+	registerStore : function ( name, expiration, length, format ) {
+		this.storeMeta[name] = {'expiration' : expiration, 'length': length, 'format' : format};
+	},
+	
+	getExpirationDays : function ( store_name ) {
+		
+		if ( this.storeMeta.hasOwnProperty( store_name ) ) {
+			
+			return this.storeMeta[store_name].expiration;
+		}
+	},
+	
+	getFormat : function ( store_name ) {
+		
+		if ( this.storeMeta.hasOwnProperty( store_name ) ) {
+			
+			return this.storeMeta[store_name].format;
+		}
+	},
+	
+	isPresent: function ( store_name ) {
+		
+		if ( this.stores.hasOwnProperty( store_name ) ) {
+			return true;
+		}
+	},
+	
+	set: function(store_name, key, value, is_perminant,format, expiration_days) {
+		
+		if ( ! this.isPresent( store_name ) ) {
+			this.load( store_name );
+		}
+		
+		if ( ! this.isPresent( store_name ) ) {
+			IMS.debug( 'Creating state store (%s)', store_name );
+			this.stores[store_name] = {};
+			
+		}
+		
+		if ( key ) {
+			this.stores[store_name][key] = value;
+		} else {
+			this.stores[store_name] = value;
+		}
+		
+		format = this.getFormat(store_name);
+		
+		if ( ! format ) {
+			
+			// check the orginal format that the state store was loaded from.
+			if (this.storeFormats.hasOwnProperty(store_name)) {
+				format = this.storeFormats[store_name];
+			}
+		}
+		
+		var state_value = '';
+		
+		state_value = IMS.util.assocStringFromJson(this.stores[store_name]);
+		
+		expiration_days = this.getExpirationDays( store_name );
+		
+		if ( ! expiration_days ) {
+			
+			if ( is_perminant ) {
+				expiration_days =  3600;
+			}
+		}
+		
+		// set or reset the campaign cookie
+		IMS.debug('Populating state store (%s) with value: %s', store_name, state_value);
+		var domain = IMS.getSetting('cookie_domain') || document.domain;
+
+		// set cookie
+		IMS.util.setCookie( IMS.getSetting('ns') + store_name, state_value, expiration_days, '/', domain );
+	},
+	
+	replaceStore : function (store_name, value, is_perminant, format, expiration_days) {
+		
+		if ( store_name ) {
+		
+			if (value) {
+				
+				format = this.getFormat(store_name);
+				this.stores[store_name] = value;
+				this.storeFormats[store_name] = format;
+				
+				
+				cookie_value = IMS.util.assocStringFromJson(value);
+				
+			}
+		
+			var domain = IMS.getSetting('cookie_domain') || document.domain;
+			
+			expiration_days = this.getExpirationDays( store_name );
+			
+			IMS.debug('About to replace state store (%s) with: %s', store_name, cookie_value);
+			IMS.util.setCookie( IMS.getSetting('ns') + store_name, cookie_value, expiration_days, '/', domain );
+			
+		}
+	},
+		
+	getStateFromCookie : function(store_name) {
+		
+		var store = unescape( IMS.util.readCookie( IMS.getSetting('ns') + store_name ) );
+		if ( store ) {
+			return store;
+		}
+	},
+	
+	get : function(store_name, key) {
+		
+		if ( ! this.isPresent( store_name ) ) {
+			this.load(store_name);
+		}
+		
+		if ( this.isPresent( store_name ) ) {
+			if ( key ) {
+				if ( this.stores[store_name].hasOwnProperty( key ) ) {		
+					return this.stores[store_name][key];
+				}		
+			} else {
+				return this.stores[store_name];
+			}
+		} else {
+			IMS.debug('No state store (%s) was found', store_name);
+			return '';
+		}
+		
+	},
+	
+	getCookieValues: function(cookie_name) {
+		
+		if (this.cookies.hasOwnProperty(cookie_name)) {
+			return this.cookies[cookie_name];
+		}
+	},
+	
+	load: function(store_name) {
+		
+		var state = '';
+		var cookie_values = this.getCookieValues( IMS.getSetting('ns') + store_name );
+		
+		if (cookie_values) {
+			 
+			for (var i=0;i < cookie_values.length;i++) {
+				
+				
+				var raw_cookie_value = unescape( cookie_values[i] );
+				var cookie_value = IMS.util.decodeCookieValue( raw_cookie_value );
+				//IMS.debug(raw_cookie_value);
+				var format = IMS.util.getCookieValueFormat( raw_cookie_value );
+			
+				
+					// just get the last cookie set by that name
+					var lastIndex = cookie_values.length -1 ;
+					if (i === lastIndex) {
+						state = cookie_value;
+					}
+
+			}
+		}	
+			
+		if ( state ) {			
+			this.stores[store_name] = state;
+			this.storeFormats[store_name] = format;
+		
+		} else {
+			
+			IMS.debug('No state for store: %s was found. Nothing to Load.', store_name);
+		}
+	},
+	
+	clear: function(store_name, key) {
+		// delete cookie
+		
+		if ( ! key ) {
+			delete this.stores[store_name];
+			IMS.util.eraseCookie(IMS.getSetting('ns') + store_name);
+			//reload cookies
+			this.cookies = IMS.util.readAllCookies();
+		} else {
+			var state = this.get(store_name);
+			
+			if ( state && state.hasOwnProperty( key ) ) {
+				delete state['key'];
+				this.replaceStore(store_name, state, true, this.getFormat( store_name ),  this.getExpirationDays( store_name ) );
+			}
+		}
+	},
+	
+	getStoreFormat: function ( store_name ) {
+		
+		return this.getFormat(store_name);
+	},
+	
+	setStoreFormat: function( store_name, format ) {
+		
+		this.storeFormats[store_name] = format;
+	}
+};
+
+IMS.util =  {
+
+	ns: function(string) {
+	
+		return IMS.config.ns + string;
+	
+	},
+	setCookie: function (name,value,days,path,domain,secure) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		
+		document.cookie = name + "=" + escape (value) +
+	    ((days) ? "; expires=" + date.toGMTString() : "") +
+	    ((path) ? "; path=" + path : "") +
+	    ((domain) ? "; domain=" + domain : "") +
+	    ((secure) ? "; secure" : "");
+	},
+	
+	readAllCookies: function() {
+	
+		IMS.debug('Reading all cookies...');
+		//var dhash = '';
+		var jar = {};
+		//var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		
+		if (ca) {
+			IMS.debug(document.cookie);
+			for( var i=0;i < ca.length;i++ ) {
+				
+				var cat = IMS.util.trim(ca[i]);
+				var pos = IMS.util.strpos(cat, '=');
+				var key = cat.substring(0,pos);
+				var value = cat.substring(pos+1, cat.length);
+
+				if ( ! jar.hasOwnProperty(key) ) {
+					jar[key] = [];
+				}
+				// add the value to the array
+				jar[key].push(value);
+			}
+			
+			return jar;
+		}
+	},
+	
+
+	readCookie: function (name) {
+		IMS.debug('Attempting to read cookie: %s', name);
+		var jar = IMS.util.readAllCookies();
+		if ( jar ) {
+			if ( jar.hasOwnProperty(name) ) {
+				return jar[name];
+			} else {
+				return '';
+			}
+		}
+	},
+	
+	eraseCookie: function (name, domain) {
+	
+		IMS.debug(document.cookie);
+		if ( ! domain ) {
+			domain = IMS.getSetting('cookie_domain') || document.domain;
+		}
+		IMS.debug("erasing cookie: " + name + " in domain: " +domain);
+		this.setCookie(name,"",-1,"/",domain);
+		// attempt to read the cookie again to see if its there under another valid domain
+		var test = IMS.util.readCookie(name);
+		// if so then try the alternate domain				
+		if (test) {
+			
+			var period = domain.substr(0,1);
+			IMS.debug('period: '+period);
+			if (period === '.') {
+				var domain2 = domain.substr(1);
+				IMS.debug("erasing " + name + " in domain2: " + domain2);
+				this.setCookie(name,"",-2,"/", domain2);
+				
+					
+			} else {
+				//	domain = '.'+ domain
+				IMS.debug("erasing " + name + " in domain3: " + domain);
+				this.setCookie(name,"",-2,"/",domain);	
+			}
+
+		}
+		
+	},
+	
+	eraseMultipleCookies: function(names, domain) {
+		
+		for (var i=0; i < names.length; i++) {
+			this.eraseCookie(names[i], domain);
+		}
+	},
+	
+	
+	
+	urlEncode : function(str) {
+		
+	    str = (str+'').toString();
+	    
+	    return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');
+	
+	},
+	
+	urldecode : function (str) {
+	    
+	    return decodeURIComponent(str.replace(/\+/g, '%20'));
+	},
+	
+	parseUrlParams : function(url) {
+		
+		var _GET = {};
+		for(var i,a,m,n,o,v,p=location.href.split(/[?&]/),l=p.length,k=1;k<l;k++)
+			if( (m=p[k].match(/(.*?)(\..*?|\[.*?\])?=([^#]*)/)) && m.length==4){
+				n=decodeURI(m[1]).toLowerCase(),o=_GET,v=decodeURI(m[3]);
+				if(m[2])
+					for(a=decodeURI(m[2]).replace(/\[\s*\]/g,"[-1]").split(/[\.\[\]]/),i=0;i<a.length;i++)
+						o=o[n]?o[n]:o[n]=(parseInt(a[i])==a[i])?[]:{}, n=a[i].replace(/^["\'](.*)["\']$/,"$1");
+						n!='-1'?o[n]=v:o[o.length]=v;
+			}
+		
+		return _GET;
+	},
+	
+	strpos : function(haystack, needle, offset) {
+	    
+	    var i = (haystack+'').indexOf(needle, (offset || 0));
+	    return i === -1 ? false : i;
+	},
+	
+	
+	setState : function(store_name, key, value, is_perminant,format, expiration_days) {
+		
+		return IMS.setState(store_name, key, value, is_perminant,format, expiration_days);
+	},
+	
+	
+	getState : function(store_name, key) {
+		
+		return IMS.getState(store_name, key);
+	},
+	
+	clearState : function(store_name, key) {
+		
+		return IMS.clearState(store_name, key);
+	},
+	
+	getCookieValueFormat : function(cstring) {
+		var format = '';
+		var check = cstring.substr(0,1);			
+
+		format = 'assoc';
+
+		return format;
+	},
+	
+	decodeCookieValue : function(string) {
+		
+		var format = IMS.util.getCookieValueFormat(string);
+		var value = IMS.util.jsonFromAssocString(string);	
+		return value;
+	},
+	
+
+	is_array : function (input) {
+  		return typeof(input)=='object'&&(input instanceof Array);	
+  	},
+  	
+  	str_pad : function (input, pad_length, pad_string, pad_type) {
+
+	    var half = '',
+	        pad_to_go;
+	 
+	    var str_pad_repeater = function (s, len) {
+	        var collect = '',
+	            i;
+	 
+	        while (collect.length < len) {
+	            collect += s;
+	        }
+	        collect = collect.substr(0, len);
+	 
+	        return collect;
+	    };
+	 
+	    input += '';
+	    pad_string = pad_string !== undefined ? pad_string : ' ';
+	 
+	    if (pad_type != 'STR_PAD_LEFT' && pad_type != 'STR_PAD_RIGHT' && pad_type != 'STR_PAD_BOTH') {
+	        pad_type = 'STR_PAD_RIGHT';
+	    }
+	    if ((pad_to_go = pad_length - input.length) > 0) {
+	        if (pad_type == 'STR_PAD_LEFT') {
+	            input = str_pad_repeater(pad_string, pad_to_go) + input;
+	        } else if (pad_type == 'STR_PAD_RIGHT') {
+	            input = input + str_pad_repeater(pad_string, pad_to_go);
+	        } else if (pad_type == 'STR_PAD_BOTH') {
+	            half = str_pad_repeater(pad_string, Math.ceil(pad_to_go / 2));
+	            input = half + input + half;
+	            input = input.substr(0, pad_length);
+	        }
+	    }
+	 
+	    return input;
+	},
+	
+	zeroFill : function(number, length) {
+		
+		return IMS.util.str_pad( number, length, '0', 'STR_PAD_LEFT');
+	},
+  	
+	
+  	is_object : function (mixed_var) {
+
+	    if (mixed_var instanceof Array) {
+	        return false;
+	    } else {
+	        return (mixed_var !== null) && (typeof( mixed_var ) == 'object');
+	    }
+	},
+  	
+  	countObjectProperties : function( obj ) {
+  		
+    	var size = 0, key;
+    	for (key in obj) {
+        	if (obj.hasOwnProperty(key)) size++;
+    	}
+    	return size;
+  	},
+	
+	jsonFromAssocString : function(str, inner, outer) {
+		
+		inner = inner || '=>';
+		outer = outer || '|||';
+		
+		if (str){
+		
+			if (!this.strpos(str, inner)) {
+	
+				return str;
+				
+			} else {
+				
+				var assoc = {};
+				var outer_array = str.split(outer);
+				//IMS.debug('outer array: %s', JSON.stringify(outer_array));
+				for (var i = 0, n = outer_array.length; i < n; i++) {
+				
+					var inside_array = outer_array[i].split(inner);
+					
+					assoc[inside_array[0]] = inside_array[1];
+				}	
+			}
+			
+			return assoc;
+		}
+	},
+	
+	assocStringFromJson : function(obj) {
+		
+		var string = '';
+		var i = 0;
+		var count = IMS.util.countObjectProperties(obj);
+		
+		for (var prop in obj) {
+			i++;
+			string += prop + '=>' + obj[prop];
+			
+			if (i < count) {
+				string += '|||';
+			}
+		}
+		return string;	
+	
+	},
+	
+	getCurrentUnixTimestamp : function() {
+		return Math.round(new Date().getTime() / 1000);
+	},
+	
+	generateRandomGuid : function() {
+		var time = this.getCurrentUnixTimestamp() + '';
+		var random = IMS.util.zeroFill( this.rand(0,999999) + '' , 6);
+		var client = IMS.util.zeroFill( this.rand(0,999) + '', 3);
+		return time + random + client;
+	},
+	
+	trim : function (str, charlist) {
+	    
+	    var whitespace, l = 0, i = 0;
+	    str += '';
+	    
+	    if (!charlist) {
+	        // default list
+	        whitespace = " \n\r\t\f\x0b\xa0\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u200b\u2028\u2029\u3000";
+	    } else {
+	        // preg_quote custom list
+	        charlist += '';
+	        whitespace = charlist.replace(/([\[\]\(\)\.\?\/\*\{\}\+\$\^\:])/g, '$1');
+	    }
+	    
+	    l = str.length;
+	    for (i = 0; i < l; i++) {
+	        if (whitespace.indexOf(str.charAt(i)) === -1) {
+	            str = str.substring(i);
+	            break;
+	        }
+	    }
+	    
+	    l = str.length;
+	    for (i = l - 1; i >= 0; i--) {
+	        if (whitespace.indexOf(str.charAt(i)) === -1) {
+	            str = str.substring(0, i + 1);
+	            break;
+	        }
+	    }
+	    
+	    return whitespace.indexOf(str.charAt(0)) === -1 ? str : '';
+	},
+	
+	rand : function(min, max) {
+	    
+	    
+	    var argc = arguments.length;
+	    if (argc === 0) {
+	        min = 0;
+	        max = 2147483647;
+	    } else if (argc === 1) {
+	        throw new Error('Warning: rand() expects exactly 2 parameters, 1 given');
+	    }
+	    return Math.floor(Math.random() * (max - min + 1)) + min;
+	},
+	
+	sprintf : function( ) {
+	   
+	    var regex = /%%|%(\d+\$)?([-+\'#0 ]*)(\*\d+\$|\*|\d+)?(\.(\*\d+\$|\*|\d+))?([scboxXuidfegEG])/g;
+	    var a = arguments, i = 0, format = a[i++];
+	 
+	    // pad()
+	    var pad = function (str, len, chr, leftJustify) {
+	        if (!chr) {chr = ' ';}
+	        var padding = (str.length >= len) ? '' : Array(1 + len - str.length >>> 0).join(chr);
+	        return leftJustify ? str + padding : padding + str;
+	    };
+	 
+	    // justify()
+	    var justify = function (value, prefix, leftJustify, minWidth, zeroPad, customPadChar) {
+	        var diff = minWidth - value.length;
+	        if (diff > 0) {
+	            if (leftJustify || !zeroPad) {
+	                value = pad(value, minWidth, customPadChar, leftJustify);
+	            } else {
+	                value = value.slice(0, prefix.length) + pad('', diff, '0', true) + value.slice(prefix.length);
+	            }
+	        }
+	        return value;
+	    };
+	 
+	    // formatBaseX()
+	    var formatBaseX = function (value, base, prefix, leftJustify, minWidth, precision, zeroPad) {
+	        // Note: casts negative numbers to positive ones
+	        var number = value >>> 0;
+	        prefix = prefix && number && {'2': '0b', '8': '0', '16': '0x'}[base] || '';
+	        value = prefix + pad(number.toString(base), precision || 0, '0', false);
+	        return justify(value, prefix, leftJustify, minWidth, zeroPad);
+	    };
+	 
+	    // formatString()
+	    var formatString = function (value, leftJustify, minWidth, precision, zeroPad, customPadChar) {
+	        if (precision != null) {
+	            value = value.slice(0, precision);
+	        }
+	        return justify(value, '', leftJustify, minWidth, zeroPad, customPadChar);
+	    };
+	 
+	    // doFormat()
+	    var doFormat = function (substring, valueIndex, flags, minWidth, _, precision, type) {
+	        var number;
+	        var prefix;
+	        var method;
+	        var textTransform;
+	        var value;
+	 
+	        if (substring == '%%') {return '%';}
+	 
+	        // parse flags
+	        var leftJustify = false, positivePrefix = '', zeroPad = false, prefixBaseX = false, customPadChar = ' ';
+	        var flagsl = flags.length;
+	        for (var j = 0; flags && j < flagsl; j++) {
+	            switch (flags.charAt(j)) {
+	                case ' ': positivePrefix = ' '; break;
+	                case '+': positivePrefix = '+'; break;
+	                case '-': leftJustify = true; break;
+	                case "'": customPadChar = flags.charAt(j+1); break;
+	                case '0': zeroPad = true; break;
+	                case '#': prefixBaseX = true; break;
+	            }
+	        }
+	 
+	        // parameters may be null, undefined, empty-string or real valued
+	        // we want to ignore null, undefined and empty-string values
+	        if (!minWidth) {
+	            minWidth = 0;
+	        } else if (minWidth == '*') {
+	            minWidth = +a[i++];
+	        } else if (minWidth.charAt(0) == '*') {
+	            minWidth = +a[minWidth.slice(1, -1)];
+	        } else {
+	            minWidth = +minWidth;
+	        }
+	 
+	        // Note: undocumented perl feature:
+	        if (minWidth < 0) {
+	            minWidth = -minWidth;
+	            leftJustify = true;
+	        }
+	 
+	        if (!isFinite(minWidth)) {
+	            throw new Error('sprintf: (minimum-)width must be finite');
+	        }
+	 
+	        if (!precision) {
+	            precision = 'fFeE'.indexOf(type) > -1 ? 6 : (type == 'd') ? 0 : undefined;
+	        } else if (precision == '*') {
+	            precision = +a[i++];
+	        } else if (precision.charAt(0) == '*') {
+	            precision = +a[precision.slice(1, -1)];
+	        } else {
+	            precision = +precision;
+	        }
+	 
+	        // grab value using valueIndex if required?
+	        value = valueIndex ? a[valueIndex.slice(0, -1)] : a[i++];
+	 
+	        switch (type) {
+	            case 's': return formatString(String(value), leftJustify, minWidth, precision, zeroPad, customPadChar);
+	            case 'c': return formatString(String.fromCharCode(+value), leftJustify, minWidth, precision, zeroPad);
+	            case 'b': return formatBaseX(value, 2, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+	            case 'o': return formatBaseX(value, 8, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+	            case 'x': return formatBaseX(value, 16, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+	            case 'X': return formatBaseX(value, 16, prefixBaseX, leftJustify, minWidth, precision, zeroPad).toUpperCase();
+	            case 'u': return formatBaseX(value, 10, prefixBaseX, leftJustify, minWidth, precision, zeroPad);
+	            case 'i':
+	            case 'd':
+	                number = parseInt(+value, 10);
+	                prefix = number < 0 ? '-' : positivePrefix;
+	                value = prefix + pad(String(Math.abs(number)), precision, '0', false);
+	                return justify(value, prefix, leftJustify, minWidth, zeroPad);
+	            case 'e':
+	            case 'E':
+	            case 'f':
+	            case 'F':
+	            case 'g':
+	            case 'G':
+	                number = +value;
+	                prefix = number < 0 ? '-' : positivePrefix;
+	                method = ['toExponential', 'toFixed', 'toPrecision']['efg'.indexOf(type.toLowerCase())];
+	                textTransform = ['toString', 'toUpperCase']['eEfFgG'.indexOf(type) % 2];
+	                value = prefix + Math.abs(number)[method](precision);
+	                return justify(value, prefix, leftJustify, minWidth, zeroPad)[textTransform]();
+	            default: return substring;
+	        }
+	    };
+	 
+	    return format.replace(regex, doFormat);
+	},
+	
+	
+	isBrowserTrackable : function() {
+	
+		var dntProperties = ['doNotTrack', 'msDoNotTrack'];
+		
+		for (var i = 0, l = dntProperties.length; i < l; i++) {
+		
+			if ( navigator[ dntProperties[i] ] === 'yes' ) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+};
+IMS.event = function() {
+
+	this.properties = {};
+	this.id = '';
+	this.set('timestamp', IMS.util.getCurrentUnixTimestamp() );
+}
+
+IMS.event.prototype = {
+	
+	get : function(name) {
+		
+		if ( this.properties.hasOwnProperty(name) ) {
+		
+			return this.properties[name];
+		}
+	},
+	
+	set : function(name, value) {
+		
+		this.properties[name] = value;
+	},
+	
+	setEventType : function(event_type) {
+	
+		this.set("event_type", event_type);
+	},
+	
+	getProperties : function() {
+		
+		return this.properties;
+	},
+	
+	merge : function(properties) {
+		
+		for(param in properties) {
+			
+			if (properties.hasOwnProperty(param)) {
+	       
+				this.set(param, properties[param]);
+			}
+	    }
+	},
+	
+	isSet : function( name ) {
+		
+		if ( this.properties.hasOwnProperty( name ) ) {
+		
+			return true;
+		}
+	}
+}
+IMS.tracker = function( options ) {
+	
+	//this.setDebug(true);
+	// set start time
+	this.startTime = this.getTimestamp();
+	
+	// register cookies
+	IMS.registerStateStore('v', 3600, '', 'assoc');
+	IMS.registerStateStore('s', 3600, '', 'assoc');
+	
+	// Configuration options
+	this.options = {
+		sessionLength: 1800,
+		thirdParty: false,
+		cookie_domain: false, 
+		getRequestCharacterLimit: 2000
+		
+	};
+
+	this.endpoint = IMS.config.baseUrl;
+	// Active status of tracker
+	this.active = true;
+	
+	if ( options ) {
+		
+		for (var opt in options) {
+			
+			this.options[opt] = options[opt];
+		}
+	}
+
+	// create page object.
+	this.page = new IMS.event();
+	
+	// merge page properties from global owa_params object
+	if (typeof owa_params != 'undefined') {
+		// merge page params from the global object if it exists
+		if (owa_params.length > 0) {
+			this.page.merge(owa_params);
+		}
+	}
+}
+
+IMS.tracker.prototype = {
+
+	id : '',
+	init: 0,
+	// flag to tell if client state has been set
+	stateInit: false,
+	// properties that should be added to all events
+	globalEventProperties: {},
+	// state sores that can be shared across sites
+	sharableStateStores: ['v', 's'],
+	// Time When tracker is loaded
+	startTime: null,
+	// time when tracker is unloaded
+	endTime: null,
+	// flag for new session status
+	isNewSessionFlag: false,
+
+	/**
+	 * GET params parsed from URL
+	 */ 
+	urlParams: {},
+	
+
+
+	getCookieDomain : function() {
+	
+		return this.getOption('cookie_domain') || IMS.getSetting('cookie_domain') || document.domain;
+
+	},
+	
+	setCookieDomain : function(domain) {
+		
+		var not_passed = false;
+		
+		if ( ! domain ) {
+			domain = document.domain;
+			not_passed = true;
+		}
+		
+		// remove the leading period
+		var period = domain.substr(0,1);
+		if (period === '.') {
+			domain = domain.substr(1);
+		}
+		
+		var contains_www = false;
+		var www = domain.substr(0,4);
+		// check for www and eliminate it if no domain was passed.
+		if (www === 'www.') {
+			if ( not_passed ) {
+				domain = domain.substr(4);
+			} 
+
+			contains_www = true;
+		}
+		
+		var match = false;
+		if (document.domain === domain) {
+			 match = true;
+		}
+		
+		// add the leading period back
+		domain =  '.' + domain;
+		this.setOption('cookie_domain', domain);
+		this.setOption('cookie_domain_set', true);
+		IMS.setSetting('cookie_domain', domain);
+
+	},
+	
+	/**
+	 * Convienence method for setting page title
+	 */
+	setPageTitle: function(title) {
+		
+		this.setGlobalEventProperty("page_title", title);
+	},
+	
+	/**
+	 * Convienence method for setting page type
+	 */
+	setPageType : function(type) {
+		
+		this.setGlobalEventProperty("page_type", type);
+	},
+	
+	/**
+	 * Convienence method for setting user name
+	 */
+	setUserName : function( value ) {
+		
+		this.setGlobalEventProperty( 'user_name', value );
+	},
+	
+	
+	getCurrentUrl : function () {
+		
+		return document.URL
+	},
+	
+
+	
+    isObjectType : function(obj, type) {
+    	return !!(obj && type && type.prototype && obj.constructor == type.prototype.constructor);
+	},
+    
+    /** 
+     * Logs event by inserting 1x1 pixel IMG tag into DOM
+     */
+    logEvent : function (properties, block, callback) {
+    	
+    	if (this.active) {
+    	
+	    	var url = this._assembleRequestUrl(properties);
+
+			IMS.debug('url : %s', url);
+			var image = new Image(1, 1);
+			image.onLoad = function () { };
+			image.src = url;
+
+			if (callback && (typeof(callback) === "function")) {
+				callback();
+			}
+		}
+    },
+    _getLoggerEndpoint: function(){
+		return this.endpoint;
+	},
+    /**
+     * Private method for helping assemble request params
+     */
+    _assembleRequestUrl : function(properties) {
+    
+    	var get = this.prepareRequestDataForGet( properties );
+    	
+    	var log_url = this.getLoggerEndpoint();
+    	
+    	if (log_url.indexOf('?') === -1) {
+    		log_url += '?';
+    	} else {
+    		log_url += '&';
+    	}
+    	    	
+		// add some radomness for cache busting
+		var full_url = log_url + get;
+		
+		return full_url;
+    },
+
+	prepareRequestData : function( properties ) {
+    
+  		var data = {};
+    	
+       	//assemble query string
+	    for ( var param in properties ) {  
+	    	// print out the params
+			var value = '';
+				
+			if ( properties.hasOwnProperty( param ) ) {
+	  			
+	  			if ( IMS.util.is_array( properties[param] ) ) {
+					
+					var n = properties[param].length;
+					for ( var i = 0; i < n; i++ ) {
+						
+						if ( IMS.util.is_object( properties[param][i] ) ) {
+							for ( var o_param in properties[param][i] ) {
+								
+								data[ IMS.util.sprintf( IMS.getSetting('ns') + '%s[%s][%s]', param, i, o_param ) ] = IMS.util.urlEncode( properties[ param ][ i ][ o_param ] );
+							}
+						} else {
+							// what the heck is it then. assume string
+							data[ IMS.util.sprintf(IMS.getSetting('ns') + '%s[%s]', param, i) ] = IMS.util.urlEncode( properties[ param ][ i ] );
+						}
+					}
+				// assume it's a string
+				} else {
+					data[ IMS.util.sprintf(IMS.getSetting('ns') + '%s', param) ] = IMS.util.urlEncode( properties[ param ] );
+				}
+			}
+		}
+		
+		return data;
+    },
+    
+    prepareRequestDataForGet : function( properties ) {
+    	
+    	var properties = this.prepareRequestData( properties );
+
+    	var get = '';
+    	
+    	for ( var param in properties ) {
+    		
+    		if ( properties.hasOwnProperty( param ) ) {
+
+    			var kvp = '';
+    			kvp = IMS.util.sprintf('%s=%s&', param, properties[ param ] );
+    			get += kvp;
+    		}
+    	}
+    	
+    	return get;
+    },
+
+	callMethod : function(string, data) {
+		
+		return this[string](data);
+	},
+	
+	// utc epoch in seconds
+	getTimestamp : function() {
+		
+		return IMS.util.getCurrentUnixTimestamp();
+	},
+	
+	// utc epoch in milliseconds
+	getTime : function() {
+	
+		return Math.round(new Date().getTime());
+	},
+	
+	getElapsedTime : function() {
+		
+		return this.getTimestamp() - this.startTime;
+	},
+	
+	getOption : function(name) {
+		
+		if ( this.options.hasOwnProperty(name) ) {
+			return this.options[name];
+		}
+	},
+	
+	setOption : function(name, value) {
+		
+		this.options[name] = value;
+	},
+	
+	setLastEvent : function(event) {
+		return;
+	},
+	
+	
+	sleep : function(delay) {
+    	var start = new Date().getTime();
+    	while (new Date().getTime() < start + delay);
+	},
+	
+	pause : function() {
+		
+		this.active = false;
+	},
+	
+	restart : function() {
+		this.active = true;
+	},
+	
+	
+
+	setNumberPriorSessions : function ( event, callback ) {
+		
+		IMS.debug('setting number of prior sessions');
+		// if check for nps value in vistor cookie.
+		var nps = IMS.getState( 'v', 'nps' );
+		// set value to 1 if not found as it means its he first session.
+		if ( ! nps ) {
+			nps = '0';
+		}
+		
+		if ( this.isNewSessionFlag === true ) {
+			// increment visit count and persist to state store
+			nps = nps * 1;
+			nps++;
+			IMS.setState( 'v', 'nps', nps, true );
+		}
+
+		this.setGlobalEventProperty( 'nps',  nps );
+		
+		if (callback && (typeof(callback) === "function")) {
+			callback(event);
+		}
+	},
+	
+	
+	setVisitorId : function( event, callback ) {
+		
+		var visitor_id =  IMS.getState( 'v', 'vid' );
+
+		if ( ! visitor_id ) {
+			var old_vid_test =  IMS.getState( 'v' );
+			
+			if ( ! IMS.util.is_object( old_vid_test ) ) {
+				visitor_id = old_vid_test;
+				IMS.clearState( 'v' );
+				IMS.setState( 'v', 'vid', visitor_id, true );
+				
+			}
+		}
+				
+		if ( ! visitor_id ) {
+			visitor_id = IMS.util.generateRandomGuid( this.siteId );
+			
+			this.globalEventProperties.is_new_visitor = true;
+			IMS.setState( 'v', 'vid', visitor_id, true );
+			IMS.debug('Creating new visitor id');
+		}
+		// set property on event object
+		this.setGlobalEventProperty( 'visitor_id', visitor_id );
+		
+		if (callback && (typeof(callback) === "function")) {
+			callback(event);
+		}
+	},
+	
+	setFirstSessionTimestamp : function( event, callback ) {
+		
+		// set first session timestamp
+		var fsts = IMS.getState( 'v', 'fsts' );
+		if ( ! fsts ) {
+			fsts = event.get('timestamp');
+			IMS.debug('setting fsts value: %s', fsts);
+			IMS.setState('v', 'fsts', fsts , true);	
+		}
+		this.setGlobalEventProperty( 'fsts', fsts );
+		
+		// calc days since first session
+		var dsfs = Math.round( ( event.get( 'timestamp' ) - fsts ) / ( 3600 * 24 ) ) ;
+		IMS.setState( 'v', 'dsfs', dsfs );
+		this.setGlobalEventProperty( 'dsfs', dsfs );
+		
+		if (callback && (typeof(callback) === "function")) {
+			callback(event);
+		}
+	},
+	
+	setLastRequestTime : function( event, callback ) {
+		
+		
+		var last_req = IMS.getState('s', 'last_req');
+		IMS.debug('last_req from cookie: %s', last_req);
+		// suppport for old style cookie
+		if ( ! last_req ) {
+			var state_store_name = IMS.util.sprintf( '%s_%s', 'ss', this.siteId );		
+			last_req = IMS.getState( state_store_name, 'last_req' );	
+		}
+		
+		// set property on for all events
+		IMS.debug('setting last_req global property of %s', last_req);
+		this.setGlobalEventProperty( 'last_req', last_req );
+		
+		// store new state value
+		IMS.setState( 's', 'last_req', event.get( 'timestamp' ), true );
+		
+		if (callback && (typeof(callback) === "function")) {
+			callback(event);
+		}
+	},
+	getSiteId : function() {
+		return '0';
+	},
+	setSessionId : function ( event, callback ) {
+		var session_id = '';
+		var state_store_name = '';
+		var is_new_session = this.isNewSession( event.get( 'timestamp' ),  this.getGlobalEventProperty( 'last_req' ) ); 
+		if ( is_new_session ) {
+			//set prior_session_id
+			var prior_session_id = IMS.getState('s', 'sid');
+			if ( ! prior_session_id ) {
+				state_store_name = IMS.util.sprintf('%s_%s', 'ss', this.getSiteId() );		
+				prior_session_id = IMS.getState(state_store_name, 's');
+			}
+			if ( prior_session_id ) {
+				this.globalEventProperties.prior_session_id = prior_session_id;
+			}
+			
+			this.resetSessionState();
+			
+			session_id = IMS.util.generateRandomGuid( this.getSiteId() );
+			// it's a new session. generate new session ID 
+	   		this.globalEventProperties.session_id = session_id;
+	   		//mark new session flag on current request
+			this.globalEventProperties.is_new_session = true;
+			this.isNewSessionFlag = true;
+			IMS.setState( 's', 'sid', session_id, true );
+		} else {
+			// Must be an active session so just pull the session id from the state store
+			session_id = IMS.getState('s', 'sid');
+			// support for old style cookie
+			if ( ! session_id ) {
+				state_store_name = IMS.util.sprintf( '%s_%s', 'ss', this.getSiteId() );		
+				session_id = IMS.getState(state_store_name, 's');
+				IMS.setState( 's', 'sid', session_id, true );	
+			}
+		
+			this.globalEventProperties.session_id = session_id;
+		}
+		
+		// fail-safe just in case there is no session_id 
+		if ( ! this.getGlobalEventProperty( 'session_id' ) ) {
+			session_id = IMS.util.generateRandomGuid( this.getSiteId() );
+			this.globalEventProperties.session_id = session_id;
+			//mark new session flag on current request
+			this.globalEventProperties.is_new_session = true;
+			this.isNewSessionFlag = true;
+			IMS.setState( 's', 'sid', session_id, true );
+		}
+		
+		if (callback && (typeof(callback) === "function")) {
+			callback(event);
+		}
+
+	},
+	
+	resetSessionState : function() {
+		
+		var last_req = IMS.getState( 's', 'last_req');
+		IMS.clearState('s');
+		IMS.setState('s', 'last_req', last_req);
+	},
+	
+	isNewSession : function( timestamp, last_req ) {
+		
+		var is_new_session = false;
+		
+		if ( ! timestamp ) {
+			timestamp = IMS.util.getCurrentUnixTimestamp();
+		}
+		
+		if ( ! last_req ) {
+			last_req = 0;
+		}
+				
+		var time_since_lastreq = timestamp - last_req;
+		var len = this.options.sessionLength;
+		if ( time_since_lastreq < len ) {
+			IMS.debug("This request is part of a active session.");
+			return false;		
+		} else {
+			//NEW SESSION. prev session expired, because no requests since some time.
+			IMS.debug("This request is the start of a new session. Prior session expired.");
+			return true;
+		}
+	},
+	
+	getGlobalEventProperty : function( name ) {
+	
+		if ( this.globalEventProperties.hasOwnProperty(name) ) {
+		
+			return this.globalEventProperties[name];
+		}
+	},
+	
+	setGlobalEventProperty : function (name, value) {
+		
+		this.globalEventProperties[name] = value;
+	},
+	
+	deleteGlobalEventProperty : function ( name ) {
+		
+		if ( this.globalEventProperties.hasOwnProperty( name ) ) {
+		
+			delete this.globalEventProperties[name];
+		}
+	},
+	
+	setPageProperties : function ( properties ) {
+		
+		for (var prop in properties) {
+			
+			if ( properties.hasOwnProperty( prop ) ) {
+				this.page.set( prop, properties[prop] );
+			}
+		}
+	},
+	
+	
+	
+	
+	/**
+     * Applies global properties to any event that 
+     * were not already set locally by the method that
+     * created the event.
+     *
+     */
+    addGlobalPropertiesToEvent : function ( event, callback ) {
+
+    	
+    	
+    	for ( var prop in this.globalEventProperties ) {
+    	
+    		// only set global properties is they are not already set on the event
+    		if ( this.globalEventProperties.hasOwnProperty( prop )  
+    		     && ! event.isSet( prop ) )
+    		{	
+    			event.set( prop, this.globalEventProperties[prop] );
+    		}
+    	}
+    	
+    	if (callback && (typeof(callback) === "function")) {
+			callback(event);
+		}
+    	
+    },
+	
+	manageState : function( event, callback ) {
+		
+		var that = this;
+		if ( ! this.stateInit ) {
+		
+			this.setVisitorId( event, function(event) {
+			
+				that.setFirstSessionTimestamp( event, function( event ) {
+				
+					that.setLastRequestTime( event, function( event ) {
+					
+						that.setSessionId( event, function( event ) {
+							
+							that.setNumberPriorSessions( event, function( event ) {
+								
+								that.setDaysSinceLastSession( event, function( event ) {
+
+										that.stateInit = true;
+								});						
+							});				
+						});
+					});
+				});
+			});
+		}
+		
+		if (callback && ( typeof( callback ) === "function" ) ) {
+			callback( event );
+		}
+	},
+	
+	/** 
+     * Sends an OWA event to the server for processing using GET
+     * inserts 1x1 pixel IMG tag into DOM
+     */
+    trackEvent : function(event, block) {
+
+    	if ( this.getOption('cookie_domain_set') != true ) {
+    		// set default cookie domain
+			this.setCookieDomain();
+    	}
+		
+		var block_flag = false;
+		
+    	if ( this.active ) {
+	    	if ( block ) {
+	    		
+	    		block_flag = true;
+	    	}
+	    	
+	    
+			var that = this;
+			this.manageState( event, function(event) {
+				that.addGlobalPropertiesToEvent( event, function(event) {
+						return that.logEvent( event.getProperties(), block_flag );
+				});
+			});
+	    }
+    },
+    
+    /**
+	 * Logs a page view event
+	 */
+	trackPageView : function(props) {
+		
+		this.page.set('timestamp', this.startTime);
+		this.page.setEventType("page.view");
+		this.page.merge(props);
+		
+		return this.trackEvent(this.page);
+	},
+	
+};

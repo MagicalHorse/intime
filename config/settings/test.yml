@@ -35,3 +35,5 @@ payment_code:
   
 alipay_notify_url: http://111.207.166.195/api/payment/notify
 
+tracker:
+  log_end_point: http://114.215.179.76:8080/click.gif
