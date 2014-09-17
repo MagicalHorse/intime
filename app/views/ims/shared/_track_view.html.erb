@@ -10,4 +10,15 @@ $(function(){
   
   IMSTracker.trackPageView(params);
 });
+<% if Rails.env.production? -%>
+  FlurryAgent.startSession("43B335TYMFB9WGQ2M8XD");
+  FlurryAgent.setUserId("<%= current_user.id -%>");
+  var event_name = "<%= controller.controller_name-%>_<%= controller.action_name-%>"
+  var event_paras = {};
+  <% track_options.each do |k,v| %>
+	event_paras['<%= k.to_s%>'] = "<%= v%>";
+  <% end -%>
+  FlurryAgent.logEvent(event_name, event_paras)
+  
+<% end -%>
 </script>
