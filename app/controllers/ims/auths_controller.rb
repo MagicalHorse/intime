@@ -56,7 +56,7 @@ class Ims::AuthsController < ActionController::Base
 
   def get_access_token(code, group_id, flag = 0)
     flag += 1
-    weixin_key = API::Environment.getweixinkey(request)[:data]
+    weixin_key = API::Environment.getweixinkey(request, groupid: session[:group_id])[:data]
     resp = RestClient.get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{weixin_key[:app_id]}&secret=#{weixin_key[:app_secret]}&code=#{code}&grant_type=authorization_code")
     json_resp = ActiveSupport::JSON.decode(resp)
     if flag <= 3 && json_resp["access_token"].blank?
