@@ -35,8 +35,12 @@ class Ims::BaseController < ApplicationController
       get_token_from_api(request) unless session[:user_token]
     else
       $logger.info("access_token: #{cookies[:user_access_token]}")
-      raise Ims::Unauthorized if request.user_agent.downcase.include?("mobile") && cookies[:user_access_token].blank?
-      redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
+      if request.user_agent.downcase.include?("mobile")
+        raise Ims::Unauthorized  if cookies[:user_access_token].blank? || session[:wx_openid].blank?
+        redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
+      else
+        redirect_to login_ims_weixins_path(group_id: session[:group_id]) if session[:wx_openid].blank? || cookies[:user_token].blank?
+      end
     end
   end
 

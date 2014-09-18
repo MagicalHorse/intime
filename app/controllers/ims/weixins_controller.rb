@@ -2,7 +2,7 @@
 
 class Ims::WeixinsController < Ims::BaseController
 
-  skip_before_filter :wx_auth!, except: :login_success
+  before_filter :wx_auth!, only: :login_success
   before_filter :setup_uid, only: [:auth, :login_success]
 
 
