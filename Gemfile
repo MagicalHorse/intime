@@ -67,6 +67,8 @@ gem 'default_value_for'
 gem 'rails_config'
 gem 'kaminari'
 gem 'memcached'
+gem 'mini_magick'
+gem 'rqrcode-rails3'
 
 gem 'thin'
 

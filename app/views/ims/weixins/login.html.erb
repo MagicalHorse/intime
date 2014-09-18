@@ -3,7 +3,9 @@
     微信登录
   </div>
 
-  <div class="text-center" id="image"></div>
+  <div class="text-center" id="image">
+    <%= image_tag qrcode_ims_weixins_path(url: @url, format: "png"), width: 240 %>
+  </div>
 
   <div class="info">
     <div class="status status_browser js_status normal text-center" id="wx_default_tip">
@@ -68,8 +70,6 @@
 
     $(function(){
       $(".refresh-link").hide()
-
-      $('#image').qrcode("<%= @url %>")
 
       interval_get_login_status = setInterval("get_login_status()", 5000)
     })

@@ -17,6 +17,12 @@ class Ims::WeixinsController < Ims::BaseController
     @url = Rails.application.routes.url_helpers.auth_ims_weixins_url(host: request.host, port: request.port, uid: @uid, group_id: session[:group_id])
   end
 
+  def qrcode
+    respond_to do |format|
+      format.png  {render qrcode: params[:url]}
+    end
+  end
+
   def login_success
     @title = "登录成功"
     $memcached.set("login_state_#{session[:uid]}", '已登录', 3600)

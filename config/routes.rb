@@ -313,6 +313,7 @@ IntimeService::Application.routes.draw do
         get "login"
         get "login_success"
         get "get_access_token"
+        get "qrcode"
       end
     end
     resources :sms_codes, only: :create
