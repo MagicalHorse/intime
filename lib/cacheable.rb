@@ -1,5 +1,13 @@
 # encoding: utf-8
-require 'memcached'
+if Rails.env.products?
+  require 'memcached'
+else
+  module Memcached
+    class NotFound
+      
+    end
+  end
+end
 
 module Cacheable
   def cache_get(key,expires,&block)

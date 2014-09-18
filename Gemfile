@@ -67,10 +67,10 @@ gem 'default_value_for'
 
 gem 'rails_config'
 gem 'kaminari'
-gem 'memcached'
 
-gem 'thin'
-
+group :production do
+  gem 'memcached'
+end
 group :development, :test do
   gem "rspec"
   gem "rspec-rails"

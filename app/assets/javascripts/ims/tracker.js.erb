@@ -2,7 +2,7 @@ var IMS = IMS || {
 
 	items: {},
 	config: {
-		ns: 'owa_',
+		ns: 'ims_',
 		baseUrl: '<%= Settings.tracker.log_end_point%>',
 	},
 	state: {},
@@ -839,7 +839,11 @@ IMS.event.prototype = {
 			}
 	    }
 	},
-	
+	merge_array: function(arr) {
+		for(item in arr) {
+			this.set(item[0],item[1]);
+		}
+	},
 	isSet : function( name ) {
 		
 		if ( this.properties.hasOwnProperty( name ) ) {
@@ -1025,7 +1029,7 @@ IMS.tracker.prototype = {
     
     	var get = this.prepareRequestDataForGet( properties );
     	
-    	var log_url = this.getLoggerEndpoint();
+    	var log_url = this._getLoggerEndpoint();
     	
     	if (log_url.indexOf('?') === -1) {
     		log_url += '?';
@@ -1365,7 +1369,26 @@ IMS.tracker.prototype = {
 		}
 	},
 	
-	
+	addDefaultsToEvent : function ( event, callback ) {
+    	
+    	
+    	if ( ! event.get( 'page_url') ) {
+    		event.set('page_url', this.getCurrentUrl() );
+    	}
+    	
+    	if ( ! event.get( 'HTTP_REFERER') ) {
+    		event.set('HTTP_REFERER', document.referrer );
+    	}
+    	
+    	if ( ! event.get( 'page_title') ) {
+    		event.set('page_title', IMS.util.trim( document.title ) );
+    	}
+   		
+   		if (callback && ( typeof( callback ) == 'function' ) ) {
+   			callback( event );
+   		}
+    	
+    },
 	
 	
 	/**
@@ -1408,11 +1431,7 @@ IMS.tracker.prototype = {
 						that.setSessionId( event, function( event ) {
 							
 							that.setNumberPriorSessions( event, function( event ) {
-								
-								that.setDaysSinceLastSession( event, function( event ) {
-
-										that.stateInit = true;
-								});						
+										that.stateInit = true;				
 							});				
 						});
 					});
@@ -1448,7 +1467,9 @@ IMS.tracker.prototype = {
 			var that = this;
 			this.manageState( event, function(event) {
 				that.addGlobalPropertiesToEvent( event, function(event) {
-						return that.logEvent( event.getProperties(), block_flag );
+					that.addDefaultsToEvent( event, function(event) {
+	    					return that.logEvent( event.getProperties(), block_flag );
+	    				});
 				});
 			});
 	    }
@@ -1457,11 +1478,11 @@ IMS.tracker.prototype = {
     /**
 	 * Logs a page view event
 	 */
-	trackPageView : function(props) {
+	trackPageView : function(properties) {
 		
 		this.page.set('timestamp', this.startTime);
 		this.page.setEventType("page.view");
-		this.page.merge(props);
+		this.page.merge(properties);
 		
 		return this.trackEvent(this.page);
 	},

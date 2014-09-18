@@ -1,11 +1,11 @@
 <script type="text/javascript" charset="utf-8">
 $(function(){
   IMSTracker = new IMS.tracker();
-  var params = [];
-  params.push('user_id',<%= current_user.id -%>);
-  params.push('event_name','<%= controller.controller_name-%>_<%= controller.action_name-%>')
+  var params = {};
+  params['user_id']= <%= current_user.id -%>;
+  params['event_name'] = '<%= controller.controller_name-%>_<%= controller.action_name-%>';
   <% track_options.each do |k,v| %>
-	params.push('<%= k.to_s%>',  '<%= v%>');
+	params['<%= k.to_s%>'] = '<%= v%>';
   <% end -%>
   
   IMSTracker.trackPageView(params);
