@@ -35,7 +35,7 @@ class Ims::BaseController < ApplicationController
       get_token_from_api(request) unless session[:user_token]
     else
       $logger.info("access_token: #{cookies[:user_access_token]}")
-      raise Ims::Unauthorized if cookies[:user_access_token].blank?
+      raise Ims::Unauthorized if request.user_agent.downcase.include?("mobile") && cookies[:user_access_token].blank?
       redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
     end
   end
@@ -73,8 +73,7 @@ class Ims::BaseController < ApplicationController
   def get_token_from_api(request)
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => Settings.wx.open_id,
-      :outsitetype      => 4,
-      :outsitetoken     => Ims::Weixin.access_token(weixin_key)
+      :outsitetype      => 4
     })
     session[:user_token] = user_hash[:data][:token]
     user = Ims::User.new({

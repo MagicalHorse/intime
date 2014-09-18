@@ -33,8 +33,7 @@ class Ims::AuthsController < ActionController::Base
   def get_token_from_api(request)
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => session[:wx_openid],
-      :outsitetype      => 4,
-      :outsitetoken     => Ims::Weixin.access_token(weixin_key)
+      :outsitetype      => 4
     })
     session[:user_token] = user_hash[:data][:token]
     cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 24.hours - 1.minutes }
@@ -57,7 +56,7 @@ class Ims::AuthsController < ActionController::Base
 
   def get_access_token(code, group_id, flag = 0)
     flag += 1
-    weixin_key = API::Environment.getweixinkey(request, groupid: group_id)[:data]
+    weixin_key = API::Environment.getweixinkey(request)[:data]
     resp = RestClient.get("https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{weixin_key[:app_id]}&secret=#{weixin_key[:app_secret]}&code=#{code}&grant_type=authorization_code")
     json_resp = ActiveSupport::JSON.decode(resp)
     if flag <= 3 && json_resp["access_token"].blank?

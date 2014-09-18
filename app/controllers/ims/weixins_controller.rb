@@ -2,60 +2,41 @@
 
 class Ims::WeixinsController < Ims::BaseController
 
-  skip_before_filter :wx_auth!
-  before_filter :verify_token, only: :index
-  before_filter :signature!, only: :create
+  skip_before_filter :wx_auth!, except: :login_success
+  before_filter :setup_uid, only: [:auth, :login_success]
 
-  def index
 
-  end
-
-  def create
-    render nothing: true
+  def auth
+    @title = "微信登录"
+    $memcached.set("login_state_#{session[:uid]}", '已扫描', 3600)
   end
 
   def login
     @title = "微信登录"
-    if session[:login_key].blank? || (@img_url = begin; $memcached.get(session[:login_key]); rescue Memcached::NotFound; nil; end ).blank?
-      session[:login_key] ||= rand(100000).to_s
-      @img_url = Ims::Weixin.qr_url(weixin_key, session[:login_key])
-      $memcached.set(session[:login_key], @img_url, 1800)
+    @uid = UUID.generate
+    @url = Rails.application.routes.url_helpers.auth_ims_weixins_url(host: request.host, port: request.port, uid: @uid, group_id: session[:group_id])
+  end
+
+  def login_success
+    @title = "登录成功"
+    $memcached.set("login_state_#{session[:uid]}", '已登录', 3600)
+    $memcached.set("login_access_token_#{session[:uid]}", session[:user_token], 3600)
+  end
+
+  def get_access_token
+    login_state = $memcached.get("login_state_#{params[:uid]}") rescue nil
+    access_token = $memcached.get("login_access_token_#{params[:uid]}") rescue nil
+    if login_state == "已登录"
+      cookies[:user_token] = { value: access_token, expires: Time.now.utc + 24.hours - 1.minutes }
     end
+    render json: {status: true, login_state: login_state}
   end
 
   protected
 
-  def verify_token
-    token = weixin_key[:token]
-    timestamp = params["timestamp"]
-    nonce = params["nonce"]
-    echostr = params["echostr"]
-    signature = params["signature"]
-    # binding.pry
-    if signature != Digest::SHA1.hexdigest([token, timestamp, nonce].sort.join)
-      render text: "Forbidden", :status => 403
-    else
-      render text: echostr
-    end
+  def setup_uid
+    session[:uid] = params[:uid] if params[:uid].present?
   end
 
-  def signature!
-    begin
-      @xml_params = Hash.from_xml(request.body.read)
-    rescue Exception => e
-      nil
-    end
-    @params = request.params.merge(@xml_params) if @xml_params.is_a?(Hash)
-    #render :text => "Forbidden", :status => 403 if Time.now.to_i - params[:timestamp].to_i > 5 || params[:timestamp].to_i < 0 || params[:signature] != Digest::SHA1.hexdigest([$weixin_token, params[:timestamp], params[:nonce]].sort.join)
-  end
-
-  # 开发完后要注释掉
-  def weixin_key
-    {
-      app_id: "wxd272dd0c13f8f558",
-      app_secret: "d910fecc1f532ba73d8e6cecf8a9cf3e",
-      token: "2740a32bbe796401"
-    }
-  end
 
 end

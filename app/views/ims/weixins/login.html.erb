@@ -3,51 +3,44 @@
     微信登录
   </div>
 
-  <div class="text-center">
-  <%= image_tag @img_url, width: 280 %>
-  </div>
+  <div class="text-center" id="image"></div>
 
   <div class="info">
     <div class="status status_browser js_status normal text-center" id="wx_default_tip">
+      <span class="login_notice">
       <p>
         请使用微信扫描二维码登录
       </p>
       <p>
         “迷你银”
       </p>
+      </span>
+
+      <span class="scan_notice", style="display: none;">
+      <p>
+        扫描成功
+      </p>
+      <p>
+        请点击登录
+      </p>
+      </span>
+
+      <span class="login_success", style="display: none;">
+      <p>
+        登录成功
+      </p>
+      <p>
+        正在跳转
+      </p>
+      </span>
+
     </div>
-    <div class="status status_succ js_status normal" style="display:none"
-    id="wx_after_scan">
-      <i class="status_icon icon38_msg succ">
-      </i>
-      <div class="status_txt">
-        <h4>
-          扫描成功
-        </h4>
-        <p>
-          请在微信中点击确认即可登录
-        </p>
-      </div>
-    </div>
-    <div class="status status_fail js_status normal" style="display:none"
-    id="wx_after_cancel">
-      <i class="status_icon icon38_msg warn">
-      </i>
-      <div class="status_txt">
-        <h4>
-          您已取消此次登录
-        </h4>
-        <p>
-          您可再次扫描登录，或关闭窗口
-        </p>
-      </div>
-    </div>
+
   </div>
 
 </div>
 
 <style type="text/css">
-
   body {
     background: none repeat scroll 0 0 rgb(51, 51, 51);
   }
@@ -55,8 +48,34 @@
 
 <% content_for :javascripts do %>
   <script>
+    function get_login_status(){
+      $.get("<%= get_access_token_ims_weixins_path %>", {uid: "<%= @uid %>"}, function(data){
+        if(data["login_state"] == "已扫描"){
+          $(".login_notice").hide()
+          $(".login_success").hide()
+          $(".scan_notice").show()
+        }
+
+        if(data["login_state"] == "已登录"){
+          $(".login_notice").hide()
+          $(".login_success").show()
+          $(".scan_notice").hide()
+          clearInterval(interval_get_login_status)
+          window.location.href = "/ims/store/sells"
+        }
+      })
+    }
+
     $(function(){
       $(".refresh-link").hide()
+
+      $('#image').qrcode("<%= @url %>")
+
+      interval_get_login_status = setInterval("get_login_status()", 5000)
     })
   </script>
 <% end %>
+
+
+
+

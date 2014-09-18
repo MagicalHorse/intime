@@ -307,9 +307,12 @@ IntimeService::Application.routes.draw do
   end
 
   namespace :ims do
-    resources :weixins, only: [:index, :create] do
+    resources :weixins, only: [] do
       collection do
+        get "auth"
         get "login"
+        get "login_success"
+        get "get_access_token"
       end
     end
     resources :sms_codes, only: :create
