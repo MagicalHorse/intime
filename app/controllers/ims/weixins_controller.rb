@@ -27,13 +27,16 @@ class Ims::WeixinsController < Ims::BaseController
     @title = "登录成功"
     $memcached.set("login_state_#{session[:uid]}", '已登录', 3600)
     $memcached.set("login_access_token_#{session[:uid]}", session[:user_token], 3600)
+    $memcached.set("login_wx_openid_#{session[:uid]}", session[:wx_openid], 3600)
   end
 
   def get_access_token
     login_state = $memcached.get("login_state_#{params[:uid]}") rescue nil
     access_token = $memcached.get("login_access_token_#{params[:uid]}") rescue nil
+    wx_openid = $memcached.get("login_wx_openid_#{params[:uid]}") rescue nil
     if login_state == "已登录"
       cookies[:user_token] = { value: access_token, expires: Time.now.utc + 24.hours - 1.minutes }
+      session[:wx_openid] = wx_openid
     end
     render json: {status: true, login_state: login_state}
   end
