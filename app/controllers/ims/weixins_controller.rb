@@ -26,7 +26,7 @@ class Ims::WeixinsController < Ims::BaseController
   def login_success
     @title = "登录成功"
     $memcached.set("login_state_#{session[:uid]}", '已登录', 3600)
-    $memcached.set("login_access_token_#{session[:uid]}", session[:user_token], 3600)
+    $memcached.set("login_access_token_#{session[:uid]}", cookies[:user_token], 3600)
     $memcached.set("login_wx_openid_#{session[:uid]}", session[:wx_openid], 3600)
   end
 
