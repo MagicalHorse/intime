@@ -9,7 +9,6 @@ IntimeService::Application.configure do
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_assets = true
   config.static_cache_control = "public, max-age=3600"
 
   # Log error messages when you accidentally call methods on nil
@@ -35,9 +34,9 @@ IntimeService::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-  
+
     # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false
+  config.serve_static_assets = true
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
