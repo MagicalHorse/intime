@@ -1481,7 +1481,7 @@ IMS.tracker.prototype = {
 	trackPageView : function(properties) {
 		
 		this.page.set('timestamp', this.startTime);
-		this.page.setEventType("page.view");
+		this.page.setEventType("page_view");
 		this.page.merge(properties);
 		
 		return this.trackEvent(this.page);
