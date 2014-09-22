@@ -40,7 +40,7 @@ class Ims::BaseController < ApplicationController
         redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
       else
         if session[:wx_openid].blank? || cookies[:user_token].blank?
-          redirect_to login_ims_weixins_path(group_id: session[:group_id])
+          redirect_to login_ims_weixins_path(group_id: session[:group_id], redirect_url: request.fullpath)
         elsif session[:current_wx_user].blank?
           redirect_to get_user_token_ims_auth_path(back_url: request.url)
         end

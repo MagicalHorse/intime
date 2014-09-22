@@ -63,7 +63,11 @@
           $(".login_success").show()
           $(".scan_notice").hide()
           clearInterval(interval_get_login_status)
+          <% if (redirect_url = params[:redirect_url]).present? %>
+          window.location.href = "<%= redirect_url %>"
+          <% else %>
           window.location.href = "/ims/store/sells"
+          <% end %>
         }
       })
     }
