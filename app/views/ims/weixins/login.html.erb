@@ -1,15 +1,15 @@
 <div class="loginPanel">
   <div class="text-center title">
-    微信登录
+    迷你银登录
   </div>
 
   <div class="text-center" id="image">
-    <%= image_tag qrcode_ims_weixins_path(url: @url, format: "png"), width: 240 %>
+    <%= image_tag qrcode_ims_weixins_path(url: @url, format: "png"), width: 240, style: "padding: 20px; background-color: #EAEAEA" %>
   </div>
 
   <div class="info">
-    <div class="status status_browser js_status normal text-center" id="wx_default_tip">
-      <span class="login_notice">
+    <div class="status status_browser js_status normal" id="wx_default_tip">
+      <span class="login_notice text-center">
       <p>
         请使用微信扫描二维码登录
       </p>
@@ -19,15 +19,22 @@
       </span>
 
       <span class="scan_notice" style="display: none;">
-      <p>
-        扫描成功
-      </p>
-      <p>
-        “请点击登录”
-      </p>
+        <span class="row-fluid">
+          <span class="span2">
+            <%= image_tag "ims/login_right.png" %>
+          </span>
+          <span class="span10">
+            <p style="font-size: 17px;">
+              扫描成功
+            </p>
+            <p>
+              请在微信中点击确认即可登录
+            </p>
+          </span>
+        </span>
       </span>
 
-      <span class="login_success" style="display: none;">
+      <span class="login_success text-center" style="display: none;">
       <p>
         登录成功
       </p>
