@@ -39,8 +39,11 @@ class Ims::BaseController < ApplicationController
         raise Ims::Unauthorized  if cookies[:user_access_token].blank? || session[:wx_openid].blank?
         redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
       else
-        redirect_to login_ims_weixins_path(group_id: session[:group_id]) if session[:wx_openid].blank? || cookies[:user_token].blank?
-        redirect_to get_user_token_ims_auth_path(back_url: request.url) if session[:current_wx_user].blank?
+        if session[:wx_openid].blank? || cookies[:user_token].blank?
+          redirect_to login_ims_weixins_path(group_id: session[:group_id])
+        elsif session[:current_wx_user].blank?
+          redirect_to get_user_token_ims_auth_path(back_url: request.url)
+        end
       end
     end
   end
