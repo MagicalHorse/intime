@@ -36,7 +36,7 @@ class Ims::BaseController < ApplicationController
     else
       $logger.info("access_token: #{cookies[:user_access_token]}")
       if request.user_agent.downcase.include?("mobile")
-        raise Ims::Unauthorized  if cookies[:user_access_token].blank? || session[:wx_openid].blank?
+        raise Ims::Unauthorized  if session[:wx_openid].blank?
         redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
       else
         if session[:wx_openid].blank? || cookies[:user_token].blank?
@@ -53,6 +53,10 @@ class Ims::BaseController < ApplicationController
   end
 
   private
+
+  def verify_weixin_user_access_token
+    raise Ims::Unauthorized if cookies[:user_access_token].blank?
+  end
 
   def alipay_key
     @alipay_key = API::Environment.getalipaykey(request, groupid: session[:group_id])[:data]

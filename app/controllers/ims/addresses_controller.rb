@@ -3,7 +3,7 @@
 class Ims::AddressesController < Ims::BaseController
 
   before_filter :provinces, only:[:new, :edit, :list]
-  before_filter :weixin_key, only: :index
+  before_filter :verify_weixin_user_access_token, :weixin_key, only: :index
 
   def index
     @search = API::Address.index(request)
