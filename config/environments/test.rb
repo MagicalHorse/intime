@@ -36,7 +36,7 @@ IntimeService::Application.configure do
   config.active_support.deprecation = :stderr
 
     # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = true
+  config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
@@ -46,6 +46,8 @@ IntimeService::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+
+  config.assets.precompile += %w(ims/card.css)
 end
 CARD_INFO_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryinfo"
 CARD_POINT_URL = "http://guide.intime.com.cn:8008/intimers/api/vipinfo/queryscore"
