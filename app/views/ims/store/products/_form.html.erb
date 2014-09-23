@@ -371,7 +371,7 @@
 
       image_size = $("input[name='product[image_ids][]']").length
       form = $("#product_form")
-      if(validator.element($("#product_brand_id")) && validator.element($("#product_category_id")) && validator.element($("#product_sku_code"))){
+      if($.trim($("#product_name").val()).length == 0 && validator.element($("#product_brand_id")) && validator.element($("#product_category_id")) && validator.element($("#product_sku_code"))){
         brand = $("#product_brand_id option:selected").text()
         category = $("#product_category_id option:selected").text()
         sku_code = $.trim($("#product_sku_code").val())
