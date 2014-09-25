@@ -1,5 +1,7 @@
 # encoding: utf-8
-class Ims::AuthsController < ActionController::Base
+class Ims::AuthsController < Ims::BaseController
+
+  skip_before_filter :wx_auth!
 
   # 在微信端验证后，客户端的响应页面
   def show
