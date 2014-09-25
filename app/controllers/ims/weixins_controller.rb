@@ -34,11 +34,13 @@ class Ims::WeixinsController < Ims::BaseController
     login_state = $memcached.get("login_state_#{params[:uid]}") rescue nil
     access_token = $memcached.get("login_access_token_#{params[:uid]}") rescue nil
     wx_openid = $memcached.get("login_wx_openid_#{params[:uid]}") rescue nil
+    hash = {status: true, login_state: login_state}
     if login_state == "已登录"
       cookies[:user_token] = { value: access_token, expires: Time.now.utc + 24.hours - 1.minutes }
       session[:wx_openid] = wx_openid
+      hash.merge!(error_message: current_user.shopping_guide? && current_user.store_id.blank? ? "您还没有申请开店，请通过手机微信完成开店申请流程,并且刷新当前pc页面，重新使用微信登录！" : "")
     end
-    render json: {status: true, login_state: login_state}
+    render json: hash.to_json
   end
 
   protected
