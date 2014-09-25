@@ -32,7 +32,7 @@ class Ims::BaseController < ApplicationController
     session[:back_url] = request.url
     # 提供测试环境下的mockup访问
     if Rails.env == "development"
-      get_token_from_api(request) unless session[:user_token]
+      get_development_token_from_api(request) unless session[:user_token]
     else
       $logger.info("access_token: #{cookies[:user_access_token]}")
       if is_mobile
@@ -86,12 +86,36 @@ class Ims::BaseController < ApplicationController
     end
   end
 
-  def get_token_from_api(request)
+  def get_development_token_from_api(request)
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => Settings.wx.open_id,
       :outsitetype      => 4
     })
     session[:user_token] = user_hash[:data][:token]
+    user = Ims::User.new({
+      :id => user_hash[:data][:id],
+      :email => user_hash[:data][:email],
+      :level => user_hash[:data][:level],
+      :nickname => user_hash[:data][:nickname],
+      :mobile => user_hash[:data][:mobile],
+      :isbindcard => user_hash[:data][:isbindcard],
+      :logo => user_hash[:data][:logo],
+      :operate_right => user_hash[:data][:operate_right],
+      :token => user_hash[:data][:token],
+      :store_id => user_hash[:data][:associate_id],
+      :max_comboitems => user_hash[:data][:max_comboitems]
+    })
+
+    session[:current_wx_user] = user
+  end
+
+  def get_token_from_api(request)
+    user_hash = API::LoginRequest.post(request, {
+      :outsiteuid       => session[:wx_openid],
+      :outsitetype      => 4
+    })
+    session[:user_token] = user_hash[:data][:token]
+    cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 24.hours - 1.minutes }
     user = Ims::User.new({
       :id => user_hash[:data][:id],
       :email => user_hash[:data][:email],
