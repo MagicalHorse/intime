@@ -35,7 +35,7 @@ class Ims::BaseController < ApplicationController
       get_token_from_api(request) unless session[:user_token]
     else
       $logger.info("access_token: #{cookies[:user_access_token]}")
-      if request.user_agent.downcase.include?("mobile")
+      if is_mobile
         raise Ims::Unauthorized  if session[:wx_openid].blank?
         redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
       else
@@ -53,6 +53,10 @@ class Ims::BaseController < ApplicationController
   end
 
   private
+
+  def is_mobile
+    request.user_agent.downcase.match(/(iPhone|iPod|Android|ios|Windows Phone|mobile)/i).present?
+  end
 
   def verify_weixin_user_access_token
     raise Ims::Unauthorized if cookies[:user_access_token].blank?
