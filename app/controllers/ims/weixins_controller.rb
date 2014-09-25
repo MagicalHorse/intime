@@ -9,12 +9,14 @@ class Ims::WeixinsController < Ims::BaseController
   def auth
     @title = "微信登录"
     $memcached.set("login_state_#{session[:uid]}", '已扫描', 3600)
+    logout
   end
 
   def login
     @title = "微信登录"
     @uid = UUID.generate
     @url = Rails.application.routes.url_helpers.auth_ims_weixins_url(host: request.host, port: request.port, uid: @uid, group_id: session[:group_id])
+    logout
   end
 
   def qrcode

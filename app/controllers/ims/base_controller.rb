@@ -54,6 +54,12 @@ class Ims::BaseController < ApplicationController
 
   private
 
+  def logout
+    cookies[:user_token] = nil
+    session[:wx_openid] = nil
+    session[:current_wx_user] = nil
+  end
+
   def is_mobile
     request.user_agent.downcase.match(/(iPhone|iPod|Android|ios|Windows Phone|mobile)/i).present?
   end
