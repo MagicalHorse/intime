@@ -39,7 +39,7 @@ class Ims::BaseController < ApplicationController
         raise Ims::Unauthorized  if session[:wx_openid].blank?
         redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
       else
-        if session[:wx_openid].blank? || cookies[:user_token].blank?
+        if session[:wx_openid].blank?
           redirect_to login_ims_weixins_path(group_id: session[:group_id], redirect_url: request.fullpath)
         elsif session[:current_wx_user].blank? || cookies[:user_token].blank? # cookies[:user_token].blank? 是为了24小时cookie过期后，重新获取ims token，因为这个涉及到了用户升级和降级的问题。
           redirect_to get_user_token_ims_auth_path(back_url: request.url)
