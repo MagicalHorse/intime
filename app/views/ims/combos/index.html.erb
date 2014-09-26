@@ -72,21 +72,17 @@
 
   var inLoading = false;
   var msnryInit = false;
-  var msnry ;
-  var demo = document.querySelector('#scroller');
-  var container = demo.querySelector('#container');
+  var container;
+
   var State = History.getState()
   if (State.data && State.data.content){
     $("#scroller").html(State.data.content)
-    container = demo.querySelector('#container');
   } else
   {
-    if(!jQuery.isEmptyObject(container)){
-    	imagesLoaded(container, function(){
-    		msnry = new Masonry(container, options);
-    		msnryInit = true;
-    	});
-    }
+    $("#container").imagesLoaded(function(){
+      container = $('#container').masonry(options);
+  		msnryInit = true;
+  	});
   }
   $(window).scroll(function () {
     if ($(window).scrollTop() > 400) {
@@ -156,23 +152,22 @@
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
-          elems = []
-          var fragment = document.createDocumentFragment();
-          $("#server_content .combo_wrapper").each(function(index, elem){
-            fragment.appendChild( elem );
-            elems.push( elem );
-          })
 
-          imagesLoaded(container, function(){
+          items = $("#server_content .combo_wrapper")
+          items.hide()
+          items.imagesLoaded().progress( function( imgLoad, image ) {
             if (!msnryInit) {
               msnryInit = true;
-              msnry = new Masonry(container, options);
+              container = $('#container').masonry(options);
             } else {
-              container.appendChild( fragment );
-            	msnry.appended( elems );
+              container.append(items)
+              var $item = $( image.img ).parents('.combo_wrapper');
+              $item.show();
+              container.masonry( 'appended', $item );
             }
             record_history()
-          })
+
+          });
 
         }
         $("#bottom-loading-box").modal("hide");
