@@ -79,7 +79,7 @@ class Ims::BaseController < ApplicationController
   def setup_group_id
     if params[:group_id]
       session[:group_id] = params[:group_id]
-    elsif session[:group_id].nil?
+    elsif session[:group_id].blank?
       session[:group_id] = 1
     end
   end
