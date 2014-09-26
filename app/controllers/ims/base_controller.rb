@@ -3,7 +3,7 @@
 class Ims::BaseController < ApplicationController
   layout 'ims/ims'
   before_filter :setup_group_id, :setup_payment_type, :wx_auth!
-  helper_method [:current_user, :track_options]
+  helper_method [:current_user, :track_options, :is_mobile]
 
   rescue_from Ims::Unauthorized do
     back_url = "http://#{Settings.wx.backdomain}/ims/auth?back_url=#{request.url}"
@@ -65,7 +65,7 @@ class Ims::BaseController < ApplicationController
   end
 
   def verify_weixin_user_access_token
-    raise Ims::Unauthorized if cookies[:user_access_token].blank?
+    raise Ims::Unauthorized if is_mobile && cookies[:user_access_token].blank?
   end
 
   def alipay_key

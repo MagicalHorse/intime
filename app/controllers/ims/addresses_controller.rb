@@ -10,18 +10,19 @@ class Ims::AddressesController < Ims::BaseController
     @addresses = @search["data"]["items"]
     @redirect_url = params[:redirect_url]
     @title = "我的地址"
-
-    @timeStamp_val = Time.now.to_i
-    @nonceStr_val = ("a".."z").to_a.sample(9).join('')
-    sign = {
-      accesstoken: cookies[:user_access_token],
-      appid: @weixin_key[:app_id],
-      noncestr: @nonceStr_val,
-      timestamp: @timeStamp_val,
-      url: request.referer || request.original_url
-    }
-    string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
-    @addrSign_val = Digest::SHA1.hexdigest(string1)
+    if is_mobile
+      @timeStamp_val = Time.now.to_i
+      @nonceStr_val = ("a".."z").to_a.sample(9).join('')
+      sign = {
+        accesstoken: cookies[:user_access_token],
+        appid: @weixin_key[:app_id],
+        noncestr: @nonceStr_val,
+        timestamp: @timeStamp_val,
+        url: request.referer || request.original_url
+      }
+      string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+      @addrSign_val = Digest::SHA1.hexdigest(string1)
+    end
 
     respond_to do |format|
       format.html{}
