@@ -3,6 +3,7 @@
 class Ims::OrdersController < Ims::BaseController
 
   layout :set_layout
+  before_filter :verify_weixin_user_access_token, only: :new
 
   def index
     @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 10)
