@@ -1,5 +1,7 @@
 # encoding: utf-8
-class Ims::AuthsController < ActionController::Base
+class Ims::AuthsController < Ims::BaseController
+
+  skip_before_filter :wx_auth!
 
   # 在微信端验证后，客户端的响应页面
   def show
@@ -30,29 +32,7 @@ class Ims::AuthsController < ActionController::Base
 
   private
 
-  def get_token_from_api(request)
-    user_hash = API::LoginRequest.post(request, {
-      :outsiteuid       => session[:wx_openid],
-      :outsitetype      => 4
-    })
-    session[:user_token] = user_hash[:data][:token]
-    cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 24.hours - 1.minutes }
-    user = Ims::User.new({
-      :id => user_hash[:data][:id],
-      :email => user_hash[:data][:email],
-      :level => user_hash[:data][:level],
-      :nickname => user_hash[:data][:nickname],
-      :mobile => user_hash[:data][:mobile],
-      :isbindcard => user_hash[:data][:isbindcard],
-      :logo => user_hash[:data][:logo],
-      :operate_right => user_hash[:data][:operate_right],
-      :token => user_hash[:data][:token],
-      :store_id => user_hash[:data][:associate_id],
-      :max_comboitems => user_hash[:data][:max_comboitems]
-    })
 
-    session[:current_wx_user] = user
-  end
 
   def get_access_token(code, group_id, flag = 0)
     flag += 1

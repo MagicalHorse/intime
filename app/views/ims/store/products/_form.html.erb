@@ -371,7 +371,7 @@
 
       image_size = $("input[name='product[image_ids][]']").length
       form = $("#product_form")
-      if(validator.element($("#product_brand_id")) && validator.element($("#product_category_id")) && validator.element($("#product_sku_code"))){
+      if($.trim($("#product_name").val()).length == 0 && validator.element($("#product_brand_id")) && validator.element($("#product_category_id")) && validator.element($("#product_sku_code"))){
         brand = $("#product_brand_id option:selected").text()
         category = $("#product_category_id option:selected").text()
         sku_code = $.trim($("#product_sku_code").val())
@@ -437,6 +437,8 @@
           }else{
             coding_ele = $("#product_sales_code option[value='"+coding+"']")
             if(coding_ele.length){
+              $("#product_sales_code option").removeAttr("selected")
+              $("#product_sales_code option[value='"+coding+"']").replaceWith("<option value='"+coding+"'>"+coding+"</option>")
               $("#product_sales_code option[value='"+coding+"']").attr("selected", true)
             }else{
               error_modal(data["message"])

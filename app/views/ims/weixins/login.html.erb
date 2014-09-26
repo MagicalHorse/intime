@@ -64,17 +64,20 @@
           $(".login_success").hide()
           $(".scan_notice").show()
         }
-
         if(data["login_state"] == "已登录"){
-          $(".login_notice").hide()
-          $(".login_success").show()
-          $(".scan_notice").hide()
+          if(data["error_message"].length > 0){
+            error_modal(data["error_message"])
+          }else{
+            $(".login_notice").hide()
+            $(".login_success").show()
+            $(".scan_notice").hide()
+            <% if (redirect_url = params[:redirect_url]).present? %>
+            window.location.href = "<%= redirect_url %>"
+            <% else %>
+            window.location.href = "<%= ims_store_root_path %>"
+            <% end %>
+          }
           clearInterval(interval_get_login_status)
-          <% if (redirect_url = params[:redirect_url]).present? %>
-          window.location.href = "<%= redirect_url %>"
-          <% else %>
-          window.location.href = "/ims/store/sells"
-          <% end %>
         }
       })
     }

@@ -51,9 +51,9 @@ class Ims::Store::HomeController < Ims::Store::BaseController
   def go_store
     if current_user.store_id.present?
       if params[:itpm].present?
-        redirect_to my_ims_store_store_path(id: current_user.store_id, t: Time.now.to_i, itpm: params[:itpm])
+        redirect_to my_ims_store_store_path(id: current_user.store_id, t: Time.now.to_i, itpm: params[:itpm], group_id: session[:group_id])
       else
-        redirect_to my_ims_store_store_path(id: current_user.store_id, t: Time.now.to_i)
+        redirect_to my_ims_store_store_path(id: current_user.store_id, t: Time.now.to_i, group_id: session[:group_id])
       end
     end
   end

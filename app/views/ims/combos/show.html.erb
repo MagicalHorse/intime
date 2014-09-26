@@ -128,7 +128,7 @@
 <% can_not_edit = current_user.shopping_guide? && !current_user.shopping_guide_operate? && @remote_combo[:data][:products].any?{|p| p["product_type"] == 2} %>
 <% if @remote_combo[:data][:is_online] %>
   <div class="bottom-btnbox">
-    <button class="btn btn-small btn-danger <%= 'disabled' if can_not_edit %>">
+    <button class="btn btn-small btn-danger <%= 'disabled' if can_not_edit %> button_link">
       <% if current_user.id == @remote_combo[:data][:owner_id] %>
         <%= link_to '编 辑', "javascript:void(0);", id: "edit_combo", value: edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>
       <% else %>
@@ -141,7 +141,7 @@
   <% if current_user.id == @remote_combo[:data][:owner_id] %>
     <div class="bottom-btnbox">
       <button class="btn btn-small btn-grey">已下架</button>
-      <button class="btn btn-small btn-danger <%= 'disabled' if can_not_edit %>">
+      <button class="btn btn-small btn-danger <%= 'disabled' if can_not_edit %> button_link">
         <%= link_to '编 辑', "javascript:void(0);", id: "edit_combo", value: edit_ims_store_combo_path(:id => @remote_combo[:data][:id]) %>
       </button>
     </div>
@@ -219,6 +219,14 @@
 
     $(document).on("click", ".payment_product", function(){
       url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+
+    $(".button_link").on("click", function(){
+      url = $(this).find('a').attr("value")
       $("#loading-box").modal()
       setTimeout(function(){
         window.location.href = url
