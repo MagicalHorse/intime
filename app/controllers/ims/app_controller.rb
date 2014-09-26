@@ -1,4 +1,4 @@
-class Ims::AppController < ApiBaseController
+class Ims::AppsController < ApiBaseController
 
   def token
     render :json=>{
