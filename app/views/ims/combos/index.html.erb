@@ -59,6 +59,7 @@
 <%= hidden_field_tag "count", @search[:count] %>
 <%= hidden_field_tag "page", @search[:page] %>
 <%= hidden_field_tag "per_page", @search[:per_page] %>
+<%= hidden_field_tag "group_id", @search[:group_id] %>
 
 
 <% content_for :javascripts do %>
@@ -142,28 +143,29 @@
     var count = parseInt($("#count").attr("value"))
     var page = parseInt($("#page").attr("value"))
     var per_page = parseInt($("#per_page").attr("value"))
-
+    var group_id = $("#group_id").attr("value")
     if(page * per_page < count && !inLoading){
     	inLoading = true
       $("#bottom-loading-box").modal();
-      $.get("<%= request.url %>", {page: page + 1, per_page: per_page}, function(data){
+      $.get("<%= request.url %>", {page: page + 1, per_page: per_page, group_id: group_id}, function(data){
         if(data["status"] == true){
           $("#server_content").html(data["html"])
           $("#count").attr("value", data["count"])
           $("#page").attr("value", data["page"])
           $("#per_page").attr("value", data["per_page"])
+          $("#group_id").attr("value", data["group_id"])
 
           items = $("#server_content .combo_wrapper")
           items.hide()
-          items.imagesLoaded().progress( function( imgLoad, image ) {
+          items.imagesLoaded( function( ) {
             if (!msnryInit) {
               msnryInit = true;
               container = $('#container').masonry(options);
             } else {
               container.append(items)
-              var $item = $( image.img ).parents('.combo_wrapper');
-              $item.show();
-              container.masonry( 'appended', $item );
+              // var $item = $( image.img ).parents('.combo_wrapper');
+              items.show();
+              container.masonry( 'appended', items );
             }
             record_history()
 
@@ -197,7 +199,7 @@
     WeixinJSBridge.on('menu:share:appmessage', function (argv) {
       WeixinJSBridge.invoke('sendAppMessage', {
         "img_url": "<%= @share_img_url %>",
-        "link": "<%= request.url %>",
+        "link": "<%= @share_url %>",
         "desc":  "<%= @share_desc %>",
         "title": "<%= @share_title %>"
       }, function (res) {
@@ -209,7 +211,7 @@
     WeixinJSBridge.on('menu:share:timeline', function (argv) {
       WeixinJSBridge.invoke('shareTimeline', {
         "img_url": "<%= @share_img_url %>",
-        "link": "<%= request.url %>",
+        "link": "<%= @share_url %>",
         "desc":  "",
         "title": "<%= @share_desc %>"
       }, function (res) {

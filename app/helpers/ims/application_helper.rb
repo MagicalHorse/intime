@@ -23,7 +23,7 @@ module Ims::ApplicationHelper
   end
 
   def format_text(txt)
-    return txt.gsub(/\r\n/, "<br>")
+    return txt.gsub(/\r\n|\n/, "<br>")
   end
 
   def current_pages?(*path)

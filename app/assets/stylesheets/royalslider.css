@@ -67,14 +67,14 @@
 .rsArrow:hover{opacity: 0.8;filter: alpha(opacity=80);}
 .rsArrowLeft{left: 8px;}
 .rsArrowLeft .rsArrowIcn{
-	background: url(../images/rsArrowLeft.png) no-repeat;
+	background: url(/images/rsArrowLeft.png) no-repeat;
 	-webkit-background-size: contain;
 	-moz-background-size: contain;
 	background-size: contain;
 }
 .rsArrowRight{right: 8px;}
 .rsArrowRight .rsArrowIcn{
-	background: url(../images/rsArrowRight.png) no-repeat;
+	background: url(/images/rsArrowRight.png) no-repeat;
 	-webkit-background-size: contain;
 	-moz-background-size: contain;
 	background-size: contain;
@@ -82,7 +82,7 @@
 .rsArrowIcn{
 	width: 28px;
 	height: 28px;
-	
+
 }
 
 

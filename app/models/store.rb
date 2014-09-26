@@ -15,6 +15,7 @@ class Store < ActiveRecord::Base
 
   def self.es_search(options={})
     store_id = options[:store_id]
+    group_id = options[:group_id]
     query = Jbuilder.encode do |json|
       json.filter do
         json.and do
@@ -23,6 +24,15 @@ class Store < ActiveRecord::Base
               json.status 1
             end
           end
+
+          if group_id.present?
+            json.child! do
+              json.term do
+                json.groupId group_id
+              end
+            end
+          end
+
           if store_id.present?
             json.child! do
               json.term do

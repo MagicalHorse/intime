@@ -1,15 +1,20 @@
+<% tab_length = [current_user.shopping_guide_operate?, @store[:data][:is_support_giftcard]].select{|obj| obj == true}.length + 1 %>
 <div class="wrap-content">
   <div class="module module-white min-height">
-    <div class="module-tab0 module-tab2 <%= 'module-tab3' if current_user.shopping_guide_operate? %> module-product tabs-fixed">
+    <div class="module-tab0 module-tab2 <%= 'module-tab3' if tab_length == 3 %> module-product tabs-fixed">
+      <% if tab_length > 1 %>
       <ul id="myTab" class="nav nav-tabs">
         <li class="active"><a href="#combos">商品组合</a></li>
         <% if current_user.shopping_guide_operate? %>
         <li class=""><a href="#products">自拍商品</a></li>
         <% end %>
+        <% if @store[:data][:is_support_giftcard] %>
         <li class="last_li"><a href="#gift_cards">礼品卡</a></li>
+        <% end %>
       </ul>
+      <% end %>
 
-      <div class="tab-content">
+      <div class="tab-content" style="<%= 'margin-top: 0px' if tab_length <= 1 %>">
         <div id="combos" class="tab-pane active">
           <div class="bottom-button">
             <div class="form-defined">

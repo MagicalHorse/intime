@@ -1,0 +1,33 @@
+<div class="wrap-inner back-wrap-inner">
+  <div class="row-fluid">
+    <div clss="span12">
+      <div class="pc_login_form login-form">
+        <div class="login-face text-center">
+          <%= image_tag "ims/login_logo_06.png", class: "img-circle" %>
+        </div>
+        <div class="control-group login_notice">
+          <p class="tips txt3 txt-grey text-center">
+            您将登录迷你银网页版
+          </p>
+        </div>
+        <div>
+          <%= link_to '确认登录', login_success_ims_weixins_path(uid: session[:uid]), "data-loading-text" => "登录中...", "data-complete-text" => "登录成功", id: "login_btn", class: "btn btn-danger btn-large btn-block" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      $(".refresh-link").hide()
+
+      $("#login_btn").button("reset")
+
+      $("#login_btn").on("click", function(){
+        $(this).button("loading")
+      })
+    })
+  </script>
+<% end %>

@@ -307,6 +307,15 @@ IntimeService::Application.routes.draw do
   end
 
   namespace :ims do
+    resources :weixins, only: [] do
+      collection do
+        get "auth"
+        get "login"
+        get "login_success"
+        get "get_access_token"
+        get "qrcode"
+      end
+    end
     resources :sms_codes, only: :create
     resources :addresses do
       collection do
@@ -316,6 +325,7 @@ IntimeService::Application.routes.draw do
 
     resource :auth do
       get 'forward'
+      get 'get_user_token'
     end
     resources :stores, only: [:show]
     resources :combos, only: [:show, :destroy, :index] do
@@ -457,14 +467,10 @@ IntimeService::Application.routes.draw do
 
     end
 
-    # weixin self defined menu
-    resource :weixin,only:[] do
+    # SHOULD NOT BE REMOVED, CALLED BY OPEN API
+    resource :app,only:[] do
       member do
-        get 'menu',to: :verify
-        post 'menu', to: :message
-        get :access_token
-        post :access_token
-        post :renew
+        post :token
       end
     end
   end

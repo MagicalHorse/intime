@@ -3,6 +3,7 @@
 class Ims::OrdersController < Ims::BaseController
 
   layout :set_layout
+  before_filter :verify_weixin_user_access_token, only: :new
 
   def index
     @search = Ims::Order.my(request, page: params[:page], pagesize: params[:per_page] || 10)
@@ -10,18 +11,18 @@ class Ims::OrdersController < Ims::BaseController
     @title = "我的订单"
 
 
-    @timeStamp_val = Time.now.to_i
-    @nonceStr_val = ("a".."z").to_a.sample(9).join('')
-    access_token  = cookies[:user_access_token]
-    sign = {
-      accesstoken: access_token,
-      appid: Settings.wx.appid,
-      noncestr: @nonceStr_val,
-      timestamp: @timeStamp_val,
-      url: request.original_url
-    }
-    string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
-    @addrSign_val = Digest::SHA1.hexdigest(string1)
+    # @timeStamp_val = Time.now.to_i
+    # @nonceStr_val = ("a".."z").to_a.sample(9).join('')
+    # access_token  = cookies[:user_access_token]
+    # sign = {
+    #   accesstoken: access_token,
+    #   appid: Settings.wx.appid,
+    #   noncestr: @nonceStr_val,
+    #   timestamp: @timeStamp_val,
+    #   url: request.original_url
+    # }
+    # string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    # @addrSign_val = Digest::SHA1.hexdigest(string1)
 
     respond_to do |format|
       format.html{}
@@ -46,18 +47,18 @@ class Ims::OrdersController < Ims::BaseController
     @contact = Ims::User.latest_address(request, params)[:data]
     @is_weixin = session[:itpm] != "1"
 
-    @timeStamp_val = Time.now.to_i
-    @nonceStr_val = ("a".."z").to_a.sample(9).join('')
-    access_token  = cookies[:user_access_token]
-    sign = {
-      accesstoken: access_token,
-      appid: Settings.wx.appid,
-      noncestr: @nonceStr_val,
-      timestamp: @timeStamp_val,
-      url: request.original_url
-    }
-    string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
-    @addrSign_val = Digest::SHA1.hexdigest(string1)
+    # @timeStamp_val = Time.now.to_i
+    # @nonceStr_val = ("a".."z").to_a.sample(9).join('')
+    # access_token  = cookies[:user_access_token]
+    # sign = {
+    #   accesstoken: access_token,
+    #   appid: Settings.wx.appid,
+    #   noncestr: @nonceStr_val,
+    #   timestamp: @timeStamp_val,
+    #   url: request.original_url
+    # }
+    # string1 = ""; sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
+    # @addrSign_val = Digest::SHA1.hexdigest(string1)
 
   end
 
@@ -81,6 +82,7 @@ class Ims::OrdersController < Ims::BaseController
   end
 
   def payments
+
     @orderno = params[:id]
     @order = Ims::Order.detail(request, {orderno: @orderno})["data"]
     @from_page = params[:from_page]
@@ -88,8 +90,8 @@ class Ims::OrdersController < Ims::BaseController
     price = params[:money]
     # @card_id, price = params[:money].split(",")
     #订单号 {子礼品卡编码}+{-}+{用户 id}+{-}+{来源店铺 id}
-
     if @order[:paymentcode] == "270"
+      weixin_key
       @out_trade_no = @orderno
       @noncestr_val = (1..9).map{ ('a'..'z').to_a.sample }.join('') # 随机码
       @time_val = Time.now
@@ -101,17 +103,17 @@ class Ims::OrdersController < Ims::BaseController
         input_charset: 'GBK',
         notify_url: "http://#{Settings.wx.notifydomain}/ims/payment/notify",
         out_trade_no: @out_trade_no,
-        partner: Settings.wx.parterid,
+        partner: @weixin_key[:parter_id],
         spbill_create_ip: request.remote_ip,
         total_fee:  (BigDecimal(price) * 100).to_i
       }
       string1 = ""; package.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
-      sign_value = Digest::MD5.hexdigest("#{string1}&key=#{Settings.wx.parterkey}").upcase
+      sign_value = Digest::MD5.hexdigest("#{string1}&key=#{@weixin_key[:parter_key]}").upcase
       @package_val = "#{package.to_param}&sign=#{sign_value}"
 
       pay_sign = {
-        appid: Settings.wx.appid,
-        appkey: Settings.wx.paysignkey,
+        appid: @weixin_key[:app_id],
+        appkey: @weixin_key[:pay_signkey],
         noncestr: @noncestr_val,
         package: @package_val,
         timestamp: @time_val.to_i
@@ -119,6 +121,7 @@ class Ims::OrdersController < Ims::BaseController
       string1 = ""; pay_sign.each{|k, v| string1 << "#{k}=#{v}&"}; string1.chop!
       @paySign_val = Digest::SHA1.hexdigest(string1)
     elsif @order[:paymentcode] == "272"
+      alipay_key
       if @from_page == "orders_new"
         call_back_url = "/ims/orders/"+@orderno+"/notice_success"
       else
@@ -133,9 +136,9 @@ class Ims::OrdersController < Ims::BaseController
         out_user:       current_user.id,
         call_back_url:  "http://#{Settings.default_url_options.host}#{call_back_url}" ,
         notify_url:     "http://#{Settings.wx.notifydomain}/ims/payment/notify_from_ali",
-        seller_account_name: Settings.mini_alipay.seller_account
+        seller_account_name: @alipay_key[:seller_account]
       }
-      @url = Alipay::Services::Direct::Payment::Wap.url({partner: Settings.mini_alipay.partner_id, req_data: req_data}, Settings.mini_alipay.md5_key)
+      @url = Alipay::Services::Direct::Payment::Wap.url({partner: @alipay_key[:partner_id], req_data: req_data}, @alipay_key[:md5_key])
     end
 
   end

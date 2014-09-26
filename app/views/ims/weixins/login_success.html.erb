@@ -1,0 +1,29 @@
+<div class="wrap-inner back-wrap-inner">
+  <div class="row-fluid">
+    <div clss="span12">
+      <div class="pc_login_form login-form">
+        <div class="login-face text-center">
+          <%= image_tag "ims/login_logo_06.png", class: "img-circle" %>
+        </div>
+        <div class="control-group login_notice">
+          <p class="tips txt3 txt-grey text-center">
+            您已成功登录“迷你银”网页版！
+          </p>
+        </div>
+        <% if nil %>
+        <div>
+          <%= link_to '关闭', "javascript:void(0);", class: "btn btn-danger btn-large btn-block", id: "close_page" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      $(".refresh-link").hide()
+    })
+  </script>
+<% end %>

@@ -49,6 +49,7 @@ class Combo < ActiveRecord::Base
   def self.es_search(options={})
     keywords = options[:keywords]
     store_id = options[:store_id]
+    group_id = options[:group_id]
     per_page = options[:per_page].present? ? options[:per_page].to_i : 10
     page = options[:page].present? ? options[:page].to_i : 1
     query = Jbuilder.encode do |json|
@@ -88,6 +89,15 @@ class Combo < ActiveRecord::Base
               end
             end
           end
+
+          if group_id.present?
+            json.child! do
+              json.term do
+                json.set! 'group.id', group_id
+              end
+            end
+          end
+
         end
       end
       if !keywords.present?
@@ -99,6 +109,6 @@ class Combo < ActiveRecord::Base
     end
     result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1) * per_page, body: query
     mash = Hashie::Mash.new result
-    {count: mash.hits.total, page: page, per_page: per_page, data: mash.hits.hits.collect(&:_source)}
+    {count: mash.hits.total, page: page, per_page: per_page, group_id: group_id, data: mash.hits.hits.collect(&:_source)}
   end
 end

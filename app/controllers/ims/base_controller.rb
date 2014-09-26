@@ -2,8 +2,8 @@
 
 class Ims::BaseController < ApplicationController
   layout 'ims/ims'
-  before_filter :setup_payment_type, :wx_auth!
-  helper_method [:current_user, :track_options]
+  before_filter :setup_group_id, :setup_payment_type, :wx_auth!
+  helper_method [:current_user, :track_options, :is_mobile]
 
   rescue_from Ims::Unauthorized do
     back_url = "http://#{Settings.wx.backdomain}/ims/auth?back_url=#{request.url}"
@@ -12,7 +12,8 @@ class Ims::BaseController < ApplicationController
     else
       back_url = URI::HTTP.build([nil,'i.intime.com.cn',nil,"/ims/auth/forward",{raw_url:back_url}.to_param,nil]).to_s
     end
-    redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: Settings.wx.appid, redirect_uri: back_url, response_type: 'code', scope: 'snsapi_base', state: ""}.to_param, 'wechat_redirect']).to_s)
+    weixin_key
+    redirect_to(URI::HTTPS.build([nil, "open.weixin.qq.com", nil, "/connect/oauth2/authorize", {appid: @weixin_key[:app_id], redirect_uri: back_url, response_type: 'code', scope: 'snsapi_base', state: ""}.to_param, 'wechat_redirect']).to_s)
   end
 
   def backurl
@@ -24,18 +25,26 @@ class Ims::BaseController < ApplicationController
   end
 
   def current_user
-    @current_wx_user ||= session[:current_wx_user]
+    @current_wx_user = session[:current_wx_user]
   end
 
   def wx_auth!
     session[:back_url] = request.url
     # 提供测试环境下的mockup访问
     if Rails.env == "development"
-      get_token_from_api(request) unless session[:user_token]
+      get_development_token_from_api(request) unless session[:user_token]
     else
-      logger.info("access_token: #{cookies[:user_access_token]}")
-      logger.info("user_token #{cookies[:user_token]}")
-      raise Ims::Unauthorized if cookies[:user_token].blank? || cookies[:user_access_token].blank?
+      $logger.info("access_token: #{cookies[:user_access_token]}")
+      if is_mobile
+        raise Ims::Unauthorized  if session[:wx_openid].blank?
+        redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
+      else
+        if session[:wx_openid].blank?
+          redirect_to login_ims_weixins_path(group_id: session[:group_id], redirect_url: request.fullpath)
+        elsif session[:current_wx_user].blank? || cookies[:user_token].blank? # cookies[:user_token].blank? 是为了24小时cookie过期后，重新获取ims token，因为这个涉及到了用户升级和降级的问题。
+          redirect_to get_user_token_ims_auth_path(back_url: request.url)
+        end
+      end
     end
   end
 
@@ -45,6 +54,36 @@ class Ims::BaseController < ApplicationController
 
   private
 
+  def logout
+    cookies[:user_token] = nil
+    session[:wx_openid] = nil
+    session[:current_wx_user] = nil
+  end
+
+  def is_mobile
+    request.user_agent.downcase.match(/(iPhone|iPod|Android|ios|Windows Phone|mobile)/i).present?
+  end
+
+  def verify_weixin_user_access_token
+    raise Ims::Unauthorized if is_mobile && cookies[:user_access_token].blank?
+  end
+
+  def alipay_key
+    @alipay_key = API::Environment.getalipaykey(request, groupid: session[:group_id])[:data]
+  end
+
+  def weixin_key
+    @weixin_key = API::Environment.getweixinkey(request, groupid: session[:group_id])[:data]
+  end
+
+  def setup_group_id
+    if params[:group_id]
+      session[:group_id] = params[:group_id]
+    elsif session[:group_id].blank?
+      session[:group_id] = 1
+    end
+  end
+
   def setup_payment_type
     if request.referer.blank?
       session[:itpm] = params[:itpm]
@@ -53,13 +92,36 @@ class Ims::BaseController < ApplicationController
     end
   end
 
-  def get_token_from_api(request)
+  def get_development_token_from_api(request)
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => Settings.wx.open_id,
-      :outsitetype      => 4,
-      :outsitetoken     => Ims::Weixin.access_token
+      :outsitetype      => 4
     })
     session[:user_token] = user_hash[:data][:token]
+    user = Ims::User.new({
+      :id => user_hash[:data][:id],
+      :email => user_hash[:data][:email],
+      :level => user_hash[:data][:level],
+      :nickname => user_hash[:data][:nickname],
+      :mobile => user_hash[:data][:mobile],
+      :isbindcard => user_hash[:data][:isbindcard],
+      :logo => user_hash[:data][:logo],
+      :operate_right => user_hash[:data][:operate_right],
+      :token => user_hash[:data][:token],
+      :store_id => user_hash[:data][:associate_id],
+      :max_comboitems => user_hash[:data][:max_comboitems]
+    })
+
+    session[:current_wx_user] = user
+  end
+
+  def get_token_from_api(request)
+    user_hash = API::LoginRequest.post(request, {
+      :outsiteuid       => session[:wx_openid],
+      :outsitetype      => 4
+    })
+    session[:user_token] = user_hash[:data][:token]
+    cookies[:user_token] = { value: user_hash[:data][:token], expires: Time.now.utc + 24.hours - 1.minutes }
     user = Ims::User.new({
       :id => user_hash[:data][:id],
       :email => user_hash[:data][:email],

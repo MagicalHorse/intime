@@ -64,10 +64,11 @@ gem 'rest-client'
 gem 'rake', '>= 10.1.0'
 gem 'chinese_pinyin'
 gem 'default_value_for'
-
 gem 'rails_config'
 gem 'kaminari'
 gem 'memcached'
+gem 'mini_magick'
+gem 'rqrcode-rails3'
 
 gem 'thin'
 
