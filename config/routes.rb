@@ -467,14 +467,10 @@ IntimeService::Application.routes.draw do
 
     end
 
-    # weixin self defined menu
-    resource :weixin,only:[] do
+    # SHOULD NOT BE REMOVED, CALLED BY OPEN API
+    resource :app,only:[] do
       member do
-        get 'menu',to: :verify
-        post 'menu', to: :message
-        get :access_token
-        post :access_token
-        post :renew
+        post :token
       end
     end
   end
