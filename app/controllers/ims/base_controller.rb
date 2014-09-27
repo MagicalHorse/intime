@@ -37,12 +37,14 @@ class Ims::BaseController < ApplicationController
       $logger.info("access_token: #{cookies[:user_access_token]}")
       if is_mobile
         raise Ims::Unauthorized  if session[:wx_openid].blank?
-        redirect_to get_user_token_ims_auth_path(back_url: request.url) if cookies[:user_token].blank?
+         get_user_token(request.url) if cookies[:user_token].blank?
+         return
       else
         if session[:wx_openid].blank?
           redirect_to login_ims_weixins_path(group_id: session[:group_id], redirect_url: request.fullpath)
         elsif session[:current_wx_user].blank? || cookies[:user_token].blank? # cookies[:user_token].blank? 是为了24小时cookie过期后，重新获取ims token，因为这个涉及到了用户升级和降级的问题。
-          redirect_to get_user_token_ims_auth_path(back_url: request.url)
+           get_user_token(request.url)
+           return
         end
       end
     end
@@ -92,6 +94,12 @@ class Ims::BaseController < ApplicationController
     end
   end
 
+  def get_user_token(back_url)
+    get_token_from_api(request)
+    redirect_to (session[:back_url]|| back_url)
+    session.delete(:back_url)
+  end
+  
   def get_development_token_from_api(request)
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => Settings.wx.open_id,
