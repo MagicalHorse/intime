@@ -63,6 +63,7 @@ class Ims::BaseController < ApplicationController
   end
 
   def is_mobile
+    return true if request.user_agent.blank?
     request.user_agent.downcase.match(/(iPhone|iPod|Android|ios|Windows Phone|mobile)/i).present?
   end
 
