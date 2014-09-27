@@ -24,11 +24,6 @@ class Ims::AuthsController < Ims::BaseController
     redirect_to("#{raw_url}&#{request.query_string}")
   end
 
-  def get_user_token
-    get_token_from_api(request)
-    redirect_to (session[:back_url] || params[:back_url])
-    session.delete(:back_url)
-  end
 
   private
 
