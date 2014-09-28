@@ -42,8 +42,8 @@
             </span>
           </li>
         <% end if params[:action] == "edit" %>
-        <% if images.size < 5 %>
-          <li class="add-link" id="add_img">
+        <% if (image_size = images.size) < 6 %>
+          <li class="add-link" id="add_img" style="<%= 'display: none;' if image_size == 5 %>">
             <span class="img-spa"><%= image_tag "ims/add-img.png" %></span>
           </li>
         <% end %>
