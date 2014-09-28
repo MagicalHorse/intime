@@ -39,8 +39,8 @@
           </span>
         </li>
         <% end %>
-        <% if @combo.combo_pics.size < 5 %>
-          <li class="add-link" id="add_img"><span class="img-spa"><%= image_tag "ims/add-img.png" %></span></li>
+        <% if (combo_pics_size = @combo.combo_pics.size) < 6 %>
+          <li class="add-link" id="add_img" style="<%= 'display: none;' if combo_pics_size == 5 %>"><span class="img-spa"><%= image_tag "ims/add-img.png" %></span></li>
         <% end %>
       </ul>
     </div>
