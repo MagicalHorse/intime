@@ -1,5 +1,6 @@
 <div class="span4">
   <div class="combos-product">
+  <!--  搭配详情api接口，如果商品类型为系统商品（1），那么images的最后一个为主图  -->
     <% img_url =  product[:images].present? ? (product['product_type'] == 1 ? product[:images].last['url'] : product[:images].first['url']) : Settings.default_image_url.product.small %>
     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
     <span class="img-spa" data="<%=product[:id]%>">
