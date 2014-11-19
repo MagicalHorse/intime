@@ -1,6 +1,6 @@
 <div class="span4">
   <div class="combos-product">
-    <% img_url =  product[:image].present? ? product[:image] : Settings.default_image_url.product.small %>
+    <% img_url =  product[:images].present? ? (product['product_type'] == 1 ? product[:images].last['url'] : product[:images].first['url']) : Settings.default_image_url.product.small %>
     <% if @remote_combo[:data][:is_online] && product[:is_online] %>
     <span class="img-spa" data="<%=product[:id]%>">
       <%= image_tag img_url %>
