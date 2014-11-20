@@ -1,52 +1,58 @@
     <div class="xclose clearfix"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button></div>
     <div class="modal-content">
-      
+
       <div class="p-modal-body">
-       
+
         <div class="swiper-container" id="p-swiper">
           <div class="swiper-wrapper">
             <% product = @product %>
-            <% salecolors = product[:resources] %>
+            <% salecolors = product["isSystem"] ? product[:resources].reverse : product[:resources] %>
             <% if salecolors.present? %>
-            <% salecolors.each do |color| %>
-            <% img_url = Product.img_url(color) %>
-             <div class="swiper-slide">
-              <img src="<%= img_url %>">
-             </div>
-             <% end %>
-             <% else %>
-             <% img_url = Product.img_url(nil.try(:[], :resource)) %>
+              <% salecolors.each do |color| %>
+              <% img_url = Product.img_url(color) %>
               <div class="swiper-slide">
-              <img src="<%= img_url %>">
-             </div>
-             <% end %>
+                <%= image_tag img_url %>
+              </div>
+              <% end %>
+            <% else %>
+              <% img_url = Product.img_url(nil.try(:[], :resource)) %>
+              <div class="swiper-slide">
+              <%= image_tag img_url %>
+              </div>
+            <% end %>
           </div>
         </div>
-        
+
       </div>
   </div>
   <div class="clearfix"></div>
   <div class="p-modal-desc" id="p-modal-desc">
-          <p class="txt1"><%= product[:name] %></p>
-          <p class="txt3"><%= product["description"] %></p>
-          <div class="desc-txt"><p class='pull-left'><span class="txt1">微信价： <i class="txt-red">￥<%= product[:price] %></i></span><span class="txt3"><%= "￥#{product[:unitprice]}" if product[:unitprice] %></span></p><p class="pull-right">
-            <% if @combo[:is_online] && product[:is4sale] %><%= link_to "点击购买", 'javascript:void(0);', class: "btn btn-danger btn-small loading-box", value: ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>
-            <% end %>
-          </p></div>
-          <div class="clearfix"></div>
-        </div>
+      <p class="txt1"><%= product[:name] %></p>
+      <p class="txt3"><%= product["description"] %></p>
+      <div class="desc-txt">
+        <p class='pull-left'>
+          <span class="txt1">微信价： <i class="txt-red">￥<%= product[:price] %></i></span>
+          <span class="txt3"><%= "￥#{product[:unitprice]}" if product[:unitprice] %></span>
+        </p>
+        <p class="pull-right">
+          <% if @combo[:is_online] && product[:is4sale] %><%= link_to "点击购买", 'javascript:void(0);', class: "btn btn-danger btn-small loading-box", value: ims_orders_new_path(:product_id => product[:id], :store_id => @store_id) %>
+          <% end %>
+        </p>
+      </div>
+      <div class="clearfix"></div>
+    </div>
   <script type="text/javascript">
   $(function(){
    $(".xclose").on('click', function(){
-          $("#p_pop").modal('hide');
-        });
+      $("#p_pop").modal('hide');
+    });
 
    $(".p-modal-desc .loading-box").on("click", function(){
-          url = $(this).attr("value")
-          $("#loading-box").modal()
-          setTimeout(function(){
-            window.location.href = url
-          }, 1)
-        })
-});
+      url = $(this).attr("value")
+      $("#loading-box").modal()
+      setTimeout(function(){
+        window.location.href = url
+      }, 1)
+    })
+  });
   </script>

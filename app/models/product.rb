@@ -431,7 +431,8 @@ class Product < ActiveRecord::Base
         :contactphone=>section_phone,
         :skucode=>prod_model[:upcCode],
         :nextgtpid=>next_gt_pid,
-        :nextltpid=>next_lt_pid
+        :nextltpid=>next_lt_pid,
+        :isSystem=>prod_model[:isSystem]
        }
     end
 
