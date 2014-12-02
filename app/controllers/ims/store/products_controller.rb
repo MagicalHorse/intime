@@ -5,6 +5,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   before_filter :tags, only: [:new, :edit]
   before_filter :verify_can_modify_product, only: [:new, :edit, :create, :update]
   before_filter :setup_param_size, only: [:create, :update]
+  before_filter :setup_title_and_is_system, only: :search
 
   def index
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
@@ -91,9 +92,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   end
 
   def search
-    @title = "商品搜索"
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
-    @search = ::Product.es_search(per_page: params[:per_page] || 9, page: params[:page], from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"])
+    @search = ::Product.es_search(per_page: params[:per_page] || 9, page: params[:page], from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"], is_system: @is_system, store_id: params[:store_id])
     @products = @search[:data]
     @brands = Brand.es_search
     respond_to do |format|
@@ -122,6 +122,11 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
 
   protected
+
+  def setup_title_and_is_system
+    @title = params[:is_system] == '1' ? "商品搜索" : '专柜商品搜索'
+    @is_system = params[:is_system]
+  end
 
   def product_relation_data
     @brands = Ims::Assistant.brands(request)["data"]["items"]

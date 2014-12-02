@@ -23,7 +23,9 @@ class Product < ActiveRecord::Base
     from_price = options[:from_price]
     to_price = options[:to_price]
     brand_id = options[:brand_id]
+    store_id = options[:store_id]
     keywords = options[:keywords].try(:downcase)
+    is_system = options[:is_system]
     per_page = [options[:per_page], 10].find{|obj| obj.present?}.to_i
     page = [options[:page], 1].find{|obj| obj.present?}.to_i
 
@@ -98,6 +100,14 @@ class Product < ActiveRecord::Base
             end
           end
 
+          if store_id.present?
+            json.child! do
+              json.term do
+                json.set! "store.id", store_id
+              end
+            end
+          end
+
           if id.present?
             json.child! do
               json.term do
@@ -112,9 +122,11 @@ class Product < ActiveRecord::Base
             end
           end
 
-          json.child! do
-            json.term do
-              json.isSystem true
+          if is_system.present?
+            json.child! do
+              json.term do
+                json.isSystem is_system
+              end
             end
           end
 
@@ -189,7 +201,7 @@ class Product < ActiveRecord::Base
     result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1)*per_page, body: query
     mash = Hashie::Mash.new result
     count = mash["hits"]["total"]
-    {count: count, page: page, per_page: per_page, from_discount: from_discount, to_discount: to_discount, from_price: from_price, to_price: to_price, brand_id: brand_id, keywords: keywords, data: mash.hits.hits.collect(&:_source)}
+    {count: count, page: page, per_page: per_page, from_discount: from_discount, to_discount: to_discount, from_price: from_price, to_price: to_price, brand_id: brand_id, store_id: store_id, is_system: is_system, keywords: keywords, data: mash.hits.hits.collect(&:_source)}
   end
 
 

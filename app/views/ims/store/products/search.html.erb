@@ -1,71 +1,75 @@
 <div class="wrap-inner back-wrap-inner">
-<div class="module module-searchinput">
-    <div class="row-fluid">
-        <div class="span12">
-            <%= form_tag search_ims_store_products_path, method: "GET", id: "search", class: "form-defined" do %>
-              <%= hidden_field_tag "from_price", @search[:from_price] %>
-              <%= hidden_field_tag "to_price", @search[:to_price] %>
-              <%= hidden_field_tag "from_discount", @search[:from_discount] %>
-              <%= hidden_field_tag "to_discount", @search[:to_discount] %>
-              <%= hidden_field_tag "brand_id", @search[:brand_id] %>
-              <%= hidden_field_tag "combo_id", @combo.try(:id) %>
-              <div class="controls-defined defined-small">
-                <div class="col-9">
-                  <%= text_field_tag "keywords", @search[:keywords], placeholder: "搜索商品名称、品牌、货号等", class: "bg-img" %>
+  <div class="module module-searchinput">
+      <div class="row-fluid">
+          <div class="span12">
+              <%= form_tag search_ims_store_products_path, method: "GET", id: "search", class: "form-defined" do %>
+                <%= hidden_field_tag "from_price", @search[:from_price] %>
+                <%= hidden_field_tag "to_price", @search[:to_price] %>
+                <%= hidden_field_tag "from_discount", @search[:from_discount] %>
+                <%= hidden_field_tag "to_discount", @search[:to_discount] %>
+                <%= hidden_field_tag "brand_id", @search[:brand_id] %>
+                <%= hidden_field_tag "store_id", @search[:store_id] %>
+                <%= hidden_field_tag "is_system", @search[:is_system] %>
+                <%= hidden_field_tag "combo_id", @combo.try(:id) %>
+                <div class="controls-defined defined-small">
+                  <div class="col-9">
+                    <%= text_field_tag "keywords", @search[:keywords], placeholder: "搜索商品名称、品牌、货号等", class: "bg-img" %>
+                  </div>
+                  <div class="col-3">
+                  <button type="button" class="btn btn-danger btn-small btn-block">搜 索</button>
+                  </div>
                 </div>
-                <div class="col-3">
-                <button type="button" class="btn btn-danger btn-small btn-block">搜 索</button>
-                </div>
-              </div>
-            <% end %>
-        </div>
-    </div>
-</div>
-
-
-<% if !params.slice(:from_price, :to_price, :from_discount, :to_discount, :brand_id, :keywords).values.any?{|value| value.present?} %>
-<div class="module-tab">
-  <div class="tabbable"> <!-- Only required for left/right tabs -->
-      <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#tab1">价格</a></li>
-          <li class=""><a data-toggle="tab" href="#tab2">折扣</a></li>
-          <li class=""><a data-toggle="tab" href="#tab3">品牌</a></li>
-      </ul>
-      <div class="tab-content">
-          <div id="tab1" class="tab-pane active">
-              <div class="search-condition">
-                <% Ims::Product::Price.each do |price| %>
-                  <%= link_to price[:name], "javascript:void(0);", type: price[:type], from_price: price[:from], to_price: price[:to] %>
-                <% end %>
-              </div>
+              <% end %>
           </div>
-          <div id="tab2" class="tab-pane">
-              <div class="search-condition">
-                <% Ims::Product::Discount.each do |discount| %>
-                  <%= link_to discount[:name], "javascript:void(0);", type: discount[:type], from_discount: discount[:from], to_discount: discount[:to] %>
-                <% end %>
-              </div>
-          </div>
-          <div id="tab3" class="tab-pane">
-              <div class="search-condition">
-                <% @brands.each do |brand| %>
-                  <%= link_to brand[:name], "javascript:void(0);", brand_id: brand["id"] %>
-                <% end %>
-              </div>
-          </div>
-
       </div>
   </div>
-</div>
 
-<% else %>
+
+  <%# if !params.slice(:from_price, :to_price, :from_discount, :to_discount, :brand_id, :keywords, :store_id, :is_system).values.any?{|value| value.present?} %>
+  <div class="module-tab">
+    <div class="tabbable"> <!-- Only required for left/right tabs -->
+        <ul class="nav nav-tabs">
+            <li class=""><a href="#tab1">价格</a></li>
+            <li class=""><a href="#tab2">折扣</a></li>
+            <li class=""><a href="#tab3">品牌</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="tab1" class="tab-pane">
+                <div class="search-condition">
+                  <% Ims::Product::Price.each do |price| %>
+                    <%= link_to price[:name], "javascript:void(0);", type: price[:type], from_price: price[:from], to_price: price[:to], is_system: @is_system %>
+                  <% end %>
+                </div>
+            </div>
+            <div id="tab2" class="tab-pane">
+                <div class="search-condition">
+                  <% Ims::Product::Discount.each do |discount| %>
+                    <%= link_to discount[:name], "javascript:void(0);", type: discount[:type], from_discount: discount[:from], to_discount: discount[:to], is_system: @is_system %>
+                  <% end %>
+                </div>
+            </div>
+            <div id="tab3" class="tab-pane">
+                <div class="search-condition">
+                  <% @brands.each do |brand| %>
+                    <%= link_to brand[:name], "javascript:void(0);", brand_id: brand["id"], is_system: @is_system %>
+                  <% end %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  </div>
+
+<%# else %>
   <% if @products.present? %>
+    <span id="search_list">
     <%= render "search_list", products: @products, combo: @combo %>
+    </span>
   <% else %>
     <%= render 'ims/shared/empty' %>
   <% end %>
 
-<% end %>
+<%# end %>
 </div>
 
 <div id="selected_products" class="bottom-box" style="<%= @combo.combo_products.count.zero? ? 'display:none;' : 'display: block;' %>">
@@ -99,12 +103,32 @@
 <%= hidden_field_tag "from_discount", @search[:from_discount], id: "hidden_from_discount" %>
 <%= hidden_field_tag "to_discount", @search[:to_discount], id: "hidden_to_discount" %>
 <%= hidden_field_tag "brand_id", @search[:brand_id], id: "hidden_brand_id" %>
+<%= hidden_field_tag "store_id", @search[:store_id], id: "hidden_store_id" %>
+<%= hidden_field_tag "is_system", @search[:is_system], id: "hidden_is_system" %>
 <%= hidden_field_tag "keywords", @search[:keywords], id: "hidden_keywords" %>
 
 
 <% content_for :javascripts do -%>
 <script type="text/javascript">
   $(function(){
+
+    $(".nav-tabs li a").on("click", function(){
+      this_ele = $(this)
+      li_ele = this_ele.parents("li")
+      clazz = li_ele.attr("class")
+      search_content = $(this_ele.attr("href"))
+      $(".nav-tabs li").removeClass("active")
+      $(".tab-pane").removeClass("active")
+      if(clazz.indexOf("active") >= 0){
+        li_ele.removeClass("active")
+        search_content.removeClass("active")
+        $("#search_list").show()
+      }else{
+        li_ele.addClass("active")
+        search_content.addClass("active")
+        $("#search_list").hide()
+      }
+    })
 
     var inLoading = false
 
@@ -201,6 +225,8 @@
     from_discount = "<%= @search[:from_discount] %>"
     to_discount = "<%= @search[:to_discount] %>"
     brand_id = "<%= @search[:brand_id] %>"
+    store_id = "<%= @search[:store_id] %>"
+    is_system = "<%= @search[:is_system] %>"
     page = "<%= @search[:page] %>"
     per_page = "<%= @search[:per_page] %>"
     count = "<%= @search[:count] %>"
@@ -211,6 +237,8 @@
     $("#from_discount").attr("value", from_discount)
     $("#to_discount").attr("value", to_discount)
     $("#brand_id").attr("value", brand_id)
+    $("#store_id").attr("value", store_id)
+    $("#is_system").attr("value", is_system)
     $("#page").attr("value", page)
     $("#count").attr("value", count)
     $("#keywords").val(keywords)
@@ -241,12 +269,16 @@
       from_discount = this_ele.attr("from_discount")
       to_discount = this_ele.attr("to_discount")
       brand_id = this_ele.attr("brand_id")
+      store_id = this_ele.attr("store_id")
+      is_system = this_ele.attr("is_system")
       $("#type").attr("value", type)
       $("#from_price").attr("value", from_price)
       $("#to_price").attr("value", to_price)
       $("#from_discount").attr("value", from_discount)
       $("#to_discount").attr("value", to_discount)
       $("#brand_id").attr("value", brand_id)
+      $("#store_id").attr("value", store_id)
+      $("#is_system").attr("value", is_system)
       $("#keywords").attr("value", '')
       $("#loading-box").modal()
       setTimeout(function(){
@@ -270,14 +302,17 @@
       var from_discount = $("#hidden_from_discount").attr("value")
       var to_discount = $("#hidden_to_discount").attr("value")
       var brand_id = $("#hidden_brand_id").attr("value")
+      var store_id = $("#hidden_store_id").attr("value")
+      var is_system = $("#hidden_is_system").attr("value")
       var keywords = $("#hidden_keywords").attr("value")
 
-
-      if(scrollTop+clientHeight == htmlHeight && !inLoading){
+      style_value = $("#search_list").attr("style")
+      is_show = style_value != undefined && style_value.indexOf("display: none") < 0
+      if(scrollTop+clientHeight == htmlHeight && !inLoading && is_show){
         if(page * per_page < count && !inLoading){
           inLoading = true
           $("#bottom-loading-box").modal();
-          $.get("/ims/store/products/search", {from_price: from_price, to_price: to_price, from_discount: from_discount, to_discount: to_discount, brand_id: brand_id, keywords: keywords, combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
+          $.get("/ims/store/products/search", {from_price: from_price, to_price: to_price, from_discount: from_discount, to_discount: to_discount, brand_id: brand_id, store_id: store_id, keywords: keywords, combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
             if(data["status"] == true){
               $(".paginate-content:last").after(data["html"])
               $("#hidden_count").attr("value", data["count"])
@@ -288,6 +323,8 @@
               $("#hidden_from_discount").attr("value", data["from_discount"])
               $("#hidden_to_discount").attr("value", data["to_discount"])
               $("#hidden_brand_id").attr("value", data["brand_id"])
+              $("#hidden_store_id").attr("value", data["store_id"])
+              $("#hidden_is_system").attr("value", data["is_system"])
               $("#hidden_keywords").attr("value", data["keywords"])
             }
             $("#bottom-loading-box").modal('hide');
