@@ -92,6 +92,18 @@ class Product < ActiveRecord::Base
 
           end
 
+          if !Rails.env.development? && is_system == "0"
+
+            json.child! do
+              json.range do
+                json.createdDate do
+                  json.gte Time.now - 7.days
+                end
+              end
+            end
+
+          end
+
           if brand_id.present?
             json.child! do
               json.term do
