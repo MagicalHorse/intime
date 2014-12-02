@@ -125,7 +125,7 @@ class Product < ActiveRecord::Base
           if is_system.present?
             json.child! do
               json.term do
-                json.isSystem is_system
+                json.isSystem is_system == "1"
               end
             end
           end
