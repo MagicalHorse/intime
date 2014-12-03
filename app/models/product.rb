@@ -213,7 +213,7 @@ class Product < ActiveRecord::Base
     result = $client.search index: ES_DEFAULT_INDEX, type: DOCUMENT_TYPE, size: per_page, from: (page-1)*per_page, body: query
     mash = Hashie::Mash.new result
     count = mash["hits"]["total"]
-    {count: count, page: page, per_page: per_page, from_discount: from_discount, to_discount: to_discount, from_price: from_price, to_price: to_price, brand_id: brand_id, store_id: store_id, is_system: is_system, keywords: keywords, data: mash.hits.hits.collect(&:_source)}
+    {count: count, page: page, per_page: per_page, from_discount: from_discount, to_discount: to_discount, from_price: from_price, to_price: to_price, brand_id: brand_id, is_system: is_system, keywords: keywords, data: mash.hits.hits.collect(&:_source)}
   end
 
 

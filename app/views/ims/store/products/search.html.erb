@@ -8,7 +8,6 @@
                 <%= hidden_field_tag "from_discount", @search[:from_discount] %>
                 <%= hidden_field_tag "to_discount", @search[:to_discount] %>
                 <%= hidden_field_tag "brand_id", @search[:brand_id] %>
-                <%= hidden_field_tag "store_id", @search[:store_id] %>
                 <%= hidden_field_tag "is_system", @search[:is_system] %>
                 <%= hidden_field_tag "combo_id", @combo.try(:id) %>
                 <div class="controls-defined defined-small">
@@ -25,7 +24,7 @@
   </div>
 
 
-  <%# if !params.slice(:from_price, :to_price, :from_discount, :to_discount, :brand_id, :keywords, :store_id, :is_system).values.any?{|value| value.present?} %>
+  <%# if !params.slice(:from_price, :to_price, :from_discount, :to_discount, :brand_id, :keywords, :is_system).values.any?{|value| value.present?} %>
   <div class="module-tab">
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
@@ -103,7 +102,6 @@
 <%= hidden_field_tag "from_discount", @search[:from_discount], id: "hidden_from_discount" %>
 <%= hidden_field_tag "to_discount", @search[:to_discount], id: "hidden_to_discount" %>
 <%= hidden_field_tag "brand_id", @search[:brand_id], id: "hidden_brand_id" %>
-<%= hidden_field_tag "store_id", @search[:store_id], id: "hidden_store_id" %>
 <%= hidden_field_tag "is_system", @search[:is_system], id: "hidden_is_system" %>
 <%= hidden_field_tag "keywords", @search[:keywords], id: "hidden_keywords" %>
 
@@ -225,7 +223,6 @@
     from_discount = "<%= @search[:from_discount] %>"
     to_discount = "<%= @search[:to_discount] %>"
     brand_id = "<%= @search[:brand_id] %>"
-    store_id = "<%= @search[:store_id] %>"
     is_system = "<%= @search[:is_system] %>"
     page = "<%= @search[:page] %>"
     per_page = "<%= @search[:per_page] %>"
@@ -237,7 +234,6 @@
     $("#from_discount").attr("value", from_discount)
     $("#to_discount").attr("value", to_discount)
     $("#brand_id").attr("value", brand_id)
-    $("#store_id").attr("value", store_id)
     $("#is_system").attr("value", is_system)
     $("#page").attr("value", page)
     $("#count").attr("value", count)
@@ -269,7 +265,6 @@
       from_discount = this_ele.attr("from_discount")
       to_discount = this_ele.attr("to_discount")
       brand_id = this_ele.attr("brand_id")
-      store_id = this_ele.attr("store_id")
       is_system = this_ele.attr("is_system")
       $("#type").attr("value", type)
       $("#from_price").attr("value", from_price)
@@ -277,7 +272,6 @@
       $("#from_discount").attr("value", from_discount)
       $("#to_discount").attr("value", to_discount)
       $("#brand_id").attr("value", brand_id)
-      $("#store_id").attr("value", store_id)
       $("#is_system").attr("value", is_system)
       $("#keywords").attr("value", '')
       $("#loading-box").modal()
@@ -302,7 +296,6 @@
       var from_discount = $("#hidden_from_discount").attr("value")
       var to_discount = $("#hidden_to_discount").attr("value")
       var brand_id = $("#hidden_brand_id").attr("value")
-      var store_id = $("#hidden_store_id").attr("value")
       var is_system = $("#hidden_is_system").attr("value")
       var keywords = $("#hidden_keywords").attr("value")
 
@@ -312,7 +305,7 @@
         if(page * per_page < count && !inLoading){
           inLoading = true
           $("#bottom-loading-box").modal();
-          $.get("/ims/store/products/search", {from_price: from_price, to_price: to_price, from_discount: from_discount, to_discount: to_discount, brand_id: brand_id, store_id: store_id, keywords: keywords, combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
+          $.get("/ims/store/products/search", {from_price: from_price, to_price: to_price, from_discount: from_discount, to_discount: to_discount, brand_id: brand_id,  keywords: keywords, combo_id: combo_id, page: page + 1, per_page: per_page}, function(data){
             if(data["status"] == true){
               $(".paginate-content:last").after(data["html"])
               $("#hidden_count").attr("value", data["count"])
@@ -323,7 +316,6 @@
               $("#hidden_from_discount").attr("value", data["from_discount"])
               $("#hidden_to_discount").attr("value", data["to_discount"])
               $("#hidden_brand_id").attr("value", data["brand_id"])
-              $("#hidden_store_id").attr("value", data["store_id"])
               $("#hidden_is_system").attr("value", data["is_system"])
               $("#hidden_keywords").attr("value", data["keywords"])
             }
