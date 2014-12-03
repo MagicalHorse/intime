@@ -168,9 +168,9 @@
 
       src = this_ele.parents(".goods-box").find(".imgs img").attr("src")
 
-      link = '<a product_id="' + product_id + '" class="btn btn-grey btn-mini btn-block" href="javascript:void(0);">已选择</a>'
       $.get("/ims/store/products/" + product_id + "/add_to_combo", {product_type: product_type, combo_id: combo_id}, function(data){
         if(data["status"] == true){
+          link = '<a combo_product_id="'+data["id"]+'" product_id="' + product_id + '" class="btn btn-grey btn-mini btn-block remove_to_combo" href="javascript:void(0);">取消选择</a>'
           li = "<li class='add-link' combo_product_id='"+data["id"]+"' product_id='"+product_id+"'><span class='img-spa'  style='height: 50px; width: 50px;line-height: 50px;'><img src='"+src+"'></span></li>"
           $("#selected_products").show()
           this_ele.replaceWith(link)
@@ -186,18 +186,19 @@
     // format_img(".img-spa");
 
 
-    $(document).on("click", "#img_box li .img-spa", function(){
-      if(confirm("确定删除商品吗？")){
+    $(document).on("click", "#img_box li, .remove_to_combo", function(){
+      if(confirm("确定取消选择该商品吗？")){
         this_ele = $(this)
-        li = this_ele.parents("li")
+        li = this_ele
         combo_product_id = li.attr("combo_product_id")
         product_id = li.attr("product_id")
         $.ajax({
           url: "/ims/store/combos/remove_product?product_id="+combo_product_id,
           success: function(response){
-            li.remove()
-            link = '<a product_id="' + product_id + '" class="btn btn-danger btn-mini btn-block add_to_combo" href="javascript:void(0);">选择组合</a>'
-            $(".goods-text a[product_id='"+product_id+"']").replaceWith(link)
+            $("#img_box .add-link[product_id='"+product_id+"']").remove()
+            // $(".remove_to_combo[product_id='"+product_id+"']").remove()
+            link = '<a product_id="' + product_id + '" class="btn btn-danger btn-mini btn-block add_to_combo" href="javascript:void(0);">选择</a>'
+            $(".goods-text a.remove_to_combo[product_id='"+product_id+"']").replaceWith(link)
             if($("#selected_products .img-spa").length == 0){
               $("#selected_products").hide()
             }
@@ -300,7 +301,7 @@
       var keywords = $("#hidden_keywords").attr("value")
 
       style_value = $("#search_list").attr("style")
-      is_show = style_value != undefined && style_value.indexOf("display: none") < 0
+      is_show = style_value == undefined || style_value != undefined && style_value.indexOf("display: none") < 0
       if(scrollTop+clientHeight == htmlHeight && !inLoading && is_show){
         if(page * per_page < count && !inLoading){
           inLoading = true
