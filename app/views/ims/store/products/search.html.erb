@@ -60,13 +60,13 @@
   </div>
 
 <%# else %>
+  <span id="search_list">
   <% if @products.present? %>
-    <span id="search_list">
     <%= render "search_list", products: @products, combo: @combo %>
-    </span>
   <% else %>
     <%= render 'ims/shared/empty' %>
   <% end %>
+  </span>
 
 <%# end %>
 </div>
