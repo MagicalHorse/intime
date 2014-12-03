@@ -28,9 +28,9 @@
   <div class="module-tab">
     <div class="tabbable"> <!-- Only required for left/right tabs -->
         <ul class="nav nav-tabs">
-            <li class=""><a href="#tab1">价格</a></li>
-            <li class=""><a href="#tab2">折扣</a></li>
-            <li class=""><a href="#tab3">品牌</a></li>
+            <li class=""><a href="javascript:scroll(0,0)" value="#tab1">价格</a></li>
+            <li class=""><a href="javascript:scroll(0,0)" value="#tab2">折扣</a></li>
+            <li class=""><a href="javascript:scroll(0,0)" value="#tab3">品牌</a></li>
         </ul>
         <div class="tab-content">
             <div id="tab1" class="tab-pane">
@@ -114,7 +114,7 @@
       this_ele = $(this)
       li_ele = this_ele.parents("li")
       clazz = li_ele.attr("class")
-      search_content = $(this_ele.attr("href"))
+      search_content = $(this_ele.attr("value"))
       $(".nav-tabs li").removeClass("active")
       $(".tab-pane").removeClass("active")
       if(clazz.indexOf("active") >= 0){
