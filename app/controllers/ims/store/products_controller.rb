@@ -94,7 +94,7 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
   def search
     @combo = ::Combo.find(params[:combo_id]) if params[:combo_id].present?
     # 如果是搜索其他专柜商品，那么只能是本门店的
-    @search = ::Product.es_search(per_page: params[:per_page] || 9, page: params[:page], from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"], is_system: @is_system, store_id: @is_system == "0" && !Rails.env.development? ? current_user.store_id : nil)
+    @search = ::Product.es_search(per_page: params[:per_page] || 9, page: params[:page], from_discount: params["from_discount"], to_discount: params["to_discount"], from_price: params["from_price"], to_price: params["to_price"], brand_id: params["brand_id"], keywords: params["keywords"], is_system: @is_system, store_id: Rails.env.development? ? nil : (@is_system == "0"  ? current_user.store_id : nil))
     @products = @search[:data]
     @brands = Brand.es_search
     respond_to do |format|
