@@ -1,2 +1,3 @@
 level:   用户的级别, 3 – 导购人员, 1 – 普通用户
 operate_right:   用户的操作权限, 1 – 可选择gift card,可自己上传商品   2 – 可选择系统库中商品, 权限值是或与关系，如 1 2 = 3表示同时可选择gift card 和系统库商品
+combo_product 中的product_type: 如果为1商品类型为系统商品，2为自拍商品,3其他专柜商品
