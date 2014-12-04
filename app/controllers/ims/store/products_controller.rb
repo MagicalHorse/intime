@@ -79,7 +79,8 @@ class Ims::Store::ProductsController < Ims::Store::BaseController
 
   def add_to_combo
     @combo = ::Combo.find(params[:combo_id])
-    product = params[:product_type] == "2" ? Ims::Product.find(request, {:id => params[:id]}) : ::Product.fetch_product(params[:id])
+    # product = params[:product_type] == "2" ? Ims::Product.find(request, {:id => params[:id]}) : ::Product.fetch_product(params[:id])
+    product = ::Product.fetch_product(params[:id])
     combo_product = ComboProduct.create({:remote_id => product[:data][:id], :img_url => product[:data][:image],
       :product_type => params[:product_type], :price => product[:data][:price], :combo_id => @combo.id,
       :brand_name => product[:data][:brand_name], :category_name => product[:data][:category_name]})

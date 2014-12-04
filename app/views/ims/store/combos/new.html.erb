@@ -150,7 +150,7 @@
           <%= link_to "其他专柜自拍商品", "javascript:void(0);", class: 'txt1', value: search_ims_store_products_path(:combo_id => @combo.id, is_system: "0") %>
         <% end %>
         <%= link_to "从系统选择", "javascript:void(0);", class: 'txt1', value: search_ims_store_products_path(:combo_id => @combo.id, is_system: "1") %>
-      <% elsif ["2", "3"].include? @combo.combo_products.first.product_type %>
+      <% elsif "2" == @combo.combo_products.first.product_type %>
         <%= link_to "新拍商品", "javascript:void(0);", class: 'txt1', value: new_ims_store_product_path(:combo_id => @combo.id) %>
         <%= link_to "已拍商品", "javascript:void(0);", value: ims_store_products_path(:combo_id => @combo.id), class: 'txt1' %>
         <%= link_to "其他专柜自拍商品", "javascript:void(0);", class: 'txt1', value: search_ims_store_products_path(:combo_id => @combo.id, is_system: "0") %>
