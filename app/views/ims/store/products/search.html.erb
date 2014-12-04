@@ -255,6 +255,12 @@
     var submit_search = function(){
       $("#loading-box").modal()
       setTimeout(function(){
+        $("#from_price").attr("value", '')
+        $("#to_price").attr("value", '')
+        $("#from_discount").attr("value", '')
+        $("#to_discount").attr("value", '')
+        $("#brand_id").attr("value", '')
+        $("#is_system").attr("value", '')
         $("#search").submit()
       }, 1)
     }
