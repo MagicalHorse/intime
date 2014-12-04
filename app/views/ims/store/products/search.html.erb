@@ -49,6 +49,7 @@
             </div>
             <div id="tab3" class="tab-pane">
                 <div class="search-condition">
+                  <%= link_to '全部', "javascript:void(0);", brand_id: '', is_system: @is_system %>
                   <% @brands.each do |brand| %>
                     <%= link_to brand[:name], "javascript:void(0);", brand_id: brand["id"], is_system: @is_system %>
                   <% end %>

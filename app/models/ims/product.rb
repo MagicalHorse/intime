@@ -26,6 +26,7 @@ class Ims::Product < Ims::Base
   end
 
   Price = [
+    {name: "全部", from: "", to: "", type: 1},
     {name: "100元以内", from: '', to: 100, type: 1},
     {name: "100元~200元", from: 100, to: 200, type: 1},
     {name: "200元~300元", from: 200, to: 300, type: 1},
@@ -35,6 +36,7 @@ class Ims::Product < Ims::Base
   ]
 
   Discount = [
+    {name: "全部", from: '', to: "", type: 2},
     {name: "10%以下", from: '', to: 10, type: 2},
     {name: "10%~20%", from: 10, to: 20, type: 2},
     {name: "20%~30%", from: 20, to: 30, type: 2},
