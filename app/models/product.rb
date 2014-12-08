@@ -24,6 +24,7 @@ class Product < ActiveRecord::Base
     to_price = options[:to_price]
     brand_id = options[:brand_id]
     store_id = options[:store_id]
+    gte = options[:gte]
     keywords = options[:keywords].try(:downcase)
     is_system = options[:is_system]
     per_page = [options[:per_page], 10].find{|obj| obj.present?}.to_i
@@ -92,12 +93,12 @@ class Product < ActiveRecord::Base
 
           end
 
-          if !Rails.env.development? && is_system == "0"
+          if gte.present?  #其他专柜商品搜索过滤7天
 
             json.child! do
               json.range do
                 json.createdDate do
-                  json.gte Time.now - 7.days
+                  json.gte Time.now - gte.to_i.days
                 end
               end
             end
