@@ -124,7 +124,7 @@ class Ims::BaseController < ApplicationController
 
     session[:current_wx_user] = user
   end
-
+ # 修改这里一定要注意需要用户重新获取用户信息，否则修改不会马上生效（修改： wx_auth!）
   def get_token_from_api(request)
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => session[:wx_openid],
