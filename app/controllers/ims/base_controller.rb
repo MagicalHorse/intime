@@ -117,7 +117,8 @@ class Ims::BaseController < ApplicationController
       :logo => user_hash[:data][:logo],
       :operate_right => user_hash[:data][:operate_right],
       :token => user_hash[:data][:token],
-      :store_id => user_hash[:data][:associate_id],
+      :assistant_id => user_hash[:data][:assistant_id],
+      :store_id => user_hash[:data][:store_id],
       :max_comboitems => user_hash[:data][:max_comboitems]
     })
 
@@ -141,7 +142,7 @@ class Ims::BaseController < ApplicationController
       :logo => user_hash[:data][:logo],
       :operate_right => user_hash[:data][:operate_right],
       :token => user_hash[:data][:token],
-      :associate_id => user_hash[:data][:associate_id],
+      :assistant_id => user_hash[:data][:assistant_id],
       :store_id => user_hash[:data][:store_id],
       :max_comboitems => user_hash[:data][:max_comboitems]
     })

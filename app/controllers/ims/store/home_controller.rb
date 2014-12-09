@@ -22,7 +22,8 @@ class Ims::Store::HomeController < Ims::Store::BaseController
         :logo => @status[:data][:logo],
         :operate_right => @status[:data][:operate_right],
         :token => @status[:data][:token],
-        :store_id => @status[:data][:associate_id],
+        :store_id => @status[:data][:store_id],
+        :assistant_id => @status[:data][:assistant_id],
         :max_comboitems => @status[:data][:max_comboitems]
       })
       session[:current_wx_user] = user
