@@ -37,7 +37,7 @@ class Ims::BaseController < ApplicationController
       $logger.info("access_token: #{cookies[:user_access_token]}")
       if is_mobile
         raise Ims::Unauthorized  if session[:wx_openid].blank?
-        get_user_token(request.url) if cookies[:user_token].blank?
+        get_user_token(request.url) if cookies[:user_token].blank? || current_user.try(:associate_id).blank?
         return
       else
         if session[:wx_openid].blank?
