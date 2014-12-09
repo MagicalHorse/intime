@@ -42,7 +42,7 @@ class Ims::Store::InvitationCodesController < Ims::Store::BaseController
   end
 
   def verify_can_apply_invitation_code
-    redirect_to ims_store_root_path if current_user.store_id.present?
+    redirect_to ims_store_root_path if current_user.assistant_id.present?
   end
 
 end

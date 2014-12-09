@@ -100,7 +100,7 @@ class Ims::BaseController < ApplicationController
     redirect_to (session[:back_url]|| back_url)
     session.delete(:back_url)
   end
-  
+
   def get_development_token_from_api(request)
     user_hash = API::LoginRequest.post(request, {
       :outsiteuid       => Settings.wx.open_id,
@@ -141,7 +141,8 @@ class Ims::BaseController < ApplicationController
       :logo => user_hash[:data][:logo],
       :operate_right => user_hash[:data][:operate_right],
       :token => user_hash[:data][:token],
-      :store_id => user_hash[:data][:associate_id],
+      :associate_id => user_hash[:data][:associate_id],
+      :store_id => user_hash[:data][:store_id],
       :max_comboitems => user_hash[:data][:max_comboitems]
     })
 
