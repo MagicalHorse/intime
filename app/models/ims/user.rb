@@ -2,7 +2,7 @@
 class Ims::User < Ims::Base
  ATTRIBUTES = [:id, :email, :level, :nickname, :mobile, :isbindcard, :logo, :level, :operate_right, :token,
   :card_no, :verified_phone, :identify_phone, :sms_code, :back_url, :will_charge_no, :identity_no, :charge_type,
-  :other_phone, :verified_other_phones, :amount, :store_id, :max_comboitems, :group_id, :assistant_id]
+  :other_phone, :verified_other_phones, :amount, :store_id, :max_comboitems, :group_id, :associate_id]
   attr_accessor *ATTRIBUTES
 
   # card_no         当前用户储值卡号

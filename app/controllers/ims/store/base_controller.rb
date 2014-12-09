@@ -6,7 +6,7 @@ class Ims::Store::BaseController < Ims::BaseController
 
   #检查是否是店铺导购
   def authenticate
-    if current_user.assistant_id.blank?
+    if current_user.associate_id.blank?
       if is_mobile
         redirect_to ims_store_root_path
       else
@@ -16,7 +16,7 @@ class Ims::Store::BaseController < Ims::BaseController
   end
 
   def fetch_template
-  	@store = Ims::Store.my(request)
-  	@template_id = @store[:data][:template_id] if @store[:data].present?
+    @store = Ims::Store.my(request)
+    @template_id = @store[:data][:template_id] if @store[:data].present?
   end
 end

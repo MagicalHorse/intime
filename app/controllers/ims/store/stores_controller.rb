@@ -21,15 +21,15 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   end
 
   def check
-    if current_user.assistant_id.present?
-      redirect_to my_ims_store_store_path(id: current_user.assistant_id, :t => Time.now.to_i)
+    if current_user.associate_id.present?
+      redirect_to my_ims_store_store_path(id: current_user.associate_id, :t => Time.now.to_i)
     else
       redirect_to ims_store_root_path
     end
   end
 
   def my
-    if current_user.assistant_id.to_i == params[:id].to_i
+    if current_user.associate_id.to_i == params[:id].to_i
       @can_share = true
       @store = Ims::Store.my(request)
       render :layout =>  'ims/ims'
@@ -81,7 +81,7 @@ class Ims::Store::StoresController < Ims::Store::BaseController
   private
 
   def is_my_store
-    unless current_user.assistant_id.to_i == params[:id].to_i
+    unless current_user.associate_id.to_i == params[:id].to_i
       cookies.delete(:user_token)
       redirect_to ims_store_path(id: params[:id], t: Time.now.to_i)
     end

@@ -41,7 +41,7 @@ class Ims::WeixinsController < Ims::BaseController
       cookies[:user_token] = { value: access_token, expires: Time.now.utc + 24.hours - 1.minutes }
       session[:wx_openid] = wx_openid
       get_token_from_api(request) if session[:current_wx_user].blank?
-      hash.merge!(error_message: current_user.shopping_guide? && current_user.assistant_id.blank? ? "您还没有申请开店，请通过手机微信完成开店申请流程,并且刷新当前pc页面，重新使用微信登录！" : "")
+      hash.merge!(error_message: current_user.shopping_guide? && current_user.associate_id.blank? ? "您还没有申请开店，请通过手机微信完成开店申请流程,并且刷新当前pc页面，重新使用微信登录！" : "")
     end
     render json: hash.to_json
   end

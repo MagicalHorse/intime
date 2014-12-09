@@ -23,11 +23,11 @@ class Ims::Store::HomeController < Ims::Store::BaseController
         :operate_right => @status[:data][:operate_right],
         :token => @status[:data][:token],
         :store_id => @status[:data][:store_id],
-        :assistant_id => @status[:data][:assistant_id],
+        :associate_id => @status[:data][:associate_id],
         :max_comboitems => @status[:data][:max_comboitems]
       })
       session[:current_wx_user] = user
-      redirect_to my_ims_store_store_path(id: user.assistant_id, t: Time.now.to_i)
+      redirect_to my_ims_store_store_path(id: user.associate_id, t: Time.now.to_i)
     elsif @status[:statusCode].to_i == 401
       session[:user_token] = nil
       cookies[:user_token] = nil
@@ -50,11 +50,11 @@ class Ims::Store::HomeController < Ims::Store::BaseController
   private
 
   def go_store
-    if current_user.assistant_id.present?
+    if current_user.associate_id.present?
       if params[:itpm].present?
-        redirect_to my_ims_store_store_path(id: current_user.assistant_id, t: Time.now.to_i, itpm: params[:itpm], group_id: session[:group_id])
+        redirect_to my_ims_store_store_path(id: current_user.associate_id, t: Time.now.to_i, itpm: params[:itpm], group_id: session[:group_id])
       else
-        redirect_to my_ims_store_store_path(id: current_user.assistant_id, t: Time.now.to_i, group_id: session[:group_id])
+        redirect_to my_ims_store_store_path(id: current_user.associate_id, t: Time.now.to_i, group_id: session[:group_id])
       end
     end
   end

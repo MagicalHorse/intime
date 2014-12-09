@@ -6,5 +6,5 @@ combo_product 中的product_type: 如果为1商品类型为系统商品，2为�
 
 店铺和门店关系: 店铺属于门店
 
-current_user.assistant_id 是店铺id
+current_user.associate_id 是店铺id/导购id
 current_user.store_id 门店id
