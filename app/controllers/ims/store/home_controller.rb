@@ -27,7 +27,7 @@ class Ims::Store::HomeController < Ims::Store::BaseController
         :max_comboitems => @status[:data][:max_comboitems]
       })
       session[:current_wx_user] = user
-      redirect_to my_ims_store_store_path(id: user.store_id, t: Time.now.to_i)
+      redirect_to my_ims_store_store_path(id: user.assistant_id, t: Time.now.to_i)
     elsif @status[:statusCode].to_i == 401
       session[:user_token] = nil
       cookies[:user_token] = nil
