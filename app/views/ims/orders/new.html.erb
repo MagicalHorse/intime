@@ -42,7 +42,7 @@
   <% @products.each_with_index do |product, index| %>
   <% salecolors = product[:salecolors] %>
   <% sizes = salecolors.first.try(:[], :sizes) || [] %>
-  <% name = product['brandname'].to_s + product["skucode"].to_s %>
+  <% name = product["name"].present? ? product["name"] : "#{product['brandname']}-#{product["skucode"]}" %>
   <div class="module common-white">
 
     <div class="row-fluid">
