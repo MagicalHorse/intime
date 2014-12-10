@@ -43,7 +43,7 @@
             <div id="tab2" class="tab-pane">
                 <div class="search-condition">
                   <% Ims::Product::Discount.each do |discount| %>
-                    <%= link_to discount[:name], "javascript:void(0);", type: discount[:type], from_discount: discount[:from], to_discount: discount[:to], is_system: @is_system %>
+                    <%= link_to discount[:name] != "全部" ? "优惠#{discount[:name]}" : discount[:name], "javascript:void(0);", type: discount[:type], from_discount: discount[:from], to_discount: discount[:to], is_system: @is_system %>
                   <% end %>
                 </div>
             </div>
