@@ -266,6 +266,14 @@
     }
 
     $(".search-condition a").on("click", function(){
+      $("#keywords").val("")
+      $("#type").val("")
+      $("#from_price").val("")
+      $("#to_price").val("")
+      $("#from_discount").val("")
+      $("#to_discount").val("")
+      $("#brand_id").val("")
+
       this_ele = $(this)
       type = this_ele.attr("type")
       from_price = this_ele.attr("from_price")
@@ -281,7 +289,6 @@
       $("#to_discount").attr("value", to_discount)
       $("#brand_id").attr("value", brand_id)
       $("#is_system").attr("value", is_system)
-      $("#keywords").val("")
       $("#loading-box").modal()
       setTimeout(function(){
         $("#search").submit()
